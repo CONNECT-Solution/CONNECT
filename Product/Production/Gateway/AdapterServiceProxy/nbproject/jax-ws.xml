@@ -3,7 +3,7 @@
   <services/>
   <clients>
     <client name="AdapterDocQuerySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuerySecured.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapterdocquerysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -18,7 +18,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -27,7 +27,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterDocRetrieveSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveSecured.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapterdocretrievesecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -42,7 +42,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -51,7 +51,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterPatientDiscoverySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecured.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -66,7 +66,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -75,7 +75,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterSubjectDiscoverySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubjectDiscoverySecured.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adaptersubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -90,7 +90,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -99,7 +99,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterNotificationConsumer">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl</wsdl-url>
       <local-wsdl-file>AdapterNotificationConsumer.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapternotificationconsumer</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -114,7 +114,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -123,7 +123,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterSubscriptionManagement">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubscriptionManagement.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adaptersubscriptionmanagement</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -138,7 +138,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -147,7 +147,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterNotificationConsumerSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterNotificationConsumerSecured.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapternotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -162,7 +162,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -171,7 +171,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterSubscriptionManagementSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubscriptionManagementSecured.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -186,7 +186,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -195,7 +195,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterXDRRequestSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequestSecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:adapterxdrrequestsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -210,7 +210,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -219,7 +219,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterXDRResponseSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponseSecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:adapterxdrresponsesecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -234,7 +234,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

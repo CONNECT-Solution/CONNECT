@@ -3,7 +3,7 @@
   <services>
     <service name="DocumentManagerService">
       <implementation-class>gov.hhs.fha.nhinc.document.DocumentManagerService</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
       <local-wsdl-file>DocumentManager.wsdl</local-wsdl-file>
       <service-name>DocumentManager_Service</service-name>
       <port-name>DocumentManager_Port_Soap</port-name>
@@ -28,7 +28,7 @@
   </services>
   <clients>
     <client name="AdapterComponentDocRegistry">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRegistry.wsdl</local-wsdl-file>
       <package-name>ihe.iti.xds_b._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -43,7 +43,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -52,7 +52,7 @@
       </wsimport-options>
     </client>
     <client name="AdapterComponentDocRepository">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRepository.wsdl</local-wsdl-file>
       <package-name>ihe.iti.xds_b._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -67,7 +67,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

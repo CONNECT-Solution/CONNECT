@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" uri="wsdl/AdapterDocRetrieveSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl" uri="wsdl/AdapterPatientDiscoverySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl" uri="wsdl/AdapterSubjectDiscoverySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" uri="wsdl/AdapterDocQuerySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl" uri="wsdl/AdapterNotificationConsumer.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl" uri="wsdl/AdapterSubscriptionManagement.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl" uri="wsdl/AdapterNotificationConsumerSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl" uri="wsdl/AdapterSubscriptionManagementSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl" uri="wsdl/AdapterXDRRequestSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl" uri="wsdl/AdapterXDRResponseSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" uri="wsdl/AdapterDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl" uri="wsdl/AdapterPatientDiscoverySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl" uri="wsdl/AdapterSubjectDiscoverySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" uri="wsdl/AdapterDocQuerySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl" uri="wsdl/AdapterNotificationConsumer.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl" uri="wsdl/AdapterSubscriptionManagement.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl" uri="wsdl/AdapterNotificationConsumerSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl" uri="wsdl/AdapterSubscriptionManagementSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl" uri="wsdl/AdapterXDRRequestSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl" uri="wsdl/AdapterXDRResponseSecured.wsdl"/>
 </catalog>
 
 

@@ -21,7 +21,7 @@
     <target name="wsimport-client-AdapterComponentDocRegistry" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry"/>
         <property name="wsdl-AdapterComponentDocRegistry" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/wsdl/AdapterComponentDocRegistry.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry" wsdl="${wsdl-AdapterComponentDocRegistry}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry" wsdl="${wsdl-AdapterComponentDocRegistry}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" xnocompile="true">
             <depends file="${wsdl-AdapterComponentDocRegistry}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry"/>
         </wsimport>
@@ -38,7 +38,7 @@
     <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository"/>
         <property name="wsdl-AdapterComponentDocRepository" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/wsdl/AdapterComponentDocRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository" wsdl="${wsdl-AdapterComponentDocRepository}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository" wsdl="${wsdl-AdapterComponentDocRepository}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" xnocompile="true">
             <depends file="${wsdl-AdapterComponentDocRepository}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository"/>
         </wsimport>

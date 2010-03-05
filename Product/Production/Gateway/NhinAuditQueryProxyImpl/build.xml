@@ -85,7 +85,7 @@
     <target name="wsimport-client-NhinAuditLogQuery" depends="wsimport-init">
         <property name="wsdl-NhinAuditLogQuery" location="xml-resources/web-service-references/NhinAuditLogQuery/wsdl/NhinAuditLogQuery.wsdl"/>
 <!--
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
             <produces dir="${build.generated.dir}/wsimport/client/com/nhin/services/wsdl/auditlogquery" includes="NhinAuditLogQuery.java" casesensitive="no"/>
         </wsimport>
 -->

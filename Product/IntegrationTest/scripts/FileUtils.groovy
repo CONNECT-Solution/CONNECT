@@ -215,8 +215,8 @@ class FileUtils
 
 		static InitializeNHINCProperties(context, log) {
 
-			File sourceFile = new File("C:\\projects\\nhinc\\Current\\Product\\");  
-			def process = "C:\\projects\\nhinc\\Current\\Product\\Redeploy.Configuration.bat".execute(null, sourceFile);
+			File sourceFile = new File("C:\\projects\\nhinc\\2.4\\Product\\");  
+			def process = "C:\\projects\\nhinc\\2.4\\Product\\Redeploy.Configuration.bat".execute(null, sourceFile);
 			
 			log.info( "Found text ${process.text}");
 		

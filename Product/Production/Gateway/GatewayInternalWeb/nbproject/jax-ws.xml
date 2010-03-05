@@ -3,7 +3,7 @@
   <services>
     <service name="AuditRepository">
       <implementation-class>gov.hhs.fha.nhinc.auditrepository.AuditRepository</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentAuditRepositorySecured.wsdl</local-wsdl-file>
       <service-name>AuditRepositoryManagerSecuredService</service-name>
       <port-name>AuditRepositoryManagerSecuredPort</port-name>
@@ -27,7 +27,7 @@
     </service>
     <service name="PatientCorrelationServiceSecured">
       <implementation-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationServiceSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPatientCorrelationSecured.wsdl</local-wsdl-file>
       <service-name>PatientCorrelationServiceSecured</service-name>
       <port-name>PatientCorrelationSecuredPort</port-name>
@@ -51,7 +51,7 @@
     </service>
     <service name="PatientCorrelationFacadeDteService">
       <implementation-class>gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte.PatientCorrelationFacadeDteService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPatientCorrelationFacadeDte.wsdl</local-wsdl-file>
       <service-name>NhincComponentPatientCorrelationFacadeDteService</service-name>
       <port-name>PatientCorrelationFacadeDteBindingPort</port-name>

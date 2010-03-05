@@ -3,7 +3,7 @@
   <services>
     <service name="DocQuery">
       <implementation-class>gov.hhs.fha.nhinc.docquery.DocQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinDocQuery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Query_Service</service-name>
       <port-name>RespondingGateway_Query_Port_Soap</port-name>
@@ -27,7 +27,7 @@
     </service>
     <service name="EntityDocQuerySecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocQuerySecured.wsdl</local-wsdl-file>
       <service-name>EntityDocQuerySecured</service-name>
       <port-name>EntityDocQuerySecuredPortSoap11</port-name>
@@ -51,7 +51,7 @@
     </service>
     <service name="NhincProxyDocQuerySecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyDocQuerySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyDocQuerySecured</service-name>
       <port-name>NhincProxyDocQuerySecuredPortSoap11</port-name>
@@ -75,7 +75,7 @@
     </service>
     <service name="AdapterDocQueryService">
       <implementation-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuery.wsdl</local-wsdl-file>
       <service-name>AdapterDocQuery</service-name>
       <port-name>AdapterDocQueryPortSoap11</port-name>
@@ -99,7 +99,7 @@
     </service>
     <service name="AdapterDocRetrieveService">
       <implementation-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieve.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieve</service-name>
       <port-name>AdapterDocRetrievePortSoap11</port-name>
@@ -123,7 +123,7 @@
     </service>
     <service name="EntityDocRetrieveSecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocRetrieveSecured.wsdl</local-wsdl-file>
       <service-name>EntityDocRetrieveSecured</service-name>
       <port-name>EntityDocRetrieveSecuredPortSoap11</port-name>
@@ -147,7 +147,7 @@
     </service>
     <service name="NhincProxyDocRetrieveSecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyDocRetrieveSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyDocRetrieveSecured</service-name>
       <port-name>NhincProxyDocRetrieveSecuredPortSoap11</port-name>
@@ -171,7 +171,7 @@
     </service>
     <service name="DocRetrieve">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>NhinDocRetrieve.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Retrieve_Service</service-name>
       <port-name>RespondingGateway_Retrieve_Port_Soap</port-name>
@@ -195,7 +195,7 @@
     </service>
     <service name="AdapterPolicyEngine">
       <implementation-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngine.wsdl</local-wsdl-file>
       <service-name>AdapterPolicyEngine</service-name>
       <port-name>AdapterPolicyEnginePortSoap11</port-name>
@@ -219,7 +219,7 @@
     </service>
     <service name="NhincComponentAggregator">
       <implementation-class>gov.hhs.fha.nhinc.gateway.aggregator.NhincComponentAggregator</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentAggregator.wsdl</local-wsdl-file>
       <service-name>NhincComponentAggregator</service-name>
       <port-name>NhincComponentAggregatorPort</port-name>
@@ -243,7 +243,7 @@
     </service>
     <service name="GatewayPolicyEngineFacade">
       <implementation-class>gov.hhs.fha.nhinc.policy.GatewayPolicyEngineFacade</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentInternalPolicyEngineFacade.wsdl</local-wsdl-file>
       <service-name>NhincComponentInternalPolicyEngineFacadeService</service-name>
       <port-name>NhincComponentInternalPolicyEngineFacadePort</port-name>
@@ -267,7 +267,7 @@
     </service>
     <service name="PolicyEngineTransformationService">
       <implementation-class>gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentInternalPolicyEngineTransform.wsdl</local-wsdl-file>
       <service-name>NhincComponentInternalPolicyEngineTransformService</service-name>
       <port-name>NhincInternalComponentPolicyEngineTransformPort</port-name>
@@ -291,7 +291,7 @@
     </service>
     <service name="AdapterAuditQueryService">
       <implementation-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAuditLogQuery.wsdl</local-wsdl-file>
       <service-name>AdapterAuditLogQuery</service-name>
       <port-name>AdapterAuditLogQueryPortSoap11</port-name>
@@ -315,7 +315,7 @@
     </service>
     <service name="EntityAuditLogQuery">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityAuditLogQuerySecured.wsdl</local-wsdl-file>
       <service-name>EntityAuditLogQuerySamlService</service-name>
       <port-name>EntityAuditLogQuerySamlPortTypeBindingPort</port-name>
@@ -339,7 +339,7 @@
     </service>
     <service name="NhincAuditQueryProxy">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyAuditLogQuerySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyAuditLogQuerySecured</service-name>
       <port-name>NhincProxyAuditLogQuerySecuredPortSoap11</port-name>
@@ -363,7 +363,7 @@
     </service>
     <service name="AuditQuery">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinAuditLogQuery.wsdl</local-wsdl-file>
       <service-name>findAuditEvents</service-name>
       <port-name>AuditLogQuery</port-name>
@@ -387,7 +387,7 @@
     </service>
     <service name="EntityNotifySecured">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityNotificationConsumerSecured.wsdl</local-wsdl-file>
       <service-name>EntityNotificationConsumerSecured</service-name>
       <port-name>EntityNotificationConsumerSecuredPortSoap11</port-name>
@@ -411,7 +411,7 @@
     </service>
     <service name="ProxyHiemNotifySecured">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyNotificationConsumerSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyNotificationConsumerSecured</service-name>
       <port-name>NhincProxyNotificationConsumerPortSoap11</port-name>
@@ -435,7 +435,7 @@
     </service>
     <service name="ProxyHiemSubscribeSecured">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribeSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyNotificationProducerSecured</service-name>
       <port-name>NhincProxyNotificationProducerPortSoap11</port-name>
@@ -459,7 +459,7 @@
     </service>
     <service name="ProxyHiemUnsubscribeSecured">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribeSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxySubscriptionManagerSecured</service-name>
       <port-name>NhincProxySubscriptionManagerSecuredPortSoap11</port-name>
@@ -483,7 +483,7 @@
     </service>
     <service name="EntitySubscribeSecuredService">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeSecuredService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>EntityNotificationProducerSecured</service-name>
       <port-name>EntityNotificationProducerSecuredPortSoap11</port-name>
@@ -507,7 +507,7 @@
     </service>
     <service name="EntityUnsubscribeSecuredService">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeSecuredService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>EntitySubscriptionManagerSecured</service-name>
       <port-name>EntitySubscriptionManagerSecuredPortSoap11</port-name>
@@ -531,7 +531,7 @@
     </service>
     <service name="GatewaySubscriptionReferenceRepository">
       <implementation-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionReferenceRepository</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubscriptionReferenceRepository.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubscriptionReferenceRepository.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentSubscriptionReferenceRepository.wsdl</local-wsdl-file>
       <service-name>NhincComponentSubscriptionReferenceRepositoryService</service-name>
       <port-name>NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort</port-name>
@@ -555,7 +555,7 @@
     </service>
     <service name="GatewaySubscriptionRepository">
       <implementation-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionRepository</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubscriptionRepository.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubscriptionRepository.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentSubscriptionRepository.wsdl</local-wsdl-file>
       <service-name>NhincComponentSubscriptionRepositoryService</service-name>
       <port-name>NhincComponentSubscriptionRepositoryPort</port-name>
@@ -579,7 +579,7 @@
     </service>
     <service name="HiemSubscriptionRepositoryUtilService">
       <implementation-class>gov.hhs.fha.nhinc.subscription.repository.util.HiemSubscriptionRepositoryUtilService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/HiemSubscriptionRepositoryUtil.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/HiemSubscriptionRepositoryUtil.wsdl</wsdl-url>
       <local-wsdl-file>HiemSubscriptionRepositoryUtil.wsdl</local-wsdl-file>
       <service-name>HiemSubscriptionRepositoryUtilService</service-name>
       <port-name>HiemSubscriptionRepositoryUtilPortTypeBindingPort</port-name>
@@ -603,7 +603,7 @@
     </service>
     <service name="HiemNotify">
       <implementation-class>gov.hhs.fha.nhinc.hiemnotify.HiemNotify</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
       <service-name>NotificationConsumerService</service-name>
       <port-name>NotificationConsumerPort</port-name>
@@ -627,7 +627,7 @@
     </service>
     <service name="HiemSubscription">
       <implementation-class>gov.hhs.fha.nhinc.hiemsubscription.HiemSubscription</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
       <service-name>NotificationProducerService</service-name>
       <port-name>NotificationProducerPort</port-name>
@@ -651,7 +651,7 @@
     </service>
     <service name="HiemUnsubscribe">
       <implementation-class>gov.hhs.fha.nhinc.hiemunsubscribe.HiemUnsubscribe</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
       <service-name>SubscriptionManagerService</service-name>
       <port-name>SubscriptionManagerPort</port-name>
@@ -675,7 +675,7 @@
     </service>
     <service name="AdapterPatientDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscovery.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscovery</service-name>
       <port-name>AdapterPatientDiscoveryPortSoap11</port-name>
@@ -699,7 +699,7 @@
     </service>
     <service name="AdapterSubjectDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubjectDiscovery.wsdl</local-wsdl-file>
       <service-name>AdapterSubjectDiscovery</service-name>
       <port-name>AdapterSubjectDiscoveryPortSoap11</port-name>
@@ -723,7 +723,7 @@
     </service>
     <service name="EntityPatientDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityPatientDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>EntityPatientDiscoverySecured</service-name>
       <port-name>EntityPatientDiscoverySecuredPortSoap11</port-name>
@@ -747,7 +747,7 @@
     </service>
     <service name="NhincProxyPatientDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyPatientDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyPatientDiscoverySecured</service-name>
       <port-name>NhincProxyPatientDiscoverySecuredPort</port-name>
@@ -771,7 +771,7 @@
     </service>
     <service name="EntitySubjectDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubjectDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>EntitySubjectDiscoverySecured</service-name>
       <port-name>EntitySubjectDiscoverySecuredPortSoap11</port-name>
@@ -795,7 +795,7 @@
     </service>
     <service name="NhincSubjectDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincSubjectDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubjectDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxySubjectDiscoverySecured</service-name>
       <port-name>NhincProxySubjectDiscoverySecuredPortSoap11</port-name>
@@ -819,7 +819,7 @@
     </service>
     <service name="NhinPatientDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Service</service-name>
       <port-name>RespondingGateway_Port_Soap12</port-name>
@@ -843,7 +843,7 @@
     </service>
     <service name="SubjectDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubjectDiscovery.wsdl</local-wsdl-file>
       <service-name>PIXConsumer_Service</service-name>
       <port-name>PIXConsumer_Port_Soap</port-name>
@@ -867,7 +867,7 @@
     </service>
     <service name="NhinXDR">
       <implementation-class>gov.hhs.fha.nhinc.xdr.NhinXDR</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDR.wsdl</local-wsdl-file>
       <service-name>DocumentRepositoryXDR_Service</service-name>
       <port-name>DocumentRepositoryXDR_Port_Soap12</port-name>
@@ -891,7 +891,7 @@
     </service>
     <service name="EntityXDRSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecured</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRSecured.wsdl</local-wsdl-file>
       <service-name>EntityXDRSecured_Service</service-name>
       <port-name>EntityXDRSecured_Port</port-name>
@@ -915,7 +915,7 @@
     </service>
     <service name="NhincProxyXDRSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRSecured.wsdl</local-wsdl-file>
       <service-name>ProxyXDRSecured_Service</service-name>
       <port-name>ProxyXDRSecured_Port</port-name>
@@ -939,7 +939,7 @@
     </service>
     <service name="NhincProxyXDRRequestSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRSecuredRequest.wsdl</local-wsdl-file>
       <service-name>ProxyXDRSecuredRequest_Service</service-name>
       <port-name>ProxyXDRSecuredRequest_Port</port-name>
@@ -963,7 +963,7 @@
     </service>
     <service name="NhincProxyXDRResponseSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRSecuredResponse.wsdl</local-wsdl-file>
       <service-name>ProxyXDRSecuredResponse_Service</service-name>
       <port-name>ProxyXDRSecuredResponse_Port</port-name>
@@ -987,7 +987,7 @@
     </service>
     <service name="NhinXDRRequest">
       <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
       <service-name>XDRRequest_Service</service-name>
       <port-name>XDRRequest_Port_Soap12</port-name>
@@ -1011,7 +1011,7 @@
     </service>
     <service name="NhinXDRResponse">
       <implementation-class>gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
       <service-name>XDRResponse_Service</service-name>
       <port-name>XDRResponse_Port_Soap12</port-name>
@@ -1035,7 +1035,7 @@
     </service>
     <service name="AdapterXDRRequest">
       <implementation-class>gov.hhs.fha.nhinc.adapter.xdr.async.request.AdapterXDRRequest</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequest_Service</service-name>
       <port-name>AdapterXDRRequest_Port_Soap11</port-name>
@@ -1059,7 +1059,7 @@
     </service>
     <service name="AdapterXDRResponse">
       <implementation-class>gov.hhs.fha.nhinc.adapter.xdr.async.response.AdapterXDRResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponse.wsdl</local-wsdl-file>
       <service-name>AdapterXDRResponse_Service</service-name>
       <port-name>AdapterXDRResponse_Port_Soap11</port-name>
@@ -1083,7 +1083,7 @@
     </service>
     <service name="EntityXDRRequestSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRSecuredRequest.wsdl</local-wsdl-file>
       <service-name>EntityXDRSecuredRequest_Service</service-name>
       <port-name>EntityXDRSecuredRequest_Port</port-name>
@@ -1107,7 +1107,7 @@
     </service>
     <service name="EntityXDRResponseSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRSecuredResponse.wsdl</local-wsdl-file>
       <service-name>EntityXDRSecuredResponse_Service</service-name>
       <port-name>EntityXDRSecuredResponse_Port</port-name>

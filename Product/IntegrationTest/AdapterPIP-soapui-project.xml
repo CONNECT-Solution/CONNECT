@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="AdapterPIP" resourceRoot="${projectDir}" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPIPBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpip}AdapterPIPBindingSoap11" soapVersion="1_1" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl"><con:part><con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl</con:url><con:content><![CDATA[<!--Adapter Policy Enforcement Point WSDL-->
+<con:soapui-project name="AdapterPIP" resourceRoot="${projectDir}" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPIPBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpip}AdapterPIPBindingSoap11" soapVersion="1_1" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl"><con:part><con:url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl</con:url><con:content><![CDATA[<!--Adapter Policy Enforcement Point WSDL-->
 <definitions name="AdapterPIP" targetNamespace="urn:gov:hhs:fha:nhinc:adapterpip" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpip" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
   <documentation>Adapter PIP Policy Enforcement Point</documentation>
   <types>
@@ -83,7 +83,7 @@
          partner link type can have one or two roles.-->
     <plnk:role name="AdapterPIPPortTypeRole" portType="tns:AdapterPIPPortType"/>
   </plnk:partnerLinkType>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonAdapter.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonAdapter.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
@@ -858,7 +858,7 @@
       <xsd:element name="eventCodes" type="nccommon:CeType" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -1111,7 +1111,7 @@
   </xsd:complexType>
   <xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
   <xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -1249,7 +1249,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -1654,7 +1654,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -2188,7 +2188,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -2319,7 +2319,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -2376,7 +2376,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -2459,7 +2459,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -2586,7 +2586,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -2985,7 +2985,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3393,7 +3393,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -3515,7 +3515,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -3569,7 +3569,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3696,7 +3696,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -3733,7 +3733,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -3758,7 +3758,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -3793,7 +3793,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-context-schema-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:context:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-context-schema-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:context:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:os" schemaLocation="access_control-xacml-2.0-policy-schema-os.xsd"/>
   <!---->
   <xs:element name="Request" type="xacml-context:RequestType"/>
@@ -3925,7 +3925,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xs:attribute name="Issuer" type="xs:string" use="optional"/>
   </xs:complexType>
   <!---->
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-policy-schema-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:policy:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\2.4\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-policy-schema-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:policy:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <!---->
   <xs:element name="PolicySet" type="xacml:PolicySetType"/>
   <xs:complexType name="PolicySetType">
@@ -4305,7 +4305,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:complexContent>
   </xs:complexType>
   <!---->
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPIP</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RetrievePtConsentByPtDocId" name="RetrievePtConsentByPtDocId" bindingOperationName="RetrievePtConsentByPtDocId" type="Request-Response" outputName="RetrievePtConsentByPtDocIdResponse" inputName="RetrievePtConsentByPtDocIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RetrievePtConsentByPtId" name="RetrievePtConsentByPtId" bindingOperationName="RetrievePtConsentByPtId" type="Request-Response" outputName="RetrievePtConsentByPtIdResponse" inputName="RetrievePtConsentByPtIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:StorePtConsent" name="StorePtConsent" bindingOperationName="StorePtConsent" type="Request-Response" outputName="StorePtConsentResponse" inputName="StorePtConsentRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRegistry_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" soapVersion="1_1" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl"><con:part><con:url>file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Registry Actor 
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPIP</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RetrievePtConsentByPtDocId" name="RetrievePtConsentByPtDocId" bindingOperationName="RetrievePtConsentByPtDocId" type="Request-Response" outputName="RetrievePtConsentByPtDocIdResponse" inputName="RetrievePtConsentByPtDocIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RetrievePtConsentByPtId" name="RetrievePtConsentByPtId" bindingOperationName="RetrievePtConsentByPtId" type="Request-Response" outputName="RetrievePtConsentByPtIdResponse" inputName="RetrievePtConsentByPtIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:StorePtConsent" name="StorePtConsent" bindingOperationName="StorePtConsent" type="Request-Response" outputName="StorePtConsentResponse" inputName="StorePtConsentRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRegistry_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" soapVersion="1_1" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl"><con:part><con:url>file:/C:/Projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Registry Actor 
      It can be used 'as is' to support Document Registry Transactions
      using Synchronous Web Services.  
      The wsdl file can also be used to support the Asynchronous 
@@ -4475,7 +4475,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <soap:address location="http://localhost:${NhincHttpPort}/DocumentRegistry_Service"/>
     </port>
   </service>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_IN201301UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_IN201301UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
   <xs:annotation>
     <xs:documentation>Source Information
      Rendered by: RoseTree 4.2.7
@@ -4586,7 +4586,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\infrastructureRoot.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif" xmlns:v3="urn:hl7-org:v3" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\infrastructureRoot.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif" xmlns:v3="urn:hl7-org:v3" xmlns:ex="urn:hl7-org/v3-example">
   <xs:annotation xmlns="urn:hl7-org:v3">
     <xs:documentation>Source Information
      Rendered by: RoseTree 4.2.7
@@ -4608,7 +4608,7 @@ This model was rendered into XML using software provided to HL7 by Beeler Consul
     </xs:sequence>
   </xs:group>
   <xs:attributeGroup name="InfrastructureRootAttributes"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\voc.xsd</con:url><con:content><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\voc.xsd</con:url><con:content><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>$Id: mConcept.cls,v 1.9 2007/11/26 19:28:05 wbeeler Exp $ 
 RoseTree XML to Schema: $Id: VocabXMLtoXSD.xsl,v 1.8 2007/03/20 02:48:50 wbeeler Exp $</xs:documentation>
@@ -28078,7 +28078,7 @@ RoseTree XML to Schema: $Id: VocabXMLtoXSD.xsl,v 1.8 2007/03/20 02:48:50 wbeeler
       <xs:enumeration value="UV"/>
     </xs:restriction>
   </xs:simpleType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\datatypes.xsd</con:url><con:content><![CDATA[<!--$Id: datatypes.xsd,v 1.1 2006/05/23 23:03:14 wbeeler Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\datatypes.xsd</con:url><con:content><![CDATA[<!--$Id: datatypes.xsd,v 1.1 2006/05/23 23:03:14 wbeeler Exp $-->
 <!--This schema is generated from a Generic Schema Definition (GSD)
     by gsd2xsl. Do not edit this file.-->
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -29254,7 +29254,7 @@ RoseTree XML to Schema: $Id: VocabXMLtoXSD.xsl,v 1.8 2007/03/20 02:48:50 wbeeler
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\datatypes-base.xsd</con:url><con:content><![CDATA[<!--Copyright (c) 2001, 2002, 2003, 2004, 2005 Health Level Seven. All rights reserved.
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\coreschemas\datatypes-base.xsd</con:url><con:content><![CDATA[<!--Copyright (c) 2001, 2002, 2003, 2004, 2005 Health Level Seven. All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -31860,7 +31860,7 @@ Generated by $Id: datatypes-base.xsd,v 1.1 2007/03/20 02:42:09 wbeeler Exp $</xs
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCCI_MT000100UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCCI_MT000100UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type MCCI_MT000100UV01.
 * Source information:
@@ -32061,7 +32061,7 @@ Placeholder for element referencing stub: ControlActProcess
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="CommunicationFunctionType" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT040203UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT040203UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT040203UV01.
 * Source information:
@@ -32122,7 +32122,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassContact" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150003UV03.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150003UV03.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT150003UV03.
 * Source information:
@@ -32201,7 +32201,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030203UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030203UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT030203UV02.
 * Source information:
@@ -32269,7 +32269,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MFMI_MT700701UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MFMI_MT700701UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type MFMI_MT700701UV01.
 * Source information:
@@ -32626,7 +32626,7 @@ Placeholder for element referencing stub: RegisteredAct
       <xs:attribute name="typeCode" type="ActRelationshipType" use="required" fixed="SUBJ"/>
       <xs:attribute name="contextConductionInd" type="bl" use="optional" default="false"/>
    </xs:complexType>-->
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090300UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090300UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090300UV01.
 * Source information:
@@ -32767,7 +32767,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassRoot" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150000UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150000UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT150000UV02.
 * Source information:
@@ -32881,7 +32881,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT070000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT070000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT070000UV01.
 * Source information:
@@ -32939,7 +32939,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassLocatedEntity" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT710000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT710000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT710000UV01.
 * Source information:
@@ -33020,7 +33020,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassPlace" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090100UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090100UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090100UV01.
 * Source information:
@@ -33160,7 +33160,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassRoot" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090003UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090003UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090003UV01.
 * Source information:
@@ -33254,7 +33254,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCAI_MT900001UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCAI_MT900001UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type MCAI_MT900001UV01.
 * Source information:
@@ -33390,7 +33390,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_MT201301UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_MT201301UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type PRPA_MT201301UV02.
 * Source information:
@@ -33792,7 +33792,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="optional" default="SBJ"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT150007UV.
 * Source information:
@@ -33871,7 +33871,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT820000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT820000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT820000UV.
 * Source information:
@@ -33990,7 +33990,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassRoot" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150002UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT150002UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT150002UV01.
 * Source information:
@@ -34046,7 +34046,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassOrganization" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT030007UV.
 * Source information:
@@ -34315,7 +34315,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClass" use="required" fixed="STD"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030202UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030202UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT030202UV01.
 * Source information:
@@ -34395,7 +34395,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassPlace" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030207UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030207UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT030207UV.
 * Source information:
@@ -34465,7 +34465,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="optional" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="optional" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT710007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT710007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT710007UV.
 * Source information:
@@ -34533,7 +34533,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassPlace" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT960000UV05.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT960000UV05.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT960000UV05.
 * Source information:
@@ -34675,7 +34675,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClass" use="required" fixed="POSCOORD"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="EVN"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090108UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090108UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090108UV.
 * Source information:
@@ -34745,7 +34745,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090303UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090303UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090303UV01.
 * Source information:
@@ -34817,7 +34817,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassDevice" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT670000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT670000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT670000UV04.
 * Source information:
@@ -34943,7 +34943,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClass" use="required" fixed="PRS"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT510000UV06.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT510000UV06.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT510000UV06.
 * Source information:
@@ -35643,7 +35643,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClass" use="required" fixed="UNDWRT"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT050000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT050000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT050000UV01.
 * Source information:
@@ -35708,7 +35708,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClass" use="required" fixed="PAT"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT030000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT030000UV04.
 * Source information:
@@ -35980,7 +35980,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClass" use="required" fixed="STD"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT500000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT500000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT500000UV04.
 * Source information:
@@ -36174,7 +36174,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClass" use="required" fixed="COV"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="EVN"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT810000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT810000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT810000UV.
 * Source information:
@@ -36296,7 +36296,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClassObservation" use="required"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="RQO"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090002UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090002UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090002UV01.
 * Source information:
@@ -36389,7 +36389,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT040008UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT040008UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT040008UV.
 * Source information:
@@ -36455,7 +36455,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassAgent" use="optional" default="AGNT"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT140007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT140007UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT140007UV.
 * Source information:
@@ -36511,7 +36511,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassDevice" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT280000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT280000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT280000UV04.
 * Source information:
@@ -36570,7 +36570,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClassRoot" use="required"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="EVN"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT290000UV06.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT290000UV06.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT290000UV06.
 * Source information:
@@ -37165,7 +37165,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClass" use="required" fixed="SUBST"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="EVN"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT240003UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT240003UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT240003UV02.
 * Source information:
@@ -37224,7 +37224,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassServiceDeliveryLocation" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT490000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT490000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT490000UV04.
 * Source information:
@@ -37453,7 +37453,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassOrganization" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT300000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT300000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT300000UV04.
 * Source information:
@@ -37745,7 +37745,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClassSupply" use="required"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="RQO"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT260003UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT260003UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT260003UV.
 * Source information:
@@ -37961,7 +37961,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ActRelationshipType" use="required" fixed="SUBJ"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT310000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT310000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT310000UV04.
 * Source information:
@@ -38139,7 +38139,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ActRelationshipPertains" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT600000UV06.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT600000UV06.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT600000UV06.
 * Source information:
@@ -38403,7 +38403,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClassMaterial" use="required"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT240000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT240000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT240000UV01.
 * Source information:
@@ -38464,7 +38464,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassServiceDeliveryLocation" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT740000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT740000UV04.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT740000UV04.
 * Source information:
@@ -38649,7 +38649,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationType" use="required" fixed="RESP"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT530000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT530000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT530000UV.
 * Source information:
@@ -39596,7 +39596,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="typeCode" type="ParticipationVerifier" use="required"/>
     <xs:attribute name="contextControlCode" type="ContextControl" use="optional" default="OP"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT230100UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT230100UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT230100UV.
 * Source information:
@@ -40072,7 +40072,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClass" use="required" fixed="TERR"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT440001UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT440001UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT440001UV.
 * Source information:
@@ -40130,7 +40130,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClass" use="required" fixed="INVE"/>
     <xs:attribute name="moodCode" type="ActMood" use="required" fixed="DEF"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT080000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT080000UV.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT080000UV.
 * Source information:
@@ -40649,7 +40649,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="required"/>
     <xs:attribute name="contextControlCode" type="ContextControl" use="optional" default="ON"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090000UV01.
 * Source information:
@@ -40823,7 +40823,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="classCode" type="RoleClassRoot" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090102UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT090102UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT090102UV02.
 * Source information:
@@ -40892,7 +40892,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
     <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT060000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\COCT_MT060000UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type COCT_MT060000UV01.
 * Source information:
@@ -41015,7 +41015,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="classCode" type="ActClass" use="required" fixed="TRNS"/>
     <xs:attribute name="moodCode" type="x_ActMoodIntentEvent" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_IN201302UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_IN201302UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
   <xs:annotation>
     <xs:documentation>Source Information
      Rendered by: RoseTree 4.2.7
@@ -41126,7 +41126,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_MT201302UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_MT201302UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type PRPA_MT201302UV02.
 * Source information:
@@ -41735,7 +41735,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="optional" default="SBJ"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_IN201304UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_IN201304UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
   <xs:annotation>
     <xs:documentation>Source Information
      Rendered by: RoseTree 4.2.7
@@ -41846,7 +41846,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_MT201303UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\PRPA_MT201303UV02.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type PRPA_MT201303UV02.
 * Source information:
@@ -42248,7 +42248,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
     <xs:attribute name="typeCode" type="ParticipationTargetSubject" use="optional" default="SBJ"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCCI_IN000002UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCCI_IN000002UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mif="urn:hl7-org:v3/mif">
   <xs:annotation>
     <xs:documentation>Source Information
      Rendered by: RoseTree 4.2.7
@@ -42275,7 +42275,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCCI_MT000200UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\MCCI_MT000200UV01.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ex="urn:hl7-org/v3-example">
   <!--*****************************************************************************************************************
 * XML schema for message type MCCI_MT000200UV01.
 * Source information:
@@ -42501,7 +42501,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attributeGroup ref="InfrastructureRootAttributes"/>
     <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -42906,7 +42906,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -43440,7 +43440,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -43571,7 +43571,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -43628,7 +43628,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\nhinc\2.4\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>

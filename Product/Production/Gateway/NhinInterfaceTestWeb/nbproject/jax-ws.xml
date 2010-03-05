@@ -3,7 +3,7 @@
   <services>
     <service name="AdapterMpiSecured">
       <implementation-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpiSecured.wsdl</local-wsdl-file>
       <service-name>AdapterMpiSecuredService</service-name>
       <port-name>AdapterMpiSecuredPortType</port-name>
@@ -27,7 +27,7 @@
     </service>
     <service name="AuditQuery">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinAuditLogQuery.wsdl</local-wsdl-file>
       <service-name>findAuditEvents</service-name>
       <port-name>AuditLogQuery</port-name>
@@ -51,7 +51,7 @@
     </service>
     <service name="DocQuery">
       <implementation-class>gov.hhs.fha.nhinc.docquery.DocQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinDocQuery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Query_Service</service-name>
       <port-name>RespondingGateway_Query_Port_Soap</port-name>
@@ -75,7 +75,7 @@
     </service>
     <service name="DocRetrieve">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>NhinDocRetrieve.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Retrieve_Service</service-name>
       <port-name>RespondingGateway_Retrieve_Port_Soap</port-name>
@@ -99,7 +99,7 @@
     </service>
     <service name="HiemNotify">
       <implementation-class>gov.hhs.fha.nhinc.notify.HiemNotify</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
       <service-name>NotificationConsumerService</service-name>
       <port-name>NotificationConsumerPort</port-name>
@@ -123,7 +123,7 @@
     </service>
     <service name="NhinPatientDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Service</service-name>
       <port-name>RespondingGateway_Port_Soap12</port-name>
@@ -147,7 +147,7 @@
     </service>
     <service name="SubjectDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubjectDiscovery.wsdl</local-wsdl-file>
       <service-name>PIXConsumer_Service</service-name>
       <port-name>PIXConsumer_Port_Soap</port-name>
@@ -171,7 +171,7 @@
     </service>
     <service name="HiemSubscription">
       <implementation-class>gov.hhs.fha.nhinc.subscription.HiemSubscription</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
       <service-name>NotificationProducerService</service-name>
       <port-name>NotificationProducerPort</port-name>
@@ -195,7 +195,7 @@
     </service>
     <service name="HiemUnsubscribe">
       <implementation-class>gov.hhs.fha.nhinc.unsubscribe.HiemUnsubscribe</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
       <service-name>SubscriptionManagerService</service-name>
       <port-name>SubscriptionManagerPort</port-name>
@@ -219,7 +219,7 @@
     </service>
     <service name="NhinXDR">
       <implementation-class>gov.hhs.fha.nhinc.xdr.NhinXDR</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDR.wsdl</local-wsdl-file>
       <service-name>DocumentRepositoryXDR_Service</service-name>
       <port-name>DocumentRepositoryXDR_Port_Soap12</port-name>
@@ -243,7 +243,7 @@
     </service>
     <service name="NhinXDRRequest">
       <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
       <service-name>XDRRequest_Service</service-name>
       <port-name>XDRRequest_Port_Soap12</port-name>
@@ -267,7 +267,7 @@
     </service>
     <service name="NhinXDRResponse">
       <implementation-class>gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
       <service-name>XDRResponse_Service</service-name>
       <port-name>XDRResponse_Port_Soap12</port-name>

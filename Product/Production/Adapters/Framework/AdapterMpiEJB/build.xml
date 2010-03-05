@@ -92,7 +92,7 @@
     </target>
     <target name="wsimport-client-AdapterCommonDataLayer" depends="wsimport-init" unless="wsimport-client-AdapterCommonDataLayer.notRequired">
         <!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl" catalog="catalog.xml"/>
+        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl" wsdlLocation="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl" catalog="catalog.xml"/>
         
         <echo message="generating binaries for referenced wsdl"/>        
         <copy todir="${classes.dir}">

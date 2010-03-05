@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" uri="wsdl/NhinAuditLogQuery.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" uri="wsdl/NhincDocQuery.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" uri="wsdl/NhincDocRetrieve.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" uri="wsdl/NhinPatientDiscovery.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" uri="wsdl/NhinSubjectDiscovery.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" uri="wsdl/NhincSubscription.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" uri="wsdl/NhinXDRRequest.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" uri="wsdl/NhinXDRResponse.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" uri="wsdl/NhinAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" uri="wsdl/NhincDocQuery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" uri="wsdl/NhincDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" uri="wsdl/NhinPatientDiscovery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" uri="wsdl/NhinSubjectDiscovery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" uri="wsdl/NhincSubscription.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" uri="wsdl/NhinXDRRequest.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" uri="wsdl/NhinXDRResponse.wsdl"/>
 </catalog>
 
 

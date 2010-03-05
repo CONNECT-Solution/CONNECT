@@ -3,7 +3,7 @@
   <services>
     <service name="AdapterDocQuerySecured">
       <implementation-class>gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb.documentquery.AdapterDocQuerySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuerySecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocQuerySecured</service-name>
       <port-name>AdapterDocQuerySecuredPortSoap11</port-name>
@@ -27,7 +27,7 @@
     </service>
     <service name="AdapterDocRetrieveSecured">
       <implementation-class>gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb.documentretrieve.AdapterDocRetrieveSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveSecured</service-name>
       <port-name>AdapterDocRetrieveSecuredPortSoap11</port-name>
@@ -52,7 +52,7 @@
   </services>
   <clients>
     <client name="BOSServiceEndpointProvider">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/BOSServiceEndpointProvider.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/BOSServiceEndpointProvider.wsdl</wsdl-url>
       <local-wsdl-file>BOSServiceEndpointProvider.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:bosserviceenpointprovider</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -76,7 +76,7 @@
       </wsimport-options>
     </client>
     <client name="DocumentManager">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
       <local-wsdl-file>DocumentManager.wsdl</local-wsdl-file>
       <package-name>ihe:iti:xds-b:2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -100,7 +100,7 @@
       </wsimport-options>
     </client>
     <client name="DocumentAssembly">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl</wsdl-url>
       <local-wsdl-file>DocumentAssembly.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:documentassembly</package-name>
       <catalog-file>catalog.xml</catalog-file>

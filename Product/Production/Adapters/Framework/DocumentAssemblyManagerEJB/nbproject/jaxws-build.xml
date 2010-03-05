@@ -20,7 +20,7 @@
     <target name="wsimport-client-AdapterCommonDataLayer" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer"/>
         <property name="wsdl-AdapterCommonDataLayer" location="${meta.inf}/xml-resources/web-service-references/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer" destdir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer" wsdl="${wsdl-AdapterCommonDataLayer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer" destdir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer" wsdl="${wsdl-AdapterCommonDataLayer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl" xnocompile="true">
             <depends file="${wsdl-AdapterCommonDataLayer}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer"/>
         </wsimport>

@@ -14,7 +14,7 @@
     <target name="wsimport-client-NhinAuditLogQuery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
         <property name="wsdl-NhinAuditLogQuery" location="xml-resources/web-service-references/NhinAuditLogQuery/wsdl/NhinAuditLogQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinAuditLogQuery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
         </wsimport>
@@ -31,7 +31,7 @@
     <target name="wsimport-client-NhincDocQuery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincDocQuery"/>
         <property name="wsdl-NhincDocQuery" location="xml-resources/web-service-references/NhincDocQuery/wsdl/NhincDocQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincDocQuery" destdir="${build.generated.dir}/jax-wsCache/NhincDocQuery" wsdl="${wsdl-NhincDocQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincDocQuery" destdir="${build.generated.dir}/jax-wsCache/NhincDocQuery" wsdl="${wsdl-NhincDocQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" xnocompile="true">
             <depends file="${wsdl-NhincDocQuery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincDocQuery"/>
         </wsimport>
@@ -48,7 +48,7 @@
     <target name="wsimport-client-NhincDocRetrieve" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve"/>
         <property name="wsdl-NhincDocRetrieve" location="xml-resources/web-service-references/NhincDocRetrieve/wsdl/NhincDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve" wsdl="${wsdl-NhincDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve" wsdl="${wsdl-NhincDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" xnocompile="true">
             <depends file="${wsdl-NhincDocRetrieve}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve"/>
         </wsimport>
@@ -65,7 +65,7 @@
     <target name="wsimport-client-NhinPatientDiscovery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery"/>
         <property name="wsdl-NhinPatientDiscovery" location="xml-resources/web-service-references/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery" wsdl="${wsdl-NhinPatientDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery" wsdl="${wsdl-NhinPatientDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinPatientDiscovery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery"/>
         </wsimport>
@@ -82,7 +82,7 @@
     <target name="wsimport-client-NhinSubjectDiscovery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
         <property name="wsdl-NhinSubjectDiscovery" location="xml-resources/web-service-references/NhinSubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery" wsdl="${wsdl-NhinSubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery" wsdl="${wsdl-NhinSubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinSubjectDiscovery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
         </wsimport>
@@ -99,7 +99,7 @@
     <target name="wsimport-client-NhincSubscription" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincSubscription"/>
         <property name="wsdl-NhincSubscription" location="xml-resources/web-service-references/NhincSubscription/wsdl/NhincSubscription.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincSubscription" destdir="${build.generated.dir}/jax-wsCache/NhincSubscription" wsdl="${wsdl-NhincSubscription}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincSubscription" destdir="${build.generated.dir}/jax-wsCache/NhincSubscription" wsdl="${wsdl-NhincSubscription}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" xnocompile="true">
             <depends file="${wsdl-NhincSubscription}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincSubscription"/>
         </wsimport>
@@ -116,7 +116,7 @@
     <target name="wsimport-client-NhinXDRRequest" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinXDRRequest"/>
         <property name="wsdl-NhinXDRRequest" location="xml-resources/web-service-references/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/NhinXDRRequest" wsdl="${wsdl-NhinXDRRequest}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/NhinXDRRequest" wsdl="${wsdl-NhinXDRRequest}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinXDRRequest}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinXDRRequest"/>
         </wsimport>
@@ -133,7 +133,7 @@
     <target name="wsimport-client-NhinXDRResponse" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinXDRResponse"/>
         <property name="wsdl-NhinXDRResponse" location="xml-resources/web-service-references/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/NhinXDRResponse" wsdl="${wsdl-NhinXDRResponse}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/NhinXDRResponse" wsdl="${wsdl-NhinXDRResponse}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinXDRResponse}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinXDRResponse"/>
         </wsimport>

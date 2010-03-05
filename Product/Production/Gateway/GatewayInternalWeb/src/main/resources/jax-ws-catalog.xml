@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl"
+    <system systemId="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl"
             uri="wsdl/AuditRepository/NhincComponentAuditRepositorySecured.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl"
+    <system systemId="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl"
             uri="wsdl/PatientCorrelationServiceSecured/NhincComponentPatientCorrelationSecured.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl"
+    <system systemId="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl"
             uri="wsdl/PatientCorrelationFacadeDteService/NhincComponentPatientCorrelationFacadeDte.wsdl"/>
 </catalog>

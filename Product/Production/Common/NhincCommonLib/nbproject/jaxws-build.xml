@@ -14,7 +14,7 @@
     <target name="wsimport-client-AdapterDocQuery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterDocQuery"/>
         <property name="wsdl-AdapterDocQuery" location="xml-resources/web-service-references/AdapterDocQuery/wsdl/AdapterDocQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterDocQuery" destdir="${build.generated.dir}/jax-wsCache/AdapterDocQuery" wsdl="${wsdl-AdapterDocQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterDocQuery" destdir="${build.generated.dir}/jax-wsCache/AdapterDocQuery" wsdl="${wsdl-AdapterDocQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl" xnocompile="true">
             <depends file="${wsdl-AdapterDocQuery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AdapterDocQuery"/>
         </wsimport>
@@ -31,7 +31,7 @@
     <target name="wsimport-client-AdapterDocRetrieve" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve"/>
         <property name="wsdl-AdapterDocRetrieve" location="xml-resources/web-service-references/AdapterDocRetrieve/wsdl/AdapterDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve" wsdl="${wsdl-AdapterDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve" wsdl="${wsdl-AdapterDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl" xnocompile="true">
             <depends file="${wsdl-AdapterDocRetrieve}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve"/>
         </wsimport>

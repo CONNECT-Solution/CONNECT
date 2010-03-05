@@ -3,7 +3,7 @@
   <services/>
   <clients>
     <client name="NhinAuditLogQuery">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinAuditLogQuery.wsdl</local-wsdl-file>
       <package-name>com.nhin.services</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -18,7 +18,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -27,7 +27,7 @@
       </wsimport-options>
     </client>
     <client name="NhincDocQuery">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhincDocQuery.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.nhincdocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -42,7 +42,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -51,7 +51,7 @@
       </wsimport-options>
     </client>
     <client name="NhincDocRetrieve">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>NhincDocRetrieve.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.nhincdocretrieve</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -66,7 +66,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -75,7 +75,7 @@
       </wsimport-options>
     </client>
     <client name="NhinPatientDiscovery">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
       <package-name>ihe.iti.xcpd._2009</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -90,7 +90,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -99,7 +99,7 @@
       </wsimport-options>
     </client>
     <client name="NhinSubjectDiscovery">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubjectDiscovery.wsdl</local-wsdl-file>
       <package-name>ihe.iti.pixv3._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -114,7 +114,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -123,7 +123,7 @@
       </wsimport-options>
     </client>
     <client name="NhincSubscription">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhincSubscription.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:nhincsubscription</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -138,7 +138,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -147,7 +147,7 @@
       </wsimport-options>
     </client>
     <client name="NhinXDRRequest">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
       <package-name>ihe.iti.xdr.async.request._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -162,7 +162,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -171,7 +171,7 @@
       </wsimport-options>
     </client>
     <client name="NhinXDRResponse">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
       <package-name>ihe.iti.xdr.async.response._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -186,7 +186,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

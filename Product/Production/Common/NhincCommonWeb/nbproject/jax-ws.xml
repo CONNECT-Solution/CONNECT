@@ -3,7 +3,7 @@
   <services>
     <service name="DocumentTransform">
       <implementation-class>gov.hhs.fha.nhinc.transform.document.DocumentTransform</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentDocumentTransform.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentDocumentTransform.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentDocumentTransform.wsdl</local-wsdl-file>
       <service-name>NhincComponentDocumentTransformService</service-name>
       <port-name>NhincComponentDocumentTransformPortTypeBindingPort</port-name>
@@ -27,7 +27,7 @@
     </service>
     <service name="NhincComponentPropAccessor">
       <implementation-class>gov.hhs.fha.nhinc.common.propaccessor.NhincComponentPropAccessor</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPropAccessor.wsdl</local-wsdl-file>
       <service-name>NhincComponentPropAccessor</service-name>
       <port-name>NhincComponentPropAccessorPort</port-name>
@@ -51,7 +51,7 @@
     </service>
     <service name="UDDIUpdateManager">
       <implementation-class>gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentUDDIUpdateManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentUDDIUpdateManager.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentUDDIUpdateManager.wsdl</local-wsdl-file>
       <service-name>NhincComponentUDDIUpdateManager</service-name>
       <port-name>NhincComponentUDDIUpdateManagerPortSoap11</port-name>
@@ -75,7 +75,7 @@
     </service>
     <service name="NhincComponentConnectionManager">
       <implementation-class>gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentConnectionManager.wsdl</local-wsdl-file>
       <service-name>NhincComponentConnectionManager</service-name>
       <port-name>NhincComponentConnectionManagerPortSoap11</port-name>
@@ -100,7 +100,7 @@
   </services>
   <clients>
     <client name="NhinUddiAPIV3">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl</wsdl-url>
       <local-wsdl-file>NhinUddiAPIV3.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:nhin_uddi_api_v3</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -115,7 +115,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
