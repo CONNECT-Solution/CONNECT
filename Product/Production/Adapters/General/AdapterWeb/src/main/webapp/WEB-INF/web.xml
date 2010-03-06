@@ -333,15 +333,6 @@
         <url-pattern>/PatientCorrelationService</url-pattern>
     </servlet-mapping>
 
-        <servlet>
-        <servlet-name>AdapterDocRepository2Soap12Service</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapterdocumentrepository.soap12.AdapterDocRepository2Soap12Service</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterDocRepository2Soap12Service</servlet-name>
-        <url-pattern>/AdapterDocRepository2Soap12Service</url-pattern>
-    </servlet-mapping>
-
     <servlet>
         <servlet-name>NhincProxyXDRRequest</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequest</servlet-class>
