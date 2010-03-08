@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="NhincCommonWeb" default="default" basedir=".">
+    <description>Builds, tests, and runs the project NhincCommonWeb.</description>
+    <import file="../../../build.lib.xml" />
+    <import file="nbproject/build-impl.xml"/>
+
+    <property name="deploy.type" value="war" />
+    <property name="deploy.isDeployable" value="true"/>
+
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist" />
+    <target name="build-test" depends="dist, test" />
+
+    <!-- Web service wsimports start here -->
+    <target name="wsimport-service-DocumentTransform" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentTransform"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentTransform">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentTransform">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentTransform/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentTransform/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-NhincComponentPropAccessor" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincComponentPropAccessor">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentPropAccessor/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentPropAccessor/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-UDDIUpdateManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/UDDIUpdateManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/UDDIUpdateManager/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/UDDIUpdateManager/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-client-NhinUddiAPIV3" depends="wsimport-init"/>
+    <target name="wsimport-service-NhincComponentConnectionManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincComponentConnectionManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/schemas/"/>
+        </copy>
+    </target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>    
+</project>
