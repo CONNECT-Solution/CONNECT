@@ -52,7 +52,7 @@ public class EventCodeDaoSaveTest
 
     @Test
     public void testSaveMethodWithComponentsAvailable()
-    {
+    { 
         // Create mock objects
         final Log log = context.mock(Log.class);
         final SessionFactory sessionFactory = context.mock(SessionFactory.class);
@@ -83,12 +83,13 @@ public class EventCodeDaoSaveTest
 
         // Set expectations
         context.checking(new Expectations(){{
-            oneOf (session).beginTransaction();
-            oneOf (session).saveOrUpdate(eventCode);
-            oneOf (session).close();
+            one (session).beginTransaction();
+            one (session).saveOrUpdate(eventCode);
+            one (session).close();
         }});
 
         // Execute the test
         dao.save(eventCode);
+        context.assertIsSatisfied();
     }
 }

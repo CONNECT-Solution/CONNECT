@@ -50,6 +50,7 @@
 		
     
     <!-- jars for test only -->
+    <dependency org="junit" name="junit" rev="4.7" conf="test->default" />
 
     <!-- global excludes -->
 

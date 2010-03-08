@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Eclipse.Custom">
+
+  <target name="OpenEclipse.JRules">
+    <setenv>
+      <environment refid="${Common.EnvironmentVariables.RefId}" />
+    </setenv>
+
+    <call target="UpdateWorkspace"/>
+
+    <asyncexec
+      createnowindow="false"
+      redirectoutput="false"
+      useshellexecute="true"
+      waitforexit="false"
+      workingdir="${path::get-directory-name(Eclipse.ExePath)}"
+      program="${Eclipse.ExePath}"
+      commandline="-data ${Common.Directory.CodeLine.Path}\jRules -vm C:\Java\jdk1.6.0_16\bin\javaw.exe -vmargs -Dsun.lang.ClassLoader.allowArraySyntax=true -XX:PermSize=128M -XX:MaxPermSize=256M -Xmx1024m -Xms128m"
+    />
+  </target>
+  
+</project>

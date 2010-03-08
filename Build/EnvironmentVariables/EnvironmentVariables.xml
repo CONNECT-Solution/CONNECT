@@ -12,9 +12,11 @@
   <property name="Java.Exe"   value="${Java.Home}\bin\javaw.exe"/>
   <property name="IDE.Home"   value="C:\PROGRA~1\NETBEA~1.1"/>
   <property name="GlassFish.Home.Directory.Path" value="C:\Sun\AppServer"/>
-
+  	
   <property name="Corbertura.Bin" value="${Common.Directory.Packages.Path}\Corbertura\bin"/>
-
+  <property name="Eclipse.ExePath"                value="C:\eclipse\eclipse.exe"/>
+  <property name="Eclipse.ExePath"                value="${ProgramFiles.Default.Path}\eclipse\eclipse.exe"/>
+  
   <loopthrough property="Tool.Bin.Path">
     <items>
       <propertystructureiterator pattern="^Tools\.\w+\.Bin$"/>

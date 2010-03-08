@@ -44,6 +44,10 @@
     <dependency org="commons-collections" name="commons-collections"            rev="2.1.1"               conf="runtime->default" transitive="false" />
     
     <!-- jars for test only -->
+	<dependency org="org.jmock" name="jmock" rev="2.5.1" conf="compile->default" />
+    <dependency org="junit" name="junit" rev="4.7" conf="compile->default" />
+	<dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="compile->default" />
+    <dependency org="org.jmock" name="jmock-legacy" rev="2.5.1" conf="compile->default" />
     <!-- global excludes -->
 
 

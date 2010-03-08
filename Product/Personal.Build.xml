@@ -40,6 +40,7 @@
     <package name="Workspace" />
     <package name="GlassFish" />
     <package name="SoapUI" />
+	<package name="Eclipse" />
   </loadpackages>
   <description>End Package Includes</description>
   

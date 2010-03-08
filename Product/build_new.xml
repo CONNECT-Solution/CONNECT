@@ -142,6 +142,10 @@
       <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
     </copy>
     
+	<copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
+  	      <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
+  	</copy>
+	
   	<var name="do-to-target" value="copy.deployable.artifacts"/>
     <antcall target="do-to-projects"/>      
   </target>

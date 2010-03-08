@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
@@ -524,6 +525,7 @@ public class XACMLExtractorTest
      * Test out the ExtractPatientPreferences method.
      * 
      */
+    @Ignore
     @Test
     public void testExtractPatientPreferences()
     {

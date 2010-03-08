@@ -23,10 +23,10 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Jon Hoppesch
  */
-public class PatientCheckerTest {
-    private static Log log = LogFactory.getLog(PatientCheckerTest.class);
+public class AdapterWebPatientCheckerTest {
+    private static Log log = LogFactory.getLog(AdapterWebPatientCheckerTest.class);
 
-    public PatientCheckerTest() {
+    public AdapterWebPatientCheckerTest() {
     }
 
     @BeforeClass

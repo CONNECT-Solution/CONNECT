@@ -49,9 +49,10 @@
     <dependency org="OpenSSO" name="openssoclientsdk"              rev="1.0"/>		
     
     <!-- jars for test only -->
-    <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />
-    <dependency org="junit" name="junit" rev="4.7" conf="test->default" />
-    <dependency org="org.jmock" name="jmock-legacy" rev="2.5.1" conf="test->default" />
+    <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="compile->default" />
+    <dependency org="junit" name="junit" rev="4.7" conf="compile->default" />
+	<dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="compile->default" />
+    <dependency org="org.jmock" name="jmock-legacy" rev="2.5.1" conf="compile->default" />
     
     <!-- global excludes -->
 
