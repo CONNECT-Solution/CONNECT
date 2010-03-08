@@ -49,6 +49,7 @@
           <include name="EntityXDRTests-soapui-project.xml"/>
           <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/>
           <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
+		  <include name="PatientDiscoveryUDDIWithMultipleMocks-soapui-project2.4.xml"/>
         </fileset>
       </path>
       <sequential>
