@@ -224,11 +224,11 @@
       <directory>IntegrationTest/JunitIntegrationTests/Adapters/General/DocumentRepositoryEJBTest</directory>
       <dist.type>jar</dist.type>
     </project>
-    <project>
+<!--     <project>
       <name>FTAConfigManager</name>
       <directory>IntegrationTest/JunitIntegrationTests/Adapters/General/FTAConfigManager</directory>
       <dist.type>jar</dist.type>
-    </project>
+    </project> -->
     <project>
       <name>NhincCommonLib</name>
       <directory>IntegrationTest/JunitIntegrationTests/Common/NhincCommonLib</directory>
