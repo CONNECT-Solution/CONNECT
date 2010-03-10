@@ -56,9 +56,6 @@
         <fileset dir="${basedir}">
           <include name="**/unit-test-reports/TEST-*.xml" />
         </fileset>
-        <fileset dir="${basedir}/../jRules">
-          <include name="**/unit-test-reports/TEST-*.xml" />
-        </fileset>
       </path>
       <filterchain>
         <filterreader classname="org.apache.tools.ant.filters.LineContainsRegExp">
@@ -86,9 +83,6 @@
     <junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
       <xmlreports>
         <fileset dir="${basedir}">
-          <include name="**/unit-test-reports/TEST-*.xml" />
-        </fileset>
-        <fileset dir="${basedir}/../jRules">
           <include name="**/unit-test-reports/TEST-*.xml" />
         </fileset>
       </xmlreports>
