@@ -37,12 +37,12 @@
   </target>
 
   <target name="just.unittest.run" description="Run the JUnit tests for the projects, does not call dependent targets...">
-    <call target="-coverage.product.prep"/>
+    
 
     <var name="do-to-target" value="just.unittest.run" />
     <antcall target="do-to-projects" />
 
-    <call target="-coverage.product.check"/>
+    
   </target>
 
   <target name="unittest.write.xml.report">
@@ -240,7 +240,7 @@
   </target>
 
   <target name="unittest.run" description="Run the JUnit tests for the projects: run ant help for more info...">
-    <call target="-coverage.product.prep"/>
+    
     <var name="do-to-target" value="unittest.run" />
     <antcall target="do-to-projects" />
 
@@ -251,7 +251,7 @@
         </fileset>
       </xmlreports>
     </junitreportplus>
-    <call target="-coverage.product.check"/>
+    
   </target>
 
   <target name="help">

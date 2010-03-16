@@ -181,82 +181,82 @@
   <!--Integration Test-->
     <project>
       <name>AdapterCommonDataLayerEJBJunitIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterCommonDataLayerEJBJunitIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterCommonDataLayerEJBJunitIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>AdapterDocumentAssemblyProxyEJBJunitIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterDocumentAssemblyProxyEJBJunitIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterDocumentAssemblyProxyEJBJunitIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>AdapterMpiEJB</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterMpiEJB</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterMpiEJB</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>DocumentAssemblyManagerEJBJunitIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/DocumentAssemblyManagerEJBJunitIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/DocumentAssemblyManagerEJBJunitIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>DocumentRepositoryEJBJunitIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/DocumentRepositoryEJBJunitIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/DocumentRepositoryEJBJunitIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>DocumentRepositoryJunitIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/DocumentRepositoryJunitIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/DocumentRepositoryJunitIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>TemplateManagerJunitIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/Framework/TemplateManagerJunitIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/TemplateManagerJunitIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>AdapterPIPLibTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterPIPLibTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterPIPLibTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>DocumentRepositoryEJBTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/General/DocumentRepositoryEJBTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/DocumentRepositoryEJBTest</directory>
       <dist.type>jar</dist.type>
     </project>
 <!--     <project>
       <name>FTAConfigManager</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Adapters/General/FTAConfigManager</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/FTAConfigManager</directory>
       <dist.type>jar</dist.type>
     </project> -->
     <project>
       <name>NhincCommonLib</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Common/NhincCommonLib</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonLib</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>AssigningAuthoritiesToHomeCommunityMappingDAOIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Common/AssigningAuthoritiesToHomeCommunityMappingDAOIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Common/AssigningAuthoritiesToHomeCommunityMappingDAOIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>
     <project>
       <name>NhincCommonWeb</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Common/NhincCommonWeb</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonWeb</directory>
       <dist.type>jar</dist.type>
     </project>	
     <project>
       <name>NhincCommonWeb</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Common/NhincCommonWeb</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonWeb</directory>
       <dist.type>jar</dist.type>
     </project>	
     <project>
       <name>HiemSubscriptionRepositoryIntegrationTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
       <dist.type>jar</dist.type>
     </project>	
     <project>
       <name>LoadTest</name>
-      <directory>IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
+      <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
       <dist.type>jar</dist.type>
     </project>	
 	

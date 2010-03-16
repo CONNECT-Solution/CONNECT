@@ -57,16 +57,6 @@
 		<pathconvert targetos="${os.family}" property="sourcefiles"
 			refid="sourcefiles" />
 
-		<path id="targetfiles">
-			<fileset dir="${build.classes.dir}">
-				<include name="**/*.class" />
-			</fileset>
-		</path>
-
-		<var unset="true" name="targetfiles" />
-		<pathconvert targetos="${os.family}" property="targetfiles"
-			refid="targetfiles" />
-
 		<outofdate verbose="${debug}">
 			<sourcefiles>
 				<pathelement path="${sourcefiles}" />
@@ -143,17 +133,6 @@
 		<var unset="true" name="sourcefiles" />
 		<pathconvert targetos="${os.family}" property="sourcefiles"
 			refid="sourcefiles" />
-
-		<path id="targetfiles">
-			<fileset dir="${build.dist.root}">
-				<include name="**/*" />
-				<exclude name="**/*.class" />
-			</fileset>
-		</path>
-
-		<var unset="true" name="targetfiles" />
-		<pathconvert targetos="${os.family}" property="targetfiles"
-			refid="targetfiles" />
 
 		<outofdate verbose="${debug}">
 			<sourcefiles>

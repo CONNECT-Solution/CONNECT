@@ -40,6 +40,7 @@ layer of abstraction
   <import file="soapui/soapui.targets.xml"/>
   <import file="corbertura/corbertura.targets.xml"/>
   <import file="../Install/deploy.xml"/>
+  <import file="netbeans/netbeans.targets.xml"/>
 
   <target name="deploy">
     <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>

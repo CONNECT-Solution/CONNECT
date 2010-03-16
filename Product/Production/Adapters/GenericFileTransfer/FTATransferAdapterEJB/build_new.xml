@@ -3,6 +3,7 @@
 
   <property name="dist.type" value="jar" />
   <property name="webtest.hasTests" value="false" />
+  <property name="coverage.isneeded" value="false" />
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="ejb" />
   <property name="copy.wsdl.to.webinf" value="true" />

@@ -407,4 +407,6 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     <target name="connect-client-debugger" if="do.debug.client" >
         <webproject1:nbjsdebugstart webUrl="${client.url}"/>
     </target>    
+	
+	<target name="test-single" depends="init,package.create" description="Run single unit test." />
 </project>

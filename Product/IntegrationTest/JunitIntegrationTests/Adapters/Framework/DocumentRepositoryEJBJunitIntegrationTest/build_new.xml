@@ -5,6 +5,7 @@
   <property name="webtest.hasTests" value="false" />
   <property name="unittest.hasTests" value="false"/>
   <property name="integrationtest.hasTests" value="false" />
+  <property name="coverage.isneeded" value="false" />
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../../../build/build.targets.xml" />
