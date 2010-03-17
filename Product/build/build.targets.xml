@@ -41,7 +41,8 @@ layer of abstraction
   <import file="corbertura/corbertura.targets.xml"/>
   <import file="../Install/deploy.xml"/>
   <import file="netbeans/netbeans.targets.xml"/>
-
+  <import file="checkstyle/checkstyle.targets.xml"/>
+	
   <target name="deploy">
     <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
@@ -210,6 +211,10 @@ layer of abstraction
     <call target="coverage.instrument.package"/>
   </target>
 
+  <target name="checkstyle">
+    <call target="checkstyle.style"/>
+  </target>
+	
   <target name="help">
     <echo taskname="help">
       run ant -p for the short help
