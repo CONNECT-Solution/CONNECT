@@ -26,7 +26,6 @@ layer of abstraction
 		project.addBuildListener(targetListener);
 	]]>
   </script>
-  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
 
   <import file="properties.build.xml" />
   <import file="common.build.xml" />

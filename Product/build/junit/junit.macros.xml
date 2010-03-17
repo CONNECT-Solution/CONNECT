@@ -114,7 +114,7 @@
         </sequential>
       </for>
 
-      <var name="cp" value="${codeline.directory.path}\Build\Packages\Ant\Ant\lib\junit-3.8.2.jar;${codeline.directory.path}\Build\Packages\Ant\Ant\lib\ant-launcher.jar;${codeline.directory.path}\Build\Packages\Ant\Ant\lib\ant.jar;${codeline.directory.path}\Build\Packages\Ant\Ant\lib\ant-junit.jar;${cp};${cp.part}"/>
+      <var name="cp" value="${codeline.directory.path}/Build/Packages/Ant/Ant/lib/junit-3.8.2.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/lib/ant-launcher.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/lib/ant.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/lib/ant-junit.jar;${cp};${cp.part}"/>
 
       <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true">
         <sysproperty key="basedir" value="${junit.basedir}" />

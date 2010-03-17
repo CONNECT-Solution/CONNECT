@@ -40,7 +40,7 @@
 					<then>
 						<addfilesettopath refid="source.class.files">
 							<fileset dir="${classpath.item}">
-								<include name="**/*.class" />
+								<include name="compilesource.flag" />
 							</fileset>
 						</addfilesettopath>
 					</then>
@@ -61,7 +61,7 @@
 			<sourcefiles>
 				<pathelement path="${sourcefiles}" />
 			</sourcefiles>
-			<targetfiles path="${build.dir.root}/compilesource.flag"/>
+			<targetfiles path="${build.classes.dir}/compilesource.flag"/>
 			<sequential>
 				<echo>Project is out-of-date compared to it's dependencies...</echo>
 				<delete includeemptydirs="true">
@@ -70,7 +70,7 @@
 					</fileset>
 				</delete>
 				<mkdir dir="${build.classes.dir}" />
-				<echo file="${build.dir.root}/compilesource.flag" append="false"/>
+				<echo file="${build.classes.dir}/compilesource.flag" append="false"/>
 			</sequential>
 		</outofdate>
 
