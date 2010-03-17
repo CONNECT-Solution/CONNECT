@@ -81,7 +81,7 @@
       <property name="cp.part" refid="@{classpathrefid}"/>
       <var name="cp" value=""/>
             
-            <var name="cp" value="${cp.part}"/>
+      <var name="cp" value="${cp.part}"/>
       
       <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" forkmode="once" showoutput="true">
         <sysproperty key="basedir" value="${junit.basedir}" />
