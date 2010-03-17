@@ -80,46 +80,12 @@
       <property name="coverage.file" location="${coverage.classes.report.file}"/>
       <property name="cp.part" refid="@{classpathrefid}"/>
       <var name="cp" value=""/>
+            
+            <var name="cp" value="${cp.part}"/>
       
-      <for param="classpath.item">
-        <path refid="@{classpathrefid}" />
-        <sequential>
-          <var name="classpath.item" value="@{classpath.item}"/>
-          <if>
-            <scriptcondition language="javascript" >
-              // import statements
-              // importPackage(java.io);
-              importClass(java.io.File);
-              var thing = new File(project.getProperty("classpath.item"));
-              self.setValue(thing.isDirectory());
-            </scriptcondition>
-            <then>
-              <var name="cp" value="${classpath.item}${cp}"/>
-              <if>
-                <istrue value="@{verbose}" />
-                <then>
-                  <echo message="dir classpath item:  ${classpath.item}" />
-                </then>
-              </if>
-            </then>
-            <else>
-              <if>
-                <istrue value="@{verbose}" />
-                <then>
-                  <echo message="file classpath item:  ${classpath.item}" />
-                </then>
-              </if>
-            </else>
-          </if>
-        </sequential>
-      </for>
-
-      <var name="cp" value="${codeline.directory.path}/Build/Packages/Ant/Ant/lib/junit-3.8.2.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/lib/ant-launcher.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/lib/ant.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/lib/ant-junit.jar;${cp};${cp.part}"/>
-
-      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true">
+      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" forkmode="once" showoutput="true">
         <sysproperty key="basedir" value="${junit.basedir}" />
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
-
         <env key="CLASSPATH" value="${cp}"/>
         
         <formatter type="xml" />

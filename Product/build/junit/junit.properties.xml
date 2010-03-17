@@ -3,10 +3,10 @@
 
 	<property name="unittest.hasTests" value="true" />
 	<property name="unittest.report.dir" value="${project.dir}/unit-test-reports" />
-	
+
 	<property name="webtest.hasTests" value="false" />
 	<property name="webtest.report.dir" value="${project.dir}/web-test-reports" />
-	
+
 	<property name="integrationtest.hasTests" value="false" />
 	<property name="integrationtest.report.dir" value="${project.dir}/integration-test-reports" />
 
@@ -18,11 +18,16 @@
 		<include name="**/**Test.java" />
 		<include name="**/**TestSuite.java" />
 	</fileset>
-	
+
 	<path id="junitrun.classpath">
+		<pathelement path="${ant.home}/lib/junit-3.8.2.jar" />
+		<pathelement path="${ant.home}/lib/ant-launcher.jar" />
+		<pathelement path="${ant.home}/lib/ant.jar" />
+		<pathelement path="${ant.home}/lib/ant-junit.jar" />
 		<path refid="build.classpath" />
 		<pathelement path="${build.unittest.classes.dir}" />
 		<pathelement path="${build.classes.dir}" />
 		<fileset refid="classpath.test" />
 	</path>
+	
 </project>
