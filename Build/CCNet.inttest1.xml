@@ -428,7 +428,7 @@
     </integrationFilter>
     <sourcecontrol type="filtered">
       <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</trunkUrl>
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;</trunkUrl>
         <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <webUrlBuilder type="websvn">
@@ -440,6 +440,10 @@
       <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
     </labeller>
     <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test</path>
+      </modificationWriter>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
