@@ -320,7 +320,8 @@
 
         <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
-
+        
+        <property name="SoapUI.Suite" value="RegressionSuite" />
         <call target="SoapUI.RunTests"/>
 
         <call target="IntegrationTest.RunTests"/>
