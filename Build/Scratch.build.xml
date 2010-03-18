@@ -21,7 +21,8 @@
   <include buildfile="Custom.Build.xml" />
   
   <property name="Compile.ConfigName" value="Debug" />
-
+  
+  
   <loadpackages>
     <package name="Publish"/>
     <package name="Subversion" type="SourceControl"/>
@@ -39,7 +40,7 @@
   </loadpackages>
 
   <target name="test">
-    <call target="rebuild-setups"/>
+    <call target="IntegrationTest.RunTests"/>
   </target>
 
   <target name="rebuild-setups">

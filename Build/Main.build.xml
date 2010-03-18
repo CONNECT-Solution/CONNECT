@@ -222,8 +222,8 @@
         <description>End Varification Actions</description>
         
         <description>Begin Post Build Actions</description>
-        <!--<call target="Ant.Package" />
-        <property name="Compile.Debug" value="False" />
+        <call target="Ant.Package" />
+        <!--<property name="Compile.Debug" value="False" />
         <call target="Ant.Package" />-->
 
         <call target="Ant.Copy.Deployable.Artifacts"/>
@@ -272,9 +272,16 @@
   <target name="Test" depends="SetUps" >
     <trycatch>
       <try>
-        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
+        <call target="SourceModificationReport.ConsolidateReports" />
 
-        <call target="TargetProcess.Get.Release.Report"/>
+        <call target="TargetProcess.CreateReport" />
+        <call target="TargetProcess.Get.Release.Report" failonerror="False" />
+
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
+
+        <call target="IntegrationTest.RunTests"/>
+
         <call target="SoapUI.RunTests"/>
       </try>
       <finally>
@@ -283,6 +290,33 @@
     </trycatch>
   </target>
 
+  <target name="Test.SoapUI.Dev" depends="SetUps">
+    <trycatch>
+      <try>
+        <call target="SourceModificationReport.ConsolidateReports" />
+
+        <call target="TargetProcess.CreateReport" />
+        <call target="TargetProcess.Get.Release.Report" failonerror="False" />
+
+        <property name="SourceControl.GetOf" value="${Common.Directory.Product.Path}\SoapUI Test"/>
+        <call target="SourceControl.GetOf"/>
+
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="DevelopmentSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
+          </catch>
+        </trycatch>
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+  
   <target name="PerformanceTest" depends="SetUps" >
     <trycatch>
       <try>

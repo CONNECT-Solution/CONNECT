@@ -8943,6 +8943,12 @@
             The security certificates to associate with the request.
             </summary>
         </member>
+        <member name="P:NAnt.Core.Tasks.GetTask.AllowSelfSigned">
+            <summary>
+            Allow download if the SSL is over a self-signed certificate
+            HTTPS only. The default is <see langword="false" />.
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:NAnt.Core.Tasks.IfTask" -->
         <member name="P:NAnt.Core.Tasks.IfTask.Test">
             <summary>

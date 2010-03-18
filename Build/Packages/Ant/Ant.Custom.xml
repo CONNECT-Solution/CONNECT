@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Ant.Custom">
 
-  <target name="Ant.CompileSource" override="true">
+  <target name="Ant.CompileSource">
     <ant
-      target="build-test"
+      target="just.source.compile"
       buildfile="${Ant.Build.File.Path}"
       logfile="${Ant.Log.Directory.Path}\compile_log.xml"
     >

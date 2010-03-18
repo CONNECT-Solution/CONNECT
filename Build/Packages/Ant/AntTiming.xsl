@@ -22,7 +22,7 @@
       }
     </script>
     <div id="NAntTimingReport">
-      <h1>NAnt Build Timing Report</h1>
+      <h1>Ant Build Timing Report</h1>
 
       <xsl:variable name="buildresults" select="//build/antbuildresults" />
       <xsl:choose>
@@ -30,9 +30,9 @@
           <xsl:apply-templates select="$buildresults" />
         </xsl:when>
         <xsl:otherwise>
-          <h2>Log does not contain any Xml output from NAnt.</h2>
+          <h2>Log does not contain any Xml output from Ant.</h2>
           <p>
-            Please make sure that NAnt is executed using the XmlLogger (use the argument: <b>-logger:NAnt.Core.XmlLogger</b>).
+            Please make sure that Ant is executed using the XmlLogger (use the argument: <b>-logger com.agilex.ant.GoodXmlLogger</b>).
           </p>
         </xsl:otherwise>
       </xsl:choose>
@@ -64,7 +64,7 @@
           </tr>
         </thead>
         <tbody>
-          <xsl:apply-templates select=".//target">
+          <xsl:apply-templates select="//antbuildresults//target">
             <xsl:sort select="duration" order="descending" data-type="number" />
           </xsl:apply-templates>
         </tbody>

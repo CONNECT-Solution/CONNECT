@@ -18,7 +18,7 @@
     <if test="${GlassFish.Status == 'Stopped'}">
       <ant.async
         target="deploy.glassfish.start.server"
-        buildfile="${Common.Directory.Product.Path}\build.xml"
+        buildfile="${Common.Directory.Product.Path}\build_new.xml"
         logfile="${Ant.Log.Directory.Path}\start.glassfish.log.xml"
         taskname="GlassFish.StartServer"
       >
@@ -39,7 +39,7 @@
     <if test="${GlassFish.Status == 'Started'}">
       <ant
         target="deploy.glassfish.stop.server"
-        buildfile="${Common.Directory.Product.Path}\build.xml"
+        buildfile="${Common.Directory.Product.Path}\build_new.xml"
         logfile="${Ant.Log.Directory.Path}\stop.glassfish.log.xml"
       >
         <environment refid="GlassFish.EnvironmentVariables.RefId"/>
