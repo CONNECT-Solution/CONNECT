@@ -321,9 +321,9 @@
         <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
 
-        <call target="IntegrationTest.RunTests"/>
-
         <call target="SoapUI.RunTests"/>
+
+        <call target="IntegrationTest.RunTests"/>
       </try>
       <finally>
         <call target="TearDowns" />
