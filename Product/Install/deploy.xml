@@ -2,9 +2,9 @@
 <project basedir="." name="nhinc.deployment" default="deploy">
 
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
-  
+
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-  
+
   <if>
     <isset property="project.name" />
     <then>
@@ -18,7 +18,7 @@
   <import file="settings.xml" />
 
   <import file="exclusions.${deployment.environment.configuration.dir.name}.xml" />
-  
+
   <taskdef resource="com/sun/tools/appserver/antlib.xml">
     <classpath>
       <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
@@ -44,14 +44,14 @@
   -->
 
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
-  
+
   <target name="deploy.create.glassfish.password.file" unless="deploy.glassfish.password.file.path">
     <echo message="in deploy.create.glassfish.password.file"/>
     <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
     <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
     <echo message="deploy.glassfish.password.file.path: ${deploy.glassfish.password.file.path}"/>
   </target>
-  
+
   <target name="deploy">
     <antcall target="deploy.to.production" />
   </target>
@@ -63,7 +63,7 @@
   <target name="deploy.to.production">
     <runtarget target="deploy.glassfish.stop.server"/>
     <runtarget target="deploy.nhinc.configuration.to.glassfish"/>
-  	<runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
+    <runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
     <runtarget target="deploy.shared.libs.to.glassfish"/>
 
     <runtarget target="deploy.glassfish.start.server"/>
@@ -328,7 +328,7 @@
       <fileset dir="${deployment.interfaces.dir}"/>
     </copy>
   </target>
-	
+
   <target name="glassfish.install.domain.certificates">
     <copy todir="${deployment.glassfish.domain.config.home}" overwrite="true" verbose="true">
       <fileset dir="${deployment.certificate.home}">
@@ -338,6 +338,9 @@
 
     <propertycopy name="deployment.glassfish.domain.keystore.alias" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.keystore.alias"/>
     <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
+      <xmlcatalog id="dtds">
+        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
+      </xmlcatalog>
       <replace path="//*[@*='s1as']/@value | //*[@*='s1as']/@cert-nickname" withText="${deployment.glassfish.domain.keystore.alias}"/> 
     </xmltask> 
   </target>
