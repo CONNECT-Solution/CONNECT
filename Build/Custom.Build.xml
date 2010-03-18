@@ -124,19 +124,19 @@
     <property name="ESC.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${ESC.Zip.FileName}"/>
 
     <zip zipfile="${ESC.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterCommonDataLayerEJB\dist\" prefix="bin" failonempty="true">
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterCommonDataLayerEJB\dist\debug\" prefix="bin" failonempty="true">
         <include name="AdapterCommonDataLayerEJB.jar"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterDocumentAssemblyProxyEJB\dist\" prefix="bin" failonempty="true">
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterDocumentAssemblyProxyEJB\dist\debug\" prefix="bin" failonempty="true">
         <include name="AdapterDocumentAssemblyProxyEJB.jar"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterDocumentRepositoryEJB\dist\" prefix="bin" failonempty="true">
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterDocumentRepositoryEJB\dist\debug\" prefix="bin" failonempty="true">
         <include name="AdapterDocumentRepositoryEJB.jar"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\DocumentManagerEJB\dist\" prefix="bin" failonempty="true">
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\DocumentManagerEJB\dist\debug\" prefix="bin" failonempty="true">
         <include name="DocumentManagerEJB.jar"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\NHINAdapterServiceEJB\dist\" prefix="bin" failonempty="true">
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\NHINAdapterServiceEJB\dist\debug\" prefix="bin" failonempty="true">
         <include name="NHINAdapterServiceEJB.jar"/>
       </fileset>
     </zip>
