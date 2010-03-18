@@ -239,8 +239,8 @@
           <arg line="-logger:NAnt.Core.XmlLogger"/>
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Checkstyle.xml"'/>
         </asyncexec>
-        
-        <call target="Ant.CompileSource" />
+
+        <call target="Ant.Package" />
 
         <description>End Compile Actions</description>
 
@@ -262,8 +262,7 @@
         </if>
         <description>End Varification Actions</description>
         
-        <description>Begin Post Build Actions</description>
-        <call target="Ant.Package" />
+        <description>Begin Post Build Actions</description>        
         <!--<property name="Compile.Debug" value="False" />
         <call target="Ant.Package" />-->
 
