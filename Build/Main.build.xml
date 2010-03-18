@@ -63,8 +63,25 @@
         <description>End Compile Actions</description>
 
         <description>Begin Varification Actions</description>
-        <call target="UnitTest.RunTests" />
-        <!--<call target="Coverage.PublishReports" />-->
+        <property name="UnitTests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <call target="UnitTest.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="UnitTest.Exception.Message" value="${exception}"/>
+            <property name="UnitTests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+        <delete>
+          <fileset>
+            <include name="${Common.Directory.Production.Path}\integrationtest\**\coverage-reports\**\*"/>
+          </fileset>
+        </delete>
+        <call target="Coverage.PublishReports"/>
+        <if test="${UnitTests.HaveFailed}">
+          <fail message="${UnitTest.Exception.Message}"/>
+        </if>
         <description>End Varification Actions</description>
         
         <description>Begin Post Build Actions</description>
@@ -151,11 +168,23 @@
         <call target="Ant.CompileSource" />
 
         <description>End Compile Actions</description>
-        
+
         <description>Begin Varification Actions</description>
-        <call target="UnitTest.RunTests" />
-        <!--<call target="IntegrationTest.RunTests" />
-        <call target="Coverage.PublishReports" />-->
+        <property name="UnitTests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <call target="UnitTest.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="UnitTest.Exception.Message" value="${exception}"/>
+            <property name="UnitTests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <call target="Coverage.PublishReports"/>
+        <if test="${UnitTests.HaveFailed}">
+          <fail message="${UnitTest.Exception.Message}"/>
+        </if>
         <description>End Varification Actions</description>
         
         <description>Begin Post Build Actions</description>
@@ -214,11 +243,23 @@
         <call target="Ant.CompileSource" />
 
         <description>End Compile Actions</description>
-        
+
         <description>Begin Varification Actions</description>
-        <call target="UnitTest.RunTests" />
-        <!--<call target="IntegrationTest.RunTests" />
-        <call target="Coverage.PublishReports" />-->
+        <property name="UnitTests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <call target="UnitTest.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="UnitTest.Exception.Message" value="${exception}"/>
+            <property name="UnitTests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <call target="Coverage.PublishReports"/>
+        <if test="${UnitTests.HaveFailed}">
+          <fail message="${UnitTest.Exception.Message}"/>
+        </if>
         <description>End Varification Actions</description>
         
         <description>Begin Post Build Actions</description>
