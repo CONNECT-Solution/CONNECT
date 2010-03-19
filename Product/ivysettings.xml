@@ -28,8 +28,7 @@
 			<ibiblio name="maven-mirror-3" m2compatible="true" root="http://repository.jboss.com/maven2/" />
 			<ibiblio name="maven-mirror-1" m2compatible="true" root="https://maven-repository.dev.java.net/repository/" />
 			<ibiblio name="maven-mirror-2" m2compatible="true" root="http://download.java.net/maven/2/" />
-      <ibiblio name="maven-mirror-4" m2compatible="true" root="http://download.java.net/maven/1/" />
-      
+			<ibiblio name="maven-mirror-4" m2compatible="true" root="http://download.java.net/maven/1/" />      
 		</chain>
 	</resolvers>
 </ivysettings>
