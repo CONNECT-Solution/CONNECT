@@ -390,7 +390,8 @@
         <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
 
         <call target="TargetProcess.Get.Release.Report"/>
-        <call target="SoapUI.Performance.Test.Run"/>
+        <property name="SoapUI.Suite" value="PerformanceSuite" />
+        <call target="SoapUI.RunTests"/>
       </try>
       <finally>
         <call target="TearDowns" />
