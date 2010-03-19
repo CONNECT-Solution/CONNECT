@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Oracle.Scripts">
 
-  <property name="MySQL.Installer.32.File.Name" value="mysql-essential-5.1.42-win32.msi"/>
+  <property name="MySQL.Installer.32.File.Name" value="mysql-essential-5.1.44-win32.msi"/>
   <property name="MySQL.Installer.File.Path" value="C:\Temp\${MySQL.Installer.32.File.Name}"/>
   <property name="MySQL.Install.32.Path" value="${ProgramFiles.32.Path}\MySQL\MySQL Server 5.1"/>
   <property name="MySQL.Install.64.Path" value="${ProgramFiles.Current.Processor.Type.Path}\MySQL\MySQL Server 5.1"/>
