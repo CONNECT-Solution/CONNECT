@@ -320,10 +320,36 @@
         <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
         
-        <property name="SoapUI.Suite" value="RegressionSuite" />
-        <call target="SoapUI.RunTests"/>
+        <property name="SoapUI.Tests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="RegressionSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
+            <property name="SoapUI.Tests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
 
-        <call target="IntegrationTest.RunTests"/>
+        <property name="IntegrationTest.Tests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <call target="IntegrationTest.RunTests"/>
+        </try>
+          <catch property="exception">
+            <property name="IntegrationTest.Tests.Exception.Message" value="${exception}"/>
+            <property name="IntegrationTest.Tests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <if test="${SoapUI.Tests.HaveFailed}">
+          <fail message="${SoapUI.Tests.Exception.Message}"/>
+        </if>
+
+        <if test="${IntegrationTest.Tests.HaveFailed}">
+          <fail message="${IntegrationTest.Tests.Exception.Message}"/>
+        </if>
       </try>
       <finally>
         <call target="TearDowns" />
