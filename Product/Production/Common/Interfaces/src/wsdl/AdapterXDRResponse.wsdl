@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <definitions name="AdapterXDRResponse"
   targetNamespace="urn:gov:hhs:fha:nhinc:adapterxdrresponse"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponse"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
   xmlns:xdr="urn:ihe:iti:xdr:2007">
   <documentation>IHE Adapter Component for XDR Response</documentation>
   <types>
@@ -15,12 +17,14 @@
                   schemaLocation="../schemas/ebRS/rs.xsd"/>
       <xsd:import namespace="urn:ihe:iti:xdr:2007"
                   schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>                        
     </xsd:schema>
   </types>
 
   <message name="XDRResponseInputMessage">
     <documentation>XDR Response Input Message</documentation>
-    <part name="body" element="rs:RegistryResponse"/>
+    <part name="body" element="nccommonadapter:AdapterRegistryResponse"/>
   </message>
   <message name="XDRResponseAcknowledgementMessage">
     <documentation>XDR Response Acknowledgement Message</documentation>
@@ -38,21 +42,21 @@
 
 
   <binding name="AdapterXDRResponse_Binding" type="tns:AdapterXDRResponse_PortType">
-    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="ProvideAndRegisterDocumentSet-bResponse">
-      <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>
+      <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>
       <input>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
       </input>
       <output>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
       </output>
     </operation>
   </binding>
 
   <service name="AdapterXDRResponse_Service">
-    <port name="AdapterXDRResponse_Port_Soap12" binding="tns:AdapterXDRResponse_Binding">
-      <soap12:address location="https://localhost:${HttpsDefaultPort}/AdapterXDRResponseService"/>
+    <port name="AdapterXDRResponse_Port" binding="tns:AdapterXDRResponse_Binding">
+      <soap:address location="https://localhost:${HttpsDefaultPort}/AdapterXDRResponseService"/>
     </port>  
   </service>
 </definitions>
