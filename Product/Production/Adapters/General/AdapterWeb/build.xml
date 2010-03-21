@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -392,7 +392,24 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityEDRResponse/schemas/"/>
         </copy>
     </target>
+    <target name="wsimport-service-AdapterXDRRequest" depends="wsimport-init">
 
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRRequest/schemas/"/>
+        </copy>        
+    </target>
+    <target name="wsimport-service-AdapterXDRResponse" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterXDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRResponse/schemas/"/>
+        </copy>             
+    </target>  
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init"/>
