@@ -25,12 +25,12 @@ import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
  */
 public class NhinXDRRequestImpl
 {
-    public static final String XDR_POLICY_ERROR = "CONNECT Policy Check Failed";
+    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
 
     private static final Log logger = LogFactory.getLog(NhinXDRRequestImpl.class);
 
     /**
-     * 
+     *
      * @return
      */
     protected Log getLogger(){
@@ -81,7 +81,7 @@ public class NhinXDRRequestImpl
     }
 
     /**
-     * 
+     *
      * @param context
      * @return
      */
@@ -91,7 +91,7 @@ public class NhinXDRRequestImpl
     }
 
     /**
-     * 
+     *
      * @return
      */
     protected String retrieveHomeCommunityID(){
@@ -105,7 +105,7 @@ public class NhinXDRRequestImpl
         return localHCID;
     }
     /**
-     * 
+     *
      * @return
      */
     protected XDRAuditLogger getXDRAuditLogger(){
@@ -113,7 +113,7 @@ public class NhinXDRRequestImpl
     }
 
     /**
-     * 
+     *
      * @param body
      * @param context
      * @return
@@ -121,19 +121,19 @@ public class NhinXDRRequestImpl
     protected ihe.iti.xdr._2007.AcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion)
     {
         getLogger().debug("Entering forwardToAgency");
-        
+
         AdapterXDRRequestProxyObjectFactory factory = new AdapterXDRRequestProxyObjectFactory();
-        
+
         AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();
 
         ihe.iti.xdr._2007.AcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
 
         getLogger().debug("Exiting forwardToAgency");
-        
+
         return response;
     }
 
-    
+
     /**
      *
      * @param newRequest
@@ -159,7 +159,7 @@ public class NhinXDRRequestImpl
 
 
     /**
-     * 
+     *
      * @return
      */
     private ihe.iti.xdr._2007.AcknowledgementType createFailedPolicyCheckResponse()

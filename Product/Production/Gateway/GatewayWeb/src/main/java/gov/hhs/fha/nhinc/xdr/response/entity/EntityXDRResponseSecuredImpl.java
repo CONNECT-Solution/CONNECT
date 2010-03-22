@@ -61,7 +61,7 @@ public class EntityXDRResponseSecuredImpl
         {
             log.info("Policy check unsuccessful");
             response = new AcknowledgementType();
-            response.setMessage("Policy rejection");
+            response.setMessage("CONNECTPolicyCheckFailed");
         }
 
         logResponse(response, assertion);
@@ -80,7 +80,7 @@ public class EntityXDRResponseSecuredImpl
     private void logResponse(AcknowledgementType response, AssertionType assertion)
     {
         log.debug("Beging logResponse");
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
+        auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
         log.debug("End logResponse");
     }
 

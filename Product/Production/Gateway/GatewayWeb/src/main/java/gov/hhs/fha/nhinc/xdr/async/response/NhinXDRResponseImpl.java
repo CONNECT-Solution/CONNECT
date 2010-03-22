@@ -25,8 +25,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class NhinXDRResponseImpl
 {
-    public static final String XDR_POLICY_ERROR = "CONNECT Policy Check Failed";
-    
+    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
+
     private static final Log logger = LogFactory.getLog(NhinXDRResponseImpl.class);
 
     /**

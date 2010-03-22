@@ -33,7 +33,7 @@ public class NhincProxyXDRResponseSecuredImpl
         AcknowledgementType response = null;
 
         AssertionType assertion = extractAssertion(context);
-        
+
         response = provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest, assertion);
 
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, WebServiceContext)");
