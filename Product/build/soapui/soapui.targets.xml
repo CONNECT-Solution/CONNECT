@@ -61,10 +61,10 @@
         </exec>
         
 
-       <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>
+       <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"/>
 
 		<replace
-			file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"
+			file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"
 			value="">
 			<replacefilter token="&lt;testsuites&gt;"/>
 			<replacefilter token="&lt;/testsuites&gt;"/>
