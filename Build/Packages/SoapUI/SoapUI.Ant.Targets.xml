@@ -69,6 +69,33 @@
     </for>
   </target>
 
+  <target name="run.performance.tests" depends="init-tests">
+    <var name="counter" value="1"/>
+
+    <for param="file">
+      <path>
+        <fileset dir="${IntegrationTest.Dir}">
+          <include name="DocRetrieveLoadTest-soapui-project"/>
+        </fileset>
+      </path>
+      <sequential>
+        <echo message="@{file}"/>
+        <echo message="${counter}"/>
+
+        <exec dir="${SoapUI.Dir}" executable="cmd.exe">
+          <arg line="/c testrunner.bat -r -f${IntegrationTest.Results.Dir}/test_${counter} @{file}"/>
+        </exec>
+
+        <!-- 
+          JUnit Report task requires that the input.xml files be unique. 
+          The SoapUI executable outputs each test's report summary as report.xml need to rename each report.xml file. 
+				-->
+        <move file="${IntegrationTest.Results.Dir}/test_${counter}/report.xml" tofile="${IntegrationTest.Results.Dir}\test_${counter}\report${counter}.xml"/>
+        <math result="counter" operand1="${counter}" operation="+" operand2="1" datatype="int"/>
+      </sequential>
+    </for>
+  </target>
+  
   <target name="build-report" >
     <replace dir="${IntegrationTest.Results.Dir}" token="&lt;testsuites&gt;" value="">
       <include name="**/*.xml"/>
