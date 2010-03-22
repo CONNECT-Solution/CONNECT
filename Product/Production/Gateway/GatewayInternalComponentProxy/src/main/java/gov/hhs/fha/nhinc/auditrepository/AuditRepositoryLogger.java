@@ -899,7 +899,19 @@ public class AuditRepositoryLogger {
         getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
+    public LogEventRequestType logEntityAcknowledgement(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+        getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
 
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, action);
+        }
+
+        getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
+        return auditMsg;
+    }
     protected Log getLogger(){
         return log;
     }
