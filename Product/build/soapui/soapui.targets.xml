@@ -69,7 +69,8 @@
 			<replacefilter token="&lt;testsuites&gt;"/>
 			<replacefilter token="&lt;/testsuites&gt;"/>
 	    </replace>
-      	
+      	<delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
+		<delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
       </sequential>
     </for>
   </target>

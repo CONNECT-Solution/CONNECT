@@ -40,8 +40,9 @@
 			<file name="${project.DocumentRepository.dist.file}" />
 			<file name="${project.NhincCommonLib.dist.file}" />
 			<file name="${project.GatewayInternalComponentProxy.dist.file}" />
-      <file name="${project.NhinServiceProxy.dist.file}" />
-      <file name="${project.NhincCommonTypesLib.dist.file}" />
+			<file name="${project.NhinServiceProxy.dist.file}" />
+			<file name="${project.NhincCommonTypesLib.dist.file}" />
 		</filelist>
+		<fileset refid="classpath.runtime" /> 
 	</path>
 </project>

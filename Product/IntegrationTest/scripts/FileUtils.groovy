@@ -213,12 +213,19 @@ class FileUtils
 		log.info("end CreateOrUpdateConnection");
 	}
 
-		static InitializeNHINCProperties(context, log) {
+  static InitializeNHINCProperties(context, log) { 
+	log.info( "Start directory copy "); 
+	try{ 
+		File destDir = new File(System.env['NHINC_PROPERTIES_DIR']);   
+		File sourceDir = new File(System.env['NHINC_SOURCE_DIR']+"/Product/Production/Common/Properties/Dev");   
+		org.apache.commons.io.FileUtils.copyDirectory(sourceDir, destDir,false); 
+	}catch(Throwable e) 
+	{ 
+		e.printStackTrace(); 
+		return; 
+	} 
+	log.info( "Done directory copy "); 
+  } 
+ } 
 
-			File sourceFile = new File("C:\\projects\\nhinc\\Current\\Product\\");  
-			def process = "C:\\projects\\nhinc\\Current\\Product\\Redeploy.Configuration.bat".execute(null, sourceFile);
-			
-			log.info( "Found text ${process.text}");
-		
-		}
 }

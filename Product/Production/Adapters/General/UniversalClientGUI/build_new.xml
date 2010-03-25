@@ -44,5 +44,6 @@
       <file name="${project.NhincCommonTypesLib.dist.file}" />
       <file name="${project.NhincSAMLCallbackLib.dist.file}" />
 		</filelist>
+		 <fileset refid="classpath.runtime" /> 
 	</path>
 </project>
