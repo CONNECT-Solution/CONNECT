@@ -37,9 +37,11 @@
     <wsdl:portType name="EntityPatientDiscoverySecuredAsyncRespPortType">
         <wsdl:operation name="ProcessPatientDiscoveryAsyncResp">
             <wsdl:input name="ProcessPatientDiscoveryAsyncRespAsyncRequest"
-                  message="tns:ProcessPatientDiscoveryAsyncRespRequestMessage"/>
+                  message="tns:ProcessPatientDiscoveryAsyncRespRequestMessage"
+                  wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp:ProcessPatientDiscoveryAsyncRespRequestMessage"/>
             <wsdl:output name="ProcessPatientDiscoveryAsyncRespAsyncResponse"
-                   message="tns:ProcessPatientDiscoveryAsyncRespResponseMessage"/>
+                   message="tns:ProcessPatientDiscoveryAsyncRespResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp:ProcessPatientDiscoveryAsyncRespResponseMessage"/>
         </wsdl:operation>
     </wsdl:portType>
 
