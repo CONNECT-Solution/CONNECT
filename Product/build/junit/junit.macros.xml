@@ -2,6 +2,7 @@
 <project name="junit.macros" >
 
   <macrodef name="run.if.unit.tests.are.out.of.date">
+    <element name="extra-source" optional="true"/>
     <element name="do"/>
     <sequential>
       <echo message="check if tests are out of date" />
@@ -14,19 +15,11 @@
         <fileset dir="${build.dir}/test">
           <include name="**/*" />
         </fileset>
+        <extra-source/>
       </path>
 
       <var unset="true" name="sourcefiles"/>
       <pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
-
-      <path id="targetfiles" >
-        <fileset dir="${unittest.report.dir}">
-          <include name="**/*" />
-        </fileset>
-      </path>
-
-      <var unset="true" name="targetfiles"/>
-      <pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
 
       <var unset="true" name="has.some"/>
       <pathconvert property="has.some" setonempty="false">
@@ -49,13 +42,12 @@
         <sourcefiles>
           <pathelement path="${sourcefiles}"/>
         </sourcefiles>
-        <targetfiles>
-          <pathelement path="${targetfiles}"/>
-        </targetfiles>
+        <targetfiles path="${unittest.report.dir}/test.flag"/>
         <sequential>
           <do/>
         </sequential>
       </outofdate>
+      <echo file="${unittest.report.dir}/test.flag" append="false"/>
     </sequential>
   </macrodef>
 
@@ -78,14 +70,12 @@
       <mkdir dir="${reportdir}" />
 
       <property name="coverage.file" location="${coverage.classes.report.file}"/>
-      <property name="cp.part" refid="@{classpathrefid}"/>
-      <var name="cp" value=""/>
-            
-      <var name="cp" value="${cp.part}"/>
-      
-      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" forkmode="once" showoutput="true">
+      <property name="cp" refid="@{classpathrefid}"/>
+
+      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once">
         <sysproperty key="basedir" value="${junit.basedir}" />
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
+
         <env key="CLASSPATH" value="${cp}"/>
         
         <formatter type="xml" />
@@ -95,19 +85,6 @@
           <tests/>
         </batchtest>
       </junitrunner>
-
-      <if>
-        <isfalse value="@{genreport}" />
-        <then>
-          <junitreportplus reportfile="@{reportfile}" testtype="@{testtype}">
-            <xmlreports>
-              <fileset dir="${junit.basedir}">
-                <include name="@{testtype}-test-reports/TEST-*.xml" />
-              </fileset>
-            </xmlreports>
-          </junitreportplus>
-        </then>
-      </if>
     </sequential>
   </macrodef>
 

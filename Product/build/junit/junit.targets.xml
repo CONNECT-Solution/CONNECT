@@ -31,6 +31,16 @@
 		</if>
 	</target>
 
+  <target name="unittest.write.html.report">
+    <junitreportplus reportfile="${unittest.report.dir}/UnitTests.xml" testtype="unit">
+      <xmlreports>
+        <fileset dir="${unittest.report.dir}">
+          <include name="TEST-*.xml" />
+        </fileset>
+      </xmlreports>
+    </junitreportplus>
+  </target>
+
 	<target name="-webtest.run">
 		<if>
 			<istrue value="${webtest.hasTests}" />
@@ -47,6 +57,16 @@
 		</if>
 	</target>
 
+  <target name="webtest.write.html.report">
+    <junitreportplus reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web">
+      <xmlreports>
+        <fileset dir="${project.dir}/web-test-reports">
+          <include name="TEST-*.xml" />
+        </fileset>
+      </xmlreports>
+    </junitreportplus>
+  </target>
+
 	<target name="-integrationtest.run">
 		<if>
 			<istrue value="${integrationtest.hasTests}" />
@@ -62,5 +82,15 @@
 			</else>
 		</if>
 	</target>
+
+  <target name="integrationtest.write.html.report">
+    <junitreportplus reportfile="${project.dir}/integration-test-reports/IntegrationTests.xml" testtype="integration">
+      <xmlreports>
+        <fileset dir="${project.dir}/integration-test-reports">
+          <include name="TEST-*.xml" />
+        </fileset>
+      </xmlreports>
+    </junitreportplus>
+  </target>
 
 </project>

@@ -163,7 +163,7 @@ layer of abstraction
           <do>
             <call target="coverage.prepfortests" />
             <call target="-unittest.run"/>
-            <call target="-coverage.write.report" />
+            
             <call target="-coverage.check.project" />
             <var name="need.to.update.root.coverage.failure.file" value="false"/>
           </do>

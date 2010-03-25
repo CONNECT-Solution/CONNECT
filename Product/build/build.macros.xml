@@ -14,13 +14,18 @@
     <attribute name="file" default="build_new.xml"/>
     <attribute name="order"/>
     <sequential>
+      <var name="name" value="@{name}"/>
+      <var name="order" value="@{order}"/>
+      <var name="target" value="@{target}"/>
+      <var name="dir" value="@{dir}"/>
+      <var name="file" value="@{file}"/>
       <script language="javascript">
         <![CDATA[
-	        self.log('<name>@{name}</name>');
-          self.log('<order>@{order}</order>');
-	        self.log('<target>@{target}</target>');
-	        self.log('<dir>@{dir}</dir>');
-	        self.log('<file>@{file}</file>');
+	        self.log('<name>' + project.getProperty("name") + '</name>');
+          self.log('<order>' + project.getProperty("order") + '</order>');
+	        self.log('<target>' + project.getProperty("target") + '</target>');
+	        self.log('<dir>' + project.getProperty("dir") + '</dir>');
+	        self.log('<file>' + project.getProperty("file") + '</file>');
 	    ]]>
       </script>
       <ant dir="@{dir}" antfile="@{file}" inheritAll="false">
@@ -158,11 +163,16 @@
     <sequential>
       <var unset="true" name="lines4@{file}"/>
       <loadfile property="lines4@{file}" srcfile="@{file}" />
-      <for delimiter="${line.separator}" param="@{var}" list="${lines4@{file}}">
-        <sequential>
-          <body />
-        </sequential>
-      </for>
+      <if>
+        <isset property="lines4@{file}"/>
+        <then>
+          <for delimiter="${line.separator}" param="@{var}" list="${lines4@{file}}">
+            <sequential>
+              <body />
+            </sequential>
+          </for>
+        </then>
+      </if>
     </sequential>
   </macrodef>
 

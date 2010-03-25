@@ -3,7 +3,7 @@
 
 	<target name="Ant.CompileSource">
     <ant
-      target="just.source.compile"
+      target="source.compile"
       buildfile="${Ant.Build.File.Path}"
       logfile="${Ant.Log.Directory.Path}\compile_log.xml"
     >
@@ -16,7 +16,7 @@
 
   <target name="Ant.Clean">
     <ant
-      target="just.clean"
+      target="clean"
       buildfile="${Ant.Build.File.Path}"
       logfile="${Ant.Log.Directory.Path}\clean_log.xml"
     >
@@ -29,7 +29,7 @@
   
   <target name="Ant.Package">
     <ant
-      target="just.package.create"
+      target="package.create"
       buildfile="${Ant.Build.File.Path}"
       logfile="${Ant.Log.Directory.Path}\package_log.xml"
     >
