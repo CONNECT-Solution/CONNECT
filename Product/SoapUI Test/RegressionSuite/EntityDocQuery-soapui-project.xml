@@ -3572,7 +3572,7 @@ runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);
 </script></con:config></con:testStep><con:testStep type="groovy" name="Set Connection Info"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def NHINGatewayConfigDir = propertyList.getPropertyValue( "NHINGatewayConfigDir" );
-def NHINGatewayConfigDir = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = dataSource.getPropertyValue("Host2");
 def HCID2 = dataSource.getPropertyValue( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery";
@@ -5647,4 +5647,4 @@ if(myFile.exists())
     }
     myFile.delete();
 }
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
