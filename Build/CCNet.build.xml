@@ -106,6 +106,9 @@
           <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse/**/*.*</pattern>
         </pathFilter>
         <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/SoapUI Test/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
           <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
         </pathFilter>
         <pathFilter>

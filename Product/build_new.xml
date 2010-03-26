@@ -89,8 +89,9 @@
   <target name="redeploy" depends="undeploy,deploy"/>
 
   <target name="undeploy"  description="Undeploy all projects: run ant help for more info...">
-  	<runtarget target="deploy.to.production"/>
+	<runtarget target="undeploy.from.production"/>
   </target>
+
 
   <target name="coverage.write.report">
     <delete dir="${basedir}/coverage-reports" />
