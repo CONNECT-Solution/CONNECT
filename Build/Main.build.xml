@@ -332,6 +332,18 @@
           </catch>
         </trycatch>
 
+        <property name="SoapUI.ValidateTests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="ValidationSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Validate.Tests.Exception.Message" value="${exception}"/>
+            <property name="SoapUI.ValidateTests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+        
         <property name="IntegrationTest.Tests.HaveFailed" value="False"/>
         <trycatch>
           <try>
@@ -345,6 +357,10 @@
 
         <if test="${SoapUI.Tests.HaveFailed}">
           <fail message="${SoapUI.Tests.Exception.Message}"/>
+        </if>
+
+        <if test="${SoapUI.ValidateTests.HaveFailed}">
+          <fail message="${SoapUI.Validate.Tests.Exception.Message}"/>
         </if>
 
         <if test="${IntegrationTest.Tests.HaveFailed}">
