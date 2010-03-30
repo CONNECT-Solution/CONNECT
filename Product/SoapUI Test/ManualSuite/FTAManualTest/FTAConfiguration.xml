@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <InboundChannels>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+            <location>C:\GlassFishESB\glassfish\domains\domain1\docroot\cdc\fileDump</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:FTASelfTest</wsnt:TopicExpression>]]></topic>
+            <location>C:\FTATest\Out</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+    </InboundChannels>
+    <OutboundChannels>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+            <location>C:GlassFishESB\glassfish\domains\domain1\docroot\cdc\fileExport\</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic2</wsnt:TopicExpression>]]></topic>
+            <location>C:GlassFishESB\glassfish\domains\domain1\docroot\cdc\fileExport2\</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:FTASelfTest</wsnt:TopicExpression>]]></topic>
+            <location>C:\FTATest\In</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData</wsnt:TopicExpression>  ]]></topic>
+            <location>C:/GlassFishESB/glassfish/domains/domain1/docroot/cdc/fileExport</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+    </OutboundChannels>
+</Configuration>
