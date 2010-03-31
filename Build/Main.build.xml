@@ -331,7 +331,7 @@
             <property name="SoapUI.Tests.HaveFailed" value="True"/>
           </catch>
         </trycatch>
-        <!--
+        
         <property name="IntegrationTest.Tests.HaveFailed" value="False"/>
         <trycatch>
           <try>
@@ -342,7 +342,7 @@
             <property name="IntegrationTest.Tests.HaveFailed" value="True"/>
           </catch>
         </trycatch>
-
+        
         <if test="${SoapUI.Tests.HaveFailed}">
           <fail message="${SoapUI.Tests.Exception.Message}"/>
         </if>
