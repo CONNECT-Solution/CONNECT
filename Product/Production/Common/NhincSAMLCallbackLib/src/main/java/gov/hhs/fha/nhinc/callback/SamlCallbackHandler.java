@@ -34,7 +34,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class implements the CallbackHandler which is invoked upon sending a 
+ * This class implements the CallbackHandler which is invoked upon sending a
  * message requiring the SAML Assertion Token.  It accesses the information
  * stored in NMProperties in order to build up the required token elements.
  */
@@ -117,7 +117,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Constructs the callback handler and initializes the keystore and 
+     * Constructs the callback handler and initializes the keystore and
      * truststore references to the security certificates
      */
     public SamlCallbackHandler() {
@@ -134,7 +134,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * This is the invoked implementation to handle the SAML Token creation upon 
+     * This is the invoked implementation to handle the SAML Token creation upon
      * notification of an outgoing message needing SAML.  Based on the type of
      * confirmation method detected on the Callbace it creates either a
      * "Sender Vouches: or a "Holder-ok_Key" variant of the SAML Assertion.
@@ -180,7 +180,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         try {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
-            // create the assertion id 
+            // create the assertion id
             String aID = String.valueOf(UUID.randomUUID());
 
             // name id of the issuer - For now just use default
@@ -215,7 +215,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the "Holder-of-Key" variant of the SAML Assertion token.  
+     * Creates the "Holder-of-Key" variant of the SAML Assertion token.
      * @return The Assertion element
      */
     private Element createHOKSAMLAssertion20() {
@@ -228,7 +228,23 @@ public class SamlCallbackHandler implements CallbackHandler {
             String aID = String.valueOf(UUID.randomUUID());
 
             // name id of the issuer - For now just use default
-            NameID issueId = create509NameID(factory, DEFAULT_NAME);
+            NameID issueId = null;
+
+            if (tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
+                    tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_PROP)) {
+               String format = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
+               if (VALID_NAME_LIST.contains(format.trim())) {
+                   log.debug("Setting Assertion Issuer format to: " + format);
+                   String issuer = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_PROP).toString();
+                   log.debug("Setting Assertion Issuer to: " + issuer);
+                   issueId = factory.createNameID(issuer, null, format);
+               }
+               else {
+                   issueId = create509NameID(factory, DEFAULT_NAME);
+               }
+            } else {
+                issueId = create509NameID(factory, DEFAULT_NAME);
+            }
 
             // subject information
             NameID subjId = create509NameID(factory, PRIMARY_NAME);
@@ -280,15 +296,15 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Both the Issuer and the Subject elements have a NameID element which is 
-     * formed through this method.  Currently default data is used to specify 
-     * the required Issuer information.  However, the Subject information is 
-     * defined based on the stored value of the userid.  If this is a legal X509 
-     * structute the NameId is constructed in that format, if not it is 
+     * Both the Issuer and the Subject elements have a NameID element which is
+     * formed through this method.  Currently default data is used to specify
+     * the required Issuer information.  However, the Subject information is
+     * defined based on the stored value of the userid.  If this is a legal X509
+     * structute the NameId is constructed in that format, if not it is
      * constructed as an "Unspecified" format.
-     * @param factory The factory object used to assist in the construction of 
+     * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
-     * @param assId Identifies this as default usage case or one with declared 
+     * @param assId Identifies this as default usage case or one with declared
      * value.
      * @return The constructed NameID element
      * @throws com.sun.xml.wss.saml.SAMLException
@@ -351,9 +367,9 @@ public class SamlCallbackHandler implements CallbackHandler {
     return retBool;
     }*/
     /**
-     * Creates the authentication statement, the attribute statements, and the 
+     * Creates the authentication statement, the attribute statements, and the
      * authorization decision statements for placement in the SAML Assertion.
-     * @param factory The factory object used to assist in the construction of 
+     * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return A listing of all statements
@@ -466,19 +482,19 @@ public class SamlCallbackHandler implements CallbackHandler {
         // As of Authorization Framework Spec 2.2 Action is a hard-coded value
         // Therefore the value of the ACTION_PROP is no longer used
         List actions = new ArrayList();
-            String actionAttr = AUTHZ_DECISION_ACTION_EXECUTE;
-            log.debug("Setting Authentication Decision Action to: " + actionAttr);
-            try {
-                final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-                final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "Action");
-                elemURAttr.setAttribute("Namespace", AUTHZ_DECISION_ACTION_NS);
-                elemURAttr.setTextContent(actionAttr);
-                actions.add(elemURAttr);
-            } catch (ParserConfigurationException ex) {
-                actions.add(actionAttr);
-            }
+        String actionAttr = AUTHZ_DECISION_ACTION_EXECUTE;
+        log.debug("Setting Authentication Decision Action to: " + actionAttr);
+        try {
+            final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "Action");
+            elemURAttr.setAttribute("Namespace", AUTHZ_DECISION_ACTION_NS);
+            elemURAttr.setTextContent(actionAttr);
+            actions.add(elemURAttr);
+        } catch (ParserConfigurationException ex) {
+            actions.add(actionAttr);
+        }
 
-        // Evidence Assertion generation           
+        // Evidence Assertion generation
         Evidence evidence = createEvidence();
 
         AuthnDecisionStatement authDecState = factory.createAuthnDecisionStatement(resource, decision, actions, evidence);
@@ -491,9 +507,9 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization, 
+     * Creates the Attribute statements for UserName, UserOrganization,
      * UserRole, and PurposeForUse
-     * @param factory The factory object used to assist in the construction of 
+     * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of all Attribute statements
      * @throws com.sun.xml.wss.saml.SAMLException
@@ -664,10 +680,10 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the Evidence element that encompasses the Assertion defining the 
-     * authorization form needed in cases where evidence of authorization to 
+     * Creates the Evidence element that encompasses the Assertion defining the
+     * authorization form needed in cases where evidence of authorization to
      * access the medical records must be provided along with the message request
-     * @param factory The factory object used to assist in the construction of 
+     * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
@@ -846,7 +862,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
 
-       // Set the Instance Access Consent
+        // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
         if (tokenVals.containsKey(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
                 tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
@@ -920,8 +936,8 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Initializes the truststore access using the system properties defined in 
-     * the domain.xml javax.net.ssl.trustStore and 
+     * Initializes the truststore access using the system properties defined in
+     * the domain.xml javax.net.ssl.trustStore and
      * javax.net.ssl.trustStorePassword
      * @throws java.io.IOException
      */
