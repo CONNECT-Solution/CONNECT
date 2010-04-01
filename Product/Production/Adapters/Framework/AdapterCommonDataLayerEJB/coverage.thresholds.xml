@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.AdapterCommonDataLayer" linecount="17" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.AdapterCommonDataLayerImpl" linecount="13" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService" linecount="16" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorService" linecount="16" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticAllergiesQuery" linecount="51" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticFindPatientsQuery" linecount="67" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticMedicationsQuery" linecount="51" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticPatientDemographicsQuery" linecount="51" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticProblemsQuery" linecount="51" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticTestResultsQuery" linecount="102" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="20" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticUtil" linecount="30" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants.AdapterCommonDataLayerConstants" linecount="22" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="48" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.parsers.PRPAIN201305UVParser" linecount="57" linerate="0.0" linesexecuted="0"/>
+</thresholds>

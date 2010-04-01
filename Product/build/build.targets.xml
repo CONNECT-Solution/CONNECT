@@ -275,7 +275,24 @@ layer of abstraction
     <call target="junit.help"/>
     <call target="coverage.help"/>
     <call target="soapui.help"/>
-
   </target>
+	
+  	<target name="copy.build.xml.files">
+  	<!--	
+  		<copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
+             <fileset dir="${project.dir}">
+                 <include name="build_new.xml" />
+             </fileset>
+        </copy>
+  		<echo message="Deleting ${project.dir}/build.xml"/>
+  		<exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
+          <arg line='/C svn del ${project.dir}/build.xml'/>
+        </exec>
+  	-->	
+  		<exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
+          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
+        </exec>
 
+  	</target>
+  			
 </project>

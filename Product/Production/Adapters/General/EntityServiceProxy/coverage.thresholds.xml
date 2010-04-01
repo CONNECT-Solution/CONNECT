@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryNoOpImpl" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryWebServiceProxy" linecount="71" linerate="0.0" linesexecuted="0"/>
+</thresholds>

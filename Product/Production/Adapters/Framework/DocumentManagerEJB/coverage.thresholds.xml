@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="70" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentManagerImpl" linecount="325" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentManagerService" linecount="12" linerate="0.0" linesexecuted="0"/>
+</thresholds>

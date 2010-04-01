@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService" linecount="16" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.AssemblerFactory" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.AssemblyManager" linecount="70" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.CDAConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.InvalidIdentifierException" linecount="4" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.InvalidTypeException" linecount="4" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.CDADocumentBuilder" linecount="87" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilder" linecount="43" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException" linecount="4" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.ModuleFactoryBuilder" linecount="17" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="20" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.StructureComponentFactoryBuilder" linecount="54" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="56" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.AllergiesModule" linecount="179" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.Author" linecount="20" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.CustodianModule" linecount="13" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.InformationSource" linecount="10" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="96" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.MedicationModule" linecount="240" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="28" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.ModuleImpl" linecount="44" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="26" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.ProblemsModule" linecount="94" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="52" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.RecordTargetModule" linecount="68" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="28" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.AllergiesSectionImpl" linecount="66" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.MedicationsSectionImpl" linecount="22" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.ProblemsSectionImpl" linecount="48" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="20" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.SectionImpl" linecount="45" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.dao.DocumentTypeDAO" linecount="48" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="20" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO" linecount="59" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.dao.QueryDAO" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.dao.model.DasConfig" linecount="28" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.dao.model.DocumentType" linecount="47" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.service.CareRecordRequestHelper" linecount="104" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="62" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.service.DataService" linecount="68" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.service.PatientInfoRequestHelper" linecount="81" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.utils.DateUtil" linecount="18" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.utils.HashCodeUtil" linecount="9" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil" linecount="62" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.dao.PersistentServiceFactory" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.dao.QueryDAO" linecount="6" linerate="0.0" linesexecuted="0"/>
+</thresholds>

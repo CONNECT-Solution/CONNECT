@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocrepository.AdapterDocRepository2Soap12Client" linecount="60" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocumentrepository.soap12.AdapterDocRepository2Soap12Service" linecount="34" linerate="0.0" linesexecuted="0"/>
+</thresholds>

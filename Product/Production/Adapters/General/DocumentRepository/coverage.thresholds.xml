@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="104" branchrate="0.0673076923076923" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.repository.dao.DocumentDao" linecount="180" linerate="0.09444444444444444" linesexecuted="0.17"/>
+<threshold branchcount="46" branchrate="0.08695652173913043" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.repository.dao.EventCodeDao" linecount="112" linerate="0.16071428571428573" linesexecuted="0.18"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.model.Document" linecount="159" linerate="0.018867924528301886" linesexecuted="0.03"/>
+<threshold branchcount="100" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.model.DocumentQueryParams" linecount="90" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="42" branchrate="0.3333333333333333" branchsexecuted="0.14" class="gov.hhs.fha.nhinc.repository.model.EventCode" linecount="45" linerate="0.37777777777777777" linesexecuted="0.17"/>
+<threshold branchcount="24" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.model.EventCodeParam" linecount="26" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.persistence.HibernateUtil" linecount="15" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="80" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.service.DocumentService" linecount="99" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.service.DocumentServiceException" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="106" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil" linecount="217" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.util.XmlUtil" linecount="13" linerate="0.0" linesexecuted="0"/>
+</thresholds>

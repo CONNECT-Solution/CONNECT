@@ -26,11 +26,9 @@
               <exists path="${coverage.thresholds.file}"/>
             </not>
             <then>
-              <echo file="${coverage.thresholds.file}">
-                <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+              <echo file="${coverage.thresholds.file}"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-</thresholds>]]>
-              </echo>
+</thresholds>]]></echo>
             </then>
           </if>
 
@@ -127,7 +125,7 @@
               <then>
                 <addfilesettopath refid="source.class.files">
                   <fileset dir="${classpath.item}">
-                    <include name="**/*.class"/>                  	
+                    <include name="**/*.class"/>
                   </fileset>
                 </addfilesettopath>
               </then>
@@ -155,7 +153,19 @@
             <mkdir dir="${coverage.report.dir}"/>
 
             <cobertura-instrument datafile="${coverage.classes.report.file}" todir="${build.instrumented.classes.dir}">
-              <includeClasses regex=".*hhs.*" />
+              <includeClasses regex=".*ch33.*" />
+
+              <excludeClasses regex="gov.va.ch33.web.wizard.*" />
+              <excludeClasses regex="gov.va.ch33.vadir.beans.*" />
+              <excludeClasses regex="gov.va.ch33.vadir.dao.*" />
+              <excludeClasses regex="gov.va.ch33.model.*" />
+              <excludeClasses regex="gov.va.ch33.claim.facade.*" />
+              <excludeClasses regex="gov.va.ch33.claimant.dao.*" />
+              <excludeClasses regex="gov.va.ch33.claim.facade.*" />
+              <excludeClasses regex="gov.va.ch33.claimant.facade.*" />
+              <excludeClasses regex="gov.va.ch33.enums.*" />
+              <excludeClasses regex="gov.va.ch33.framework.aop.*" />
+              <excludeClasses regex="gov.va.ch33.framework.exceptions.*" />
 
               <instrumentationClasspath refid="instrument.classpath" />
             </cobertura-instrument>
@@ -191,16 +201,31 @@
 							<file name="${dist.file}" />
 						</filelist>
 					</sourcefiles>
-					<targetfiles path="${dist.instrumented.dir}/instrumentedclasses.flag"/>
+					<targetfiles>
+						<filelist dir="${dist.instrumented.dir}">
+							<file name="${dist.instrumented.file}" />
+						</filelist>
+					</targetfiles>
 					<sequential>
 						<cobertura-instrument datafile="${coverage.dist.report.file}" todir="${dist.instrumented.dir}">
-							<includeClasses regex=".*hhs.*" />
+							<includeClasses regex=".*ch33.*" />
+              
+              <excludeClasses regex="gov.va.ch33.web.wizard.*" />
+              <excludeClasses regex="gov.va.ch33.vadir.beans.*" />
+              <excludeClasses regex="gov.va.ch33.vadir.dao.*" />
+              <excludeClasses regex="gov.va.ch33.model.*" />
+              <excludeClasses regex="gov.va.ch33.claim.facade.*" />
+              <excludeClasses regex="gov.va.ch33.claimant.dao.*" />
+              <excludeClasses regex="gov.va.ch33.claim.facade.*" />
+              <excludeClasses regex="gov.va.ch33.claimant.facade.*" />
+              <excludeClasses regex="gov.va.ch33.enums.*" />
+              <excludeClasses regex="gov.va.ch33.framework.aop.*" />
+              <excludeClasses regex="gov.va.ch33.framework.exceptions.*" />
 
 							<instrumentationClasspath>
 								<pathelement location="${dist.file}" />
 							</instrumentationClasspath>
 						</cobertura-instrument>
-						<echo file="${dist.instrumented.dir}/instrumentedclasses.flag" append="false"/>
 					</sequential>
 				</outofdate>
 			</then>
@@ -222,7 +247,7 @@
 		</if>
 	</target>
 
-	<target name="coverage.write.html.report">
+	<target name="coverage.write.html.report"  description="write html coverage reports in this projects directory coverage-reports...">
 		<if>
 			<exists path="${coverage.classes.report.file}" />
 			<then>
@@ -479,7 +504,7 @@
 		<path id="junitrun.classpath">
 			<pathelement path="${build.instrumented.classes.dir}" />
 			<path refid="junitrun.classpath.old" />
-			<fileset dir="${codeline.directory.path}/Build/Packages/Corbertura/bin">
+			<fileset dir="C:\Projects\Chapter33\Trunk\Build\Packages\Corbertura\bin">
 				<include name="cobertura.jar" />
 			</fileset>
 		</path>
