@@ -1,34 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- You may freely edit this file. See commented blocks below for -->
-<!-- some examples of how to customize the build. -->
-<!-- (If you delete it and reopen the project it will be recreated.) -->
-<!-- By default, only the Clean and Build commands use this build script. -->
-<!-- Commands such as Run, Debug, and Test only use this build script if -->
-<!-- the Compile on Save feature is turned off for the project. -->
-<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
-<!-- in the project's Project Properties dialog box.-->
-<project name="AdapterPDPOpenSSO" default="default" basedir=".">
-    <description>Builds, tests, and runs the project AdapterPDPOpenSSO.</description>
-    <import file="nbproject/build-impl.xml"/>
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="package.create" name="AdapterPDPOpenSSO">
 
-    <import file="../../../../build.lib.xml" />
-    
-    <target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
-    <target name="clean-build" depends="clean,dist" />
-    <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist, test" />
-    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>    
+  <property name="dist.type" value="jar" />
+  <property name="webtest.hasTests" value="false" />
+  <property name="coverage.isneeded" value="false" />
+  <property name="unittest.hasTests" value="false" />
+ 
+  <!-- Please make sure that this goes up to the correct directory -->
+  <import file="../../../../build/build.targets.xml" />
 
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-        <copy todir="${nhin.project.home}\UnitTestResults">
-            <fileset dir="${build.test.results.dir}"/>
-        </copy>
-        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
-    </target>    
-    
+  <path id="build.classpath">
+    <fileset refid="classpath.compile" />
+    <fileset refid="classpath.runtime" />
+
+    <!-- Add classes from other projects like so...-->
+    <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+  	
+  </path>
+
+  <!-- Add project dependencies here, these projects will be built first... -->
+  <path id="build.project.dependencies">
+    <filelist dir="${root.project.directory.path}">
+      <!-- <file name="${project.NhincCommonLib.build.file}" /> -->
+    </filelist>
+  </path>
+
 </project>
