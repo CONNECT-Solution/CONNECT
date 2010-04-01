@@ -26,8 +26,7 @@
               <exists path="${coverage.thresholds.file}"/>
             </not>
             <then>
-              <echo file="${coverage.thresholds.file}">
-<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+              <echo file="${coverage.thresholds.file}"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
 </thresholds>]]></echo>
             </then>
