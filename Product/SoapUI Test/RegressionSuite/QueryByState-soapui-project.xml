@@ -1647,8 +1647,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1669,8 +1669,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1763,8 +1763,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1785,8 +1785,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1899,8 +1899,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1921,8 +1921,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1992,8 +1992,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2014,8 +2014,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2103,8 +2103,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2125,8 +2125,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2199,8 +2199,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2221,8 +2221,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2306,8 +2306,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2328,8 +2328,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2397,8 +2397,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2419,8 +2419,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2506,8 +2506,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2528,8 +2528,8 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
-def destDir = context.findProperty( "NHINGatewayConfigDir" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2601,4 +2601,4 @@ return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
-}</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+}</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
