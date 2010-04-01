@@ -27,10 +27,9 @@
             </not>
             <then>
               <echo file="${coverage.thresholds.file}">
-                <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-</thresholds>]]>
-              </echo>
+</thresholds>]]></echo>
             </then>
           </if>
 
