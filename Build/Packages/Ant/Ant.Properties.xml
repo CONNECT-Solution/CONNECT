@@ -3,7 +3,7 @@
 
 	<property name="Ant.Log.Directory.Path" value="${Common.Project.Common.Directory.Transient.Path}\AntLogs" overwrite="false"/>
 	<property name="Ant.Log.File.Path" value="${Ant.Log.Directory.Path}\build_log.xml" overwrite="false"/>
-	<property name="Ant.Build.File.Path" value="${Common.Directory.Product.Path}\build_new.xml" overwrite="false"/>
+	<property name="Ant.Build.File.Path" value="${Common.Directory.Product.Path}\build.xml" overwrite="false"/>
 
   <property name="Ant.Debug" value="False" overwrite="False"/>
 

@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="AdapterWeb" default="default" basedir=".">
+    <description>Builds, tests, and runs the project AdapterWeb.</description>
+    <import file="../../../../build.lib.xml" />
+
+    <property name="deploy.type" value="war" />
+    <property name="deploy.isDeployable" value="true"/>
+
+    <import file="nbproject/build-impl.xml"/>
+
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
+
+    <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRegistryService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-DocumentRepositoryService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRepositoryService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRepositoryService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRepositoryService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocQuerySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQuerySecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveSecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterAuthenticationService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterAuthenticationService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuthenticationService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuthenticationService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterPolicyEngineSecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineSecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterPolicyEngineOrchestrator" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineOrchestrator">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineOrchestrator/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineOrchestrator/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineTransform">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineTransform/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterPEPService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPEPService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPEPService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPEPService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterPIPService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPIPService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPIPService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPIPService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterDocProvideAndRegisterservice" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocProvideAndRegisterservice">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocProvideAndRegisterservice/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSecuredAuditLogQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSecuredAuditLogQuery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterReidentification" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterReidentification">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterReidentification/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterReidentification/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpiSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterMpi" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpi">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpi/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpi/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterComponentMpi" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentMpi">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpi/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpi/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterComponentMpiSecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentMpiSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpiSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpiSecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterPatientDiscoverySecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPatientDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscoverySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscoverySecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterSubjectDiscoverySecured" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSubjectDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscoverySecured/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityAuditQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditQuery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyAuditQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyAuditQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyAuditQuery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntityDocQuery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntityDocRetrieve" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocRetrieve">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieve/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieve/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-NhincProxyDocRetrieve" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieve">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieve/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieve/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntityNotifyService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityNotifyService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityNotifyService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityNotifyService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubscribeService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubscribeService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubscribeService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityUnsubscribeService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityUnsubscribeService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemNotify">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemNotify/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemSubscribe">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemSubscribe/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-ProxyHiemUnsubscribe" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemUnsubscribe">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemUnsubscribe/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntityPatientDiscovery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscovery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-NhincProxyPatientDiscovery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscovery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubjectDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscovery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxySubjectDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxySubjectDiscovery/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/PatientCorrelationService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-MpiManager" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/MpiManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/MpiManager/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/MpiManager/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-ProxyXDR" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyXDR/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyXDR/schemas/"/>
+        </copy>        
+    </target>    
+    <target name="wsimport-service-EntityXDR" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDR/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDR/schemas/"/>
+        </copy>          
+    </target>  
+    
+    <target name="wsimport-service-AdapterComponentXDRSecured" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentXDRSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDRSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDRSecured/schemas/"/>
+        </copy>          
+    </target>      
+    <target name="wsimport-service-AdapterComponentXDR" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDR/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDR/schemas/"/>
+        </copy>          
+    </target>    
+
+    <target name="wsimport-service-NhincProxyXDRRequest" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequest/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincProxyXDRResponse" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponse/schemas/"/>
+        </copy>
+    </target>
+    
+    <target name="wsimport-service-EntityXDRRequest" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequest/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityEDRResponse" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityEDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityEDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityEDRResponse/schemas/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-AdapterXDRRequest" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRRequest/schemas/"/>
+        </copy>        
+    </target>
+    <target name="wsimport-service-AdapterXDRResponse" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterXDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterXDRResponse/schemas/"/>
+        </copy>             
+    </target>  
+    <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityDocQuerySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyDocQuerySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityDocRetrieveSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyDocRetrieveSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxySubjectDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityPatientDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyPatientDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntitySubscriptionManagementSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxySubscriptionManagementSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityXDRSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyXDRSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyXDRSecuredRequest" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyXDRSecuredResponse" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityXDRSecuredRequest" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityXDRSecuredResponse" depends="wsimport-init"/>
+    
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>    
+</project>

@@ -261,7 +261,7 @@
           <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
           <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
           <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
-          <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build_new.xml" target="${do-to-target}" order="${current.project.count}"/>
+          <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
           <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
           <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
         </actions>
@@ -269,4 +269,13 @@
     </xmltask>
   </target>
 
+  <target name="copy.build.xml.files">
+    <var name="do-to-target" value="copy.build.xml.files" />
+    <antcall target="do-to-projects" />
+  </target>
+	
+  <target name="coverage.bless">
+    <var name="do-to-target" value="coverage.bless" />
+    <antcall target="do-to-projects" />
+  </target>	
 </project>

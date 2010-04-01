@@ -284,13 +284,12 @@ layer of abstraction
                  <include name="build_new.xml" />
              </fileset>
         </copy>
-  		<echo message="Deleting ${project.dir}/build.xml"/>
   		<exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
-          <arg line='/C svn del ${project.dir}/build.xml'/>
+          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
         </exec>
   	-->	
   		<exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
-          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
+          <arg line='/C svn move ${project.dir}/build_new.xml ${project.dir}/build.xml'/>
         </exec>
 
   	</target>
