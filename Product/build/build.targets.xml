@@ -277,7 +277,7 @@ layer of abstraction
     <call target="soapui.help"/>
   </target>
 	
-  	<target name="copy.build.xml.files">
+  	<target name="scratch.files">
   	<!--	
   		<copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
              <fileset dir="${project.dir}">

@@ -74,12 +74,18 @@
 			</sequential>
 		</outofdate>
 
-		<javac debug="${compile.debug}" debuglevel="lines,vars,source"
-			srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
-			<classpath refid="build.classpath" />						
+		<javac updatedProperty="compile.updated" debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
+			<classpath refid="build.classpath" />
 		</javac>
-        
-        
+
+    <if>
+      <istrue value="${compile.updated}"/>
+      <then>
+        <echo file="${build.classes.dir}/compile.javac.flag" append="false"/>
+        <var unset="true" name="compile.updated"/>
+      </then>
+    </if>
+		
 		<if>
 			<or>
 				<istrue value="${unittest.hasTests}" />

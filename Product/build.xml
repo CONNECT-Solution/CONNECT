@@ -269,13 +269,4 @@
     </xmltask>
   </target>
 
-  <target name="copy.build.xml.files">
-    <var name="do-to-target" value="copy.build.xml.files" />
-    <antcall target="do-to-projects" />
-  </target>
-	
-  <target name="coverage.bless">
-    <var name="do-to-target" value="coverage.bless" />
-    <antcall target="do-to-projects" />
-  </target>	
 </project>

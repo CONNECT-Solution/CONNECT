@@ -24,12 +24,7 @@
 		<link>
 			<name>build.xml</name>
 			<type>1</type>
-			<location>C:/Projects/NHINC/Current/Product/build_new.xml</location>
-		</link>
-		<link>
-			<name>build_new.xml</name>
-			<type>1</type>
-			<location>C:/Projects/NHINC/Current/Product/build_new.xml</location>
+			<location>C:/Projects/NHINC/Current/Product/build.xml</location>
 		</link>
 		<link>
 			<name>projects.xml</name>
