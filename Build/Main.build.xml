@@ -309,7 +309,7 @@
     </trycatch>
   </target>
   
-  <target name="Test" depends="SetUps" >
+  <target name="JUnit.Integration" depends="SetUps" >
     <trycatch>
       <try>
         <call target="SourceModificationReport.ConsolidateReports" />
@@ -349,6 +349,73 @@
 
         <if test="${IntegrationTest.Tests.HaveFailed}">
           <fail message="${IntegrationTest.Tests.Exception.Message}"/>
+        </if>
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="SoapUI.Validation" depends="SetUps" >
+    <trycatch>
+      <try>
+        <call target="SourceModificationReport.ConsolidateReports" />
+
+        <call target="TargetProcess.CreateReport" />
+        <call target="TargetProcess.Get.Release.Report" failonerror="False" />
+
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
+
+        <property name="SoapUI.Validation.Tests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="ValidationSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Validation.Tests.Exception.Message" value="${exception}"/>
+            <property name="SoapUI.Validation.Tests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <if test="${SoapUI.Validation.Tests.HaveFailed}">
+          <fail message="${SoapUI.Validation.Tests.Exception.Message}"/>
+        </if>
+
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="SoapUI.Regression" depends="SetUps" >
+    <trycatch>
+      <try>
+        <call target="SourceModificationReport.ConsolidateReports" />
+
+        <call target="TargetProcess.CreateReport" />
+        <call target="TargetProcess.Get.Release.Report" failonerror="False" />
+
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
+
+        <property name="SoapUI.Tests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="RegressionSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
+            <property name="SoapUI.Tests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <if test="${SoapUI.Tests.HaveFailed}">
+          <fail message="${SoapUI.Tests.Exception.Message}"/>
         </if>
       </try>
       <finally>
