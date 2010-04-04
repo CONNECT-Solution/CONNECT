@@ -331,10 +331,6 @@
           </catch>
         </trycatch>
         
-        <if test="${SoapUI.Tests.HaveFailed}">
-          <fail message="${SoapUI.Tests.Exception.Message}"/>
-        </if>
-
         <if test="${IntegrationTest.Tests.HaveFailed}">
           <fail message="${IntegrationTest.Tests.Exception.Message}"/>
         </if>
