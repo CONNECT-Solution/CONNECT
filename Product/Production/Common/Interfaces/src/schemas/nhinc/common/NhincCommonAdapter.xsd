@@ -792,4 +792,35 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="AdapterRegistryResponse" type="tns:AdapterRegistryResponseType"/>
+	<!-- ====================================================================
+         Redaction
+         ==================================================================== -->
+    <xsd:complexType name="FilterDocQueryResultsRequestType">
+        <xsd:sequence>
+            <xsd:element ref="query:AdhocQueryRequest"/>
+            <xsd:element ref="query:AdhocQueryResponse"/>
+        </xsd:sequence>
+    </xsd:complexType>
+	<xsd:element name="FilterDocQueryResultsRequest" type="tns:FilterDocQueryResultsRequestType"/>
+    <xsd:complexType name="FilterDocQueryResultsResponseType">
+        <xsd:sequence>
+            <xsd:element ref="query:AdhocQueryResponse"/>
+        </xsd:sequence>
+    </xsd:complexType>
+	<xsd:element name="FilterDocQueryResultsResponse" type="tns:FilterDocQueryResultsResponseType"/>
+    <xsd:complexType name="FilterDocRetrieveResultsRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType"></xsd:element>
+            <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+            <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+        </xsd:sequence>
+    </xsd:complexType>
+	<xsd:element name="FilterDocRetrieveResultsRequest" type="tns:FilterDocRetrieveResultsRequestType"/>
+    <xsd:complexType name="FilterDocRetrieveResultsResponseType">
+        <xsd:sequence>
+            <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+        </xsd:sequence>
+    </xsd:complexType>
+	<xsd:element name="FilterDocRetrieveResultsResponse" type="tns:FilterDocRetrieveResultsResponseType"/>
 </xsd:schema>
+
