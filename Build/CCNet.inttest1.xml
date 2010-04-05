@@ -728,7 +728,7 @@
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
-          <target>Test</target>
+          <target>SoapUI.Regression</target>
         </targetList>
 
         <buildTimeoutSeconds>5400</buildTimeoutSeconds>
