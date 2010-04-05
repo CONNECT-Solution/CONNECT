@@ -73,112 +73,10 @@ public class PatientConsentHelperTest
     @Test
     public void testRetrievePatientConsentbyPatientIdHappy()
     {
-        String patientId = "";
-        String assigningAuthorityId = "";
-
-        PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, mockPIP);
-        assertNotNull("PatientPreferencesType was null", response);
-    }
-
-    @Test
-    public void testRetrievePatientConsentbyPatientIdNullInputs()
-    {
-        String patientId = null;
-        String assigningAuthorityId = null;
-
-        PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, mockPIP);
-        assertNotNull("PatientPreferencesType was null", response);
-    }
-
-    @Test
-    public void testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse()
-    {
-        String patientId = null;
-        String assigningAuthorityId = null;
-
-        final AdapterPIPImpl adapterPIP = new AdapterPIPImpl()
-        {
-            @Override
-            protected Log createLogger()
-            {
-                return mockLog;
-            }
-
-            @Override
-            protected PatientConsentManager getPatientConsentManager()
-            {
-                return mockPatientConsentMgr;
-            }
-
-            @Override
-            public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
-                    throws AdapterPIPException
-            {
-                return null;
-            }
-        };
-        PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, adapterPIP);
-        assertNull("PatientPreferencesType was not null", response);
-    }
-
-    @Test (expected= RuntimeException.class)
-    public void testRetrievePatientConsentbyPatientIdWithException()
-    {
-        String patientId = null;
-        String assigningAuthorityId = null;
-
-        final AdapterPIPImpl adapterPIP = new AdapterPIPImpl()
-        {
-            @Override
-            protected Log createLogger()
-            {
-                return mockLog;
-            }
-
-            @Override
-            protected PatientConsentManager getPatientConsentManager()
-            {
-                return mockPatientConsentMgr;
-            }
-
-            @Override
-            public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
-                    throws AdapterPIPException
-            {
-                    RetrievePtConsentByPtIdResponseType retrieveResponse = new RetrievePtConsentByPtIdResponseType()
-                    {
-                        @Override
-                        public PatientPreferencesType getPatientPreferences()
-                        {
-                            throw new RuntimeException();
-                        }
-                    };
-                    return retrieveResponse;
-            }
-        };
-        PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, adapterPIP);
-        assertNull("PatientPreferencesType was not null", response);
-    }
-
-    public PatientPreferencesType testRetrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId, final AdapterPIPImpl adapterPIP)
-    {
-        PatientPreferencesType response = null;
         try
         {
-            PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-
-                @Override
-                protected AdapterPIPImpl getAdapterPIP()
-                {
-                    return adapterPIP;
-                }
-            };
+            String patientId = "";
+            String assigningAuthorityId = "";
             context.checking(new Expectations()
             {
                 {
@@ -187,14 +85,161 @@ public class PatientConsentHelperTest
                 }
             });
 
-            response = patientConsentHelper.retrievePatientConsentbyPatientId(patientId, assigningAuthorityId);
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, mockPIP);
+            assertNotNull("PatientPreferencesType was null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testRetrievePatientConsentbyPatientId test: " + t.getMessage());
+            System.out.println("Error running testRetrievePatientConsentbyPatientIdHappy test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testRetrievePatientConsentbyPatientId test: " + t.getMessage());
+            fail("Error running testRetrievePatientConsentbyPatientIdHappy test: " + t.getMessage());
         }
+    }
+
+    @Test
+    public void testRetrievePatientConsentbyPatientIdNullInputs()
+    {
+        try
+        {
+            String patientId = null;
+            String assigningAuthorityId = null;
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockPIP).retrievePtConsentByPtId(with(aNonNull(RetrievePtConsentByPtIdRequestType.class)));
+                }
+            });
+
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, mockPIP);
+            assertNotNull("PatientPreferencesType was null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRetrievePatientConsentbyPatientIdNullInputs test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRetrievePatientConsentbyPatientIdNullInputs test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse()
+    {
+        try
+        {
+            String patientId = null;
+            String assigningAuthorityId = null;
+
+            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected PatientConsentManager getPatientConsentManager()
+                {
+                    return mockPatientConsentMgr;
+                }
+
+                @Override
+                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
+                        throws AdapterPIPException
+                {
+                    return null;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, adapterPIP);
+            assertNull("PatientPreferencesType was not null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testRetrievePatientConsentbyPatientIdWithException()
+    {
+        try
+        {
+            String patientId = null;
+            String assigningAuthorityId = null;
+            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected PatientConsentManager getPatientConsentManager()
+                {
+                    return mockPatientConsentMgr;
+                }
+
+                @Override
+                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request) throws AdapterPIPException
+                {
+                    RetrievePtConsentByPtIdResponseType retrieveResponse = new RetrievePtConsentByPtIdResponseType() {
+
+                        @Override
+                        public PatientPreferencesType getPatientPreferences()
+                        {
+                            throw new RuntimeException();
+                        }
+                    };
+                    return retrieveResponse;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)), with(aNonNull(RuntimeException.class)));
+                }
+            });
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, adapterPIP);
+            assertNull("PatientPreferencesType was not null", response);
+        }
+        catch (AdapterPIPException ex)
+        {
+            System.out.println("Error running testRetrievePatientConsentbyPatientIdWithException test: " + ex.getMessage());
+            ex.printStackTrace();
+            fail("Error running testRetrievePatientConsentbyPatientIdWithException test: " + ex.getMessage());
+        }
+    }
+
+    public PatientPreferencesType testRetrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId, final AdapterPIPImpl adapterPIP) throws AdapterPIPException
+    {
+        PatientPreferencesType response = null;
+        PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
+        {
+            @Override
+            protected Log createLogger()
+            {
+                return mockLog;
+            }
+
+            @Override
+            protected AdapterPIPImpl getAdapterPIP()
+            {
+                return adapterPIP;
+            }
+        };
+
+        response = patientConsentHelper.retrievePatientConsentbyPatientId(patientId, assigningAuthorityId);
         return response;
     }
 
@@ -283,7 +328,6 @@ public class PatientConsentHelperTest
             {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    //oneOf(mockPIP).retrievePtConsentByPtDocId(with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
                 }
             });
             PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId, adapterPIP);
@@ -297,7 +341,7 @@ public class PatientConsentHelperTest
         }
     }
 
-    @Test (expected= RuntimeException.class)
+    @Test
     public void testRetrievePatientConsentbyDocumentIdWithException()
     {
         try
@@ -338,7 +382,7 @@ public class PatientConsentHelperTest
             {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    
+                    allowing(mockLog).error(with(any(String.class)), with(aNonNull(RuntimeException.class)));
                 }
             });
             PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId, adapterPIP);
