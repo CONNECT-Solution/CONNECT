@@ -6,6 +6,8 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import static org.junit.Assert.*;
 
 /**
@@ -23,20 +25,84 @@ public class RedactionEngineProxyFactoryTest
     };
 
     @Test
-    public void testGetRedactionEngine()
+    public void testGetRedactionEngineProxyHappy()
     {
         try
         {
-            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory();
+            final RedactionEngineProxy mockProxy = context.mock(RedactionEngineProxy.class);
+            final ApplicationContext appContext = new FileSystemXmlApplicationContext()
+            {
+                @Override
+                public Object getBean(String beanName)
+                {
+                    return mockProxy;
+                }
+            };
+            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            {
+                @Override
+                protected ApplicationContext getContext()
+                {
+                    return appContext;
+                }
+            };
             RedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
-            // TODO: Correct after implemented
+            assertNotNull("RedactionEngineProxy was null", proxy);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetRedactionEngineProxyHappy test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetRedactionEngineProxyHappy test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetRedactionEngineProxyNullContext()
+    {
+        try
+        {
+            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            {
+                @Override
+                protected ApplicationContext getContext()
+                {
+                    return null;
+                }
+            };
+            RedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
             assertNull("RedactionEngineProxy was not null", proxy);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testGetRedactionEngine test: " + t.getMessage());
+            System.out.println("Error running testGetRedactionEngineProxyNullContext test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testGetRedactionEngine test: " + t.getMessage());
+            fail("Error running testGetRedactionEngineProxyNullContext test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetContext()
+    {
+        try
+        {
+            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
+
+            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            {
+                @Override
+                protected ApplicationContext getContext()
+                {
+                    return mockContext;
+                }
+            };
+            assertNotNull("ApplicationContext", proxyFactory.getContext());
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetContext test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetContext test: " + t.getMessage());
         }
     }
 
