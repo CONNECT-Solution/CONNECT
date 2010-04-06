@@ -125,7 +125,7 @@
               <then>
                 <addfilesettopath refid="source.class.files">
                   <fileset dir="${classpath.item}">
-                    <include name="**/*.class"/>                  	
+                    <include name="**/*.class"/>
                   </fileset>
                 </addfilesettopath>
               </then>
@@ -198,7 +198,6 @@
 								<pathelement location="${dist.file}" />
 							</instrumentationClasspath>
 						</cobertura-instrument>
-						<echo file="${dist.instrumented.dir}/instrumentedclasses.flag" append="false"/>
 					</sequential>
 				</outofdate>
 			</then>
@@ -220,7 +219,7 @@
 		</if>
 	</target>
 
-	<target name="coverage.write.html.report">
+	<target name="coverage.write.html.report"  description="write html coverage reports in this projects directory coverage-reports...">
 		<if>
 			<exists path="${coverage.classes.report.file}" />
 			<then>

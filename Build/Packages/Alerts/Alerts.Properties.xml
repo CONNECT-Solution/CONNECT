@@ -12,10 +12,12 @@
 
   <include buildfile="${Package.Alerts.Directory.Path}\BuildTime\BuildTime.Script.xml"/>
   <include buildfile="${Package.Alerts.Directory.Path}\UnitTests\UnitTests.Script.xml"/>
+  <include buildfile="${Package.Alerts.Directory.Path}\Coverage\Coverage.Script.xml"/>
 	<include buildfile="${Package.Alerts.Directory.Path}\Diskspace\DiskSpace.Script.xml"/>
   
   <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + '-Dev'}">
     <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.UnitTests')}"/>
+    <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.Coverage')}"/>
     <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.BuildTime')}"/>
     <if test="${file::exists(Common.Directory.Packages.Path + '\Simian\Simian.Properties.xml')}">
       <include buildfile="${Package.Alerts.Directory.Path}\Simian\Simian.Script.xml"/>

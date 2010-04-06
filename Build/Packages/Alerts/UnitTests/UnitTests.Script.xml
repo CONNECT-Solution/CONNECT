@@ -61,17 +61,25 @@
 			</default>
 		</switch>
 
+    <saveproperties file="${Alerts.UnitTests.PreviousPropertiesFilePath}" format="Include" unless="${Alerts.UnitTests.Previous.ReportFilePath == 'notset'}">
+      <property name="Alerts.UnitTests.Previous.ReportFilePath" value="${Alerts.UnitTests.ReportFilePath}"/>
+    </saveproperties>
+
     <xmlquery id="ProjectPaths"
       file="${Alerts.BuildLog}" 
       query="//modification/project" 
     />
 
     <echo message="Unit Test Count is ${Alerts.UnitTests.Count}"/>
+    <echo message="Previous Unit Test Count is ${Alerts.UnitTests.Previous.Count}"/>
+    
+    <saveproperties file="${Alerts.UnitTests.PreviousPropertiesFilePath}" format="Include" unless="${Alerts.UnitTests.Count == 'notset'}">
+      <property name="Alerts.UnitTests.Previous.Count" value="${Alerts.UnitTests.Count}"/>
+      <property name="Alerts.UnitTests.Previous.ReportFilePath" value="${Alerts.UnitTests.ReportFilePath}"/>
+    </saveproperties>
 
     <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
     <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
-
-    <echo message="Previous Unit Test Count is ${Alerts.UnitTests.Previous.Count}"/>
 
     <if test="${Alerts.UnitTests.Previous.Count != 'NaN' and Alerts.UnitTests.Count != 'notset'}">
       <call target="${Alerts.UnitTests.GenerateReport.Target}" if="${Alerts.UnitTests.GenerateReport.Target != 'notset' and Alerts.UnitTests.Previous.ReportFilePath != 'notset' and Alerts.UnitTests.ReportFilePath != 'notset' and int::parse(Alerts.UnitTests.Count) != int::parse(Alerts.UnitTests.Previous.Count)}"/>
@@ -83,23 +91,15 @@
           <call target="Alerts.SendMessage"/>
           <call target="Alerts.UnitTests.WriteToReportAppender"/>
         </then>
-        <elseifs>
-          <elseif test="${int::parse(Alerts.UnitTests.Previous.Count) > int::parse(Alerts.UnitTests.Count)}">
-            <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Previous.Count) - int::parse(Alerts.UnitTests.Count)} test(s) have been removed!"/>
-            <property name="Alerts.UnitTests.Message.Spin" value="negative" />
-            <call target="Alerts.UnitTests.GenerateWarning"/>
-            <call target="Alerts.SendMessage"/>
-            <call target="Alerts.UnitTests.WriteToReportAppender"/>
-          </elseif>
-        </elseifs>
+        <elseif if="${int::parse(Alerts.UnitTests.Previous.Count) > int::parse(Alerts.UnitTests.Count)}">
+          <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Previous.Count) - int::parse(Alerts.UnitTests.Count)} test(s) have been removed!"/>
+          <property name="Alerts.UnitTests.Message.Spin" value="negative" />
+          <call target="Alerts.UnitTests.GenerateWarning"/>
+          <call target="Alerts.SendMessage"/>
+          <call target="Alerts.UnitTests.WriteToReportAppender"/>
+        </elseif>
       </ifthenelse>
     </if>
-
-    <saveproperties file="${Alerts.UnitTests.PreviousPropertiesFilePath}" format="Include" unless="${Alerts.UnitTests.Count == 'notset'}">
-      <property name="Alerts.UnitTests.Previous.Count" value="${Alerts.UnitTests.Count}"/>
-      <property name="Alerts.UnitTests.Previous.ReportFilePath" value="${Alerts.UnitTests.ReportFilePath}"/>
-    </saveproperties>
-
   </target>
 
   <target name="Alerts.UnitTests.GenerateReport.MSTest">

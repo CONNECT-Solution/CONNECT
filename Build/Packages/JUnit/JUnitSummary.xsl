@@ -3,37 +3,18 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
   <xsl:output method="xml" omit-xml-declaration="yes"/>
-
-    <xsl:variable name="nunit2.result.list" select="//test-results"/>
-    <xsl:variable name="nunit2.suite.list" select="$nunit2.result.list//test-suite"/>
-    <xsl:variable name="nunit2.case.list" select="$nunit2.suite.list/results/test-case"/>
-    <xsl:variable name="nunit2.case.count" select="count($nunit2.case.list)"/>
-    <xsl:variable name="nunit2.time" select="sum($nunit2.result.list/test-suite[position()=1]/@time)"/>
-    <xsl:variable name="nunit2.failure.list" select="$nunit2.case.list/failure"/>
-    <xsl:variable name="nunit2.failure.count" select="count($nunit2.failure.list)"/>
-    <xsl:variable name="nunit2.notrun.list" select="$nunit2.case.list/reason"/>
-    <xsl:variable name="nunit2.notrun.count" select="count($nunit2.notrun.list)"/>
-	
-
-	<xsl:variable name="testsuites-in-package" select="/testsuites/testsuite[./@package = current()/@package]"/>
-	<xsl:variable name="testCount" select="sum($testsuites-in-package/@tests)"/>
-	<xsl:variable name="errorCount" select="sum($testsuites-in-package/@errors)"/>
-	<xsl:variable name="failureCount" select="sum($testsuites-in-package/@failures)"/>
-	<xsl:variable name="timeCount" select="sum($testsuites-in-package/@time)"/>
 	
     <xsl:variable name="junit.suite.list" select="//testsuite"/>
-    <xsl:variable name="junit.case.list" select="$junit.suite.list/testcase"/>
-    <xsl:variable name="junit.case.count" select="count($junit.case.list)"/>
+    <xsl:variable name="junit.case.count" select="sum($junit.suite.list/@tests)"/>
     <xsl:variable name="junit.time" select="sum($junit.suite.list/@time)"/>
-    <xsl:variable name="junit.failure.list" select="$junit.case.list/failure"/>
+    <xsl:variable name="junit.failure.list" select="$junit.suite.list//failure"/>
     <xsl:variable name="junit.failure.count" select="count($junit.failure.list)"/>
-    <xsl:variable name="junit.error.list" select="$junit.case.list/error"/>
+    <xsl:variable name="junit.error.list" select="$junit.suite.list//error"/>
     <xsl:variable name="junit.error.count" select="count($junit.error.list)"/>
 
-    <xsl:variable name="total.time" select="$nunit2.time + $junit.time"/>
-    <xsl:variable name="total.notrun.count" select="$nunit2.notrun.count"/>
-    <xsl:variable name="total.run.count" select="$nunit2.case.count + $junit.case.count - $total.notrun.count"/>
-    <xsl:variable name="total.failure.count" select="$nunit2.failure.count + $junit.failure.count + $junit.error.count"/>
+    <xsl:variable name="total.time" select="$junit.time"/>
+    <xsl:variable name="total.run.count" select="$junit.case.count"/>
+    <xsl:variable name="total.failure.count" select="$junit.failure.count + $junit.error.count"/>
 
     <xsl:template match="/">
       <junitsummary>
@@ -44,7 +25,7 @@
           <xsl:value-of select="$total.failure.count"/>
         </xsl:attribute>
         <xsl:attribute name="notrun">
-          <xsl:value-of select="$total.notrun.count"/>
+          <xsl:value-of select="0"/>
         </xsl:attribute>
         <xsl:attribute name="time">
           <xsl:value-of select="$total.time"/>
@@ -68,8 +49,7 @@
         </xsl:choose>
 
         <xsl:apply-templates select="$junit.error.list"/>
-        <xsl:apply-templates select="$junit.failure.list | $nunit2.failure.list"/>
-        <xsl:apply-templates select="$nunit2.notrun.list"/>
+        <xsl:apply-templates select="$junit.failure.list"/>
 
         <tr>
           <td colspan="2"> </td>
@@ -83,31 +63,13 @@
           </tr>
 
           <xsl:call-template name="junittestdetail">
-            <xsl:with-param name="detailnodes" select="//testsuite/testcase[.//error]"/>
+            <xsl:with-param name="detailnodes" select="//testsuite[.//error]"/>
           </xsl:call-template>
 
           <xsl:call-template name="junittestdetail">
-            <xsl:with-param name="detailnodes" select="//testsuite/testcase[.//failure]"/>
+            <xsl:with-param name="detailnodes" select="//testsuite[.//failure]"/>
           </xsl:call-template>
 
-          <xsl:call-template name="nunit2testdetail">
-            <xsl:with-param name="detailnodes" select="//test-suite/results/test-case[.//failure]"/>
-          </xsl:call-template>
-
-          <tr>
-            <td colspan="2"> </td>
-          </tr>
-        </xsl:if>
-
-        <xsl:if test="$nunit2.notrun.count > 0">
-          <tr>
-            <td class="sectionheader" colspan="2">
-              Warning Details (<xsl:value-of select="$nunit2.notrun.count"/>)
-            </td>
-          </tr>
-          <xsl:call-template name="nunit2testdetail">
-            <xsl:with-param name="detailnodes" select="//test-suite/results/test-case[.//reason]"/>
-          </xsl:call-template>
           <tr>
             <td colspan="2"> </td>
           </tr>

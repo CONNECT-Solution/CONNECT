@@ -11,6 +11,11 @@
     </not>
   </condition>
 
+  <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
+    <var name="do-to-target" value="coverage.bless" />
+    <antcall target="do-to-projects" />
+  </target>
+
   <target name="source.compile" description="Compile all projects: run ant help for more info...">
     <var name="do-to-target" value="just.source.compile" />
     <antcall target="do-to-projects" />
@@ -38,7 +43,7 @@
     <fail message="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked..."/>
   </target>
 
-  <target name="unittest.write.report">
+  <target name="unittest.write.report" description="write html unit test reports in each projects' directory unit-test-reports...">
     <junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
       <xmlreports>
         <fileset dir="${basedir}">
@@ -92,8 +97,7 @@
 	<runtarget target="undeploy.from.production"/>
   </target>
 
-
-  <target name="coverage.write.report">
+  <target name="coverage.write.report" description="write html coverage reports in each projects' directory coverage-reports...">
     <delete dir="${basedir}/coverage-reports" />
     <mkdir dir="${basedir}/coverage-reports" />
     <cobertura-merge datafile="${basedir}/coverage-reports/coverage.ser">
@@ -177,54 +181,49 @@
 
   <target name="unittest.run" description="Run the JUnit tests for the projects: run ant help for more info...">
     <call target="-coverage.product.prep"/>
+    <call target="-unittest.product.prep"/>
     <var name="do-to-target" value="just.unittest.run" />
     <antcall target="do-to-projects" />
+    <call target="-unittest.product.check"/>
     <call target="-coverage.product.check"/>
   </target>
 
   <target name="help">
     <echo taskname="help">
       run ant -p for the short help (ignore the target that start with: 'build.targets.')
-    	
+
       This project will iterate over all the projects listed in ${basedir}/projects.xml
       and execute all targets specificed.
 
       Targets available in this project:
 
-      clean - deletes all transient directories and files for each project and it's dependent projects.
-    	
-	  just.clean - cleans just the projects in projects.xml.
+      clean - deletes all transient directories and files for each project.
 
-      source.compile - if out-of-date compiles all projects listed in the projects.xml and all dependent projects.
-    	
-      just.source.compile - if out-of-date compiles the just the projects listed in the projects.xml.
+      source.compile - if out-of-date compiles all projects listed in the projects.xml.
 
-      package.create - if out-of-date creates jar/war/ear files for all projects listed in the projects.xml and their dependent projects too.
-    	
-      just.package.create - if out-of-date packages just projects listed in the projects.xml.
+      package.create - if out-of-date creates jar/war/ear files for all projects listed in the projects.xml.
 
       unittest.run - executes all the unit tests in projects that have unit tests and are marked as having unit tests.
-      Each project with tests will also have the target source.compile called.
-      Writes an html report for each project to [project directory]/coverage-reports/index.html.
       Checks that both line and branch coverage rates are meet for all classes.
       The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
       and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
       in the file ${coverage.thresholds.file}.
-    	
-      just.unittest.run - does what unittest.run does minus the compilation.
+
+      unittest.write.report - Writes an html report for each project to [project directory]/unit-test-reports/index.html.
+
+      coverage.write.report - Writes an html report for each project to [project directory]/coverage-reports/index.html.
+
+      coverage.bless - Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.
 
       integrationtest.run - executes all integration tests in projects that have integration tests and are marked as having integration tests.
-      Each project with tests will also have the target source.compile called.
       Writes an html report for each project to [project directory]/coverage-reports/index.html.
       Checks that both line and branch coverage rates are meet for all classes.
       The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
       and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
       in the file ${coverage.thresholds.file}.
-    	
-      just.integrationtest.run - does what integrationtest.run does minus the compilation.
 
       webtest.run - executes all web tests in projects that have web tests and are marked as having web tests.
-    	
+
       just.webtest.run - does what webtest.run does minus the compilation.
 
       soapui.run - executes all soapui project files found in all projects that have the property soapui.hasTests set to true.  A soapui
@@ -233,11 +232,9 @@
       coverage.write.report - merges all coverage information and writes a single html report to ${basedir}/coverage-reports/index.html.
 
       deploy - calls package.create then deploys the project's package if the property deploy.isDeployable is set to true.
-    	
-      just.deploy - does what deploy does minus the packageing.
-  
+
       undeploy - undeploys the project's package if the property deploy.isDeployable is set to true.
-    	
+
       redeploy - calls undeploy the deploy.
     </echo>
   </target>

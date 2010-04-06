@@ -7,7 +7,7 @@
   <property name="Ant.Bin"    value="${Ant.Home}\bin" />
   <property name="Ant.Bat"    value="${Ant.Bin}\ant.bat" />
 
-  <property name="Java.Jdk"   value="jdk1.6.0_16"/>
+  <property name="Java.Jdk"   value="jdk1.6.0_19"/>
   <property name="Java.Home"  value="C:\Java\${Java.Jdk}" />
   <property name="Java.Exe"   value="${Java.Home}\bin\javaw.exe"/>
   <property name="IDE.Home"   value="C:\PROGRA~1\NETBEA~1.1"/>

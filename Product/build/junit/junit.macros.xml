@@ -47,7 +47,6 @@
           <do/>
         </sequential>
       </outofdate>
-      <echo file="${unittest.report.dir}/test.flag" append="false"/>
     </sequential>
   </macrodef>
 
@@ -72,7 +71,8 @@
       <property name="coverage.file" location="${coverage.classes.report.file}"/>
       <property name="cp" refid="@{classpathrefid}"/>
 
-      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once">
+      <var unset="true" name="unittest.failure"/>
+      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once" >
         <sysproperty key="basedir" value="${junit.basedir}" />
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
 
@@ -85,6 +85,23 @@
           <tests/>
         </batchtest>
       </junitrunner>
+      
+      <if>
+        <isset property="unittest.failure"/>
+        <then>
+          <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/unit-test-reports/unittest.check.failure"/>
+          <echo file="${unittest.report.dir}/test.flag" append="false" message="failed"/>
+          <if>
+            <isfalse value="@{genreport}" />
+            <then>
+              <fail message="Atleast one @{testtype} test has failed! You can run the target unittest.write.html.report to create an html report in this projects directory unit-test-reports." />
+            </then>
+          </if>
+        </then>
+        <else>
+          <echo file="${unittest.report.dir}/test.flag" append="false" message="passed"/>
+        </else>
+      </if>
     </sequential>
   </macrodef>
 
