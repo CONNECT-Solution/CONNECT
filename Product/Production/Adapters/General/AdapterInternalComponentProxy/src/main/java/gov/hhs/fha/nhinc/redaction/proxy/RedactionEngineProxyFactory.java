@@ -14,9 +14,17 @@ public class RedactionEngineProxyFactory
     private static final String BEAN_NAME_ADAPTER_REDACTION_ENGINE = "adapterredactionengine";
     private static ApplicationContext context = null;
 
-    static
+    public RedactionEngineProxyFactory()
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
+        if(context == null)
+        {
+            context = createApplicationContext();
+        }
+    }
+
+    protected ApplicationContext createApplicationContext()
+    {
+        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
     }
 
     public RedactionEngineProxy getRedactionEngineProxy()
@@ -34,4 +42,5 @@ public class RedactionEngineProxyFactory
     {
         return context;
     }
+
 }

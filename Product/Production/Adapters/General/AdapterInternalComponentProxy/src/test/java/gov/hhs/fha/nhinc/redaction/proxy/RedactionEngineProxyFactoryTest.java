@@ -23,39 +23,15 @@ public class RedactionEngineProxyFactoryTest
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-
-    @Test
-    public void testGetRedactionEngineProxyHappy()
+    final RedactionEngineProxy mockProxy = context.mock(RedactionEngineProxy.class);
+    final ApplicationContext appContext = new FileSystemXmlApplicationContext()
     {
-        try
+        @Override
+        public Object getBean(String beanName)
         {
-            final RedactionEngineProxy mockProxy = context.mock(RedactionEngineProxy.class);
-            final ApplicationContext appContext = new FileSystemXmlApplicationContext()
-            {
-                @Override
-                public Object getBean(String beanName)
-                {
-                    return mockProxy;
-                }
-            };
-            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
-            {
-                @Override
-                protected ApplicationContext getContext()
-                {
-                    return appContext;
-                }
-            };
-            RedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
-            assertNotNull("RedactionEngineProxy was null", proxy);
+            return mockProxy;
         }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetRedactionEngineProxyHappy test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetRedactionEngineProxyHappy test: " + t.getMessage());
-        }
-    }
+    };
 
     @Test
     public void testGetRedactionEngineProxyNullContext()
@@ -64,6 +40,11 @@ public class RedactionEngineProxyFactoryTest
         {
             RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
             {
+                @Override
+                protected ApplicationContext createApplicationContext()
+                {
+                    return null;
+                }
                 @Override
                 protected ApplicationContext getContext()
                 {
@@ -82,14 +63,47 @@ public class RedactionEngineProxyFactoryTest
     }
 
     @Test
+    public void testGetRedactionEngineProxyHappy()
+    {
+        try
+        {
+            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            {
+                @Override
+                protected ApplicationContext createApplicationContext()
+                {
+                    return appContext;
+                }
+                @Override
+                protected ApplicationContext getContext()
+                {
+                    return appContext;
+                }
+            };
+            RedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
+            assertNotNull("RedactionEngineProxy was null", proxy);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetRedactionEngineProxyHappy test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetRedactionEngineProxyHappy test: " + t.getMessage());
+        }
+    }
+
+    @Test
     public void testGetContext()
     {
         try
         {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-
             RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
             {
+                @Override
+                protected ApplicationContext createApplicationContext()
+                {
+                    return mockContext;
+                }
                 @Override
                 protected ApplicationContext getContext()
                 {
