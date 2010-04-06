@@ -1,5 +1,8 @@
 package gov.hhs.fha.nhinc.redaction;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
@@ -418,4 +421,84 @@ public class PatientConsentHelperTest
         return response;
     }
 
+    @Test
+    public void testExtractDocTypeFromPatPref()
+    {
+        PatientConsentHelper testSubject = new PatientConsentHelper()
+        {
+            @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+        };
+
+        CeType ceType = new CeType();
+        ceType.setCode("testing");
+
+        FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+        criterionType.setDocumentTypeCode(ceType);
+
+        FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+        findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+        PatientPreferencesType ptPreferences = new PatientPreferencesType();
+        ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+        context.checking(new Expectations(){{
+            ignoring(mockLog).debug(with(any(String.class)));
+        }});
+
+        assertNotNull(testSubject.extractDocTypeFromPatPref("testing", ptPreferences));
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), true);
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefShouldFail()
+    {
+        PatientConsentHelper testSubject = new PatientConsentHelper()
+        {
+            @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+        };
+
+
+        context.checking(new Expectations(){{
+            allowing(mockLog).debug(with(any(String.class)));
+            allowing(mockLog).error("Invalid documentType");
+            allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
+        }});
+
+        assertEquals(testSubject.extractDocTypeFromPatPref(null, null), false);
+        PatientPreferencesType ptPreferences = new PatientPreferencesType();
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        FineGrainedPolicyCriteriaType fineGrainedPolicy = new FineGrainedPolicyCriteriaType();
+        ptPreferences.setFineGrainedPolicyCriteria(fineGrainedPolicy);
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(null);
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        FineGrainedPolicyCriterionType policyCrtiterion = new FineGrainedPolicyCriterionType();
+        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        CeType ceTypeCd = new CeType();
+        ceTypeCd.setCode("testing1");
+        policyCrtiterion.setDocumentTypeCode(ceTypeCd);
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        fineGrainedPolicy.getFineGrainedPolicyCriterion().clear();
+        ceTypeCd.setCode("testing1");
+        policyCrtiterion.setDocumentTypeCode(ceTypeCd);
+        CeType ceTypeCd1 = new CeType();
+        ceTypeCd1.setCode("testing");
+        FineGrainedPolicyCriterionType policyCrtiterion1 = new FineGrainedPolicyCriterionType();
+        policyCrtiterion1.setDocumentTypeCode(ceTypeCd1);
+        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
+        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion1);
+        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), true);
+        context.assertIsSatisfied();
+    }
 }
+

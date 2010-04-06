@@ -1,11 +1,15 @@
 package gov.hhs.fha.nhinc.redaction;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPImpl;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,6 +78,55 @@ public class PatientConsentHelper
             log.error("Error retrieving patient preferences. Home community id (" + homeCommunityId + "), repository id (" + repositoryId + "), document id (" + documentId + ") Error: " + t.getMessage(), t);
         }
         return response;
+    }
+
+    /**
+     * This method will extract the document type from Patient Preferences and compare with the one in document
+     * response, if the document type present and matches then returns true otherwise it is considered as false (Deny).
+     * @param documentType
+     * @param ptPreferences
+     * @return boolean
+     */
+    public boolean extractDocTypeFromPatPref(String documentType, PatientPreferencesType ptPreferences)
+    {
+        log.debug("Begin extract DocumentType value from fine grained policy criterian");
+        boolean bPtDocTypeCd = false;
+        FineGrainedPolicyCriteriaType findGrainedPolicy = null;
+        if(documentType == null || documentType.equals(""))
+        {
+            log.error("Invalid documentType");
+            return bPtDocTypeCd;
+        }
+        if(ptPreferences.getFineGrainedPolicyCriteria() == null)
+        {
+            log.error("Error retrieving Fine Grained Policy Criteria");
+            return bPtDocTypeCd;
+        }
+        findGrainedPolicy = ptPreferences.getFineGrainedPolicyCriteria();
+        if(findGrainedPolicy == null ||
+                findGrainedPolicy.getFineGrainedPolicyCriterion() == null ||
+                findGrainedPolicy.getFineGrainedPolicyCriterion().size() <= 0)
+        {
+            log.error("Error retrieving Fine Grained Policy Criteria");
+            return bPtDocTypeCd;
+        }
+        String sPtDocTypeCd = null;
+        for(FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy.getFineGrainedPolicyCriterion())
+        {
+            if(null != eachFineGrainedPolicyCriterion &&
+                    eachFineGrainedPolicyCriterion.getDocumentTypeCode()!=null)
+            {
+                sPtDocTypeCd = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
+                if(sPtDocTypeCd != null &&
+                        !sPtDocTypeCd.equals("") &&
+                        sPtDocTypeCd.equals(documentType))
+                {
+                    bPtDocTypeCd = true;
+                }
+            }
+        }
+        log.debug("End extract DocumentType value from fine grained policy criterian");
+        return bPtDocTypeCd;
     }
 
     protected AdapterPIPImpl getAdapterPIP()
