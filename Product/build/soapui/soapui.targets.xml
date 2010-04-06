@@ -19,9 +19,15 @@
     <if>
       <istrue value="${soapui.hasTests}" />
       <then>
-		<call target="-soapui.find.and.run.tests"/>
-      	<call target="-soapui.generate.report"/>
+        <call target="-soapui.find.and.run.tests"/>
+        <call target="-soapui.generate.report"/>
       </then>
+      <elseif>
+        <istrue value="${soapui.hasLoadTests}" />
+        <then>
+          <call target="-soapui.find.and.run.load.tests"/>
+        </then>
+      </elseif>
       <else>
         <echo message="The project ${project.name} is not marked as having soapui tests: property soapui.hasTests=${soapui.hasTests}." />
       </else>
@@ -30,7 +36,7 @@
 
   <target name="-soapui.find.and.run.tests">
     <delete dir="${soapui.report.dir}" />
-  	<mkdir dir="${soapui.report.dir}"/>
+    <mkdir dir="${soapui.report.dir}"/>
     <for param="soapui.project.file.path">
       <path>
         <fileset dir="${project.dir}">
@@ -40,54 +46,81 @@
       <sequential>
 
         <var unset="true" name="soapui.project.name" />
-      	<basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
-      	<script language="javascript">
-			<![CDATA[
-				projectName = project.getProperty("soapui.project.name");
-      			
-      			projectName = projectName.replace("-soapui-project", "");
-      			
-				project.setProperty("soapui.project.name", projectName);
-				]]>
-		</script>
+        <basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
+        <script language="javascript">
+          <![CDATA[
+            projectName = project.getProperty("soapui.project.name");
+            projectName = projectName.replace("-soapui-project", "");
+            project.setProperty("soapui.project.name", projectName);
+        ]]>
+        </script>
 
         <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
           <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
-      	
-        <exec dir="${soapui.install.bin.directory.path}"  osfamily="unix" executable="bash">        	
-            <arg line='testrunner.sh -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
-        	
+
+        <exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">          
+          <arg line='testrunner.sh -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
-        
 
-       <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"/>
+        <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"/>
 
-		<replace
-			file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"
-			value="">
-			<replacefilter token="&lt;testsuites&gt;"/>
-			<replacefilter token="&lt;/testsuites&gt;"/>
-	    </replace>
-      	<delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
-		<delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
+        <replace
+      file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"
+      value="">
+          <replacefilter token="&lt;testsuites&gt;"/>
+          <replacefilter token="&lt;/testsuites&gt;"/>
+        </replace>
+        <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
+        <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
       </sequential>
     </for>
   </target>
-	
-	<target name="-soapui.generate.report">
-		<if>
-			<isfalse value="${called.from.main.build}" />
-			<then>
-				<junitreportplus reportfile="${soapui.report.dir}/SoapUITests.xml" testtype="soapui">
-					<xmlreports>
-						<fileset dir="${soapui.report.dir}">
-							<include name="**/TEST-*.xml" />
-						</fileset>
-					</xmlreports>
-				</junitreportplus>
-			</then>
-		</if>
-	</target>
 
+  <target name="-soapui.find.and.run.load.tests">
+    <delete dir="${soapui.report.dir}" />
+    <mkdir dir="${soapui.report.dir}"/>
+    <for param="soapui.project.file.path">
+      <path>
+        <fileset dir="${project.dir}">
+          <include name="**/${soapui.project.file.pattern}"/>
+        </fileset>
+      </path>
+      <sequential>
+
+        <var unset="true" name="soapui.project.name" />
+        <basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
+        <script language="javascript">
+          <![CDATA[
+            projectName = project.getProperty("soapui.project.name");
+            projectName = projectName.replace("-soapui-project", "");
+            project.setProperty("soapui.project.name", projectName);
+        ]]>
+        </script>
+
+        <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
+          <arg line='/c loadtestrunner.bat -r -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
+        </exec>
+
+        <exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">          
+          <arg line='loadtestrunner.sh -r -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
+        </exec>
+      </sequential>
+    </for>
+  </target>
+  
+  <target name="-soapui.generate.report">
+    <if>
+      <isfalse value="${called.from.main.build}" />
+      <then>
+        <junitreportplus reportfile="${soapui.report.dir}/SoapUITests.xml" testtype="soapui">
+          <xmlreports>
+            <fileset dir="${soapui.report.dir}">
+              <include name="**/TEST-*.xml" />
+            </fileset>
+          </xmlreports>
+        </junitreportplus>
+      </then>
+    </if>
+  </target>
 </project>
