@@ -29,7 +29,7 @@
         </then>
       </elseif>
       <else>
-        <echo message="The project ${project.name} is not marked as having soapui tests: property soapui.hasTests=${soapui.hasTests}." />
+        <echo message="The project ${project.name} is not marked as having soapUI tests: property soapui.hasTests=${soapui.hasTests} or soapui.hasLoadTests=${soapui.hasLoadTests}." />
       </else>
     </if>
   </target>
