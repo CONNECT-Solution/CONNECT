@@ -91,7 +91,7 @@
         <isset property="unittest.failure"/>
         <then>
           <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/unit-test-reports/unittest.check.failure"/>
-          <echo file="${unittest.report.dir}/test.flag" append="false" message="failed"/>
+          <echo file="${reportdir}/test.flag" append="false" message="failed"/>
           <if>
             <isfalse value="@{genreport}" />
             <then>
@@ -100,7 +100,7 @@
           </if>
         </then>
         <else>
-          <echo file="${unittest.report.dir}/test.flag" append="false" message="passed"/>
+            <echo file="${reportdir}/test.flag" append="false" message="passed"/>
         </else>
       </if>
     </sequential>

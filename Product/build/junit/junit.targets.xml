@@ -71,7 +71,7 @@
 		<if>
 			<istrue value="${integrationtest.hasTests}" />
 			<then>
-				<junitrun reportfile="${project.dir}/integration-test-reports/IntegrationTests.xml" testtype="integration" verbose="${debug}">
+				<junitrun reportfile="${integrationtest.report.dir}/IntegrationTests.xml" testtype="integration" verbose="${debug}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
