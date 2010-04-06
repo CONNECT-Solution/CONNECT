@@ -47,6 +47,7 @@
           <do/>
         </sequential>
       </outofdate>
+      <echo file="${unittest.report.dir}/test.flag" append="false"/>
     </sequential>
   </macrodef>
 
