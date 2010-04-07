@@ -29,7 +29,7 @@
 
     <wsdl:message name="ProcessPatientDiscoveryAsyncReqRequestMessage">
         <wsdl:part name="ProcessPatientDiscoveryAsyncReqAsyncRequest"
-               element="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
+               element="hl7:RespondingGateway_PRPA_IN201305UV02SecuredRequest"/>
     </wsdl:message>
     <wsdl:message name="ProcessPatientDiscoveryAsyncReqResponseMessage">
         <wsdl:part name="ProcessPatientDiscoveryAsyncReqAsyncResponse"
