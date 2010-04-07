@@ -44,6 +44,16 @@ public class RedactionEngineTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
+                }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
             };
             Log log = redactionEngine.createLogger();
             assertNotNull("Log was null", log);
@@ -73,6 +83,11 @@ public class RedactionEngineTest
                 {
                     return mockDocQueryResponseProcessor;
                 }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
             };
             DocQueryResponseProcessor processor = redactionEngine.getDocQueryResponseProcessor();
             assertNotNull("DocQueryResponseProcessor was null", processor);
@@ -96,6 +111,11 @@ public class RedactionEngineTest
                 protected Log createLogger()
                 {
                     return mockLog;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
                 }
                 @Override
                 protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
@@ -133,6 +153,11 @@ public class RedactionEngineTest
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor()
                 {
                     return mockDocQueryResponseProcessor;
+                }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
                 }
             };
             context.checking(new Expectations()
@@ -175,6 +200,11 @@ public class RedactionEngineTest
                 {
                     return mockDocQueryResponseProcessor;
                 }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
             };
             context.checking(new Expectations()
             {
@@ -215,6 +245,11 @@ public class RedactionEngineTest
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor()
                 {
                     return null;
+                }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
                 }
             };
             context.checking(new Expectations()
@@ -265,6 +300,11 @@ public class RedactionEngineTest
                     };
                     return processor;
                 }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
             };
             context.checking(new Expectations()
             {
@@ -300,6 +340,11 @@ public class RedactionEngineTest
                 protected Log createLogger()
                 {
                     return mockLog;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
                 }
                 @Override
                 protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
@@ -342,6 +387,11 @@ public class RedactionEngineTest
                 protected Log createLogger()
                 {
                     return mockLog;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
                 }
                 @Override
                 protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
@@ -389,6 +439,11 @@ public class RedactionEngineTest
                 protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
                 {
                     return null;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
                 }
             };
             context.checking(new Expectations()
@@ -439,6 +494,11 @@ public class RedactionEngineTest
                         }
                     };
                     return processor;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
                 }
             };
             context.checking(new Expectations()

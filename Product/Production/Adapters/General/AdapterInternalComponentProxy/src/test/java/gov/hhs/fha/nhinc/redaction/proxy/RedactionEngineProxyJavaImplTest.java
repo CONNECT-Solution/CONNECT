@@ -5,6 +5,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -27,13 +28,31 @@ public class RedactionEngineProxyJavaImplTest
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
+    final Log mockLog = context.mock(Log.class);
+    final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
+    final AdhocQueryRequest mockAdhocQueryRequest = context.mock(AdhocQueryRequest.class);
+    final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
+    final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
+    final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
 
     @Test
     public void testGetRedactionEngine()
     {
         try
         {
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl();
+            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected RedactionEngine getRedactionEngine()
+                {
+                    return mockRedactionEngine;
+                }
+            };
             RedactionEngine redactionEngine = javaProxy.getRedactionEngine();
             assertNotNull("RedactionEngine was null", redactionEngine);
         }
@@ -50,12 +69,13 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            final AdhocQueryRequest mockAdhocQueryRequest = context.mock(AdhocQueryRequest.class);
-            final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
-            final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
-
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
                 @Override
                 protected RedactionEngine getRedactionEngine()
                 {
@@ -65,6 +85,8 @@ public class RedactionEngineProxyJavaImplTest
             context.checking(new Expectations()
             {
                 {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterAdhocQueryResults(with(aNonNull(AdhocQueryRequest.class)), with(aNonNull(AdhocQueryResponse.class)));
                 }
             });
@@ -74,9 +96,9 @@ public class RedactionEngineProxyJavaImplTest
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            System.out.println("Error running testFilterAdhocQueryResultsHappy test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            fail("Error running testFilterAdhocQueryResultsHappy test: " + t.getMessage());
         }
     }
 
@@ -85,12 +107,16 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            final AdhocQueryRequest mockAdhocQueryRequest = null;
-            final AdhocQueryResponse mockAdhocQueryResponse = null;
-            final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
+            final AdhocQueryRequest adhocQueryRequest = null;
+            final AdhocQueryResponse adhocQueryResponse = null;
 
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
                 @Override
                 protected RedactionEngine getRedactionEngine()
                 {
@@ -100,18 +126,59 @@ public class RedactionEngineProxyJavaImplTest
             context.checking(new Expectations()
             {
                 {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterAdhocQueryResults(with(aNull(AdhocQueryRequest.class)), with(aNull(AdhocQueryResponse.class)));
                 }
             });
 
-            AdhocQueryResponse response = javaProxy.filterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse);
+            AdhocQueryResponse response = javaProxy.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
             assertNotNull("AdhocQueryResponse should not be null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            System.out.println("Error running testFilterAdhocQueryResultsNullInputs test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            fail("Error running testFilterAdhocQueryResultsNullInputs test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFilterAdhocQueryResultsNullRedactionEngine()
+    {
+        try
+        {
+
+            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected RedactionEngine getRedactionEngine()
+                {
+                    return null;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
+                }
+            });
+
+            AdhocQueryResponse response = javaProxy.filterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse);
+            assertNull("AdhocQueryResponse should be null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testFilterAdhocQueryResultsNullRedactionEngine test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testFilterAdhocQueryResultsNullRedactionEngine test: " + t.getMessage());
         }
     }
 
@@ -120,13 +187,15 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
-            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
-            final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
             String homeCommunityId = "1.1";
 
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
                 @Override
                 protected RedactionEngine getRedactionEngine()
                 {
@@ -136,6 +205,8 @@ public class RedactionEngineProxyJavaImplTest
             context.checking(new Expectations()
             {
                 {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(String.class)), with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
@@ -145,9 +216,9 @@ public class RedactionEngineProxyJavaImplTest
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsHappy test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            fail("Error running testFilterRetrieveDocumentSetResultsHappy test: " + t.getMessage());
         }
     }
 
@@ -156,13 +227,17 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            final RetrieveDocumentSetRequestType mockRequest = null;
-            final RetrieveDocumentSetResponseType mockResponse = null;
-            final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
+            final RetrieveDocumentSetRequestType retrieveRequest = null;
+            final RetrieveDocumentSetResponseType retrieveResponse = null;
             String homeCommunityId = null;
 
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
                 @Override
                 protected RedactionEngine getRedactionEngine()
                 {
@@ -172,18 +247,60 @@ public class RedactionEngineProxyJavaImplTest
             context.checking(new Expectations()
             {
                 {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNull(String.class)), with(aNull(RetrieveDocumentSetRequestType.class)), with(aNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
 
-            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(homeCommunityId, retrieveRequest, retrieveResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsNullInputs test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            fail("Error running testFilterRetrieveDocumentSetResultsNullInputs test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFilterRetrieveDocumentSetResultsNullRedactionEngine()
+    {
+        try
+        {
+            String homeCommunityId = "1.1";
+
+            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected RedactionEngine getRedactionEngine()
+                {
+                    return null;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
+                }
+            });
+
+            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            assertNull("RetrieveDocumentSetResponseType should be null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsNullRedactionEngine test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testFilterRetrieveDocumentSetResultsNullRedactionEngine test: " + t.getMessage());
         }
     }
 
