@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
- <definitions 
+<definitions 
  xmlns="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -24,6 +24,7 @@
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>
     <import location="NhinXDRRequest.xml" namespace="urn:ihe:iti:xdr:async:request:2007"/>
     <import location="NhinXDRResponse.xml" namespace="urn:ihe:iti:xdr:async:response:2007"/>
-	<import location="AdapterXDRRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
-	<import location="AdapterXDRResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
+    <import location="AdapterXDRRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
+    <import location="AdapterXDRResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>
 </definitions>
