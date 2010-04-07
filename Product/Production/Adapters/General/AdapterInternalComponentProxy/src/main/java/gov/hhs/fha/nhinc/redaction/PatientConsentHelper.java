@@ -31,6 +31,11 @@ public class PatientConsentHelper
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    protected AdapterPIPImpl getAdapterPIP()
+    {
+        return new AdapterPIPImpl();
+    }
+
     public PatientPreferencesType retrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId)
     {
         PatientPreferencesType response = null;
@@ -89,17 +94,14 @@ public class PatientConsentHelper
      */
     public boolean extractDocTypeFromPatPref(String documentType, PatientPreferencesType ptPreferences)
     {
+        // TODO: Look at global opt-in/opt-out
+
         log.debug("Begin extract DocumentType value from fine grained policy criterian");
         boolean bPtDocTypeCd = false;
         FineGrainedPolicyCriteriaType findGrainedPolicy = null;
         if(documentType == null || documentType.equals(""))
         {
             log.error("Invalid documentType");
-            return bPtDocTypeCd;
-        }
-        if(ptPreferences.getFineGrainedPolicyCriteria() == null)
-        {
-            log.error("Error retrieving Fine Grained Policy Criteria");
             return bPtDocTypeCd;
         }
         findGrainedPolicy = ptPreferences.getFineGrainedPolicyCriteria();
@@ -122,6 +124,7 @@ public class PatientConsentHelper
                         sPtDocTypeCd.equals(documentType))
                 {
                     bPtDocTypeCd = true;
+                    break;
                 }
             }
         }
@@ -129,8 +132,4 @@ public class PatientConsentHelper
         return bPtDocTypeCd;
     }
 
-    protected AdapterPIPImpl getAdapterPIP()
-    {
-        return new AdapterPIPImpl();
-    }
 }

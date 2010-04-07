@@ -40,28 +40,24 @@ public class PatientConsentHelperTest
     final PatientConsentManager mockPatientConsentMgr = context.mock(PatientConsentManager.class);
 
     @Test
-    public void testGetAdapterPIP()
-    {
-        try
-        {
-            PatientConsentHelper patientConsentHelper = new PatientConsentHelper();
-            AdapterPIPImpl adapterPIP = patientConsentHelper.getAdapterPIP();
-            assertNotNull("AdapterPIPImpl was null", adapterPIP);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetAdapterPIP test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetAdapterPIP test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testCreateLogger()
     {
         try
         {
-            PatientConsentHelper patientConsentHelper = new PatientConsentHelper();
+            PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP()
+                {
+                    return mockPIP;
+                }
+            };
             Log log = patientConsentHelper.createLogger();
             assertNotNull("Log was null", log);
         }
@@ -70,6 +66,36 @@ public class PatientConsentHelperTest
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetAdapterPIP()
+    {
+        try
+        {
+            PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP()
+                {
+                    return mockPIP;
+                }
+            };
+            AdapterPIPImpl adapterPIP = patientConsentHelper.getAdapterPIP();
+            assertNotNull("AdapterPIPImpl was null", adapterPIP);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetAdapterPIP test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetAdapterPIP test: " + t.getMessage());
         }
     }
 
@@ -422,7 +448,7 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testExtractDocTypeFromPatPref()
+    public void testExtractDocTypeFromPatPrefHappy()
     {
         PatientConsentHelper testSubject = new PatientConsentHelper()
         {
@@ -430,6 +456,11 @@ public class PatientConsentHelperTest
                 protected Log createLogger()
                 {
                     return mockLog;
+                }
+                @Override
+                protected AdapterPIPImpl getAdapterPIP()
+                {
+                    return mockPIP;
                 }
         };
 
@@ -464,9 +495,12 @@ public class PatientConsentHelperTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected AdapterPIPImpl getAdapterPIP()
+                {
+                    return mockPIP;
+                }
         };
-
-
         context.checking(new Expectations(){{
             allowing(mockLog).debug(with(any(String.class)));
             allowing(mockLog).error("Invalid documentType");
@@ -500,5 +534,330 @@ public class PatientConsentHelperTest
         assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), true);
         context.assertIsSatisfied();
     }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefNullDocType()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error("Invalid documentType");
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref(null, ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefNullDocType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefNullDocType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefEmptyDocType()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error("Invalid documentType");
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref("", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefEmptyDocType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefEmptyDocType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefNullPolicyCriteria()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = null;
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefNullPolicyCriteria test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefNullPolicyCriteria test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefPolicyCriteriaEmpty()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefPolicyCriteriaEmpty test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefPolicyCriteriaEmpty test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefNullPolicyCriterion()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            FineGrainedPolicyCriterionType criterionType = null;
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefNullPolicyCriterion test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefNullPolicyCriterion test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefMissingPolicyCriterionDocType()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefMissingPolicyCriterionDocType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefMissingPolicyCriterionDocType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefNoMatch()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            assertEquals(testSubject.extractDocTypeFromPatPref("willnotexiest", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefNoMatch test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefNoMatch test: " + t.getMessage());
+        }
+    }
+
 }
 
