@@ -4911,7 +4911,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:endpoint>http://inttest1.agilexhealth.com:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="sample"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://172.16.50.38:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:endpoint>http://inttest1.agilexhealth.com:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:endpoint>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:endpoint>${#Project#Endpoint-NhinDocQueryProxy}</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="sample"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://172.16.50.38:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -5149,7 +5149,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:call><con:call name="empty"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:call><con:call name="empty"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://172.16.50.38:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -5584,14 +5584,21 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="DocQueryLoadTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocQueryLoadTestCase" searchProperties="true" id="2f13b1c0-d156-4c91-9df7-5598e811dafd"><con:settings/><con:testStep type="groovy" name="Generate patient ID for Doc Query"><con:settings/><con:config><script>//def localAA = context.findProperty('DQPatientAA')
-//def dqPatientID = context.findProperty('DQPatientID')
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="DocQueryLoadTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocQuery-ThreeDocuments" searchProperties="true" id="2f13b1c0-d156-4c91-9df7-5598e811dafd"><con:settings/><con:testStep type="groovy" name="Read properties"><con:settings/><con:config><script>log.info("loading properties");
 
-def localAA = '1.1.1'
-def dqPatientID = 'D123401'
+def testcase="ThreeDocuments";
 
+def localAA = context.findProperty("${testcase}.DQPatientAA")
+log.info("localAA=" + localAA);
+
+def dqPatientID = context.findProperty("${testcase}.DQPatientID")
+log.info("dqPatientID=" + dqPatientID);
+
+log.info("'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");
-</script></con:config></con:testStep><con:testStep type="request" name="send doc query message to proxy"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincProxyDocQueryBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:request name="send doc query message to proxy" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://inttest1.agilexhealth.com:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+
+context.testCase.setPropertyValue('ExpectedNumberOfDocuments',context.findProperty("${testcase}.ExpectedNumberOfDocuments"));
+</script></con:config></con:testStep><con:testStep type="request" name="send doc query message to proxy"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincProxyDocQueryBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:request name="send doc query message to proxy" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-NhinDocQueryProxy}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -5828,15 +5835,275 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:nhinTargetSystem>
-            <urn3:url>https://inttest1.agilexhealth.com:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</urn3:url>
-            <!--<urn3:homeCommunity>
-               <urn3:description>${#Project#LocalHCDescription}</urn3:description>
-               <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
-               <urn3:name>${#Project#LocalHCDescription}</urn3:name>
-            </urn3:homeCommunity>-->
+            <urn3:url>${#Project#Endpoint-NhinDocQuery}</urn3:url>
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" name="contains results"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-exists(//ns5:AdhocQueryResponse/ns2:RegistryObjectList/ns2:ExtrinsicObject)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="DocQueryLoadTest-1t x 20r"><con:settings/><con:threadCount>1</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>COUNT_PER_THREAD</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>0</testDelay><randomFactor>0.0</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder>C:\Projects\nhinc\Examples\trunk\Load Testing Sample\logs</con:statisticsLogFolder><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep><con:reportParameters/></con:loadTest><con:loadTest name="DocQueryLoadTest-2t x 20r"><con:settings/><con:threadCount>2</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>COUNT_PER_THREAD</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>0</testDelay><randomFactor>0.0</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder>C:\Projects\nhinc\Examples\trunk\Load Testing Sample\logs</con:statisticsLogFolder><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep><con:reportParameters/></con:loadTest><con:properties><con:property><con:name>FullPatientID</con:name><con:value>'D123401^^^&amp;amp;1.1.1&amp;amp;ISO'</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPatientAA</con:name><con:value>1.1.1</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+count(//ns5:AdhocQueryResponse/ns2:RegistryObjectList/ns2:ExtrinsicObject)</path><content>${#TestCase#ExpectedNumberOfDocuments}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration/></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="DocQuery-ThreeDocuments-1t x 20r"><con:settings/><con:threadCount>1</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>COUNT_PER_THREAD</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>0</testDelay><randomFactor>0.0</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder>C:\Projects\nhinc\Examples\trunk\Load Testing Sample\logs</con:statisticsLogFolder><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep><con:reportParameters/></con:loadTest><con:loadTest name="DocQuery-ThreeDocuments-2t x 20r"><con:settings/><con:threadCount>2</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>COUNT_PER_THREAD</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>0</testDelay><randomFactor>0.0</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder>C:\Projects\nhinc\Examples\trunk\Load Testing Sample\logs</con:statisticsLogFolder><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep><con:reportParameters/></con:loadTest><con:properties><con:property><con:name>FullPatientID</con:name><con:value>'D123401^^^&amp;amp;1.1.1&amp;amp;ISO'</con:value></con:property><con:property><con:name>ExpectedNumberOfDocuments</con:name><con:value>3</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocQuery-NoDocuments" searchProperties="true" id="af38b38e-8f31-4924-b7ff-7db1d3fd950f"><con:settings/><con:testStep type="groovy" name="Read properties"><con:settings/><con:config><script>log.info("loading properties");
+
+def testcase="NoDocuments";
+
+def localAA = context.findProperty("${testcase}.DQPatientAA")
+log.info("localAA=" + localAA);
+
+def dqPatientID = context.findProperty("${testcase}.DQPatientID")
+log.info("dqPatientID=" + dqPatientID);
+
+log.info("'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");
+context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");
+
+context.testCase.setPropertyValue('ExpectedNumberOfDocuments',context.findProperty("${testcase}.ExpectedNumberOfDocuments"));
+</script></con:config></con:testStep><con:testStep type="request" name="send doc query message to proxy"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincProxyDocQueryBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:request name="send doc query message to proxy" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-NhinDocQueryProxy}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:RespondingGateway_CrossGatewayQueryRequest>
+         <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
+            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="true"/>
+            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+               <urn2:Slot name="$XDSDocumentEntryStatus">
+                  <urn2:ValueList>
+                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryPatientId">
+                  <urn2:ValueList>
+                     <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+            </urn2:AdhocQuery>
+         </urn1:AdhocQueryRequest>
+         <urn:assertion>
+            <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:addressType>
+                  <urn3:code>AddrCode</urn3:code>
+                  <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>AddrCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>AddrCode</urn3:displayName>
+                  <urn3:originalText>AddrCode</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>AddrCity</urn3:city>
+               <urn3:country>AddrCountry</urn3:country>
+               <urn3:state>AddrState</urn3:state>
+               <urn3:streetAddress>AddrStreet</urn3:streetAddress>
+               <urn3:zipCode>AddrZip</urn3:zipCode>
+            </urn3:address>
+            <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
+            <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
+            <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
+            <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
+            <urn3:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveWitnessSignature>
+            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+               <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
+               <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+            </urn3:homeCommunity>
+            <urn3:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:familyName>Smith</urn3:familyName>
+               <urn3:givenName>Sandy</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>nameCode</urn3:code>
+                  <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>nameCode</urn3:displayName>
+                  <urn3:originalText>nameCode</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
+               <urn3:fullName>Sandy S. Smith</urn3:fullName>
+               <urn4:prefix>?</urn4:prefix>
+               <urn4:suffix>?</urn4:suffix>
+            </urn3:personName>
+            <urn3:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:areaCode>321</urn3:areaCode>
+               <urn3:countryCode>1</urn3:countryCode>
+               <urn3:extension>5436</urn3:extension>
+               <urn3:localNumber>253-6849</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>phoneCode</urn3:code>
+                  <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>phoneCode</urn3:displayName>
+                  <urn3:originalText>phoneCode</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:phoneNumber>
+            <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:addressType>
+                  <urn3:code>AddrCode</urn3:code>
+                  <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>AddrCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>AddrCode</urn3:displayName>
+                  <urn3:originalText>AddrCode</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>Addr2City</urn3:city>
+               <urn3:country>Addr2Country</urn3:country>
+               <urn3:state>Addr2State</urn3:state>
+               <urn3:streetAddress>Addr2Street</urn3:streetAddress>
+               <urn3:zipCode>Addr2Zip</urn3:zipCode>
+            </urn3:secondWitnessAddress>
+            <urn3:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:familyName>Smith</urn3:familyName>
+               <urn3:givenName>Sammy</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>nameCode</urn3:code>
+                  <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>nameCode</urn3:displayName>
+                  <urn3:originalText>nameCode</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>s</urn3:secondNameOrInitials>
+               <urn3:fullName>Sammy S. Smith</urn3:fullName>
+               <urn4:prefix>?</urn4:prefix>
+               <urn4:suffix>?</urn4:suffix>
+            </urn3:secondWitnessName>
+            <urn3:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:areaCode>321</urn3:areaCode>
+               <urn3:countryCode>1</urn3:countryCode>
+               <urn3:extension>5424</urn3:extension>
+               <urn3:localNumber>542-6823</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>phoneCode</urn3:code>
+                  <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>phoneCode</urn3:displayName>
+                  <urn3:originalText>phoneCode</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:secondWitnessPhone>
+            <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:addressType>
+                  <urn3:code>addrCode</urn3:code>
+                  <urn3:codeSystem>addrCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>addrCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>addrCode</urn3:displayName>
+                  <urn3:originalText>addrCode</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>Burnell</urn3:city>
+               <urn3:country>USA</urn3:country>
+               <urn3:state>FL</urn3:state>
+               <urn3:streetAddress>825 North</urn3:streetAddress>
+               <urn3:zipCode>32184</urn3:zipCode>
+            </urn3:witnessAddress>
+            <urn3:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:familyName>Smith</urn3:familyName>
+               <urn3:givenName>Scott</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>nameCode</urn3:code>
+                  <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>nameCode</urn3:displayName>
+                  <urn3:originalText>nameCode</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>S.</urn3:secondNameOrInitials>
+               <urn3:fullName>Scott S. Smith</urn3:fullName>
+               <urn4:prefix>?</urn4:prefix>
+               <urn4:suffix>?</urn4:suffix>
+            </urn3:witnessName>
+            <urn3:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:areaCode>321</urn3:areaCode>
+               <urn3:countryCode>1</urn3:countryCode>
+               <urn3:extension>8432</urn3:extension>
+               <urn3:localNumber>985-2239</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>phoneCode</urn3:code>
+                  <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>phoneCode</urn3:displayName>
+                  <urn3:originalText>phoneCode</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:witnessPhone>
+            <urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:personName>
+                  <urn3:familyName>Skagerberg</urn3:familyName>
+                  <urn3:givenName>Karl</urn3:givenName>
+                  <urn3:nameType>
+                     <urn3:code>nameCode</urn3:code>
+                     <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                     <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                     <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                     <urn3:displayName>nameCode</urn3:displayName>
+                     <urn3:originalText>nameCode</urn3:originalText>
+                  </urn3:nameType>
+                  <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
+                  <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
+                  <urn4:prefix>?</urn4:prefix>
+                  <urn4:suffix>?</urn4:suffix>
+               </urn3:personName>
+               <urn3:userName>kskagerb</urn3:userName>
+               <urn3:org>
+                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
+                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+               </urn3:org>
+               <urn3:roleCoded>
+                  <urn3:code>307969004</urn3:code>
+                  <urn3:codeSystem>2.16.840.1.113883.6.96</urn3:codeSystem>
+                  <urn3:codeSystemName>SNOMED_CT</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>Public Health</urn3:displayName>
+                  <urn3:originalText>Public Health</urn3:originalText>
+               </urn3:roleCoded>
+            </urn3:userInfo>
+            <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystem>2.16.840.1.113883.3.18.7.1</urn3:codeSystem>
+               <urn3:codeSystemName>nhin-purpose</urn3:codeSystemName>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>
+            <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
+               <urn3:sessionIndex>987</urn3:sessionIndex>
+               <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
+               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+            </urn3:samlAuthnStatement>
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:decision>Permit</urn3:decision>
+               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:action>TestSaml</urn3:action>
+               <urn3:evidence>
+                  <urn3:assertion>
+                     <urn3:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn3:id>
+                     <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
+                     <urn3:version>2.0</urn3:version>
+                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
+                     <urn3:conditions>
+                        <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
+                        <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
+                     </urn3:conditions>
+                     <urn3:accessConsentPolicy>Claim-Ref-1234</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>Claim-Instance-1</urn3:instanceAccessConsentPolicy>
+                  </urn3:assertion>
+               </urn3:evidence>
+            </urn3:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:nhinTargetSystem>
+            <urn3:url>${#Project#Endpoint-NhinDocQuery}</urn3:url>
+         </urn:nhinTargetSystem>
+      </urn:RespondingGateway_CrossGatewayQueryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" name="contains results"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns5:AdhocQueryResponse/ns2:RegistryObjectList/ns2:ExtrinsicObject)</path><content>${#TestCase#ExpectedNumberOfDocuments}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration/></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RespondingGateway_CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="DocQuery-NoDocuments-1t x 20r"><con:settings/><con:threadCount>1</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>COUNT_PER_THREAD</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>0</testDelay><randomFactor>0.0</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder>C:\Projects\nhinc\Examples\trunk\Load Testing Sample\logs</con:statisticsLogFolder><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep><con:reportParameters/></con:loadTest><con:loadTest name="DocQuery-NoDocuments-2t x 20r"><con:settings/><con:threadCount>2</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>COUNT_PER_THREAD</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>0</testDelay><randomFactor>0.0</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder>C:\Projects\nhinc\Examples\trunk\Load Testing Sample\logs</con:statisticsLogFolder><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep><con:reportParameters/></con:loadTest><con:properties><con:property><con:name>FullPatientID</con:name><con:value>'XXX^^^&amp;amp;1.1.1&amp;amp;ISO'</con:value></con:property><con:property><con:name>ExpectedNumberOfDocuments</con:name><con:value>3</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPatientAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>Endpoint-NhinDocQueryProxy</con:name><con:value>http://172.16.50.38:8080/CONNECTAdapter/NhincProxyDocQuery</con:value></con:property><con:property><con:name>Endpoint-NhinDocQuery</con:name><con:value>https://172.16.50.38:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</con:value></con:property><con:property><con:name>NoDocuments.DQPatientAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>NoDocuments.DQPatientID</con:name><con:value>XXX</con:value></con:property><con:property><con:name>ThreeDocuments.DQPatientAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>ThreeDocuments.DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NoDocuments.ExpectedNumberOfDocuments</con:name><con:value>0</con:value></con:property><con:property><con:name>ThreeDocuments.ExpectedNumberOfDocuments</con:name><con:value>3</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'LoadTestWithLightWeightAdapterComponents.properties')
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileReader(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
