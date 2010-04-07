@@ -9,8 +9,8 @@
 	           <name>US-FL</name>
 	        </state>
         </states>
-        <services>
-             <service>
+        <services>            
+            <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
@@ -19,22 +19,22 @@
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
-            </service>         
+            </service>                 
+             <service>
+                <name>serviceXDR</name>
+                <description>NHIN XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
+            </service>
             <service>
                 <name>nhincproxyxdrsecured</name>
-                <description>NHINC Proxy XDR Secured</description>
+                <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
-            </service>          
-            <service>
-                <name>serviceXDR</name>
-                <description>NHIN XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
             </service>
 			<service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-            </service>			
+            </service>
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -143,6 +143,16 @@
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoverySecured</endpointURL>
             </service>
             <service>
+                <name>adapterpatientdiscoveryasyncreq</name>
+                <description>Adapter Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreq</name>
+                <description>Adapter Patient Discovery Async Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
@@ -274,7 +284,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
@@ -386,7 +396,17 @@
                 <description>NHINC ProxyAudit Query Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
-           <!-- Start: XDR Request and Response service definitions-->
+			<service>
+				<name>adapternotificationconsumer</name>
+				<description>Adapter HIEM Notify</description>
+				<endpointURL>http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
+			</service>
+			<service>
+				<name>adapternotificationconsumerpassthrough</name>
+				<description>Adapter HIEM Notify PassThrough</description>
+				<endpointURL>http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
+			</service>
+            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
             <service>
                 <name>adapterxdrrequestsecured</name>
@@ -460,7 +480,7 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
-      </services>
+		</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
         <homeCommunityId>2.2</homeCommunityId>
@@ -471,35 +491,35 @@
 	           <name>US-NY</name>
 	        </state>
 	        <state>
-	           <name>US-VA</name>
+	           <name>US-VA</name> 
 	        </state>
         </states>
         <services>
-            <service>
-                <name>adapterxdrsecured</name>
+             <service>
+                <name>adapterpxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
-            </service>                
+            </service>        
              <service>
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
-            </service>         
-            <service>
-                <name>nhincproxyxdrsecured</name>
-                <description>NHINC Proxy XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
             </service>          
             <service>
                 <name>serviceXDR</name>
-                <description>NHIN XDR Secured</description>
+                <description>NHIN XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
             </service>
-		    <service>
+            <service>
+                <name>nhincproxyxdrsecured</name>
+                <description>NHINC PROXY XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
+            </service>
+	        <service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-            </service>			
+            </service>
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -829,7 +849,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
@@ -841,6 +861,16 @@
                 <description>NHINC Proxy Patient Discovery Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
             </service>
+			<service>
+				<name>adapternotificationconsumer</name>
+				<description>Adapter HIEM Notify</description>
+				<endpointURL>http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
+			</service>
+			<service>
+				<name>adapternotificationconsumerpassthrough</name>
+				<description>Adapter HIEM Notify PassThrough</description>
+				<endpointURL>http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
+			</service>
            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
             <service>
@@ -915,7 +945,7 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
-        </services>
+	</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
         <homeCommunityId>3.3</homeCommunityId>
@@ -931,30 +961,20 @@
         </states>
         <services>
             <service>
-                <name>adapterxdrsecured</name>
-                <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
-            </service>                
-             <service>
-                <name>adapterxdr</name>
-                <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
-            </service>         
+                <name>serviceXDR</name>
+                <description>NHIN XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
+            </service>
             <service>
                 <name>nhincproxyxdrsecured</name>
-                <description>NHINC Proxy XDR Secured</description>
+                <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
-            </service>          
-            <service>
-                <name>serviceXDR</name>
-                <description>NHIN XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
             </service>
 			<service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-            </service>			
+            </service>
 	            <service>
 	                <name>subjectdiscovery</name>
 	                <description>subjectdiscovery</description>
@@ -1284,23 +1304,35 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
-	            <service>
-	                <name>nhincproxypatientdiscovery</name>
-	                <description>NHINC Proxy Patient Discovery</description>
-	                <endpointURL>http://localhost:8080/AdapterService/NhincProxyPatientDiscovery</endpointURL>
-	            </service>
-	            <service>
-	                <name>nhincproxypatientdiscoverysecured</name>
-	                <description>NHINC Proxy Patient Discovery Secured</description>
-	                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
-	            </service>
 			<service>
-				<name>xdrrequest</name>
-				<description>NHIN XDR Request</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequestService</endpointURL>
+				<name>nhincproxypatientdiscovery</name>
+				<description>NHINC Proxy Patient Discovery</description>
+				<endpointURL>http://localhost:8080/AdapterService/NhincProxyPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxypatientdiscoverysecured</name>
+				<description>NHINC Proxy Patient Discovery Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
+			</service>
+           <!-- Start: XDR Request and Response service definitions-->
+            <!-- XDR Request -->
+            <service>
+                <name>adapterxdrrequestsecured</name>
+                <description>Adapter Component XDR Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrrequest</name>
+                <description>Adapter Component XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrrequest</name>
+                <description>NHIN XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+            </service>
 			<service>
 				<name>nhincproxyxdrrequestsecured</name>
 				<description>NHIN Proxy XDR Request Secured</description>
@@ -1312,10 +1344,31 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
 			</service>
 			<service>
-				<name>xdrresponse</name>
-				<description>NHIN XDR Response</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponseService</endpointURL>
+				<name>entityxdrrequestsecured</name>
+				<description>Entity XDR Request Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRRequestSecured</endpointURL>
 			</service>
+			<service>
+				<name>entityxdrrequest</name>
+				<description>Entity XDR Request</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</endpointURL>
+			</service>
+            <!-- XDR Response -->
+            <service>
+                <name>adapterxdrresponsesecured</name>
+                <description>Adapter Component XDR Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrresponse</name>
+                <description>Adapter Component XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrresponse</name>
+                <description>NHIN XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
+            </service>
 			<service>
 				<name>nhincproxyxdrresponsesecured</name>
 				<description>NHIN Proxy XDR Response Secured</description>
@@ -1326,7 +1379,18 @@
 				<description>NHIN Proxy XDR Response</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
 			</service>
-        </services>
+			<service>
+				<name>entityxdrresponsesecured</name>
+				<description>Entity XDR Response Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>entityxdrresponse</name>
+				<description>Entity XDR Response</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
+			</service>
+            <!--End: XDR Request and Response service definitions -->
+		</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
         <homeCommunityId>1.19.6.24.109.42.1.3</homeCommunityId>

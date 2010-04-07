@@ -143,6 +143,16 @@
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoverySecured</endpointURL>
             </service>
             <service>
+                <name>adapterpatientdiscoveryasyncreq</name>
+                <description>Adapter Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreq</name>
+                <description>Adapter Patient Discovery Async Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
