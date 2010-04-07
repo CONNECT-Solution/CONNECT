@@ -172,6 +172,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterPatientDiscoveryAsyncReqSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncReqSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>
     </servlet>

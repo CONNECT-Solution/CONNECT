@@ -1177,6 +1177,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterPatientDiscoveryAsyncReqSecured">
+      <implementation-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterPatientDiscoveryAsyncReqSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoverySecuredAsyncReq</service-name>
+      <port-name>AdapterPatientDiscoverySecuredAsyncReqPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients>
     <client name="EntityAuditLogQuerySecured">
