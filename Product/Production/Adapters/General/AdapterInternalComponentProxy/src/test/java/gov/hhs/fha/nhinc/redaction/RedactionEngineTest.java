@@ -5,6 +5,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
+import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -28,6 +29,8 @@ public class RedactionEngineTest
     };
 
     final Log mockLog = context.mock(Log.class);
+    final DocQueryResponseProcessor mockDocQueryResponseProcessor = context.mock(DocQueryResponseProcessor.class);
+    final DocRetrieveResponseProcessor mockDocRetrieveResponseProcessor = context.mock(DocRetrieveResponseProcessor.class);
 
     @Test
     public void testGetLogger()
@@ -54,6 +57,64 @@ public class RedactionEngineTest
     }
 
     @Test
+    public void testGetDocQueryResponseProcessor()
+    {
+        try
+        {
+            RedactionEngine redactionEngine = new RedactionEngine()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
+                }
+            };
+            DocQueryResponseProcessor processor = redactionEngine.getDocQueryResponseProcessor();
+            assertNotNull("DocQueryResponseProcessor was null", processor);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetDocQueryResponseProcessor test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetDocQueryResponseProcessor test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetDocRetrieveResponseProcessor()
+    {
+        try
+        {
+            RedactionEngine redactionEngine = new RedactionEngine()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
+            };
+            DocRetrieveResponseProcessor processor = redactionEngine.getDocRetrieveResponseProcessor();
+            assertNotNull("DocRetrieveResponseProcessor was null", processor);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetDocRetrieveResponseProcessor test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetDocRetrieveResponseProcessor test: " + t.getMessage());
+        }
+    }
+
+    @Test
     public void testFilterAdhocQueryResultsHappy()
     {
         try
@@ -68,16 +129,29 @@ public class RedactionEngineTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
+                }
             };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockDocQueryResponseProcessor).filterAdhocQueryResults(with(aNonNull(AdhocQueryRequest.class)), with(aNonNull(AdhocQueryResponse.class)));
+                }
+            });
 
             AdhocQueryResponse response = redactionEngine.filterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse);
-            assertNull("AdhocQueryResponse should be null", response);
+            assertNotNull("AdhocQueryResponse should not be null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            System.out.println("Error running testFilterAdhocQueryResultsHappy test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            fail("Error running testFilterAdhocQueryResultsHappy test: " + t.getMessage());
         }
     }
 
@@ -96,16 +170,118 @@ public class RedactionEngineTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return mockDocQueryResponseProcessor;
+                }
             };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockDocQueryResponseProcessor).filterAdhocQueryResults(with(aNull(AdhocQueryRequest.class)), with(aNull(AdhocQueryResponse.class)));
+                }
+            });
+
+            AdhocQueryResponse response = redactionEngine.filterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse);
+            assertNotNull("AdhocQueryResponse should not be null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testFilterAdhocQueryResultsNullInputs test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testFilterAdhocQueryResultsNullInputs test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFilterAdhocQueryResultsNullProcessor()
+    {
+        try
+        {
+            final AdhocQueryRequest mockAdhocQueryRequest = context.mock(AdhocQueryRequest.class);
+            final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
+
+            RedactionEngine redactionEngine = new RedactionEngine()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    return null;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
+                }
+            });
 
             AdhocQueryResponse response = redactionEngine.filterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse);
             assertNull("AdhocQueryResponse should be null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            System.out.println("Error running testFilterAdhocQueryResultsNullProcessor test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterAdhocQueryResults test: " + t.getMessage());
+            fail("Error running testFilterAdhocQueryResultsNullProcessor test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFilterAdhocQueryResultsNullResponse()
+    {
+        try
+        {
+            final AdhocQueryRequest mockAdhocQueryRequest = context.mock(AdhocQueryRequest.class);
+            final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
+
+            RedactionEngine redactionEngine = new RedactionEngine()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+                {
+                    DocQueryResponseProcessor processor = new DocQueryResponseProcessor()
+                    {
+                        @Override
+                        public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
+                        {
+                            return null;
+                        }
+                    };
+                    return processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            AdhocQueryResponse response = redactionEngine.filterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse);
+            assertNull("AdhocQueryResponse should be null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testFilterAdhocQueryResultsNullResponse test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testFilterAdhocQueryResultsNullResponse test: " + t.getMessage());
         }
     }
 
@@ -125,16 +301,29 @@ public class RedactionEngineTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
             };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockDocRetrieveResponseProcessor).filterRetrieveDocumentSetReults(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
+                }
+            });
 
             RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
-            assertNull("RetrieveDocumentSetResponseType should be null", response);
+            assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsHappy test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            fail("Error running testFilterRetrieveDocumentSetResultsHappy test: " + t.getMessage());
         }
     }
 
@@ -154,16 +343,120 @@ public class RedactionEngineTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return mockDocRetrieveResponseProcessor;
+                }
             };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockDocRetrieveResponseProcessor).filterRetrieveDocumentSetReults(with(aNull(RetrieveDocumentSetRequestType.class)), with(aNull(RetrieveDocumentSetResponseType.class)));
+                }
+            });
+
+            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsNullInputs test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testFilterRetrieveDocumentSetResultsNullInputs test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFilterRetrieveDocumentSetResultsNullProcessor()
+    {
+        try
+        {
+            final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
+            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
+            String homeCommunityId = "1.1";
+
+            RedactionEngine redactionEngine = new RedactionEngine()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    return null;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).warn(with(any(String.class)));
+                }
+            });
 
             RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsNullProcessor test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testFilterRetrieveDocumentSetResults test: " + t.getMessage());
+            fail("Error running testFilterRetrieveDocumentSetResultsNullProcessor test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFilterRetrieveDocumentSetResultsNullResponse()
+    {
+        try
+        {
+            final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
+            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
+            String homeCommunityId = "1.1";
+
+            RedactionEngine redactionEngine = new RedactionEngine()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+                {
+                    DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor()
+                    {
+                        @Override
+                        public RetrieveDocumentSetResponseType filterRetrieveDocumentSetReults(RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse)
+                        {
+                            return null;
+                        }
+                    };
+                    return processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).isDebugEnabled();
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            assertNull("RetrieveDocumentSetResponseType should be null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testFilterRetrieveDocumentSetResultsNullResponse test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testFilterRetrieveDocumentSetResultsNullResponse test: " + t.getMessage());
         }
     }
 

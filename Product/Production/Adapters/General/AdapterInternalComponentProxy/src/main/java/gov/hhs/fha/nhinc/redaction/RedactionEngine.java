@@ -23,20 +23,49 @@ public class RedactionEngine
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());
-        //return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+    {
+        return new DocQueryResponseProcessor();
+    }
+
+    protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+    {
+        return new DocRetrieveResponseProcessor();
     }
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
     {
+        log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
-
+        DocQueryResponseProcessor processor = getDocQueryResponseProcessor();
+        if(processor != null)
+        {
+            response = processor.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
+        }
+        else
+        {
+            log.warn("DocQueryResponseProcessor was null.");
+        }
+        log.debug("End filterAdhocQueryResults");
         return response;
     }
 
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(String homeCommunityId, RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
     {
+        log.debug("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
-
+        DocRetrieveResponseProcessor processor = getDocRetrieveResponseProcessor();
+        if(processor != null)
+        {
+            return processor.filterRetrieveDocumentSetReults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
+        }
+        else
+        {
+            log.warn("DocRetrieveResponseProcessor was null.");
+        }
+        log.debug("End filterRetrieveDocumentSetResults");
         return response;
     }
 }
