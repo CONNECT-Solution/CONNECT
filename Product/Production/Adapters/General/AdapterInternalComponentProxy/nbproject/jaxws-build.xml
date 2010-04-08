@@ -113,5 +113,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngineOrchestrator"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyengineorchestrator"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AdapterAuthentication, wsimport-client-AdapterComponentDocRegistry, wsimport-client-AdapterComponentDocRepository, wsimport-client-AdapterPEP, wsimport-client-AdapterPIP, wsimport-client-AdapterPolicyEngineOrchestrator"/>
+    <target name="wsimport-client-AdapterComponentRedactionEngine" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentRedactionEngine"/>
+        <property name="wsdl-AdapterComponentRedactionEngine" location="xml-resources/web-service-references/AdapterComponentRedactionEngine/wsdl/AdapterComponentRedactionEngine.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentRedactionEngine" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentRedactionEngine" wsdl="${wsdl-AdapterComponentRedactionEngine}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentRedactionEngine.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterComponentRedactionEngine}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterComponentRedactionEngine"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterComponentRedactionEngine">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdapterComponentRedactionEngine" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterComponentRedactionEngine"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptercomponentredaction"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-AdapterAuthentication, wsimport-client-AdapterComponentDocRegistry, wsimport-client-AdapterComponentDocRepository, wsimport-client-AdapterPEP, wsimport-client-AdapterPIP, wsimport-client-AdapterPolicyEngineOrchestrator, wsimport-client-AdapterComponentRedactionEngine"/>
 </project>

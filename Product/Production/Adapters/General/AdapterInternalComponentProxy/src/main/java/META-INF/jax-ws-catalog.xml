@@ -25,7 +25,9 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPEP.wsdl" uri="wsdl/AdapterPEP.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl" uri="wsdl/AdapterPIP.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl" uri="wsdl/AdapterPolicyEngineOrchestrator.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentRedactionEngine.wsdl" uri="wsdl/AdapterComponentRedactionEngine.wsdl"/>
 </catalog>
+
 
 
 

@@ -36,6 +36,35 @@ public class RedactionEngineProxyJavaImplTest
     final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
 
     @Test
+    public void testCreateLogger()
+    {
+        try
+        {
+            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected RedactionEngine getRedactionEngine()
+                {
+                    return mockRedactionEngine;
+                }
+            };
+            Log log = javaProxy.createLogger();
+            assertNotNull("Log was null", log);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testCreateLogger test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testCreateLogger test: " + t.getMessage());
+        }
+    }
+
+    @Test
     public void testGetRedactionEngine()
     {
         try
