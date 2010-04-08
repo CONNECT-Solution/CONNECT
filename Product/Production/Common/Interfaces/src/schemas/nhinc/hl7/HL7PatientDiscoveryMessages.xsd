@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="urn:hl7-org:v3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified">
 	<!-- =========================================================================
         This schema is a helper schema.  It is required because XML Schemas
@@ -70,6 +70,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201304UVSecuredRequest" type="PIXConsumer_PRPA_IN201304UVSecuredRequestType"/>
+
 	<xsd:complexType name="RespondingGateway_PRPA_IN201305UV02RequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201305UV02"/>
@@ -85,6 +86,23 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_PRPA_IN201305UV02SecuredRequest" type="RespondingGateway_PRPA_IN201305UV02SecuredRequestType"/>
+        
+        <xsd:complexType name="RespondingGateway_PRPA_IN201306UV02RequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201306UV02"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_PRPA_IN201306UV02Request" type="RespondingGateway_PRPA_IN201306UV02RequestType"/>
+	<xsd:complexType name="RespondingGateway_PRPA_IN201306UV02SecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201306UV02"/>
+			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_PRPA_IN201306UV02SecuredRequest" type="RespondingGateway_PRPA_IN201306UV02SecuredRequestType"/>
+
 	<xsd:complexType name="RespondingGateway_PRPA_IN201306UV02ResponseType">
 			<xsd:sequence>
 			<xsd:element name="communityResponse" type="Community_PRPA_IN201306UV02ResponseType" maxOccurs="unbounded"/>
@@ -97,6 +115,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_PRPA_IN201306UV02Response" type="RespondingGateway_PRPA_IN201306UV02ResponseType"/>
+
 	<xsd:complexType name="PIXConsumer_PRPA_IN201309UVRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201309UV02"/>
@@ -118,6 +137,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201309UVResponse" type="PIXConsumer_PRPA_IN201309UVResponseType"/>
+
 	<xsd:complexType name="PIXConsumer_PRPA_IN201310UVRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201310UV02"/>
@@ -131,6 +151,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201310UVSecuredRequest" type="PIXConsumer_PRPA_IN201310UVSecuredRequestType"/>
+        
 	<xsd:complexType name="CreateAckMsgRequestType">
 		<xsd:sequence>
 			<xsd:element name="localDeviceId" type="xsd:string"/>
