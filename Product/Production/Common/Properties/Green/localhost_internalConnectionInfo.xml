@@ -78,6 +78,11 @@
 			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
 			</service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -151,6 +156,11 @@
 				<description>Adapter Document Query</description>
 			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
+			</service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>

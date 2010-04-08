@@ -116,6 +116,9 @@ public class NhincConstants {
     public static final String POLICYENGINE_OUTBOUND_DIRECTION = "Outbound";
     public static final String POLICY_PERMIT = "Permit";
 
+    // Redaction Engine Constants
+    public static final String REDACTION_ENGINE_SERVICE_NAME = "adapterredactionengine";
+
     // HIEM - NHIN interface
     public static final String HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME = "subscriptionmanager";
     public static final String HIEM_SUBSCRIBE_SERVICE_NAME = "notificationproducer";

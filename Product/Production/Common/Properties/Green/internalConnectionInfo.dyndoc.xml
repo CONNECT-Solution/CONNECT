@@ -394,6 +394,11 @@
 				<description>Adapter Document Manager</description>
 				<endpointURL>http://localhost:8080/DocumentManager_Service/DocumentManagerService</endpointURL>
             </service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
                 
       </services>
     </internalConnectionInfo>
@@ -784,6 +789,11 @@
 				<description>Adapter Document Manager</description>
 				<endpointURL>http://localhost:8080/DocumentManager_Service/DocumentManagerService</endpointURL>
             </service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
             
         </services>
     </internalConnectionInfo>
@@ -1156,6 +1166,11 @@
 	                <description>NHINC Proxy Patient Discovery Secured</description>
 	                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
 	            </service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>

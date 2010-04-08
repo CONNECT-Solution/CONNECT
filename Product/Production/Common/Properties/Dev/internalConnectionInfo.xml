@@ -490,6 +490,11 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
 		</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -985,6 +990,11 @@
                 <description>Adapter Patient Discovery Async Response Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
             </service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
 	</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -1430,6 +1440,11 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
 		</services>
     </internalConnectionInfo>
     <internalConnectionInfo>

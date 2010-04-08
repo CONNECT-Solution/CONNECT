@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsReque
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -22,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RedactionEngineProxyWebImpl implements RedactionEngineProxy
 {
-    private static String ADAPTER_REDACTION_ENGINE_SERVICE_NAME = "adapterredactionengine";
     private Log log = null;
     private static AdapterComponentRedactionEngineService redactionService = null;
 
@@ -44,14 +44,15 @@ public class RedactionEngineProxyWebImpl implements RedactionEngineProxy
     protected String getEndpointURL()
     {
         String endpointURL = null;
+        String serviceName = NhincConstants.REDACTION_ENGINE_SERVICE_NAME;
         try
         {
-            endpointURL = invokeConnectionManager(ADAPTER_REDACTION_ENGINE_SERVICE_NAME);
-            log.debug("Retrieved endpoint URL for service " + ADAPTER_REDACTION_ENGINE_SERVICE_NAME + ": " + endpointURL);
+            endpointURL = invokeConnectionManager(serviceName);
+            log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
         }
         catch (ConnectionManagerException ex)
         {
-            log.error("Error getting url for " + ADAPTER_REDACTION_ENGINE_SERVICE_NAME + " from the connection manager. Error: " + ex.getMessage(), ex);
+            log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
         }
 
         return endpointURL;

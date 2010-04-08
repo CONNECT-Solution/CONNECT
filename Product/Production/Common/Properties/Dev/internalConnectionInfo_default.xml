@@ -395,6 +395,11 @@
 				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -792,6 +797,11 @@
 				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -863,6 +873,11 @@
 				<name>xdrresponse</name>
 				<description>NHIN XDR Response</description>
 				<endpointURL>https://<Gateway-IP>:8181/CONNECTGatewayTest/NhinService/XDRResponseServiceTestHelper</endpointURL>
+			</service>
+			<service>
+				<name>adapterredactionengine</name>
+				<description>Adapter component redaction engine</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
         </services>
     </internalConnectionInfo>

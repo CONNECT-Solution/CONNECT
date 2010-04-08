@@ -407,6 +407,15 @@
         <url-pattern>/EntityProxyService/EntityXDRResponse</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdapterComponentRedactionEngine</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEngine</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentRedactionEngine</servlet-name>
+        <url-pattern>/AdapterComponentRedactionService</url-pattern>
+    </servlet-mapping>
+
     <!-- End: XDR Request and Response services-->
     
     <security-constraint>

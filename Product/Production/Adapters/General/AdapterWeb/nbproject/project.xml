@@ -45,11 +45,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.AdapterInternalComponentProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.bsh-core-2.0b4.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.bsh-core-2.0b4.jar}</file>
+                    <file>${file.reference.AdapterInternalComponentProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.cglib-2.1_3-src.jar}</file>
@@ -100,5 +100,9 @@
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
+        <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
+            <config-files/>
+            <config-file-groups/>
+        </spring-data>
     </configuration>
 </project>
