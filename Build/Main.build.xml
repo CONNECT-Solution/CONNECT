@@ -435,14 +435,32 @@
     </trycatch>
   </target>
   
-  <target name="PerformanceTest" depends="SetUps" >
+  <target name="SoapUI.Performance" depends="SetUps" >
     <trycatch>
       <try>
-        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
+        <call target="SourceModificationReport.ConsolidateReports" />
 
-        <call target="TargetProcess.Get.Release.Report"/>
-        <property name="SoapUI.Suite" value="PerformanceSuite" />
-        <call target="SoapUI.RunTests"/>
+        <call target="TargetProcess.CreateReport" />
+        <call target="TargetProcess.Get.Release.Report" failonerror="False" />
+
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
+
+        <property name="SoapUI.Tests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="PerformanceSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
+            <property name="SoapUI.Tests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <if test="${SoapUI.Tests.HaveFailed}">
+          <fail message="${SoapUI.Tests.Exception.Message}"/>
+        </if>
       </try>
       <finally>
         <call target="TearDowns" />

@@ -2,7 +2,6 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI">
 
   <target name="SoapUI.RunTests">
-    <!--SoapUI.Suite-->
     <trycatch>
       <try>
         <ant
@@ -28,7 +27,7 @@
     <echo message="${SoapUI.TestReport.Path}" />
 
     <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\${SoapUI.TestReport.Suite.Name}"/>
-    
+
 
     <copy
       file="${SoapUI.TestReport.Path}"
@@ -61,7 +60,7 @@
 
     <call target="Common.ShowReport"/>
   </target>
- 
+
   <target name="SoapUI.SetUp">
     <delete dir="${SoapUI.Report.Directory.Path}" if="${directory::exists(SoapUI.Report.Directory.Path)}"/>
     <mkdir dir="${SoapUI.Report.Directory.Path}"/>
@@ -112,61 +111,39 @@
 
   </target>
 
-  <target name="SoapUI.Performance.Test.Run">
-    <copy
-      file="${SoapUI.Property.File.Path}"
-      tofile="${SoapUI.Root.Directory.Path}\default.properties"
-      overwrite="true"
-    />
-
+  <target name="SoapUI.Performance.RunTests">
     <trycatch>
       <try>
         <ant
-          target="soapui.performance.run"
-          buildfile="${Package.SoapUI.Directory.Path}\SoapUI.Ant.Targets.xml"
-          logfile="${Ant.Log.Directory.Path}\soapui_log.xml"
+          target="soapui.run"
+          buildfile="${SoapUI.Suites.Directory.Path}\${SoapUI.Suite}\build.xml"
+          logfile="${Ant.Log.Directory.Path}\soapui_${SoapUI.Suite}_log.xml"
         >
-          <environment refid="SoapUI.EnvironmentVariables.RefId"/>
-          <args/>
+          <environment refid="${Common.EnvironmentVariables.RefId}"/>
+          <args>
+            <arg line="-Dcompile.debug=${Compile.Debug}"/>
+          </args>
         </ant>
-        <property name="Ant.Failure" value="False"/>
+        <property name="SoapUI.Failed" value="false"/>
       </try>
       <catch property="exception">
-        <echo level="Error" message="${exception}"/>
-        <property name="Ant.Failure" value="True"/>
+        <property name="SoapUI.Failed" value="true"/>
       </catch>
     </trycatch>
 
-    <copy
-			file='${SoapUI.Intermediate.Report.File.Path}'
-			todir='${SoapUI.Report.Directory.Path}'
-			if="${file::exists(SoapUI.Intermediate.Report.File.Path)}"
-		/>
+    <property name="SoapUI.TestReport.Directory.Path" value="${SoapUI.Suites.Directory.Path}\${SoapUI.Suite}\soapui-test-reports"/>
+    <property name="SoapUI.TestReport.Suite.Name" value="SoapUITests_${SoapUI.Suite}_${CCNetLabel}.zip" />
 
-    <copy
-			file='${SoapUI.Intermediate.Report.File.Path}'
-			todir='${Common.Directory.Artifact.Path}'
-			if="${file::exists(SoapUI.Intermediate.Report.File.Path)}"
-		/>
+    <property name="SoapUI.Report.File.Path" value="${Common.Directory.Artifact.Path}\${SoapUI.TestReport.Suite.Name}"/>
 
-    <ifthenelse  test="${file::exists(SoapUI.Report.File.Path)}">
-      <then>
-        <property name="SoapUI.HasFailures" value="true"/>
-        <xmlpeek
-					file="${SoapUI.Report.File.Path}"
-					property="SoapUI.HasFailures"
-					xpath="boolean(/testsuites//testsuite[@errors>0] or /testsuites//testsuite[@failures>0])"
-				/>
+    <zip zipfile="${SoapUI.Report.File.Path}">
+      <fileset basedir="${SoapUI.TestReport.Directory.Path}">
+        <include name="**\*"/>
+      </fileset>
+    </zip>
 
-        <fail
-					if="${SoapUI.HasFailures}"
-					message="At least one SoapUI has failed.  Please check the SoapUI section for more details..."
-				/>
-      </then>
-      <else>
-        <fail message="It doesn't look like any SoapUI were run, so the build was failed!"/>
-      </else>
-    </ifthenelse>
-
+    <if test="${SoapUI.Failed}">
+      <fail message="Atleast one soapUI test has failed!  Please see the soapUI test section for more details..."/>
+    </if>
   </target>
 </project>

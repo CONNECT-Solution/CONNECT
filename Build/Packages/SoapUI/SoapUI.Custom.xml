@@ -18,7 +18,7 @@
     </trycatch>
   </target>
 
-  <target name="SoapUI.Performance.Test.Run" override="True">
+  <target name="SoapUI.Performance.RunTests" override="True">
     <property name="GlassFish.Domain.Server.Log.Dir.Path" value="${GlassFish.Home.Directory.Path}\domains\${GlassFish.Domain.Name}\logs\"/>
     <property name="GlassFish.Domain.Server.Log.File.Base.Name" value="server.log*"/>
 
@@ -26,10 +26,10 @@
 
     <trycatch>
       <try>
-        <call target="SoapUI::SoapUI.Performance.Test.Run"/>
+        <call target="SoapUI::SoapUI.Performance.RunTests"/>
       </try>
       <finally>
-        <!--<call target="SoapUI.RunTests.Log.Backup"/>-->
+        <call target="SoapUI.RunTests.Log.Backup"/>
         <call target="SoapUI.RunTests.Log.Clean"/>
       </finally>
     </trycatch>
