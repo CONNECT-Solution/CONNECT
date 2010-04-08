@@ -153,6 +153,16 @@
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqSecured</endpointURL>
             </service>
             <service>
+                <name>adapterpatientdiscoveryasyncresp</name>
+                <description>Adapter Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncresp</name>
+                <description>Adapter Patient Discovery Async Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
+            <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
@@ -945,6 +955,36 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
 			</service>
             <!--End: XDR Request and Response service definitions -->
+            <service>
+                <name>adapterpatientdiscovery</name>
+                <description>Adapter Patient Discovery</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecured</name>
+                <description>Adapter Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoveryasyncreq</name>
+                <description>Adapter Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreq</name>
+                <description>Adapter Patient Discovery Async Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoveryasyncresp</name>
+                <description>Adapter Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncresp</name>
+                <description>Adapter Patient Discovery Async Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
 	</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
