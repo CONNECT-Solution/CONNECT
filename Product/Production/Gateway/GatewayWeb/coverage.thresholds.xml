@@ -136,4 +136,6 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineImpl" linecount="26" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterAsyncReqPatientDiscovery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterAsyncReqPatientDiscoveryImpl" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoveryAsyncRespImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 </thresholds>
