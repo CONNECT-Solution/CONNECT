@@ -240,6 +240,14 @@
 		<servlet-name>AdapterAsyncReqPatientDiscovery</servlet-name>
 		<url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</url-pattern>
 	</servlet-mapping>
+        <servlet>
+		<servlet-name>AdapterPatientDiscoveryAsyncResp</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoveryAsyncResp</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdapterPatientDiscoveryAsyncResp</servlet-name>
+		<url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncResp</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>AdapterSubjectDiscovery</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</servlet-class>
