@@ -35,7 +35,7 @@
           </args>
         </ant>
         
-        <property name="UnitTest.Failed" value="false"/>
+        <property name="UnitTest.Failed" value="false" overwrite="false"/>
       </try>
       <catch property="exception">
         <property name="UnitTest.Failed" value="true"/>
