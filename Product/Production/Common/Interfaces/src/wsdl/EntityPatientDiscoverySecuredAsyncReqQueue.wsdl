@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq"
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreqqueue"
    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -11,10 +11,10 @@
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
-   name="EntityPatientDiscoverySecuredAsyncReq"
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq">
+   name="EntityPatientDiscoverySecuredAsyncReqQueue"
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreqqueue">
     <wsdl:documentation>
-     WSDL for Secured Entity interface for Patient Discovery Asychronous Requests
+     WSDL for Secured Entity interface for a Queue for Patient Discovery Asychronous Requests
     </wsdl:documentation>
     <wsdl:types>
         <xsd:schema elementFormDefault="qualified"
@@ -25,23 +25,23 @@
         </xsd:schema>  
     </wsdl:types>
     
-    <wsdl:message name="ProcessPatientDiscoveryAsyncReqRequestMessage">
-        <wsdl:part name="ProcessPatientDiscoveryAsyncReqAsyncRequest"
+    <wsdl:message name="AddPatientDiscoveryAsyncReqRequestMessage">
+        <wsdl:part name="AddPatientDiscoveryAsyncReqAsyncRequest"
                element="hl7:RespondingGateway_PRPA_IN201305UV02SecuredRequest"/>
     </wsdl:message>
-    <wsdl:message name="ProcessPatientDiscoveryAsyncReqResponseMessage">
-        <wsdl:part name="ProcessPatientDiscoveryAsyncReqAsyncResponse"
+    <wsdl:message name="AddPatientDiscoveryAsyncReqResponseMessage">
+        <wsdl:part name="AddPatientDiscoveryAsyncReqAsyncResponse"
                element="hl7:MCCI_IN000002UV01"/>
     </wsdl:message>
 
      <wsdl:portType name="EntityPatientDiscoverySecuredAsyncReqPortType">
-        <wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
-            <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest"
-                  message="tns:ProcessPatientDiscoveryAsyncReqRequestMessage"
-                  wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq:ProcessPatientDiscoveryAsyncReqRequestMessage"/>
-            <wsdl:output name="ProcessPatientDiscoveryAsyncReqAsyncResponse"
-                   message="tns:ProcessPatientDiscoveryAsyncReqResponseMessage"
-                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq:ProcessPatientDiscoveryAsyncReqResponseMessage"/>
+        <wsdl:operation name="AddPatientDiscoveryAsyncReq">
+            <wsdl:input name="AddPatientDiscoveryAsyncReqAsyncRequest"
+                  message="tns:AddPatientDiscoveryAsyncReqRequestMessage"
+                  wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq:AddPatientDiscoveryAsyncReqRequestMessage"/>
+            <wsdl:output name="AddPatientDiscoveryAsyncReqAsyncResponse"
+                   message="tns:AddPatientDiscoveryAsyncReqResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq:AddPatientDiscoveryAsyncReqResponseMessage"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -50,12 +50,12 @@
         <soap12:binding style="document"
                      transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#Entity_PatientDiscovery_SoapPolicy"/>
-        <wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
-            <soap12:operation soapAction="urn:ProcessPatientDiscoveryAsyncReq"/>
-            <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest" >
+        <wsdl:operation name="AddPatientDiscoveryAsyncReq">
+            <soap12:operation soapAction="urn:AddPatientDiscoveryAsyncReq"/>
+            <wsdl:input name="AddPatientDiscoveryAsyncReqAsyncRequest" >
                 <soap12:body use="literal"/>
             </wsdl:input>
-            <wsdl:output name="ProcessPatientDiscoveryAsyncReqAsyncResponse" >
+            <wsdl:output name="AddPatientDiscoveryAsyncReqAsyncResponse" >
                 <soap12:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
@@ -64,7 +64,7 @@
     <wsdl:service name="EntityPatientDiscoverySecuredAsyncReq">
         <wsdl:port name="EntityPatientDiscoverySecuredAsyncReqPortSoap"
                binding="tns:EntityPatientDiscoverySecuredAsyncReqBindingSoap">
-            <soap12:address location="https://localhost/NhinConnect/EntityPatientDiscoverySecuredAsyncReq"/>
+            <soap12:address location="https://localhost/NhinConnect/EntityPatientDiscoverySecuredAsyncReqQueue"/>
         </wsdl:port>
     </wsdl:service>
 
