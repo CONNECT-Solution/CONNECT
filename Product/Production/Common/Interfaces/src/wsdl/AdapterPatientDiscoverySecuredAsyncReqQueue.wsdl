@@ -36,7 +36,7 @@
                element="hl7:MCCI_IN000002UV01"/>
     </wsdl:message>
 
-    <wsdl:portType name="AdapterPatientDiscoverySecuredAsyncReqPortType">
+    <wsdl:portType name="AdapterPatientDiscoverySecuredAsyncReqQueuePortType">
         <wsdl:operation name="AddPatientDiscoveryAsyncReq">
             <wsdl:input name="AddPatientDiscoveryAsyncReqAsyncRequest"
                   message="tns:AddPatientDiscoveryAsyncReqRequestMessage"/>
@@ -45,8 +45,8 @@
         </wsdl:operation>
     </wsdl:portType>
 
-    <wsdl:binding name="AdapterPatientDiscoverySecuredAsyncReqBindingSoap"
-                type="tns:AdapterPatientDiscoverySecuredAsyncReqPortType">
+    <wsdl:binding name="AdapterPatientDiscoverySecuredAsyncReqQueueBindingSoap"
+                type="tns:AdapterPatientDiscoverySecuredAsyncReqQueuePortType">
         <soap12:binding style="document"
                      transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#Adapter_PatientDiscovery_SoapPolicy"/>
@@ -61,9 +61,9 @@
         </wsdl:operation>
     </wsdl:binding>
 
-    <wsdl:service name="AdapterPatientDiscoverySecuredAsyncReq">
-        <wsdl:port name="AdapterPatientDiscoverySecuredAsyncReqPortSoap"
-               binding="tns:AdapterPatientDiscoverySecuredAsyncReqBindingSoap">
+    <wsdl:service name="AdapterPatientDiscoverySecuredAsyncReqQueue">
+        <wsdl:port name="AdapterPatientDiscoverySecuredAsyncReqQueuePortSoap"
+               binding="tns:AdapterPatientDiscoverySecuredAsyncReqQueueBindingSoap">
             <soap12:address location="http://localhost/NhinConnect/AdapterPatientDiscoverySecuredAsyncReqQueue"/>
         </wsdl:port>
     </wsdl:service>
