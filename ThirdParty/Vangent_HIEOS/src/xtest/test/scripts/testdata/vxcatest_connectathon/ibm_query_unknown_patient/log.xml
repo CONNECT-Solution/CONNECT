@@ -1,0 +1,39 @@
+<TestResults status="Pass"><Xdstest2_version>2.07</Xdstest2_version><Xdstest2_args></Xdstest2_args><Test>XCA test</Test><TestStep id="finddocs_ref_IG" status="Pass"><ExpectedStatus>Success</ExpectedStatus><XCAIGStoredQueryTransaction step="finddocs_ref_IG"><UseId><UseId symbol="$patient_id$" value="xxxx^^^&amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;ISO" /></UseId><Endpoint>http://localhost:8080/axis2/services/xcaig</Endpoint><UseId>{$patient_id$=xxxx^^^&amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;ISO}</UseId><InputMetadata><query:AdhocQueryRequest xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <query:ResponseOption returnComposedObjects="true" returnType="ObjectRef" />
+                    <AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+                        <Slot name="$XDSDocumentEntryPatientId">
+                            <ValueList>
+                                <Value>'xxxx^^^&amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;ISO'</Value>
+                            </ValueList>
+                        </Slot>
+                        <Slot name="$XDSDocumentEntryStatus">
+                            <ValueList>
+                                <Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest></InputMetadata><OutAction>urn:ihe:iti:2007:RegistryStoredQuery</OutAction><ExpectedInAction>urn:ihe:iti:2007:RegistryStoredQueryResponse</ExpectedInAction><OutHeader><soapenv:Header xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing"><wsa:To>http://localhost:8080/axis2/services/xcaig</wsa:To><wsa:MessageID>urn:uuid:DBF9C74D5164EBA2051235600600421</wsa:MessageID><wsa:Action>urn:ihe:iti:2007:RegistryStoredQuery</wsa:Action></soapenv:Header></OutHeader><InHeader><soapenv:Header xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:wsa="http://www.w3.org/2005/08/addressing"><wsa:Action>urn:ihe:iti:2007:RegistryStoredQueryResponse</wsa:Action><wsa:RelatesTo>urn:uuid:DBF9C74D5164EBA2051235600600421</wsa:RelatesTo></soapenv:Header></InHeader><Result><query:AdhocQueryResponse xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"><rim:RegistryObjectList xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" /></query:AdhocQueryResponse></Result><StepStatus>Success</StepStatus></XCAIGStoredQueryTransaction><Assertions><RawAssertionData><Data /></RawAssertionData><AssertionCount>0</AssertionCount></Assertions><Context class="gov.nist.registry.xdstest2.StepContext"><step_id>finddocs_ref_IG</step_id><Context class="gov.nist.registry.xdstest2.PlanContext"><transaction>Called From:
+	at gov.nist.registry.xdstest2.BasicTransaction.toString(BasicTransaction.java:84)&#xd;
+	at gov.nist.registry.xdstest2.BasicContext.dumpContextIntoOutput(BasicContext.java:90)&#xd;
+	at gov.nist.registry.xdstest2.BasicContext.dumpContextIntoOutput(BasicContext.java:95)&#xd;
+	at gov.nist.registry.xdstest2.StepContext.run(StepContext.java:234)&#xd;
+	at gov.nist.registry.xdstest2.PlanContext.run(PlanContext.java:138)&#xd;
+	at gov.nist.registry.xdstest2.Xdstest2.runTest(Xdstest2.java:263)&#xd;
+	at gov.nist.registry.xdstest2.XdsTest$_run_closure6.doCall(XdsTest.groovy:377)&#xd;
+	at gov.nist.registry.xdstest2.XdsTest.run(XdsTest.groovy:366)&#xd;
+	at gov.nist.registry.xdstest2.XdsTest.main(XdsTest.groovy:48)&#xd;
+Step = finddocs_ref_IG
+transaction = gov.nist.registry.xdstest2.XCAIGStoredQueryTransaction
+step_failure = false
+parse_metadata = true
+xds_version = None
+use_id = [&lt;UseId symbol="$patient_id$" value="xxxx^^^&amp;amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;amp;ISO" />]use_xpath = []use_object_ref = []use_repository_unique_id = []data_refs = []assertions = []endpoint = http://localhost:8080/axis2/services/xcaig
+linkage = {$patient_id$=xxxx^^^&amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;ISO}metadata_filename = null
+assign_uuids = false
+assign_uids = true
+no_assign_uid_to = null
+assign_patient_id = true
+soap_1_2 = true
+repositoryUniqueId = null
+nameUuidMap = null
+</transaction></Context></Context></TestStep></TestResults>
