@@ -15,10 +15,15 @@ import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.II;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.MCCIMT000100UV01Sender;
+import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
+import org.hl7.v3.MCCIMT000200UV01AcknowledgementDetail;
 import org.hl7.v3.MCCIMT000200UV01Receiver;
 import org.hl7.v3.MCCIMT000200UV01Sender;
+import org.hl7.v3.MCCIMT000200UV01TargetMessage;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.MCCIMT000300UV01Sender;
 import org.hl7.v3.PNExplicit;
@@ -173,6 +178,16 @@ public class TestHelper {
         }
     }
 
+    static void assertReceiverIdEquals(String receiverOID, MCCIIN000002UV01 message) {
+        assertNotNull(message.getReceiver());
+        assertNotNull(message.getReceiver().get(0));
+        assertRecDeviceNotNull(message.getReceiver().get(0));
+
+        if (receiverOID != null && !receiverOID.isEmpty()) {
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+        }
+    }
+
     public static void assertRecDeviceNotNull(MCCIMT000100UV01Receiver receiver) {
         assertNotNull(receiver.getDevice());
         assertNotNull(receiver.getDevice().getId());
@@ -228,6 +243,15 @@ public class TestHelper {
     }
 
     static void assertSenderIdEquals(String senderOID, PRPAIN201310UV02 message) {
+        assertNotNull(message.getSender());
+        assertSendDeviceNotNull(message.getSender());
+
+        if (senderOID != null && !senderOID.isEmpty()) {
+            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+        }
+    }
+
+    static void assertSenderIdEquals(String senderOID, MCCIIN000002UV01 message) {
         assertNotNull(message.getSender());
         assertSendDeviceNotNull(message.getSender());
 
@@ -695,5 +719,53 @@ public class TestHelper {
                 assertEquals(queryParam.getQueryId().getRoot(), message.getControlActProcess().getQueryAck().getQueryId().getRoot());
             }
         }
+    }
+
+    static void assertAckMsgEquals(String msgText, MCCIIN000002UV01 message) {
+        assertNotNull(message);
+        assertNotNull(message.getAcknowledgement());
+        assertNotNull(message.getAcknowledgement().get(0));
+        assertAckMsgEquals(msgText, message.getAcknowledgement().get(0));
+    }
+
+    static void assertAckMsgEquals(String msgText, MCCIMT000200UV01Acknowledgement message) {
+        assertNotNull(message);
+        assertNotNull(message.getAcknowledgementDetail());
+        assertNotNull(message.getAcknowledgementDetail().get(0));
+
+        assertAckMsgEquals(msgText, message.getAcknowledgementDetail().get(0));
+    }
+
+    static void assertAckMsgEquals(String msgText, MCCIMT000200UV01AcknowledgementDetail message) {
+        assertNotNull(message);
+        assertNotNull(message.getText());
+        assertNotNull(message.getText().getContent());
+
+        assertEquals(msgText, message.getText().getContent().get(0).toString());
+    }
+
+    static void assertAckMsgIdEquals (II origMsgId, MCCIIN000002UV01 message) {
+        assertNotNull(message);
+        assertNotNull(message.getAcknowledgement());
+        assertNotNull(message.getAcknowledgement().get(0));
+
+        assertAckMsgIdEquals(origMsgId, message.getAcknowledgement().get(0));
+    }
+
+    static void assertAckMsgIdEquals (II origMsgId, MCCIMT000200UV01Acknowledgement message) {
+        assertNotNull(message);
+        assertNotNull(message.getTargetMessage());
+
+        assertAckMsgIdEquals(origMsgId, message.getTargetMessage());
+    }
+
+    static void assertAckMsgIdEquals (II origMsgId, MCCIMT000200UV01TargetMessage message) {
+        assertNotNull(message);
+        assertNotNull(message.getId());
+        assertNotNull(message.getId().getExtension());
+        assertNotNull(message.getId().getRoot());
+
+        assertEquals(origMsgId.getExtension(), message.getId().getExtension());
+        assertEquals(origMsgId.getRoot(), message.getId().getRoot());
     }
 }
