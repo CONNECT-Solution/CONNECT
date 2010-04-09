@@ -190,6 +190,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>
     </servlet>
@@ -313,6 +322,15 @@
     <servlet-mapping>
         <servlet-name>EntityPatientDiscovery</servlet-name>
         <url-pattern>/EntityPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryAsyncReqQueue</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoveryAsyncReqQueue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryAsyncReqQueue</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryAsyncReqQueue</url-pattern>
     </servlet-mapping>
     
     <servlet>
@@ -446,6 +464,18 @@
         <web-resource-collection>
             <web-resource-name>AdapterPatientDiscoverySecured</web-resource-name>
             <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncReqSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncReqSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncRespSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncRespSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncReqQueueSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterSubjectDiscoverySecured</web-resource-name>

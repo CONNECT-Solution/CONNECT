@@ -1225,6 +1225,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterPatientDiscoverySecuredAsyncReqQueue">
+      <implementation-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoverySecuredAsyncReqQueue</service-name>
+      <port-name>AdapterPatientDiscoverySecuredAsyncReqQueuePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqqueue</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityPatientDiscoveryAsyncReqQueue">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoveryAsyncReqQueue</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReqQueue.wsdl</wsdl-url>
+      <local-wsdl-file>EntityPatientDiscoveryAsyncReqQueue.wsdl</local-wsdl-file>
+      <service-name>EntityPatientDiscoveryAsyncReqQueue</service-name>
+      <port-name>EntityPatientDiscoveryAsyncReqQueuePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreqqueue</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients>
     <client name="EntityAuditLogQuerySecured">
