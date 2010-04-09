@@ -1,0 +1,12 @@
+Changed spaces in directory names to underscores.
+--This line, and those below, will be ignored--
+
+A  + .
+A  + ibm_query_unknown_patient
+A  + IBM_queryretrieve
+D    IBM queryretrieve
+A  + IBM_multiretrieve
+D    IBM multiretrieve
+D    ibm query [unknown patient]
+A  + ibm_ith_multi_retrieve
+D    ibm ith multi retrieve
