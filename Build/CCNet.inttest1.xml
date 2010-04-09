@@ -8,24 +8,6 @@
           <user name="Srikanth Vadlamani"     group="buildmaster"       address="srikanth.vadlamani@agilex.com"/>
           <user name="Mark Goldman"           group="buildmaster"       address="mark.goldman@agilex.com"/>
         
-          <user name="flowersj"               group="developer"         address="jay.flowers@agilex.com"/>
-          <user name="vadlamanis"             group="developer"         address="srikanth.vadlamani@agilex.com"/>
-          <user name="goldmanm"               group="developer"         address="mark.goldman@agilex.com"/>
-          
-          <user name="borsts"                 group="developer"         address="scott.borst@agilex.com"/>
-          <user name="padmanabhanp"           group="developer"         address="parineetha.padmanabhan@agilex.com"/>
-          
-          <user name="dunnek"                 group="developer"         address="kieran.dunne@agilex.com"/>
-          <user name="rayj"                   group="developer"         address="jason.ray@agilex.com"/>
-          <user name="webbn"                  group="developer"         address="neil.webb@agilex.com"/>
-          <user name="westbergl"              group="developer"         address="les.westberg@agilex.com"/>
-          <user name="valluripallis"          group="developer"         address="svalluripalli@scenpro.com"/>
-          <user name="vvickers"               group="developer"         address="vvickers@harris.com"/>
-          <user name="mflynn02"               group="developer"         address="mflynn02@harris.com"/>
-          <user name="hoppeschj"              group="developer"         address="jhoppesc@harris.com"/>
-          <user name="shawc"                  group="developer"         address="clark.shaw@agilex.com"/>
-          <user name="patlollav"              group="developer"         address="visu.patlolla@agilex.com"/>
-
           <user name="Build Notification"     group="change"            address="NHINBuildNotification@agilex.com"/>
 
           <user name="Notification Dev"       group="failed"            address="NHINBuildNotification@agilex.com"/>
@@ -144,7 +126,7 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY PerformanceTestBuilding '<projectFilter
+  <!ENTITY TestPerformanceBuilding '<projectFilter
                 serverUri="&Integration.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test-Performance">
              <exclusionFilters>
@@ -169,7 +151,7 @@
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
           &TestRegressionBuilding;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -181,7 +163,7 @@
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
           &TestRegressionBuilding;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -231,7 +213,7 @@
           &TestValidationBuilding;
           &TestRegressionBuilding;
           &DevFailed;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -244,7 +226,7 @@
           &TestValidationBuilding;
           &TestRegressionBuilding;
           &DevFailed;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
       <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
@@ -356,7 +338,7 @@
           &TestRegressionBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -369,7 +351,7 @@
           &TestRegressionBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -427,7 +409,6 @@
       </nant>
     </publishers>
   </project>
-  
   <project name="&ProjectName;-&ProjectCodeLineName;-Test-JUnit-Integration">
     <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
@@ -446,7 +427,7 @@
           &ReleaseBuilding;
           &DeployBuilding;
           &DeployFailed;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
           &TestValidationBuilding;
           &TestRegressionBuilding;
         </projectFilters>
@@ -459,7 +440,7 @@
           &ReleaseBuilding;
           &DeployBuilding;
           &DeployFailed;
-          &PerformanceTestBuilding;
+          &TestPerformanceBuilding;
           &TestValidationBuilding;
           &TestRegressionBuilding;
         </projectFilters>
@@ -557,10 +538,10 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &DeployBuilding;
-          &PerformanceTestBuilding;
           &TestJUnitIntegrationBuilding;
           &TestJUnitIntegrationFailed;
           &TestRegressionBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -570,10 +551,10 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &DeployBuilding;
-          &PerformanceTestBuilding;
           &TestJUnitIntegrationBuilding;
           &TestJUnitIntegrationFailed;
           &TestRegressionBuilding;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -669,10 +650,10 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &DeployBuilding;
-          &PerformanceTestBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
           &TestValidationFailed;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -682,10 +663,10 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &DeployBuilding;
-          &PerformanceTestBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
           &TestValidationFailed;
+          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -764,7 +745,6 @@
       </nant>
     </publishers>
   </project>
-  
   <project name="&ProjectName;-&ProjectCodeLineName;-Test-Performance">
     <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
@@ -782,9 +762,9 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &DeployBuilding;
-          &DeployFailed;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
+          &TestValidationFailed;
           &TestRegressionBuilding;
         </projectFilters>
       </projectTriggerFilter>
@@ -795,9 +775,9 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &DeployBuilding;
-          &DeployFailed;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
+          &TestValidationFailed;
           &TestRegressionBuilding;
         </projectFilters>
       </projectForceFilter>
@@ -827,9 +807,13 @@
       </sourceControlProvider>
     </sourcecontrol>
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Test-Regression</project>
     </labeller>
     <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test-Regression</path>
+      </modificationWriter>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
