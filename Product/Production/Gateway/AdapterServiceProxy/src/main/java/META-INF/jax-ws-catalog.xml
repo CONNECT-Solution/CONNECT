@@ -13,7 +13,10 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl" uri="wsdl/AdapterXDRResponseSecured.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl"/>
 </catalog>
+
+
 
 
 

@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.proxy;
+package gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy;
 
-import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq.AdapterPatientDiscoverySecuredAsyncReq;
-import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq.AdapterPatientDiscoverySecuredAsyncReqPortType;
+import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqqueue.AdapterPatientDiscoverySecuredAsyncReqQueue;
+import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqqueue.AdapterPatientDiscoverySecuredAsyncReqQueuePortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -25,11 +25,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
  *
  * @author JHOPPESC
  */
-public class AdapterPatientDiscoveryAsyncReqWebServiceProxy implements AdapterPatientDiscoveryAsyncReqProxy {
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryAsyncReqWebServiceProxy.class);
-    private static AdapterPatientDiscoverySecuredAsyncReq service = new AdapterPatientDiscoverySecuredAsyncReq();
+public class AdapterPatientDiscoveryAsyncReqQueueWebServiceProxy implements AdapterPatientDiscoveryAsyncReqQueueProxy {
+    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryAsyncReqQueueWebServiceProxy.class);
+    private static AdapterPatientDiscoverySecuredAsyncReqQueue service = new AdapterPatientDiscoverySecuredAsyncReqQueue();
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
+    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         RespondingGatewayPRPAIN201305UV02SecuredRequestType securedRequest = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
         securedRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
@@ -41,18 +41,18 @@ public class AdapterPatientDiscoveryAsyncReqWebServiceProxy implements AdapterPa
 
         if (NullChecker.isNotNullish(url) && (request != null))
         {
-            AdapterPatientDiscoverySecuredAsyncReqPortType port = getPort(url, request.getAssertion());
-            response = port.processPatientDiscoveryAsyncReq(securedRequest);
+            AdapterPatientDiscoverySecuredAsyncReqQueuePortType port = getPort(url, request.getAssertion());
+            response = port.addPatientDiscoveryAsyncReq(securedRequest);
         }
 
         return response;
     }
 
-    private AdapterPatientDiscoverySecuredAsyncReqPortType getPort(String url, AssertionType assertion)
+    private AdapterPatientDiscoverySecuredAsyncReqQueuePortType getPort(String url, AssertionType assertion)
     {
-        AdapterPatientDiscoverySecuredAsyncReqPortType port = service.getAdapterPatientDiscoverySecuredAsyncReqPortSoap();
+        AdapterPatientDiscoverySecuredAsyncReqQueuePortType port = service.getAdapterPatientDiscoverySecuredAsyncReqQueuePortSoap();
 
-        log.info("Setting endpoint address to Adapter Patient Discovery Async Request Secured Service to " + url);
+        log.info("Setting endpoint address to Adapter Patient Discovery Async Request Secured Queue Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
         SamlTokenCreator tokenCreator = new SamlTokenCreator();
@@ -69,16 +69,13 @@ public class AdapterPatientDiscoveryAsyncReqWebServiceProxy implements AdapterPa
 
         try
         {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME);
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME);
         } catch (ConnectionManagerException ex)
         {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME + " for local home community");
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
 
         return url;
     }
-
-    
-
 }

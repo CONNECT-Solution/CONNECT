@@ -215,5 +215,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncResp"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocQuerySecured, wsimport-client-AdapterDocRetrieveSecured, wsimport-client-AdapterPatientDiscoverySecured, wsimport-client-AdapterSubjectDiscoverySecured, wsimport-client-AdapterNotificationConsumer, wsimport-client-AdapterSubscriptionManagement, wsimport-client-AdapterNotificationConsumerSecured, wsimport-client-AdapterSubscriptionManagementSecured, wsimport-client-AdapterXDRRequestSecured, wsimport-client-AdapterXDRResponseSecured, wsimport-client-AdapterPatientDiscoverySecuredAsyncReq, wsimport-client-AdapterPatientDiscoverySecuredAsyncResp"/>
+    <target name="wsimport-client-AdapterPatientDiscoverySecuredAsyncReqQueue" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReqQueue"/>
+        <property name="wsdl-AdapterPatientDiscoverySecuredAsyncReqQueue" location="xml-resources/web-service-references/AdapterPatientDiscoverySecuredAsyncReqQueue/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReqQueue" destdir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReqQueue" wsdl="${wsdl-AdapterPatientDiscoverySecuredAsyncReqQueue}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterPatientDiscoverySecuredAsyncReqQueue}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReqQueue"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReqQueue">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdapterPatientDiscoverySecuredAsyncReqQueue" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReqQueue"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpatientdiscoverysecuredasyncreqqueue"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocQuerySecured, wsimport-client-AdapterDocRetrieveSecured, wsimport-client-AdapterPatientDiscoverySecured, wsimport-client-AdapterSubjectDiscoverySecured, wsimport-client-AdapterNotificationConsumer, wsimport-client-AdapterSubscriptionManagement, wsimport-client-AdapterNotificationConsumerSecured, wsimport-client-AdapterSubscriptionManagementSecured, wsimport-client-AdapterXDRRequestSecured, wsimport-client-AdapterXDRResponseSecured, wsimport-client-AdapterPatientDiscoverySecuredAsyncReq, wsimport-client-AdapterPatientDiscoverySecuredAsyncResp, wsimport-client-AdapterPatientDiscoverySecuredAsyncReqQueue"/>
 </project>
