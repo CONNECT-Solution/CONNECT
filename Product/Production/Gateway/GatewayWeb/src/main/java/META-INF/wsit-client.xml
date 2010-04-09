@@ -28,4 +28,5 @@
     <import location="AdapterXDRResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>
     <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"/>
+    <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue"/>
 </definitions>

@@ -241,6 +241,14 @@
 		<url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</url-pattern>
 	</servlet-mapping>
         <servlet>
+		<servlet-name>AdapterPatientDiscoveryAsyncReqQueue</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoveryAsyncReqQueue</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdapterPatientDiscoveryAsyncReqQueue</servlet-name>
+		<url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</url-pattern>
+	</servlet-mapping>
+        <servlet>
 		<servlet-name>AdapterPatientDiscoveryAsyncResp</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoveryAsyncResp</servlet-class>
 	</servlet>
@@ -263,6 +271,14 @@
 	<servlet-mapping>
 		<servlet-name>EntityPatientDiscoverySecured</servlet-name>
 		<url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
+	</servlet-mapping>
+        <servlet>
+		<servlet-name>EntityPatientDiscoverySecuredAsyncReqQueue</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoverySecuredAsyncReqQueue</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EntityPatientDiscoverySecuredAsyncReqQueue</servlet-name>
+		<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
@@ -446,6 +462,10 @@
 		<web-resource-collection>
 			<web-resource-name>EntityPatientDiscoverySecured</web-resource-name>
 			<url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
+		</web-resource-collection>
+                <web-resource-collection>
+			<web-resource-name>EntityPatientDiscoverySecuredAsyncReqQueue</web-resource-name>
+			<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyPatientDiscoverySecured</web-resource-name>
