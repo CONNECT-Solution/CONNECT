@@ -7,6 +7,7 @@
       <attribute name="logfile" type="string"/>
       <attribute name="target" type="string" require="true"/>
       <attribute name="buildfile" type="string" require="true"/>
+      <attribute name="listenerFile" default="${CCNetListenerFile}" type="string"/>
     </attributes>
     <elementgroups>
       <elementgroup name="args" type="NAnt.Core.Types.Argument" elementname="arg"/>
@@ -38,7 +39,7 @@
       <exec program="${antbat}" failonerror="true" verbose="true" workingdir="${path::get-directory-name(buildfile)}">
         <arg line='${target} -buildfile "${buildfile}"' />
         <arg line='${Ant.LogParams}' />
-        <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
+        <arg line='-Dprogress-filepath="${listenerFile}"' />
         <arg line='-DProductVersion="${CCNetLabel}"' />
         <arg line='-Ddebug="${Ant.Debug}"' />
 
@@ -54,6 +55,7 @@
       <attribute name="target" type="string" require="true"/>
       <attribute name="buildfile" type="string" require="true"/>
       <attribute name="taskname" type="string" require="true"/>
+      <attribute name="listenerFile" default="${CCNetListenerFile}" type="string"/>
     </attributes>
     <elementgroups>
       <elementgroup name="args" type="NAnt.Core.Types.Argument" elementname="arg"/>
@@ -95,7 +97,7 @@
       >
         <arg line='${target} -buildfile "${buildfile}"' />
         <arg line='${Ant.LogParams}' />
-        <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
+        <arg line='-Dprogress-filepath="${listenerFile}"' />
         <arg line='-DProductVersion="${CCNetLabel}"' />
         <arg line='-Ddebug="${Ant.Debug}"' />
 
