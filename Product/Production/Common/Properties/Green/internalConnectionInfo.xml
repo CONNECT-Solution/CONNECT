@@ -163,6 +163,16 @@
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
             </service>
             <service>
+                <name>adapterpatientdiscoveryasyncreqqueue</name>
+                <description>Adapter Patient Discovery Async Request Queue</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreqqueue</name>
+                <description>Adapter Patient Discovery Async Request Queue Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+            </service>
+            <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
@@ -295,6 +305,16 @@
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecuredasyncreqqueue</name>
+                <description>Entity Patient Discovery Secured Async Req Queue</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncreqqueue</name>
+                <description>Entity Patient Discovery Async Req Queue</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
@@ -867,6 +887,16 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
+                <name>entitypatientdiscoverysecuredasyncreqqueue</name>
+                <description>Entity Patient Discovery Secured Async Req Queue</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncreqqueue</name>
+                <description>Entity Patient Discovery Async Req Queue</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
@@ -990,11 +1020,31 @@
                 <description>Adapter Patient Discovery Async Response Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
             </service>
+
+
+
+
+
+            <service>
+                <name>adapterpatientdiscoveryasyncreqqueue</name>
+                <description>Adapter Patient Discovery Async Request Queue</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreqqueue</name>
+                <description>Adapter Patient Discovery Async Request Queue Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+            </service>
 			<service>
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+
+
+
+
+
 	</services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -1355,6 +1405,16 @@
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecuredasyncreqqueue</name>
+                <description>Entity Patient Discovery Secured Async Req Queue</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncreqqueue</name>
+                <description>Entity Patient Discovery Async Req Queue</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
             </service>
 			<service>
 				<name>nhincproxypatientdiscovery</name>
