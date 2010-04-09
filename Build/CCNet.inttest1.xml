@@ -812,7 +812,7 @@
     <tasks>
       <modificationWriter>
         <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test-Regression</path>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test-Performance</path>
       </modificationWriter>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
