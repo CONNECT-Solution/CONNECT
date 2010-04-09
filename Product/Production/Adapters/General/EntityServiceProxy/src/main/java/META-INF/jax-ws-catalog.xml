@@ -79,7 +79,10 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT500000UV04.xsd" uri="xml-resources/web-service-references/EntitySubjectDiscoverySecured/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT500000UV04.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT140007UV.xsd" uri="xml-resources/web-service-references/EntitySubjectDiscoverySecured/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT140007UV.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT440001UV.xsd" uri="xml-resources/web-service-references/EntitySubjectDiscoverySecured/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT440001UV.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncReqQueue.wsdl" uri="wsdl/EntityPatientDiscoverySecuredAsyncReqQueue.wsdl"/>
 </catalog>
+
+
 
 
 

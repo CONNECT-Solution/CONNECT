@@ -28,5 +28,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured"/>
+    <target name="wsimport-client-EntityPatientDiscoverySecuredAsyncReqQueue" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue"/>
+        <property name="wsdl-EntityPatientDiscoverySecuredAsyncReqQueue" location="xml-resources/web-service-references/EntityPatientDiscoverySecuredAsyncReqQueue/wsdl/EntityPatientDiscoverySecuredAsyncReqQueue.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue" destdir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue" wsdl="${wsdl-EntityPatientDiscoverySecuredAsyncReqQueue}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncReqQueue.wsdl" xnocompile="true">
+            <depends file="${wsdl-EntityPatientDiscoverySecuredAsyncReqQueue}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EntityPatientDiscoverySecuredAsyncReqQueue" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitypatientdiscoverysecuredasyncreqqueue"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-EntityPatientDiscoverySecuredAsyncReqQueue"/>
 </project>
