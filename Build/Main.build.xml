@@ -144,7 +144,7 @@
         <description>End Pre Build Actions</description>
         
         <description>Begin Clean Up Actions</description>
-        <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
         
@@ -219,7 +219,7 @@
         <description>End Pre Build Actions</description>
         
         <description>Begin Clean Up Actions</description>
-        <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
         
