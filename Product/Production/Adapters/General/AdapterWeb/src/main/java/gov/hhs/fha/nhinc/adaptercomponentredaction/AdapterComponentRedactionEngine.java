@@ -12,7 +12,7 @@ import javax.xml.ws.BindingType;
  * @author Neil Webb
  */
 @WebService(serviceName = "AdapterComponentRedactionEngineService", portName = "AdapterComponentRedactionEnginePortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction", wsdlLocation = "WEB-INF/wsdl/AdapterComponentRedactionEngine/AdapterComponentRedactionEngine.wsdl")
-@BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class AdapterComponentRedactionEngine
 {
 
@@ -25,7 +25,7 @@ public class AdapterComponentRedactionEngine
         {
             response = redactionEngineImpl.filterDocQueryResults(filterDocQueryResultsRequest);
         }
-        
+
         return response;
     }
 

@@ -15,7 +15,7 @@ import javax.xml.ws.WebServiceContext;
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterPatientDiscoverySecuredAsyncReqQueue", portName = "AdapterPatientDiscoverySecuredAsyncReqQueuePortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqqueue.AdapterPatientDiscoverySecuredAsyncReqQueuePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl")
-@BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class AdapterPatientDiscoverySecuredAsyncReqQueue {
     @Resource
     private WebServiceContext context;

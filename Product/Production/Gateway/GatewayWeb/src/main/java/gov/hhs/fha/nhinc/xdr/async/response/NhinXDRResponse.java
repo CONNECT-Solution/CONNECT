@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
  * @author patlollav
  */
 @WebService(serviceName = "XDRResponse_Service", portName = "XDRResponse_Port_Soap12", endpointInterface = "ihe.iti.xdr.async.response._2007.XDRResponsePortType", targetNamespace = "urn:ihe:iti:xdr:async:response:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse/NhinXDRResponse.wsdl")
-@BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class NhinXDRResponse {
 
     @Resource
@@ -28,7 +28,7 @@ public class NhinXDRResponse {
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         getLogger().debug("Entering NhinXDRResponse");
-        
+
         AcknowledgementType ack = this.getNhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
 
         getLogger().debug("Exiting NhinXDRResponse");
