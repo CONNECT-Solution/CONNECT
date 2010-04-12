@@ -56,7 +56,7 @@ public class PatientConsentManager {
      *
      * @return The handle to the document registry port web service.
      */
-    private DocumentRegistryPortType getDocumentRegistryPort()
+    public DocumentRegistryPortType getDocumentRegistryPort()
             throws AdapterPIPException {
         DocumentRegistryPortType oDocRegistryPort = null;
 
