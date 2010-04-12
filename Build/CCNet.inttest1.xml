@@ -777,7 +777,6 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestValidationFailed;
           &TestRegressionBuilding;
         </projectFilters>
       </projectForceFilter>
