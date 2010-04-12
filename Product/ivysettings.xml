@@ -5,6 +5,14 @@
 	<resolvers>
 		<chain name="chain" returnFirst="true">
 			<filesystem name="local-maven-2" m2compatible="true" local="true">
+        <ivy pattern="${ivy.settings.dir}/Production/Adapters/Framework/[module]/ivy.[ext]"/>
+        <ivy pattern="${ivy.settings.dir}/Production/Adapters/General/[module]/ivy.[ext]"/>
+        <ivy pattern="${ivy.settings.dir}/Production/Common/[module]/ivy.[ext]"/>
+        <ivy pattern="${ivy.settings.dir}/Production/Gateway/[module]/ivy.[ext]"/>
+				<ivy pattern="${ivy.settings.dir}/IntegrationTest/JunitIntegrationTests/Adapters/Framework/[module]/ivy.[ext]"/>      
+				<ivy pattern="${ivy.settings.dir}/IntegrationTest/JunitIntegrationTests/Adapters/General/[module]/ivy.[ext]"/>      
+				<ivy pattern="${ivy.settings.dir}/IntegrationTest/JunitIntegrationTests/Common/[module]/ivy.[ext]"/>      
+				<ivy pattern="${ivy.settings.dir}/IntegrationTest/JunitIntegrationTests/Gateway/[module]/ivy.[ext]"/>      
 				<ivy pattern="${ivy.settings.dir}/../ThirdParty/[organisation]/[module].[ext]"/>
 				<artifact pattern="${ivy.settings.dir}/../ThirdParty/[organisation]/[module].[ext]"/>
 			</filesystem>
