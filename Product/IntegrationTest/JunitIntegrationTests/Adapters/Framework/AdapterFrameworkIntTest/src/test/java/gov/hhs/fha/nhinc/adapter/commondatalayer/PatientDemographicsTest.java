@@ -90,7 +90,8 @@ public class PatientDemographicsTest {
 
         // Marshals (serializes) the given JAXB object via the given marshaller into a new XOM Document.
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
             Marshaller marshaller = jc.createMarshaller();
             Document xmlDocument = XOMUtil.jaxbMarshal(marshaller, jaxbResp);
             System.out.println(XOMUtil.toPrettyXML(xmlDocument));
