@@ -190,25 +190,10 @@
       <dist.type>jar</dist.type>
     </project>
     <project>
-      <name>NhincCommonLib</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonLib</directory>
+      <name>CommonIntTest</name>
+      <directory>/IntegrationTest/JunitIntegrationTests/Common/CommonIntTest</directory>
       <dist.type>jar</dist.type>
     </project>
-    <project>
-      <name>AssigningAuthoritiesToHomeCommunityMappingDAOIntegrationTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Common/AssigningAuthoritiesToHomeCommunityMappingDAOIntegrationTest</directory>
-      <dist.type>jar</dist.type>
-    </project>
-    <project>
-      <name>NhincCommonWeb</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonWeb</directory>
-      <dist.type>jar</dist.type>
-    </project>	
-    <project>
-      <name>NhincCommonWeb</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonWeb</directory>
-      <dist.type>jar</dist.type>
-    </project>	
     <project>
       <name>HiemSubscriptionRepositoryIntegrationTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>

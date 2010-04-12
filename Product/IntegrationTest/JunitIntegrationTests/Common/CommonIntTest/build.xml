@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." default="package.create" name="NhincCommonLib">
+<project basedir="." default="package.create" name="CommonIntTest">
 
   <property name="dist.type" value="jar" />
   <property name="webtest.hasTests" value="false" />
@@ -20,8 +20,9 @@
 
     <!-- Add classes from other projects like so...-->
     <pathelement path="${project.NhincCommonDAO.build.classes.dir}" />
-	<pathelement path="${project.NhincCommonLib.build.classes.dir}" />
-	<pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
+    <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
+    <pathelement path="${project.NhincCommonWeb.build.classes.dir}" />
 	
   </path>
 
