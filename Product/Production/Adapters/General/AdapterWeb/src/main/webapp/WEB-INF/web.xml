@@ -199,6 +199,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.AdapterPatientDiscoverySecuredAsyncReqError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncReqErrorSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>
     </servlet>
@@ -476,6 +485,10 @@
         <web-resource-collection>
             <web-resource-name>AdapterPatientDiscoveryAsyncReqQueueSecured</web-resource-name>
             <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncReqErrorSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncReqErrorSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterSubjectDiscoverySecured</web-resource-name>

@@ -125,4 +125,6 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueueImpl" linecount="11" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoveryAsyncReqQueue" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoveryAsyncReqQueueImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.AdapterPatientDiscoverySecuredAsyncReqError" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.AdapterPatientDiscoverySecuredAsyncReqErrorImpl" linecount="13" linerate="0.0" linesexecuted="0"/>
 </thresholds>
