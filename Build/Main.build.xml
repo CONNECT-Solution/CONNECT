@@ -416,7 +416,7 @@
         <call target="TargetProcess.CreateReport" />
         <call target="TargetProcess.Get.Release.Report" failonerror="False" />
 
-        <property name="SourceControl.GetOf" value="${Common.Directory.Product.Path}\SoapUI Test"/>
+        <property name="SourceControl.GetOf" value="${Common.Directory.Product.Path}\SoapUI_Test"/>
         <call target="SourceControl.GetOf"/>
 
         <trycatch>
