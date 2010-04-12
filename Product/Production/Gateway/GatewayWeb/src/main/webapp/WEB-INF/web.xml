@@ -249,6 +249,14 @@
 		<url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</url-pattern>
 	</servlet-mapping>
         <servlet>
+		<servlet-name>AdapterPatientDiscoveryAsyncReqError</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.AdapterPatientDiscoveryAsyncReqError</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdapterPatientDiscoveryAsyncReqError</servlet-name>
+		<url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncReqError</url-pattern>
+	</servlet-mapping>
+        <servlet>
 		<servlet-name>AdapterPatientDiscoveryAsyncResp</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoveryAsyncResp</servlet-class>
 	</servlet>
