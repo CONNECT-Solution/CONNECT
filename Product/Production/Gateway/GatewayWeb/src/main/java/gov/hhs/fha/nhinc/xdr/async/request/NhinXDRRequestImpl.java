@@ -25,7 +25,7 @@ import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
  */
 public class NhinXDRRequestImpl
 {
-    public static final String XDR_POLICY_ERROR = "CONNECT Policy Check Failed";
+    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
 
     private static final Log logger = LogFactory.getLog(NhinXDRRequestImpl.class);
 

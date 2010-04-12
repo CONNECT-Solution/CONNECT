@@ -8,30 +8,29 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="FTAConfigManager" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
-    <description>Builds, tests, and runs the project FTAConfigManager.</description>
-    <import file="nbproject/build-impl.xml"/>
+  <description>Builds, tests, and runs the project FTAConfigManager.</description>
+  <import file="nbproject/build-impl.xml"/>
 
-    <import file="../../../../build.lib.xml" />
+  <import file="../../../../build.lib.xml" />
 
-    <target name="build">
-            <property name="target-to-call" value="dist" />
-            <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
+  <target name="build">
+    <property name="target-to-call" value="dist" />
+    <antcall target="call-target-in-isolation-if-out-of-date" />
+  </target>
 
-    <target name="clean-build" depends="clean,dist" />
-    <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist, test" />
+  <target name="clean-build" depends="clean,build" />
+  <target name="clean-test" depends="clean-build,test" />
+  <target name="build-test" depends="build,test" />
 
-        
-    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>
+  <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    <nbundeploy failOnError="false" startServer="false"/>
+  </target>
 
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-	   <copy todir="${nhin.project.home}\UnitTestResults">
-		  <fileset dir="${build.test.results.dir}"/>    
-	   </copy>
-	   <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
-	</target>	    
+  <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+    <copy todir="${nhin.project.home}\UnitTestResults">
+      <fileset dir="${build.test.results.dir}"/>    
+    </copy>
+    <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+  </target>
 
 </project>

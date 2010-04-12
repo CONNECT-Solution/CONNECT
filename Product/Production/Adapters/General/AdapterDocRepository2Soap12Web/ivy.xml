@@ -39,11 +39,11 @@
 
     <!-- compile time jars -->
 
-    <!-- runtime jars -->
-    <dependency org="com.sun.xml" 		      name="jaxb-impl" 			rev="2.0EA3"			  conf="runtime->default" transitive="false" />
-    <dependency org="log4j"                                   name="log4j"                rev="1.2.15"              conf="runtime->default" transitive="false" />
-    <dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="runtime->default" transitive="false" />
+    <dependency org="com.sun.xml" 		      name="jaxb-impl" 			rev="2.0EA3"			  conf="compile->default" transitive="false" />
+	<dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="compile->default" transitive="false" />
+    <dependency org="log4j"               name="log4j"                          rev="1.2.15"              conf="compile->default" transitive="false" />
 
+    <!-- runtime jars -->
     
     <!-- jars for test only -->
     <dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="test->default" />

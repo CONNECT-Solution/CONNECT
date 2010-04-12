@@ -90,7 +90,7 @@ public class EntityXDRResponseSecuredImplTest
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDRResponseRequest(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
-                oneOf(mockAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+                oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
             }
         });

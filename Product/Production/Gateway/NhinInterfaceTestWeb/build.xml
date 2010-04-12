@@ -8,324 +8,136 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="NhinInterfaceTestWeb" default="default" basedir=".">
-    <description>Builds, tests, and runs the project NhinInterfaceTestWeb.</description>
-   	<import file="../../../build.lib.xml" />
-    <import file="nbproject/build-impl.xml"/>
+  <description>Builds, tests, and runs the project NhinInterfaceTestWeb.</description>
+  <import file="../../../build.lib.xml" />
 
-    <property name="deploy.type" value="war" />
-    <property name="deploy.isDeployable" value="true"/>
+  <property name="deploy.type" value="war" />
+  <property name="deploy.isDeployable" value="true"/>
 
-    <target name="build">
-      <property name="target-to-call" value="dist" />
-      <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
-    <target name="clean-build" depends="clean,dist" />
-    <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist, test" />
-    <!--
+  <import file="nbproject/build-impl.xml"/>
 
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
+  <target name="build">
+    <property name="target-to-call" value="dist" />
+    <antcall target="call-target-in-isolation-if-out-of-date" />
+  </target>
+  <target name="clean-build" depends="clean,build" />
+  <target name="clean-test" depends="clean-build,test" />
+  <target name="build-test" depends="build,test" />
 
-      -pre-init:                 called before initialization of project properties 
-      -post-init:                called after initialization of project properties 
-      -pre-compile:              called before javac compilation 
-      -post-compile:             called after javac compilation 
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-compile-test:         called before javac compilation of JUnit tests
-      -post-compile-test:        called after javac compilation of JUnit tests
-      -pre-compile-test-single:  called before javac compilation of single JUnit test
-      -post-compile-test-single: called after javac compilation of single JUunit test
-      -pre-dist:                 called before archive building 
-      -post-dist:                called after archive building 
-      -post-clean:               called after cleaning build products 
-      -pre-run-deploy:           called before deploying
-      -post-run-deploy:          called after deploying
+  <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpiSecured">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/schemas/"/>
+    </copy>
+  </target>
 
-    Example of pluging an obfuscator after the compilation could look like 
+  <target name="wsimport-service-AuditQuery" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/AuditQuery">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/schemas/"/>
+    </copy>
+  </target>
 
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
+  <target name="wsimport-service-DocQuery" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/DocQuery">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/schemas/"/>
+    </copy>
+  </target>
 
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
+  <target name="wsimport-service-DocRetrieve" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/DocRetrieve">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/schemas/"/>
+    </copy>
+  </target>
 
+  <target name="wsimport-service-HiemNotify" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemNotify">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/schemas/"/>
+    </copy>
+  </target>
 
-    Other way how to customize the build is by overriding existing main targets.
-    The target of interest are: 
+  <target name="wsimport-service-NhinPatientDiscovery" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscovery">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/schemas/"/>
+    </copy>
+  </target>
 
-      init-macrodef-javac:    defines macro for javac compilation
-      init-macrodef-junit:   defines macro for junit execution
-      init-macrodef-debug:    defines macro for class debugging
-      do-dist:                archive building
-      run:                    execution of project 
-      javadoc-build:          javadoc generation 
+  <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/SubjectDiscovery">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/schemas/"/>
+    </copy>
+  </target>
 
-    Example of overriding the target for project execution could look like 
+  <target name="wsimport-service-HiemSubscription" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemSubscription">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/schemas/"/>
+    </copy>
+  </target>
 
-        <target name="run" depends="<PROJNAME>-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
+  <target name="wsimport-service-HiemUnsubscribe" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemUnsubscribe">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/schemas/"/>
+    </copy>
+  </target>
+  <target name="wsimport-service-NhinXDR" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDR">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/schemas/"/>
+    </copy>        
+  </target>
 
-    Notice that overridden target depends on jar target and not only on 
-    compile target as regular run target does. Again, for list of available 
-    properties which you can use check the target you are overriding in 
-    nbproject/build-impl.xml file. 
+  <target name="wsimport-service-NhinXDRRequest" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDRRequest">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/schemas/"/>
+    </copy>
+  </target>
 
-    -->
-    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpiSecured">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/schemas/"/>
-        </copy>
-    </target>
+  <target name="wsimport-service-NhinXDRResponse" depends="wsimport-init">
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDRResponse">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/"/>
+    </copy>
+    <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+      <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/schemas/"/>
+    </copy>
+  </target>
 
-    <target name="wsimport-service-AuditQuery" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AuditQuery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/AuditQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/AuditQuery"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AuditQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/AuditQuery">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-DocQuery" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocQuery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocQuery" destdir="${build.generated.dir}/jax-wsCache/service/DocQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/wsdl/NhinDocQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/wsdl/NhinDocQuery.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/DocQuery"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocQuery">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-DocRetrieve" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocRetrieve">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-HiemNotify" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemNotify"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemNotify" destdir="${build.generated.dir}/jax-wsCache/service/HiemNotify" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/NhinSubscription.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemNotify"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemNotify">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemNotify">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-NhinPatientDiscovery" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscovery">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/SubjectDiscovery">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-HiemSubscription" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemSubscription" destdir="${build.generated.dir}/jax-wsCache/service/HiemSubscription" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemSubscription">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-HiemUnsubscribe" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe" destdir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/NhinSubscription.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemUnsubscribe">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/schemas/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-NhinXDR" depends="wsimport-init">
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDR">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/schemas/"/>
-        </copy>        
-    </target>
-    
-    <target name="wsimport-service-NhinXDRRequest" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDRRequest">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/schemas/"/>
-        </copy>
-    </target>
-
-    <target name="wsimport-service-NhinXDRResponse" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDRResponse">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/"/>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/schemas/"/>
-        </copy>
-    </target>
-    
-    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-        <copy todir="${nhin.project.home}\UnitTestResults">
-            <fileset dir="${build.test.results.dir}"/>
-        </copy>
-        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
-    </target>    
+  <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    <nbundeploy failOnError="false" startServer="false"/>
+  </target>
+  <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+    <copy todir="${nhin.project.home}\UnitTestResults">
+      <fileset dir="${build.test.results.dir}"/>
+    </copy>
+    <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+  </target>    
 </project>

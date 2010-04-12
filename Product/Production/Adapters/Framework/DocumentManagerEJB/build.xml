@@ -8,66 +8,69 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="DocumentManagerEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
-    <description>Builds, tests, and runs the project DocumentManagerEJB.</description>
-    <import file="nbproject/build-impl.xml"/>
+  <description>Builds, tests, and runs the project DocumentManagerEJB.</description>
+  <import file="nbproject/build-impl.xml"/>
 
-    <property name="deploy.type" value="ejb" />
-    <property name="deploy.isDeployable" value="false"/>
+  <property name="deploy.type" value="ejb" />
+  <property name="deploy.isDeployable" value="false"/>
 
-    <import file="../../../../build.lib.xml" />
+  <import file="../../../../build.lib.xml" />
 
-    <target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
-    <target name="clean-build" depends="clean,dist" />
-    <target name="clean-test" depends="clean,dist,test" />
-    <target name="build-test" depends="dist,test" />
-    
-    <target name="wsimport-client-AdapterComponentDocRegistry" depends="wsimport-init">
-        <property name="targetLocation-AdapterComponentDocRegistry" location="${meta.inf}/wsdl/AdapterComponentDocRegistry"/>
-        <property name="sourceLocation-AdapterComponentDocRegistry" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/wsdl/"/>
-        <copy todir="${targetLocation-AdapterComponentDocRegistry}">
-            <fileset dir="${sourceLocation-AdapterComponentDocRegistry}"/>
-        </copy>
-        <property name="targetLocation-AdapterComponentDocRegistry-schemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-AdapterComponentDocRegistry-schemas" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/schemas/"/>
-        <copy todir="${targetLocation-AdapterComponentDocRegistry-schemas}">
-            <fileset dir="${sourceLocation-AdapterComponentDocRegistry-schemas}"/>
-        </copy>
-    </target>
-    <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init">
-        <property name="targetLocation-AdapterComponentDocRepository" location="${meta.inf}/wsdl/AdapterComponentDocRepository"/>
-        <property name="sourceLocation-AdapterComponentDocRepository" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/wsdl/"/>
-        <copy todir="${targetLocation-AdapterComponentDocRepository}">
-            <fileset dir="${sourceLocation-AdapterComponentDocRepository}"/>
-        </copy>
-        <property name="targetLocation-AdapterComponentDocRepository-schemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-AdapterComponentDocRepository-schemas" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/schemas/"/>
-        <copy todir="${targetLocation-AdapterComponentDocRepository-schemas}">
-            <fileset dir="${sourceLocation-AdapterComponentDocRepository-schemas}"/>
-        </copy>
-    </target>
+  <target name="build">
+    <property name="target-to-call" value="dist" />
+    <antcall target="call-target-in-isolation-if-out-of-date" />
+  </target>
+  <target name="clean-build" depends="clean,build" />
+  <target name="clean-test" depends="clean-build,test" />
+  <target name="build-test" depends="build,test" />
 
-    <target name="wsimport-service-DocumentManagerService" depends="wsimport-init">
-        <property name="targetLocation-DocumentManagerService" location="${meta.inf}/wsdl/DocumentManagerService"/>
-        <property name="sourceLocation-DocumentManagerService" location="${meta.inf}/xml-resources/web-services/DocumentManagerService/wsdl/"/>
-        <copy todir="${targetLocation-DocumentManagerService}">
-            <fileset dir="${sourceLocation-DocumentManagerService}"/>
-        </copy>
-        <property name="targetLocation-DocumentManagerService-schemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-DocumentManagerService-schemas" location="${meta.inf}/xml-resources/web-services/DocumentManagerService/schemas/"/>
-        <copy todir="${targetLocation-DocumentManagerService-schemas}">
-            <fileset dir="${sourceLocation-DocumentManagerService-schemas}"/>
-        </copy>
-    </target>
-    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-        <copy todir="${nhin.project.home}\UnitTestResults">
-            <fileset dir="${build.test.results.dir}"/>
-        </copy>
-        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
-    </target>
+  <target name="wsimport-client-AdapterComponentDocRegistry" depends="wsimport-init">
+    <property name="targetLocation-AdapterComponentDocRegistry" location="${meta.inf}/wsdl/AdapterComponentDocRegistry"/>
+    <property name="sourceLocation-AdapterComponentDocRegistry" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/wsdl/"/>
+    <copy todir="${targetLocation-AdapterComponentDocRegistry}">
+      <fileset dir="${sourceLocation-AdapterComponentDocRegistry}"/>
+    </copy>
+    <property name="targetLocation-AdapterComponentDocRegistry-schemas" location="${meta.inf}/wsdl/schemas"/>
+    <property name="sourceLocation-AdapterComponentDocRegistry-schemas" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/schemas/"/>
+    <copy todir="${targetLocation-AdapterComponentDocRegistry-schemas}">
+      <fileset dir="${sourceLocation-AdapterComponentDocRegistry-schemas}"/>
+    </copy>
+  </target>
+  
+  <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init">
+    <property name="targetLocation-AdapterComponentDocRepository" location="${meta.inf}/wsdl/AdapterComponentDocRepository"/>
+    <property name="sourceLocation-AdapterComponentDocRepository" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/wsdl/"/>
+    <copy todir="${targetLocation-AdapterComponentDocRepository}">
+      <fileset dir="${sourceLocation-AdapterComponentDocRepository}"/>
+    </copy>
+    <property name="targetLocation-AdapterComponentDocRepository-schemas" location="${meta.inf}/wsdl/schemas"/>
+    <property name="sourceLocation-AdapterComponentDocRepository-schemas" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/schemas/"/>
+    <copy todir="${targetLocation-AdapterComponentDocRepository-schemas}">
+      <fileset dir="${sourceLocation-AdapterComponentDocRepository-schemas}"/>
+    </copy>
+  </target>
+
+  <target name="wsimport-service-DocumentManagerService" depends="wsimport-init">
+    <property name="targetLocation-DocumentManagerService" location="${meta.inf}/wsdl/DocumentManagerService"/>
+    <property name="sourceLocation-DocumentManagerService" location="${meta.inf}/xml-resources/web-services/DocumentManagerService/wsdl/"/>
+    <copy todir="${targetLocation-DocumentManagerService}">
+      <fileset dir="${sourceLocation-DocumentManagerService}"/>
+    </copy>
+    <property name="targetLocation-DocumentManagerService-schemas" location="${meta.inf}/wsdl/schemas"/>
+    <property name="sourceLocation-DocumentManagerService-schemas" location="${meta.inf}/xml-resources/web-services/DocumentManagerService/schemas/"/>
+    <copy todir="${targetLocation-DocumentManagerService-schemas}">
+      <fileset dir="${sourceLocation-DocumentManagerService-schemas}"/>
+    </copy>
+  </target>
+  
+  <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    <nbundeploy failOnError="false" startServer="false"/>
+  </target>
+  
+  <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+    <copy todir="${nhin.project.home}\UnitTestResults">
+      <fileset dir="${build.test.results.dir}"/>
+    </copy>
+    <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+  </target>
 </project>

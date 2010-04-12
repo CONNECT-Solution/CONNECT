@@ -75,5 +75,5 @@
     <system systemId="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl"
                 uri="wsdl/EntityXDRRequest/EntityXDRRequest.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl"
-                uri="wsdl/EntityEDRResponse/EntityXDRResponse.wsdl"/>
+                uri="wsdl/EntityXDRResponse/EntityXDRResponse.wsdl"/>
 </catalog>

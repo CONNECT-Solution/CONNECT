@@ -19,12 +19,12 @@ import javax.xml.ws.BindingProvider;
  *
  * @author Neil Webb
  */
-public class EntityEDRResponseImpl
+public class EntityXDRResponseImpl
 {
     private static Log log = null;
     private static EntityXDRSecuredResponseService service = null;
 
-    public EntityEDRResponseImpl()
+    public EntityXDRResponseImpl()
     {
         log = createLogger();
         service = createService();

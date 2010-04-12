@@ -1105,9 +1105,57 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="EntityEDRResponse">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityEDRResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl</wsdl-url>
+    <service name="AdapterXDRRequest">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequest</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterXDRRequest.wsdl</local-wsdl-file>
+      <service-name>AdapterXDRRequest_Service</service-name>
+      <port-name>AdapterXDRRequest_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterxdrrequest</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterXDRResponse">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponse</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterXDRResponse.wsdl</local-wsdl-file>
+      <service-name>AdapterXDRResponse_Service</service-name>
+      <port-name>AdapterXDRResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterxdrresponse</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityXDRResponse">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponse</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/2.4/Product/Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRResponse.wsdl</local-wsdl-file>
       <service-name>EntityXDRResponse_Service</service-name>
       <port-name>EntityXDRResponse_Port</port-name>

@@ -45,7 +45,7 @@ public class EntityXDRResponseImplTest
         final Log mockLogger = context.mock(Log.class);
         final EntityXDRSecuredResponseService mockService = context.mock(EntityXDRSecuredResponseService.class);
 
-        EntityEDRResponseImpl sut = new EntityEDRResponseImpl()
+        EntityXDRResponseImpl sut = new EntityXDRResponseImpl()
         {
             @Override
             protected void setRequestContext(AssertionType assertion, String url, EntityXDRSecuredResponsePortType port)

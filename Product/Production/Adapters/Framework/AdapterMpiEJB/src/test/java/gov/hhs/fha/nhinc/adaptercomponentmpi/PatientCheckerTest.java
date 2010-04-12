@@ -15,6 +15,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,6 +50,7 @@ public class PatientCheckerTest {
      * Test of FindPatient method, of class PatientChecker.
      */
     @Test
+    @Ignore
     public void SinglePatientExists() {
         log.info("SinglePatientExists");
         II subjectId = new II();
@@ -73,6 +75,7 @@ public class PatientCheckerTest {
     }
 
     @Test
+    @Ignore
     public void PatientDoesNotExist() {
         log.info("PatientDoesNotExist");
         II subjectId = new II();

@@ -8,115 +8,60 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="AdapterDocumentAssemblyProxyEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
-    <description>Builds, tests, and runs the project AdapterDocumentAssemblyProxyEJB.</description>
-    <import file="nbproject/build-impl.xml"/>
+  <description>Builds, tests, and runs the project AdapterDocumentAssemblyProxyEJB.</description>
+  <import file="nbproject/build-impl.xml"/>
 
-    <import file="../../../../build.lib.xml"/>
+  <import file="../../../../build.lib.xml"/>
 
-    <property name="deploy.type" value="ejb" />
-    <property name="deploy.isDeployable" value="false"/>
+  <property name="deploy.type" value="ejb" />
+  <property name="deploy.isDeployable" value="false"/>
 
-    <target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
-    <target name="clean-build" depends="clean,dist" />
-    <target name="clean-test" depends="clean,dist,test" />
-    <target name="build-test" depends="dist,test" />
+  <target name="build">
+    <property name="target-to-call" value="dist" />
+    <antcall target="call-target-in-isolation-if-out-of-date" />
+  </target>
+  <target name="clean-build" depends="clean,build" />
+  <target name="clean-test" depends="clean-build,test" />
+  <target name="build-test" depends="build,test" />
 
-    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>
+  <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    <nbundeploy failOnError="false" startServer="false"/>
+  </target>
 
-    <!--
+  <target name="wsimport-client-DocumentManager" depends="wsimport-init">
+    <property name="targetLocation-DocumentManager" location="${meta.inf}/wsdl/DocumentManager"/>
+    <property name="sourceLocation-DocumentManager" location="${meta.inf}/xml-resources/web-service-references/DocumentManager/wsdl"/>
+    <copy todir="${targetLocation-DocumentManager}">
+      <fileset dir="${sourceLocation-DocumentManager}">
+      </fileset>
+    </copy>
+    <property name="targetLocation-DocumentManager-schemas" location="${meta.inf}/wsdl/schemas"/>
+    <property name="sourceLocation-DocumentManager-schemas" location="${meta.inf}/xml-resources/web-service-references/DocumentManager/schemas"/>
+    <copy todir="${targetLocation-DocumentManager-schemas}">
+      <fileset dir="${sourceLocation-DocumentManager-schemas}">
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="wsimport-service-AdapterDocumentAssembly" depends="wsimport-init">
+    <property name="targetLocation-AdapterDocumentAssembly" location="${meta.inf}/wsdl/AdapterDocumentAssembly"/>
+    <property name="sourceLocation-AdapterDocumentAssembly" location="${meta.inf}/xml-resources/web-services/AdapterDocumentAssembly/wsdl/"/>
+    <copy todir="${targetLocation-AdapterDocumentAssembly}">
+      <fileset dir="${sourceLocation-AdapterDocumentAssembly}">
+      </fileset>
+    </copy>
+    <property name="targetLocation-AdapterDocumentAssembly-schemas" location="${meta.inf}/wsdl/schemas"/>
+    <property name="sourceLocation-AdapterDocumentAssembly-schemas" location="${meta.inf}/xml-resources/web-services/AdapterDocumentAssembly/schemas"/>
+    <copy todir="${targetLocation-AdapterDocumentAssembly-schemas}">
+      <fileset dir="${sourceLocation-AdapterDocumentAssembly-schemas}">
+      </fileset>
+    </copy>
+  </target>
 
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
-
-      -pre-init:                 called before initialization of project properties
-      -post-init:                called after initialization of project properties
-      -pre-compile:              called before javac compilation
-      -post-compile:             called after javac compilation
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-dist:                 called before archive building
-      -post-dist:                called after archive building
-      -post-clean:               called after cleaning build products
-      -pre-run-deploy:           called before deploying
-      -post-run-deploy:          called after deploying
-
-    (Targets beginning with '-' are not intended to be called on their own.)
-
-    Example of pluging an obfuscator after the compilation could look like 
-
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
-
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
-
-    Other way how to customize the build is by overriding existing main targets.
-    The target of interest are: 
-
-      init-macrodef-javac:    defines macro for javac compilation
-      init-macrodef-debug:    defines macro for class debugging
-      do-dist:                archive building
-      run:                    execution of project 
-      javadoc-build:          javadoc generation 
-
-    Example of overriding the target for project execution could look like 
-
-        <target name="run" depends="<PROJNAME>-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
-
-    Notice that overridden target depends on jar target and not only on 
-    compile target as regular run target does. Again, for list of available 
-    properties which you can use check the target you are overriding in 
-    nbproject/build-impl.xml file. 
-
-    -->
-
-    <target name="wsimport-client-DocumentManager" depends="wsimport-init">
-        <property name="targetLocation-DocumentManager" location="${meta.inf}/wsdl/DocumentManager"/>
-        <property name="sourceLocation-DocumentManager" location="${meta.inf}/xml-resources/web-service-references/DocumentManager/wsdl"/>
-        <copy todir="${targetLocation-DocumentManager}">
-            <fileset dir="${sourceLocation-DocumentManager}">
-            </fileset>
-        </copy>
-        <property name="targetLocation-DocumentManager-schemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-DocumentManager-schemas" location="${meta.inf}/xml-resources/web-service-references/DocumentManager/schemas"/>
-        <copy todir="${targetLocation-DocumentManager-schemas}">
-            <fileset dir="${sourceLocation-DocumentManager-schemas}">
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-service-AdapterDocumentAssembly" depends="wsimport-init">
-        <property name="targetLocation-AdapterDocumentAssembly" location="${meta.inf}/wsdl/AdapterDocumentAssembly"/>
-        <property name="sourceLocation-AdapterDocumentAssembly" location="${meta.inf}/xml-resources/web-services/AdapterDocumentAssembly/wsdl/"/>
-        <copy todir="${targetLocation-AdapterDocumentAssembly}">
-            <fileset dir="${sourceLocation-AdapterDocumentAssembly}">
-            </fileset>
-        </copy>
-        <property name="targetLocation-AdapterDocumentAssembly-schemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-AdapterDocumentAssembly-schemas" location="${meta.inf}/xml-resources/web-services/AdapterDocumentAssembly/schemas"/>
-        <copy todir="${targetLocation-AdapterDocumentAssembly-schemas}">
-            <fileset dir="${sourceLocation-AdapterDocumentAssembly-schemas}">
-            </fileset>
-        </copy>
-    </target>
-
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-        <copy todir="${nhin.project.home}\UnitTestResults">
-            <fileset dir="${build.test.results.dir}"/>
-        </copy>
-        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
-    </target>    
+  <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+    <copy todir="${nhin.project.home}\UnitTestResults">
+      <fileset dir="${build.test.results.dir}"/>
+    </copy>
+    <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+  </target>    
 </project>

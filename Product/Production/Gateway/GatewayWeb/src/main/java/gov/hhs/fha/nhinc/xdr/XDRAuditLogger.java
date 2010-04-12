@@ -196,5 +196,22 @@ public class XDRAuditLogger {
         }
         return ack;
     }
+    public AcknowledgementType auditEntityAcknowledgement (ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
 
+        createLogger().debug("Start auditAcknowledgement for " + action);
+        AcknowledgementType ack = new AcknowledgementType();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logEntityAcknowledgement(acknowledgement, assertion, direction, action);
+
+        if(auditLogMsg != null)
+        {
+            if(auditLogMsg.getAuditMessage() != null)
+            {
+                audit(auditLogMsg, assertion);
+            }
+        }
+        return ack;
+    }
 }

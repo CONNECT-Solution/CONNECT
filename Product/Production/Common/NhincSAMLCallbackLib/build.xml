@@ -3,23 +3,19 @@
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="NhincSAMLCallbackLib" default="default" basedir=".">
-    <description>Builds, tests, and runs the project NhincSAMLCallbackLib.</description>
-    <import file="nbproject/build-impl.xml"/>
+  <description>Builds, tests, and runs the project NhincSAMLCallbackLib.</description>
+  <import file="nbproject/build-impl.xml"/>
 
-    <property name="deploy.type" value="shared" />
-    <property name="deploy.isDeployable" value="true"/>
-    
-    <import file="../../../build.lib.xml" />
-    
-    <target name="build">
-      <property name="target-to-call" value="jar" />
-      <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
-    <target name="clean-build" depends="clean,jar" />
-    <target name="clean-test" depends="clean,jar" />
-    <target name="build-test" depends="jar" />
-    
-    <target name="-post-jar">
-      <copy file="${dist.jar}" todir="../../../lib" overwrite="true" />
-    </target>
- </project>
+  <property name="deploy.type" value="shared" />
+  <property name="deploy.isDeployable" value="true"/>
+
+  <import file="../../../build.lib.xml" />
+
+  <target name="build">
+    <property name="target-to-call" value="jar" />
+    <antcall target="call-target-in-isolation-if-out-of-date" />
+  </target>
+  <target name="clean-build" depends="clean,build" />
+  <target name="clean-test" depends="clean-build,test" />
+  <target name="build-test" depends="build,test" />
+</project>

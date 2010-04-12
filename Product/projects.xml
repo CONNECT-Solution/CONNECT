@@ -177,4 +177,17 @@
         <directory>/Production/Adapters/Framework/NHINAdapterServiceEJB</directory>
         <dist.type>jar</dist.type>
     </project>
+
+  <!--Integration Test-->
+    <project>
+      <name>AdapterCommonDataLayerEJBJunitIntegrationTest</name>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterCommonDataLayerEJBJunitIntegrationTest</directory>
+      <dist.type>jar</dist.type>
+    </project>
+    <project>
+      <name>AdapterDocumentAssemblyProxyEJBJunitIntegrationTest</name>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterDocumentAssemblyProxyEJBJunitIntegrationTest</directory>
+      <dist.type>jar</dist.type>
+    </project>
+	
 </projects>

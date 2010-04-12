@@ -396,7 +396,7 @@
             <service>
                 <name>adapterxdrrequest</name>
                 <description>Adapter Component XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
             </service>
             <service>
                 <name>xdrrequest</name>
@@ -851,7 +851,7 @@
             <service>
                 <name>adapterxdrrequest</name>
                 <description>Adapter Component XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
             </service>
             <service>
                 <name>xdrrequest</name>

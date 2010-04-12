@@ -79,11 +79,11 @@ public class EntityXDRSecuredImpl {
 
     private void logEntityXDRRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
         // Audit the XDR Request Message sent on the Nhin Interface
-        AcknowledgementType ack = new XDRAuditLogger().auditEntityXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = new XDRAuditLogger().auditEntityXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     private void logResponseFromNhin(RegistryResponseType response, AssertionType assertion) {
-        AcknowledgementType ack = new XDRAuditLogger().auditEntityXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = new XDRAuditLogger().auditEntityXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     protected boolean isPolicyOk(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {

@@ -36,17 +36,6 @@ public class SamlTokenCreator {
 
         Map requestContext = new HashMap();
 
-        // This will be overwritten if a value is available in
-        // assertion.getSamlAuthzDecisionStatement().getAction()
-        if (NullChecker.isNotNullish(action)) {
-            requestContext.put(NhincConstants.ACTION_PROP, action);
-        }
-        // This will be overwritten if a value is available in
-        // assertion.getSamlAuthzDecisionStatement().getResource()
-        if (NullChecker.isNotNullish(url)) {
-            requestContext.put(NhincConstants.RESOURCE_PROP, url);
-        }
-
         if (assertion != null) {
             if (assertion.getUserInfo() != null) {
                 if (NullChecker.isNotNullish(assertion.getUserInfo().getUserName())) {
@@ -200,6 +189,17 @@ public class SamlTokenCreator {
             }
         } else {
             log.error("Error: samlSendOperation input assertion is null");
+        }
+
+        // This will overwrite any value that is available in
+        // assertion.getSamlAuthzDecisionStatement().getAction()
+        if (NullChecker.isNotNullish(action)) {
+            requestContext.put(NhincConstants.ACTION_PROP, action);
+        }
+        // This will overwrite any value that is available in
+        // assertion.getSamlAuthzDecisionStatement().getResource()
+        if (NullChecker.isNotNullish(url)) {
+            requestContext.put(NhincConstants.RESOURCE_PROP, url);
         }
 
         log.info("Request Context:");

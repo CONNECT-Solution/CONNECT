@@ -2,8 +2,8 @@
 <project basedir="." default="package.create" name="NhincCommonTypesLib">
 
   <property name="dist.type" value="jar" />
-  <property name="unittest.hasTests" value="false" />
   <property name="coverage.isneeded" value="false" />
+  <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
   
@@ -83,12 +83,7 @@
           <patternset refid="schema.list"/>
         </fileset>
       </sourcefiles>
-      <targetfiles>
-				<fileset dir="${build.classes.dir}">
-					<include name="**/*" />
-				</fileset>
-			</targetfiles>
-
+      <targetfiles path="${build.dir.root}/compilexjc.flag"/>
       <sequential>
         <xjc destdir="${build.dir}/generated/client" >
           <arg value="-xmlschema"/>
@@ -96,6 +91,7 @@
             <patternset refid="schema.list"/>
           </schema>
         </xjc>
+		<echo file="${build.dir.root}/compilexjc.flag" append="false"/>
       </sequential>
     </outofdate>
   </target>
@@ -106,11 +102,7 @@
       <sourcefiles>
         <path refid="wsdl.list"/>
       </sourcefiles>
-      <targetfiles>
-				<fileset dir="${build.classes.dir}">
-					<include name="**/*" />
-				</fileset>
-			</targetfiles>
+      <targetfiles path="${build.dir.root}/compilewsdl.flag"/>
       <sequential>
         <for param="wsdl.file.path">
           <path refid="wsdl.list"/>
@@ -124,9 +116,10 @@
                 verbose="true"
                 wsdlLocation="file:@{wsdl.file.path}" 
                 xnocompile="true">
-            </WsImportConnect>
+            </WsImportConnect>			
           </sequential>
         </for>  
+		<echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
       </sequential>
     </outofdate>
   </target>

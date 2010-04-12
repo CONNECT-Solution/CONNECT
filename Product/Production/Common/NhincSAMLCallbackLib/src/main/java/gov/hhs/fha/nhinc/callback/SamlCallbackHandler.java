@@ -228,7 +228,23 @@ public class SamlCallbackHandler implements CallbackHandler {
             String aID = String.valueOf(UUID.randomUUID());
 
             // name id of the issuer - For now just use default
-            NameID issueId = create509NameID(factory, DEFAULT_NAME);
+            NameID issueId = null;
+
+            if (tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
+                    tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_PROP)) {
+               String format = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
+               if (VALID_NAME_LIST.contains(format.trim())) {
+                   log.debug("Setting Assertion Issuer format to: " + format);
+                   String issuer = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_PROP).toString();
+                   log.debug("Setting Assertion Issuer to: " + issuer);
+                   issueId = factory.createNameID(issuer, null, format);
+               }
+               else {
+                   issueId = create509NameID(factory, DEFAULT_NAME);
+               }
+            } else {
+                issueId = create509NameID(factory, DEFAULT_NAME);
+            }
 
             // subject information
             NameID subjId = create509NameID(factory, PRIMARY_NAME);
@@ -466,17 +482,17 @@ public class SamlCallbackHandler implements CallbackHandler {
         // As of Authorization Framework Spec 2.2 Action is a hard-coded value
         // Therefore the value of the ACTION_PROP is no longer used
         List actions = new ArrayList();
-            String actionAttr = AUTHZ_DECISION_ACTION_EXECUTE;
-            log.debug("Setting Authentication Decision Action to: " + actionAttr);
-            try {
-                final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-                final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "Action");
-                elemURAttr.setAttribute("Namespace", AUTHZ_DECISION_ACTION_NS);
-                elemURAttr.setTextContent(actionAttr);
-                actions.add(elemURAttr);
-            } catch (ParserConfigurationException ex) {
-                actions.add(actionAttr);
-            }
+        String actionAttr = AUTHZ_DECISION_ACTION_EXECUTE;
+        log.debug("Setting Authentication Decision Action to: " + actionAttr);
+        try {
+            final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "Action");
+            elemURAttr.setAttribute("Namespace", AUTHZ_DECISION_ACTION_NS);
+            elemURAttr.setTextContent(actionAttr);
+            actions.add(elemURAttr);
+        } catch (ParserConfigurationException ex) {
+            actions.add(actionAttr);
+        }
 
         // Evidence Assertion generation           
         Evidence evidence = createEvidence();
@@ -846,7 +862,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
 
-       // Set the Instance Access Consent
+        // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
         if (tokenVals.containsKey(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
                 tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {

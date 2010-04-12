@@ -12,12 +12,12 @@
     <servlet>
         <servlet-name>DocumentRepositoryService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.document.DocumentRepositoryService</servlet-class>
-    </servlet>
+        </servlet>
     <servlet-mapping>
         <servlet-name>DocumentRepositoryService</servlet-name>
         <url-pattern>/DocumentRepository_Service</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AdapterDocQuerySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecured</servlet-class>
@@ -26,7 +26,7 @@
         <servlet-name>AdapterDocQuerySecured</servlet-name>
         <url-pattern>/AdapterDocQuerySecured</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AdapterDocRetrieveSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecured</servlet-class>
@@ -53,7 +53,7 @@
         <servlet-name>AdapterAuthenticationService</servlet-name>
         <url-pattern>/AdapterAuthentication</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AdapterPolicyEngineSecured</servlet-name>
         <servlet-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineSecured</servlet-class>
@@ -71,7 +71,7 @@
         <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
         <url-pattern>/AdapterPolicyEngineOrchestrator</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AdapterPolicyEngineTransform</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransform</servlet-class>
@@ -80,7 +80,7 @@
         <servlet-name>AdapterPolicyEngineTransform</servlet-name>
         <url-pattern>/AdapterPolicyEngineTransform</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AdapterPEPService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpepservice.AdapterPEPService</servlet-class>
@@ -98,7 +98,7 @@
         <servlet-name>AdapterPIPService</servlet-name>
         <url-pattern>/AdapterPIP</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AdapterSecuredAuditLogQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterSecuredAuditLogQuery</servlet-class>
@@ -188,7 +188,7 @@
         <servlet-name>EntityAuditQuery</servlet-name>
         <url-pattern>/EntityAuditQuery</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>ProxyAuditQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditQuery</servlet-class>
@@ -215,7 +215,7 @@
         <servlet-name>NhincProxyDocQuery</servlet-name>
         <url-pattern>/NhincProxyDocQuery</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>EntityDocRetrieve</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve</servlet-class>
@@ -233,7 +233,7 @@
         <servlet-name>NhincProxyDocRetrieve</servlet-name>
         <url-pattern>/NhincProxyDocRetrieve</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>EntityNotifyService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService</servlet-class>
@@ -260,7 +260,7 @@
         <servlet-name>EntityUnsubscribeService</servlet-name>
         <url-pattern>/EntitySubscriptionManager</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>ProxyHiemNotify</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotify</servlet-class>
@@ -287,7 +287,7 @@
         <servlet-name>ProxyHiemUnsubscribe</servlet-name>
         <url-pattern>/NhincProxySubscriptionManager</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>EntityPatientDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscovery</servlet-class>
@@ -296,7 +296,7 @@
         <servlet-name>EntityPatientDiscovery</servlet-name>
         <url-pattern>/EntityPatientDiscovery</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscovery</servlet-class>
@@ -314,7 +314,7 @@
         <servlet-name>EntitySubjectDiscovery</servlet-name>
         <url-pattern>/EntitySubjectDiscovery</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>NhincProxySubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subdisc.proxy.NhincProxySubjectDiscovery</servlet-class>
@@ -323,7 +323,7 @@
         <servlet-name>NhincProxySubjectDiscovery</servlet-name>
         <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>PatientCorrelationService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationService</servlet-class>
@@ -377,15 +377,18 @@
         <servlet-name>EntityXDRRequest</servlet-name>
         <url-pattern>/EntityProxyService/EntityXDRRequest</url-pattern>
     </servlet-mapping>
-
     <servlet>
-        <servlet-name>EntityEDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityEDRResponse</servlet-class>
+        <servlet-name>EntityXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponse</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityEDRResponse</servlet-name>
+        <servlet-name>EntityXDRResponse</servlet-name>
         <url-pattern>/EntityProxyService/EntityXDRResponse</url-pattern>
     </servlet-mapping>
+
+
+
+
 
     <!-- End: XDR Request and Response services-->
     

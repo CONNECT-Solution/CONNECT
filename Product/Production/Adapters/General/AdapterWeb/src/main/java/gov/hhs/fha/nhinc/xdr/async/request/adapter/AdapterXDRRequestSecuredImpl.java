@@ -5,12 +5,17 @@
 
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
+import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
+import gov.hhs.fha.nhinc.adapterxdrrequest.AdapterXDRRequestPortType;
+import gov.hhs.fha.nhinc.adapterxdrrequest.AdapterXDRRequestService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
+import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponsePortType;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -26,34 +31,46 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+
 /**
  *
  * @author patlollav
  */
 public class AdapterXDRRequestSecuredImpl {
 
-    private static final Log logger = LogFactory.getLog(AdapterXDRRequestSecuredImpl.class);
+    private static Log logger = null;
     private static EntityXDRSecuredResponseService entityXDRSecuredResponseService = null;
     public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
+    private static AdapterXDRService adapterXDRService = null;
+    private static AdapterXDRRequestService requestService = null;
 
+    public AdapterXDRRequestSecuredImpl()
+    {
+        logger = createLogger();
+    }
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
         // Call AdapterComponent implementation to process the request.
         AssertionType assertion = createAssertion(context);
 
-        RegistryResponseType registryResponse = callAdapterComponent(body, assertion);
+        AdapterProvideAndRegisterDocumentSetRequestType unsecured = new AdapterProvideAndRegisterDocumentSetRequestType();
 
-        getLogger().debug("Registry Response from AdapterXDRComponentImpl: " + registryResponse);
+        unsecured.setAssertion(assertion);
+        unsecured.setProvideAndRegisterDocumentSetRequest(body);
 
-        // Call the XDR Response service
-        ihe.iti.xdr._2007.AcknowledgementType ack = sendXDRResponse(registryResponse, assertion);
-
+        String url = getAdapterXDRRequestUrl();
+        AdapterXDRRequestPortType port = getAdapterXDRRequestPort(url);
+              
+      
         getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
 
-        return ack;
+        return port.provideAndRegisterDocumentSetBRequest(unsecured);
     }
-
+    protected Log createLogger()
+    {
+        return ((logger != null) ? logger : LogFactory.getLog(getClass()));
+    }
     protected AdapterComponentXDRImpl getAdapterComponentXDRImpl(){
         return new AdapterComponentXDRImpl();
     }
@@ -68,7 +85,7 @@ public class AdapterXDRRequestSecuredImpl {
     }
 
 
-    protected RegistryResponseType callAdapterComponent(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion){
+    protected RegistryResponseType callAdapterComponentXDR(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion){
 
         getLogger().debug("Calling AdapterComponentXDRImpl");
 
@@ -77,7 +94,18 @@ public class AdapterXDRRequestSecuredImpl {
         adapterComponentXDRRequest.setAssertion(assertion);
         adapterComponentXDRRequest.setProvideAndRegisterDocumentSetRequest(body);
 
-        RegistryResponseType registryResponse = getAdapterComponentXDRImpl().provideAndRegisterDocumentSetb(adapterComponentXDRRequest);
+        RegistryResponseType registryResponse = null;
+
+        String adapterComponentXDRUrl = getAdapterComponentXDRUrl();
+
+        if (NullChecker.isNotNullish(adapterComponentXDRUrl)) {
+            AdapterXDRPortType port = getAdapterXDRPort(adapterComponentXDRUrl);
+
+            registryResponse = port.provideAndRegisterDocumentSetb(adapterComponentXDRRequest);
+
+        } else {
+            getLogger().error("The URL for service: " + NhincConstants.ADAPTER_XDR_SERVICE_NAME + " is null");
+        }
 
         return registryResponse;
 
@@ -195,5 +223,68 @@ public class AdapterXDRRequestSecuredImpl {
         return targetSystem;
     }
 
+    /**
+     * 
+     * @return
+     */
+    protected String getAdapterComponentXDRUrl() {
+        String url = null;
+
+        try {
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDR_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            getLogger().error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_SERVICE_NAME, ex);
+        }
+
+        return url;
+    }
+    protected String getAdapterXDRRequestUrl() {
+        String url = null;
+
+        try {
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDR_REQUEST_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            getLogger().error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SERVICE_NAME, ex);
+        }
+
+        return url;
+    }
+    protected AdapterXDRRequestPortType getAdapterXDRRequestPort(String url) {
+
+        AdapterXDRRequestPortType port = getAdapterXDRRequestService().getAdapterXDRRequestPort();
+
+        getLogger().info("Setting endpoint address to Adapter XDR Request Service to " + url);
+        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+        return port;
+    }
+    protected AdapterXDRPortType getAdapterXDRPort(String url) {
+
+        AdapterXDRPortType port = getAdapterXDRService().getAdapterXDRPort();
+
+        getLogger().info("Setting endpoint address to Adapter XDR Service to " + url);
+        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+        return port;
+    }
+
+    protected AdapterXDRService getAdapterXDRService()
+    {
+        if (adapterXDRService == null){
+            return new AdapterXDRService();
+        }else{
+            return adapterXDRService;
+        }
+
+    }
+    protected AdapterXDRRequestService getAdapterXDRRequestService()
+    {
+        if (requestService == null){
+            return new AdapterXDRRequestService();
+        }else{
+            return requestService;
+        }
+
+    }
 
 }

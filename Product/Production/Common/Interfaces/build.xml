@@ -3,17 +3,19 @@
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
-    <description>Builds, tests, and runs the project .</description>
-    <import file="nbproject/build-impl.xml"/>
-	<import file="../../../build.lib.xml" />
-	<target name="build">
-		<property name="target-to-call" value="dist_se" />
-		<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,dist_se" />
-	<target name="clean-test" depends="clean,dist_se" />
-	<target name="build-test" depends="dist_se" />
-    <!--
+  <description>Builds, tests, and runs the project .</description>
+  <import file="nbproject/build-impl.xml"/>
+  <import file="../../../build.lib.xml" />
+  
+  <target name="build">
+    <property name="target-to-call" value="dist_se" />
+    <antcall target="call-target-in-isolation-if-out-of-date" />
+  </target>
+  
+  <target name="clean-build" depends="clean,dist_se" />
+  <target name="clean-test" depends="clean,dist_se" />
+  <target name="build-test" depends="dist_se" />
+  <!--
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
     before and after some main targets. They are: 
@@ -61,7 +63,7 @@
     properties which you can use check the target you are overriding in 
     nbproject/build-impl.xml file. 
     -->
-	<!--
+  <!--
     <target name="-check-netbeans-home">
         <condition property="no.netbeans.home">
             <not>
@@ -78,15 +80,15 @@
     </target>
     <target name="-pre-init" depends="-check-netbeans-home,-init-caps"/>
 	-->
-	<target name="-init-esb-ide" if="netbeans.home">
-        <property name="esb.netbeans.platform" value="${netbeans.home}"/>
-    </target>
-    <target name="-init-esb-cmdline" unless="netbeans.home">
-		<property file="../../../build.properties"/>
-        <property file="${basedir}/nbproject/private/private.properties"/>
-        <property name="esb.netbeans.platform" value="${esb.netbeans.home}/platform9"/>
-        <property name="netbeans.user" value="${esb.netbeans.user}"/>
-        <property name="from.commandline" value="true"/>
-    </target>
-    <target name="-pre-init" depends="-init-esb-ide,-init-esb-cmdline"/>
+  <target name="-init-esb-ide" if="netbeans.home">
+    <property name="esb.netbeans.platform" value="${netbeans.home}"/>
+  </target>
+  <target name="-init-esb-cmdline" unless="netbeans.home">
+    <property file="../../../build.properties"/>
+    <property file="${basedir}/nbproject/private/private.properties"/>
+    <property name="esb.netbeans.platform" value="${esb.netbeans.home}/platform9"/>
+    <property name="netbeans.user" value="${esb.netbeans.user}"/>
+    <property name="from.commandline" value="true"/>
+  </target>
+  <target name="-pre-init" depends="-init-esb-ide,-init-esb-cmdline"/>
 </project>
