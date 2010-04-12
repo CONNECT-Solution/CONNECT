@@ -185,25 +185,10 @@
       <dist.type>jar</dist.type>
     </project>
     <project>
-      <name>AdapterPIPLibTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterPIPLibTest</directory>
+      <name>AdapterGeneralIntTest</name>
+      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterGeneralIntTest</directory>
       <dist.type>jar</dist.type>
     </project>
-    <project>
-      <name>DocumentRepositoryEJBTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/DocumentRepositoryEJBTest</directory>
-      <dist.type>jar</dist.type>
-    </project>
-    <project>
-      <name>AdapterInternalComponentProxy</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterInternalComponentProxy</directory>
-      <dist.type>jar</dist.type>
-    </project>
-<!--     <project>
-      <name>FTAConfigManager</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/FTAConfigManager</directory>
-      <dist.type>jar</dist.type>
-    </project> -->
     <project>
       <name>NhincCommonLib</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Common/NhincCommonLib</directory>
