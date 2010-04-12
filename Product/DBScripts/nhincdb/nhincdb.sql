@@ -169,3 +169,17 @@ CREATE TABLE subscriptionrepository.subscription (
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON subscriptionrepository.* to nhincuser;
 -- end subscription repository creation
+
+-- begin asyncmsgs
+CREATE DATABASE asyncmsgs;
+
+CREATE TABLE asyncmsgs.asyncmsgrepo (
+	MessageId VARCHAR(100) NOT NULL,
+	CreationTime DATETIME NOT NULL,
+	ServiceName VARCHAR(100),
+	MsgData LONGBLOB,
+	PRIMARY KEY (MessageId)
+);
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON asyncmsgs.* to nhincuser;
+-- end asyncmsgs

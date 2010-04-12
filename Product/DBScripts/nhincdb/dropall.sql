@@ -15,3 +15,5 @@ DROP DATABASE IF EXISTS auditlog;
 DROP DATABASE IF EXISTS docrepository;
 
 DROP DATABASE IF EXISTS patientcorrelationdb;
+
+DROP DATABASE IF EXISTS asyncmsgs;
