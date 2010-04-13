@@ -9,23 +9,6 @@
           <user name="Srikanth Vadlamani"     group="buildmaster"       address="srikanth.vadlamani@agilex.com"/>
           <user name="Mark Goldman"           group="buildmaster"       address="mark.goldman@agilex.com"/>
         
-          <user name="flowersj"               group="developer"         address="jay.flowers@agilex.com"/>
-          <user name="vadlamanis"             group="developer"         address="srikanth.vadlamani@agilex.com"/>
-          <user name="goldmanm"               group="developer"         address="mark.goldman@agilex.com"/>
-          <user name="borsts"                 group="developer"         address="scott.borst@agilex.com"/>
-          <user name="padmanabhanp"           group="developer"         address="parineetha.padmanabhan@agilex.com"/>
-          <user name="dhara"                  group="developer"         address="aleena.dhar@agilex.com"/>
-          <user name="dunnek"                 group="developer"         address="kieran.dunne@agilex.com"/>
-          <user name="rayj"                   group="developer"         address="jason.ray@agilex.com"/>
-          <user name="webbn"                  group="developer"         address="neil.webb@agilex.com"/>
-          <user name="westbergl"              group="developer"         address="les.westberg@agilex.com"/>
-          <user name="valluripallis"          group="developer"         address="svalluripalli@scenpro.com"/>
-          <user name="vvickers"               group="developer"         address="vvickers@harris.com"/>
-          <user name="mflynn02"               group="developer"         address="mflynn02@harris.com"/>
-          <user name="hoppeschj"              group="developer"         address="jhoppesc@harris.com"/>
-          <user name="shawc"                  group="developer"         address="clark.shaw@agilex.com"/>
-          <user name="patlollav"              group="developer"         address="visu.patlolla@agilex.com"/>
-
           <user name="Build Notification"     group="change"            address="NHINBuildNotification@agilex.com"/>
 
           <user name="Notification Dev"       group="failed"            address="NHINBuildNotification@agilex.com"/>
@@ -38,7 +21,7 @@
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="&ConnectBlue5.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
+               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Blue5">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
