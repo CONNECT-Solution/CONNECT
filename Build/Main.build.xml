@@ -408,7 +408,7 @@
     </trycatch>
   </target>
 
-  <target name="Test.SoapUI.Dev" depends="SetUps">
+  <target name="SoapUI.Dev" depends="SetUps">
     <trycatch>
       <try>
         <call target="SourceModificationReport.ConsolidateReports" />
