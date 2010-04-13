@@ -107,7 +107,6 @@ public class PatientConsentHelper
         {
             log.debug("No Fine Grained Policy Criteria. Looking at global opt-in/opt-out");
             bPtDocTypeCd = ptPreferences.isOptIn();
-            return bPtDocTypeCd;
         }
         else
         {
@@ -129,6 +128,7 @@ public class PatientConsentHelper
             }
             log.debug("End extract DocumentType value from fine grained policy criterian");
         }
+        log.debug("Allow flag for document filter: " + bPtDocTypeCd);
         return bPtDocTypeCd;
     }
 

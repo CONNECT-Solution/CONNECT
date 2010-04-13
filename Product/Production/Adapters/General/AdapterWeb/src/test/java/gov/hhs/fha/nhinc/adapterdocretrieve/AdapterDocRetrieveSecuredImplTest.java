@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.adapterdocretrieve;
 
-import gov.hhs.fha.nhinc.redaction.RedactionEngine;
+import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxy;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.apache.commons.logging.Log;
@@ -27,7 +27,7 @@ public class AdapterDocRetrieveSecuredImplTest
         }
     };
     final Log mockLog = context.mock(Log.class);
-    final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
+    final RedactionEngineProxy mockRedactionEngineProxy = context.mock(RedactionEngineProxy.class);
 
     @Test
     public void testCreateLogger()
@@ -55,7 +55,7 @@ public class AdapterDocRetrieveSecuredImplTest
     }
 
     @Test
-    public void testGetRedactionEngine()
+    public void testRedactionEngineProxy()
     {
         try
         {
@@ -67,20 +67,20 @@ public class AdapterDocRetrieveSecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected RedactionEngine getRedactionEngine()
+                protected RedactionEngineProxy getRedactionEngineProxy()
                 {
-                    return mockRedactionEngine;
+                    return mockRedactionEngineProxy;
                 }
             };
 
-            RedactionEngine redactionEngine = docRetrieveImpl.getRedactionEngine();
-            assertNotNull("Redaction engine was null", redactionEngine);
+            RedactionEngineProxy redactionEngineProxy = docRetrieveImpl.getRedactionEngineProxy();
+            assertNotNull("Redaction engine proxy was null", redactionEngineProxy);
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testGetRedactionEngine test: " + t.getMessage());
+            System.out.println("Error running testGetRedactionEngineProxy test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testGetRedactionEngine test: " + t.getMessage());
+            fail("Error running testGetRedactionEngineProxy test: " + t.getMessage());
         }
     }
 
@@ -100,16 +100,16 @@ public class AdapterDocRetrieveSecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected RedactionEngine getRedactionEngine()
+                protected RedactionEngineProxy getRedactionEngineProxy()
                 {
-                    return mockRedactionEngine;
+                    return mockRedactionEngineProxy;
                 }
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    one(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
+                    one(mockRedactionEngineProxy).filterRetrieveDocumentSetResults(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
 
@@ -140,9 +140,9 @@ public class AdapterDocRetrieveSecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected RedactionEngine getRedactionEngine()
+                protected RedactionEngineProxy getRedactionEngineProxy()
                 {
-                    return mockRedactionEngine;
+                    return mockRedactionEngineProxy;
                 }
             };
             context.checking(new Expectations()

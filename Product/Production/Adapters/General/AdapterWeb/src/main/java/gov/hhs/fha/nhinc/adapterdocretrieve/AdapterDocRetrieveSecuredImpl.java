@@ -10,7 +10,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxy;
 import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.redaction.RedactionEngine;
+import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxy;
+import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxyFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,7 +42,7 @@ public class AdapterDocRetrieveSecuredImpl {
         {
             AdapterDocumentRepositoryProxy proxy = new AdapterDocumentRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
             response = proxy.retrieveDocumentSet(body);
-            //response = callRedactionEngine(body, response);
+            response = callRedactionEngine(body, response);
         }
         catch(Throwable t)
         {
@@ -64,13 +65,14 @@ public class AdapterDocRetrieveSecuredImpl {
         }
         else
         {
-            response = getRedactionEngine().filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse);
+            response = getRedactionEngineProxy().filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse);
         }
         return response;
     }
 
-    protected RedactionEngine getRedactionEngine()
+    protected RedactionEngineProxy getRedactionEngineProxy()
     {
-        return new RedactionEngine();
+        return new RedactionEngineProxyFactory().getRedactionEngineProxy();
     }
+    
 }

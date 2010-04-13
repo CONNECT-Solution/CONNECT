@@ -8,6 +8,8 @@ package gov.hhs.fha.nhinc.adapterdocquery;
 import gov.hhs.fha.nhinc.docregistryadapter.proxy.AdapterDocumentRegistryProxy;
 import gov.hhs.fha.nhinc.docregistryadapter.proxy.AdapterDocumentRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.redaction.RedactionEngine;
+import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxy;
+import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxyFactory;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -57,7 +59,7 @@ public class AdapterDocQuerySecuredImpl {
                 adhocQueryRequest.setRequestSlotList(request.getRequestSlotList());
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(adhocQueryRequest);
-                //response = callRedactionEngine(request, response);
+                response = callRedactionEngine(request, response);
             }
             else
             {
@@ -88,13 +90,14 @@ public class AdapterDocQuerySecuredImpl {
         }
         else
         {
-            response = getRedactionEngine().filterAdhocQueryResults(queryRequest, queryResponse);
+            response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse);
         }
         return response;
     }
 
-    protected RedactionEngine getRedactionEngine()
+    protected RedactionEngineProxy getRedactionEngineProxy()
     {
-        return new RedactionEngine();
+        return new RedactionEngineProxyFactory().getRedactionEngineProxy();
     }
+
 }

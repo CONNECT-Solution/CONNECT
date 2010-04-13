@@ -810,7 +810,6 @@
 	<xsd:element name="FilterDocQueryResultsResponse" type="tns:FilterDocQueryResultsResponseType"/>
     <xsd:complexType name="FilterDocRetrieveResultsRequestType">
         <xsd:sequence>
-            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType"></xsd:element>
             <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
             <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
         </xsd:sequence>

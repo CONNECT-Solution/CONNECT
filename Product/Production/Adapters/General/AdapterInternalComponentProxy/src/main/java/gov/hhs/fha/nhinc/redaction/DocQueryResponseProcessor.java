@@ -240,6 +240,7 @@ public class DocQueryResponseProcessor
                         }
                         if(documentAllowed(oExtObj, workingPatientPreferences))
                         {
+                            log.debug("Adding document query response to the list.");
                             if(registryObjectList == null)
                             {
                                 registryObjectList = new RegistryObjectListType();
@@ -247,6 +248,10 @@ public class DocQueryResponseProcessor
                             }
                             registryObjectList.getIdentifiable().add(rimObjectFactory.createExtrinsicObject(oExtObj));
                             docCount++;
+                        }
+                        else
+                        {
+                            log.debug("Skipping document");
                         }
                     }
                 }
@@ -280,6 +285,7 @@ public class DocQueryResponseProcessor
     
     protected String extractDocumentId(ExtrinsicObjectType oExtObj)
     {
+        log.debug("Begin extractDocumentId");
         String documentId = null;
         if (!oExtObj.getExternalIdentifier().isEmpty())
         {
@@ -295,11 +301,13 @@ public class DocQueryResponseProcessor
                 }
             }
         }
+        log.debug("End extractDocumentId - returning: " + documentId);
         return documentId;
     }
 
     protected String extractRepositoryId(ExtrinsicObjectType oExtObj)
     {
+        log.debug("Begin extractRepositoryId");
         String repositoryId = null;
         if (!oExtObj.getSlot().isEmpty())
         {
@@ -320,11 +328,13 @@ public class DocQueryResponseProcessor
                 }
             }
         }
+        log.debug("End extractRepositoryId - returning: " + repositoryId);
         return repositoryId;
     }
 
     protected String extractDocumentType(ExtrinsicObjectType oExtObj)
     {
+        log.debug("Begin extractDocumentType");
         String documentType = null;
         if (!oExtObj.getClassification().isEmpty())
         {
@@ -338,14 +348,17 @@ public class DocQueryResponseProcessor
                 }
             }
         }
+        log.debug("End extractDocumentType - returning: " + documentType);
         return documentType;
     }
 
     protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences)
     {
+        log.debug("Begin documentAllowed");
         boolean allowed = false;
         String documentTypeCode = extractDocumentType(extObject);
         allowed = getPatientConsentHelper().extractDocTypeFromPatPref(documentTypeCode, patientPreferences);
+        log.debug("End documentAllowed - response: " + allowed);
         return allowed;
     }
 
