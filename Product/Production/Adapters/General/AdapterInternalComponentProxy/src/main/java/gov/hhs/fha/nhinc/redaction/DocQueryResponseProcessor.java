@@ -1,14 +1,23 @@
 package gov.hhs.fha.nhinc.redaction;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
+import gov.hhs.fha.nhinc.policyengine.adapterpip.CDAConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,9 +28,11 @@ import org.apache.commons.logging.LogFactory;
 public class DocQueryResponseProcessor
 {
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
+    private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     private Log log = null;
     private String patientId;
     private String assigningAuthorityId;
+    private String homeCommunityId;
 
     public DocQueryResponseProcessor()
     {
@@ -56,6 +67,16 @@ public class DocQueryResponseProcessor
     protected String getAssigningAuthorityId()
     {
         return assigningAuthorityId;
+    }
+
+    protected void setHomeCommunityId(String homeCommunityId)
+    {
+        this.homeCommunityId = homeCommunityId;
+    }
+
+    protected String getHomeCommunityId()
+    {
+        return homeCommunityId;
     }
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
@@ -96,7 +117,8 @@ public class DocQueryResponseProcessor
             }
             else
             {
-                log.warn("Not a patient centric query.");
+                log.info("Not a patient-centric query.");
+                response = filterResultsNonPatientCentric(adhocQueryResponse);
             }
         }
         log.debug("End filterAdhocQueryResults");
@@ -113,16 +135,24 @@ public class DocQueryResponseProcessor
         else
         {
             AdhocQueryType adhocQuery = adhocQueryRequest.getAdhocQuery();
-            List<SlotType1> slots = null;
             if(adhocQuery != null)
             {
-                slots = adhocQuery.getSlot();
-                List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
-                if((slotValues != null) && (!slotValues.isEmpty()))
+                homeCommunityId = adhocQuery.getHome();
+                if((homeCommunityId != null) && (homeCommunityId.startsWith("urn:oid:")))
                 {
-                    String formattedPatientId = slotValues.get(0);
-                    patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
-                    assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
+                    homeCommunityId = homeCommunityId.replaceFirst("urn:oid:", "");
+                }
+                List<SlotType1> slots = null;
+                if(adhocQuery != null)
+                {
+                    slots = adhocQuery.getSlot();
+                    List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
+                    if((slotValues != null) && (!slotValues.isEmpty()))
+                    {
+                        String formattedPatientId = slotValues.get(0);
+                        patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
+                        assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
+                    }
                 }
             }
         }
@@ -163,22 +193,160 @@ public class DocQueryResponseProcessor
         return returnValues;
     }
 
+    protected AdhocQueryResponse filterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse)
+    {
+        log.debug("In filterResultsNonPatientCentric");
+        return filterResults(adhocQueryResponse, null);
+    }
+
     protected AdhocQueryResponse filterResults(AdhocQueryResponse adhocQueryResponse, PatientPreferencesType patientPreferences)
     {
         log.debug("Begin filterResults");
         AdhocQueryResponse response = null;
+        if(adhocQueryResponse == null)
+        {
+            log.warn("AdhocQueryResponse was null.");
+        }
+        else
+        {
+            ObjectFactory rimObjectFactory = new ObjectFactory();
+            response = new AdhocQueryResponse();
+            response.setRegistryErrorList(adhocQueryResponse.getRegistryErrorList());
+            response.setStatus(adhocQueryResponse.getStatus());
+            RegistryObjectListType registryObjectList = null;
+            long docCount = 0;
 
+            RegistryObjectListType sourceRegistryObjectList = adhocQueryResponse.getRegistryObjectList();
+            if(sourceRegistryObjectList != null)
+            {
+                List<JAXBElement<? extends IdentifiableType>> olRegObjs = sourceRegistryObjectList.getIdentifiable();
+                for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
+                {
+                    if ((oJAXBObj != null) &&
+                            (oJAXBObj.getDeclaredType() != null) &&
+                            (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
+                            (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
+                            (oJAXBObj.getValue() != null))
+                    {
+                        ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
+                        PatientPreferencesType workingPatientPreferences = null;
+                        if(patientPreferences == null)
+                        {
+                            workingPatientPreferences = retrievePatientPreferencesForDocument(oExtObj);
+                        }
+                        else
+                        {
+                            workingPatientPreferences = patientPreferences;
+                        }
+                        if(documentAllowed(oExtObj, workingPatientPreferences))
+                        {
+                            if(registryObjectList == null)
+                            {
+                                registryObjectList = new RegistryObjectListType();
+                                response.setRegistryObjectList(registryObjectList);
+                            }
+                            registryObjectList.getIdentifiable().add(rimObjectFactory.createExtrinsicObject(oExtObj));
+                            docCount++;
+                        }
+                    }
+                }
+                response.setTotalResultCount(BigInteger.valueOf(docCount));
+            }
+            else
+            {
+                log.info("RegistryObjectList was null.");
+            }
+
+        }
         log.debug("End filterResults");
         return response;
     }
 
-    protected AdhocQueryResponse filterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse)
+    protected PatientPreferencesType retrievePatientPreferencesForDocument(ExtrinsicObjectType oExtObj)
     {
-        log.debug("Begin filterResultsNonPatientCentric");
-        AdhocQueryResponse response = null;
+        PatientPreferencesType patientPreferences = null;
+        if(oExtObj == null)
+        {
+            log.error("Extrinsic Object was null.");
+        }
+        else
+        {
+            String documentId = extractDocumentId(oExtObj);
+            String repositoryId = extractRepositoryId(oExtObj);
+            patientPreferences = getPatientConsentHelper().retrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId);
+        }
+        return patientPreferences;
+    }
+    
+    protected String extractDocumentId(ExtrinsicObjectType oExtObj)
+    {
+        String documentId = null;
+        if (!oExtObj.getExternalIdentifier().isEmpty())
+        {
+            List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
+            for (ExternalIdentifierType oExtId : olExtId)
+            {
+                if ((oExtId.getIdentificationScheme() != null) &&
+                        (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME)) &&
+                        (oExtId.getValue() != null) &&
+                        (oExtId.getValue().length() > 0))
+                {
+                    documentId = oExtId.getValue().trim();
+                }
+            }
+        }
+        return documentId;
+    }
 
-        log.debug("End filterResultsNonPatientCentric");
-        return response;
+    protected String extractRepositoryId(ExtrinsicObjectType oExtObj)
+    {
+        String repositoryId = null;
+        if (!oExtObj.getSlot().isEmpty())
+        {
+            List<SlotType1> slots = oExtObj.getSlot();
+            for (SlotType1 slot : slots)
+            {
+                if ((slot != null) &&
+                        (CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID.equals(slot.getName())) &&
+                        (slot.getValueList() != null) &&
+                        (!slot.getValueList().getValue().isEmpty()))
+                {
+                    repositoryId = slot.getValueList().getValue().get(0);
+                    if(repositoryId != null)
+                    {
+                        repositoryId = repositoryId.trim();
+                        break;
+                    }
+                }
+            }
+        }
+        return repositoryId;
+    }
+
+    protected String extractDocumentType(ExtrinsicObjectType oExtObj)
+    {
+        String documentType = null;
+        if (!oExtObj.getClassification().isEmpty())
+        {
+            List<ClassificationType> classifications = oExtObj.getClassification();
+            for (ClassificationType classification : classifications) {
+                if ((classification != null) &&
+                        (EBXML_RESPONSE_TYPECODE_CLASS_SCHEME.equals(classification.getClassificationScheme())))
+                {
+                    documentType = classification.getNodeRepresentation();
+                    break;
+                }
+            }
+        }
+        return documentType;
+    }
+
+    protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences)
+    {
+        boolean allowed = false;
+        String documentTypeCode = extractDocumentType(extObject);
+        allowed = getPatientConsentHelper().extractDocTypeFromPatPref(documentTypeCode, patientPreferences);
+        return allowed;
     }
 
 }
