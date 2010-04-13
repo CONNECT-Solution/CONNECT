@@ -38,7 +38,7 @@
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="&ConnectRed5.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
+               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Red5">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
