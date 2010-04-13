@@ -859,5 +859,79 @@ public class PatientConsentHelperTest
         }
     }
 
+    @Test
+    public void testExtractDocTypeFromPatPrefOptIn()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setOptIn(true);
+
+            context.checking(new Expectations(){{
+                ignoring(mockLog).debug(with(any(String.class)));
+            }});
+
+            assertTrue("Doc type check for global opt in", testSubject.extractDocTypeFromPatPref("testing", ptPreferences));
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefOptIn test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefOptIn test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testExtractDocTypeFromPatPrefOptOut()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setOptIn(false);
+
+            context.checking(new Expectations(){{
+                ignoring(mockLog).debug(with(any(String.class)));
+            }});
+
+            assertFalse("Doc type check for global opt out", testSubject.extractDocTypeFromPatPref("testing", ptPreferences));
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractDocTypeFromPatPrefOptOut test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractDocTypeFromPatPrefOptOut test: " + t.getMessage());
+        }
+    }
+
 }
 

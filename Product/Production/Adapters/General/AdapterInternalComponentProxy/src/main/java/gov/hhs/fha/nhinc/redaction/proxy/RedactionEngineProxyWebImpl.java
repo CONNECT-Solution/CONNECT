@@ -139,7 +139,7 @@ public class RedactionEngineProxyWebImpl implements RedactionEngineProxy
         return response;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(String homeCommunityId, RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
     {
         RetrieveDocumentSetResponseType response = null;
 
@@ -162,9 +162,6 @@ public class RedactionEngineProxyWebImpl implements RedactionEngineProxy
             else
             {
                 FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-                HomeCommunityType homeCommunity = new HomeCommunityType();
-                homeCommunity.setHomeCommunityId(homeCommunityId);
-                filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
                 filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
                 filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
 

@@ -49,14 +49,14 @@ public class RedactionEngineProxyJavaImpl implements RedactionEngineProxy
         return response;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(String homeCommunityId, RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
     {
         log.debug("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
         RedactionEngine redactionEngine = getRedactionEngine();
         if(redactionEngine != null)
         {
-            response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, retrieveDocumentSetRequest, retrieveDocumentSetResponse);
+            response = redactionEngine.filterRetrieveDocumentSetResults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
         }
         else
         {

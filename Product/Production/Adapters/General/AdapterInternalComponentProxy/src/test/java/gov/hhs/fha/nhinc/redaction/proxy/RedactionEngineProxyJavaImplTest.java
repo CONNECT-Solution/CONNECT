@@ -216,8 +216,6 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
                 @Override
@@ -236,11 +234,11 @@ public class RedactionEngineProxyJavaImplTest
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(String.class)), with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
+                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
 
-            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
@@ -258,7 +256,6 @@ public class RedactionEngineProxyJavaImplTest
         {
             final RetrieveDocumentSetRequestType retrieveRequest = null;
             final RetrieveDocumentSetResponseType retrieveResponse = null;
-            String homeCommunityId = null;
 
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
@@ -278,11 +275,11 @@ public class RedactionEngineProxyJavaImplTest
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNull(String.class)), with(aNull(RetrieveDocumentSetRequestType.class)), with(aNull(RetrieveDocumentSetResponseType.class)));
+                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNull(RetrieveDocumentSetRequestType.class)), with(aNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
 
-            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(homeCommunityId, retrieveRequest, retrieveResponse);
+            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
@@ -298,8 +295,6 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
             {
                 @Override
@@ -322,7 +317,7 @@ public class RedactionEngineProxyJavaImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)

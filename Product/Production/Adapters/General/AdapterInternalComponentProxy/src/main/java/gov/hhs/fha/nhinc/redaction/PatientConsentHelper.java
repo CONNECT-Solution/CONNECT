@@ -1,6 +1,5 @@
 package gov.hhs.fha.nhinc.redaction;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
@@ -9,7 +8,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRes
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPImpl;
-import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -94,8 +92,6 @@ public class PatientConsentHelper
      */
     public boolean extractDocTypeFromPatPref(String documentType, PatientPreferencesType ptPreferences)
     {
-        // TODO: Look at global opt-in/opt-out
-
         log.debug("Begin extract DocumentType value from fine grained policy criterian");
         boolean bPtDocTypeCd = false;
         FineGrainedPolicyCriteriaType findGrainedPolicy = null;
@@ -109,26 +105,30 @@ public class PatientConsentHelper
                 findGrainedPolicy.getFineGrainedPolicyCriterion() == null ||
                 findGrainedPolicy.getFineGrainedPolicyCriterion().size() <= 0)
         {
-            log.error("Error retrieving Fine Grained Policy Criteria");
+            log.debug("No Fine Grained Policy Criteria. Looking at global opt-in/opt-out");
+            bPtDocTypeCd = ptPreferences.isOptIn();
             return bPtDocTypeCd;
         }
-        String sPtDocTypeCd = null;
-        for(FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy.getFineGrainedPolicyCriterion())
+        else
         {
-            if(null != eachFineGrainedPolicyCriterion &&
-                    eachFineGrainedPolicyCriterion.getDocumentTypeCode()!=null)
+            String sPtDocTypeCd = null;
+            for(FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy.getFineGrainedPolicyCriterion())
             {
-                sPtDocTypeCd = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
-                if(sPtDocTypeCd != null &&
-                        !sPtDocTypeCd.equals("") &&
-                        sPtDocTypeCd.equals(documentType))
+                if(null != eachFineGrainedPolicyCriterion &&
+                        eachFineGrainedPolicyCriterion.getDocumentTypeCode()!=null)
                 {
-                    bPtDocTypeCd = true;
-                    break;
+                    sPtDocTypeCd = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
+                    if(sPtDocTypeCd != null &&
+                            !sPtDocTypeCd.equals("") &&
+                            sPtDocTypeCd.equals(documentType))
+                    {
+                        bPtDocTypeCd = true;
+                        break;
+                    }
                 }
             }
+            log.debug("End extract DocumentType value from fine grained policy criterian");
         }
-        log.debug("End extract DocumentType value from fine grained policy criterian");
         return bPtDocTypeCd;
     }
 

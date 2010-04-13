@@ -18,7 +18,7 @@ public class RedactionEngineNoOpImpl implements RedactionEngineProxy
         return adhocQueryResponse;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(String homeCommunityId, RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
     {
         return retrieveDocumentSetResponse;
     }

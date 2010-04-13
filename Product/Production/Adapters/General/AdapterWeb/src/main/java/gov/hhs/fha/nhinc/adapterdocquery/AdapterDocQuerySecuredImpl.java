@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.adapterdocquery;
 
 import gov.hhs.fha.nhinc.docregistryadapter.proxy.AdapterDocumentRegistryProxy;
 import gov.hhs.fha.nhinc.docregistryadapter.proxy.AdapterDocumentRegistryProxyObjectFactory;
+import gov.hhs.fha.nhinc.redaction.RedactionEngine;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -20,12 +21,22 @@ import org.apache.commons.logging.LogFactory;
  * @author svalluripalli
  */
 public class AdapterDocQuerySecuredImpl {
-    private static Log log = LogFactory.getLog(AdapterDocQuerySecuredImpl.class);
+    private Log log = null;
     private static final String ERROR_CODE_CONTEXT = AdapterDocQuerySecuredImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
     private static final String ERROR_SEVERITY = "Error";
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest request, WebServiceContext context)
+    public AdapterDocQuerySecuredImpl()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
+
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, WebServiceContext context)
     {
         log.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         AdhocQueryResponse response = null;
@@ -46,6 +57,7 @@ public class AdapterDocQuerySecuredImpl {
                 adhocQueryRequest.setRequestSlotList(request.getRequestSlotList());
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(adhocQueryRequest);
+                //response = callRedactionEngine(request, response);
             }
             else
             {
@@ -65,5 +77,24 @@ public class AdapterDocQuerySecuredImpl {
         }
         log.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         return response;
+    }
+
+    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse)
+    {
+        AdhocQueryResponse response = null;
+        if(queryResponse == null)
+        {
+            log.warn("Did not call redaction engine because the query response was null.");
+        }
+        else
+        {
+            response = getRedactionEngine().filterAdhocQueryResults(queryRequest, queryResponse);
+        }
+        return response;
+    }
+
+    protected RedactionEngine getRedactionEngine()
+    {
+        return new RedactionEngine();
     }
 }

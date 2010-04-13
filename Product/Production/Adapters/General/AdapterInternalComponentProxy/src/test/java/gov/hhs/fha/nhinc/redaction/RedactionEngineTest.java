@@ -332,7 +332,6 @@ public class RedactionEngineTest
         {
             final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
             final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
-            String homeCommunityId = "1.1";
 
             RedactionEngine redactionEngine = new RedactionEngine()
             {
@@ -361,7 +360,7 @@ public class RedactionEngineTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
@@ -379,7 +378,6 @@ public class RedactionEngineTest
         {
             final RetrieveDocumentSetRequestType mockRequest = null;
             final RetrieveDocumentSetResponseType mockResponse = null;
-            String homeCommunityId = "1.1";
 
             RedactionEngine redactionEngine = new RedactionEngine()
             {
@@ -408,7 +406,7 @@ public class RedactionEngineTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
@@ -426,7 +424,6 @@ public class RedactionEngineTest
         {
             final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
             final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
-            String homeCommunityId = "1.1";
 
             RedactionEngine redactionEngine = new RedactionEngine()
             {
@@ -455,7 +452,7 @@ public class RedactionEngineTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)
@@ -473,7 +470,6 @@ public class RedactionEngineTest
         {
             final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
             final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
-            String homeCommunityId = "1.1";
 
             RedactionEngine redactionEngine = new RedactionEngine()
             {
@@ -509,7 +505,7 @@ public class RedactionEngineTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)

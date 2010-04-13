@@ -10,15 +10,29 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxy;
 import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.redaction.RedactionEngine;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author svalluripalli
  */
 public class AdapterDocRetrieveSecuredImpl {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdapterDocRetrieveSecuredImpl.class);
+    private Log log = null;
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context)
+    public AdapterDocRetrieveSecuredImpl()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
+
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context)
     {
         log.debug("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         RetrieveDocumentSetResponseType response = null;
@@ -27,6 +41,7 @@ public class AdapterDocRetrieveSecuredImpl {
         {
             AdapterDocumentRepositoryProxy proxy = new AdapterDocumentRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
             response = proxy.retrieveDocumentSet(body);
+            //response = callRedactionEngine(body, response);
         }
         catch(Throwable t)
         {
@@ -38,5 +53,24 @@ public class AdapterDocRetrieveSecuredImpl {
         }
         log.debug("Leaving AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         return response;
+    }
+
+    protected RetrieveDocumentSetResponseType callRedactionEngine(RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse)
+    {
+        RetrieveDocumentSetResponseType response = null;
+        if(retrieveResponse == null)
+        {
+            log.warn("Did not call redaction engine because the retrieve response was null.");
+        }
+        else
+        {
+            response = getRedactionEngine().filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse);
+        }
+        return response;
+    }
+
+    protected RedactionEngine getRedactionEngine()
+    {
+        return new RedactionEngine();
     }
 }

@@ -71,20 +71,7 @@ public class AdapterComponentRedactionEngineImpl
         }
         else
         {
-            String homeCommunityId = null;
-            if(filterDocRetrieveResultsRequest.getHomeCommunity() != null)
-            {
-                homeCommunityId = filterDocRetrieveResultsRequest.getHomeCommunity().getHomeCommunityId();
-                if(log.isDebugEnabled())
-                {
-                    log.debug("Home community id: " + homeCommunityId);
-                }
-            }
-            else
-            {
-                log.warn("Home community was null");
-            }
-            RetrieveDocumentSetResponseType retrieveDocSetResonse = redactionEngine.filterRetrieveDocumentSetResults(homeCommunityId, filterDocRetrieveResultsRequest.getRetrieveDocumentSetRequest(), filterDocRetrieveResultsRequest.getRetrieveDocumentSetResponse());
+            RetrieveDocumentSetResponseType retrieveDocSetResonse = redactionEngine.filterRetrieveDocumentSetResults(filterDocRetrieveResultsRequest.getRetrieveDocumentSetRequest(), filterDocRetrieveResultsRequest.getRetrieveDocumentSetResponse());
             response = new FilterDocRetrieveResultsResponseType();
             response.setRetrieveDocumentSetResponse(retrieveDocSetResonse);
         }

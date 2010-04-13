@@ -63,11 +63,9 @@ public class RedactionEngineNoOpImplTest
             inputResponse.setRegistryResponse(registryResponse);
             registryResponse.setStatus(expectedStatus);
 
-            String homeCommunityId = "1.1";
-
             RedactionEngineNoOpImpl noOpProxy = new RedactionEngineNoOpImpl();
 
-            RetrieveDocumentSetResponseType response = noOpProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, inputResponse);
+            RetrieveDocumentSetResponseType response = noOpProxy.filterRetrieveDocumentSetResults(mockRequest, inputResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
             assertNotNull("Registry response was null", response.getRegistryResponse());
             assertEquals("Status", expectedStatus, response.getRegistryResponse().getStatus());

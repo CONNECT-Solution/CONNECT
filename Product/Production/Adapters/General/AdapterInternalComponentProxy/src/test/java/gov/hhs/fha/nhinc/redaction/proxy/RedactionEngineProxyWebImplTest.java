@@ -746,8 +746,6 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
             {
                 @Override
@@ -775,7 +773,7 @@ public class RedactionEngineProxyWebImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);
         }
         catch(Throwable t)
@@ -791,8 +789,6 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
             {
                 @Override
@@ -820,7 +816,7 @@ public class RedactionEngineProxyWebImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(homeCommunityId, null, mockResponse);
+            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(null, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)
@@ -836,8 +832,6 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
             {
                 @Override
@@ -865,7 +859,7 @@ public class RedactionEngineProxyWebImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, null);
+            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(mockRequest, null);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)
@@ -881,8 +875,6 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
             {
                 @Override
@@ -910,7 +902,7 @@ public class RedactionEngineProxyWebImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)
@@ -926,8 +918,6 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
             {
                 @Override
@@ -967,7 +957,7 @@ public class RedactionEngineProxyWebImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)
@@ -983,8 +973,6 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            String homeCommunityId = "1.1";
-
             RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
             {
                 @Override
@@ -1024,7 +1012,7 @@ public class RedactionEngineProxyWebImplTest
                 }
             });
 
-            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(homeCommunityId, mockRequest, mockResponse);
+            RetrieveDocumentSetResponseType response = webProxy.filterRetrieveDocumentSetResults(mockRequest, mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
         }
         catch(Throwable t)

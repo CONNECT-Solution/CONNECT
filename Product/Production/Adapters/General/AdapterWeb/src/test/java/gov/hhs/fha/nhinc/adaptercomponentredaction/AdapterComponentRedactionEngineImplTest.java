@@ -1,6 +1,5 @@
 package gov.hhs.fha.nhinc.adaptercomponentredaction;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
@@ -392,15 +391,12 @@ public class AdapterComponentRedactionEngineImplTest
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(String.class)), with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
+                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-            HomeCommunityType homeCommunity = new HomeCommunityType();
-            homeCommunity.setHomeCommunityId("test.community");
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
-            filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
@@ -482,11 +478,8 @@ public class AdapterComponentRedactionEngineImplTest
                 }
             });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-            HomeCommunityType homeCommunity = new HomeCommunityType();
-            homeCommunity.setHomeCommunityId("test.community");
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
-            filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
@@ -519,7 +512,7 @@ public class AdapterComponentRedactionEngineImplTest
                     RedactionEngine redactionEng = new RedactionEngine()
                     {
                         @Override
-                        public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(String homeCommunityId, RetrieveDocumentSetRequestType retrieveDocRequest, RetrieveDocumentSetResponseType retreiveDocResponse)
+                        public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocRequest, RetrieveDocumentSetResponseType retreiveDocResponse)
                         {
                             return null;
                         }
@@ -535,11 +528,8 @@ public class AdapterComponentRedactionEngineImplTest
                 }
             });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-            HomeCommunityType homeCommunity = new HomeCommunityType();
-            homeCommunity.setHomeCommunityId("test.community");
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
-            filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
@@ -552,53 +542,6 @@ public class AdapterComponentRedactionEngineImplTest
             System.out.println("Error running testFilterDocRetrieveResultsNullResponse: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testFilterDocRetrieveResultsNullResponse: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testFilterDocRetrieveResultsNullHomeCommunity()
-    {
-        try
-        {
-            AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected RedactionEngine getRedactionEngine()
-                {
-                    return mockRedactionEngine;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNull(String.class)), with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
-                }
-            });
-            FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-            HomeCommunityType homeCommunity = null;
-            RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
-            RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
-            filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
-            filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
-            filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
-
-            FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(filterDocRetrieveResultsRequest);
-            assertNotNull("FilterDocRetrieveResultsResponseType was null", response);
-            assertNotNull("RetrieveDocumentSetResponseType was null", response.getRetrieveDocumentSetResponse());
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testFilterDocRetrieveResultsNullHomeCommunity: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testFilterDocRetrieveResultsNullHomeCommunity: " + t.getMessage());
         }
     }
 
@@ -625,15 +568,12 @@ public class AdapterComponentRedactionEngineImplTest
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(String.class)), with(aNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
+                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-            HomeCommunityType homeCommunity = new HomeCommunityType();
-            homeCommunity.setHomeCommunityId("test.community");
             RetrieveDocumentSetRequestType retrieveDocRequest = null;
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
-            filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
@@ -672,15 +612,12 @@ public class AdapterComponentRedactionEngineImplTest
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(String.class)), with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNull(RetrieveDocumentSetResponseType.class)));
+                    oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNull(RetrieveDocumentSetResponseType.class)));
                 }
             });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-            HomeCommunityType homeCommunity = new HomeCommunityType();
-            homeCommunity.setHomeCommunityId("test.community");
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = null;
-            filterDocRetrieveResultsRequest.setHomeCommunity(homeCommunity);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 

@@ -19,9 +19,9 @@
 <threshold branchcount="94" branchrate="0.5" branchsexecuted="0.47" class="gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201305" linecount="137" linerate="0.7737226277372263" linesexecuted="1.06"/>
 <threshold branchcount="120" branchrate="0.38333333333333336" branchsexecuted="0.46" class="gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201306" linecount="275" linerate="0.8654545454545455" linesexecuted="2.38"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecured" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecuredImpl" linecount="34" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.4" branchsexecuted="1.6" class="gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecuredImpl" linecount="43" linerate="0.16744186046511628" linesexecuted="7.2"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecuredImpl" linecount="15" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.8" branchsexecuted="1.6" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecuredImpl" linecount="24" linerate="0.3" linesexecuted="7.2"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpi" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpiProxyImpl" linecount="21" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpiQuery" linecount="46" linerate="0.0" linesexecuted="0"/>
