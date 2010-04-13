@@ -49,4 +49,6 @@
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.repository.topicfilter.TopicComparisonFactory" linecount="20" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.repository.topicfilter.TopicFilterBasicComparisonStrategy" linecount="13" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.repository.topicfilter.TopicFilterFactory" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="46" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao" linecount="114" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil" linecount="15" linerate="0.0" linesexecuted="0"/>
 </thresholds>
