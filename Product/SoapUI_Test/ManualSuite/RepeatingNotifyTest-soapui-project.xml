@@ -11069,11 +11069,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
 </xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationConsumer</con:endpoint><con:endpoint>http://localhost:8088/mockEntityNotificationConsumerBindingSoap11</con:endpoint><con:endpoint>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:Notify" name="Notify" bindingOperationName="Notify" type="Request-Response" outputName="NotifyResponse" inputName="NotifyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:NotifySubscribersOfCdcBioPackage" name="NotifySubscribersOfCdcBioPackage" bindingOperationName="NotifySubscribersOfCdcBioPackage" type="Request-Response" outputName="NotifySubscribersOfCdcBioPackageResponse" inputName="NotifySubscribersOfCdcBioPackageRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:NotifySubscribersOfDocument" name="NotifySubscribersOfDocument" bindingOperationName="NotifySubscribersOfDocument" type="Request-Response" outputName="NotifySubscribersOfDocumentResponse" inputName="NotifySubscribersOfDocumentRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="RepeatingNotify"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create file in File Transfer dir and loop" searchProperties="true" id="37a77123-7b13-4a11-bd5f-3c2089d73b85"><con:settings/><con:testStep type="groovy" name="Create file in File Transfer dir"><con:settings/><con:config><script>def dumpDir = context.findProperty( "dumpDir" );
-def copyFile = context.findProperty( "copyFile" );
-
-//def nowDateValue new Date()
 def nowDate = new Date().format("yyyy-MM-dd'T'HH-mm-ss")
-
 def fileInDumpDir = dumpDir + "/NotifyTest-" + nowDate + ".txt";
 
 log.info "Creating " + fileInDumpDir;
