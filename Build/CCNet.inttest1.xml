@@ -888,7 +888,6 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestValidationFailed;
           &TestPerformanceBuilding;
           &TestRegressionBuilding;
         </projectFilters>
@@ -919,7 +918,7 @@
       </sourceControlProvider>
     </sourcecontrol>
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Test-Development</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
     </labeller>
     <tasks>
       <modificationWriter>
