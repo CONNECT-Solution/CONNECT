@@ -4,7 +4,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapterpip.PatientConsentManager;
 import gov.hhs.fha.nhinc.policyengine.adapterpip.QueryUtil;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
-import ihe.iti.xds_b._2007.DocumentRegistryService;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
@@ -32,7 +31,7 @@ public class DocRetrieveResponseProcessor {
     private String homeCommunityId;
     private String repositoryId;
     private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
-    private static final String EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
+    private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
 
     /**
      * Constructor
@@ -235,7 +234,7 @@ public class DocRetrieveResponseProcessor {
             for (ClassificationType classification : classificationList) {
                 if (null != classification &&
                         null != classification.getClassificationScheme() &&
-                        classification.getClassificationScheme().contentEquals(EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME)) {
+                        classification.getClassificationScheme().contentEquals(EBXML_RESPONSE_TYPECODE_CLASS_SCHEME)) {
                     value = parseInternationalType(classification.getName());
                 }
             }

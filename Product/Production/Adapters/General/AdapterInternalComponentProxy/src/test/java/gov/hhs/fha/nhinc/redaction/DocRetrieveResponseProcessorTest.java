@@ -487,7 +487,7 @@ public class DocRetrieveResponseProcessorTest {
         documentMetaData.getClassification().clear();
         oClassification = new ClassificationType();
         documentMetaData.getClassification().add(oClassification);
-        oClassification.setClassificationScheme("urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
+        oClassification.setClassificationScheme("urn:uuid:f0306f51-975f-434e-a61c-c59651d33983");
         InternationalStringType sIntStrType = new InternationalStringType();
         LocalizedStringType l = new LocalizedStringType();
         sIntStrType.getLocalizedString().add(l);
@@ -525,7 +525,7 @@ public class DocRetrieveResponseProcessorTest {
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
         ClassificationType oClassification = new ClassificationType();
         documentMetaData.getClassification().add(oClassification);
-        oClassification.setClassificationScheme("urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
+        oClassification.setClassificationScheme("urn:uuid:f0306f51-975f-434e-a61c-c59651d33983");
         InternationalStringType sIntStrType = new InternationalStringType();
         LocalizedStringType l = new LocalizedStringType();
         sIntStrType.getLocalizedString().add(l);
