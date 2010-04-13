@@ -21,11 +21,11 @@
         <description>End SetUp</description>
 
         <description>Begin Post Build Actions</description>
+        <call target="Analytics.CompileReports" failonerror="false" />
+        <call target="Alerts.Run" failonerror="false" />
         <call target="Backup.CopyCCNETFiles" failonerror="false" />
         <call target="Backup.CopyPublishedFiles" failonerror="false" />
         <call target="Archive.Move" failonerror="false" />
-        <call target="Analytics.CompileReports" failonerror="false" />
-        <call target="Alerts.Run" failonerror="false" />
         <description>End Post Build Actions</description>
 
       </try>
@@ -61,7 +61,8 @@
           </value>
         </largeproperty>
         <mail 
-          tolist="jay.flowers@gmail.com" 
+          tolist="mark.goldman@agilex.com;srikanth.vadlamani@agilex.com" 
+          cclist="jay.flowers@agilex.com"
           from="${ProjectName}.Build@agilex-hc-5155.com" 
           mailhost="127.0.0.1" 
           subject="${CCNetProject} Post Build Failed ${CCNetLabel}" 
