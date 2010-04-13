@@ -450,7 +450,7 @@
         <trycatch>
           <try>
             <property name="SoapUI.Suite" value="PerformanceSuite" />
-            <call target="SoapUI.RunTests"/>
+            <call target="SoapUI.Performance.RunTests"/>
           </try>
           <catch property="exception">
             <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
