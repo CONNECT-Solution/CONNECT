@@ -42,7 +42,8 @@ layer of abstraction
   <import file="../Install/deploy.xml"/>
   <import file="netbeans/netbeans.targets.xml"/>
   <import file="checkstyle/checkstyle.targets.xml"/>
-	
+  <import file="licensetool/license.targets.xml"/>
+  	
   <target name="deploy">
     <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
@@ -214,7 +215,23 @@ layer of abstraction
   <target name="checkstyle">
     <call target="checkstyle.style"/>
   </target>
-	
+
+  <target name="scratch.files">
+    <!--    
+        <copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
+             <fileset dir="${project.dir}">
+                 <include name="build_new.xml" />
+             </fileset>
+        </copy>
+        <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
+          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
+        </exec>
+    --> 
+      <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
+        <arg line='/C svn move ${project.dir}/build_new.xml ${project.dir}/build.xml'/>
+      </exec>
+  </target>
+
   <target name="help">
     <echo taskname="help">
       run ant -p for the short help
@@ -275,23 +292,5 @@ layer of abstraction
     <call target="junit.help"/>
     <call target="coverage.help"/>
     <call target="soapui.help"/>
-  </target>
-	
-  	<target name="scratch.files">
-  	<!--	
-  		<copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
-             <fileset dir="${project.dir}">
-                 <include name="build_new.xml" />
-             </fileset>
-        </copy>
-  		<exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
-          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
-        </exec>
-  	-->	
-  		<exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
-          <arg line='/C svn move ${project.dir}/build_new.xml ${project.dir}/build.xml'/>
-        </exec>
-
-  	</target>
-  			
+  </target>	  	
 </project>

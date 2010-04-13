@@ -1,195 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="NHINC" default="source.compile" basedir=".">
 
-  <import file="build/build.targets.xml" />
+	<import file="build/build.targets.xml" />
 
-  <property name="temp.dir" value="/temp" />
-  <mkdir dir="${temp.dir}" />
-  <condition property="progress-filepath" value="${temp.dir}/ant-progress.txt">
-    <not>
-      <isset property="progress-filepath" />
-    </not>
-  </condition>
+	<property name="temp.dir" value="/temp" />
+	<mkdir dir="${temp.dir}" />
+	<condition property="progress-filepath" value="${temp.dir}/ant-progress.txt">
+		<not>
+			<isset property="progress-filepath" />
+		</not>
+	</condition>
 
-  <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
-    <var name="do-to-target" value="coverage.bless" />
-    <antcall target="do-to-projects" />
-  </target>
+	<target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
+		<var name="do-to-target" value="coverage.bless" />
+		<antcall target="do-to-projects" />
+	</target>
 
-  <target name="source.compile" description="Compile all projects: run ant help for more info...">
-    <var name="do-to-target" value="just.source.compile" />
-    <antcall target="do-to-projects" />
-  </target>
+	<target name="source.compile" description="Compile all projects: run ant help for more info...">
+		<var name="do-to-target" value="just.source.compile" />
+		<antcall target="do-to-projects" />
+	</target>
 
-  <target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info...">
-    <var name="do-to-target" value="just.package.create" />
-    <antcall target="do-to-projects" />
-  </target>
+	<target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info...">
+		<var name="do-to-target" value="just.package.create" />
+		<antcall target="do-to-projects" />
+	</target>
 
-  <target name="clean" description="Clean all projects: run ant help for more info...">
-    <var name="do-to-target" value="just.clean" />
-    <antcall target="do-to-projects" />
-  </target>
+	<target name="clean" description="Clean all projects: run ant help for more info...">
+		<var name="do-to-target" value="just.clean" />
+		<antcall target="do-to-projects" />
+	</target>
 
-  <target name="just.clean"  description="please call clean, at the Product level clean now works like just.clean worked...">
-    <fail message="please call clean, at the Product level clean now works like just.clean worked..."/>
-  </target>
+	<target name="just.clean"  description="please call clean, at the Product level clean now works like just.clean worked...">
+		<fail message="please call clean, at the Product level clean now works like just.clean worked..."/>
+	</target>
 
-  <target name="just.source.compile"  description="please call source.compile, at the Product level source.compile now works like just.source.compile worked...">
-    <fail message="please call source.compile, at the Product level source.compile now works like just.source.compile worked..."/>
-  </target>
+	<target name="just.source.compile"  description="please call source.compile, at the Product level source.compile now works like just.source.compile worked...">
+		<fail message="please call source.compile, at the Product level source.compile now works like just.source.compile worked..."/>
+	</target>
 
-  <target name="just.unittest.run" description="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked...">
-    <fail message="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked..."/>
-  </target>
+	<target name="just.unittest.run" description="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked...">
+		<fail message="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked..."/>
+	</target>
 
-  <target name="unittest.write.report" description="write html unit test reports in each projects' directory unit-test-reports...">
-    <junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
-      <xmlreports>
-        <fileset dir="${basedir}">
-          <include name="**/unit-test-reports/TEST-*.xml" />
-        </fileset>
-      </xmlreports>
-    </junitreportplus>
-  </target>
+	<target name="unittest.write.report" description="write html unit test reports in each projects' directory unit-test-reports...">
+		<junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
+			<xmlreports>
+				<fileset dir="${basedir}">
+					<include name="**/unit-test-reports/TEST-*.xml" />
+				</fileset>
+			</xmlreports>
+		</junitreportplus>
+	</target>
 
-  <target name="just.integrationtest.run" description="please call integrationtest.run, at the Product level integrationtest.run now works like just.integrationtest.run worked...">
-    <fail message="please call integrationtest.run, at the Product level integrationtest.run now works like just.integrationtest.run worked..."/>
-  </target>
+	<target name="just.integrationtest.run" description="please call integrationtest.run, at the Product level integrationtest.run now works like just.integrationtest.run worked...">
+		<fail message="please call integrationtest.run, at the Product level integrationtest.run now works like just.integrationtest.run worked..."/>
+	</target>
 
-  <target name="just.webtest.run" description="please call webtest.run, at the Product level webtest.run now works like just.webtest.run worked...">
-    <fail message="please call webtest.run, at the Product level webtest.run now works like just.webtest.run worked..."/>
-  </target>
+	<target name="just.webtest.run" description="please call webtest.run, at the Product level webtest.run now works like just.webtest.run worked...">
+		<fail message="please call webtest.run, at the Product level webtest.run now works like just.webtest.run worked..."/>
+	</target>
 
-  <target name="just.package.create" description="please call package.create, at the Product level package.create now works like just.package.create worked...">
-    <fail message="please call package.create, at the Product level package.create now works like just.package.create worked..."/>
-  </target>
+	<target name="just.package.create" description="please call package.create, at the Product level package.create now works like just.package.create worked...">
+		<fail message="please call package.create, at the Product level package.create now works like just.package.create worked..."/>
+	</target>
 
-  <target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
-  	<call target="deploy.to.production"/>
-  </target>
+	<target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
+		<call target="deploy.to.production"/>
+	</target>
 
-  <target name="copy.deployable.artifacts">
-    <delete dir="${deployment.binaries.dir}"/>
-    <mkdir dir="${deployment.binaries.dir}"/>
+	<target name="copy.deployable.artifacts">
+		<delete dir="${deployment.binaries.dir}"/>
+		<mkdir dir="${deployment.binaries.dir}"/>
 
-    <runtarget target="create.deploy.list.xml"/>
+		<runtarget target="create.deploy.list.xml"/>
 
-    <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
-      <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
-    </copy>
-    
-	<copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
-  	      <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
-  	</copy>
-	
-  	<var name="do-to-target" value="copy.deployable.artifacts"/>
-    <antcall target="do-to-projects"/>      
-  </target>
-  
-  <target name="just.deploy"  description="please call deploy, at the Product level deploy now works like just.deploy worked...">
-    <fail message="please call deploy, at the Product level deploy now works like just.deploy worked..."/>
-  </target>
+		<copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
+			<fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
+		</copy>
 
-  <target name="redeploy" depends="undeploy,deploy"/>
+		<copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
+			<fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
+		</copy>
 
-  <target name="undeploy"  description="Undeploy all projects: run ant help for more info...">
-	<runtarget target="undeploy.from.production"/>
-  </target>
+		<var name="do-to-target" value="copy.deployable.artifacts"/>
+		<antcall target="do-to-projects"/>
+	</target>
 
-  <target name="coverage.write.report" description="write html coverage reports in each projects' directory coverage-reports...">
-    <delete dir="${basedir}/coverage-reports" />
-    <mkdir dir="${basedir}/coverage-reports" />
-    <cobertura-merge datafile="${basedir}/coverage-reports/coverage.ser">
-      <fileset dir="${basedir}">
-        <include name="**/*.ser" />
-      </fileset>
-    </cobertura-merge>
-    <property name="coverage.temp.source" value="${temp.dir}/coverage-source"/>
-    <delete dir="${coverage.temp.source}"/>
-    <mkdir dir="${coverage.temp.source}"/>
+	<target name="just.deploy"  description="please call deploy, at the Product level deploy now works like just.deploy worked...">
+		<fail message="please call deploy, at the Product level deploy now works like just.deploy worked..."/>
+	</target>
 
-    <for param="source.dir">
-      <path>
-        <dirset dir="${basedir}">
-          <include name="Production/**/src/main/java"/>
-        </dirset>
-      </path>
-      <sequential>
-        <copy todir="${coverage.temp.source}">
-          <fileset dir="@{source.dir}">
-            <include name="**/*.java"/>
-          </fileset>
-        </copy>
-      </sequential>
-    </for>
+	<target name="redeploy" depends="undeploy,deploy"/>
 
-    <cobertura-report
+	<target name="undeploy"  description="Undeploy all projects: run ant help for more info...">
+		<runtarget target="undeploy.from.production"/>
+	</target>
+
+	<target name="coverage.write.report" description="write html coverage reports in each projects' directory coverage-reports...">
+		<delete dir="${basedir}/coverage-reports" />
+		<mkdir dir="${basedir}/coverage-reports" />
+		<cobertura-merge datafile="${basedir}/coverage-reports/coverage.ser">
+			<fileset dir="${basedir}">
+				<include name="**/*.ser" />
+			</fileset>
+		</cobertura-merge>
+		<property name="coverage.temp.source" value="${temp.dir}/coverage-source"/>
+		<delete dir="${coverage.temp.source}"/>
+		<mkdir dir="${coverage.temp.source}"/>
+
+		<for param="source.dir">
+			<path>
+				<dirset dir="${basedir}">
+					<include name="Production/**/src/main/java"/>
+				</dirset>
+			</path>
+			<sequential>
+				<copy todir="${coverage.temp.source}">
+					<fileset dir="@{source.dir}">
+						<include name="**/*.java"/>
+					</fileset>
+				</copy>
+			</sequential>
+		</for>
+
+		<cobertura-report
 			format="xml"
 			datafile="${basedir}/coverage-reports/coverage.ser"
 			destdir="${basedir}/coverage-reports"
 			srcdir="${coverage.temp.source}"
 		/>
-    <cobertura-report
+		<cobertura-report
 			format="html"
 			datafile="${basedir}/coverage-reports/coverage.ser"
 			destdir="${basedir}/coverage-reports"
 			srcdir="${coverage.temp.source}"
 		/>
-  </target>
+	</target>
 
-  <target name="soapui.run" description="Run the SoapUI tests for the projects: run ant help for more info...">
-    <var name="do-to-target" value="soapui.run" />
-    <antcall target="do-to-projects" />
+	<target name="soapui.run" description="Run the SoapUI tests for the projects: run ant help for more info...">
+		<var name="do-to-target" value="soapui.run" />
+		<antcall target="do-to-projects" />
 
-    <junitreportplus reportfile="${basedir}/soapui-test-reports/SoapUITests.xml" testtype="soapui">
-      <xmlreports>
-        <fileset dir="${basedir}">
-          <include name="**/soapui-test-reports/**/TEST-*.xml" />
-        </fileset>
-      </xmlreports>
-    </junitreportplus>
-  </target>
+		<junitreportplus reportfile="${basedir}/soapui-test-reports/SoapUITests.xml" testtype="soapui">
+			<xmlreports>
+				<fileset dir="${basedir}">
+					<include name="**/soapui-test-reports/**/TEST-*.xml" />
+				</fileset>
+			</xmlreports>
+		</junitreportplus>
+	</target>
 
-  <target name="webtest.run" description="Run the Selenium JUnit tests for the projects: run ant help for more info...">
-    <var name="do-to-target" value="just.webtest.run" />
-    <antcall target="do-to-projects" />
+	<target name="webtest.run" description="Run the Selenium JUnit tests for the projects: run ant help for more info...">
+		<var name="do-to-target" value="just.webtest.run" />
+		<antcall target="do-to-projects" />
 
-    <junitreportplus reportfile="${basedir}/web-test-reports/WebTests.xml" testtype="web">
-      <xmlreports>
-        <fileset dir="${basedir}">
-          <include name="**/web-test-reports/TEST-*.xml" />
-        </fileset>
-      </xmlreports>
-    </junitreportplus>
-  </target>
+		<junitreportplus reportfile="${basedir}/web-test-reports/WebTests.xml" testtype="web">
+			<xmlreports>
+				<fileset dir="${basedir}">
+					<include name="**/web-test-reports/TEST-*.xml" />
+				</fileset>
+			</xmlreports>
+		</junitreportplus>
+	</target>
 
-  <target name="integrationtest.run" description="Run the JUnit Integration tests for the projects: run ant help for more info...">
-    <call target="-coverage.product.prep"/>
-    <var name="do-to-target" value="just.integrationtest.run" />
-    <antcall target="do-to-projects" />
+	<target name="integrationtest.run" description="Run the JUnit Integration tests for the projects: run ant help for more info...">
+		<call target="-coverage.product.prep"/>
+		<var name="do-to-target" value="just.integrationtest.run" />
+		<antcall target="do-to-projects" />
 
-    <junitreportplus reportfile="${basedir}/integration-test-reports/IntegrationTests.xml" testtype="integration">
-      <xmlreports>
-        <fileset dir="${basedir}">
-          <include name="**/integration-test-reports/TEST-*.xml" />
-        </fileset>
-      </xmlreports>
-    </junitreportplus>
-    <call target="-coverage.product.check"/>
-  </target>
+		<junitreportplus reportfile="${basedir}/integration-test-reports/IntegrationTests.xml" testtype="integration">
+			<xmlreports>
+				<fileset dir="${basedir}">
+					<include name="**/integration-test-reports/TEST-*.xml" />
+				</fileset>
+			</xmlreports>
+		</junitreportplus>
+		<call target="-coverage.product.check"/>
+	</target>
 
-  <target name="unittest.run" description="Run the JUnit tests for the projects: run ant help for more info...">
-    <call target="-coverage.product.prep"/>
-    <call target="-unittest.product.prep"/>
-    <var name="do-to-target" value="just.unittest.run" />
-    <antcall target="do-to-projects" />
-    <call target="-unittest.product.check"/>
-    <call target="-coverage.product.check"/>
-  </target>
+	<target name="unittest.run" description="Run the JUnit tests for the projects: run ant help for more info...">
+		<call target="-coverage.product.prep"/>
+		<call target="-unittest.product.prep"/>
+		<var name="do-to-target" value="just.unittest.run" />
+		<antcall target="do-to-projects" />
+		<call target="-unittest.product.check"/>
+		<call target="-coverage.product.check"/>
+	</target>
 
-  <target name="help">
-    <echo taskname="help">
+	<target name="copyright.add" description="Clean all projects: run ant help for more info...">
+		<var name="do-to-target" value="copyright.add" />
+		<antcall target="do-to-projects" />
+	</target>
+			
+	<target name="help">
+		<echo taskname="help">
       run ant -p for the short help (ignore the target that start with: 'build.targets.')
 
       This project will iterate over all the projects listed in ${basedir}/projects.xml
@@ -237,33 +242,33 @@
 
       redeploy - calls undeploy the deploy.
     </echo>
-  </target>
+	</target>
 
-  <target name="do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
-    <property name="project.count" value="0" />
-    <xmltask source="${basedir}/projects.xml">
-      <call path="/projects/project">
-        <actions>
-          <math result="project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
-        </actions>
-      </call>
-    </xmltask>
+	<target name="do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
+		<property name="project.count" value="0" />
+		<xmltask source="${basedir}/projects.xml">
+			<call path="/projects/project">
+				<actions>
+					<math result="project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
+				</actions>
+			</call>
+		</xmltask>
 
-    <property name="current.project.count" value="0" />
-    <xmltask source="${basedir}/projects.xml">
-      <call path="/projects/project">
-        <param name="project.name" path="name/text()" />
-        <param name="project.directory" path="directory/text()" />
-        <actions>
-          <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
-          <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
-          <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
-          <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
-          <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
-          <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
-        </actions>
-      </call>
-    </xmltask>
-  </target>
+		<property name="current.project.count" value="0" />
+		<xmltask source="${basedir}/projects.xml">
+			<call path="/projects/project">
+				<param name="project.name" path="name/text()" />
+				<param name="project.directory" path="directory/text()" />
+				<actions>
+					<math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
+					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
+					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
+					<project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
+					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
+					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
+				</actions>
+			</call>
+		</xmltask>
+	</target>
 
 </project>
