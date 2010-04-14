@@ -13,43 +13,43 @@ import java.util.Date;
  * @author JHOPPESC
  */
 public class AsyncMsgRecord {
-    private String messageId = null;
-    private Date creationTime = null;
-    private String serviceName = null;
-    private Blob msgData = null;
+    private String MessageId = null;
+    private Date CreationTime = null;
+    private String ServiceName = null;
+    private Blob MsgData = null;
 
     public AsyncMsgRecord() {}
     
     public String getMessageId () {
-        return messageId;
+        return MessageId;
     }
 
-    public void setMessageId (String messageId) {
-        this.messageId = messageId;
+    public void setMessageId (String MessageId) {
+        this.MessageId = MessageId;
     }
 
     public Date getCreationTime () {
-        return creationTime;
+        return CreationTime;
     }
 
-    public void setCreationTime (Date creationTime) {
-        this.creationTime = creationTime;
+    public void setCreationTime (Date CreationTime) {
+        this.CreationTime = CreationTime;
     }
 
     public String getServiceName () {
-        return serviceName;
+        return ServiceName;
     }
 
-    public void setServiceName (String serviceName) {
-        this.serviceName = serviceName;
+    public void setServiceName (String ServiceName) {
+        this.ServiceName = ServiceName;
     }
 
     public Blob getMsgData () {
-        return msgData;
+        return MsgData;
     }
 
-    public void setMsgData (Blob msgData) {
-        this.msgData = msgData;
+    public void setMsgData (Blob MsgData) {
+        this.MsgData = MsgData;
     }
 
 }
