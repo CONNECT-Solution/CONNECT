@@ -142,6 +142,12 @@
       </fileset>
     </zip>
 
+
+    <property name="Publish.Web.File.Name" value="${SoapUI.TestReport.Suite.Name}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link"/>
+
     <if test="${SoapUI.Failed}">
       <fail message="Atleast one soapUI test has failed!  Please see the soapUI test section for more details..."/>
     </if>
