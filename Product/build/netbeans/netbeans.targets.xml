@@ -7,7 +7,11 @@
 		xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" 
 		xmlns:webproject3="http://www.netbeans.org/ns/web-project/3" 
 		basedir="." default="debug">
-
+    
+	<import file="../compile/compile.targets.xml"/>
+	<import file="../ivy/ivy.targets.xml"/>
+	<import file="../junit/junit.targets.xml"/>
+	
     <target name="-pre-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
@@ -352,9 +356,9 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
 		</if>
     </target>
     
-    <target name="debug.jar" depends="init,package.create,-debug-start-debugger" description="Debug project in IDE." if="netbeans.home" />
+    <target name="debug.jar" depends="init,ivy.resolve,-compile.source,-debug-start-debugger" description="Debug project in IDE." if="netbeans.home" />
 	
-	<target  name="debug.war" depends="init,package.create" description="Debug project in IDE." if="netbeans.home">
+	<target  name="debug.war" depends="init,ivy.resolve,-compile.source" description="Debug project in IDE." if="netbeans.home">
         <nbstartserver debugmode="true"/>
         <runtarget target="connect-debugger"/>
         <nbdeploy clientUrlPart="${client.urlPart}" debugmode="true" forceRedeploy="true"/>
@@ -387,9 +391,9 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
         </j2seproject3:debug>
     </target>
     
-    <target name="compile-test-single" depends="init,package.create" />
+    <target name="compile-test-single" depends="init,ivy.resolve,-compile.source" />
 	<target name="debug-test" depends="init,-do-not-recompile,compile-test-single,-debug-start-debugger-test,-debug-start-debuggee-test" />
-	<target name="compile-test" depends="init,package.create" />
+	<target name="compile-test" depends="init,ivy.resolve,-compile.source" />
 
 	<target name="connect-debugger" if="do.debug.server" unless="is.debugged">
         <nbjpdaconnect address="${jpda.address}" host="${jpda.host}" name="${name}" transport="${jpda.transport}">
@@ -408,5 +412,6 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
         <webproject1:nbjsdebugstart webUrl="${client.url}"/>
     </target>    
 	
-	<target name="test-single" depends="init,package.create" description="Run single unit test." />
+	<target name="test-single" depends="init,ivy.resolve,-compile.source,-unittest.run" description="Run single unit test." />
+	
 </project>
