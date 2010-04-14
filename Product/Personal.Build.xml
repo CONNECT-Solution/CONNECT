@@ -61,7 +61,9 @@
 
     <call target="UpdateWorkspace"/>
 
-    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="${NetBeans.Install.Path}\bin\netbeans.exe"/>
+    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="false" waitforexit="false" program="${NetBeans.Install.Path}\bin\netbeans.exe">
+      <arg value="-Dcom.sun.aas.instanceName=server"/>
+    </asyncexec>
   </target>
 
   <target name="OpenSoapUI">
