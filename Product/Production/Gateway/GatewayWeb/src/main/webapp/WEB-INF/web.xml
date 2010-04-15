@@ -288,6 +288,14 @@
 		<servlet-name>EntityPatientDiscoverySecuredAsyncReqQueue</servlet-name>
 		<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</url-pattern>
 	</servlet-mapping>
+        <servlet>
+		<servlet-name>EntityPatientDiscoverySecuredAsyncReq</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.EntityPatientDiscoverySecuredAsyncReq</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EntityPatientDiscoverySecuredAsyncReq</servlet-name>
+		<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqSecured</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</servlet-class>
@@ -295,6 +303,14 @@
 	<servlet-mapping>
 		<servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
 		<url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
+	</servlet-mapping>
+        <servlet>
+		<servlet-name>NhincProxyPatientDiscoverySecuredAsyncReq</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReq</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincProxyPatientDiscoverySecuredAsyncReq</servlet-name>
+		<url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>EntitySubjectDiscoverySecured</servlet-name>
@@ -475,9 +491,17 @@
 			<web-resource-name>EntityPatientDiscoverySecuredAsyncReqQueue</web-resource-name>
 			<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</url-pattern>
 		</web-resource-collection>
+                <web-resource-collection>
+			<web-resource-name>EntityPatientDiscoverySecuredAsyncReq</web-resource-name>
+			<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqSecured</url-pattern>
+		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyPatientDiscoverySecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
+		</web-resource-collection>
+                <web-resource-collection>
+			<web-resource-name>NhincProxyPatientDiscoverySecuredAsyncReq</web-resource-name>
+			<url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntitySubjectDiscoverySecured</web-resource-name>
