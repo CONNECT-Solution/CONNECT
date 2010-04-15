@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>AdapterWeb</context-root>
+</jboss-web>
+
