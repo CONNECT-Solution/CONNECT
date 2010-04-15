@@ -28,7 +28,7 @@
 
   <wsdl:message name="Proxy_ProcessPatientDiscoveryAsyncReqRequestMessage">
     <wsdl:part name="Proxy_ProcessPatientDiscoveryAsyncReqRequest"
-               element="hl7:Proxy_PRPA_IN201305UVProxyRequest"/>
+               element="hl7:Proxy_PRPA_IN201305UVProxySecuredRequest"/>
   </wsdl:message>
   <wsdl:message name="Proxy_ProcessPatientDiscoveryAsyncReqResponseMessage">
     <wsdl:part name="Proxy_ProcessPatientDiscoveryAsyncReqResponse"
