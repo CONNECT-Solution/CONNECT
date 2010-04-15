@@ -45,5 +45,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReqQueue"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitypatientdiscoverysecuredasyncreqqueue"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-EntityPatientDiscoverySecuredAsyncReqQueue"/>
+    <target name="wsimport-client-EntityPatientDiscoverySecuredAsyncReq" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReq"/>
+        <property name="wsdl-EntityPatientDiscoverySecuredAsyncReq" location="xml-resources/web-service-references/EntityPatientDiscoverySecuredAsyncReq/wsdl/EntityPatientDiscoverySecuredAsyncReq.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReq" destdir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReq" wsdl="${wsdl-EntityPatientDiscoverySecuredAsyncReq}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncReq.wsdl" xnocompile="true">
+            <depends file="${wsdl-EntityPatientDiscoverySecuredAsyncReq}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReq"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReq">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EntityPatientDiscoverySecuredAsyncReq" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecuredAsyncReq"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq"/>
+    </target>
+    <target name="wsimport-client-NhincProxyPatientDiscoverySecuredAsyncReq" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecuredAsyncReq"/>
+        <property name="wsdl-NhincProxyPatientDiscoverySecuredAsyncReq" location="xml-resources/web-service-references/NhincProxyPatientDiscoverySecuredAsyncReq/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecuredAsyncReq" destdir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecuredAsyncReq" wsdl="${wsdl-NhincProxyPatientDiscoverySecuredAsyncReq}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincProxyPatientDiscoverySecuredAsyncReq}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecuredAsyncReq"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecuredAsyncReq">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincProxyPatientDiscoverySecuredAsyncReq" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecuredAsyncReq"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxypatientdiscoverysecuredasyncreq"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-EntityPatientDiscoverySecuredAsyncReqQueue, wsimport-client-EntityPatientDiscoverySecuredAsyncReq, wsimport-client-NhincProxyPatientDiscoverySecuredAsyncReq"/>
 </project>
