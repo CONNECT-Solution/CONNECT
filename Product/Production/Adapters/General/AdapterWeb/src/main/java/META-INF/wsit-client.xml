@@ -17,9 +17,9 @@
     <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>
     <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
     <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
-	<import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
+    <import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
     <import location="EntityPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"/>
-	<import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
+    <import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
     <import location="NhincProxyNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"/>
     <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>
     <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"/>
@@ -31,6 +31,8 @@
     <import location="EntityXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request"/>
     <import location="EntityXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response"/>
     <import location="EntityPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreqqueue"/>
+    <import location="EntityPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq"/>
+    <import location="NhincProxyPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq"/>
 </definitions>
 
 

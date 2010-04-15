@@ -341,6 +341,15 @@
         <servlet-name>EntityPatientDiscoveryAsyncReqQueue</servlet-name>
         <url-pattern>/EntityPatientDiscoveryAsyncReqQueue</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.EntityPatientDiscoveryAsyncReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryAsyncReq</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
@@ -349,6 +358,15 @@
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
         <url-pattern>/NhincProxyPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncReq</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoveryAsyncReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncReq</servlet-name>
+        <url-pattern>/NhincProxyPatientDiscoveryAsyncReq</url-pattern>
     </servlet-mapping>
 
     <servlet>
