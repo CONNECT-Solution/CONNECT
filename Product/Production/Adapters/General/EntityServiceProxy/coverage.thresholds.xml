@@ -8,5 +8,5 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.proxy.EntityPatientDiscoveryAsyncReqProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.proxy.EntityPatientDiscoveryAsyncReqWebServiceProxy" linecount="27" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqWebServiceProxy" linecount="19" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqWebServiceProxy" linecount="27" linerate="0.0" linesexecuted="0"/>
 </thresholds>
