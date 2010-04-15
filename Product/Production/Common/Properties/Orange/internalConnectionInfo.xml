@@ -327,6 +327,16 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
             </service>
             <service>
+                <name>entitypatientdiscoverysecuredasyncreq</name>
+                <description>Entity Patient Discovery Secured Async Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncreq</name>
+                <description>Entity Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
@@ -335,6 +345,16 @@
                 <name>nhincproxypatientdiscoverysecured</name>
                 <description>NHINC Proxy Patient Discovery Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoveryasyncreq</name>
+                <description>NHINC Proxy Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecuredasyncreq</name>
+                <description>NHINC Proxy Patient Discovery Secured Async Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumer</name>
@@ -907,6 +927,16 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
             </service>
             <service>
+                <name>entitypatientdiscoverysecuredasyncreq</name>
+                <description>Entity Patient Discovery Secured Async Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncreq</name>
+                <description>Entity Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
@@ -915,6 +945,16 @@
                 <name>nhincproxypatientdiscoverysecured</name>
                 <description>NHINC Proxy Patient Discovery Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoveryasyncreq</name>
+                <description>NHINC Proxy Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecuredasyncreq</name>
+                <description>NHINC Proxy Patient Discovery Secured Async Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
             </service>
 			<service>
 				<name>adapternotificationconsumer</name>
@@ -1426,6 +1466,16 @@
                 <description>Entity Patient Discovery Async Req Queue</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
             </service>
+            <service>
+                <name>entitypatientdiscoverysecuredasyncreq</name>
+                <description>Entity Patient Discovery Secured Async Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncreq</name>
+                <description>Entity Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReq</endpointURL>
+            </service>
 			<service>
 				<name>nhincproxypatientdiscovery</name>
 				<description>NHINC Proxy Patient Discovery</description>
@@ -1436,6 +1486,16 @@
 				<description>NHINC Proxy Patient Discovery Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
 			</service>
+			<service>
+                <name>nhincproxypatientdiscoveryasyncreq</name>
+                <description>NHINC Proxy Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecuredasyncreq</name>
+                <description>NHINC Proxy Patient Discovery Secured Async Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
             <service>
