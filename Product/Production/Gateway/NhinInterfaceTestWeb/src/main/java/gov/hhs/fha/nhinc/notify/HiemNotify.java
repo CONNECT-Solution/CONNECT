@@ -11,7 +11,7 @@ import javax.jws.HandlerChain;
  * @author Neil Webb
  */
 @WebService(serviceName = "NotificationConsumerService", portName = "NotificationConsumerPort", endpointInterface = "org.oasis_open.docs.wsn.bw_2.NotificationConsumer", targetNamespace = "http://docs.oasis-open.org/wsn/bw-2", wsdlLocation = "WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl")
-@BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @HandlerChain(file = "SoapHeaderHandler.xml")
 public class HiemNotify
 {
