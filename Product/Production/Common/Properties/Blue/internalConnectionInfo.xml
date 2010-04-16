@@ -46,6 +46,11 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
+                <name>PatientDiscoveryAsyncReq</name>
+                <description>patientdiscoveryasyncreq</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
                 <name>QueryForDocument</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
@@ -596,6 +601,11 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
+                <name>PatientDiscoveryAsyncReq</name>
+                <description>patientdiscoveryasyncreq</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
                 <name>QueryForDocument</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
@@ -1135,6 +1145,11 @@
 	                <description>patientdiscovery</description>
 	                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
 	            </service>
+	            <service>
+                <name>PatientDiscoveryAsyncReq</name>
+                <description>patientdiscoveryasyncreq</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+            </service>
 	            <service>
 	                <name>QueryForDocument</name>
 	                <description>documentquery</description>
