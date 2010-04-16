@@ -16,6 +16,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +25,15 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.MCCIMT000300UV01Sender;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
-import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
@@ -1232,6 +1230,43 @@ public class PatientDiscoveryTransformsTest {
         context.assertIsSatisfied();
         Assert.assertTrue(bExpectedResult);
 
+    }
+
+    @Test
+    public void testAckToAuditTransfer()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                allowing(mockLogger).info(with(any(String.class)));
+            }
+        });
+
+        II msgId = new II();
+        msgId.setExtension("12345");
+        msgId.setRoot("2.2");
+        MCCIIN000002UV01 ackMsg = HL7AckTransforms.createAckMessage("1.1.1", msgId, "Success", "1.1", "2.2");
+        AssertionType assertion = new AssertionType();
+        UserType userInfo = getTestUserType();
+        assertion.setUserInfo(userInfo);
+
+        LogEventRequestType auditMsg = auditTransformer.transformAck2AuditMsg(ackMsg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+
+        context.assertIsSatisfied();
+        Assert.assertNotNull(auditMsg);
+        Assert.assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, auditMsg.getDirection());
+        Assert.assertEquals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, auditMsg.getInterface());
+        Assert.assertNotNull(auditMsg.getAuditMessage());
     }
 
     private UserType getTestUserType() {
