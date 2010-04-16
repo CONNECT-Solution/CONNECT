@@ -71,6 +71,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.hl7.v3.MCCIIN000002UV01;
 
 /**
  *
@@ -103,6 +104,28 @@ public class AuditRepositoryLogger {
         }
         log.debug("Exiting AuditRepositoryLogger.logSubjectAdded(...)");
 
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request
+     *
+     * @param message The Patient Discovery Request message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logNhinPatientDiscAck(MCCIIN000002UV01 message, AssertionType assertion, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logNhinPatientDiscReq(...)");
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformAck2AuditMsg(message, assertion, direction, _interface);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logNhinPatientDiscReq(...)");
         return auditMsg;
     }
 
@@ -865,7 +888,7 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
-    private boolean isServiceEnabled() {
+    protected boolean isServiceEnabled() {
         log.debug("Entering AuditRepositoryLogger.isServiceEnabled(...)");
         boolean serviceEnabled = false;
         try {

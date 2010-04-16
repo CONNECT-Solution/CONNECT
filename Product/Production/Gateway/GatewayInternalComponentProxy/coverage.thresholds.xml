@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <thresholds>
-<threshold branchcount="76" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger" linecount="345" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="78" branchrate="0.020512820512820513" branchsexecuted="1.6" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger" linecount="352" linerate="0.015909090909090907" linesexecuted="5.6"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyNoOpImpl" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositorySecuredWebServiceProxy" linecount="47" linerate="0.0" linesexecuted="0"/>
