@@ -289,6 +289,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinPatientDiscoveryAsyncReq">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReq</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryAsyncReq.wsdl</wsdl-url>
+      <local-wsdl-file>NhinPatientDiscoveryAsyncReq.wsdl</local-wsdl-file>
+      <service-name>RespondingGatewayAsyncReq_Service</service-name>
+      <port-name>RespondingGatewayAsyncReq_Port</port-name>
+      <package-name>ihe.iti.xcpd._2009</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhinPatientDiscoveryAsyncResp">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>NhinPatientDiscoveryAsyncResp.wsdl</local-wsdl-file>
+      <service-name>RespondingGatewayAsyncResp_Service</service-name>
+      <port-name>RespondingGatewayAsyncResp_Port</port-name>
+      <package-name>ihe.iti.xcpd._2009</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

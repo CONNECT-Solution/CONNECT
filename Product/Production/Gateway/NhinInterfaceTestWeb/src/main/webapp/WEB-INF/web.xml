@@ -56,6 +56,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
+        <url-pattern>/NhinPatientDiscoveryAsyncReqTestHelper</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/NhinPatientDiscoveryAsyncRespTestHelper</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</servlet-class>
     </servlet>
@@ -124,6 +142,14 @@
         <web-resource-collection>
             <web-resource-name>NhinPatientDiscovery</web-resource-name>
             <url-pattern>/NhinPatientDiscoveryTestHelper</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinPatientDiscoveryAsyncReq</web-resource-name>
+            <url-pattern>/NhinPatientDiscoveryAsyncReqTestHelper</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
+            <url-pattern>/NhinPatientDiscoveryAsyncRespTestHelper</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>SubjectDiscovery</web-resource-name>

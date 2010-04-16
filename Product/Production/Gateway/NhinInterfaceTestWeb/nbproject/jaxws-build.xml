@@ -242,5 +242,43 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/async/response/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured, wsimport-service-AuditQuery, wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemNotify, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-NhinXDR, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse"/>
+    <target name="wsimport-service-NhinPatientDiscoveryAsyncReq" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryAsyncReq.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryAsyncReq.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscoveryAsyncReq">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinPatientDiscoveryAsyncReq" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+    </target>
+    <target name="wsimport-service-NhinPatientDiscoveryAsyncResp" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryAsyncResp.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryAsyncResp.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscoveryAsyncResp">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinPatientDiscoveryAsyncResp" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured, wsimport-service-AuditQuery, wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemNotify, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-NhinXDR, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp"/>
 </project>
