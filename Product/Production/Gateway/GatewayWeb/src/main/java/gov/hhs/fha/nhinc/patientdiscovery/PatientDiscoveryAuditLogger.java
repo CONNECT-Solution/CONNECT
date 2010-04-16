@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -105,6 +106,20 @@ public class PatientDiscoveryAuditLogger {
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logEntityPatientDiscResp(request, assertion, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
+        return ack;
+    }
+
+    public AcknowledgementType auditAck (MCCIIN000002UV01 request, AssertionType assertion, String direction, String _interface) {
+        AcknowledgementType ack = new AcknowledgementType ();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logNhinPatientDiscAck(request, assertion, direction, _interface);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
