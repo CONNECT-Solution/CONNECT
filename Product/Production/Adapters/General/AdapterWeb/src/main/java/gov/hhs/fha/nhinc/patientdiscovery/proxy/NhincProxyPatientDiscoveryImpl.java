@@ -28,7 +28,7 @@ public class NhincProxyPatientDiscoveryImpl {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME);
+            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME);
 
             NhincProxyPatientDiscoverySecuredPortType port = getPort(url);
 
