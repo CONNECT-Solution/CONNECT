@@ -68,7 +68,13 @@
 		<isPatientCentric>false</isPatientCentric>
 		<isPatientRequired>false</isPatientRequired>
 	</topicConfiguration>
-
+	<topicConfiguration>
+		<topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+		<description>nhinc:testTopic</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+	</topicConfiguration>
+	
 	<!-- GIPSE topics listed below -->
 	<topicConfiguration>
 		<topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData</wsnt:TopicExpression>  ]]></topic>
@@ -104,6 +110,14 @@
 		<isSupported>true</isSupported>
 		<isPatientCentric>false</isPatientCentric>
 		<isPatientRequired>false</isPatientRequired>
+	</topicConfiguration>
+	
+	<!-- Topic for repeating Notify test listed below -->
+	<topicConfiguration>
+		<topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:NotifyTest</wsnt:TopicExpression>]]></topic>
+		<description>nhinc:NotifyTest</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
 	</topicConfiguration>
 
 </topicConfigurations>

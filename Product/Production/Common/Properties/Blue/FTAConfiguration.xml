@@ -2,17 +2,29 @@
 <Configuration>
     <InboundChannels>
         <channel>
-            <type/>
-            <topic/>
-            <location/>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+            <location>C:\cdc\fileDump\</location>
+            <additionalElements/>
+        </channel>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:NotifyTest</wsnt:TopicExpression>]]></topic>
+            <location>C:/Documents and Settings/Administrator/Desktop/NotifyTest/Out</location>
             <additionalElements/>
         </channel>
     </InboundChannels>
     <OutboundChannels>
         <channel>
-            <type/>
-            <topic/>
-            <location/>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+            <location>C:\cdc\fileExport\</location>
+            <additionalElements/>
+        </channel>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:NotifyTest</wsnt:TopicExpression>]]></topic>
+            <location>C:/Documents and Settings/Administrator/Desktop/NotifyTest/In</location>
             <additionalElements/>
         </channel>
     </OutboundChannels>
