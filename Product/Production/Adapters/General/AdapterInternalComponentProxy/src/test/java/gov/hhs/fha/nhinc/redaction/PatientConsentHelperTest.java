@@ -448,45 +448,203 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefHappy()
+    public void testDocumentSharingAllowedOptInPermitType()
     {
-        PatientConsentHelper testSubject = new PatientConsentHelper()
+        try
         {
-            @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
                 @Override
-                protected AdapterPIPImpl getAdapterPIP()
-                {
-                    return mockPIP;
-                }
-        };
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
 
-        CeType ceType = new CeType();
-        ceType.setCode("testing");
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
 
-        FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
-        criterionType.setDocumentTypeCode(ceType);
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+            criterionType.setPermit(true);
 
-        FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
-        findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
 
-        PatientPreferencesType ptPreferences = new PatientPreferencesType();
-        ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+            ptPreferences.setOptIn(true);
 
-        context.checking(new Expectations(){{
-            ignoring(mockLog).debug(with(any(String.class)));
-        }});
+            context.checking(new Expectations(){{
+                ignoring(mockLog).debug(with(any(String.class)));
+            }});
 
-        assertNotNull(testSubject.extractDocTypeFromPatPref("testing", ptPreferences));
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), true);
-        context.assertIsSatisfied();
+            assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedOptInPermitType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedOptInPermitType test: " + t.getMessage());
+        }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefShouldFail()
+    public void testDocumentSharingAllowedOptInDenyType()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+            criterionType.setPermit(false);
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+            ptPreferences.setOptIn(true);
+
+            context.checking(new Expectations(){{
+                ignoring(mockLog).debug(with(any(String.class)));
+            }});
+
+            assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedOptInDenyType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedOptInDenyType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testDocumentSharingAllowedOptOutPermitType()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+            criterionType.setPermit(true);
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+            ptPreferences.setOptIn(false);
+
+            context.checking(new Expectations(){{
+                ignoring(mockLog).debug(with(any(String.class)));
+            }});
+
+            assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedOptOutPermitType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedOptOutPermitType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testDocumentSharingAllowedOptOutDenyType()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            CeType ceType = new CeType();
+            ceType.setCode("testing");
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setDocumentTypeCode(ceType);
+            criterionType.setPermit(false);
+
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+            ptPreferences.setOptIn(false);
+
+            context.checking(new Expectations(){{
+                ignoring(mockLog).debug(with(any(String.class)));
+            }});
+
+            assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedOptOutDenyType test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedOptOutDenyType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testDocumentSharingAllowedShouldFail()
     {
         PatientConsentHelper testSubject = new PatientConsentHelper()
         {
@@ -504,24 +662,25 @@ public class PatientConsentHelperTest
         context.checking(new Expectations(){{
             allowing(mockLog).debug(with(any(String.class)));
             allowing(mockLog).error("Invalid documentType");
+            allowing(mockLog).error("Patient preferences was null");
             allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
         }});
 
-        assertEquals(testSubject.extractDocTypeFromPatPref(null, null), false);
+        assertEquals(testSubject.documentSharingAllowed(null, null), false);
         PatientPreferencesType ptPreferences = new PatientPreferencesType();
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
         FineGrainedPolicyCriteriaType fineGrainedPolicy = new FineGrainedPolicyCriteriaType();
         ptPreferences.setFineGrainedPolicyCriteria(fineGrainedPolicy);
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
         fineGrainedPolicy.getFineGrainedPolicyCriterion().add(null);
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
         FineGrainedPolicyCriterionType policyCrtiterion = new FineGrainedPolicyCriterionType();
         fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
         CeType ceTypeCd = new CeType();
         ceTypeCd.setCode("testing1");
         policyCrtiterion.setDocumentTypeCode(ceTypeCd);
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
         fineGrainedPolicy.getFineGrainedPolicyCriterion().clear();
         ceTypeCd.setCode("testing1");
         policyCrtiterion.setDocumentTypeCode(ceTypeCd);
@@ -529,14 +688,55 @@ public class PatientConsentHelperTest
         ceTypeCd1.setCode("testing");
         FineGrainedPolicyCriterionType policyCrtiterion1 = new FineGrainedPolicyCriterionType();
         policyCrtiterion1.setDocumentTypeCode(ceTypeCd1);
+        policyCrtiterion1.setPermit(true);
         fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
         fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion1);
-        assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), true);
+        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
         context.assertIsSatisfied();
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefNullDocType()
+    public void testDocumentSharingAllowedNullPatientPreferences()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            PatientPreferencesType ptPreferences = null;
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error("Patient preferences was null");
+                }
+            });
+
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedNullPatientPreferences test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedNullPatientPreferences test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testDocumentSharingAllowedNullDocType()
     {
         try
         {
@@ -574,19 +774,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref(null, ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed(null, ptPreferences), false);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefNullDocType test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedNullDocType test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefNullDocType test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedNullDocType test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefEmptyDocType()
+    public void testDocumentSharingAllowedEmptyDocType()
     {
         try
         {
@@ -624,19 +824,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref("", ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed("", ptPreferences), false);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefEmptyDocType test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedEmptyDocType test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefEmptyDocType test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedEmptyDocType test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefNullPolicyCriteria()
+    public void testDocumentSharingAllowedNullPolicyCriteria()
     {
         try
         {
@@ -666,19 +866,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefNullPolicyCriteria test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedNullPolicyCriteria test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefNullPolicyCriteria test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedNullPolicyCriteria test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefPolicyCriteriaEmpty()
+    public void testDocumentSharingAllowedPolicyCriteriaEmpty()
     {
         try
         {
@@ -709,19 +909,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefPolicyCriteriaEmpty test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedPolicyCriteriaEmpty test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefPolicyCriteriaEmpty test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedPolicyCriteriaEmpty test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefNullPolicyCriterion()
+    public void testDocumentSharingAllowedNullPolicyCriterion()
     {
         try
         {
@@ -754,19 +954,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefNullPolicyCriterion test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedNullPolicyCriterion test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefNullPolicyCriterion test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedNullPolicyCriterion test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefMissingPolicyCriterionDocType()
+    public void testDocumentSharingAllowedMissingPolicyCriterionDocType()
     {
         try
         {
@@ -799,19 +999,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref("testing", ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefMissingPolicyCriterionDocType test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefMissingPolicyCriterionDocType test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefNoMatch()
+    public void testDocumentSharingAllowedNoMatch()
     {
         try
         {
@@ -848,19 +1048,19 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.extractDocTypeFromPatPref("willnotexiest", ptPreferences), false);
+            assertEquals(testSubject.documentSharingAllowed("willnotexiest", ptPreferences), true);
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefNoMatch test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedNoMatch test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefNoMatch test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedNoMatch test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefOptIn()
+    public void testDocumentSharingAllowedOptIn()
     {
         try
         {
@@ -885,19 +1085,19 @@ public class PatientConsentHelperTest
                 ignoring(mockLog).debug(with(any(String.class)));
             }});
 
-            assertTrue("Doc type check for global opt in", testSubject.extractDocTypeFromPatPref("testing", ptPreferences));
+            assertTrue("Doc type check for global opt in", testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefOptIn test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedOptIn test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefOptIn test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedOptIn test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testExtractDocTypeFromPatPrefOptOut()
+    public void testDocumentSharingAllowedOptOut()
     {
         try
         {
@@ -922,14 +1122,14 @@ public class PatientConsentHelperTest
                 ignoring(mockLog).debug(with(any(String.class)));
             }});
 
-            assertFalse("Doc type check for global opt out", testSubject.extractDocTypeFromPatPref("testing", ptPreferences));
+            assertFalse("Doc type check for global opt out", testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testExtractDocTypeFromPatPrefOptOut test: " + t.getMessage());
+            System.out.println("Error running testDocumentSharingAllowedOptOut test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testExtractDocTypeFromPatPrefOptOut test: " + t.getMessage());
+            fail("Error running testDocumentSharingAllowedOptOut test: " + t.getMessage());
         }
     }
 

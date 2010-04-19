@@ -41,8 +41,8 @@
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.policyengine.adapterpip.PatientPreferencesSerializer" linecount="34" linerate="0.4411764705882353" linesexecuted="0.15"/>
 <threshold branchcount="134" branchrate="0.029850746268656716" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.policyengine.adapterpip.QueryUtil" linecount="124" linerate="0.3064516129032258" linesexecuted="0.38"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpip.XACMLConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="106" branchrate="0.5849056603773585" branchsexecuted="0.62" class="gov.hhs.fha.nhinc.policyengine.adapterpip.XACMLCreator" linecount="246" linerate="0.8536585365853658" linesexecuted="2.1"/>
-<threshold branchcount="328" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpip.XACMLExtractor" linecount="206" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="106" branchrate="0.5849056603773585" branchsexecuted="0.62" class="gov.hhs.fha.nhinc.policyengine.adapterpip.XACMLCreator" linecount="246" linerate="0.00853658536585366" linesexecuted="2.1"/>
+<threshold branchcount="328" branchrate="0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpip.XACMLExtractor" linecount="206" linerate="0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.policyengine.adapterpip.XACMLSerializer" linecount="34" linerate="0.7647058823529411" linesexecuted="0.26"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPJavaProxy" linecount="30" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyNoOpImpl" linecount="22" linerate="0.0" linesexecuted="0"/>

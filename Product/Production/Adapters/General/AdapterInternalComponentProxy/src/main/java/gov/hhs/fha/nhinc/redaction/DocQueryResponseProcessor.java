@@ -357,7 +357,7 @@ public class DocQueryResponseProcessor
         log.debug("Begin documentAllowed");
         boolean allowed = false;
         String documentTypeCode = extractDocumentType(extObject);
-        allowed = getPatientConsentHelper().extractDocTypeFromPatPref(documentTypeCode, patientPreferences);
+        allowed = getPatientConsentHelper().documentSharingAllowed(documentTypeCode, patientPreferences);
         log.debug("End documentAllowed - response: " + allowed);
         return allowed;
     }

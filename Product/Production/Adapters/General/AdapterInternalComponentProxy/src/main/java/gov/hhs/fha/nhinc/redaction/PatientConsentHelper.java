@@ -74,6 +74,11 @@ public class PatientConsentHelper
             if(retrieveResponse != null)
             {
                 response = retrieveResponse.getPatientPreferences();
+                log.debug("Retrieved patient consent document.");
+            }
+            else
+            {
+                log.debug("Patient consent document was null.");
             }
         }
         catch(Throwable t)
@@ -90,46 +95,66 @@ public class PatientConsentHelper
      * @param ptPreferences
      * @return boolean
      */
-    public boolean extractDocTypeFromPatPref(String documentType, PatientPreferencesType ptPreferences)
+    public boolean documentSharingAllowed(String documentType, PatientPreferencesType ptPreferences)
     {
-        log.debug("Begin extract DocumentType value from fine grained policy criterian");
-        boolean bPtDocTypeCd = false;
+        log.debug("Begin extract permit value from patient preferences - document type code tested: " + documentType);
+        // Default to false in case something goes wrong.
+        boolean allowDocumentSharing = false;
         FineGrainedPolicyCriteriaType findGrainedPolicy = null;
         if(documentType == null || documentType.equals(""))
         {
             log.error("Invalid documentType");
-            return bPtDocTypeCd;
+            return allowDocumentSharing;
         }
+        if(ptPreferences == null)
+        {
+            log.error("Patient preferences was null");
+            return allowDocumentSharing;
+        }
+
         findGrainedPolicy = ptPreferences.getFineGrainedPolicyCriteria();
         if(findGrainedPolicy == null ||
                 findGrainedPolicy.getFineGrainedPolicyCriterion() == null ||
-                findGrainedPolicy.getFineGrainedPolicyCriterion().size() <= 0)
+                findGrainedPolicy.getFineGrainedPolicyCriterion().isEmpty())
         {
-            log.debug("No Fine Grained Policy Criteria. Looking at global opt-in/opt-out");
-            bPtDocTypeCd = ptPreferences.isOptIn();
+            // No fine grained policy info - use simple opt-in/opt-out
+            allowDocumentSharing = ptPreferences.isOptIn();
+            log.debug("Simple opt-in/opt-out value from patient preferences: " + allowDocumentSharing);
         }
         else
         {
-            String sPtDocTypeCd = null;
+            // No global opt-in/opt-out. Look at fine grained policy for opt-in limited
+            log.debug("Patient preferences has " + findGrainedPolicy.getFineGrainedPolicyCriterion().size() + " fine grained policy criterion.");
+
+            String criterionDocumentTypeCode = null;
+            boolean fineGrainedCriterionFound = false;
             for(FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy.getFineGrainedPolicyCriterion())
             {
-                if(null != eachFineGrainedPolicyCriterion &&
-                        eachFineGrainedPolicyCriterion.getDocumentTypeCode()!=null)
+                if((eachFineGrainedPolicyCriterion != null) &&
+                        (eachFineGrainedPolicyCriterion.getDocumentTypeCode() != null))
                 {
-                    sPtDocTypeCd = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
-                    if(sPtDocTypeCd != null &&
-                            !sPtDocTypeCd.equals("") &&
-                            sPtDocTypeCd.equals(documentType))
+                    criterionDocumentTypeCode = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
+                    log.debug("Looking at criterion for document type: " + criterionDocumentTypeCode);
+                    if(criterionDocumentTypeCode != null &&
+                            !criterionDocumentTypeCode.equals("") &&
+                            criterionDocumentTypeCode.equals(documentType))
                     {
-                        bPtDocTypeCd = true;
+                        allowDocumentSharing = eachFineGrainedPolicyCriterion.isPermit();
+                        // The algorithm is to use the first found - leave after the first match.
+                        fineGrainedCriterionFound = true;
                         break;
                     }
                 }
             }
-            log.debug("End extract DocumentType value from fine grained policy criterian");
+            if(!fineGrainedCriterionFound)
+            {
+                // No fine-grained policy found for this case. Default to share.
+                allowDocumentSharing = true;
+            }
+            log.debug("End extract permit value from fine grained policy criterian");
         }
-        log.debug("Allow flag for document filter: " + bPtDocTypeCd);
-        return bPtDocTypeCd;
+        log.debug("Permit sharing flag for document filter: " + allowDocumentSharing);
+        return allowDocumentSharing;
     }
 
 }

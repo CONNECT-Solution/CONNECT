@@ -55,22 +55,31 @@ public class DocRetrieveResponseProcessor {
      * @return RetrieveDocumentSetResponseType
      */
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetReults(RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse) {
+        log.debug("Begin filterRetrieveDocumentSetReults");
         RetrieveDocumentSetResponseType response = null;
         if (null != retrieveResponse &&
                 null != retrieveResponse.getDocumentResponse() &&
                 retrieveResponse.getDocumentResponse().size() > 0) {
             PatientPreferencesType ptPreferences = null;
             response = new RetrieveDocumentSetResponseType();
+            response.setRegistryResponse(retrieveResponse.getRegistryResponse());
             for (DocumentResponse eachResponse : retrieveResponse.getDocumentResponse()) {
+                log.debug("Processing a document response.");
                 if (null != eachResponse) {
                     extractIdentifiers(eachResponse);
                     ptPreferences = getPatientConsentHelper().retrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId);
-                    if (filterResults(eachResponse, ptPreferences)) {
+                    if (allowDocumentSharing(eachResponse, ptPreferences)) {
+                        log.debug("Document not filtered. Adding to response.");
                         response.getDocumentResponse().add(eachResponse);
                     }
                 }
             }
         }
+        else
+        {
+            log.debug("No document responses to filter.");
+        }
+        log.debug("End filterRetrieveDocumentSetReults");
         return response;
     }
 
@@ -80,6 +89,7 @@ public class DocRetrieveResponseProcessor {
      */
     protected void extractIdentifiers(DocumentResponse retrieveResponse)
     {
+        log.debug("Begin extractIdentifiers");
         if (null != retrieveResponse)
         {
             documentId = retrieveResponse.getDocumentUniqueId();
@@ -88,6 +98,7 @@ public class DocRetrieveResponseProcessor {
         } else {
             log.warn("Document Response is null");
         }
+        log.debug("End extractIdentifiers - document id: " + documentId + ", home community id: " + homeCommunityId + ", repository id: " + repositoryId);
     }
 
     /**
@@ -96,38 +107,55 @@ public class DocRetrieveResponseProcessor {
      * @param patientPreferences
      * @return boolean
      */
-    protected boolean filterResults(DocumentResponse retrieveResponse, PatientPreferencesType patientPreferences)
+    protected boolean allowDocumentSharing(DocumentResponse retrieveResponse, PatientPreferencesType patientPreferences)
     {
+        log.debug("Begin allowDocumentSharing");
         AdhocQueryResponse oResponse = null;
         String sDocTypeFromDocQueryResults = "";
-        boolean resultFlag = false;
+        boolean allowSharing = false;
         if(null == retrieveResponse)
         {
             log.error("Unable to filter results retrieveResponse was null");
-            return resultFlag;
+            return allowSharing;
         }
         if(null == patientPreferences)
         {
             log.error("Unable to filter results Patient Preferences was null");
-            return resultFlag;
+            return allowSharing;
         }
         if(null != patientPreferences.getAssigningAuthority() &&
                     null != patientPreferences.getPatientId())
         {
+
             try {
-                AdhocQueryRequest oRequest = createAdhocQueryRequest(patientPreferences.getPatientId(), patientPreferences.getAssigningAuthority());
+//                AdhocQueryRequest oRequest = createAdhocQueryRequest(patientPreferences.getPatientId(), patientPreferences.getAssigningAuthority());
+                AdhocQueryRequest oRequest = createAdhocQueryRequestByDocumentId(retrieveResponse.getDocumentUniqueId(), retrieveResponse.getRepositoryUniqueId());
                 oResponse = getAdhocQueryResponse(oRequest);
             } catch (Exception ex) {
-                log.error(ex.getMessage());
+                log.error("Error retrieving the document type for a document retrieve response: " + ex.getMessage(), ex);
             }
             if (null != oResponse) {
                 sDocTypeFromDocQueryResults = extractDocTypeFromDocQueryResults(oResponse, retrieveResponse);
+                log.debug("Doc type retrieved from doc query: " + sDocTypeFromDocQueryResults);
+            }
+            else
+            {
+                log.debug("Adhoc query response for document metadata was null.");
             }
             if (null != sDocTypeFromDocQueryResults) {
-                resultFlag = isDocTypeFound(sDocTypeFromDocQueryResults, patientPreferences);
+                allowSharing = patientPrefAllowsSharing(sDocTypeFromDocQueryResults, patientPreferences);
+            }
+            else
+            {
+                log.debug("Document type from query for metadata response was null.");
             }
         }
-        return resultFlag;
+        else
+        {
+            log.debug("Assigning authority or patient id was null.");
+        }
+        log.debug("End allowDocumentSharing - result: " + allowSharing);
+        return allowSharing;
     }
 
     /**
@@ -136,9 +164,9 @@ public class DocRetrieveResponseProcessor {
      * @param patientPreferences
      * @return boolean
      */
-    protected boolean isDocTypeFound(String sDocTypeResult, PatientPreferencesType patientPreferences)
+    protected boolean patientPrefAllowsSharing(String sDocTypeResult, PatientPreferencesType patientPreferences)
     {
-        return getPatientConsentHelper().extractDocTypeFromPatPref(sDocTypeResult, patientPreferences);
+        return getPatientConsentHelper().documentSharingAllowed(sDocTypeResult, patientPreferences);
     }
     
     /**
@@ -159,6 +187,7 @@ public class DocRetrieveResponseProcessor {
      * @return AdhocQueryRequest
      */
     protected AdhocQueryRequest createAdhocQueryRequest(String sPatId, String sAA) {
+        log.debug("Begin createAdhocQueryRequest");
         AdhocQueryRequest request = null;
         try {
             if (null != sPatId &&
@@ -171,6 +200,32 @@ public class DocRetrieveResponseProcessor {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
+        log.debug("End createAdhocQueryRequest");
+        return request;
+    }
+
+    /**
+     * Adhoc Query Request is created based on the Patient Id and Assigning Authority
+     * @param sPatId
+     * @param sAA
+     * @return AdhocQueryRequest
+     */
+    protected AdhocQueryRequest createAdhocQueryRequestByDocumentId(String documentId, String repositoryId) {
+        log.debug("Begin createAdhocQueryRequestByDocumentId");
+        AdhocQueryRequest request = null;
+        try
+        {
+            if ((documentId != null) && (repositoryId != null))
+            {
+                QueryUtil util = new QueryUtil();
+                request = util.createPatientIdQuery(documentId, repositoryId);
+            }
+        }
+        catch (Exception e)
+        {
+            log.error("Error creating query by document id message: " + e.getMessage(), e);
+        }
+        log.debug("End createAdhocQueryRequestByDocumentId");
         return request;
     }
 
@@ -182,6 +237,7 @@ public class DocRetrieveResponseProcessor {
      */
     protected String extractDocTypeFromDocQueryResults(AdhocQueryResponse oResponse, DocumentResponse docResponse)
     {
+        log.debug("Begin extractDocTypeFromDocQueryResults");
         String docType = null;
         ExtrinsicObjectType match = null;
         if (null != oResponse &&
@@ -191,32 +247,49 @@ public class DocRetrieveResponseProcessor {
             List<JAXBElement<? extends IdentifiableType>> objectList =
                     oResponse.getRegistryObjectList().getIdentifiable();
             ExtrinsicObjectType docExtrinsic = null;
+            log.debug("Identifiable list size: " + objectList.size());
             for (JAXBElement<? extends IdentifiableType> object : objectList)
             {
                 IdentifiableType identifiableType = object.getValue();
 
                 if (identifiableType instanceof ExtrinsicObjectType)
                 {
+                    log.debug("Identifiable item was ExtrinsicObjectType - processing");
                     docExtrinsic = (ExtrinsicObjectType) identifiableType;
                     List<ExternalIdentifierType> externalIdentifers = docExtrinsic.getExternalIdentifier();
                     if (null != externalIdentifers)
                     {
                         String uniqueIdIdentifier = getUniqueIdIdentifier(externalIdentifers);
+                        log.debug("Comapring identifier from document (" + uniqueIdIdentifier + ") to (" + docResponse.getDocumentUniqueId() + ")");
                         if (null != uniqueIdIdentifier &&
                                 uniqueIdIdentifier.equals(docResponse.getDocumentUniqueId()))
                         {
                             match = docExtrinsic;
+                            log.debug("Found match: " + match);
                             break;
                         }
                     }
+                }
+                else
+                {
+                    log.debug("Identifiable item was not ExtrinsicObjectType - was: " + identifiableType.getClass().getName());
                 }
             }
 
             if (null != match) {
                 docType = extractDocTypeFromMetaData(match);
+                log.debug("Doc type extracted from match: " + docType);
             }
-
+            else
+            {
+                log.debug("Match was null");
+            }
         }
+        else
+        {
+            log.debug("Document response was null or empty");
+        }
+        log.debug("End extractDocTypeFromDocQueryResults - result: " + docType);
         return docType;
     }
 
@@ -226,19 +299,25 @@ public class DocRetrieveResponseProcessor {
      * @return String
      */
     protected String extractDocTypeFromMetaData(ExtrinsicObjectType documentMetaData) {
+        log.debug("Begin extractDocTypeFromMetaData");
         String value = null;
         if (null != documentMetaData &&
                 null != documentMetaData.getClassification() &&
                 documentMetaData.getClassification().size() > 0) {
+            log.debug("Classification size: " + documentMetaData.getClassification().size());
             List<ClassificationType> classificationList = documentMetaData.getClassification();
             for (ClassificationType classification : classificationList) {
                 if (null != classification &&
                         null != classification.getClassificationScheme() &&
                         classification.getClassificationScheme().contentEquals(EBXML_RESPONSE_TYPECODE_CLASS_SCHEME)) {
-                    value = parseInternationalType(classification.getName());
+                    log.debug("Looking at classification scheme (" + classification.getClassificationScheme() + ") compared to (" + EBXML_RESPONSE_TYPECODE_CLASS_SCHEME + ")");
+                    value = classification.getNodeRepresentation();
+                    //value = parseInternationalType(classification.getName());
+                    log.debug("Value extracted from classification: " + value);
                 }
             }
         }
+        log.debug("End extractDocTypeFromMetaData - result: " + value);
         return value;
     }
 
@@ -266,6 +345,7 @@ public class DocRetrieveResponseProcessor {
      * @return String String
      */
     protected String getUniqueIdIdentifier(List<ExternalIdentifierType> externalIdentifierList) {
+        log.debug("Begin getUniqueIdIdentifier");
         String aUniqueIdIdentifier = null;
         if (null != externalIdentifierList &&
                 externalIdentifierList.size() > 0) {
@@ -277,6 +357,7 @@ public class DocRetrieveResponseProcessor {
                 }
             }
         }
+        log.debug("End getUniqueIdIdentifier - result: " + aUniqueIdIdentifier);
         return aUniqueIdIdentifier;
     }
 

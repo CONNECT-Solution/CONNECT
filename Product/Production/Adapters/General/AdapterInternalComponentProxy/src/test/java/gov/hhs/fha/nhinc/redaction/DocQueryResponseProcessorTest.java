@@ -2294,7 +2294,7 @@ public class DocQueryResponseProcessorTest
             {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    one(mockPatientConsentHelper).extractDocTypeFromPatPref(with(aNonNull(String.class)), with(aNonNull(PatientPreferencesType.class)));
+                    one(mockPatientConsentHelper).documentSharingAllowed(with(aNonNull(String.class)), with(aNonNull(PatientPreferencesType.class)));
                 }
             });
             
