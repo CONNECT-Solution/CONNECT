@@ -11,8 +11,6 @@
 	<import file="../compile/compile.targets.xml"/>
 	<import file="../ivy/ivy.targets.xml"/>
 	<import file="../junit/junit.targets.xml"/>
-	<import file="../common.build.xml"/>
-	<import file="${project.dir}/nbproject/jaxws-build.xml"/>
 	
     <target name="-pre-init">
         <!-- Empty placeholder for easier customization. -->
