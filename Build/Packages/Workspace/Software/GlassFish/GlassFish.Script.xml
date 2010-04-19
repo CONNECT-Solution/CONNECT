@@ -47,11 +47,8 @@
   <target name="NetBeans.Set.Ant.Home.Properties">
     <property name="Anthome.Tag.FileName" value="1.anthome.properties.tag"/>
 
-    <ifnot test="${file::exists(Netbeans.Ant.Config.Path + '\' +Anthome.Tag.FileName)}">
-      <echo message="properties=calling.anttarget.from.netbeans\=true" file="${Netbeans.Ant.Config.Path}\module.properties"/>
-      <echo message="antHome=${Ant.Home}" file="${Netbeans.Ant.Config.Path}\module.properties" append="True"/>
-      <echo message="" file="${Netbeans.Ant.Config.Path}\${Anthome.Tag.FileName}"/>
-    </ifnot>
+    <echo message="properties=calling.anttarget.from.netbeans\=true" file="${Netbeans.Ant.Config.Path}\module.properties"/>
+    <echo message="antHome=${string::replace(Ant.Home, '\', '/')}" file="${Netbeans.Ant.Config.Path}\module.properties" append="True"/>
   </target>
 
   <target name="GlassFish.Update.log4.properties">
