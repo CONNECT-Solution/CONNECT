@@ -26,7 +26,6 @@ layer of abstraction
 		project.addBuildListener(targetListener);
 	]]>
   </script>
-  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
 
   <import file="properties.build.xml" />
   <import file="common.build.xml" />
@@ -40,10 +39,20 @@ layer of abstraction
   <import file="soapui/soapui.targets.xml"/>
   <import file="corbertura/corbertura.targets.xml"/>
   <import file="../Install/deploy.xml"/>
-  <import file="netbeans/netbeans.targets.xml"/>
   <import file="checkstyle/checkstyle.targets.xml"/>
   <import file="licensetool/license.targets.xml"/>
-  	
+
+  <property name="calling.anttarget.from.netbeans" value="false"/>
+  <!-- The above property is read from netbeans configuration file -->
+  <if>
+	<equals arg1="${calling.anttarget.from.netbeans}" arg2="true"/>
+	<then>
+	  <echo message="loadding........"/>
+	  <import file="netbeans/netbeans.targets.xml" />
+	</then>
+  </if>
+
+  
   <target name="deploy">
     <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>

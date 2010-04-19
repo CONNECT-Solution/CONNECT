@@ -13,7 +13,8 @@
   <property name="GlassFish.Application.Domain.Path" value="${GlassFish.Install.Path}\domains\domain1\config"/>
   <property name="GlassFish.Config.Domain.FilePath" value="${GlassFish.Application.Domain.Path}\domain.xml"/>
   <property name="GlassFish.Application.Config.Path" value="${GlassFish.Application.Domain.Path}\nhin"/>
-
+  <property name="Netbeans.Ant.Config.Path" value="${environment::get-variable('USERPROFILE')}\.netbeans\6.7\config\Preferences\org\apache\tools\ant"/>
+  
   <target name="Workspace.RequieredSoftware.GlassFish">
     <ifnot test="${directory::exists(GlassFish.Install.Path) and directory::exists(NetBeans.Install.Path)}" >
       <call target="GlassFish.DownloadAndInstall"/>
@@ -39,8 +40,19 @@
     <call target="GlassFish.Update.log4.properties"/>
     <call target="GlassFish.Update.NHIN.properties"/>
     <call target="GlassFish.Update.Certificates"/>
+    <call target="NetBeans.Set.Ant.Home.Properties"/>
   </target>
 
+
+  <target name="NetBeans.Set.Ant.Home.Properties">
+    <property name="Anthome.Tag.FileName" value="1.anthome.properties.tag"/>
+
+    <ifnot test="${file::exists(Netbeans.Ant.Config.Path + '\' +Anthome.Tag.FileName)}">
+      <echo message="properties=calling.anttarget.from.netbeans\=true" file="${Netbeans.Ant.Config.Path}\module.properties"/>
+      <echo message="antHome=${Ant.Home}" file="${Netbeans.Ant.Config.Path}\module.properties" append="True"/>
+      <echo message="" file="${Netbeans.Ant.Config.Path}\${Anthome.Tag.FileName}"/>
+    </ifnot>
+  </target>
 
   <target name="GlassFish.Update.log4.properties">
     <property name="Lo4j.properties.Tag.FileName" value="1.lo4j.properties.tag"/>
