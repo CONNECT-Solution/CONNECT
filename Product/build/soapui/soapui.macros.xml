@@ -1,4 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="soapui.macros" >
-	
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+
+  <macrodef name="soapUILoadTestRunnerCustom">
+    <attribute name="projectName"/>
+    <attribute name="projectReportDir"/>
+    <attribute name="projectFilePath"/>
+    <attribute name="projectConfFilePath"/>
+    <sequential>
+      <xmltask source="@{projectConfFilePath}">
+        <call path="/tests/test">
+          <param name="test.name" path="name/text()" />
+          <param name="test.testcase" path="testcase/text()" />
+          <param name="test.numberOfIteration" path="numberOfIteration/text()" />
+          <param name="test.numberOfThreads" path="numberOfThreads/text()" />
+          <actions>
+            <if>
+              <istrue value="${debug}" />
+              <then>
+                <echo message="Creating properties for project: '@{test.name}'." />
+                <echo message="Creating properties for project: '@{test.testcase}'." />
+                <echo message="Creating properties for project: '@{test.numberOfIteration}'." />
+                <echo message="Creating properties for project: '@{test.numberOfThreads}'." />
+              </then>
+            </if>
+
+            <var name="optionalArg" value='-l"@{test.testCase}" -m"@{test.numberOfIteration}" -n"@{test.numberOfThreads}"'/>
+            <soapUILoadTestRunner projectName="@{projectName}" projectReportDir="@{projectReportDir}/@{test.name}" projectFilePath="@{projectFilePath}" optionalArg="${optionalArg}"/>
+          </actions>
+        </call>
+      </xmltask>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="soapUILoadTestRunner">
+    <attribute name="projectName"/>
+    <attribute name="projectReportDir"/>
+    <attribute name="projectFilePath"/>
+    <attribute name="optionalArg" default=""/>
+    <sequential>
+      <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
+        <arg line='/c loadtestrunner.bat -r -f"@{projectReportDir}" @{optionalArg} "@{projectFilePath}" -Dproject.name="@{projectName}"'/>
+      </exec>
+
+      <exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">          
+        <arg line='loadtestrunner.sh -r -f"@{projectReportDir}" @{optionalArg} "@{projectFilePath}" -Dproject.name="@{project.name}"'/>
+      </exec>
+    </sequential>
+  </macrodef>
 </project>

@@ -88,27 +88,34 @@
       </path>
       <sequential>
 
-        <var unset="true" name="soapui.project.name" />
+        <var unset="true" name="soapui.project.name"/>
         <basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
+        <var name="soapui.project.file.path" value="@{soapui.project.file.path}"/>
         <script language="javascript">
           <![CDATA[
             projectName = project.getProperty("soapui.project.name");
-            projectName = projectName.replace("-soapui-project", "");
-            project.setProperty("soapui.project.name", projectName);
+            project.setProperty("soapui.project.name", projectName.replace("-soapui-project", ""));
+            confFilePath = project.getProperty("soapui.project.file.path");
+            project.setProperty("soapui.configuration.file.path", confFilePath.replace("-soapui-project", "-soapui-project-conf"));
         ]]>
         </script>
 
-        <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
-          <arg line='/c loadtestrunner.bat -r -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
-        </exec>
-
-        <exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">          
-          <arg line='loadtestrunner.sh -r -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
-        </exec>
+        <echo level="warning" message="${soapui.configuration.file.path} @{soapui.project.file.path}!" />
+        <var unset="true" name="custom.configuration.available"/>
+        <available file="${soapui.configuration.file.path}" property="custom.configuration.available"/>
+        <if>
+          <istrue value="${custom.configuration.available}" />
+          <then>
+            <soapUILoadTestRunnerCustom projectName="${soapui.project.name}" projectReportDir="${soapui.report.dir}/${soapui.project.name}" projectFilePath="@{soapui.project.file.path}" projectConfFilePath="${soapui.configuration.file.path}"/>
+          </then>
+          <else>
+            <soapUILoadTestRunner projectName="${soapui.project.name}" projectReportDir="${soapui.report.dir}/${soapui.project.name}" projectFilePath="@{soapui.project.file.path}"/>
+          </else>
+        </if>
       </sequential>
     </for>
   </target>
-  
+
   <target name="-soapui.generate.report">
     <if>
       <isfalse value="${called.from.main.build}" />
