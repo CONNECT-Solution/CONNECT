@@ -58,10 +58,14 @@ public class AdapterPatientDiscoverySecuredAsyncRespImpl {
             if (NullChecker.isNotNullish(request.getReceiver()) &&
                     request.getReceiver().get(0) != null &&
                     request.getReceiver().get(0).getDevice() != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getId()) &&
-                    request.getReceiver().get(0).getDevice().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                    request.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             // Set the receiver OID to the sender OID from the original message
