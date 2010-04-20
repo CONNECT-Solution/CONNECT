@@ -43755,156 +43755,105 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201301UV02" name="DocumentRegistry_PRPA_IN201301UV02" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201302UV02" name="DocumentRegistry_PRPA_IN201302UV02" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201304UV02" name="DocumentRegistry_PRPA_IN201304UV02" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegisterDocumentSet-b" name="DocumentRegistry_RegisterDocumentSet-b" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegistryStoredQuery" name="DocumentRegistry_RegistryStoredQuery" bindingOperationName="DocumentRegistry_RegistryStoredQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="AdapterPIP TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - false" searchProperties="true" id="307dbfd7-1e55-41c4-b691-2b2c8f6e6764"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - false</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - false"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - false"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201301UV02" name="DocumentRegistry_PRPA_IN201301UV02" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201302UV02" name="DocumentRegistry_PRPA_IN201302UV02" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201304UV02" name="DocumentRegistry_PRPA_IN201304UV02" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegisterDocumentSet-b" name="DocumentRegistry_RegisterDocumentSet-b" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegistryStoredQuery" name="DocumentRegistry_RegistryStoredQuery" bindingOperationName="DocumentRegistry_RegistryStoredQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="AdapterPIP TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - false" searchProperties="true" id="307dbfd7-1e55-41c4-b691-2b2c8f6e6764"><con:settings/><con:testStep type="request" name="StorePtConsent - false"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - false"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - false">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>false</urn:optIn>
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - false">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+//def col = context.findProperty('col')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
-
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - true" searchProperties="true" id="5af1f737-f656-481f-8713-93ddb6717594"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - true</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - true" searchProperties="true" id="5af1f737-f656-481f-8713-93ddb6717594"><con:settings/><con:testStep type="request" name="StorePtConsent - true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - true">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>true</urn:optIn>
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - true">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
-
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtDocId - false" searchProperties="true" id="91f703c8-bff1-40c2-ad94-85bc2f009ce5"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - true</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtDocId - false" searchProperties="true" id="91f703c8-bff1-40c2-ad94-85bc2f009ce5"><con:settings/><con:testStep type="request" name="StorePtConsent - true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtDocId - false">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>true</urn:optIn>
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtDocId - false">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - minimaldoc" searchProperties="true" id="906e451c-08ff-481f-8f77-294108064ab4"><con:settings/><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - minimaldoc" searchProperties="true" id="906e451c-08ff-481f-8f77-294108064ab4"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - minimal</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
-
-</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - minimal"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - minimal"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - minimal"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - minimal"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - minimaldoc">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>false</urn:optIn>
             <urn:fineGrainedPolicyMetadata>
@@ -43914,18 +43863,18 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - minimaldoc">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>${StorePtConsent - minimal#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:optIn[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:patientId[1]</path><content>${StorePtConsent - minimal#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:patientId[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - minimal#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/DocumentRegistry_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - minimal#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - minimaldoc">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -43933,7 +43882,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryPatientId">
                <urn1:ValueList>
-                  <urn1:Value>ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO</urn1:Value>
+                  <urn1:Value>${#Project#PatientId}^^^&amp;1.1&amp;ISO</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
          </urn1:AdhocQuery>
@@ -43983,63 +43932,33 @@ declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427']/@value</path><content>'ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO'</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/@status</path><content>Approved</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/@status</path><content>Approved</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - fulldoc" searchProperties="true" id="8e4b91e7-1377-408c-acba-bdda1c301c41"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - full</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - fulldoc" searchProperties="true" id="8e4b91e7-1377-408c-acba-bdda1c301c41"><con:settings/><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
+def eventtable = context.findProperty('EventCodeTable')
+def eventval = context.findProperty('EventCode')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
-def eventCodeTable = dataSource.getPropertyValue( "EventCodeTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId = '" + val + "'")
+sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval + "%'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
-void removeRecordWithLike(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + " like '%" + val + "%'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "zptcstfulldoc");
-</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - full"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - full"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - full"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - full"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - fulldoc">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>false</urn:optIn>
             <urn:fineGrainedPolicyMetadata>
@@ -44073,7 +43992,7 @@ removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "z
                <urn:serviceStartTime>20090923221427</urn:serviceStartTime>
                <urn:serviceStopTime>20100823231427</urn:serviceStopTime>
                <urn:size>123</urn:size>
-               <urn:sourcePatientId>source_patient_id</urn:sourcePatientId>
+               <urn:sourcePatientId>${#Project#PatientId}</urn:sourcePatientId>
                <urn:Pid3>pid3_value</urn:Pid3>
                <urn:Pid5>pid5_value</urn:Pid5>
                <urn:Pid7>pid7_value</urn:Pid7>
@@ -44099,18 +44018,18 @@ removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "z
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - fulldoc">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:optIn[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:patientId[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:patientId[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/DocumentRegistry_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - fulldoc">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -44118,7 +44037,7 @@ removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "z
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryPatientId">
                <urn1:ValueList>
-                  <urn1:Value>ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO</urn1:Value>
+                  <urn1:Value>${#Project#PatientId}^^^&amp;1.1&amp;ISO</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
          </urn1:AdhocQuery>
@@ -44206,63 +44125,31 @@ declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Slot[@name='serviceStartTime']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:serviceStartTime[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Service Stop Time"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Slot[@name='serviceStopTime']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:serviceStopTime[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Slot[@name='serviceStopTime']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:serviceStopTime[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
+def eventtable = context.findProperty('EventCodeTable')
+def eventval = context.findProperty('EventCode')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
-def eventCodeTable = dataSource.getPropertyValue( "EventCodeTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId = '" + val + "'")
+sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval + "%'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
-void removeRecordWithLike(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + " like '%" + val + "%'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "zptcstfulldoc");
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - pdfdoc -minimaldoc" searchProperties="true" id="27913681-6c52-4c8e-8171-46601ae30b5a"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - fine\binary</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve - Docid - fine</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByDocId - Fine</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve - Docid - binary1</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByDocId - Binary1</con:targetStep><con:targetPath xsi:nil="true"/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Retrieve - Docid - binary2</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByDocId - Binary2</con:targetStep><con:targetPath xsi:nil="true"/></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - pdfdoc -minimaldoc" searchProperties="true" id="27913681-6c52-4c8e-8171-46601ae30b5a"><con:settings/><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
-
-</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - fine\binary"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - fine\binary"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - fine\binary"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - fine\binary"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc -minimaldoc">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>false</urn:optIn>
             <urn:fineGrainedPolicyCriteria>
@@ -44310,18 +44197,18 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc -minimaldoc">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:optIn[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:patientId[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:patientId[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Fine"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Fine"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Fine"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Fine"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc -minimaldoc">
       <urn:RetrievePtConsentByPtDocIdRequest>
@@ -44330,7 +44217,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn:homeCommunityId>1.1</urn:homeCommunityId>
       </urn:RetrievePtConsentByPtDocIdRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc -minimaldoc">
       <urn:RetrievePtConsentByPtDocIdRequest>
@@ -44339,7 +44226,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn:homeCommunityId>1.1</urn:homeCommunityId>
       </urn:RetrievePtConsentByPtDocIdRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Binary2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Binary2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Binary2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Binary2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc -minimaldoc">
       <urn:RetrievePtConsentByPtDocIdRequest>
@@ -44348,7 +44235,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn:homeCommunityId>1.1</urn:homeCommunityId>
       </urn:RetrievePtConsentByPtDocIdRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/DocumentRegistry_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc -minimaldoc">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -44356,7 +44243,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryPatientId">
                <urn1:ValueList>
-                  <urn1:Value>ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO</urn1:Value>
+                  <urn1:Value>${#Project#PatientId}^^^&amp;1.1&amp;ISO</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
          </urn1:AdhocQuery>
@@ -44404,54 +44291,28 @@ declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Privacy Policy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427']/@value</path><content>'ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO'</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427']/@value</path><content>'ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO'</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - pdfdoc - fulldoc" searchProperties="true" id="d811a39c-26af-423c-bee1-4737af87321c"><con:settings/><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - pdfdoc - fulldoc" searchProperties="true" id="d811a39c-26af-423c-bee1-4737af87321c"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP-soapui-project.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - fine\binary</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Retrieve - Docid - fine</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByDocId - Fine</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve - Docid - binary</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByDocId - Binary1</con:targetStep><con:targetPath xsi:nil="true"/></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
-
-</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - fine\binary"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - fine\binary"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - fine\binary"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - fine\binary"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc - fulldoc">
       <urn:StorePtConsentRequest>
          <urn:patientPreferences>
-            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:patientId>${#Project#PatientId}</urn:patientId>
             <urn:assigningAuthority>1.1</urn:assigningAuthority>
             <urn:optIn>false</urn:optIn>
             <urn:binaryDocumentPolicyCriteria>
@@ -44593,18 +44454,18 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          </urn:patientPreferences>
       </urn:StorePtConsentRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc - fulldoc">
       <urn:RetrievePtConsentByPtIdRequest>
-         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:patientId>${#Project#PatientId}</urn:patientId>
          <urn:assigningAuthority>1.1</urn:assigningAuthority>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance" disabled="true"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:optIn[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:patientId[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:patientId[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Fine"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Fine"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - fine\binary#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Fine"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Fine"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc - fulldoc">
       <urn:RetrievePtConsentByPtDocIdRequest>
@@ -44613,7 +44474,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn:homeCommunityId>1.1</urn:homeCommunityId>
       </urn:RetrievePtConsentByPtDocIdRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="RetrievePtConsentByDocId - Binary1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc - fulldoc">
       <urn:RetrievePtConsentByPtDocIdRequest>
@@ -44622,7 +44483,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn:homeCommunityId>1.1</urn:homeCommunityId>
       </urn:RetrievePtConsentByPtDocIdRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/DocumentRegistry_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - pdfdoc - fulldoc">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -44630,7 +44491,7 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryPatientId">
                <urn1:ValueList>
-                  <urn1:Value>ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO</urn1:Value>
+                  <urn1:Value>${#Project#PatientId}^^^&amp;1.1&amp;ISO</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
          </urn1:AdhocQuery>
@@ -44728,25 +44589,72 @@ declare namespace ns7='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns7='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns7:AdhocQueryResponse[1]/ns6:RegistryObjectList[1]/ns6:ExtrinsicObject[2]/ns6:Slot[3]/ns6:ValueList[1]/ns6:Value[1]</path><content>intendedRecipient</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="AauthorInstitution"><con:configuration><path>declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns7='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns7:AdhocQueryResponse[1]/ns6:RegistryObjectList[1]/ns6:ExtrinsicObject[2]/ns6:Classification[1]/ns6:Slot[2]/ns6:ValueList[1]/ns6:Value[1]</path><content>Dr. Wiseman's Clinic</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns7:AdhocQueryResponse[1]/ns6:RegistryObjectList[1]/ns6:ExtrinsicObject[2]/ns6:Classification[1]/ns6:Slot[2]/ns6:ValueList[1]/ns6:Value[1]</path><content>Dr. Wiseman's Clinic</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>def table = context.findProperty('DocumentTable')
+def val = context.findProperty('PatientId')
 
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "DocRepositoryDB" );
-def docTable = dataSource.getPropertyValue( "DocumentTable" );
+context.withSql('DocRepositoryDB') { sql -> 
+sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
+}
 
-void removeRecord(host, port, dbName, user, password, table, col, val) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
 
-removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-20T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-20T17:39:37Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/20/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-20T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>ADPTPIPTST98769876Z</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/CONNECTAdapter/AdapterPIP</con:value></con:property><con:property><con:name>EventCode</con:name><con:value>zptcstfulldoc</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileReader(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
+    use (org.codehaus.groovy.runtime.TimeCategory) {
+      def startDate = 5.minutes.ago
+      def endDate = 5.minutes.from.now
+      def expireDate = 30.days.from.now
+
+      def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+      def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+      runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+      runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+      runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+      runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+    }
+  }   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+    return delegate.getProperty(propertyName) ?:
+                delegate.testCase.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+  def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+  def host = delegate.findProperty('DBHost')
+  def port = delegate.findProperty('DBPort')
+  def user = delegate.findProperty('DBUser')
+  def pass = delegate.findProperty('DBPass')
+  
+  def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+  def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+  try {
+     block(sql)
+  } finally {
+    sql.close()
+  }
+}
+</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
