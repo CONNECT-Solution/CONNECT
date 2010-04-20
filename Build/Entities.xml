@@ -1,6 +1,11 @@
 <!ENTITY HostName                              'build.connectopensource.org' >
 <!ENTITY Integration.Server.Host.Name          'inttest1.connectopensource.org' >
-<!ENTITY Klocwork.Server.Host.Name             '192.168.25.146' >
+<!ENTITY Integration2.Server.Host.Name          'inttest2.connectopensource.org' >
+<!ENTITY ConnectBlue30.Server.Host.Name         'ConnectBlue30.fedsconnect.org' >
+<!ENTITY ConnectRed30.Server.Host.Name          'ConnectRed30.fedsconnect.org' >
+<!ENTITY ConnectOrange30.Server.Host.Name       'ConnectOrange30.fedsconnect.org' >
+<!ENTITY ConnectGreen30.Server.Host.Name        'ConnectGreen30.fedsconnect.org' >
+<!ENTITY Klocwork.Server.Host.Name             'Build-KW.connectopensource.org' >
 <!ENTITY EmailHost                             '127.0.0.1'>
 
 <!ENTITY ProjectName                           'NHINC' >
@@ -46,6 +51,22 @@
 <!ENTITY Integration.Server.Remoting.Url       'tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Integration.Server.Rest.Url           'http://&Integration.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY Integration.Dashboard.Url             'http://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
+<!ENTITY ConnectBlue30.Server.Remoting.Url      'tcp://&ConnectBlue30.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectBlue30.Server.Rest.Url          'http://&ConnectBlue30.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectBlue30.Dashboard.Url            'http://&ConnectBlue30.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
+<!ENTITY ConnectRed30.Server.Remoting.Url       'tcp://&ConnectRed30.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectRed30.Server.Rest.Url           'http://&ConnectRed30.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectRed30.Dashboard.Url             'http://&ConnectRed30.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
+<!ENTITY ConnectOrange30.Server.Remoting.Url    'tcp://&ConnectOrange30.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectOrange30.Server.Rest.Url        'http://&ConnectOrange30.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectOrange30.Dashboard.Url          'http://&ConnectOrange30.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
+<!ENTITY ConnectGreen30.Server.Remoting.Url     'tcp://&ConnectGreen30.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectGreen30.Server.Rest.Url         'http://&ConnectGreen30.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectGreen30.Dashboard.Url           'http://&ConnectGreen30.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
 
 <!ENTITY Klocwork.Server.Remoting.Url          'tcp://&Klocwork.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Klocwork.Server.Rest.Url              'http://&Klocwork.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
