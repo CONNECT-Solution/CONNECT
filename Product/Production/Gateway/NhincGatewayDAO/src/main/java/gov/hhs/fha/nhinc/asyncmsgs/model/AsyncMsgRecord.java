@@ -13,7 +13,7 @@ import java.util.Date;
  * @author JHOPPESC
  */
 public class AsyncMsgRecord {
-    private Long Id;
+    private Long Id = null;
     private String MessageId = null;
     private Date CreationTime = null;
     private String ServiceName = null;

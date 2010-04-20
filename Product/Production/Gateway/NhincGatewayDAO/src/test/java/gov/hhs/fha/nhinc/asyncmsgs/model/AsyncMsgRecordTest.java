@@ -40,6 +40,38 @@ public class AsyncMsgRecordTest {
     }
 
     /**
+     * Test of getId and setMessageId methods, of class AsyncMsgRecord.
+     */
+    @Test
+    public void testSetGetId() {
+        System.out.println("testSetGetMessageId");
+
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+
+        Long expResult = Long.valueOf(2);
+
+        instance.setId(expResult);
+
+        Long result = instance.getId();
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getId method, of class AsyncMsgRecord.
+     */
+    @Test
+    public void testGetInitId() {
+        System.out.println("testGetInitMessageId");
+
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+
+        Long result = instance.getId();
+
+        assertNull(result);
+    }
+
+    /**
      * Test of getMessageId and setMessageId methods, of class AsyncMsgRecord.
      */
     @Test
