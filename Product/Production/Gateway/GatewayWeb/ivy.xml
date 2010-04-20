@@ -48,6 +48,7 @@
 	<dependency org="Xerces" name="xercesImpl" rev="1.0"/>
     <dependency org="javax"                                   name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
     <dependency org="com.sun.xml.ws" name="webservices-rt" rev="2.1-SNAPSHOT"/>
+    <dependency org="org.hibernate"       name="hibernate"                      rev="3.2.5.ga"            conf="runtime->default" transitive="false" />
     
     <!-- jars for test only -->
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />

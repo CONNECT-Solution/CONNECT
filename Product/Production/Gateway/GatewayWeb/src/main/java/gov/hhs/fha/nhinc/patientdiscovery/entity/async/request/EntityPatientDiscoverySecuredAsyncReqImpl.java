@@ -39,6 +39,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import org.hl7.v3.II;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -154,7 +155,7 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         rec.setMessageId(new java.rmi.server.UID().toString());
         rec.setCreationTime(new Date());
         rec.setServiceName(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-       // rec.setMsgData(createBlob(request));
+        rec.setMsgData(createBlob(request));
         asyncMsgRecs.add(rec);
 
         boolean result = instance.insertRecords(asyncMsgRecs);
@@ -183,7 +184,9 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
 
                 marshaller.marshal(new JAXBElement(new QName("org.hl7.v3", "II"), II.class, patId), baOutStrm);
 
-                data.setBytes(0, baOutStrm.toByteArray());
+                byte[] buffer = baOutStrm.toByteArray();
+                log.debug("Byte Array: " + baOutStrm.toString());
+                data = Hibernate.createBlob(buffer);
 
             } catch (Exception e) {
                 e.printStackTrace();

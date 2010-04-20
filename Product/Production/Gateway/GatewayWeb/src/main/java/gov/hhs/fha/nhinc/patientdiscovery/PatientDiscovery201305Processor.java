@@ -264,47 +264,6 @@ public class PatientDiscovery201305Processor {
         return newRequest;
     }
 
-//    private MCCIMT000100UV01Receiver createNewReceiver(String homeCommunityId) {
-//        MCCIMT000100UV01Receiver oNewReceiver = new MCCIMT000100UV01Receiver();
-//
-//        oNewReceiver.setTypeCode(CommunicationFunctionType.RCV);
-//
-//        MCCIMT000100UV01Device oNewDevice = new MCCIMT000100UV01Device();
-//        II oII = new II();
-//        if (NullChecker.isNullish(homeCommunityId)) {
-//            log.error("Unable to create a receiver object in order to forward " +
-//                    "the patient discovery request on to a target community. Target" +
-//                    " home community object was null");
-//            return null;
-//        }
-//
-//        log.debug("Setting the new request's receiverId to: " + homeCommunityId);
-//        oNewDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
-//
-//        log.debug("Setting receiver application to 1.2.345.678.999");
-//        oNewDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
-//
-//        MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
-//        MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
-//        org.setClassCode(HL7Constants.ORG_CLASS_CODE);
-//        org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
-//        II id = HL7DataTransformHelper.IIFactory(homeCommunityId);
-//        org.getId().add(id);
-//
-//        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
-//        JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg, MCCIMT000100UV01Organization.class, org);
-//        agent.setRepresentedOrganization(orgElem);
-//        agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
-//
-//        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-//        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent, MCCIMT000100UV01Agent.class, agent);
-//
-//        oNewDevice.setAsAgent(agentElem);
-//
-//        oNewReceiver.setDevice(oNewDevice);
-//
-//        return oNewReceiver;
-//    }
     public II extractPatientIdFrom201305(PRPAIN201305UV02 request) {
         II patId = null;
         String aaId = null;
