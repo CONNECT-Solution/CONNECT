@@ -42417,7 +42417,12 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
             <urn:acceptAckCode code="AL"/>
             <urn:receiver typeCode="RCV">
                <urn:device classCode="DEV" determinerCode="INSTANCE">
-                  <urn:id root="1.1"/>
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="1.1"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
                </urn:device>
             </urn:receiver>
             <urn:sender typeCode="SND">
@@ -42683,6 +42688,6 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request><con:assertion type="XPath Match" name="Verify Receiver"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Verify Sender"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Verify Message"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:acknowledgementDetail[1]/ns3:text[1]/text()</path><content>Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqqueue/AdapterPatientDiscoveryAsyncReqQueuePortType/AddPatientDiscoveryAsyncReqAsyncRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>AdapterPatientDiscoveryAsyncReqQueueEndpoint</con:name><con:value>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/></con:soapui-project>
+//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Verify Sender"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Verify Message"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:acknowledgementDetail[1]/ns3:text[1]/text()</path><content>Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqqueue/AdapterPatientDiscoveryAsyncReqQueuePortType/AddPatientDiscoveryAsyncReqAsyncRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>AdapterPatientDiscoveryAsyncReqQueueEndpoint</con:name><con:value>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
