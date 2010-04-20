@@ -13,10 +13,19 @@ import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
+import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.II;
+import org.hl7.v3.MCCIMT000100UV01Agent;
+import org.hl7.v3.MCCIMT000100UV01Device;
+import org.hl7.v3.MCCIMT000100UV01Organization;
+import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -63,7 +72,7 @@ public class PatientDiscovery201305Processor {
             }
 
             // Check to make sure the policy is valid
-            
+
             if (checkPolicy(response, patIdOverride, assertion)) {
                 II requestPatId = providedPatientId(request);
                 if (requestPatId != null) {
@@ -72,22 +81,22 @@ public class PatientDiscovery201305Processor {
                 }
             } else {
                 log.error("Policy Check Failed");
-                response = createEmpty201306 (senderOID, receiverOID, request);
+                response = createEmpty201306(senderOID, receiverOID, request);
             }
         } else {
             log.warn("Patient Not Found");
-            response = createEmpty201306 (senderOID, receiverOID, request);
+            response = createEmpty201306(senderOID, receiverOID, request);
         }
         return response;
     }
 
-    protected boolean checkPolicy (PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+    protected boolean checkPolicy(PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
         PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
 
         return policyChecker.check201305Policy(response, patIdOverride, assertion);
     }
 
-    protected PRPAIN201306UV02 createEmpty201306 (String senderOID, String receiverOID, PRPAIN201305UV02 request) {
+    protected PRPAIN201306UV02 createEmpty201306(String senderOID, String receiverOID, PRPAIN201305UV02 request) {
         return HL7PRPA201306Transforms.createPRPA201306(null, senderOID, null, receiverOID, null, request);
     }
 
@@ -154,7 +163,7 @@ public class PatientDiscovery201305Processor {
         return queryResults;
     }
 
-    private void createPatientCorrelation(II remotePatient, II localPatient, AssertionType assertion) {
+    protected void createPatientCorrelation(II remotePatient, II localPatient, AssertionType assertion) {
         AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
         QualifiedSubjectIdentifierType localSubId = new QualifiedSubjectIdentifierType();
         QualifiedSubjectIdentifierType remoteSubId = new QualifiedSubjectIdentifierType();
@@ -194,8 +203,7 @@ public class PatientDiscovery201305Processor {
         II patId = null;
         String aaId = null;
 
-        try
-        {
+        try {
             if (request != null &&
                     request.getControlActProcess() != null) {
                 if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
@@ -213,12 +221,12 @@ public class PatientDiscovery201305Processor {
                             request.getControlActProcess().getQueryByParameter().getValue() != null &&
                             request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
                             NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-                        for (PRPAMT201306UV02LivingSubjectId livingSubId:request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+                        for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
                             if (NullChecker.isNotNullish(livingSubId.getValue()) &&
                                     livingSubId.getValue().get(0) != null &&
                                     NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
                                     NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
-                                    aaId.contentEquals(livingSubId.getValue().get(0).getRoot())){
+                                    aaId.contentEquals(livingSubId.getValue().get(0).getRoot())) {
                                 patId = new II();
                                 patId.setRoot(livingSubId.getValue().get(0).getRoot());
                                 patId.setExtension(livingSubId.getValue().get(0).getExtension());
@@ -227,13 +235,111 @@ public class PatientDiscovery201305Processor {
                     }
                 }
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             patId = null;
         }
 
+
+        return patId;
+    }
+
+    public PRPAIN201305UV02 createNewRequest(PRPAIN201305UV02 request, String targetCommunityId) {
+        PRPAIN201305UV02 newRequest = new PRPAIN201305UV02();
+        newRequest = request;
+
+        if (request != null &&
+                NullChecker.isNotNullish(targetCommunityId)) {
+            //the new request will have the target community as the only receiver
+            newRequest.getReceiver().clear();
+            MCCIMT000100UV01Receiver oNewReceiver = HL7ReceiverTransforms.createMCCIMT000100UV01Receiver(targetCommunityId);
+            newRequest.getReceiver().add(oNewReceiver);
+            log.debug("Created a new request for target communityId: " + targetCommunityId);
+        }
+        else {
+            log.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
+            return null;
+        }
+
+        return newRequest;
+    }
+
+//    private MCCIMT000100UV01Receiver createNewReceiver(String homeCommunityId) {
+//        MCCIMT000100UV01Receiver oNewReceiver = new MCCIMT000100UV01Receiver();
+//
+//        oNewReceiver.setTypeCode(CommunicationFunctionType.RCV);
+//
+//        MCCIMT000100UV01Device oNewDevice = new MCCIMT000100UV01Device();
+//        II oII = new II();
+//        if (NullChecker.isNullish(homeCommunityId)) {
+//            log.error("Unable to create a receiver object in order to forward " +
+//                    "the patient discovery request on to a target community. Target" +
+//                    " home community object was null");
+//            return null;
+//        }
+//
+//        log.debug("Setting the new request's receiverId to: " + homeCommunityId);
+//        oNewDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
+//
+//        log.debug("Setting receiver application to 1.2.345.678.999");
+//        oNewDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
+//
+//        MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
+//        MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
+//        org.setClassCode(HL7Constants.ORG_CLASS_CODE);
+//        org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
+//        II id = HL7DataTransformHelper.IIFactory(homeCommunityId);
+//        org.getId().add(id);
+//
+//        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+//        JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg, MCCIMT000100UV01Organization.class, org);
+//        agent.setRepresentedOrganization(orgElem);
+//        agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
+//
+//        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+//        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent, MCCIMT000100UV01Agent.class, agent);
+//
+//        oNewDevice.setAsAgent(agentElem);
+//
+//        oNewReceiver.setDevice(oNewDevice);
+//
+//        return oNewReceiver;
+//    }
+    public II extractPatientIdFrom201305(PRPAIN201305UV02 request) {
+        II patId = null;
+        String aaId = null;
+
+        if (request != null &&
+                request.getControlActProcess() != null) {
+            if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
+                aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+            }
+
+            if (NullChecker.isNotNullish(aaId)) {
+                if (request.getControlActProcess().getQueryByParameter() != null &&
+                        request.getControlActProcess().getQueryByParameter().getValue() != null &&
+                        request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
+                        NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
+                    for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+                        if (NullChecker.isNotNullish(livingSubId.getValue()) &&
+                                livingSubId.getValue().get(0) != null &&
+                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
+                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
+                                aaId.contentEquals(livingSubId.getValue().get(0).getRoot())) {
+                            patId = new II();
+                            patId.setRoot(livingSubId.getValue().get(0).getRoot());
+                            patId.setExtension(livingSubId.getValue().get(0).getExtension());
+                        }
+                    }
+                }
+            }
+        }
 
         return patId;
     }

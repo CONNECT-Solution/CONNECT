@@ -14,12 +14,13 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  *
@@ -75,6 +76,15 @@ public class PatientDiscoveryPolicyChecker {
         return invokePolicyEngine(policyCheckReq);
     }
 
+    public boolean checkOutgoingPolicy (RespondingGatewayPRPAIN201305UV02RequestType request) {
+        log.debug("checking the policy engine for the new request to a target community");
+
+        PatientDiscoveryPolicyTransformHelper oPatientDiscoveryPolicyTransformHelper = new PatientDiscoveryPolicyTransformHelper();
+        CheckPolicyRequestType checkPolicyRequest = oPatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy(request);
+
+        return invokePolicyEngine(checkPolicyRequest);
+    }
+
     protected boolean invokePolicyEngine(PatDiscReqEventType policyCheckReq) {
         boolean policyIsValid = false;
 
@@ -88,6 +98,28 @@ public class PatientDiscoveryPolicyChecker {
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
                 policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
+        }
+
+        return policyIsValid;
+    }
+
+    protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
+        boolean policyIsValid = false;
+
+         /* invoke check policy */
+        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
+        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyCheckReq);
+
+        /* if response='permit' */
+        if (policyResp.getResponse() != null &&
+                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
+                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+            log.debug("Policy engine check returned permit.");
+            policyIsValid = true;
+        } else {
+            log.debug("Policy engine check returned deny.");
+            policyIsValid = false;
         }
 
         return policyIsValid;

@@ -8,8 +8,6 @@ import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201301UV02;
-import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -17,18 +15,16 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType;
 import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationServiceSecured;
 import javax.xml.ws.WebServiceContext;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 /**
  *
@@ -93,44 +89,10 @@ public class TrustMode implements ResponseMode{
         return result;
     }
  
-    protected II getPatientId(PRPAIN201305UV02 request) {
-        II patId = null;
-        String aaId = null;
-
-        if (request != null &&
-                request.getControlActProcess() != null) {
-            if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
-                aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
-            }
-
-            if (NullChecker.isNotNullish(aaId)) {
-                if (request.getControlActProcess().getQueryByParameter() != null &&
-                        request.getControlActProcess().getQueryByParameter().getValue() != null &&
-                        request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                        NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-                    for (PRPAMT201306UV02LivingSubjectId livingSubId:request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
-                        if (NullChecker.isNotNullish(livingSubId.getValue()) &&
-                                livingSubId.getValue().get(0) != null &&
-                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
-                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
-                                aaId.contentEquals(livingSubId.getValue().get(0).getRoot())){
-                            patId = new II();
-                            patId.setRoot(livingSubId.getValue().get(0).getRoot());
-                            patId.setExtension(livingSubId.getValue().get(0).getExtension());
-                        }
-                    }
-                }
-            }
-        }
-
-        return patId;
+    protected II getPatientId(PRPAIN201305UV02 request) {       
+        return new PatientDiscovery201305Processor().extractPatientIdFrom201305(request);
     }
+
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
