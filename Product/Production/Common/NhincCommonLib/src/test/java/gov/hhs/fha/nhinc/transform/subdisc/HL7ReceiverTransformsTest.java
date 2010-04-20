@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CommunicationFunctionType;
+import org.hl7.v3.MCCIMT000300UV01Receiver;
 
 /**
  *
@@ -55,7 +56,7 @@ public class HL7ReceiverTransformsTest {
 
         assertEquals(result.getTypeCode(), CommunicationFunctionType.RCV);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.RECEIVER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
     }
 
     /**
@@ -72,7 +73,7 @@ public class HL7ReceiverTransformsTest {
     }
     
      /**
-     * Test of testCreateMCCIMT000200UV01Receiver method, of class HL7DataTransformHelper.
+     * Test of testCreateMCCIMT000100UV01Receiver method, of class HL7DataTransformHelper.
      */
     @Test
     public void testCreateMCCIMT000100UV01Receiver() {
@@ -83,11 +84,11 @@ public class HL7ReceiverTransformsTest {
 
         assertEquals(result.getTypeCode(), CommunicationFunctionType.RCV);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.RECEIVER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getId().get(0).getRoot(), "2.16.840.1.113883.3.123");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.123");
     }
 
     /**
-     * Test of testCreateMCCIMT000200UV01Receiver method, of class HL7DataTransformHelper
+     * Test of testCreateMCCIMT000100UV01Receiver method, of class HL7DataTransformHelper
      * with no input.
      */
     @Test
@@ -95,6 +96,34 @@ public class HL7ReceiverTransformsTest {
         log.info("testCreateMCCIMT000100UV01Receiver_NullInput");
 
         MCCIMT000100UV01Receiver result = HL7ReceiverTransforms.createMCCIMT000100UV01Receiver(null);
+
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of testCreateMCCIMT000300UV01Receiver method, of class HL7DataTransformHelper.
+     */
+    @Test
+    public void testCreateMCCIMT000300UV01Receiver() {
+        log.info("testCreateMCCIMT000300UV01Receiver");
+
+        String OID = "2.16.840.1.113883.3.199";
+        MCCIMT000300UV01Receiver result = HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(OID);
+
+        assertEquals(result.getTypeCode(), CommunicationFunctionType.RCV);
+        assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.RECEIVER_DETERMINER_CODE);
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.199");
+    }
+
+    /**
+     * Test of testCreateMCCIMT000300UV01Receiver method, of class HL7DataTransformHelper
+     * with no input.
+     */
+    @Test
+    public void testCreateMCCIMT000300UV01Receiver_NullInput() {
+        log.info("testCreateMCCIMT000300UV01Receiver_NullInput");
+
+        MCCIMT000300UV01Receiver result = HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(null);
 
         assertNotNull(result);
     }

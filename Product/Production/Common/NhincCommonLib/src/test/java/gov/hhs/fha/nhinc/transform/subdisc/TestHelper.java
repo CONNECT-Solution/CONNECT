@@ -134,7 +134,7 @@ public class TestHelper {
         assertRecDeviceNotNull(message.getReceiver().get(0));
 
         if (receiverOID != null && !receiverOID.isEmpty()) {
-            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -144,7 +144,7 @@ public class TestHelper {
         assertRecDeviceNotNull(message.getReceiver().get(0));
 
         if (receiverOID != null && !receiverOID.isEmpty()) {
-            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -154,7 +154,7 @@ public class TestHelper {
         assertRecDeviceNotNull(message.getReceiver().get(0));
 
         if (receiverOID != null && !receiverOID.isEmpty()) {
-            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -174,7 +174,7 @@ public class TestHelper {
         assertRecDeviceNotNull(message.getReceiver().get(0));
 
         if (receiverOID != null && !receiverOID.isEmpty()) {
-            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -184,26 +184,41 @@ public class TestHelper {
         assertRecDeviceNotNull(message.getReceiver().get(0));
 
         if (receiverOID != null && !receiverOID.isEmpty()) {
-            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
     public static void assertRecDeviceNotNull(MCCIMT000100UV01Receiver receiver) {
         assertNotNull(receiver.getDevice());
-        assertNotNull(receiver.getDevice().getId());
-        assertNotNull(receiver.getDevice().getId().get(0));
+        assertNotNull(receiver.getDevice().getAsAgent());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
     public static void assertRecDeviceNotNull(MCCIMT000200UV01Receiver receiver) {
         assertNotNull(receiver.getDevice());
-        assertNotNull(receiver.getDevice().getId());
-        assertNotNull(receiver.getDevice().getId().get(0));
+        assertNotNull(receiver.getDevice().getAsAgent());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
     private static void assertRecDeviceNotNull(MCCIMT000300UV01Receiver receiver) {
         assertNotNull(receiver.getDevice());
-        assertNotNull(receiver.getDevice().getId());
-        assertNotNull(receiver.getDevice().getId().get(0));
+        assertNotNull(receiver.getDevice().getAsAgent());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId());
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+        assertNotNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
     public static void assertSenderIdEquals(String senderOID, PRPAIN201301UV02 message) {
@@ -211,7 +226,7 @@ public class TestHelper {
         assertSendDeviceNotNull(message.getSender());
 
         if (senderOID != null && !senderOID.isEmpty()) {
-            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+            assertEquals(senderOID, message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -220,7 +235,7 @@ public class TestHelper {
         assertSendDeviceNotNull(message.getSender());
 
         if (senderOID != null && !senderOID.isEmpty()) {
-            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+            assertEquals(senderOID, message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -229,7 +244,7 @@ public class TestHelper {
         assertSendDeviceNotNull(message.getSender());
 
         if (senderOID != null && !senderOID.isEmpty()) {
-            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+            assertEquals(senderOID, message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -247,7 +262,7 @@ public class TestHelper {
         assertSendDeviceNotNull(message.getSender());
 
         if (senderOID != null && !senderOID.isEmpty()) {
-            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+            assertEquals(senderOID, message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -256,26 +271,41 @@ public class TestHelper {
         assertSendDeviceNotNull(message.getSender());
 
         if (senderOID != null && !senderOID.isEmpty()) {
-            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+            assertEquals(senderOID, message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
     public static void assertSendDeviceNotNull(MCCIMT000100UV01Sender sender) {
         assertNotNull(sender.getDevice());
-        assertNotNull(sender.getDevice().getId());
-        assertNotNull(sender.getDevice().getId().get(0));
+        assertNotNull(sender.getDevice().getAsAgent());
+        assertNotNull(sender.getDevice().getAsAgent().getValue());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
     public static void assertSendDeviceNotNull(MCCIMT000200UV01Sender sender) {
         assertNotNull(sender.getDevice());
-        assertNotNull(sender.getDevice().getId());
-        assertNotNull(sender.getDevice().getId().get(0));
+        assertNotNull(sender.getDevice().getAsAgent());
+        assertNotNull(sender.getDevice().getAsAgent().getValue());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
     private static void assertSendDeviceNotNull(MCCIMT000300UV01Sender sender) {
         assertNotNull(sender.getDevice());
-        assertNotNull(sender.getDevice().getId());
-        assertNotNull(sender.getDevice().getId().get(0));
+        assertNotNull(sender.getDevice().getAsAgent());
+        assertNotNull(sender.getDevice().getAsAgent().getValue());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId());
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+        assertNotNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
     public static void assertPatientIdEquals(String patId, String localDeviceId, PRPAMT201301UV02Person person) {

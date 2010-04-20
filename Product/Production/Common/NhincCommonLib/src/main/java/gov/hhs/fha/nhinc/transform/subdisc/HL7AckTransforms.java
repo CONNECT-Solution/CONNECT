@@ -36,7 +36,7 @@ public class HL7AckTransforms {
                     NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getId()) &&
                     request.getReceiver().get(0).getDevice().getId().get(0) != null &&
                     NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             // Set the receiver OID to the sender OID from the original message

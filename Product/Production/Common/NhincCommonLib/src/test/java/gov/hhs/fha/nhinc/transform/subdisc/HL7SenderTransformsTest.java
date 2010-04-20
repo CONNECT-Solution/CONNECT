@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CommunicationFunctionType;
+import org.hl7.v3.MCCIMT000300UV01Sender;
 
 /**
  *
@@ -56,7 +57,7 @@ public class HL7SenderTransformsTest {
         
         assertEquals(result.getTypeCode(), CommunicationFunctionType.SND);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.SENDER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
     }
 
     /**
@@ -84,7 +85,7 @@ public class HL7SenderTransformsTest {
         
         assertEquals(result.getTypeCode(), CommunicationFunctionType.SND);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.SENDER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getId().get(0).getRoot(), "2.16.840.1.113883.3.166.4");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.166.4");
     }
 
     /**
@@ -97,6 +98,34 @@ public class HL7SenderTransformsTest {
         
         MCCIMT000100UV01Sender result = HL7SenderTransforms.createMCCIMT000100UV01Sender(null);
         
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of testCreateMCCIMT000300UV01Sender method, of class HL7DataTransformHelper.
+     */
+    @Test
+    public void testCreateMCCIMT000300UV01Sender() {
+        log.info("testCreateMCCIMT000300UV01Sender");
+
+        String OID = "2.16.840.1.113883.3.200";
+        MCCIMT000300UV01Sender result = HL7SenderTransforms.createMCCIMT000300UV01Sender(OID);
+
+        assertEquals(result.getTypeCode(), CommunicationFunctionType.SND);
+        assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.SENDER_DETERMINER_CODE);
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
+    }
+
+    /**
+     * Test of testCreateMCCIMT000300UV01Sender method, of class HL7DataTransformHelper
+     * with no input.
+     */
+    @Test
+    public void testCreateMCCIMT000300UV01Sender_NoInput() {
+        log.info("testCreateMCCIMT000300UV01Sender_NoInput");
+
+        MCCIMT000300UV01Sender result = HL7SenderTransforms.createMCCIMT000300UV01Sender(null);
+
         assertNotNull(result);
     }
    
