@@ -4,7 +4,7 @@
   <property name="Subversion.Console.Version" value="1.6.6.40053"/>
   <property name="Subversion.Console.Installer.File.Name" value="Setup-Subversion-1.6.6.msi"/>
   <property name="Subversion.Console.Installer.File.Path" value="C:\Temp\${Subversion.Console.Installer.File.Name}"/>
-  <property name="Subversion.Console.Installer.File.Url" value="http://subversion.tigris.org/files/documents/15/46906/${Subversion.Console.Installer.File.Name}"/>
+  <property name="Subversion.Console.Installer.File.Url" value="${Workspace.Ftp.Url}${Subversion.Console.Installer.File.Name}"/>
 
   <property name="Subversion.Tortoise.Version" value="1.6.7.18415"/>
   <switch value="${Processor.Type}">
