@@ -861,6 +861,7 @@
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
+        <trigger/>
         <projectFilters>
           &ScriptsBuilding;
           &ReleaseBuilding;
