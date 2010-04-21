@@ -859,20 +859,7 @@
   <project name="&ProjectName;-&ProjectCodeLineName;-Test-Development">
     <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger/>
-        <projectFilters>
-          &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
-          &TestRegressionBuilding;
-          &TestPerformanceBuilding;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
+    <triggers/>
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
