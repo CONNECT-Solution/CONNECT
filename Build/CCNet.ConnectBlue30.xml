@@ -139,7 +139,7 @@
     <sourcecontrol type="nullSourceControl" />
     <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
-      <serverUri>&CCNet.Server.Remoting.Url;</serverUri>
+      <serverUri>&Integration.Server.Host.Name;</serverUri>
     </labeller>
     <tasks>
       <nant>
