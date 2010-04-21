@@ -29,7 +29,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.req.NhinPatientDiscoveryAsyncReq" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.req.NhinPatientDiscoveryAsyncReqImpl" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReq" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReqImpl" linecount="18" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="24" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReqImpl" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.resp.NhinPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.resp.NhinPatientDiscoveryAsyncRespImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>

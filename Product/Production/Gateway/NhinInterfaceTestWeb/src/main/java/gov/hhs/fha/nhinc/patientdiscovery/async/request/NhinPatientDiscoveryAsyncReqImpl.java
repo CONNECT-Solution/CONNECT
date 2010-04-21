@@ -37,10 +37,14 @@ public class NhinPatientDiscoveryAsyncReqImpl {
                 NullChecker.isNotNullish(body.getReceiver()) &&
                 body.getReceiver().get(0) != null &&
                 body.getReceiver().get(0).getDevice() != null &&
-                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getId()) &&
-                body.getReceiver().get(0).getDevice().getId().get(0) != null &&
-                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-            homeCommunityId = body.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                body.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            homeCommunityId = body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
         } else {
             homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
         }
