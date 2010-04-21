@@ -29,8 +29,8 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY IntegrationFailed '<projectFilter
-               serverUri="&CCNet.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Test">
+               serverUri="&Integration.Server.Host.Name;"
+               project="&ProjectName;-&ProjectCodeLineName;-Test-Validation">
             <exclusionFilters>
               <conditions>
                 <condition>Failure</condition>
