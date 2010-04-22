@@ -15311,16 +15311,13 @@ This document and the information contained herein is provided on an "AS IS" bas
   </xsd:complexType>
   <xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
   <xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAuditLogQuery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:NhincAuditLogQuery" name="NhincAuditLogQuery" bindingOperationName="NhincAuditLogQuery" type="Request-Response" outputName="NhincAuditLogQueryResponse" inputName="NhincAuditLogQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="AuditQueryTestHelper TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FindAuditEvents TestCase" searchProperties="true" id="a22e9c8b-c4c0-4cad-88f3-a9680042d24e" timeout="0"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/AuditQueryTestHelper-soapui-project.properties</con:source><con:target/><con:properties><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>c:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>AuditQueryEndpoint</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>sourceNHINFileLocation</con:name><con:value>C:/Projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value></con:property><con:property><con:name>destNHINFileLocation</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>sourceConfigFileLocation</con:name><con:value>C:/projects/NHINC/Current/Product/Production/Common/Properties</con:value></con:property><con:property><con:name>destConfigFileLocation</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>backupFileLocation</con:name><con:value>C:/Backup/AuditQueryTestHelper</con:value></con:property><con:property><con:name>sourceInternalConnection</con:name><con:value>AuditQueryTestHelper_internalConnectionInfo.xml</con:value></con:property><con:property><con:name>sourceGateway</con:name><con:value/></con:property><con:property><con:name>sourceConnectionEPR</con:name><con:value/></con:property><con:property><con:name>sourceAdapter</con:name><con:value/></con:property><con:property><con:name>sourceMPI</con:name><con:value/></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>FullPatientID</con:name><con:value>D123401^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>AuditPatientID</con:name><con:value>D123401</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Generate patient ID for Audit Log Query"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def LocalAA = propertyList.getPropertyValue( "LocalAA" );
-def AuditPatientID = propertyList.getPropertyValue( "AuditPatientID" );
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAuditLogQuery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:NhincAuditLogQuery" name="NhincAuditLogQuery" bindingOperationName="NhincAuditLogQuery" type="Request-Response" outputName="NhincAuditLogQueryResponse" inputName="NhincAuditLogQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="AuditQueryTestHelper TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FindAuditEvents TestCase" searchProperties="true" id="a22e9c8b-c4c0-4cad-88f3-a9680042d24e" timeout="0"><con:settings/><con:testStep type="groovy" name="Copy of Restore Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
+</script></con:config></con:testStep><con:testStep type="groovy" name="Generate patient ID for Audit Log Query"><con:settings/><con:config><script>def localAA = context.findProperty('LocalAA')
+def aqPatientID = context.findProperty('AuditPatientID')
 
-fullPatientID = AuditPatientID + "^^^&amp;" + LocalAA + "&amp;ISO";
-groovyUtils.setPropertyValue( "Test Case Properties", "FullPatientID", fullPatientID);
-</script></con:config></con:testStep><con:testStep type="transfer" name="Property Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpoint</con:name><con:sourceType>AuditQueryEndpoint</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>findAuditEvents</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>patientID</con:name><con:sourceType>FullPatientID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>findAuditEvents</con:targetStep><con:targetPath>declare namespace aud='http://nhinc.services.com/schema/auditmessage';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:FindAuditEventsRequest[1]/aud:FindAuditEvents[1]/aud:patientId[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Backup internalConnectionInfo file" disabled="true"><con:settings/><con:config><script>import java.io.File;
+context.testCase.setPropertyValue('FullPatientID', "${aqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO");
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="Backup internalConnectionInfo file" disabled="true"><con:settings/><con:config><script>import java.io.File;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
@@ -15340,22 +15337,23 @@ if(myFile.exists())
     }
 }
 </script></con:config></con:testStep><con:testStep type="groovy" name="Modify internalConnectionInfo file"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
-def mockHost = dataSource.getPropertyValue("mockHost");
+def NHINGatewayHost = context.findProperty("NHINGatewayHost");
+def mockHost = context.findProperty("mockHost");
 def auditQueryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTest/AuditQueryTestHelper";
-def mockAuditQueryURL = "http://" + mockHost + ":18088/mockNhincAuditLogQuery";
-def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
+def mockAuditQueryURL = "http://" + mockHost + ":18089/mockNhincAuditLogQuery";
+def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "2.2", "auditquery", auditQueryURL, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockauditquery", mockAuditQueryURL, context, log)</script></con:config></con:testStep><con:testStep type="request" name="findAuditEvents"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityAuditLogQueryBindingSoap11</con:interface><con:operation>findAuditEvents</con:operation><con:request name="findAuditEvents"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/EntityAuditQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockauditquery", mockAuditQueryURL, context, log)
+</script></con:config></con:testStep><con:testStep type="request" name="findAuditEvents"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityAuditLogQueryBindingSoap11</con:interface><con:operation>findAuditEvents</con:operation><con:request name="findAuditEvents"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#AuditQueryEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="AuditQueryTestHelper" testCase="FindAuditEvents TestCase">
       <urn:FindAuditEventsRequest>
          <aud:FindAuditEvents>
-            <aud:patientId>D123401^^^&amp;1.1&amp;ISO</aud:patientId>
+            <aud:patientId>${#TestCase#FullPatientID}</aud:patientId>
             <aud:userId>mfranklin</aud:userId>
             <aud:beginDateTime>2009-07-06T16:59:19Z</aud:beginDateTime>
             <aud:endDateTime>2009-07-06T18:04:19Z</aud:endDateTime>
@@ -15505,7 +15503,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockaudit
          </urn:nhinTargetCommunities>
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="findAuditEvents" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincAuditLogQueryPortTypeBinding</con:interface><con:operation>NhincAuditLogQuery</con:operation><con:path>/mockNhincAuditLogQuery</con:path><con:port>18088</con:port><con:timeout>10000</con:timeout><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="findAuditEvents" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincAuditLogQueryPortTypeBinding</con:interface><con:operation>NhincAuditLogQuery</con:operation><con:path>/mockNhincAuditLogQuery</con:path><con:port>18089</con:port><con:timeout>10000</con:timeout><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
    <S:Body>
       <ns17:FindAuditEventsResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="urn:ihe:iti:xds-b:2007" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns10="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns11="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns12="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns14="http://docs.oasis-open.org/wsn/t-1" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns17="http://nhinc.services.com/schema/auditmessage" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscription">
          <ns17:findAuditEventsReturn>
@@ -15543,7 +15541,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockaudit
          </ns17:findAuditEventsReturn>
       </ns17:FindAuditEventsResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="Undo mods to internalConnectionInfo file"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="Undo mods to internalConnectionInfo file" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -15572,6 +15570,7 @@ if(myFile.exists())
     }
     myFile.delete();
 }
+</script></con:config></con:testStep><con:testStep type="groovy" name="Restore Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
 </script></con:config></con:testStep><con:setupScript><![CDATA[/*def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
@@ -15615,4 +15614,64 @@ if (sourceMPI && sourceMPI.length() != 0) {
   log.info "mpi"
   FileUtils.MoveFile(destConfigFileLocation, "mpi.xml", backupFileLocation, "mpi.xml", context, log)
   FileUtils.MoveFile(sourceConfigFileLocation, sourceMPI, destConfigFileLocation, "mpi.xml", context, log)
-}*/]]></con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+}*/]]></con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-22T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-22T18:50:37Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/22/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-22T00:00:00Z</con:value></con:property><con:property><con:name>FullPatientID</con:name><con:value>D123401^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>sourceConfigFileLocation</con:name><con:value>C:/projects/NHINC/Current/Product/Production/Common/Properties</con:value></con:property><con:property><con:name>AuditQueryEndpoint</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>sourceNHINFileLocation</con:name><con:value>C:/Projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>c:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>sourceAdapter</con:name><con:value/></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>AuditPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>backupFileLocation</con:name><con:value>C:/Backup/AuditQueryTestHelper</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>sourceMPI</con:name><con:value/></con:property><con:property><con:name>sourceInternalConnection</con:name><con:value>AuditQueryTestHelper_internalConnectionInfo.xml</con:value></con:property><con:property><con:name>destNHINFileLocation</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>sourceConnectionEPR</con:name><con:value/></con:property><con:property><con:name>sourceGateway</con:name><con:value/></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>destConfigFileLocation</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileReader(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
+    use (org.codehaus.groovy.runtime.TimeCategory) {
+      def startDate = 5.minutes.ago
+      def endDate = 5.minutes.from.now
+      def expireDate = 30.days.from.now
+
+      def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+      def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+      runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+      runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+      runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+      runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+    }
+  }   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+    return delegate.getProperty(propertyName) ?:
+                delegate.testCase.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+  def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+  def host = delegate.findProperty('DBHost')
+  def port = delegate.findProperty('DBPort')
+  def user = delegate.findProperty('DBUser')
+  def pass = delegate.findProperty('DBPass')
+  
+  def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+  def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+  try {
+     block(sql)
+  } finally {
+    sql.close()
+  }
+}
+</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
