@@ -125,7 +125,7 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.UnsubscribeTransformHelper" linecount="16" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="30" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.XDRPolicyTransformHelper" linecount="80" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.XacmlAttributeId" linecount="1" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="54" branchrate="0.12962962962962962" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms" linecount="54" linerate="0.6666666666666666" linesexecuted="0.36"/>
+<threshold branchcount="62" branchrate="0.10435483870967743" branchsexecuted="6.470000000000001" class="gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms" linecount="54" linerate="0.6666666666666666" linesexecuted="0.36"/>
 <threshold branchcount="120" branchrate="0.016666666666666666" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.transform.subdisc.HL7ArrayTransforms" linecount="167" linerate="0.023952095808383235" linesexecuted="0.04"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.subdisc.HL7Constants" linecount="1" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.5" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.transform.subdisc.HL7CustodianTransforms" linecount="17" linerate="0.7058823529411765" linesexecuted="0.12"/>

@@ -226,10 +226,14 @@ public class NhincConstants {
 
     // Patient Discovery Constants
     public static final String NHINC_PATIENT_DISCOVERY_SERVICE_NAME = "servicePatientDiscovery";
+    public static final String NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "servicePatientDiscoveryAsyncReq";
+    public static final String NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "servicePatientDiscoveryAsyncResp";
     public static final String PATIENT_DISCOVERY_SERVICE_NAME = "PatientDiscovery";
     public static final String PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "PatientDiscoveryAsyncReq";
     public static final String PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "PatientDiscoveryAsyncResp";
     public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";
+    public static final String PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY = "patientDiscoveryAsyncReqPassthrough";
+    public static final String PATIENT_DISCOVERY_SERVICE_ASYNC_RESP_PASSTHRU_PROPERTY = "patientDiscoveryAsyncRespPassthrough";
     public static final String PATIENT_DISCOVERY_DISABLED_ACK_MSG = "Patient Discovery Service is not enabled";
     public static final String PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Patient Discovery";
     public static final String PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME = "adapterpatientdiscovery";
