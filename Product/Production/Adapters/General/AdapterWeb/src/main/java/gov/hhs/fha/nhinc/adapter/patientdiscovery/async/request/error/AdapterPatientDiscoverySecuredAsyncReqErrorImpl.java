@@ -33,9 +33,7 @@ public class AdapterPatientDiscoverySecuredAsyncReqErrorImpl {
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(AsyncAdapterPatientDiscoveryErrorRequestType request) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
-        String msgText = "Success";
-
-        ack = HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), msgText);
+        ack = HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), request.getErrorMsg());
 
         return ack;
     }
