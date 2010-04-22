@@ -144,6 +144,10 @@ public class PatientDiscovery201305Processor {
     }
 
     protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
+          return queryMpiForPatients(query, assertion);
+    }
+
+    public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion) {
         PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
 
         if (query != null) {

@@ -159,7 +159,7 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/PRPA_MT201302UV02.xsd" uri="src/main/resources/xml-resources/web-services/NhincProxyPatientDiscoverySecuredAsyncReq/schemas/HL7V3/NE2008/multicacheschemas/PRPA_MT201302UV02.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/PRPA_MT201303UV02.xsd" uri="src/main/resources/xml-resources/web-services/NhincProxyPatientDiscoverySecuredAsyncReq/schemas/HL7V3/NE2008/multicacheschemas/PRPA_MT201303UV02.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/PRPA_MT201307UV02.xsd" uri="src/main/resources/xml-resources/web-services/NhincProxyPatientDiscoverySecuredAsyncReq/schemas/HL7V3/NE2008/multicacheschemas/PRPA_MT201307UV02.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT310000UV04.xsd" uri="src/main/resources/xml-resources/web-services/NhincProxyPatientDiscoverySecuredAsyncReq/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT310000UV04.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT310000UV04.xsd" uri="src/main/resources/xml-resources/web-services/NhinPatientDiscoveryAsyncResp/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT310000UV04.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryAsyncReq.wsdl" uri="src/main/resources/xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryAsyncReq.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd" uri="src/main/resources/xml-resources/web-services/NhinPatientDiscoveryAsyncReq/schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/MCCI_MT000100UV01.xsd" uri="src/main/resources/xml-resources/web-services/NhinPatientDiscoveryAsyncReq/schemas/HL7V3/NE2008/multicacheschemas/MCCI_MT000100UV01.xsd"/>
@@ -223,6 +223,15 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT140007UV.xsd" uri="src/main/resources/xml-resources/web-services/NhinPatientDiscoveryAsyncResp/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT140007UV.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT440001UV.xsd" uri="src/main/resources/xml-resources/web-services/NhinPatientDiscoveryAsyncResp/schemas/HL7V3/NE2008/multicacheschemas/COCT_MT440001UV.xsd"/>
 </catalog>
+
+
+
+
+
+
+
+
+
 
 
 

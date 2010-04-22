@@ -12,7 +12,7 @@ import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author JHOPPESC
+ * @author jhoppesc
  */
 @WebService(serviceName = "RespondingGatewayAsyncResp_Service", portName = "RespondingGatewayAsyncResp_Port", endpointInterface = "ihe.iti.xcpd._2009.RespondingGatewayAsyncRespPortType", targetNamespace = "urn:ihe:iti:xcpd:2009", wsdlLocation = "WEB-INF/wsdl/NhinPatientDiscoveryAsyncResp/NhinPatientDiscoveryAsyncResp.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")

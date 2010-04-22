@@ -21,8 +21,8 @@
 	</wsdl:message>
 	<wsdl:portType name="RespondingGatewayAsyncResp_PortType">
 		<wsdl:operation name="RespondingGateway_PRPA_IN201306UV02">
-			<wsdl:input message="tns:PRPA_IN201306UV02_Message" wsaw:Action="urn:hl7-org:v3:PRPA_IN201306UV02:CrossGatewayPatientDiscovery"/>
-			<wsdl:output message="tns:MCCI_IN000002UV01_Message" wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01:CrossGatewayPatientDiscovery"/>
+			<wsdl:input message="tns:PRPA_IN201306UV02_Message" wsaw:Action="urn:hl7-org:v3:PRPA_IN201306UV02:Deferred:CrossGatewayPatientDiscovery"/>
+			<wsdl:output message="tns:MCCI_IN000002UV01_Message" wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="RespondingGatewayAsyncResp_Binding" type="tns:RespondingGatewayAsyncResp_PortType">

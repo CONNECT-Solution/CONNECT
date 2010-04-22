@@ -36,7 +36,24 @@ public class NhinPatientDiscoveryImpl {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
-        // Check if the Patient Discovery Service is enabled
+        response = respondingGatewayPRPAIN201305UV02(body, assertion);
+
+        // Audit the responding 201306 Message
+        ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        
+        // Send response back to the initiating Gateway
+        log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+        return response;
+    }
+
+     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion) {
+        log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+
+        PRPAIN201306UV02 response = new PRPAIN201306UV02();
+        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
+        AcknowledgementType ack = new AcknowledgementType();
+
+         // Check if the Patient Discovery Service is enabled
         if (isServiceEnabled()) {
 
             // Check if in Pass-Through Mode
@@ -50,51 +67,33 @@ public class NhinPatientDiscoveryImpl {
 
                 // Send the 201305 to the Adapter Interface
                 PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
-                response = adapterSender.send201301ToAgency(body, assertion);
+                response = adapterSender.send201305ToAgency(body, assertion);
 
                 // Audit the incoming Adapter 201306 Message
                 ack = auditLogger.auditAdapter201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
             }
         }
 
-        // Audit the responding 201306 Message
-        ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         return response;
     }
 
-     /**
-     * Checks the gateway.properties file to see if the Subject Discovery is enabled.
+   /**
+     * Checks the gateway.properties file to see if the Patient Discovery Service is enabled.
      *
      * @return Returns true if the servicePatientDiscovery is enabled in the properties file.
      */
-    private boolean isServiceEnabled() {
-        boolean serviceEnabled = false;
-        try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME);
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-
-        return serviceEnabled;
+    protected boolean isServiceEnabled() {
+        return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
     /**
      * Checks to see if the query should  be handled internally or passed through to an adapter.
+     * 
      * @return Returns true if the patientDiscoveryPassthrough property of the gateway.properties file is true.
      */
-    private boolean isInPassThroughMode() {
-        boolean passThroughModeEnabled = false;
-        try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY);
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-        return passThroughModeEnabled;
+    protected boolean isInPassThroughMode() {
+        return NhinPatientDiscoveryUtils.isInPassThroughMode(NhincConstants.PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY);
     }
-
 }
