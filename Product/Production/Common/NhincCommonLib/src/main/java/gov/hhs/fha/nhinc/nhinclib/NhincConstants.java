@@ -85,6 +85,13 @@ public class NhincConstants {
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
     public static final String CE_DISPLAYNAME_ID = "displayName";
 
+    // Async Property Constants
+    public static final String ASYNC_MESSAGE_ID_PROP = "messageId";
+    public static final String ASYNC_RELATES_TO_PROP = "relatesToId";
+    public static final String ASYNC_MSG_TYPE_PROP = "msgType";
+    public static final String ASYNC_REQUEST_MSG_TYPE_VAL = "request";
+    public static final String ASYNC_RESPONSE_MSG_TYPE_VAL = "request";
+
 
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
