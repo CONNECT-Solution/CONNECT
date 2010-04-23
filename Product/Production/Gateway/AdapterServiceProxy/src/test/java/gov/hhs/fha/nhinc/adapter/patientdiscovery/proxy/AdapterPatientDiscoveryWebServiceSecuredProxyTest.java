@@ -90,7 +90,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         assertEquals(0, result.getAcknowledgement().size());
 
     }
-/*
+
     @Test
     public void testRespondingGatewayPRPAIN201305UV02_noRequest() {
 
@@ -138,6 +138,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         assertEquals(0, result.getAcknowledgement().size());
 
     }
+
     @Test
     public void testRespondingGatewayPRPAIN201305UV02_validRequest() {
 
@@ -149,8 +150,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         final AdapterPatientDiscoverySecured mockService = context.mock(AdapterPatientDiscoverySecured.class);
         final RespondingGatewayPRPAIN201305UV02RequestType requestObject = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
 
-        requestObject.setAssertion(assertion);
-        requestObject.setPRPAIN201305UV02(request);
+
 
         AdapterPatientDiscoveryWebServiceSecuredProxy instance = new AdapterPatientDiscoveryWebServiceSecuredProxy()
         {
@@ -179,10 +179,23 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         context.checking(new Expectations()
         {
             {
+                allowing(requestObject).setAssertion(with(assertion));
+                allowing(requestObject).setPRPAIN201305UV02(with(request));
+            }
+        });
+        requestObject.setAssertion(assertion);
+        requestObject.setPRPAIN201305UV02(request);
+        
+        context.checking(new Expectations()
+        {
+            {
+
+
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
-                allowing(mockPort).respondingGatewayPRPAIN201305UV02(with(requestObject));
+                allowing(mockPort).respondingGatewayPRPAIN201305UV02(with(any(RespondingGatewayPRPAIN201305UV02RequestType.class)));
+
                 will(returnValue(null));
             }
         });
@@ -192,5 +205,5 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         assertNull(result);
 
     }
- */
+ 
 }

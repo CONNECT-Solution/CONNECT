@@ -90,7 +90,7 @@ public class AdapterPatientDiscoveryWebServiceUnSecuredProxyTest {
         assertEquals(0, result.getAcknowledgement().size());
 
     }
-/*
+
     @Test
     public void testRespondingGatewayPRPAIN201305UV02_noRequest() {
 
@@ -114,7 +114,7 @@ public class AdapterPatientDiscoveryWebServiceUnSecuredProxyTest {
             @Override
             protected AdapterPatientDiscovery createService()
             {
-                return mockService;
+                return null;
             }
         };
         context.checking(new Expectations()
@@ -122,7 +122,7 @@ public class AdapterPatientDiscoveryWebServiceUnSecuredProxyTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with("Fail"));
+                //allowing(mockLogger).error(with("Fail"));
                 will(returnValue(null));
             }
         });
@@ -135,19 +135,19 @@ public class AdapterPatientDiscoveryWebServiceUnSecuredProxyTest {
         assertEquals(0, result.getAcknowledgement().size());
 
     }
+
     @Test
     public void testRespondingGatewayPRPAIN201305UV02_validRequest() {
 
         System.out.println("testRespondingGatewayPRPAIN201305UV02_validRequest");
         final RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-        AssertionType assertion = new AssertionType();
+        final AssertionType assertion = new AssertionType();
         final Log mockLogger = context.mock(Log.class);
         final AdapterPatientDiscoveryPortType mockPort = context.mock(AdapterPatientDiscoveryPortType.class);
         final AdapterPatientDiscovery mockService = context.mock(AdapterPatientDiscovery.class);
         final PRPAIN201305UV02 body = new PRPAIN201305UV02();
 
-        request.setAssertion(assertion);
-        request.setPRPAIN201305UV02(body);
+
         
         AdapterPatientDiscoveryWebServiceUnSecuredProxy instance = new AdapterPatientDiscoveryWebServiceUnSecuredProxy()
         {
@@ -178,15 +178,17 @@ public class AdapterPatientDiscoveryWebServiceUnSecuredProxyTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockPort).respondingGatewayPRPAIN201305UV02(with(request));
+
+                allowing(mockPort).respondingGatewayPRPAIN201305UV02(with(any(RespondingGatewayPRPAIN201305UV02RequestType.class)));
                 will(returnValue(null));
             }
         });
-
+        request.setAssertion(assertion);
+        request.setPRPAIN201305UV02(body);
         PRPAIN201306UV02 expResult = new PRPAIN201306UV02();
         PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(body, assertion);
         assertNull(result);
 
     }
- */
+
 }

@@ -43,7 +43,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPat
         request.setAssertion(assertion);
         request.setPRPAIN201305UV02(body);
         
-        if (NullChecker.isNotNullish(url) && (request != null))
+        if (NullChecker.isNotNullish(url) && (body != null))
         {
             AdapterPatientDiscoverySecuredPortType port = getPort(url, request.getAssertion());
             response = port.respondingGatewayPRPAIN201305UV02(request);
