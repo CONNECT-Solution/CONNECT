@@ -258,11 +258,15 @@ public class NhincConstants {
     public static final String NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxypatientdiscoverysecured";
     public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_REQ_SERVICE_NAME="nhincproxypatientdiscoveryasyncreq";
     public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_REQ_SERVICE_NAME="nhincproxypatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_RESP_SERVICE_NAME="nhincproxypatientdiscoveryasyncresp";
+    public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_RESP_SERVICE_NAME="nhincproxypatientdiscoverysecuredasyncresp";
     public static final String ENTITY_PATIENT_DISCOVERY_SERVICE_NAME = "entitypatientdiscovery";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME="entitypatientdiscoveryasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME="entitypatientdiscoverysecuredasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_SERVICE_NAME="entitypatientdiscoveryasyncreq";
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME="entitypatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME="entitypatientdiscoveryasyncresp";
+    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME="entitypatientdiscoverysecuredasyncresp";
 
     // XDR Constants
     public static final String ENTITY_XDR_SECURED_SERVICE_NAME = "entityxdrsecured";

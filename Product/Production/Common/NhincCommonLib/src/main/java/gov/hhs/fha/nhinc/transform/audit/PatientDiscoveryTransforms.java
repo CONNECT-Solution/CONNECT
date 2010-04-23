@@ -40,6 +40,7 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
@@ -392,6 +393,15 @@ public class PatientDiscoveryTransforms {
             oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(response.getPRPAIN201306UV02(), oAssertion, direction, _interface);
 
         }
+
+        return oReturnLogEventRequestType;
+    }
+
+    public LogEventRequestType transformEntityPRPAIN201306AsyncResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02RequestType oRequest, AssertionType oAssertion, String direction, String _interface) {
+
+        LogEventRequestType oReturnLogEventRequestType = null;
+
+        oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(oRequest.getPRPAIN201306UV02(), oAssertion, direction, _interface);
 
         return oReturnLogEventRequestType;
     }
