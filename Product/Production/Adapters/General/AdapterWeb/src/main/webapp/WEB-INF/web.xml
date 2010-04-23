@@ -350,6 +350,15 @@
         <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
         <url-pattern>/EntityPatientDiscoveryAsyncReq</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
