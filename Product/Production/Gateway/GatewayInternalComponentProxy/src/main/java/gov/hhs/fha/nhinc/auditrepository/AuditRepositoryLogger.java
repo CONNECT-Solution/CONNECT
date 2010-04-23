@@ -72,6 +72,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  *
@@ -253,6 +254,27 @@ public class AuditRepositoryLogger {
             auditMsg = auditTransformer.transformEntityPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         }
         log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Async Response
+     *
+     * @param message The Patient Discovery Async Response message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logEntityPatientDiscAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscAsyncResp(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformEntityPRPAIN201306AsyncResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+        log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscAsyncResp(...)");
 
         return auditMsg;
     }
