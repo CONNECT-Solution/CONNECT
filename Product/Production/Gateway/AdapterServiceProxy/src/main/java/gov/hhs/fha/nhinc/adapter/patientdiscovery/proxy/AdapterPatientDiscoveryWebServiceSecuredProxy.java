@@ -4,7 +4,6 @@
  */
 
 package gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy;
-
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecured;
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -20,36 +19,43 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-
 /**
  *
- * @author jhoppesc
+ * @author dunnek
  */
-public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDiscoveryProxy {
+public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPatientDiscoveryProxy{
+    private static Log log = null;
+    private static AdapterPatientDiscoverySecured service;
 
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryWebServiceProxy.class);
-    private static AdapterPatientDiscoverySecured service = new AdapterPatientDiscoverySecured();
-
+    public AdapterPatientDiscoveryWebServiceSecuredProxy()
+    {
+        log = createLogger();
+        service = createService();
+    }
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        request.setAssertion(assertion);
-        request.setPRPAIN201305UV02(body);
-
+        log.debug("Begin AdapterPatientDiscoveryWebServiceSecuredProxy.respondingGatewayPRPAIN201305UV02()");
+        
         // Get the URL to the Adapter Subject Discovery
         String url = getUrl();
-
+        request.setAssertion(assertion);
+        request.setPRPAIN201305UV02(body);
+        
         if (NullChecker.isNotNullish(url) && (request != null))
         {
-            AdapterPatientDiscoverySecuredPortType port = getPort(url, assertion);
+            AdapterPatientDiscoverySecuredPortType port = getPort(url, request.getAssertion());
             response = port.respondingGatewayPRPAIN201305UV02(request);
         }
 
         return response;
     }
-
-    private AdapterPatientDiscoverySecuredPortType getPort(String url, AssertionType assertion)
+    protected AdapterPatientDiscoverySecured createService()
+    {
+        return  new AdapterPatientDiscoverySecured();
+    }
+    protected AdapterPatientDiscoverySecuredPortType getPort(String url, AssertionType assertion)
     {
         AdapterPatientDiscoverySecuredPortType port = service.getAdapterPatientDiscoverySecuredPortSoap11();
 
@@ -65,7 +71,7 @@ public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDis
         return port;
     }
 
-    private String getUrl() {
+    protected String getUrl() {
         String url = null;
 
         try
@@ -78,5 +84,9 @@ public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDis
         }
 
         return url;
+    }
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 }

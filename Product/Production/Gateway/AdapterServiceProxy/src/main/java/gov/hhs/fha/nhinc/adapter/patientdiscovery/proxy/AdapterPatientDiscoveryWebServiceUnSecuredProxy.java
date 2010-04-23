@@ -5,8 +5,8 @@
 
 package gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy;
 
-import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecured;
-import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType;
+import gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscovery;
+import gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -18,40 +18,48 @@ import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  *
- * @author jhoppesc
+ * @author dunnek
  */
-public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDiscoveryProxy {
+public class AdapterPatientDiscoveryWebServiceUnSecuredProxy implements AdapterPatientDiscoveryProxy{
+    private static Log log = null;
+    private static AdapterPatientDiscovery service = null;
 
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryWebServiceProxy.class);
-    private static AdapterPatientDiscoverySecured service = new AdapterPatientDiscoverySecured();
-
+    public AdapterPatientDiscoveryWebServiceUnSecuredProxy()
+    {
+        log = createLogger();
+        service = createService();
+    }
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        request.setAssertion(assertion);
-        request.setPRPAIN201305UV02(body);
+        log.debug("Begin AdapterPatientDiscoveryWebServiceUnSecuredProxy.respondingGatewayPRPAIN201305UV02()");
 
         // Get the URL to the Adapter Subject Discovery
         String url = getUrl();
 
+        request.setAssertion(assertion);
+        request.setPRPAIN201305UV02(body);
+        
         if (NullChecker.isNotNullish(url) && (request != null))
         {
-            AdapterPatientDiscoverySecuredPortType port = getPort(url, assertion);
+            AdapterPatientDiscoveryPortType port = getPort(url, assertion);
             response = port.respondingGatewayPRPAIN201305UV02(request);
         }
 
         return response;
     }
-
-    private AdapterPatientDiscoverySecuredPortType getPort(String url, AssertionType assertion)
+    protected AdapterPatientDiscovery createService()
     {
-        AdapterPatientDiscoverySecuredPortType port = service.getAdapterPatientDiscoverySecuredPortSoap11();
+        return  new AdapterPatientDiscovery();
+    }
+    protected AdapterPatientDiscoveryPortType getPort(String url, AssertionType assertion)
+    {
+        AdapterPatientDiscoveryPortType port = service.getAdapterPatientDiscoveryPortSoap11();
 
         log.info("Setting endpoint address to Adapter Subject Discovery Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
@@ -64,16 +72,19 @@ public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDis
 
         return port;
     }
-
-    private String getUrl() {
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+    protected String getUrl() {
         String url = null;
 
         try
         {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME);
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME);
         } catch (ConnectionManagerException ex)
         {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + " for local home community");
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
 
