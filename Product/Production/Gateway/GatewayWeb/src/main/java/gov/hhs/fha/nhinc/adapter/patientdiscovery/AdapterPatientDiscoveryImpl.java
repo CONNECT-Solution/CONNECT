@@ -20,7 +20,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  *
  * @author jhoppesc
  */
-public class AdapterPatientDiscoveryImpl {
+@Deprecated  public class AdapterPatientDiscoveryImpl {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdapterPatientDiscoveryImpl.class);
     private static AdapterPatientDiscoverySecured service = new AdapterPatientDiscoverySecured();

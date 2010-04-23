@@ -224,14 +224,6 @@
 		<servlet-name>HiemUnsubscribe</servlet-name>
 		<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>AdapterPatientDiscovery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscovery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AdapterPatientDiscovery</servlet-name>
-		<url-pattern>/AdapterProxyService/AdapterPatientDiscovery</url-pattern>
-	</servlet-mapping>
         <servlet>
 		<servlet-name>AdapterAsyncReqPatientDiscovery</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterAsyncReqPatientDiscovery</servlet-class>
