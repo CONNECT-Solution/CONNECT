@@ -25,7 +25,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  *
  * @author jhoppesc
  */
-public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDiscoveryProxy {
+@Deprecated public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDiscoveryProxy {
 
     private static Log log = LogFactory.getLog(AdapterPatientDiscoveryWebServiceProxy.class);
     private static AdapterPatientDiscoverySecured service = new AdapterPatientDiscoverySecured();

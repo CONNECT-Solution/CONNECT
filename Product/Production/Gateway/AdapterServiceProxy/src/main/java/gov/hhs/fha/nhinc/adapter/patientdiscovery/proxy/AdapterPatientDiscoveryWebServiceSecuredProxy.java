@@ -37,7 +37,66 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPat
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         log.debug("Begin AdapterPatientDiscoveryWebServiceSecuredProxy.respondingGatewayPRPAIN201305UV02()");
-        
+        int x = 1;
+
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+        x=1;
+
+
+
+
+
+
+
         // Get the URL to the Adapter Subject Discovery
         String url = getUrl();
         request.setAssertion(assertion);
