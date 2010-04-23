@@ -296,6 +296,14 @@
 		<servlet-name>EntityPatientDiscoverySecuredAsyncReq</servlet-name>
 		<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqSecured</url-pattern>
 	</servlet-mapping>
+        <servlet>
+		<servlet-name>EntityPatientDiscoverySecuredAsyncResp</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoverySecuredAsyncResp</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EntityPatientDiscoverySecuredAsyncResp</servlet-name>
+		<url-pattern>/EntityService/EntityPatientDiscoveryAsyncRespSecured</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</servlet-class>
@@ -510,6 +518,10 @@
                 <web-resource-collection>
 			<web-resource-name>EntityPatientDiscoverySecuredAsyncReq</web-resource-name>
 			<url-pattern>/EntityService/EntityPatientDiscoveryAsyncReqSecured</url-pattern>
+		</web-resource-collection>
+                <web-resource-collection>
+			<web-resource-name>EntityPatientDiscoverySecuredAsyncResp</web-resource-name>
+			<url-pattern>/EntityService/EntityPatientDiscoveryAsyncRespSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyPatientDiscoverySecured</web-resource-name>

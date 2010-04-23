@@ -15,6 +15,7 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
@@ -106,6 +107,20 @@ public class PatientDiscoveryAuditLogger {
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logEntityPatientDiscResp(request, assertion, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
+        return ack;
+    }
+
+    public AcknowledgementType auditEntity201306 (RespondingGatewayPRPAIN201306UV02RequestType request, AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType ();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logEntityPatientDiscAsyncResp(request, assertion, direction);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
