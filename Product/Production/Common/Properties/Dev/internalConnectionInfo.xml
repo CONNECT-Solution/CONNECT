@@ -50,6 +50,11 @@
                 <description>patientdiscoveryasyncreq</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
             </service>
+             <service>
+                <name>PatientDiscoveryAsyncResp</name>
+                <description>patientdiscoveryasyncresp</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+            </service>
             <service>
                 <name>QueryForDocument</name>
                 <description>documentquery</description>
@@ -340,6 +345,16 @@
                 <name>entitypatientdiscoveryasyncreq</name>
                 <description>Entity Patient Discovery Async Request</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecuredasyncresp</name>
+                <description>Entity Patient Discovery Secured Async Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncresp</name>
+                <description>Entity Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncResp</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
@@ -606,6 +621,11 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
             </service>
             <service>
+                <name>PatientDiscoveryAsyncResp</name>
+                <description>patientdiscoveryasyncresp</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
                 <name>QueryForDocument</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
@@ -947,6 +967,16 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReq</endpointURL>
             </service>
             <service>
+                <name>entitypatientdiscoverysecuredasyncresp</name>
+                <description>Entity Patient Discovery Secured Async Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncresp</name>
+                <description>Entity Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
@@ -1149,6 +1179,11 @@
                 <name>PatientDiscoveryAsyncReq</name>
                 <description>patientdiscoveryasyncreq</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>PatientDiscoveryAsyncResp</name>
+                <description>patientdiscoveryasyncresp</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
             </service>
 	            <service>
 	                <name>QueryForDocument</name>
@@ -1490,6 +1525,16 @@
                 <name>entitypatientdiscoveryasyncreq</name>
                 <description>Entity Patient Discovery Async Request</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReq</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecuredasyncresp</name>
+                <description>Entity Patient Discovery Secured Async Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoveryasyncresp</name>
+                <description>Entity Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncResp</endpointURL>
             </service>
 			<service>
 				<name>nhincproxypatientdiscovery</name>
