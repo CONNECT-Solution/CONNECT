@@ -34,6 +34,7 @@
     <import location="EntityPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq"/>
     <import location="EntityPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp"/>
     <import location="NhincProxyPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq"/>
+    <import location="NhincProxyPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp"/>
 </definitions>
 
 
