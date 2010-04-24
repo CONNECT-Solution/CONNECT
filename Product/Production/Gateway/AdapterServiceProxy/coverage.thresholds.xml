@@ -2,10 +2,10 @@
 <thresholds>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceProxy" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceProxy" linecount="27" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.subjectdiscovery.proxy.AdapterSubjectDiscoveryNoOpImpl" linecount="5" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceSecuredProxy" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceUnSecuredProxy" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.6666666666666666" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceSecuredProxy" linecount="32" linerate="0.46875" linesexecuted="0.15"/>
+<threshold branchcount="6" branchrate="0.6666666666666666" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceUnSecuredProxy" linecount="33" linerate="0.48484848484848486" linesexecuted="0.16"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.subjectdiscovery.proxy.AdapterSubjectDiscoveryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.subjectdiscovery.proxy.AdapterSubjectDiscoveryWebServiceProxy" linecount="37" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestNoOpImpl" linecount="9" linerate="0.0" linesexecuted="0"/>
