@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="DocQuery">
@@ -673,6 +673,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterPatientDiscovery">
+      <implementation-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscovery</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscovery.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscovery.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscovery</service-name>
+      <port-name>AdapterPatientDiscoveryPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscovery</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
     <service name="AdapterSubjectDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl</wsdl-url>
@@ -1328,6 +1352,30 @@
       <service-name>EntityPatientDiscoverySecuredAsyncResp</service-name>
       <port-name>EntityPatientDiscoverySecuredAsyncRespPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncresp</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincProxyPatientDiscoverySecuredAsyncResp">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
+      <service-name>NhincProxyPatientDiscoverySecuredAsyncResp</service-name>
+      <port-name>NhincProxyPatientDiscoverySecuredAsyncRespPortType</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
