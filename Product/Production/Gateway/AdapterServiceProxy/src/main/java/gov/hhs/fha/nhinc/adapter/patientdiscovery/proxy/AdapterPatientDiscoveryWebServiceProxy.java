@@ -27,9 +27,22 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  */
 @Deprecated public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDiscoveryProxy {
 
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryWebServiceProxy.class);
-    private static AdapterPatientDiscoverySecured service = new AdapterPatientDiscoverySecured();
+    private static Log log = null;
+    private static AdapterPatientDiscoverySecured service = null; 
 
+    public AdapterPatientDiscoveryWebServiceProxy()
+    {
+        log = createLogger();
+        service = createService();
+    }
+    protected AdapterPatientDiscoverySecured createService()
+    {
+        return  new AdapterPatientDiscoverySecured();
+    }
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
@@ -2091,7 +2104,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
         // Get the URL to the Adapter Subject Discovery
         String url = getUrl();
 
-        if (NullChecker.isNotNullish(url) && (request != null))
+        if (NullChecker.isNotNullish(url) && (body != null))
         {
             AdapterPatientDiscoverySecuredPortType port = getPort(url, assertion);
             response = port.respondingGatewayPRPAIN201305UV02(request);
@@ -2116,7 +2129,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
         return port;
     }
 
-    private String getUrl() {
+    protected String getUrl() {
         String url = null;
 
         try
