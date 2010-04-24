@@ -377,6 +377,16 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
             </service>
             <service>
+                <name>nhincproxypatientdiscoveryasyncresp</name>
+                <description>NHINC Proxy Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecuredasyncresp</name>
+                <description>NHINC Proxy Patient Discovery Secured Async Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
+            <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</endpointURL>
@@ -996,6 +1006,16 @@
                 <description>NHINC Proxy Patient Discovery Secured Async Request</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
             </service>
+            <service>
+                <name>nhincproxypatientdiscoveryasyncresp</name>
+                <description>NHINC Proxy Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecuredasyncresp</name>
+                <description>NHINC Proxy Patient Discovery Secured Async Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</endpointURL>
+            </service>
 			<service>
 				<name>adapternotificationconsumer</name>
 				<description>Adapter HIEM Notify</description>
@@ -1555,6 +1575,16 @@
                 <name>nhincproxypatientdiscoverysecuredasyncreq</name>
                 <description>NHINC Proxy Patient Discovery Secured Async Request</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoveryasyncresp</name>
+                <description>NHINC Proxy Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecuredasyncresp</name>
+                <description>NHINC Proxy Patient Discovery Secured Async Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</endpointURL>
             </service>
            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
