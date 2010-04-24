@@ -12,8 +12,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import ihe.iti.xcpd._2009.RespondingGatewayAsyncRespPortType;
-import ihe.iti.xcpd._2009.RespondingGatewayAsyncRespService;
+import ihe.iti.xcpd._2009.RespondingGatewayDeferredRespService;
+import ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
@@ -28,7 +28,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class NhinPatientDiscoveryAsyncRespWebServiceProxy implements NhinPatientDiscoveryAsyncRespProxy {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryAsyncRespWebServiceProxy.class);
-    static RespondingGatewayAsyncRespService nhinService = new RespondingGatewayAsyncRespService();
+    static RespondingGatewayDeferredRespService nhinService = new RespondingGatewayDeferredRespService();
 
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetSystemType target) {
         String url = null;
@@ -38,14 +38,14 @@ public class NhinPatientDiscoveryAsyncRespWebServiceProxy implements NhinPatient
         url = getUrl(target);
 
         if (NullChecker.isNotNullish(url)) {
-            RespondingGatewayAsyncRespPortType port = getPort(url);
+            RespondingGatewayDeferredResponsePortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PATIENT_DISCOVERY_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-            response = port.respondingGatewayPRPAIN201306UV02(body);
+            response = port.respondingGatewayDeferredPRPAIN201306UV02(body);
 
         } else {
             log.error("The URL for service: " + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + " is null");
@@ -54,8 +54,8 @@ public class NhinPatientDiscoveryAsyncRespWebServiceProxy implements NhinPatient
         return response;
     }
 
-    private RespondingGatewayAsyncRespPortType getPort(String url) {
-        RespondingGatewayAsyncRespPortType port = nhinService.getRespondingGatewayAsyncRespPort();
+    private RespondingGatewayDeferredResponsePortType getPort(String url) {
+        RespondingGatewayDeferredResponsePortType port = nhinService.getRespondingGatewayDeferredResponsePort();
 
         log.info("Setting endpoint address to Nhin Patient Discovery Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
