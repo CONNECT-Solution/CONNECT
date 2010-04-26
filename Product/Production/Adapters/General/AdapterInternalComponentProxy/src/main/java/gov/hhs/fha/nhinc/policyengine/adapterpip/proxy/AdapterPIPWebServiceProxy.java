@@ -48,7 +48,7 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
                 oAdapterPIPService = new AdapterPIP();
             }
 
-            oAdapterPIPPort = oAdapterPIPService.getAdapterPIPPortSoap11();
+            oAdapterPIPPort = oAdapterPIPService.getAdapterPIPPortSoap();
 
             // Get the real endpoint URL for this service.
             //--------------------------------------------

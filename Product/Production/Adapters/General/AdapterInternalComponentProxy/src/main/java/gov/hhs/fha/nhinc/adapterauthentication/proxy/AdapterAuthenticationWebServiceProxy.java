@@ -66,7 +66,7 @@ public class AdapterAuthenticationWebServiceProxy {
                 authService = new AdapterAuthentication();
             }
 
-            authPort = authService.getAdapterAuthenticationPortSoap11();
+            authPort = authService.getAdapterAuthenticationPortSoap();
 
             // Get the real endpoint URL for this service.
             String endpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_AUTH_SERVICE_NAME);

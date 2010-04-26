@@ -5,7 +5,7 @@
     <client name="AdapterAuthentication">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuthentication.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAuthentication.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterauthentication</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterauthentication</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

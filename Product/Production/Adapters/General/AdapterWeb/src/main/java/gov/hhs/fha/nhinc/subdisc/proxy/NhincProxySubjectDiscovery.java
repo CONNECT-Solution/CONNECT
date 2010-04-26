@@ -1,12 +1,14 @@
 package gov.hhs.fha.nhinc.subdisc.proxy;
 
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincProxySubjectDiscovery", portName = "NhincProxySubjectDiscoveryPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubjectdiscovery.NhincProxySubjectDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/NhincProxySubjectDiscovery/NhincProxySubjectDiscovery.wsdl")
+@WebService(serviceName = "NhincProxySubjectDiscovery", portName = "NhincProxySubjectDiscoveryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubjectdiscovery.NhincProxySubjectDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/NhincProxySubjectDiscovery/NhincProxySubjectDiscovery.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincProxySubjectDiscovery {
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201301UV(org.hl7.v3.PIXConsumerPRPAIN201301UVProxyRequestType pixConsumerPRPAIN201301UVProxyRequest) {

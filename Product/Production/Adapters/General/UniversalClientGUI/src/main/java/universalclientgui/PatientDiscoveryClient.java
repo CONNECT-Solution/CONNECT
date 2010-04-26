@@ -56,7 +56,7 @@ public class PatientDiscoveryClient {
             service = new EntityPatientDiscovery();
         }
 
-        EntityPatientDiscoveryPortType port = service.getEntityPatientDiscoveryPortSoap11();
+        EntityPatientDiscoveryPortType port = service.getEntityPatientDiscoveryPortSoap();
 
         ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 

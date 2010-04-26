@@ -68,7 +68,7 @@ public class EntityPatientDiscoveryImpl {
     }
 
     private EntityPatientDiscoverySecuredPortType getPort(String url) {
-        EntityPatientDiscoverySecuredPortType port = service.getEntityPatientDiscoverySecuredPortSoap11();
+        EntityPatientDiscoverySecuredPortType port = service.getEntityPatientDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Entity Patient Discovery Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

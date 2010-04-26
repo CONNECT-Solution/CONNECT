@@ -56,7 +56,7 @@ public class NhincProxyDocRetrieveImpl
     }
     
     private NhincProxyDocRetrieveSecuredPortType getPort(String url) {
-        NhincProxyDocRetrieveSecuredPortType port = service.getNhincProxyDocRetrieveSecuredPortSoap11();
+        NhincProxyDocRetrieveSecuredPortType port = service.getNhincProxyDocRetrieveSecuredPortSoap();
         log.info("Setting endpoint address to NHIN Proxy Document Retrieve Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 

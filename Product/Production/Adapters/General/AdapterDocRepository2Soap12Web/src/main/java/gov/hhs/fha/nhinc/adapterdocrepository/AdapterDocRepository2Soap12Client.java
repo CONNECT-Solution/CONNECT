@@ -135,7 +135,7 @@ public class AdapterDocRepository2Soap12Client
         {
             // Call Web Service Operation
             service = new ihe.iti.xds_b._2007.DocumentRepositoryService();
-            port = service.getDocumentRepositoryPortSoap12(new MTOMFeature());
+            port = service.getDocumentRepositoryPortSoap(new MTOMFeature());
 
             // Get the real endpoint URL for this service.
             //--------------------------------------------

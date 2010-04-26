@@ -87,7 +87,7 @@ public class EntityUnsubscribeServiceImpl
 
     private EntitySubscriptionManagerSecuredPortType getPort(String url)
     {
-        EntitySubscriptionManagerSecuredPortType port = service.getEntitySubscriptionManagerSecuredPortSoap11();
+        EntitySubscriptionManagerSecuredPortType port = service.getEntitySubscriptionManagerSecuredPortSoap();
 
         log.info("Setting endpoint address to Entity SubscriptionManager Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

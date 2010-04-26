@@ -78,7 +78,7 @@ public class ProxyHiemUnsubscribeImpl
 
     private NhincProxySubscriptionManagerSecuredPortType getPort(String url)
     {
-        NhincProxySubscriptionManagerSecuredPortType port = service.getNhincProxySubscriptionManagerSecuredPortSoap11();
+        NhincProxySubscriptionManagerSecuredPortType port = service.getNhincProxySubscriptionManagerSecuredPortSoap();
 
         log.info("Setting endpoint address to Proxy Unsubscribe Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

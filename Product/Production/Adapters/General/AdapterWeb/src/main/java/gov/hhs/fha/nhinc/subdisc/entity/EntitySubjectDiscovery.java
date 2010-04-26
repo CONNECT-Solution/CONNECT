@@ -1,12 +1,14 @@
 package gov.hhs.fha.nhinc.subdisc.entity;
 
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntitySubjectDiscovery", portName = "EntitySubjectDiscoveryPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubjectdiscovery.EntitySubjectDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/EntitySubjectDiscovery/EntitySubjectDiscovery.wsdl")
+@WebService(serviceName = "EntitySubjectDiscovery", portName = "EntitySubjectDiscoveryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubjectdiscovery.EntitySubjectDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/EntitySubjectDiscovery/EntitySubjectDiscovery.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntitySubjectDiscovery {
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201301UV(org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType pixConsumerPRPAIN201301UVRequest) {

@@ -53,7 +53,7 @@ public class ProxyAuditQueryImpl {
     }
 
     private NhincProxyAuditLogQuerySecuredPortType getPort(String url) {
-        NhincProxyAuditLogQuerySecuredPortType port = service.getNhincProxyAuditLogQuerySecuredPortSoap11();
+        NhincProxyAuditLogQuerySecuredPortType port = service.getNhincProxyAuditLogQuerySecuredPortSoap();
 
         log.info("Setting endpoint address to NHIN Proxy Audit Query Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

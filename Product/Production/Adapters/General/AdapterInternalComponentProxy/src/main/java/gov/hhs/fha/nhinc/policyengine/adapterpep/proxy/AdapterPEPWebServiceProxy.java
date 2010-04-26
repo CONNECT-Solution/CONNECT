@@ -64,7 +64,7 @@ public class AdapterPEPWebServiceProxy {
                 pepService = new AdapterPEP();
             }
 
-            pepPort = pepService.getAdapterPEPPortSoap11();
+            pepPort = pepService.getAdapterPEPPortSoap();
 
             // Get the real endpoint URL for this service.
             String endpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_PEP_SERVICE_NAME);

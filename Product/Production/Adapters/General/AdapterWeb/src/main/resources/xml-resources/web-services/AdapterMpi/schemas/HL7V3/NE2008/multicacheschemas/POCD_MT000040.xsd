@@ -1316,7 +1316,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="code" type="CD" minOccurs="0"/>
 			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="repeatNumber" type="IVL_INT" minOccurs="0"/>
 			<xs:element name="routeCode" type="CE" minOccurs="0"/>
@@ -1354,7 +1354,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="repeatNumber" type="IVL_INT" minOccurs="0"/>
 			<xs:element name="independentInd" type="BL" minOccurs="0"/>
-			<xs:element name="quantity" type="PQ_explicit" minOccurs="0"/>
+			<!--<xs:element name="quantity" type="PQ_explicit" minOccurs="0"/> -->
+			<xs:element name="quantity" type="PQ" minOccurs="0"/>
 			<xs:element name="expectedUseTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="subject" type="POCD_MT000040.Subject" minOccurs="0"/>
 			<xs:element name="specimen" type="POCD_MT000040.Specimen" minOccurs="0" maxOccurs="unbounded"/>

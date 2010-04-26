@@ -5,7 +5,7 @@
     <client name="EntitySubjectDiscoverySecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubjectDiscoverySecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:entitysubjectdiscoverysecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.entitysubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

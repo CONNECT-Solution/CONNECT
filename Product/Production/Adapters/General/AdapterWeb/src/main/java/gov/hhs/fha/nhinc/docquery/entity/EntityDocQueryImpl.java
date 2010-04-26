@@ -50,7 +50,7 @@ public class EntityDocQueryImpl
     }
     
     private EntityDocQuerySecuredPortType getPort(String url) {
-        EntityDocQuerySecuredPortType port = service.getEntityDocQuerySecuredPortSoap11();
+        EntityDocQuerySecuredPortType port = service.getEntityDocQuerySecuredPortSoap();
 
         log.info("Setting endpoint address to Entity Document Query Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

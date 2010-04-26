@@ -14,18 +14,20 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnrecognizedPolicyRequestF
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnsupportedPolicyRequestFault;
 import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntityNotificationProducer", portName = "EntityNotificationProducerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
+@WebService(serviceName = "EntityNotificationProducer", portName = "EntityNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntitySubscribeService {
 
     @Resource
     private WebServiceContext context;
-    
+
     public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestType subscribeDocumentRequest) {
         return new EntitySubscribeServiceImpl().subscribeDocument(subscribeDocumentRequest);
     }
@@ -37,4 +39,5 @@ public class EntitySubscribeService {
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest) throws UnrecognizedPolicyRequestFault, InvalidMessageContentExpressionFault, UnsupportedPolicyRequestFault, TopicNotSupportedFault, ResourceUnknownFault, NotifyMessageNotSupportedFault, InvalidTopicExpressionFault, InvalidFilterFault, SubscribeCreationFailedFault, InvalidProducerPropertiesExpressionFault, TopicExpressionDialectUnknownFault, UnacceptableInitialTerminationTimeFault {
         return new EntitySubscribeServiceImpl().subscribe(subscribeRequest, context);
     }
+
 }

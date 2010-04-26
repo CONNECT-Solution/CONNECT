@@ -2,13 +2,12 @@
 <!-- 
   Entity Document Query WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquery"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:wsaw="http://www.w3.org/2005/08/addressing"
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
@@ -16,9 +15,9 @@
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-   name="EntityDocQuery" 
+   name="EntityDocQuery"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquery" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client">
   <documentation>Entity Document Query</documentation>
   <types>
@@ -52,8 +51,8 @@
     </operation>
   </portType>
 
-  <binding name="EntityDocQuerySecuredBindingSoap11" type="tns:EntityDocQuerySecuredPortType">
-    <wsp1:PolicyReference URI="#EntityDocQuerySecuredBindingSoap11Policy"/>
+  <binding name="EntityDocQuerySecuredBindingSoap" type="tns:EntityDocQuerySecuredPortType">
+    <wsp1:PolicyReference URI="#EntityDocQuerySecuredBindingSoapPolicy"/>
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
       <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
@@ -67,8 +66,8 @@
   </binding>
 
   <service name="EntityDocQuerySecured">
-    <port name="EntityDocQuerySecuredPortSoap11"
-          binding="tns:EntityDocQuerySecuredBindingSoap11">
+    <port name="EntityDocQuerySecuredPortSoap"
+          binding="tns:EntityDocQuerySecuredBindingSoap">
       <soap:address
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQuerySecured" />
     </port>
@@ -216,7 +215,7 @@
     <plnk:role name="EntityDocQuerySecuredPortTypeRole"
                portType="tns:EntityDocQuerySecuredPortType"/>
   </plnk:partnerLinkType>
-  <wsp1:Policy wsu:Id="EntityDocQuerySecuredBindingSoap11Policy">
+  <wsp1:Policy wsu:Id="EntityDocQuerySecuredBindingSoapPolicy">
     <wsp1:ExactlyOne>
       <wsp1:All>
 		<sc1:KeyStore wspp:visibility="private"
@@ -225,7 +224,7 @@
 		<sc1:TrustStore wspp:visibility="private"
                 certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector"
                 callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-      
+
         <sc1:CallbackHandlerConfiguration wspp:visibility="private">
           <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
         </sc1:CallbackHandlerConfiguration>
@@ -233,3 +232,5 @@
     </wsp1:ExactlyOne>
   </wsp1:Policy>
 </definitions>
+
+

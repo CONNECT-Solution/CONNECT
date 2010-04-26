@@ -52,11 +52,11 @@ public class NhincProxyDocQueryImpl
     }
     
     private NhincProxyDocQuerySecuredPortType getPort(String url) {
-        NhincProxyDocQuerySecuredPortType port = service.getNhincProxyDocQuerySecuredPortSoap11();
-
+        NhincProxyDocQuerySecuredPortType port = service.getNhincProxyDocQuerySecuredPortSoap();
         log.info("Setting endpoint address to NHIN Proxy Document Query Secured Service to " + url);
+        //service.addPort((QName) service.getNhincProxyDocQuerySecuredPortSoap12(), javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING, url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        //javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING
         return port;
     }
 

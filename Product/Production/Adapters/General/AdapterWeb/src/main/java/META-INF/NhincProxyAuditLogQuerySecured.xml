@@ -8,7 +8,7 @@
    xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsaw="http://www.w3.org/2005/08/addressing"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
@@ -44,7 +44,7 @@
     </operation>
   </portType>
 
-  <binding name="NhincProxyAuditLogQuerySecuredBindingSoap11"
+  <binding name="NhincProxyAuditLogQuerySecuredBindingSoap"
            type="tns:NhincProxyAuditLogQuerySecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#AuditQuery_Policy"/>
@@ -60,8 +60,8 @@
   </binding>
 
   <service name="NhincProxyAuditLogQuerySecured">
-    <port name="NhincProxyAuditLogQuerySecuredPortSoap11"
-          binding="tns:NhincProxyAuditLogQuerySecuredBindingSoap11">
+    <port name="NhincProxyAuditLogQuerySecuredPortSoap"
+          binding="tns:NhincProxyAuditLogQuerySecuredBindingSoap">
       <soap:address 
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyAuditLogQuery"/>
     </port>

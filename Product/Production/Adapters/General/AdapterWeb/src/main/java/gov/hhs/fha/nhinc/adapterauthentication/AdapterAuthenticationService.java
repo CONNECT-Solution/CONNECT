@@ -1,24 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.adapterauthentication;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-//import javax.xml.ws.WebServiceRef;
-
 
 /**
  *
- * @author svalluripalli
+ * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterAuthentication", portName = "AdapterAuthenticationPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterauthentication", wsdlLocation = "WEB-INF/wsdl/AdapterAuthenticationService/AdapterAuthentication.wsdl")
+@WebService(serviceName = "AdapterAuthentication", portName = "AdapterAuthenticationPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterauthentication", wsdlLocation = "WEB-INF/wsdl/AdapterAuthenticationService/AdapterAuthentication.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterAuthenticationService {
-   private static Log log = LogFactory.getLog(AdapterAuthenticationService.class);
+
+    private static Log log = LogFactory.getLog(AdapterAuthenticationService.class);
 
     /**
      * Given a request to authenticate a user, this service will determine if
@@ -43,5 +39,4 @@ public class AdapterAuthenticationService {
         }
         return authResp;
     }
-
 }

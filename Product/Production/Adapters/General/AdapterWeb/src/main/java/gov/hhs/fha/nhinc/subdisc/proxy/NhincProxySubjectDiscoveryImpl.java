@@ -79,7 +79,7 @@ public class NhincProxySubjectDiscoveryImpl {
     }
 
     private NhincProxySubjectDiscoverySecuredPortType getPort(String url) {
-        NhincProxySubjectDiscoverySecuredPortType port = service.getNhincProxySubjectDiscoverySecuredPortSoap11();
+        NhincProxySubjectDiscoverySecuredPortType port = service.getNhincProxySubjectDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Entity Subject Discovery Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

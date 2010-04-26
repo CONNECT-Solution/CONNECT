@@ -78,7 +78,7 @@ public class ProxyHiemSubscribeImpl
 
     private NhincProxyNotificationProducerSecuredPortType getPort(String url)
     {
-        NhincProxyNotificationProducerSecuredPortType port = service.getNhincProxyNotificationProducerPortSoap11();
+        NhincProxyNotificationProducerSecuredPortType port = service.getNhincProxyNotificationProducerPortSoap();
 
         log.info("Setting endpoint address to Proxy Subscribe Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

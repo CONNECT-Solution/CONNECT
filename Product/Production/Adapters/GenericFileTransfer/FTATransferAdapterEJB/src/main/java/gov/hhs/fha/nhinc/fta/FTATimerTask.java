@@ -119,7 +119,7 @@ public class FTATimerTask  {
   {
         try { // Call Web Service Operation
             EntityNotificationConsumer service = new EntityNotificationConsumer();
-            EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap11();
+            EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap();
 
 
            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
@@ -171,7 +171,7 @@ public class FTATimerTask  {
   {
         try { // Call Web Service Operation
             EntityNotificationConsumerSecured service = new EntityNotificationConsumerSecured();
-            EntityNotificationConsumerSecuredPortType port = service.getEntityNotificationConsumerSecuredPortSoap11();
+            EntityNotificationConsumerSecuredPortType port = service.getEntityNotificationConsumerSecuredPortSoap();
 
 
            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");

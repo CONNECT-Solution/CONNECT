@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="NhincProxyXDRSecured"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" name="NhincProxyXDRSecured"
   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"
   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"
   xmlns="http://schemas.xmlsoap.org/wsdl/"

@@ -111,7 +111,7 @@ public class EntitySubjectDiscoveryImpl {
     }
 
     private EntitySubjectDiscoverySecuredPortType getPort(String url) {
-        EntitySubjectDiscoverySecuredPortType port = service.getEntitySubjectDiscoverySecuredPortSoap11();
+        EntitySubjectDiscoverySecuredPortType port = service.getEntitySubjectDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Entity Subject Discovery Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

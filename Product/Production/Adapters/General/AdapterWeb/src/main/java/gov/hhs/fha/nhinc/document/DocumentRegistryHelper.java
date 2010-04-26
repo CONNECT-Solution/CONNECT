@@ -210,7 +210,6 @@ public class DocumentRegistryHelper
         
         // Create response
         loadResponseMessage(response, docs);
-        
         //getLogger().debug("End DocumentRegistryHelper.documentRegistryRegistryStoredQuery(...)");
         return response;
     }

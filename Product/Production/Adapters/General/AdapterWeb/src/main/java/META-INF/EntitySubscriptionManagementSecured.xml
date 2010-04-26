@@ -56,7 +56,7 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntitySubscriptionManagementSecured" 
    targetNamespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"
@@ -209,7 +209,7 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap11" 
+    <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap"
                 type="tns:EntityNotificationProducerSecuredPortType">
         <wsp1:PolicyReference URI="#EntityNotificationProducerSecuredPortType_Binding_SoapPolicy"/>
         <soap:binding style="document" 
@@ -274,7 +274,7 @@
         </wsdl:operation>
     </wsdl:binding>
     
-    <wsdl:binding name="EntitySubscriptionManagerSecuredBindingSoap11" 
+    <wsdl:binding name="EntitySubscriptionManagerSecuredBindingSoap"
                 type="tns:EntitySubscriptionManagerSecuredPortType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -298,15 +298,15 @@
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="EntityNotificationProducerSecured">
-        <wsdl:port name="EntityNotificationProducerSecuredPortSoap11" 
-               binding="tns:EntityNotificationProducerSecuredBindingSoap11">
+        <wsdl:port name="EntityNotificationProducerSecuredPortSoap"
+               binding="tns:EntityNotificationProducerSecuredBindingSoap">
             <soap:address 
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationProducerSecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="EntitySubscriptionManagerSecured">
-        <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap11" 
-               binding="tns:EntitySubscriptionManagerSecuredBindingSoap11">
+        <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap"
+               binding="tns:EntitySubscriptionManagerSecuredBindingSoap">
             <soap:address 
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntitySubscriptionManagerSecured"/>
         </wsdl:port>

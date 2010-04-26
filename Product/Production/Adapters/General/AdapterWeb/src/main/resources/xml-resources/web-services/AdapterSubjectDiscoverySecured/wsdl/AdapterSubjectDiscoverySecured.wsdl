@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured" 
-   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -102,72 +103,72 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="AdapterSubjectDiscoverySecuredBindingSoap11" 
+    <wsdl:binding name="AdapterSubjectDiscoverySecuredBindingSoap" 
                 type="tns:AdapterSubjectDiscoverySecuredPortType">
-        <wsoap11:binding style="document" 
+        <soap:binding style="document" 
                      transport="http://schemas.xmlsoap.org/soap/http"/>
                      <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_SoapPolicy"/>
         <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
-            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201301UVRequest" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="PIXConsumer_PRPA_IN201301UVResponse" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
-            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201302UVRequest" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>
 <!--        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
-            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>-->
         <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
-            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="PIXConsumer_PRPA_IN201304UVResponse" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
-            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201309UVRequest" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="PIXConsumer_PRPA_IN201309UVResponse" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
-    
+
     <wsdl:service name="AdapterSubjectDiscoverySecured">
-        <wsdl:port name="AdapterSubjectDiscoverySecuredPortSoap11" 
-               binding="tns:AdapterSubjectDiscoverySecuredBindingSoap11">
-            <wsoap11:address 
+        <wsdl:port name="AdapterSubjectDiscoverySecuredPortSoap" 
+               binding="tns:AdapterSubjectDiscoverySecuredBindingSoap">
+            <soap:address 
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterSubjectDiscoverySecured"/>
         </wsdl:port>
     </wsdl:service>

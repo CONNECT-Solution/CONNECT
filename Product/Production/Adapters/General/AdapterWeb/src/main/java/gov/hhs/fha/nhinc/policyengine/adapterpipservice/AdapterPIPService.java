@@ -1,16 +1,14 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpipservice;
 
-import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
 import javax.jws.WebService;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 
+import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException;
 import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPImpl;
 
+import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,7 +16,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterPIP", portName = "AdapterPIPPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpip", wsdlLocation = "WEB-INF/wsdl/AdapterPIPService/AdapterPIP.wsdl")
+@WebService(serviceName = "AdapterPIP", portName = "AdapterPIPPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpip", wsdlLocation = "WEB-INF/wsdl/AdapterPIPService/AdapterPIP.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPIPService {
 
     private static Log log = LogFactory.getLog(AdapterPIPService.class);
@@ -30,20 +29,16 @@ public class AdapterPIPService {
      * @return The patient consent information for that patient.
      * @throws AdapterPIPException This exception is thrown if the data cannot be retrieved.
      */
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType retrievePtConsentByPtIdRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType retrievePtConsentByPtIdRequest) {
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
 
-        try
-        {
+        try {
             oResponse = oAdapterPIPImpl.retrievePtConsentByPtId(retrievePtConsentByPtIdRequest);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtId.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
@@ -59,20 +54,16 @@ public class AdapterPIPService {
      * @return The patient consent settings for the patient associated with
      *         the given document identifiers.
      */
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType retrievePtConsentByPtDocIdRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType retrievePtConsentByPtDocIdRequest) {
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
 
-        try
-        {
+        try {
             oResponse = oAdapterPIPImpl.retrievePtConsentByPtDocId(retrievePtConsentByPtDocIdRequest);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtDocId.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
@@ -87,20 +78,16 @@ public class AdapterPIPService {
      * @return Status of the storage.  Currently this is either "SUCCESS" or
      *         or the word "FAILED" followed by a ':' followed by the error information.
      */
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType storePtConsent(gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType storePtConsentRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType storePtConsent(gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType storePtConsentRequest) {
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
 
-        try
-        {
+        try {
             oResponse = oAdapterPIPImpl.storePtConsent(storePtConsentRequest);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPImpl.storePtConsent.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             oResponse.setStatus("FAILED: " + sErrorMessage);
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);

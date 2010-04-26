@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"
-   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -98,59 +98,59 @@
                    wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured:PIXConsumer_PRPA_IN201309UVProxyResponseMessage"/>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="NhincProxySubjectDiscoverySecuredBindingSoap11"
+  <wsdl:binding name="NhincProxySubjectDiscoverySecuredBindingSoap12"
                 type="tns:NhincProxySubjectDiscoverySecuredPortType">
-    <wsoap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Binding_SoapPolicy"/>
     <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+      <soap12:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201301UVProxyRequest" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Input_Policy"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201301UVProxyResponse" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Output_Policy"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+      <soap12:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201302UVProxyRequest" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Input_Policy"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201302UVProxyResponse" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Output_Policy"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+      <soap12:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201304UVProxyRequest" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Input_Policy"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201304UVProxyResponse" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Output_Policy"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+      <soap12:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201309UVProxyRequest" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Input_Policy"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201309UVProxyResponse" >
-        <wsoap11:body use="literal"/>
+        <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#NhincSubjectDiscoveryProxy_Output_Policy"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="NhincProxySubjectDiscoverySecured">
-    <wsdl:port name="NhincProxySubjectDiscoverySecuredPortSoap11"
-               binding="tns:NhincProxySubjectDiscoverySecuredBindingSoap11">
-      <wsoap11:address 
+    <wsdl:port name="NhincProxySubjectDiscoverySecuredPortSoap12"
+               binding="tns:NhincProxySubjectDiscoverySecuredBindingSoap12">
+      <soap12:address 
          location="https://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubjectDiscoverySecured"/>
     </wsdl:port>
   </wsdl:service>

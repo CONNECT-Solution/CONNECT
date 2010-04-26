@@ -43,7 +43,7 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
                 oAdapterPolicyEngineOrhcestratorService = new AdapterPolicyEngineOrchestrator();
             }
 
-            oAdapterPolicyEngineOrchestratorPort = oAdapterPolicyEngineOrhcestratorService.getAdapterPolicyEngineOrchestratorPortSoap11();
+            oAdapterPolicyEngineOrchestratorPort = oAdapterPolicyEngineOrhcestratorService.getAdapterPolicyEngineOrchestratorPortSoap();
 
             // Get the real endpoint URL for this service.
             //--------------------------------------------

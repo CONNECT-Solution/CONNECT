@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" 
-   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -98,63 +98,66 @@
                    message="tns:PIXConsumer_PRPA_IN201309UVResponseMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="EntitySubjectDiscoveryBindingSoap11" 
+  
+  <wsdl:binding name="EntitySubjectDiscoveryBindingSoap" 
                 type="tns:EntitySubjectDiscoveryPortType">
-    <wsoap11:binding style="document" 
+    <soap:binding style="document" 
                      transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+      <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201301UVRequest" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201301UVResponse" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+      <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201302UVRequest" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
 <!--    <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
+      <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>-->
     <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+      <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201304UVResponse" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+      <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201309UVRequest" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="PIXConsumer_PRPA_IN201309UVResponse" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  
   <wsdl:service name="EntitySubjectDiscovery">
-    <wsdl:port name="EntitySubjectDiscoveryPortSoap11" 
-               binding="tns:EntitySubjectDiscoveryBindingSoap11">
-      <wsoap11:address 
+    <wsdl:port name="EntitySubjectDiscoveryPortSoap" 
+               binding="tns:EntitySubjectDiscoveryBindingSoap">
+      <soap:address 
           location="http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubjectDiscovery"/>
     </wsdl:port>
   </wsdl:service>
+  
   <plnk:partnerLinkType name="EntitySubjectDiscovery">
     <!-- A partner link type is automatically generated when a new port type is added. 
          Partner link types are used by BPEL processes. In a BPEL process, a partner 

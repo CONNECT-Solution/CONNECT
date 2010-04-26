@@ -140,7 +140,7 @@ public class EntitySubscribeServiceImpl
 
     private EntityNotificationProducerSecuredPortType getPort(String url)
     {
-        EntityNotificationProducerSecuredPortType port = service.getEntityNotificationProducerSecuredPortSoap11();
+        EntityNotificationProducerSecuredPortType port = service.getEntityNotificationProducerSecuredPortSoap();
 
         log.info("Setting endpoint address to Entity Notification Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

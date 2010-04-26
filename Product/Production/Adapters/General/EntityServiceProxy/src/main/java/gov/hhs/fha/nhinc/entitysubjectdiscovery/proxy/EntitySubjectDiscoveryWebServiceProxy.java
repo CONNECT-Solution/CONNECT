@@ -34,7 +34,7 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
         if (entityService == null) {
             entityService = new EntitySubjectDiscoverySecured();
         }
-        EntitySubjectDiscoverySecuredPortType entitySecuredPort = entityService.getEntitySubjectDiscoverySecuredPortSoap11();
+        EntitySubjectDiscoverySecuredPortType entitySecuredPort = entityService.getEntitySubjectDiscoverySecuredPortSoap();
         try {
             // Get the real endpoint URL for this service.
             endpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ENTITY_SUBJECT_DISCOVERY_SERVICE_NAME);

@@ -51,10 +51,10 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveImpl" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveImpl" linecount="25" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="232" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRegistryHelper" linecount="454" linerate="0.013215859030837005" linesexecuted="0.06"/>
+<threshold branchcount="232" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRegistryHelper" linecount="454" linerate="0.00013215859030837017" linesexecuted="0.06000000000000005"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRegistryService" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="160" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRepositoryHelper" linecount="432" linerate="0.013888888888888888" linesexecuted="0.06"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRepositoryService" linecount="3" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRepositoryService" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.genericheaderhandler.SoapHeaderHandler" linecount="11" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyServiceImpl" linecount="26" linerate="0.0" linesexecuted="0"/>

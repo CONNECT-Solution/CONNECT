@@ -2,6 +2,7 @@
 <definitions name="AdapterAuditLogQuerySaml" targetNamespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"
     xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage"
@@ -14,7 +15,7 @@
     xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
     xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml">
             <xsd:import namespace="http://nhinc.services.com/schema/auditmessage"
@@ -52,6 +53,7 @@
             </output>
         </operation>
     </binding>
+    
     <service name="AdapterAuditLogQuerySamlService">
         <port name="AdapterAuditLogQuerySamlPortTypeBindingPort" binding="tns:AdapterAuditLogQuerySamlPortTypeBinding">
             <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterAuditLogQuerySaml"/>

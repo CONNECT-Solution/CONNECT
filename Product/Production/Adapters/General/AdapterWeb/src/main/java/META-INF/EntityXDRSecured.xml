@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="NhincEntityXDRSecured"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" name="NhincEntityXDRSecured"
   targetNamespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured"
     xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured"
     xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
@@ -18,7 +18,6 @@
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <documentation>IHE XDR Document Repository</documentation>
     <types>

@@ -357,7 +357,7 @@ public class AdapterPIPImpl {
         log.info("EntityNotificationConsumerURL :" + endpointURL);
         EntityNotificationConsumerPortType entitynotificationconsumerPort = null;
         EntityNotificationConsumer service = new EntityNotificationConsumer();
-        entitynotificationconsumerPort = service.getEntityNotificationConsumerPortSoap11();
+        entitynotificationconsumerPort = service.getEntityNotificationConsumerPortSoap();
         // Need to load in the correct UDDI endpoint URL address.
         //--------------------------------------------------------
         ((BindingProvider) entitynotificationconsumerPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);

@@ -171,7 +171,7 @@ public class DocumentQueryClient {
             service = new EntityDocQuery();
         }
 
-        EntityDocQueryPortType port = service.getEntityDocQueryPortSoap11();
+        EntityDocQueryPortType port = service.getEntityDocQueryPortSoap();
 
         ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 

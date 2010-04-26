@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformXACMLRequestToAQRFor
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformPatientIdAQRToCppXACMLResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformPatientIdAQRToCppXACMLRequestType;
 
+import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,7 +20,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterPolicyEngineTransform", portName = "AdapterPolicyEngineTransformPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adapterpolicyenginetransform.AdapterPolicyEngineTransformPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform", wsdlLocation = "WEB-INF/wsdl/AdapterPolicyEngineTransform/AdapterPolicyEngineTransform.wsdl")
+@WebService(serviceName = "AdapterPolicyEngineTransform", portName = "AdapterPolicyEngineTransformPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpolicyenginetransform.AdapterPolicyEngineTransformPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform", wsdlLocation = "WEB-INF/wsdl/AdapterPolicyEngineTransform/AdapterPolicyEngineTransform.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPolicyEngineTransform {
 
     private static Log log = LogFactory.getLog(AdapterPolicyEngineTransform.class);

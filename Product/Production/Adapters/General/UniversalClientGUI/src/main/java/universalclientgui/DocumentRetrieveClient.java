@@ -127,7 +127,7 @@ public class DocumentRetrieveClient {
             service = new EntityDocRetrieve();
         }
 
-        EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap11();
+        EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap();
 
         ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 

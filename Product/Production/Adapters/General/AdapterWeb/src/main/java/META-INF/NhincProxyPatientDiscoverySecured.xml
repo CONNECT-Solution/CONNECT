@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"
-   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -48,15 +48,15 @@
 
   <wsdl:binding name="NhincProxyPatientDiscoverySecuredBinding"
                 type="tns:NhincProxyPatientDiscoverySecuredPortType">
-    <wsoap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#NhincPatientDiscoveryProxy_Binding_SoapPolicy"/>
     <wsdl:operation name="Proxy_PRPA_IN201305UV">
-      <wsoap11:operation soapAction="urn:Proxy_PRPA_IN201305UV"/>
+      <soap:operation soapAction="urn:Proxy_PRPA_IN201305UV"/>
       <wsdl:input name="Proxy_PRPA_IN201305UVProxyRequest" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="Proxy_PRPA_IN201306UVProxyResponse" >
-        <wsoap11:body use="literal"/>
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
@@ -64,7 +64,7 @@
   <wsdl:service name="NhincProxyPatientDiscoverySecured">
     <wsdl:port name="NhincProxyPatientDiscoverySecuredPort"
                binding="tns:NhincProxyPatientDiscoverySecuredBinding">
-      <wsoap11:address
+      <soap:address
          location="https://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscoverySecured"/>
     </wsdl:port>
   </wsdl:service>

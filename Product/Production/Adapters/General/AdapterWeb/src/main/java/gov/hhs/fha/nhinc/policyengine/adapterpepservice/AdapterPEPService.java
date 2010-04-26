@@ -1,9 +1,9 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpepservice;
 
-import gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapterpep.AdapterPEPImpl;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -11,9 +11,11 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterPEP", portName = "AdapterPEPPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpep", wsdlLocation = "WEB-INF/wsdl/AdapterPEPService/AdapterPEP.wsdl")
+@WebService(serviceName = "AdapterPEP", portName = "AdapterPEPPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpep", wsdlLocation = "WEB-INF/wsdl/AdapterPEPService/AdapterPEP.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPEPService {
-   private static Log log = LogFactory.getLog(AdapterPEPService.class);
+
+    private static Log log = LogFactory.getLog(AdapterPEPService.class);
 
     /**
      * Given a request to check the access policy, this service will interface

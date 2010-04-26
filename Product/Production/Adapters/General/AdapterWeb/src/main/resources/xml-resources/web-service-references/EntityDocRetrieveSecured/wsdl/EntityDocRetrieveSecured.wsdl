@@ -2,7 +2,7 @@
 <!-- 
   Entity Document Retrieve
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -47,7 +47,7 @@
         </operation>
     </portType>
     
-    <binding name="EntityDocRetrieveSecuredBindingSoap11"
+    <binding name="EntityDocRetrieveSecuredBindingSoap"
              type="tns:EntityDocRetrieveSecuredPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
@@ -65,8 +65,8 @@
     </binding>
     
     <service name="EntityDocRetrieveSecured">
-        <port name="EntityDocRetrieveSecuredPortSoap11"
-          binding="tns:EntityDocRetrieveSecuredBindingSoap11">
+        <port name="EntityDocRetrieveSecuredPortSoap"
+          binding="tns:EntityDocRetrieveSecuredBindingSoap">
             <soap:address 
                location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocRetrieveSecured"/>
         </port>
