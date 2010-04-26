@@ -84,7 +84,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         PRPAIN201305UV02 request = null;
         AssertionType assertion = null;    
         PRPAIN201306UV02 expResult = new PRPAIN201306UV02();
-        PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion);
+        PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion, null);
         assertNotNull(result);
         assertNotNull(result.getAcknowledgement());
         assertEquals(0, result.getAcknowledgement().size());
@@ -132,7 +132,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         PRPAIN201305UV02 request = null;
         AssertionType assertion = null;
         PRPAIN201306UV02 expResult = new PRPAIN201306UV02();
-        PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion);
+        PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion, null);
         assertNotNull(result);
         assertNotNull(result.getAcknowledgement());
         assertEquals(0, result.getAcknowledgement().size());
@@ -201,7 +201,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxyTest {
         });
 
         PRPAIN201306UV02 expResult = new PRPAIN201306UV02();
-        PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion);
+        PRPAIN201306UV02 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion, null);
         assertNull(result);
 
     }

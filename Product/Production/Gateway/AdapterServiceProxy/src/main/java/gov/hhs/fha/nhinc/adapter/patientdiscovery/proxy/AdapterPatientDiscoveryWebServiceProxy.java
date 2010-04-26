@@ -36,7 +36,8 @@ public class AdapterPatientDiscoveryWebServiceProxy implements AdapterPatientDis
 
         request.setAssertion(assertion);
         request.setPRPAIN201305UV02(body);
-
+        request.setNhinTargetCommunities(target);
+        
         // Get the URL to the Adapter Subject Discovery
         String url = getUrl();
 

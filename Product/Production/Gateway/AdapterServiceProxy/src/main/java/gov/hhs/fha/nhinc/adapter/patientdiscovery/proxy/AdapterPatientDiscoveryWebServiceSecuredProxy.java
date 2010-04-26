@@ -43,7 +43,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPat
         String url = getUrl();
         request.setAssertion(assertion);
         request.setPRPAIN201305UV02(body);
-        
+        request.setNhinTargetCommunities(target);
         
         if (NullChecker.isNotNullish(url) && (body != null))
         {

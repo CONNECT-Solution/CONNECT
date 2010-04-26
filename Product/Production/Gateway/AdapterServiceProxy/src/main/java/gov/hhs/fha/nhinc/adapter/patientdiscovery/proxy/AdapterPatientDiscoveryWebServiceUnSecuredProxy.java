@@ -45,7 +45,7 @@ public class AdapterPatientDiscoveryWebServiceUnSecuredProxy implements AdapterP
 
         request.setAssertion(assertion);
         request.setPRPAIN201305UV02(body);
-        
+        request.setNhinTargetCommunities(target);
         if (NullChecker.isNotNullish(url) && (body != null))
         {
             AdapterPatientDiscoveryPortType port = getPort(url, assertion);
