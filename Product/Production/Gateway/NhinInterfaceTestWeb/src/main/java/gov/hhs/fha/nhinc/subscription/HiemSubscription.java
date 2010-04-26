@@ -22,7 +22,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Neil Webb
  */
 @WebService(serviceName = "NotificationProducerService", portName = "NotificationProducerPort", endpointInterface = "org.oasis_open.docs.wsn.bw_2.NotificationProducer", targetNamespace = "http://docs.oasis-open.org/wsn/bw-2", wsdlLocation = "WEB-INF/wsdl/HiemSubscription/NhinSubscription.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class HiemSubscription
 {
     @Resource

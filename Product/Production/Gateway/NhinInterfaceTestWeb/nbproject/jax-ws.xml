@@ -126,7 +126,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Service</service-name>
-      <port-name>RespondingGateway_Port_Soap12</port-name>
+      <port-name>RespondingGateway_Port_Soap</port-name>
       <package-name>ihe.iti.xcpd._2009</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -222,7 +222,7 @@
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDR.wsdl</local-wsdl-file>
       <service-name>DocumentRepositoryXDR_Service</service-name>
-      <port-name>DocumentRepositoryXDR_Port_Soap12</port-name>
+      <port-name>DocumentRepositoryXDR_Port_Soap</port-name>
       <package-name>ihe.iti.xdr._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -246,7 +246,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
       <service-name>XDRRequest_Service</service-name>
-      <port-name>XDRRequest_Port_Soap12</port-name>
+      <port-name>XDRRequest_Port_Soap</port-name>
       <package-name>ihe.iti.xdr.async.request._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -270,7 +270,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
       <service-name>XDRResponse_Service</service-name>
-      <port-name>XDRResponse_Port_Soap12</port-name>
+      <port-name>XDRResponse_Port_Soap</port-name>
       <package-name>ihe.iti.xdr.async.response._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>

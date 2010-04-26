@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"
-   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -45,26 +45,26 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="AdapterPatientDiscoverySecuredBindingSoap11"
+    <wsdl:binding name="AdapterPatientDiscoverySecuredBindingSoap"
                 type="tns:AdapterPatientDiscoverySecuredPortType">
-        <wsoap11:binding style="document" 
+        <soap:binding style="document"
                      transport="http://schemas.xmlsoap.org/soap/http"/>
                      <wsp:PolicyReference URI="#AdapterPatientDiscoverySecuredPolicy"/>
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
-            <wsoap11:operation soapAction="urn:RespondingGateway_PRPA_IN201305UV02"/>
+            <soap:operation soapAction="urn:RespondingGateway_PRPA_IN201305UV02"/>
             <wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="RespondingGateway_PRPA_IN201306UV02Response" >
-                <wsoap11:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
     
     <wsdl:service name="AdapterPatientDiscoverySecured">
-        <wsdl:port name="AdapterPatientDiscoverySecuredPortSoap11"
-               binding="tns:AdapterPatientDiscoverySecuredBindingSoap11">
-            <wsoap11:address 
+        <wsdl:port name="AdapterPatientDiscoverySecuredPortSoap"
+               binding="tns:AdapterPatientDiscoverySecuredBindingSoap">
+            <soap:address
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscoverySecured"/>
         </wsdl:port>
     </wsdl:service>
@@ -96,3 +96,4 @@
                portType="tns:AdapterPatientDiscoverySecuredPortType"/>
     </plnk:partnerLinkType>
 </wsdl:definitions>
+

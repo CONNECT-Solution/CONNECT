@@ -66,7 +66,7 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
     }
 
     private AdapterNotificationProducerPortType getPort(String url) {
-        AdapterNotificationProducerPortType port = adapterSubscribeService.getAdapterNotificationProducerPortSoap11();
+        AdapterNotificationProducerPortType port = adapterSubscribeService.getAdapterNotificationProducerPortSoap();
 
         log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

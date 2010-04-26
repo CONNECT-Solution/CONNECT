@@ -77,7 +77,7 @@
     </target>
     <target name="wsimport-client-clean-NhincComponentPatientCorrelationFacade" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:componentpatientcorrelationfacade"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/componentpatientcorrelationfacade"/>
     </target>
     <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
@@ -94,7 +94,7 @@
     </target>
     <target name="wsimport-client-clean-NhincComponentPatientCorrelationSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentpatientcorrelation"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterPolicyEngine, wsimport-client-NhincComponentAuditRepository, wsimport-client-NhincComponentAuditRepositorySecured, wsimport-client-NhincComponentPatientCorrelationFacade, wsimport-client-NhincComponentPatientCorrelationSecured"/>
 </project>

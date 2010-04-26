@@ -2,7 +2,7 @@
 <!-- 
   Entity Document Query WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquery"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -52,7 +52,7 @@
     </operation>
   </portType>
   
-  <binding name="EntityDocQuerySecuredBindingSoap11" type="tns:EntityDocQuerySecuredPortType">
+  <binding name="EntityDocQuerySecuredBindingSoap" type="tns:EntityDocQuerySecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -69,8 +69,8 @@
   </binding>
   
   <service name="EntityDocQuerySecured">
-    <port name="EntityDocQuerySecuredPortSoap11"
-          binding="tns:EntityDocQuerySecuredBindingSoap11">
+    <port name="EntityDocQuerySecuredPortSoap"
+          binding="tns:EntityDocQuerySecuredBindingSoap">
       <soap:address 
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQuerySecured" />
     </port>

@@ -51,7 +51,7 @@ public class AdapterPolicyEngineImpl
     }
     
     private AdapterPolicyEngineSecuredPortType getPort(String url) {
-        AdapterPolicyEngineSecuredPortType port = service.getAdapterPolicyEngineSecuredPortSoap11();
+        AdapterPolicyEngineSecuredPortType port = service.getAdapterPolicyEngineSecuredPortSoap();
 
         if(log.isDebugEnabled())
         {

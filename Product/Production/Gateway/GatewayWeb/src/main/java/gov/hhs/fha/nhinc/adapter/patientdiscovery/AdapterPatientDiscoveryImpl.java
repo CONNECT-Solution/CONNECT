@@ -49,7 +49,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
     }
 
     private AdapterPatientDiscoverySecuredPortType  getPort(String url) {
-        AdapterPatientDiscoverySecuredPortType  port = service.getAdapterPatientDiscoverySecuredPortSoap11();
+        AdapterPatientDiscoverySecuredPortType  port = service.getAdapterPatientDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Adapter Audit Query Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

@@ -2,12 +2,14 @@ package gov.hhs.fha.nhinc.gateway.policyenginetransformation;
 
 import javax.jws.WebService;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author Neil Webb
  */
 @WebService(serviceName = "NhincComponentInternalPolicyEngineTransformService", portName = "NhincInternalComponentPolicyEngineTransformPort", endpointInterface = "gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform", wsdlLocation = "WEB-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class PolicyEngineTransformationService
 {
 

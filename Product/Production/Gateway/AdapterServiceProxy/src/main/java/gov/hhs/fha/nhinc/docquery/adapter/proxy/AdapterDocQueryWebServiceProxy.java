@@ -57,7 +57,7 @@ public class AdapterDocQueryWebServiceProxy implements AdapterDocQueryProxy
     
     private AdapterDocQuerySecuredPortType getPort(String url)
     {
-        AdapterDocQuerySecuredPortType port = service.getAdapterDocQuerySecuredPortSoap11();
+        AdapterDocQuerySecuredPortType port = service.getAdapterDocQuerySecuredPortSoap();
         log.info("Setting endpoint address to Adapter Secured Audit Query Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return port;

@@ -55,7 +55,7 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
-   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
    xmlns:wsaws="http://www.w3.org/2005/08/addressing"
@@ -205,104 +205,104 @@
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="NotificationConsumerBinding" type="wsntw:NotificationConsumer">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
         <wsp:PolicyReference URI="#Reliable_Messaging_Policy"/> 
         <wsdl:operation name="Notify">
-            <soap12:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify"/>
+            <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Subscription_Binding_Soap_Input_Policy"/>
             </wsdl:input>
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:binding name="NotificationProducerBinding" type="wsntw:NotificationProducer">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
         <wsdl:operation name="Subscribe">
-            <soap12:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest"/>
+            <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Subscription_Binding_Soap_Input_Policy"/>
             </wsdl:input>
             <wsdl:output>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Subscription_Binding_Soap_Output_Policy"/>
             </wsdl:output>
             <wsdl:fault name="ResourceUnknownFault">
-                <soap12:fault name="ResourceUnknownFault" use="literal"/>
+                <soap:fault name="ResourceUnknownFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="InvalidFilterFault">
-                <soap12:fault name="InvalidFilterFault" use="literal"/>
+                <soap:fault name="InvalidFilterFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="TopicExpressionDialectUnknownFault">
-                <soap12:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
+                <soap:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="InvalidTopicExpressionFault">
-                <soap12:fault name="InvalidTopicExpressionFault" use="literal"/>
+                <soap:fault name="InvalidTopicExpressionFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="TopicNotSupportedFault">
-                <soap12:fault name="TopicNotSupportedFault" use="literal"/>
+                <soap:fault name="TopicNotSupportedFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="InvalidProducerPropertiesExpressionFault">
-                <soap12:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
+                <soap:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="InvalidMessageContentExpressionFault">
-                <soap12:fault name="InvalidMessageContentExpressionFault" use="literal"/>
+                <soap:fault name="InvalidMessageContentExpressionFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="UnacceptableInitialTerminationTimeFault">
-                <soap12:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
+                <soap:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="UnrecognizedPolicyRequestFault">
-                <soap12:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
+                <soap:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="UnsupportedPolicyRequestFault">
-                <soap12:fault name="UnsupportedPolicyRequestFault" use="literal"/>
+                <soap:fault name="UnsupportedPolicyRequestFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="NotifyMessageNotSupportedFault">
-                <soap12:fault name="NotifyMessageNotSupportedFault" use="literal"/>
+                <soap:fault name="NotifyMessageNotSupportedFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="SubscribeCreationFailedFault">
-                <soap12:fault name="SubscribeCreationFailedFault" use="literal"/>
+                <soap:fault name="SubscribeCreationFailedFault" use="literal"/>
             </wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:binding name="SubscriptionManagerBinding" type="wsntw:SubscriptionManager">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
         <wsdl:operation name="Unsubscribe">
-            <soap12:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest"/>
+            <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest"/>
             <wsdl:input name="UnsubscribeRequest">
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Subscription_Binding_Soap_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="UnsubscribeResponse">
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Subscription_Binding_Soap_Output_Policy"/>
             </wsdl:output>
             <wsdl:fault name="ResourceUnknownFault">
-                <soap12:fault name="ResourceUnknownFault" use="literal"/>
+                <soap:fault name="ResourceUnknownFault" use="literal"/>
             </wsdl:fault>
             <wsdl:fault name="UnableToDestroySubscriptionFault">
-                <soap12:fault name="UnableToDestroySubscriptionFault" use="literal"/>
+                <soap:fault name="UnableToDestroySubscriptionFault" use="literal"/>
             </wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="NotificationConsumerService">
         <wsdl:port name="NotificationConsumerPort" binding="wsntw:NotificationConsumerBinding">
-            <soap12:address
+            <soap:address
          location="https://localhost:${HttpsDefaultPort}/NotificationProducerService/NotificationConsumerPort"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="NotificationProducerService">
         <wsdl:port name="NotificationProducerPort" binding="wsntw:NotificationProducerBinding">
-            <soap12:address
+            <soap:address
          location="https://localhost:${HttpsDefaultPort}/NotificationProducerService/NotificationProducerPort"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="SubscriptionManagerService">
         <wsdl:port name="SubscriptionManagerPort" binding="wsntw:SubscriptionManagerBinding">
-            <soap12:address
+            <soap:address
          location="https://localhost:${HttpsDefaultPort}/SubscriptionManagerService/SubscriptionManagerPort"/>
         </wsdl:port>
     </wsdl:service>

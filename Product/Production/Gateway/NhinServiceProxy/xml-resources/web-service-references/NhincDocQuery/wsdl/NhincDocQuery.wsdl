@@ -6,7 +6,7 @@
     xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocquery" 
     xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
     xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
-    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincdocquery">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 

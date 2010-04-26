@@ -81,7 +81,7 @@ public class AdapterSubjectDiscoveryWebServiceProxy
 
     private AdapterSubjectDiscoverySecuredPortType getPort(String url, AssertionType assertion)
     {
-        AdapterSubjectDiscoverySecuredPortType port = service.getAdapterSubjectDiscoverySecuredPortSoap11();
+        AdapterSubjectDiscoverySecuredPortType port = service.getAdapterSubjectDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Adapter Subject Discovery Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

@@ -58,7 +58,7 @@ public class PolicyEngineWebServiceProxy implements IPolicyEngineProxy {
         AdapterPolicyEnginePortType port = null;
 
         if (NullChecker.isNotNullish(url)) {
-            port = policyService.getAdapterPolicyEnginePortSoap11();
+            port = policyService.getAdapterPolicyEnginePortSoap();
 
             log.info("Setting endpoint address to Policy Engine Service to " + url);
             ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

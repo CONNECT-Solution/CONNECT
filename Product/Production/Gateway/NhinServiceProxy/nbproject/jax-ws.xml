@@ -125,7 +125,7 @@
     <client name="NhincSubscription">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl</wsdl-url>
       <local-wsdl-file>NhincSubscription.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:nhincsubscription</package-name>
+      <package-name>gov.hhs.fha.nhinc.nhincsubscription</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

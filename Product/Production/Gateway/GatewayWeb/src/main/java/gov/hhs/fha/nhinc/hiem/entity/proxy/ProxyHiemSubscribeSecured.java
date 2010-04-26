@@ -16,13 +16,15 @@ import javax.jws.WebService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.jws.HandlerChain;
+import javax.xml.ws.BindingType;
 
 /**
  *
- * @author Neil Webb
+ * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincProxyNotificationProducerSecured", portName = "NhincProxyNotificationProducerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxyNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/ProxyHiemSubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl")
+@WebService(serviceName = "NhincProxyNotificationProducerSecured", portName = "NhincProxyNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxyNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/ProxyHiemSubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl")
 @HandlerChain(file = "ProxyHiemSubscribeHeaderHandler.xml")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class ProxyHiemSubscribeSecured
 {
     @Resource

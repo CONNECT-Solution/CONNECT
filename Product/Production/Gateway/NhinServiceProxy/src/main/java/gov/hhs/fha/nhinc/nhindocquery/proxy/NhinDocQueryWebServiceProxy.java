@@ -32,9 +32,15 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy {
         String url = null;
         AdhocQueryResponse response = new AdhocQueryResponse();
 
+        log.info("Before target system called");
+
         if (request.getNhinTargetSystem() != null) {
             try {
+                log.info("Target Sys properties Home Comm ID:"+request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId());
+                log.info("Target Sys properties Home Comm Description"+request.getNhinTargetSystem().getHomeCommunity().getDescription());
+                log.info("Target Sys properties Home Comm Name"+request.getNhinTargetSystem().getHomeCommunity().getName());
                 url = ConnectionManagerCache.getEndpontURLFromNhinTarget(request.getNhinTargetSystem(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+                log.info("SAI URL is:"+url);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME);
                 log.error(ex.getMessage());
@@ -42,7 +48,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy {
         } else {
             log.error("Target system passed into the proxy is null");
         }
-
+        log.info("After target system called"+url);
         if (NullChecker.isNotNullish(url)) {
             if(log.isDebugEnabled())
             {

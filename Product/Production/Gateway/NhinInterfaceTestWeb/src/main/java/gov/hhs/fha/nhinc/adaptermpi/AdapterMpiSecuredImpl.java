@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.adaptermpi;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractorHelper;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiService;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
-import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**

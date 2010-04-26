@@ -25,84 +25,12 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="EntityDocQuerySecured">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl</wsdl-url>
-      <local-wsdl-file>EntityDocQuerySecured.wsdl</local-wsdl-file>
-      <service-name>EntityDocQuerySecured</service-name>
-      <port-name>EntityDocQuerySecuredPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.entitydocquery</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="NhincProxyDocQuerySecured">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyDocQuerySecured.wsdl</local-wsdl-file>
-      <service-name>NhincProxyDocQuerySecured</service-name>
-      <port-name>NhincProxyDocQuerySecuredPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerysecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="AdapterDocQueryService">
-      <implementation-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterDocQuery.wsdl</local-wsdl-file>
-      <service-name>AdapterDocQuery</service-name>
-      <port-name>AdapterDocQueryPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.adapterdocquery</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="AdapterDocRetrieveService">
       <implementation-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveService</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieve.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieve</service-name>
-      <port-name>AdapterDocRetrievePortSoap11</port-name>
+      <port-name>AdapterDocRetrievePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.adapterdocretrieve</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -126,7 +54,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocRetrieveSecured.wsdl</local-wsdl-file>
       <service-name>EntityDocRetrieveSecured</service-name>
-      <port-name>EntityDocRetrieveSecuredPortSoap11</port-name>
+      <port-name>EntityDocRetrieveSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitydocretrievesecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -150,7 +78,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyDocRetrieveSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyDocRetrieveSecured</service-name>
-      <port-name>NhincProxyDocRetrieveSecuredPortSoap11</port-name>
+      <port-name>NhincProxyDocRetrieveSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxydocretrievesecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -176,30 +104,6 @@
       <service-name>RespondingGateway_Retrieve_Service</service-name>
       <port-name>RespondingGateway_Retrieve_Port_Soap</port-name>
       <package-name>ihe.iti.xds_b._2007</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="AdapterPolicyEngine">
-      <implementation-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterPolicyEngine.wsdl</local-wsdl-file>
-      <service-name>AdapterPolicyEngine</service-name>
-      <port-name>AdapterPolicyEnginePortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.adapterpolicyengine</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -289,78 +193,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="AdapterAuditQueryService">
-      <implementation-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterAuditLogQuery.wsdl</local-wsdl-file>
-      <service-name>AdapterAuditLogQuery</service-name>
-      <port-name>AdapterAuditLogQueryPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.adapterauditlogquery</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="EntityAuditLogQuery">
-      <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
-      <local-wsdl-file>EntityAuditLogQuerySecured.wsdl</local-wsdl-file>
-      <service-name>EntityAuditLogQuerySamlService</service-name>
-      <port-name>EntityAuditLogQuerySamlPortTypeBindingPort</port-name>
-      <package-name>gov.hhs.fha.nhinc.entityauditlogquerysaml</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="NhincAuditQueryProxy">
-      <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyAuditLogQuerySecured.wsdl</local-wsdl-file>
-      <service-name>NhincProxyAuditLogQuerySecured</service-name>
-      <port-name>NhincProxyAuditLogQuerySecuredPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxyauditlogquerysecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="AuditQuery">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
@@ -390,7 +222,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityNotificationConsumerSecured.wsdl</local-wsdl-file>
       <service-name>EntityNotificationConsumerSecured</service-name>
-      <port-name>EntityNotificationConsumerSecuredPortSoap11</port-name>
+      <port-name>EntityNotificationConsumerSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitynotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -414,7 +246,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyNotificationConsumerSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyNotificationConsumerSecured</service-name>
-      <port-name>NhincProxyNotificationConsumerPortSoap11</port-name>
+      <port-name>NhincProxyNotificationConsumerPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -438,7 +270,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyNotificationProducerSecured</service-name>
-      <port-name>NhincProxyNotificationProducerPortSoap11</port-name>
+      <port-name>NhincProxyNotificationProducerPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -462,7 +294,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>NhincProxySubscriptionManagerSecured</service-name>
-      <port-name>NhincProxySubscriptionManagerSecuredPortSoap11</port-name>
+      <port-name>NhincProxySubscriptionManagerSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -486,7 +318,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>EntityNotificationProducerSecured</service-name>
-      <port-name>EntityNotificationProducerSecuredPortSoap11</port-name>
+      <port-name>EntityNotificationProducerSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -510,7 +342,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <service-name>EntitySubscriptionManagerSecured</service-name>
-      <port-name>EntitySubscriptionManagerSecuredPortSoap11</port-name>
+      <port-name>EntitySubscriptionManagerSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -702,7 +534,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubjectDiscovery.wsdl</local-wsdl-file>
       <service-name>AdapterSubjectDiscovery</service-name>
-      <port-name>AdapterSubjectDiscoveryPortSoap11</port-name>
+      <port-name>AdapterSubjectDiscoveryPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.adaptersubjectdiscovery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -726,7 +558,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityPatientDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>EntityPatientDiscoverySecured</service-name>
-      <port-name>EntityPatientDiscoverySecuredPortSoap11</port-name>
+      <port-name>EntityPatientDiscoverySecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitypatientdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -774,7 +606,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubjectDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>EntitySubjectDiscoverySecured</service-name>
-      <port-name>EntitySubjectDiscoverySecuredPortSoap11</port-name>
+      <port-name>EntitySubjectDiscoverySecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitysubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -798,7 +630,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubjectDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxySubjectDiscoverySecured</service-name>
-      <port-name>NhincProxySubjectDiscoverySecuredPortSoap11</port-name>
+      <port-name>NhincProxySubjectDiscoverySecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxysubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -822,7 +654,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Service</service-name>
-      <port-name>RespondingGateway_Port_Soap12</port-name>
+      <port-name>RespondingGateway_Port_Soap</port-name>
       <package-name>ihe.iti.xcpd._2009</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -870,7 +702,7 @@
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDR.wsdl</local-wsdl-file>
       <service-name>DocumentRepositoryXDR_Service</service-name>
-      <port-name>DocumentRepositoryXDR_Port_Soap12</port-name>
+      <port-name>DocumentRepositoryXDR_Port_Soap</port-name>
       <package-name>ihe.iti.xdr._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -990,7 +822,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
       <service-name>XDRRequest_Service</service-name>
-      <port-name>XDRRequest_Port_Soap12</port-name>
+      <port-name>XDRRequest_Port_Soap</port-name>
       <package-name>ihe.iti.xdr.async.request._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1014,7 +846,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
       <service-name>XDRResponse_Service</service-name>
-      <port-name>XDRResponse_Port_Soap12</port-name>
+      <port-name>XDRResponse_Port_Soap</port-name>
       <package-name>ihe.iti.xdr.async.response._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1038,7 +870,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequest_Service</service-name>
-      <port-name>AdapterXDRRequest_Port_Soap11</port-name>
+      <port-name>AdapterXDRRequest_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.adapterxdrrequest</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1062,7 +894,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponse.wsdl</local-wsdl-file>
       <service-name>AdapterXDRResponse_Service</service-name>
-      <port-name>AdapterXDRResponse_Port_Soap11</port-name>
+      <port-name>AdapterXDRResponse_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.adapterxdrresponse</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1297,13 +1129,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="NhinPatientDiscoveryAsyncReq">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReq</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryAsyncReq.wsdl</wsdl-url>
-      <local-wsdl-file>NhinPatientDiscoveryAsyncReq.wsdl</local-wsdl-file>
-      <service-name>RespondingGatewayAsyncReq_Service</service-name>
-      <port-name>RespondingGatewayAsyncReq_Port</port-name>
-      <package-name>ihe.iti.xcpd._2009</package-name>
+    <service name="NhincProxyDocQuerySecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocQuerySecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocQuerySecured</service-name>
+      <port-name>NhincProxyDocQuerySecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -1321,13 +1153,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="NhinPatientDiscoveryAsyncResp">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryAsyncResp.wsdl</wsdl-url>
-      <local-wsdl-file>NhinPatientDiscoveryAsyncResp.wsdl</local-wsdl-file>
-      <service-name>RespondingGatewayAsyncResp_Service</service-name>
-      <port-name>RespondingGatewayAsyncResp_Port</port-name>
-      <package-name>ihe.iti.xcpd._2009</package-name>
+    <service name="EntityDocQuerySecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocQuerySecured.wsdl</local-wsdl-file>
+      <service-name>EntityDocQuerySecured</service-name>
+      <port-name>EntityDocQuerySecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -1345,13 +1177,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="EntityPatientDiscoverySecuredAsyncResp">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoverySecuredAsyncResp</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
-      <local-wsdl-file>EntityPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
-      <service-name>EntityPatientDiscoverySecuredAsyncResp</service-name>
-      <port-name>EntityPatientDiscoverySecuredAsyncRespPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncresp</package-name>
+    <service name="AdapterDocQueryService">
+      <implementation-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQuery.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQuery</service-name>
+      <port-name>AdapterDocQueryPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -1369,13 +1201,85 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="NhincProxyPatientDiscoverySecuredAsyncResp">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
-      <service-name>NhincProxyPatientDiscoverySecuredAsyncResp</service-name>
-      <port-name>NhincProxyPatientDiscoverySecuredAsyncRespPortType</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp</package-name>
+    <service name="AdapterAuditQueryService">
+      <implementation-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterAuditLogQuery.wsdl</local-wsdl-file>
+      <service-name>AdapterAuditLogQuery</service-name>
+      <port-name>AdapterAuditLogQueryPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterauditlogquery</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPolicyEngine">
+      <implementation-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPolicyEngine.wsdl</local-wsdl-file>
+      <service-name>AdapterPolicyEngine</service-name>
+      <port-name>AdapterPolicyEnginePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpolicyengine</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityAuditLogQuery">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityAuditLogQuerySecured.wsdl</local-wsdl-file>
+      <service-name>EntityAuditLogQuerySamlService</service-name>
+      <port-name>EntityAuditLogQuerySamlPortTypeBindingPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.entityauditlogquerysaml</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincAuditQueryProxy">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyAuditLogQuerySecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyAuditLogQuerySecured</service-name>
+      <port-name>NhincProxyAuditLogQuerySecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxyauditlogquerysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

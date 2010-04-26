@@ -44,7 +44,7 @@ public class AdapterDocQueryServiceImpl
     }
     
     private AdapterDocQuerySecuredPortType getPort(String url) {
-        AdapterDocQuerySecuredPortType port = service.getAdapterDocQuerySecuredPortSoap11();
+        AdapterDocQuerySecuredPortType port = service.getAdapterDocQuerySecuredPortSoap();
 
         log.info("Setting endpoint address to Adapter Document Query Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

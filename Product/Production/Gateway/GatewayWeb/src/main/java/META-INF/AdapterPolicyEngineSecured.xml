@@ -2,7 +2,8 @@
 <!-- 
   Adapter Policy Engine WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -47,8 +48,8 @@
     </operation>
   </portType>
 
-  <binding name="AdapterPolicyEngineSecuredBindingSoap11" type="tns:AdapterPolicyEngineSecuredPortType">
-    <wsp1:PolicyReference URI="#AdapterPolicyEngineSecuredBindingSoap11Policy"/>
+  <binding name="AdapterPolicyEngineSecuredBindingSoap" type="tns:AdapterPolicyEngineSecuredPortType">
+    <wsp1:PolicyReference URI="#AdapterPolicyEngineSecuredBindingSoapPolicy"/>
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="CheckPolicy">
       <soap:operation soapAction="urn:CheckPolicy"/>
@@ -62,8 +63,8 @@
   </binding>
 
   <service name="AdapterPolicyEngineSecured">
-    <port name="AdapterPolicyEngineSecuredPortSoap11"
-          binding="tns:AdapterPolicyEngineSecuredBindingSoap11">
+    <port name="AdapterPolicyEngineSecuredPortSoap"
+          binding="tns:AdapterPolicyEngineSecuredBindingSoap">
       <soap:address
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPolicyEngineSecured" />
     </port>
@@ -213,7 +214,7 @@
     <plnk:role name="AdapterPolicyEngineSecuredPortTypeRole"
                portType="tns:AdapterPolicyEngineSecuredPortType"/>
   </plnk:partnerLinkType>
-  <wsp1:Policy wsu:Id="AdapterPolicyEngineSecuredBindingSoap11Policy">
+  <wsp1:Policy wsu:Id="AdapterPolicyEngineSecuredBindingSoapPolicy">
     <wsp1:ExactlyOne>
       <wsp1:All>
 		<sc1:KeyStore wspp:visibility="private"
@@ -230,3 +231,4 @@
     </wsp1:ExactlyOne>
   </wsp1:Policy>
 </definitions>
+

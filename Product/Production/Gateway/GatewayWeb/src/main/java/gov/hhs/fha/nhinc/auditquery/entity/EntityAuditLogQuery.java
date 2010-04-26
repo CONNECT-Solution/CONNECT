@@ -1,16 +1,23 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gov.hhs.fha.nhinc.auditquery.entity;
 
-import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author Neil Webb
+ * @author Sai Valluripalli
  */
 @WebService(serviceName = "EntityAuditLogQuerySamlService", portName = "EntityAuditLogQuerySamlPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.entityauditlogquerysaml.EntityAuditLogQuerySamlPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityauditlogquerysaml", wsdlLocation = "WEB-INF/wsdl/EntityAuditLogQuery/EntityAuditLogQuerySecured.wsdl")
-public class EntityAuditLogQuery
-{
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+public class EntityAuditLogQuery {
+
     @Resource
     private WebServiceContext context;
 

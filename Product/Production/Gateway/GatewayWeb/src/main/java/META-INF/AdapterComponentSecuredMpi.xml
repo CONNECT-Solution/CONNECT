@@ -7,7 +7,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi" 
     xmlns:hl7="urn:hl7-org:v3" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
     xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
     xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"

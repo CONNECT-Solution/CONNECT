@@ -10,7 +10,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Neil Webb
  */
 @WebService(serviceName = "PIXConsumer_Service", portName = "PIXConsumer_Port_Soap", endpointInterface = "ihe.iti.pixv3._2007.PIXConsumerPortType", targetNamespace = "urn:ihe:iti:pixv3:2007", wsdlLocation = "WEB-INF/wsdl/SubjectDiscovery/NhinSubjectDiscovery.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class SubjectDiscovery
 {
     @Resource

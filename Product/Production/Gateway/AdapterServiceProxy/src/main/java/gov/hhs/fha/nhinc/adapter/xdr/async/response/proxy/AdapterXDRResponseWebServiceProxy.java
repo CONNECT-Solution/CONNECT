@@ -90,7 +90,7 @@ public class AdapterXDRResponseWebServiceProxy implements AdapterXDRResponseProx
      * @return
      */
     protected AdapterXDRResponseSecuredPortType getAdapterXDRResponseSecuredPort(String url) {
-        AdapterXDRResponseSecuredPortType port = getAdapterXDRResponseSecuredService().getAdapterXDRResponseSecuredPortSoap12();
+        AdapterXDRResponseSecuredPortType port = getAdapterXDRResponseSecuredService().getAdapterXDRResponseSecuredPortSoap();
 
         logger.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

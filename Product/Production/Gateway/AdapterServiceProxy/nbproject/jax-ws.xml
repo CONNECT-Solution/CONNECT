@@ -197,7 +197,7 @@
     <client name="AdapterXDRRequestSecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequestSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterxdrrequestsecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterxdrrequestsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -221,7 +221,7 @@
     <client name="AdapterXDRResponseSecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponseSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterxdrresponsesecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterxdrresponsesecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

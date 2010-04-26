@@ -111,7 +111,7 @@
     </target>
     <target name="wsimport-client-clean-NhincSubscription" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincSubscription"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincsubscription"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincsubscription"/>
     </target>
     <target name="wsimport-client-NhinXDRRequest" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinXDRRequest"/>

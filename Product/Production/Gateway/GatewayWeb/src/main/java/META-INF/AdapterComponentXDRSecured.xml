@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
 <definitions
-  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="AdapterXDRSecured"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" name="AdapterXDRSecured"
   targetNamespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"
     xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"
   xmlns:ihe="urn:ihe:iti:xds-b:2007"
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
     xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    xmlns:wsaws="http://www.w3.org/2005/08/addressing"
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"

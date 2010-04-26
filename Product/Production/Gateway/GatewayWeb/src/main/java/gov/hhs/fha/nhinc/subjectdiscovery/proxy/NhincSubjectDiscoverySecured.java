@@ -2,13 +2,15 @@ package gov.hhs.fha.nhinc.subjectdiscovery.proxy;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author Neil Webb
+ * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincProxySubjectDiscoverySecured", portName = "NhincProxySubjectDiscoverySecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubjectdiscoverysecured.NhincProxySubjectDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincSubjectDiscoverySecured/NhincProxySubjectDiscoverySecured.wsdl")
+@WebService(serviceName = "NhincProxySubjectDiscoverySecured", portName = "NhincProxySubjectDiscoverySecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubjectdiscoverysecured.NhincProxySubjectDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincSubjectDiscoverySecured/NhincProxySubjectDiscoverySecured.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincSubjectDiscoverySecured
 {
     @Resource

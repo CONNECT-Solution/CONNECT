@@ -49,7 +49,7 @@ public class AdapterDocRetrieveServiceImpl
     }
     
     private AdapterDocRetrieveSecuredPortType getPort(String url) {
-        AdapterDocRetrieveSecuredPortType port = service.getAdapterDocRetrieveSecuredPortSoap11();
+        AdapterDocRetrieveSecuredPortType port = service.getAdapterDocRetrieveSecuredPortSoap();
 
         log.info("Setting endpoint address to Adapter Document Retrieve Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

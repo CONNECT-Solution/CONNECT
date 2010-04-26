@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.xdr.response.entity;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -9,6 +10,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Neil Webb
  */
 @WebService(serviceName = "EntityXDRSecuredResponse_Service", portName = "EntityXDRSecuredResponse_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response", wsdlLocation = "WEB-INF/wsdl/EntityXDRResponseSecured/EntityXDRSecuredResponse.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityXDRResponseSecured
 {
     @Resource

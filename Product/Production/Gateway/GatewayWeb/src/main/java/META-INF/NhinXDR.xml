@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="DocumentRepositoryXDR"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" name="DocumentRepositoryXDR"
   targetNamespace="urn:ihe:iti:xdr:2007"
   xmlns:tns="urn:ihe:iti:xdr:2007"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
@@ -17,7 +17,6 @@
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <documentation>IHE XDR Document Repository</documentation>
   <types>
@@ -73,31 +72,31 @@
     </operation>
   </portType>
   <binding name="DocumentRepositoryXDR_Binding" type="tns:DocumentRepositoryXDR_PortType">
-    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
     <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
-      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+      <soap:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
       <input>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
       </input>
       <output>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
       </output>
     </operation>
     <operation name="DocumentRepository_RetrieveDocumentSet">
-      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
+      <soap:operation soapAction="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
       <input>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
       </input>
       <output>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
       </output>
     </operation>
   </binding>
   <service name="DocumentRepositoryXDR_Service">
-    <port name="DocumentRepositoryXDR_Port_Soap12" binding="tns:DocumentRepositoryXDR_Binding">
-      <soap12:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
-    </port>  
+    <port name="DocumentRepositoryXDR_Port_Soap" binding="tns:DocumentRepositoryXDR_Binding">
+      <soap:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
+    </port>
   </service>
     <wsp:Policy wsu:Id="RespondingGateway_Binding_SoapPolicy">
         <wsp:ExactlyOne>

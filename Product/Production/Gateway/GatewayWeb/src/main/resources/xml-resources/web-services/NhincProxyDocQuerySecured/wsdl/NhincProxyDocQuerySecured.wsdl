@@ -2,7 +2,7 @@
 <!-- 
   NHINC Proxy Document Query WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -51,7 +51,7 @@
     </operation>
   </portType>
 
-  <binding name="NhincProxyDocQuerySecuredBindingSoap11" type="tns:NhincProxyDocQuerySecuredPortType">
+  <binding name="NhincProxyDocQuerySecuredBindingSoap" type="tns:NhincProxyDocQuerySecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -66,10 +66,10 @@
       </output>
     </operation>
   </binding>
-
+  
   <service name="NhincProxyDocQuerySecured">
-    <port name="NhincProxyDocQuerySecuredPortSoap11"
-          binding="tns:NhincProxyDocQuerySecuredBindingSoap11">
+    <port name="NhincProxyDocQuerySecuredPortSoap"
+          binding="tns:NhincProxyDocQuerySecuredBindingSoap">
       <soap:address
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocQuerySecured" />
     </port>

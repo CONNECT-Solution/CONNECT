@@ -77,7 +77,7 @@
     <client name="NhincComponentPatientCorrelationFacade">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPatientCorrelationFacade.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:componentpatientcorrelationfacade</package-name>
+      <package-name>gov.hhs.fha.nhinc.componentpatientcorrelationfacade</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -101,7 +101,7 @@
     <client name="NhincComponentPatientCorrelationSecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPatientCorrelationSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation</package-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

@@ -8,7 +8,7 @@ import javax.xml.ws.BindingType;
  * @author Neil Webb
  */
 @WebService(serviceName = "XDRRequest_Service", portName = "XDRRequest_Port_Soap12", endpointInterface = "ihe.iti.xdr.async.request._2007.XDRRequestPortType", targetNamespace = "urn:ihe:iti:xdr:async:request:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRRequest/NhinXDRRequest.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhinXDRRequest
 {
 

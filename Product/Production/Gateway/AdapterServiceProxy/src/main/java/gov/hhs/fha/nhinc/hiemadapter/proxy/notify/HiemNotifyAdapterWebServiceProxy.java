@@ -66,7 +66,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
     }
 
     private AdapterNotificationConsumerPortType getPort() {
-        AdapterNotificationConsumerPortType port = adapterNotifyService.getAdapterNotificationConsumerPortSoap11();
+        AdapterNotificationConsumerPortType port = adapterNotifyService.getAdapterNotificationConsumerPortSoap();
         String url = null;
 
         try {

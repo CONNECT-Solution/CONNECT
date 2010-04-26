@@ -85,7 +85,7 @@ public class NhinXDRWebServiceProxy implements NhinXDRProxy{
         return url;
     }
     private DocumentRepositoryXDRPortType getPort(String url) {
-        DocumentRepositoryXDRPortType port = service.getDocumentRepositoryXDRPortSoap12();
+        DocumentRepositoryXDRPortType port = service.getDocumentRepositoryXDRPortSoap();
 
         log.info("Setting endpoint address to Nhin XDR Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

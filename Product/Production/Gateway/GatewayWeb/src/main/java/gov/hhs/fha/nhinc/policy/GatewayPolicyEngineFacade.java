@@ -1,12 +1,14 @@
 package gov.hhs.fha.nhinc.policy;
 
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author Neil Webb
  */
 @WebService(serviceName = "NhincComponentInternalPolicyEngineFacadeService", portName = "NhincComponentInternalPolicyEngineFacadePort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentinternalpolicyenginefacade.NhincComponentInternalPolicyEngineFacadePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade", wsdlLocation = "WEB-INF/wsdl/GatewayPolicyEngineFacade/NhincComponentInternalPolicyEngineFacade.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class GatewayPolicyEngineFacade
 {
 

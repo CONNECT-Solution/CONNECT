@@ -59,7 +59,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPat
     }
     protected AdapterPatientDiscoverySecuredPortType getPort(String url, AssertionType assertion)
     {
-        AdapterPatientDiscoverySecuredPortType port = service.getAdapterPatientDiscoverySecuredPortSoap11();
+        AdapterPatientDiscoverySecuredPortType port = service.getAdapterPatientDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Adapter Subject Discovery Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

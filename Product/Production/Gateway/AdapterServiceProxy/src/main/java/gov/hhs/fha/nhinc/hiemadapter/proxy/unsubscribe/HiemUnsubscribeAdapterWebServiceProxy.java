@@ -77,7 +77,7 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
     }
 
     private AdapterSubscriptionManagerPortType getPort(String url) {
-        AdapterSubscriptionManagerPortType port = service.getAdapterSubscriptionManagerPortSoap11();
+        AdapterSubscriptionManagerPortType port = service.getAdapterSubscriptionManagerPortSoap();
 
         log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

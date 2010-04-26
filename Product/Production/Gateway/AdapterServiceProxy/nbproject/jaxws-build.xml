@@ -162,7 +162,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterXDRRequestSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterxdrrequestsecured"/>
     </target>
     <target name="wsimport-client-AdapterXDRResponseSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured"/>
@@ -179,7 +179,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterXDRResponseSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterxdrresponsesecured"/>
     </target>
     <target name="wsimport-client-AdapterPatientDiscoverySecuredAsyncReq" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecuredAsyncReq"/>

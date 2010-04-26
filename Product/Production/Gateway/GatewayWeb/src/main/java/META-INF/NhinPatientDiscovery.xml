@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="XCPDRespondingGateway" targetNamespace="urn:ihe:iti:xcpd:2009"
    xmlns:tns="urn:ihe:iti:xcpd:2009"
-   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -45,23 +45,23 @@
         </wsdl:operation>
     </wsdl:portType>
 
-    <wsdl:binding name="RespondingGateway_Binding_Soap12" type="tns:RespondingGateway_PortType">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:binding name="RespondingGateway_Binding_Soap" type="tns:RespondingGateway_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
-            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
 
     <wsdl:service name="RespondingGateway_Service">
-        <wsdl:port binding="tns:RespondingGateway_Binding_Soap12" name="RespondingGateway_Port_Soap12">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery"/>
+        <wsdl:port binding="tns:RespondingGateway_Binding_Soap" name="RespondingGateway_Port_Soap">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery"/>
         </wsdl:port>
     </wsdl:service>
     
@@ -77,3 +77,4 @@
         </wsp:ExactlyOne>
     </wsp:Policy>
 </wsdl:definitions>
+

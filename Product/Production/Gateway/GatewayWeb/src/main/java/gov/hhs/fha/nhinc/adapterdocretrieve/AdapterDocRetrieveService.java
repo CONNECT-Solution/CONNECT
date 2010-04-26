@@ -4,9 +4,9 @@ import javax.jws.WebService;
 
 /**
  *
- * @author Neil Webb
+ * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterDocRetrieve", portName = "AdapterDocRetrievePortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocretrieve", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieveService/AdapterDocRetrieve.wsdl")
+@WebService(serviceName = "AdapterDocRetrieve", portName = "AdapterDocRetrievePortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocretrieve", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieveService/AdapterDocRetrieve.wsdl")
 public class AdapterDocRetrieveService
 {
 

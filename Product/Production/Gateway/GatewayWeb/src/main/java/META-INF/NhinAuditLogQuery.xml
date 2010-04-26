@@ -5,7 +5,7 @@
    xmlns:tns="http://services.nhin.com" 
    xmlns:ns="http://nhinc.services.com/schema/auditmessage" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
    xmlns:wsaw="http://www.w3.org/2005/08/addressing" 
@@ -40,20 +40,20 @@
     </portType>
     <binding name="AuditLogQuerySoapBinding" type="tns:AuditLogQuery">
         <wsp1:PolicyReference URI="#AuditLogQuerySoapBindingPolicy"/>
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="FindAuditEvents">
-            <soap12:operation soapAction="http://services.nhin.com:findAuditEvents"/>
+            <soap:operation soapAction="http://services.nhin.com:findAuditEvents"/>
             <input name="FindAuditEventsRequest">
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </input>
             <output name="FindAuditEventsResponse">
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </output>
         </operation>
     </binding>
     <service name="findAuditEvents">
         <port name="AuditLogQuery" binding="tns:AuditLogQuerySoapBinding">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/findAuditEvents/AuditLogQuery"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/findAuditEvents/AuditLogQuery"/>
         </port>
     </service>
     <plnk:partnerLinkType name="auditlogquery">
@@ -210,3 +210,4 @@
         </wsp1:ExactlyOne>
     </wsp1:Policy>
 </definitions>
+

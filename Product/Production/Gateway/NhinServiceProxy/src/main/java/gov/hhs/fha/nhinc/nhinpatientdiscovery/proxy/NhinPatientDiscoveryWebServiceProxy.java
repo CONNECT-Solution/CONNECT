@@ -54,7 +54,7 @@ public class NhinPatientDiscoveryWebServiceProxy implements NhinPatientDiscovery
     }
 
     private RespondingGatewayPortType getPort(String url) {
-        RespondingGatewayPortType port = nhinService.getRespondingGatewayPortSoap12();
+        RespondingGatewayPortType port = nhinService.getRespondingGatewayPortSoap();
 
         log.info("Setting endpoint address to Nhin Patient Discovery Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

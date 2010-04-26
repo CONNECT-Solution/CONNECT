@@ -2,7 +2,7 @@
 <!-- 
   Adapter Document Retrieve
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -47,7 +47,7 @@
         </operation>
     </portType>
 
-    <binding name="AdapterDocRetrieveSecuredBindingSoap11"
+    <binding name="AdapterDocRetrieveSecuredBindingSoap"
              type="tns:AdapterDocRetrieveSecuredPortType">
         <wsp1:PolicyReference URI="#AdapterDocRetrieveSecuredBindingSoap11Policy"/>
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -63,8 +63,8 @@
     </binding>
 
     <service name="AdapterDocRetrieveSecured">
-        <port name="AdapterDocRetrieveSecuredPortSoap11"
-          binding="tns:AdapterDocRetrieveSecuredBindingSoap11">
+        <port name="AdapterDocRetrieveSecuredPortSoap"
+          binding="tns:AdapterDocRetrieveSecuredBindingSoap">
             <soap:address
                location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveSecured"/>
         </port>

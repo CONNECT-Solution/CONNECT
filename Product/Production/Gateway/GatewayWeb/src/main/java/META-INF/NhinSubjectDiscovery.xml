@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:tns="urn:ihe:iti:pixv3:2007" 
-   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -84,48 +84,48 @@
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="PIXConsumer_Binding_Soap" type="tns:PIXConsumer_PortType">
-        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#PIXConsumer_Binding_SoapPolicy"/>
         <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
-            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201301UV"/>
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201301UV"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
-            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201302UV"/>
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201302UV"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
-            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201303UV"/>
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201303UV"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
-            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201304UV"/>
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201304UV"/>
             <wsdl:input>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output>
-                <soap12:body use="literal"/>
+                <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="PIXConsumer_Service">
         <wsdl:port name="PIXConsumer_Port_Soap" binding="tns:PIXConsumer_Binding_Soap">
-            <soap12:address location="https://localhost:9081/PIXConsumer_Soap"/>
+            <soap:address location="https://localhost:9081/PIXConsumer_Soap"/>
         </wsdl:port>
     </wsdl:service>
     <wsp:Policy wsu:Id="PIXConsumer_Binding_SoapPolicy">
@@ -140,3 +140,4 @@
         </wsp:ExactlyOne>
     </wsp:Policy>
 </wsdl:definitions>
+

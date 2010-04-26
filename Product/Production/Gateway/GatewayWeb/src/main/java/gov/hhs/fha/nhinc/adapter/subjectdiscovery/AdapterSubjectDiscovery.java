@@ -1,12 +1,14 @@
 package gov.hhs.fha.nhinc.adapter.subjectdiscovery;
 
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
- * @author Neil Webb
+ * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterSubjectDiscovery", portName = "AdapterSubjectDiscoveryPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adaptersubjectdiscovery.AdapterSubjectDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/AdapterSubjectDiscovery/AdapterSubjectDiscovery.wsdl")
+@WebService(serviceName = "AdapterSubjectDiscovery", portName = "AdapterSubjectDiscoveryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptersubjectdiscovery.AdapterSubjectDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery", wsdlLocation = "WEB-INF/wsdl/AdapterSubjectDiscovery/AdapterSubjectDiscovery.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterSubjectDiscovery
 {
 

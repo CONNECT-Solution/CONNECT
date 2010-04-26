@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.xdr.async.response;
 
 import ihe.iti.xdr._2007.AcknowledgementType;
@@ -17,8 +12,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author patlollav
  */
-@WebService(serviceName = "XDRResponse_Service", portName = "XDRResponse_Port_Soap12", endpointInterface = "ihe.iti.xdr.async.response._2007.XDRResponsePortType", targetNamespace = "urn:ihe:iti:xdr:async:response:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse/NhinXDRResponse.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@WebService(serviceName = "XDRResponse_Service", portName = "XDRResponse_Port_Soap", endpointInterface = "ihe.iti.xdr.async.response._2007.XDRResponsePortType", targetNamespace = "urn:ihe:iti:xdr:async:response:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse/NhinXDRResponse.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhinXDRResponse {
 
     @Resource

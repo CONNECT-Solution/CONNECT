@@ -40,7 +40,7 @@ public class PolicyEngineWebServiceProxy implements PolicyEngineProxy {
     }
 
     private AdapterPolicyEnginePortType getPort(String url) {
-        AdapterPolicyEnginePortType port = policyService.getAdapterPolicyEnginePortSoap11();
+        AdapterPolicyEnginePortType port = policyService.getAdapterPolicyEnginePortSoap();
 
         if (NullChecker.isNotNullish(url)) {
             log.info("Setting endpoint address to Policy Engine Service to " + url);

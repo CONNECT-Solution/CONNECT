@@ -56,7 +56,7 @@ public class AdapterDocRetrieveWebServiceSecuredProxy implements AdapterDocRetri
     private AdapterDocRetrieveSecuredPortType getPort(String url)
     {
         log.debug("Creating secured adapter doc retrieve port");
-        AdapterDocRetrieveSecuredPortType port = service.getAdapterDocRetrieveSecuredPortSoap11();
+        AdapterDocRetrieveSecuredPortType port = service.getAdapterDocRetrieveSecuredPortSoap();
         log.info("Setting endpoint address to Adapter doc retrieve secured to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return port;

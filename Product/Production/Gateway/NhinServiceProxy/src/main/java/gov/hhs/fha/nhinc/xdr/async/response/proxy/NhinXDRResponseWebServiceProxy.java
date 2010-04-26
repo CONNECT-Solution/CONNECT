@@ -107,7 +107,7 @@ public class NhinXDRResponseWebServiceProxy implements NhinXDRResponseProxy
 
     protected XDRResponsePortType getPort(String url)
     {
-        XDRResponsePortType port = service.getXDRResponsePortSoap12();
+        XDRResponsePortType port = service.getXDRResponsePortSoap();
         log.info("Setting endpoint address to Nhin XDR Response Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return port;

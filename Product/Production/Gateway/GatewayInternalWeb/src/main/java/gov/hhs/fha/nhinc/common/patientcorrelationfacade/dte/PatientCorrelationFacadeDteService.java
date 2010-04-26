@@ -1,12 +1,14 @@
 package gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte;
 
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
- * @author Neil Webb
+ * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincComponentPatientCorrelationFacadeDteService", portName = "PatientCorrelationFacadeDteBindingPort", endpointInterface = "gov.hhs.fha.nhinc.componentpatientcorrelationfacadedte.PatientCorrelationFacadeDte", targetNamespace = "urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte", wsdlLocation = "WEB-INF/wsdl/PatientCorrelationFacadeDteService/NhincComponentPatientCorrelationFacadeDte.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class PatientCorrelationFacadeDteService
 {
 

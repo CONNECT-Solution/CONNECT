@@ -109,7 +109,7 @@ public class AdapterSubjectDiscoveryImpl {
     }
 
     private AdapterSubjectDiscoverySecuredPortType  getPort(String url) {
-        AdapterSubjectDiscoverySecuredPortType  port = service.getAdapterSubjectDiscoverySecuredPortSoap11();
+        AdapterSubjectDiscoverySecuredPortType  port = service.getAdapterSubjectDiscoverySecuredPortSoap();
 
         log.info("Setting endpoint address to Adapter Audit Query Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

@@ -107,7 +107,7 @@ public class NhinXDRRequestWebServiceProxy implements NhinXDRRequestProxy
 
     protected XDRRequestPortType getPort(String url)
     {
-        XDRRequestPortType port = service.getXDRRequestPortSoap12();
+        XDRRequestPortType port = service.getXDRRequestPortSoap();
         log.info("Setting endpoint address to Nhin XDR Request Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return port;

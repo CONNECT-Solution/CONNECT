@@ -13,7 +13,7 @@ import javax.jws.HandlerChain;
  * @author Neil Webb
  */
 @WebService(serviceName = "SubscriptionManagerService", portName = "SubscriptionManagerPort", endpointInterface = "org.oasis_open.docs.wsn.bw_2.SubscriptionManager", targetNamespace = "http://docs.oasis-open.org/wsn/bw-2", wsdlLocation = "WEB-INF/wsdl/HiemUnsubscribe/NhinSubscription.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @HandlerChain(file = "HiemUnsubscribeSoapHeaderHandler.xml")
 public class HiemUnsubscribe
 {
