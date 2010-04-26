@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy;
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecured;
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -32,7 +33,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPat
         log = createLogger();
         service = createService();
     }
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion,  NhinTargetCommunitiesType target) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
@@ -42,6 +43,7 @@ public class AdapterPatientDiscoveryWebServiceSecuredProxy implements AdapterPat
         String url = getUrl();
         request.setAssertion(assertion);
         request.setPRPAIN201305UV02(body);
+        
         
         if (NullChecker.isNotNullish(url) && (body != null))
         {
