@@ -53,7 +53,8 @@
    xmlns:tns="urn:gov:hhs:fha:nhinc:adapternotificationconsumer"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    name="AdapterNotificationConsumer" 
@@ -102,7 +103,7 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="AdapterNotificationConsumerBindingSoap11" 
+    <wsdl:binding name="AdapterNotificationConsumerBindingSoap" 
                 type="tns:AdapterNotificationConsumerPortType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -138,8 +139,8 @@
     </wsdl:binding>
     
     <wsdl:service name="AdapterNotificationConsumer">
-        <wsdl:port name="AdapterNotificationConsumerPortSoap11" 
-               binding="tns:AdapterNotificationConsumerBindingSoap11">
+        <wsdl:port name="AdapterNotificationConsumerPortSoap" 
+               binding="tns:AdapterNotificationConsumerBindingSoap">
             <soap:address 
          location=
             "http://localhost:${HttpDefaultPort}/NhinConnect/AdapterNotificationConsumer"/>

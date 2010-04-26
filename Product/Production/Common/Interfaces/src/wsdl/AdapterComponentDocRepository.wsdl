@@ -6,14 +6,14 @@
      Web Services Exchange option.  To do this, you will need to 
      'uncomment' all the comment sections below that are labeled 
      'SECTION FOR WEB SERVICES EXCHANGE OPTION'                  -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
   xmlns="http://schemas.xmlsoap.org/wsdl/" 
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:ihe="urn:ihe:iti:xds-b:2007" 
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
   targetNamespace="urn:ihe:iti:xds-b:2007" 
   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
   xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"  
@@ -151,56 +151,12 @@
     </operation>
     -->
   </binding>
-  <binding name="DocumentRepository_BindingSoap12" type="ihe:DocumentRepository_PortType">
-    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsp:PolicyReference URI="#AdapterComponentDocRepositoryPolicy"/>
-    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
-      <soap12:operation soapAction="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/>
-      <input>
-        <soap12:body use="literal"/>
-      </input>
-      <output>
-        <soap12:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="DocumentRepository_RetrieveDocumentSet">
-      <soap12:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSet"/>
-      <input>
-        <soap12:body use="literal"/>
-      </input>
-      <output>
-        <soap12:body use="literal"/>
-      </output>
-    </operation>
-    <!-- SECTION FOR WEB SERVICES EXCHANGE OPTION                  
-    <operation name="DocumentRepository_RetrieveDocumentSetAsync">
-      <soap12:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSetAsync" />
-      <input>
-        <soap12:body use="literal"/>
-      </input>
-    </operation>
-    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-bAsync">
-			<soap12:operation soapAction="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-bAsync" />
-			<input>
-				<soap12:body use="literal"/>
-			</input>
-		</operation>
-    <operation name="DocumentRepository_RegisterDocumentSet-bAsyncResponse">
-      <soap12:operation soapAction="urn:ihe:iti:2007:RegisterDocumentSet-bAsyncResponse" />
-      <input>
-        <soap12:body use="literal"/>
-      </input>
-    </operation>
-    -->
-  </binding>
+  
   <service name="DocumentRepository_Service">
     <port name="DocumentRepository_Port_Soap" 
           binding="ihe:DocumentRepository_Binding">
       <soap:address 
          location="http://localhost:${NhincHttpPort}/DocumentRepository_Service"/>
-    </port>
-	<port name="DocumentRepository_Port_Soap12" binding="ihe:DocumentRepository_BindingSoap12">
-      <soap12:address location="http://localhost:${NhincHttpPort}/DocumentRepository_Service_Soap12"/>
     </port>
   </service>
   

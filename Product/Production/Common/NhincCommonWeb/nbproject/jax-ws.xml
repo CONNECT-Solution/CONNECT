@@ -78,7 +78,7 @@
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentConnectionManager.wsdl</local-wsdl-file>
       <service-name>NhincComponentConnectionManager</service-name>
-      <port-name>NhincComponentConnectionManagerPortSoap11</port-name>
+      <port-name>NhincComponentConnectionManagerPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhinccomponentconnectionmanager</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>

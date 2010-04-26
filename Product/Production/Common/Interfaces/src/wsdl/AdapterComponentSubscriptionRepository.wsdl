@@ -2,11 +2,12 @@
 <definitions name="SubscriptionRepository" targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentsubscriptionrepository"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentsubscriptionrepository" 
     xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
     xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:subscription:subscriptionrepository">
@@ -117,6 +118,7 @@
             </output>
         </operation>
     </binding>
+    
     <service name="AdapterSubscriptionRepositoryService">
         <port name="AdapterSubscriptionRepositoryPort" 
               binding="tns:AdapterSubscriptionRepositoryBinding">

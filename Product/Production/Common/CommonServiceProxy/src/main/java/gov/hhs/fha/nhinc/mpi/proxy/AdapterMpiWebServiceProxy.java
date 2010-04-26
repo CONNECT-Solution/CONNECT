@@ -18,8 +18,6 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import javax.xml.ws.BindingProvider;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 /**
  *
  * @author jhoppesc

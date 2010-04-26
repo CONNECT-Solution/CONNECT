@@ -7,7 +7,7 @@
     xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
     xmlns:wsntw="http://docs.oasis-open.org/wsn/bw-2"
     xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
     xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch">
     <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="rw-2.wsdl"/>

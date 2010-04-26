@@ -2,7 +2,7 @@
 <!-- 
   Nhinc Proxy Document Retrieve
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -41,7 +41,7 @@
         </operation>
     </portType>
     
-    <binding name="NhincProxyDocRetrieveBindingSoap11" 
+    <binding name="NhincProxyDocRetrieveBindingSoap" 
              type="tns:NhincProxyDocRetrievePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#NhincProxyDocRetrievePolicy"/>
@@ -57,8 +57,8 @@
     </binding>
     
     <service name="NhincProxyDocRetrieve">
-        <port name="NhincProxyDocRetrievePortSoap11" 
-          binding="tns:NhincProxyDocRetrieveBindingSoap11">
+        <port name="NhincProxyDocRetrievePortSoap" 
+          binding="tns:NhincProxyDocRetrieveBindingSoap">
             <soap:address 
                location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve"/>
         </port>

@@ -6,7 +6,7 @@
    xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    name="NhincProxyAuditLogQuery" 
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery">
 
@@ -35,7 +35,7 @@
     </operation>
   </portType>
 
-  <binding name="NhincProxyAuditLogQueryBindingSoap11" 
+  <binding name="NhincProxyAuditLogQueryBindingSoap" 
            type="tns:NhincProxyAuditLogQueryPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="findAuditEvents">
@@ -48,10 +48,10 @@
       </output>
     </operation>
   </binding>
-
+  
   <service name="NhincProxyAuditLogQuery">
-    <port name="NhincProxyAuditLogQueryPortSoap11" 
-          binding="tns:NhincProxyAuditLogQueryBindingSoap11">
+    <port name="NhincProxyAuditLogQueryPortSoap" 
+          binding="tns:NhincProxyAuditLogQueryBindingSoap">
       <soap:address 
          location="http://localhost:${NhincHttpPort}/NhinConnect/NhincProxyAuditLogQuery"/>
     </port>

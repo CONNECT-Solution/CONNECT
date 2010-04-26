@@ -23,6 +23,7 @@ import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincComponentPropAccessor", portName = "NhincComponentPropAccessorPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor", wsdlLocation = "WEB-INF/wsdl/NhincComponentPropAccessor/NhincComponentPropAccessor.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentPropAccessor {
 
     private static Log log = LogFactory.getLog(NhincComponentPropAccessor.class);

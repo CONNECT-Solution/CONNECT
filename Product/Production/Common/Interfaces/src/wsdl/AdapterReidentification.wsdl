@@ -7,7 +7,9 @@
     xmlns:tns="urn:gov:hhs:fha:nhinc:adapterreidentification" 
     xmlns:hl7="urn:hl7-org:v3" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    >
     <wsdl:documentation>
        WSDL for Adapter Reidentification
     </wsdl:documentation>
@@ -29,7 +31,7 @@
             <output name="GetRealIdentifierResponse" message="tns:GetRealIdentifierResponseMessage"/>
         </operation>
     </portType>
-    <binding name="AdapterReidentificationBindingSoap11" 
+    <binding name="AdapterReidentificationBindingSoap" 
     type="tns:AdapterReidentificationPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="GetRealIdentifier">
@@ -42,9 +44,10 @@
             </output>
         </operation>
     </binding>
+    
     <service name="AdapterReidentification">
-        <port name="AdapterReidentificationBindingSoap11" 
-        binding="tns:AdapterReidentificationBindingSoap11">
+        <port name="AdapterReidentificationBindingSoap" 
+        binding="tns:AdapterReidentificationBindingSoap">
             <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/AdapterReidentification"/>
         </port>
     </service>

@@ -46,7 +46,7 @@ public class AdapterPolicyEngineWebServiceProxy implements AdapterPolicyEnginePr
                 oAdapterPolicyEngineService = new AdapterPolicyEngine();
             }
 
-            oAdapterPolicyEnginePort = oAdapterPolicyEngineService.getAdapterPolicyEnginePortSoap11();
+            oAdapterPolicyEnginePort = oAdapterPolicyEngineService.getAdapterPolicyEnginePortSoap();
 
             // Get the real endpoint URL for this service.
             //--------------------------------------------

@@ -8,7 +8,7 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte"
     xmlns:auditlog="urn:gov:hhs:fha:nhinc:common:auditlog" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
     xmlns:adtmsg="http://nhinc.services.com/schema/auditmessage" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
     xmlns:hiemauditlog="urn:gov:hhs:fha:nhinc:common:hiemauditlog">
     <types>
         <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/Interfaces/NhincComponentAuditLogDte">

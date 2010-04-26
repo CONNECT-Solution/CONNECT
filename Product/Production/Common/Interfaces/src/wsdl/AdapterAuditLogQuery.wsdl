@@ -6,8 +6,12 @@
    xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" 
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-   name="AdapterAuditLogQuery" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+   name="AdapterAuditLogQuery"
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterauditlogquery">
   <!-- Imports -->
   <wsdl:types>
@@ -36,7 +40,7 @@
     </operation>
   </portType>
 
-  <binding name="AdapterAuditLogQueryBindingSoap11" 
+  <binding name="AdapterAuditLogQueryBindingSoap" 
            type="tns:AdapterAuditLogQueryPortType">
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -50,10 +54,10 @@
       </output>
     </operation>
   </binding>
-
+  
   <service name="AdapterAuditLogQuery">
-    <port name="AdapterAuditLogQueryPortSoap11" 
-          binding="tns:AdapterAuditLogQueryBindingSoap11">
+    <port name="AdapterAuditLogQueryPortSoap" 
+          binding="tns:AdapterAuditLogQueryBindingSoap">
       <soap:address 
          location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterAuditLogQuery"/>
     </port>

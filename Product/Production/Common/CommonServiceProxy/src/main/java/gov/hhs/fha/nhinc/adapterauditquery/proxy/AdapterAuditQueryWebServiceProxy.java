@@ -41,7 +41,7 @@ public class AdapterAuditQueryWebServiceProxy implements AdapterAuditQueryProxy 
     }
 
     private AdapterAuditLogQueryPortType getAdapterPort(String url) {
-        AdapterAuditLogQueryPortType port = adapterService.getAdapterAuditLogQueryPortSoap11();
+        AdapterAuditLogQueryPortType port = adapterService.getAdapterAuditLogQueryPortSoap();
 
         log.info("Setting endpoint address to Audit Repository Service to " + url);
         ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

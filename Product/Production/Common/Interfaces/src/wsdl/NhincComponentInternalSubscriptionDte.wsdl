@@ -7,7 +7,7 @@
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
     xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" 
     xmlns:subdte="urn:gov:hhs:fha:nhinc:common:subscriptiondte" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
     >
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform">

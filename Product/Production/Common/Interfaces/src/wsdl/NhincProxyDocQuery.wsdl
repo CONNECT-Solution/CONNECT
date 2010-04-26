@@ -2,7 +2,7 @@
 <!-- 
   NHINC Proxy Document Query WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquery"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -39,7 +39,7 @@
     </operation>
   </portType>
   
-  <binding name="NhincProxyDocQueryBindingSoap11" type="tns:NhincProxyDocQueryPortType">
+  <binding name="NhincProxyDocQueryBindingSoap" type="tns:NhincProxyDocQueryPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
       <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
@@ -53,8 +53,8 @@
   </binding>
   
   <service name="NhincProxyDocQuery">
-    <port name="NhincProxyDocQueryPortSoap11" 
-          binding="tns:NhincProxyDocQueryBindingSoap11">
+	<port name="NhincProxyDocQueryPortSoap" 
+          binding="tns:NhincProxyDocQueryBindingSoap">
       <soap:address 
          location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery" />
     </port>

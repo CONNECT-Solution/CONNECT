@@ -6,7 +6,7 @@
     xmlns:tns="urn:gov:hhs:fha:nhinc:nhincauditlogquery" 
     xmlns:audit="http://nhinc.services.com/schema/auditmessage" 
     xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincauditlogquery">

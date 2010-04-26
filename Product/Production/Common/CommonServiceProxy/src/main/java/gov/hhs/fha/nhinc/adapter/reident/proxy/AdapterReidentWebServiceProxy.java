@@ -59,7 +59,7 @@ public class AdapterReidentWebServiceProxy implements AdapterReidentProxy {
     }
 
     private AdapterReidentificationPortType getPort(String url) {
-        AdapterReidentificationPortType port = service.getAdapterReidentificationBindingSoap11();
+        AdapterReidentificationPortType port = service.getAdapterReidentificationBindingSoap();
 
         log.info("Setting endpoint address to Adapter Reidentification Service to " + url);
         ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

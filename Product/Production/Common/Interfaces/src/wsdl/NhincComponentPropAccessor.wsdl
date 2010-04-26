@@ -7,7 +7,7 @@
              xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" 
              xmlns:propacc="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
              xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
@@ -173,7 +173,7 @@
         </operation>
     </portType>
     
-    <binding name="NhincComponentPropAccessorBindingSoap11" 
+    <binding name="NhincComponentPropAccessorBindingSoap" 
              type="tns:NhincComponentPropAccessorPortType">
         <soap:binding style="document" 
                       transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -280,7 +280,7 @@
     
     <service name="NhincComponentPropAccessor">
         <port name="NhincComponentPropAccessorPort" 
-              binding="tns:NhincComponentPropAccessorBindingSoap11">
+              binding="tns:NhincComponentPropAccessorBindingSoap">
             <soap:address 
                location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentPropAccessor"/>
         </port>

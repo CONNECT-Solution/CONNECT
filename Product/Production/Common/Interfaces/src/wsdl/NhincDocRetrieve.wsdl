@@ -7,7 +7,7 @@
     xmlns:ihe="urn:ihe:iti:xds-b:2007" 
     xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincdocretrieve">
             <xsd:import namespace="urn:ihe:iti:xds-b:2007" 

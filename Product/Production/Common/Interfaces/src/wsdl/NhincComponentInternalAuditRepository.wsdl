@@ -6,7 +6,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
     xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" 
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
     xmlns:audit="urn:gov:hhs:fha:nhinc:common:auditlog" 
     xmlns:hiemaudit="urn:gov:hhs:fha:nhinc:common:hiemauditlog">
     <types>

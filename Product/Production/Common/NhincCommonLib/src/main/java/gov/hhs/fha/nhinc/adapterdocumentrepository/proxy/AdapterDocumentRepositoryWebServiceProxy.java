@@ -43,7 +43,7 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
     }
 
     private AdapterDocRetrievePortType getPort(String url) {
-        AdapterDocRetrievePortType port = adapterDocumentRepositoryService.getAdapterDocRetrievePortSoap11();
+        AdapterDocRetrievePortType port = adapterDocumentRepositoryService.getAdapterDocRetrievePortSoap();
 
         log.info("Setting endpoint address to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
