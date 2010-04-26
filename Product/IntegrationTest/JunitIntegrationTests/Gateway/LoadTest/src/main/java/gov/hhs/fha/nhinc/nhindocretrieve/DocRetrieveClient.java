@@ -82,7 +82,7 @@ public class DocRetrieveClient
 
     protected NhincProxyDocRetrievePortType getPort(String url)
     {
-        NhincProxyDocRetrievePortType port = service.getNhincProxyDocRetrievePortSoap11();
+        NhincProxyDocRetrievePortType port = service.getNhincProxyDocRetrievePortSoap();
         ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return port;
     }

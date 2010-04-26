@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-NhincProxyDocRetrieve" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieve"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxydocretrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrieve"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincProxyDocRetrieve"/>
 </project>
