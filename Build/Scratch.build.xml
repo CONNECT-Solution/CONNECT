@@ -40,7 +40,7 @@
   </loadpackages>
 
   <target name="test">
-    <call target="NetBeans.Set.Ant.Home.Properties"/>
+    <call target="Build.PublishZip.Release.Installer"/>
   </target>
 
   <target name="rebuild-setups">

@@ -93,16 +93,17 @@
   </target>
   
   <target name="GlassFish.Recreate.Domain">
-    <ant
-      target="recreate.glassfish.domain"
-      buildfile="${GlassFish.Deploy.Script.File.Path}"
-      logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
-    >
-      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
-      <args>
-        <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name}"/>
-      </args>
-    </ant>
+       <ant
+          target="recreate.glassfish.domain"
+          buildfile="${GlassFish.Deploy.Script.File.Path}"
+          logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
+          >
+          <environment refid="GlassFish.EnvironmentVariables.RefId"/>
+          <args>
+            <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name}"/>
+            <arg line="-Ddeployment.domain.template.file.path=${Common.Directory.Install.Path}/GlassFish/templates/connect/domain.xml.template"/>
+          </args>
+        </ant>
   </target>
 
   <target name="GlassFish.Deploy.Configuration">
