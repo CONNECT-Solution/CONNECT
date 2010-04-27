@@ -5,6 +5,8 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:hl7="urn:hl7-org:v3"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"
    name="EntityPatientDiscoveryAsyncResp"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp">
     <wsdl:documentation>
@@ -31,9 +33,11 @@
     <wsdl:portType name="EntityPatientDiscoveryAsyncRespPortType">
         <wsdl:operation name="ProcessPatientDiscoveryAsyncResp">
             <wsdl:input name="ProcessPatientDiscoveryAsyncRespAsyncRequest"
-                  message="tns:ProcessPatientDiscoveryAsyncRespRequestMessage"/>
+                  message="tns:ProcessPatientDiscoveryAsyncRespRequestMessage"
+                  wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest"/>
             <wsdl:output name="ProcessPatientDiscoveryAsyncRespAsyncResponse"
-                   message="tns:ProcessPatientDiscoveryAsyncRespResponseMessage"/>
+                   message="tns:ProcessPatientDiscoveryAsyncRespResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -41,6 +45,7 @@
                 type="tns:EntityPatientDiscoveryAsyncRespPortType">
         <soap12:binding style="document"
                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsaws:UsingAddressing/>
         <wsdl:operation name="ProcessPatientDiscoveryAsyncResp">
             <soap12:operation soapAction="urn:ProcessPatientDiscoveryAsyncResp"/>
             <wsdl:input name="ProcessPatientDiscoveryAsyncRespAsyncRequest" >

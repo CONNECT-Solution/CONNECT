@@ -5,6 +5,8 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:hl7="urn:hl7-org:v3"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"
    name="NhincProxyPatientDiscoveryAsyncResp"
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp">
   <wsdl:documentation>
@@ -31,15 +33,18 @@
   <wsdl:portType name="NhincProxyPatientDiscoveryAsyncRespPortType">
     <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncResp">
       <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest"
-                  message="tns:Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage"/>
+                  message="tns:Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage"
+                  wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespRequest"/>
       <wsdl:output name="Proxy_ProcessPatientDiscoveryAsyncRespResponse"
-                   message="tns:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage"/>
+                   message="tns:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespResponse"/>
     </wsdl:operation>
   </wsdl:portType>
 
   <wsdl:binding name="NhincProxyPatientDiscoveryAsyncRespBinding"
                 type="tns:NhincProxyPatientDiscoveryAsyncRespPortType">
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsaws:UsingAddressing/>
     <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncResp">
       <soap12:operation soapAction="urn:Proxy_ProcessPatientDiscoveryAsyncResp"/>
       <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest" >
