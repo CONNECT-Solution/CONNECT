@@ -244,8 +244,8 @@
     </target>
     <target name="wsimport-service-NhinPatientDiscoveryAsyncReq" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryAsyncReq.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryAsyncReq.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
@@ -263,8 +263,8 @@
     </target>
     <target name="wsimport-service-NhinPatientDiscoveryAsyncResp" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryAsyncResp.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryAsyncResp.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
