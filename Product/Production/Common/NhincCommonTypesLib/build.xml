@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project name="NhincCommonTypesLib" default="build" basedir=".">
   <description>Builds, tests, and runs the project NhincCommonTypesLib.</description>
   <import file="nbproject/build-impl.xml"/>
@@ -130,16 +130,10 @@
   </target>
 
   <!-- Common wsimport target -->
-  <target name="processWsdl">
-    <echo message="Performing wsimport for: ${wsdl.file}" />
-    <propertyregex property="wsdlfile"
-              input="${wsdl.file}"
-              regexp="([^\/\\]+\.\w+)$"
-              select="\1"
-              casesensitive="false" />
-
-    <wsimportConnect xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
+    <target name="processWsdl">
+        <echo message="Performing wsimport for: ${wsdl.file}" />
+        <wsimportConnect xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
                   destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file}" verbose="true"
-                  wsdlLocation="META-INF/wsdl/${wsdlfile}" xnocompile="true" />
-  </target>
+                  wsdlLocation="file:${wsdl.file}" xnocompile="true" />
+    </target>
 </project>
