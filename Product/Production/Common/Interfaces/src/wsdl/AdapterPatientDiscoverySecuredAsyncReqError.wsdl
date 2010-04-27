@@ -39,9 +39,11 @@
     <wsdl:portType name="AdapterPatientDiscoverySecuredAsyncReqErrorPortType">
         <wsdl:operation name="ProcessPatientDiscoveryAsyncReqError">
             <wsdl:input name="ProcessPatientDiscoveryAsyncReqErrorRequest"
-                  message="tns:ProcessPatientDiscoveryAsyncReqErrorRequestMessage"/>
+                  message="tns:ProcessPatientDiscoveryAsyncReqErrorRequestMessage"
+                  wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror:ProcessPatientDiscoveryAsyncReqErrorRequest"/>
             <wsdl:output name="ProcessPatientDiscoveryAsyncReqErrorResponse"
-                   message="tns:ProcessPatientDiscoveryAsyncReqErrorResponseMessage"/>
+                   message="tns:ProcessPatientDiscoveryAsyncReqErrorResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror:ProcessPatientDiscoveryAsyncReqErrorResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
