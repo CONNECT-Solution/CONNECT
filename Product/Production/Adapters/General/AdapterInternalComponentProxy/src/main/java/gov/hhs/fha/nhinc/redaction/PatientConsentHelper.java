@@ -127,29 +127,29 @@ public class PatientConsentHelper
             log.debug("Patient preferences has " + findGrainedPolicy.getFineGrainedPolicyCriterion().size() + " fine grained policy criterion.");
 
             String criterionDocumentTypeCode = null;
-            boolean fineGrainedCriterionFound = false;
             for(FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy.getFineGrainedPolicyCriterion())
             {
-                if((eachFineGrainedPolicyCriterion != null) &&
-                        (eachFineGrainedPolicyCriterion.getDocumentTypeCode() != null))
+                if(eachFineGrainedPolicyCriterion != null)
                 {
-                    criterionDocumentTypeCode = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
-                    log.debug("Looking at criterion for document type: " + criterionDocumentTypeCode);
-                    if(criterionDocumentTypeCode != null &&
-                            !criterionDocumentTypeCode.equals("") &&
-                            criterionDocumentTypeCode.equals(documentType))
+                    if(eachFineGrainedPolicyCriterion.getDocumentTypeCode() != null)
+                    {
+                        criterionDocumentTypeCode = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
+                        log.debug("Looking at criterion for document type: " + criterionDocumentTypeCode);
+                        if(criterionDocumentTypeCode != null &&
+                                !criterionDocumentTypeCode.equals("") &&
+                                criterionDocumentTypeCode.equals(documentType))
+                        {
+                            allowDocumentSharing = eachFineGrainedPolicyCriterion.isPermit();
+                            // The algorithm is to use the first found - leave after the first match.
+                            break;
+                        }
+                    }
+                    else if(isDefaultFineGrainedPolicyCriterion(eachFineGrainedPolicyCriterion))
                     {
                         allowDocumentSharing = eachFineGrainedPolicyCriterion.isPermit();
-                        // The algorithm is to use the first found - leave after the first match.
-                        fineGrainedCriterionFound = true;
                         break;
                     }
                 }
-            }
-            if(!fineGrainedCriterionFound)
-            {
-                // No fine-grained policy found for this case. Default to share.
-                allowDocumentSharing = true;
             }
             log.debug("End extract permit value from fine grained policy criterian");
         }
@@ -157,4 +157,17 @@ public class PatientConsentHelper
         return allowDocumentSharing;
     }
 
+
+    protected boolean isDefaultFineGrainedPolicyCriterion(FineGrainedPolicyCriterionType criterion)
+    {
+        log.debug("Begin isDefaultFineGrainedPolicyCriterion");
+        boolean defaultCriterion = false;
+        if(criterion != null)
+        {
+            // Add other values when additional options are considered.
+            defaultCriterion = ((criterion.getDocumentTypeCode() == null));
+        }
+        log.debug("End isDefaultFineGrainedPolicyCriterion - value: " + defaultCriterion);
+        return defaultCriterion;
+    }
 }

@@ -173,6 +173,8 @@ public class DocumentQueryTransforms {
         }
 
         if ((message != null) &&
+                (message.getMessage() != null) &&
+                (message.getMessage().getAdhocQueryResponse() != null) &&
                 (message.getMessage().getAdhocQueryResponse().getRegistryObjectList() != null) &&
                 (message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable() != null) &&
                 (message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable().size() > 0)) {

@@ -646,53 +646,62 @@ public class PatientConsentHelperTest
     @Test
     public void testDocumentSharingAllowedShouldFail()
     {
-        PatientConsentHelper testSubject = new PatientConsentHelper()
+        try
         {
-            @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
                 @Override
-                protected AdapterPIPImpl getAdapterPIP()
-                {
-                    return mockPIP;
-                }
-        };
-        context.checking(new Expectations(){{
-            allowing(mockLog).debug(with(any(String.class)));
-            allowing(mockLog).error("Invalid documentType");
-            allowing(mockLog).error("Patient preferences was null");
-            allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
-        }});
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+            context.checking(new Expectations(){{
+                allowing(mockLog).debug(with(any(String.class)));
+                allowing(mockLog).error("Invalid documentType");
+                allowing(mockLog).error("Patient preferences was null");
+                allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
+            }});
 
-        assertEquals(testSubject.documentSharingAllowed(null, null), false);
-        PatientPreferencesType ptPreferences = new PatientPreferencesType();
-        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
-        FineGrainedPolicyCriteriaType fineGrainedPolicy = new FineGrainedPolicyCriteriaType();
-        ptPreferences.setFineGrainedPolicyCriteria(fineGrainedPolicy);
-        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
-        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(null);
-        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
-        FineGrainedPolicyCriterionType policyCrtiterion = new FineGrainedPolicyCriterionType();
-        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
-        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
-        CeType ceTypeCd = new CeType();
-        ceTypeCd.setCode("testing1");
-        policyCrtiterion.setDocumentTypeCode(ceTypeCd);
-        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
-        fineGrainedPolicy.getFineGrainedPolicyCriterion().clear();
-        ceTypeCd.setCode("testing1");
-        policyCrtiterion.setDocumentTypeCode(ceTypeCd);
-        CeType ceTypeCd1 = new CeType();
-        ceTypeCd1.setCode("testing");
-        FineGrainedPolicyCriterionType policyCrtiterion1 = new FineGrainedPolicyCriterionType();
-        policyCrtiterion1.setDocumentTypeCode(ceTypeCd1);
-        policyCrtiterion1.setPermit(true);
-        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
-        fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion1);
-        assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
-        context.assertIsSatisfied();
+            assertEquals(testSubject.documentSharingAllowed(null, null), false);
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            assertFalse("Test with only patient preferences instantiated", testSubject.documentSharingAllowed("testing", ptPreferences));
+            FineGrainedPolicyCriteriaType fineGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            ptPreferences.setFineGrainedPolicyCriteria(fineGrainedPolicy);
+            assertFalse("Test with default fine grained policy", testSubject.documentSharingAllowed("testing", ptPreferences));
+            fineGrainedPolicy.getFineGrainedPolicyCriterion().add(null);
+            assertFalse("Test with null criterion", testSubject.documentSharingAllowed("testing", ptPreferences));
+            FineGrainedPolicyCriterionType policyCrtiterion = new FineGrainedPolicyCriterionType();
+            fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
+            assertFalse("Test with default crition", testSubject.documentSharingAllowed("testing", ptPreferences));
+            CeType ceTypeCd = new CeType();
+            ceTypeCd.setCode("testing1");
+            policyCrtiterion.setDocumentTypeCode(ceTypeCd);
+            assertFalse("Test with no document match and no default criterion", testSubject.documentSharingAllowed("testing", ptPreferences));
+            fineGrainedPolicy.getFineGrainedPolicyCriterion().clear();
+            ceTypeCd.setCode("testing1");
+            policyCrtiterion.setDocumentTypeCode(ceTypeCd);
+            CeType ceTypeCd1 = new CeType();
+            ceTypeCd1.setCode("testing");
+            FineGrainedPolicyCriterionType policyCrtiterion1 = new FineGrainedPolicyCriterionType();
+            policyCrtiterion1.setDocumentTypeCode(ceTypeCd1);
+            policyCrtiterion1.setPermit(true);
+            fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
+            fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion1);
+            assertTrue("Test with document match should pass", testSubject.documentSharingAllowed("testing", ptPreferences));
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedShouldFail test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedShouldFail test: " + t.getMessage());
+        }
     }
 
     @Test
@@ -954,7 +963,8 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
+            // Default is false
+            assertFalse("Document sharing allowed was not false", testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
         }
         catch(Throwable t)
@@ -999,7 +1009,8 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
+            // Default is false - this is the default criterion which when not set is false
+            assertFalse("Default criterion value was not false", testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
         }
         catch(Throwable t)
@@ -1007,6 +1018,52 @@ public class PatientConsentHelperTest
             System.out.println("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testDocumentSharingAllowedDefaultCriterionTrue()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+                    @Override
+                    protected AdapterPIPImpl getAdapterPIP()
+                    {
+                        return mockPIP;
+                    }
+            };
+
+            FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
+            criterionType.setPermit(true);
+            
+            FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
+            findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
+
+            PatientPreferencesType ptPreferences = new PatientPreferencesType();
+            ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            assertTrue("Default criterion value was not true", testSubject.documentSharingAllowed("testing", ptPreferences));
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDocumentSharingAllowedDefaultCriterionTrue test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDocumentSharingAllowedDefaultCriterionTrue test: " + t.getMessage());
         }
     }
 
@@ -1048,7 +1105,8 @@ public class PatientConsentHelperTest
                 }
             });
 
-            assertEquals(testSubject.documentSharingAllowed("willnotexiest", ptPreferences), true);
+            // Default is false
+            assertFalse("No match on criterion was not false", testSubject.documentSharingAllowed("willnotexiest", ptPreferences));
             context.assertIsSatisfied();
         }
         catch(Throwable t)
@@ -1130,6 +1188,77 @@ public class PatientConsentHelperTest
             System.out.println("Error running testDocumentSharingAllowedOptOut test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptOut test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsDefaultFineGrainedPolicyTrue()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+            };
+
+            context.checking(new Expectations()
+            {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            FineGrainedPolicyCriterionType criterion = new FineGrainedPolicyCriterionType();
+
+            assertTrue("Default fine grained policy check not true", testSubject.isDefaultFineGrainedPolicyCriterion(criterion));
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testIsDefaultFineGrainedPolicyTrue test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testIsDefaultFineGrainedPolicyTrue test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsDefaultFineGrainedPolicyFalse()
+    {
+        try
+        {
+            PatientConsentHelper testSubject = new PatientConsentHelper()
+            {
+                @Override
+                    protected Log createLogger()
+                    {
+                        return mockLog;
+                    }
+            };
+
+            context.checking(new Expectations()
+            {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
+
+            FineGrainedPolicyCriterionType criterion = new FineGrainedPolicyCriterionType();
+            CeType docTypeCE = new CeType();
+            docTypeCE.setCode("Test Code");
+            criterion.setDocumentTypeCode(docTypeCE);
+
+            assertFalse("Default fine grained policy check not false", testSubject.isDefaultFineGrainedPolicyCriterion(criterion));
+            context.assertIsSatisfied();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testIsDefaultFineGrainedPolicyFalse test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testIsDefaultFineGrainedPolicyFalse test: " + t.getMessage());
         }
     }
 
