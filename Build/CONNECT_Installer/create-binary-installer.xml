@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!-- 
+vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
+-->
+<!--
+//*****************************************************************************
+// FILE: create-binary-installer.xml
+//
+// Copyright (C) 2010 TBD
+//
+// CLASSIFICATION: Unclassified
+//
+// DESCRIPTION: XML document to generate AntInstaller JAR
+//              > ant -buildfile create-installer.xml
+//
+// LIMITATIONS: None
+//
+// CHANGE HISTORY:
+//
+// Date         Proj   Act    Assign     Desc
+// ============ ====== ====== ========== ===================================
+// 2010/03/20   964G   1000   bgrantha   Initial Coding.
+// 2010/04/22   964G   1000   bgrantha   Change file references
+//
+//*****************************************************************************
+-->
+<project name="Create CONNECT Installer" default="MakeNonExtractor" basedir=".">
+
+    <import file="dev.settings.xml" />
+
+    <path id="taskdef.cp">
+        <fileset dir="${ANT_INSTALL_ROOT}/lib">
+            <include name="ant-installer-ext.jar" />
+            <include name="ant-installer.jar" />
+        </fileset>
+    </path>
+
+    <taskdef name="installer" classname="org.tp23.antinstaller.taskdefs.Installer" classpathref="taskdef.cp" />
+
+    <property name="PROJECT_NAME" value="CONNECT" />
+    <property name="PROJECT_VERSION" value="2.4" />
+
+    <!-- Add "Windows" to file name to ensure people do not think this is yet available for other OS's -->
+    <property name="PROJECT_SHORT_NAME" value="${PROJECT_VERSION}_Windows_Binary" />
+
+    <!-- This task only needs to run once it can be deleted once the self-extract files exist on the build host  -->
+    <target name="Base">
+        <echo message="Building NonExtractor runnable jar file" />
+    </target>
+
+    <target name="MakeNonExtractor" depends="Base">
+        <installer file="${PROJECT_ROOT}/dist/${PROJECT_SHORT_NAME}-installer.jar" compress="true" extractType="NonExtractor" 
+            installConfig="${PROJECT_ROOT}/win.binary.antinstall-config.xml" buildFile="${PROJECT_ROOT}/win.binary.build.xml" 
+            antInstallLib="${ANT_INSTALL_ROOT}/lib" antLib="${ANT_INSTALL_ROOT}/antlib" 
+            validateConfig="true" icons="bluecurve">
+
+            <fileset dir="." includes="/resources/img/*" />
+            <fileset dir="." includes="/resources/zip/*" />
+            <fileset dir="." includes="/resources/bin/*" />
+            <fileset dir="." includes="/resources/txt/*" />
+
+            <zipgroupfileset dir="./lib" includes="*.jar" />
+
+            <!-- 
+            <zipfileset dir="." includes="ant.install.properties" /> 
+            <zipfileset fullpath="resources/License.txt" file="${PROJECT_LIC}" />
+            -->
+        </installer>
+    </target>
+
+</project>

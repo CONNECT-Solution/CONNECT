@@ -1,0 +1,37 @@
+======================
+== INSTALL COMPLETE ==
+======================
+
+
+Please review the logs for any errors.
+
+
+
+-- Optional Remaining Steps --
+-- These are tasks that may have been completed as part of the install. --
+
+* Update Property/Configuration File Settings
+   Edit file C:\NHINC\Dev\gateway.properties as per guide if not done during install
+
+* Create Database Schemas and Tables
+   See install guide if not marked as task-to-do via installer
+
+* Creation of GlassFish domain
+   See install guide if not marked as task-to-do via installer
+
+* Deployment of CONNECT WARs
+   See install guide if not marked as task-to-do via installer
+
+
+
+-- Required Remaining Steps --
+-- These are tasks that the installer has not executed and must be done manually. --
+
+* Generate Certificate Request
+   http://developer.connectopensource.org/display/NHINR24/Certificate+Setup
+
+* Validate Certificate via Certificate Revocation Lists
+   http://developer.connectopensource.org/display/NHINR24/Certificate+Validation+Using+Certificate+Revocation+Lists
+
+* System Verification
+   http://developer.connectopensource.org/display/NHINR24/CONNECT+Validation+Tests

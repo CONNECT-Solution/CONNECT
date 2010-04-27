@@ -1,0 +1,17 @@
+To change the Windows Source Installer Version make the following changes.
+
+1. File: win.create.source.installer.xml - changes the name of the installer.
+   Change the value of property PROJECT_VERSION below
+	<property name="PROJECT_VERSION" value="Current" />
+	
+2. File: win.source.build.xml
+
+    Section <!-- build/source specific -->
+    <property name="source.version" value="Current" />
+    <property name="url.win.source.tag" value="Current" />
+    
+    Section <target name="antinstaller-setup">
+    <antinstaller-property name="source.version#" value="Current" />
+    <antinstaller-property name="directory.nhin.connect.source" value="C:\Projects\NHINC\Current" />
+    
+    

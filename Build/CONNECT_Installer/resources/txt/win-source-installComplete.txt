@@ -1,0 +1,40 @@
+======================
+== INSTALL COMPLETE ==
+======================
+
+
+Please review the logs for any errors.
+
+-- Optional Remaining Steps --
+-- These are tasks that may have been completed as part of the install. --
+
+* Create Database Schemas and Tables
+  - From a command prompt, issue the following commands (replace "2.4" with version if other than 2.4)
+    > cd C:\Projects\NHINC\2.4\Product\DBScripts\nhincdb
+    > mysql -uroot -pNHIE-Gateway < nhincdb.sql
+  
+
+* Creation of GlassFish domain
+  - From a command prompt, issue the following commands (replace "2.4" with version if other than 2.4)
+    > cd C:\NHINC
+    > ant -f deploy.xml recreate.glassfish.domain
+   
+
+* Deployment of CONNECT WARs
+  - From a command prompt, issue the following commands (replace "2.4" with version if other than 2.4)
+    > cd C:\Projects\NHINC\2.4\Product
+    > ant deploy
+
+
+
+-- Required Remaining Steps --
+-- These are tasks that the installer has not executed and must be done manually. --
+
+* Generate Certificate Request
+   http://developer.connectopensource.org/display/NHINR24/Certificate+Setup
+
+* Validate Certificate via Certificate Revocation Lists
+   http://developer.connectopensource.org/display/NHINR24/Certificate+Validation+Using+Certificate+Revocation+Lists
+
+* System Verification
+   http://developer.connectopensource.org/display/NHINR24/CONNECT+Validation+Tests

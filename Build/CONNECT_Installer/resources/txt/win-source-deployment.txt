@@ -1,0 +1,28 @@
+======================
+====  DEPLOYMENT  ====
+======================
+
+To complete deployment, open a new command prompt and type the following:
+
+C:
+cd %NHINC_SOURCE_DIR%\Product
+ant deploy
+
+
+======================
+======  LOG4J   ======
+======================
+
+To complete log4j configuration, use the command prompt from above and type:
+
+copy /Y %NHINC_PROPERTIES_DIR%\log4j.properties %AS_HOME%\domains\domain1\config\
+cd %AS_HOME%\bin
+asadmin stop-domain domain1
+asadmin start-domain domain1
+
+
+======================
+=====  CONTINUE  =====
+======================
+
+Once these steps are complete, close this window and installation will continue.

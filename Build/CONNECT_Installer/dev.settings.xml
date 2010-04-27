@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- 
+vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
+-->
+<!--
+//*****************************************************************************
+// FILE: dev.settings.xml
+//
+// Copyright (C) 2010 TBD
+//
+// CLASSIFICATION: Unclassified
+//
+// DESCRIPTION: Developer properties used for building JAR
+//
+// LIMITATIONS: None
+//
+// CHANGE HISTORY:
+//
+// Date         Proj   Act    Assign     Desc
+// ============ ====== ====== ========== ===================================
+// 2010/04/01   964G   1000   bgrantha   Initial Coding.
+//
+//*****************************************************************************
+-->
+<project name="connect.dev.settings">
+    <property name="ANT_INSTALL_ROOT" value="C:\Program Files\AntInstaller-beta0.8" />
+    <property name="PROJECT_ROOT" value="C:\CONNECT\" />
+</project>

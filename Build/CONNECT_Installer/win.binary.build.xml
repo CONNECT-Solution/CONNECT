@@ -1,0 +1,527 @@
+<?xml version="1.0"?>
+<!-- 
+vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
+-->
+<!--
+//*****************************************************************************
+// FILE: build.xml
+//
+// Copyright (C) 2010 TBD
+//
+// CLASSIFICATION: Unclassified
+//
+// DESCRIPTION: build.xml used by AntInstaller
+//
+// LIMITATIONS: None
+//
+// CHANGE HISTORY:
+//
+// Date         Proj   Act    Assign     Desc
+// ============ ====== ====== ========== ======================================
+// 2010/03/20   964G   1000   bgrantha   Initial Coding.
+// 2010/04/05   964G   1000   bgrantha   Browser-launch target(s) broken out
+// 2010/04/22   964G   1000   bgrantha   Renamed file
+//
+//*****************************************************************************
+-->
+<project name="Installation" default="" basedir=".">
+
+    <!-- 
+    Claim: This is required to pick up the properties generated during the install pages
+    Actual: Not necessary for property retrieval - and can not be read from here (bug)
+    -->
+    <!-- 
+    <property file="./ant.install.properties" />
+    -->
+
+    <!-- Ant Contrib -->
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+    <!-- Env -->
+    <property environment="env" />
+
+    <!-- Define properties (need to work out external properties file) -->
+    <property name="expected.JAVA_HOME" value="C:\Java\jdk1.6.0_16" />
+    <property name="expected.IDE_HOME" value="C:\Program Files\NetBeans 6.7.1" />
+    <property name="expected.ANT_HOME" value="C:\Program Files\NetBeans 6.7.1\java2\ant" />
+    <property name="expected.AS_HOME" value="C:\Sun\AppServer" />
+
+    <property name="expected.NHINC_PROPERTIES_DIR" value="C:\Sun\AppServer\domains\domain1\config\nhin" />
+
+    <property name="expected.MYSQL_BIN" value="C:\Program Files\MySQL\MySQL Server 5.1\bin" />
+
+    <property name="expected.ANT_OPTS" value="-Xmx872m -XX:MaxPermSize=640m -Dcom.sun.aas.instanceName=server" />
+
+    <property name="expected.PATH.contains.ant" value="ant\bin" />
+    <property name="expected.PATH.contains.ant2" value="ant/bin" />
+    <property name="expected.PATH.contains.java" value="jdk1.6.0_16" />
+    <property name="expected.PATH.contains.mysql" value="MySQL Server" />
+
+    <property name="url.java" value="http://java.sun.com/products/archive/j2se/6u16/index.html" />
+    <property name="url.netbeans.glassfish" value="http://netbeans.org/downloads/6.7.1/index.html" />
+    <property name="url.metro" value="https://metro.dev.java.net/1.5/metro-1_5.jar" />
+    <property name="url.mysql" value="http://dev.mysql.com/get/Downloads/MySQL-5.1/mysql-5.1.41-win32.msi/from/http:/opensource.become.com/mysql/" />
+    <property name="url.mysql.tools" value="http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-gui-tools-5.0-r17-win32.msi/from/http:/opensource.become.com/mysql/" />
+    <property name="url.oid" value="http://developer.connectopensource.org/display/NHINR24/Request+Object+Identifier" />
+
+    <property name="directory.nhin.connect" value="C:\NHINC" />
+    <property name="directory.nhin.connect.third.party" value="${directory.nhin.connect}\ThirdParty" />
+    <property name="directory.nhin.connect.third.party.tools" value="${directory.nhin.connect}\ThirdPartyTools" />
+
+    <!-- Temporary workspace and working files -->
+    <property name="temporary.directory.workspace" value="C:\TEMP\CONNECT-install" />
+
+    <property name="temporary.file.windows.binary" value="${temporary.directory.workspace}\resources\zip\NHIN_CONNECT_Binaries_2.4.0.271.zip" />
+    <property name="temporary.file.third.party.components" value="${temporary.directory.workspace}\resources\zip\NHIN_CONNECT_Third_Party_Components_2.4.0.zip" />
+
+    <var name="path.contents" value="" />
+
+    <!-- ******************************************************************************************** -->
+    <!-- ********************************* Main Install Targets ************************************* -->
+    <!-- ******************************************************************************************** -->
+
+    <!-- Main Install Target -->
+    <target name="connect-install" depends="validate, unzip-windows-binary, unzip-third-party-components, launch-gateway, copy-libraries">
+        <echo message="Begin main install target.. " />
+        <echo message="Main install target done" />
+    </target>
+
+    <!-- Self Extract -->
+    <target name="self-extract">
+        <echo message="Begin self-extract task.." />
+        <unzip src="${antinstaller.jar}" dest="${temporary.directory.workspace}">
+            <patternset>
+                <include name="/resources/zip/*" />
+                <include name="/resources/bin/*" />
+                <include name="/resources/txt/*" />
+            </patternset>
+        </unzip>
+        <echo message="Self-extract done" />
+    </target>
+
+    <!-- Validation -->
+    <target name="validate">
+        <echo message="Begin validation.." />
+
+        <!-- 
+        This target was used before the installer was able to set ENV values 
+        New function for this target TBD
+        -->
+
+        <echo message="Validation successful" />
+    </target>
+
+    <!--  Windows Binary Unzip -->
+    <target name="unzip-windows-binary" depends="self-extract">
+        <echo message="Begin unzip of windows binary file.." />
+
+        <unzip src="${temporary.file.windows.binary}" dest="${directory.nhin.connect}" />
+
+        <echo message="Unzip complete" />
+    </target>
+
+    <!-- Windows Third Party Unzip -->
+    <target name="unzip-third-party-components" depends="self-extract">
+        <echo message="Begin unzip of third party components.." />
+
+        <unzip src="${temporary.file.third.party.components}" dest="${directory.nhin.connect}" />
+
+        <echo message="Unzip complete" />
+    </target>
+
+    <!-- Launch the gateway.properties file -->
+    <target name="launch-gateway" depends="unzip-windows-binary">
+        <echo message="Begin launch gateway task.." />
+
+        <!-- Gateway Properties (1) -->
+        <exec executable="C:\WINDOWS\notepad.exe" failifexecutionfails="true" failonerror="true">
+            <arg value="${directory.nhin.connect}\Dev\gateway.properties" />
+        </exec>
+
+        <!-- Gateway Properties (2, 3, 4, 5) to be done by user via (1) -->
+
+        <echo message="End launch gateway task.." />
+    </target>
+
+    <!-- Copy Third Party Components -->
+    <target name="copy-libraries" depends="unzip-third-party-components">
+        <echo message="Begin copy libraries task.." />
+
+        <!-- 
+        Install Third Party Components (1)
+        Shutdown Glassfish
+        -->
+        <exec dir="${actual.AS_HOME}/bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c asadmin stop-domain domain1" />
+        </exec>
+
+        <!-- Install Third Party Components (2) -->
+        <copy todir="${actual.ANT_HOME}\lib" overwrite="true">
+            <fileset dir="${directory.nhin.connect.third.party}\AntExtraLibs">
+                <include name="**/*.jar" />
+            </fileset>
+        </copy>
+
+        <!-- Install Third Party Components (3) -->
+        <copy todir="${actual.AS_HOME}\lib" overwrite="true">
+            <fileset dir="${directory.nhin.connect.third.party}\C3PO">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${directory.nhin.connect.third.party}\log4j">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${directory.nhin.connect.third.party}\HibernateLibraries">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${directory.nhin.connect.third.party}\MySQLDB">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${directory.nhin.connect.third.party}\XStream">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${directory.nhin.connect.third.party}\SpringFramework">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${directory.nhin.connect.third.party}\Xerces">
+                <include name="**/*.jar" />
+            </fileset>
+        </copy>
+
+        <!-- 
+        Install Third Party Components (4)
+        Start Glassfish
+        -->
+        <!--
+        <exec dir="${actual.AS_HOME}/bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c asadmin start-domain domain1" />
+        </exec>
+        -->
+
+        <echo message="End copy libraries task" />
+    </target>
+
+    <!-- ******************************************************************************************** -->
+    <!-- ******************************* Optional Install Targets *********************************** -->
+    <!-- ******************************************************************************************** -->
+
+    <!-- Create Database Schemas and Tables -->
+    <target name="create-db">
+        <echo message="Begin create-db task.." />
+
+        <exec executable="${temporary.directory.workspace}\resources\bin\createdb.bat" failifexecutionfails="true" failonerror="true">
+            <!-- ARG 1 : NHIN extract dir -->
+            <arg value="${directory.nhin.connect}" />
+            <!-- ARG 2 : MYSQL_BIN -->
+            <arg value="${expected.MYSQL_BIN}" />
+        </exec>
+
+        <echo message="End create-db task.." />
+    </target>
+
+    <!-- Create GlassFish domain -->
+    <target name="create-glassfish-domain">
+        <echo message="Begin create-glassfish-domain task.." />
+
+        <!-- Creation of GlassFish domain for CONNECT deployment -->
+        <exec executable="${temporary.directory.workspace}\resources\bin\createGlassFishDomain.bat" failifexecutionfails="true" failonerror="true">
+            <!-- ARG 1 : AS_HOME -->
+            <arg value="${actual.AS_HOME}" />
+            <!-- ARG 2 : NHIN extract dir -->
+            <arg value="${directory.nhin.connect}" />
+            <!-- ARG 3 : ANT_HOME -->
+            <arg value="${actual.ANT_HOME}" />
+            <!-- ARG 4 : ANT_OPTS -->
+            <arg value="${actual.ANT_OPTS}" />
+        </exec>
+
+        <echo message="End create-glassfish-domain task.." />
+    </target>
+
+    <!-- Deployment -->
+    <!-- 
+    This is a temporary deployment target, due to an issue in the way the deploy.xml
+    returns control to the user after completion. The deploy process becomes tied to a
+    java executable and never fully exits. This causes this build.xml to hang while
+    waiting for deploy.xml to return control. Need to work out how to call external
+    deploy.xml and receive control after deploy target invoked.
+    -->
+    <target name="deployment">
+        <echo message="Begin deployment task.." />
+
+        <exec executable="C:\WINDOWS\notepad.exe" failifexecutionfails="true" failonerror="true">
+            <arg value="${temporary.directory.workspace}\resources\txt\deployment.txt" />
+        </exec>
+
+        <echo message="End deployment task.." />
+    </target>
+
+    <!-- Deployment -->
+    <target name="deployment-original">
+        <echo message="Begin deployment task.." />
+
+        <!-- Deploying Applications to GlassFish -->
+        <exec executable="${temporary.directory.workspace}\resources\bin\deploy.bat" failifexecutionfails="true" failonerror="true" vmlauncher="false">
+            <!-- ARG 1 : AS_HOME -->
+            <arg value="${actual.AS_HOME}" />
+            <!-- ARG 2 : IDE_HOME -->
+            <arg value="${actual.IDE_HOME}" />
+            <!-- ARG 3 : ANT_HOME -->
+            <arg value="${actual.ANT_HOME}" />
+            <!-- ARG 4 : ANT_OPTS -->
+            <arg value="${actual.ANT_OPTS}" />
+            <!-- ARG 5 : NHINC_PROPERTIES_DIR -->
+            <arg value="${actual.NHINC_PROPERTIES_DIR}" />
+            <!-- ARG 6 : JAVA_HOME -->
+            <arg value="${actual.JAVA_HOME}" />
+            <!-- ARG 7 : NHIN extract dir -->
+            <arg value="${directory.nhin.connect}" />
+            <!-- ARG 8 : NHINC_THIRDPARTY_DIR -->
+            <arg value="${directory.nhin.connect.third.party}" />
+        </exec>
+
+        <!-- LOG4J -->
+        <echo message="Copying log4j.properties to GlassFish.." />
+        <copy todir="${actual.AS_HOME}\domains\domain1\config" overwrite="true">
+            <fileset dir="${actual.NHINC_PROPERTIES_DIR}">
+                <include name="log4j.properties" />
+            </fileset>
+        </copy>
+
+        <!-- Stop GlassFish -->
+        <exec dir="${actual.AS_HOME}/bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c asadmin stop-domain domain1" />
+        </exec>
+
+        <!-- Start GlassFish -->
+        <echo message="Starting the domain.. this process will be spawned" />
+        <exec dir="${actual.AS_HOME}/bin" executable="cmd.exe" spawn="true">
+            <arg line="/c asadmin start-domain domain1" />
+        </exec>
+
+        <echo message="End deployment task.." />
+    </target>
+
+    <!-- ******************************************************************************************** -->
+    <!-- ********************************* Post Install Targets ************************************* -->
+    <!-- ******************************************************************************************** -->
+
+    <!-- Post Install Cleaup -->
+    <target name="cleanup">
+        <echo message="Begin cleanup.. " />
+
+        <!-- Launch document -->
+        <exec executable="C:\WINDOWS\notepad.exe" spawn="true">
+            <arg value="${temporary.directory.workspace}\resources\txt\installComplete.txt" />
+        </exec>
+
+        <!-- Just enough time to make sure notepad opens the file before deleting -->
+        <sleep seconds="4" />
+
+        <!-- Cleanup working directory -->
+        <delete dir="${temporary.directory.workspace}" />
+
+        <echo message="Cleanup complete" />
+    </target>
+
+    <!-- ******************************************************************************************** -->
+    <!-- ********************************* AntInstaller Targets ************************************* -->
+    <!-- ******************************************************************************************** -->
+
+    <!-- Initial setup task -->
+    <target name="antinstaller-setup">
+        <!-- AntInstaller properties -->
+        <antinstaller-property name="expected.JAVA_HOME" value="${expected.JAVA_HOME}" />
+        <antinstaller-property name="expected.ANT_OPTS" value="${expected.ANT_OPTS}" />
+        <antinstaller-property name="expected.ANT_HOME" value="${expected.ANT_HOME}" />
+        <antinstaller-property name="expected.IDE_HOME" value="${expected.IDE_HOME}" />
+        <antinstaller-property name="expected.AS_HOME" value="${expected.AS_HOME}" />
+        <antinstaller-property name="expected.NHINC_PROPERTIES_DIR" value="${expected.NHINC_PROPERTIES_DIR}" />
+        <antinstaller-property name="directory.nhin.connect" value="${directory.nhin.connect}" />
+        <antinstaller-property name="directory.nhin.connect.third.party" value="${directory.nhin.connect.third.party}" />
+
+        <!-- Create working directories -->
+        <mkdir dir="${directory.nhin.connect}" />
+        <mkdir dir="${directory.nhin.connect.third.party}" />
+        <mkdir dir="${directory.nhin.connect.third.party.tools}" />
+
+        <!-- Extract helper files -->
+        <unzip src="${antinstaller.jar}" dest="${temporary.directory.workspace}">
+            <patternset>
+                <include name="/resources/bin/*" />
+            </patternset>
+        </unzip>
+    </target>
+
+    <!-- Set the ENV variables -->
+    <target name="antinstaller-set-env" depends="antinstaller-update-path-for-ant-and-java">
+        <!-- User Input -->
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat JAVA_HOME=${actual.JAVA_HOME}" />
+        </exec>
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat IDE_HOME=${actual.IDE_HOME}" />
+        </exec>
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat AS_HOME=${actual.AS_HOME}" />
+        </exec>
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat NHINC_PROPERTIES_DIR=${actual.NHINC_PROPERTIES_DIR}" />
+        </exec>
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat ANT_HOME=${actual.ANT_HOME}" />
+        </exec>
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat ANT_OPTS=${actual.ANT_OPTS}" />
+        </exec>
+
+        <!-- Not Configurable -->
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat NHINC_THIRDPARTY_DIR=${directory.nhin.connect.third.party}" />
+        </exec>
+    </target>
+
+    <!-- Update PATH for ANT and JAVA -->
+    <target name="antinstaller-update-path-for-ant-and-java">
+        <!-- Get existing PATH value -->
+        <if>
+            <!-- If env var is "Path" -->
+            <isset property="env.Path" />
+            <then>
+                <var name="path.contents" value="${env.Path}" />
+            </then>
+
+            <elseif>
+                <!-- Elseif existing var is "PATH" -->
+                <isset property="env.PATH" />
+                <then>
+                    <var name="path.contents" value="${env.PATH}" />
+                </then>
+            </elseif>
+        </if>
+
+        <!-- If path does not contain Ant, add it -->
+        <if>
+            <not>
+                <or>
+                    <contains string="${path.contents}" substring="${expected.PATH.contains.ant}" casesensitive="false" />
+                    <contains string="${path.contents}" substring="${expected.PATH.contains.ant2}" casesensitive="false" />
+                </or>
+            </not>
+            <then>
+                <var name="path.contents" value="${path.contents};${actual.ANT_HOME}\bin" />
+            </then>
+        </if>
+
+        <!-- If PATH does not contain Java, add it -->
+        <if>
+            <not>
+                <contains string="${path.contents}" substring="${expected.PATH.contains.java}" casesensitive="false" />
+            </not>
+            <then>
+                <var name="path.contents" value="${path.contents};${actual.JAVA_HOME}\bin" />
+            </then>
+        </if>
+
+        <!-- Just in case something goes wrong, keep a copy of existing PATH -->
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat PATH_PRE_CONNECT=%PATH%" />
+        </exec>
+        <!-- Update PATH -->
+        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+            <arg line="/c setenv.bat PATH=${path.contents}" />
+        </exec>
+    </target>
+
+    <!-- Update PATH for MySQL -->
+    <target name="antinstaller-set-env-mysql">
+        <!-- If PATH does not contain MySQL, add it -->
+        <if>
+            <not>
+                <contains string="${path.contents}" substring="${expected.PATH.contains.mysql}" casesensitive="false" />
+            </not>
+            <then>
+                <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+                    <arg line="/c setenv.bat PATH=${path.contents};${expected.MYSQL_BIN}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <!-- Launch Browser(s) -->
+    <target name="antinstaller-launch-browser-0">
+        <!-- Java -->
+        <if>
+            <equals arg1="${launch.browser.for.java}" arg2="true" />
+            <then>
+                <exec executable="C:/Program Files/Internet Explorer/iexplore.exe" spawn="true">
+                    <arg value="${url.java}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <!-- Launch Browser(s) -->
+    <target name="antinstaller-launch-browser-1">
+        <!-- NetBeans / GlassFish -->
+        <if>
+            <equals arg1="${launch.browser.for.netbeans.glassfish}" arg2="true" />
+            <then>
+                <exec executable="C:/Program Files/Internet Explorer/iexplore.exe" spawn="true">
+                    <arg value="${url.netbeans.glassfish}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <!-- Launch Browser(s) -->
+    <target name="antinstaller-launch-browser-2">
+        <!-- Metro -->
+        <if>
+            <equals arg1="${launch.browser.for.metro}" arg2="true" />
+            <then>
+                <exec executable="C:/Program Files/Internet Explorer/iexplore.exe" spawn="true">
+                    <arg value="${url.metro}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <!-- Launch Browser(s) -->
+    <target name="antinstaller-launch-browser-3">
+        <!-- MySQL -->
+        <if>
+            <equals arg1="${launch.browser.for.mysql}" arg2="true" />
+            <then>
+                <exec executable="C:/Program Files/Internet Explorer/iexplore.exe" spawn="true">
+                    <arg value="${url.mysql}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <!-- Launch Browser(s) -->
+    <target name="antinstaller-launch-browser-4">
+        <!-- MySQL Tools -->
+        <if>
+            <equals arg1="${launch.browser.for.mysql.tools}" arg2="true" />
+            <then>
+                <exec executable="C:/Program Files/Internet Explorer/iexplore.exe" spawn="true">
+                    <arg value="${url.mysql.tools}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <!-- Launch Browser(s) -->
+    <target name="antinstaller-launch-browser-5">
+        <!-- OID -->
+        <if>
+            <equals arg1="${launch.browser.for.oid}" arg2="true" />
+            <then>
+                <exec executable="C:/Program Files/Internet Explorer/iexplore.exe" spawn="true">
+                    <arg value="${url.oid}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+</project>
