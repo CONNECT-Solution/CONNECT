@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="AdapterPatientDiscoveryAsyncReq" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryAsyncReqBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="AdapterPatientDiscoveryAsyncReq" targetNamespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+<con:soapui-project name="AdapterPatientDiscoveryAsyncReq" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryAsyncReqBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="AdapterPatientDiscoveryAsyncReq" targetNamespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
   <wsdl:documentation>WSDL for Adapter Interface for Patient Discovery Asynchronous Requests</wsdl:documentation>
   <wsdl:types>
     <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3">
@@ -15,12 +15,13 @@
   </wsdl:message>
   <wsdl:portType name="AdapterPatientDiscoveryAsyncReqPortType">
     <wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
-      <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest" message="tns:ProcessPatientDiscoveryAsyncReqRequestMessage"/>
-      <wsdl:output name="ProcessPatientDiscoveryAsyncReqAsyncResponse" message="tns:ProcessPatientDiscoveryAsyncReqResponseMessage"/>
+      <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest" message="tns:ProcessPatientDiscoveryAsyncReqRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest"/>
+      <wsdl:output name="ProcessPatientDiscoveryAsyncReqAsyncResponse" message="tns:ProcessPatientDiscoveryAsyncReqResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncResponse"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="AdapterPatientDiscoveryAsyncReqBindingSoap" type="tns:AdapterPatientDiscoveryAsyncReqPortType">
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsaws:UsingAddressing/>
     <wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
       <soap12:operation soapAction="urn:ProcessPatientDiscoveryAsyncReq"/>
       <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest">
@@ -122,6 +123,21 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_PRPA_IN201305UV02SecuredRequest" type="RespondingGateway_PRPA_IN201305UV02SecuredRequestType"/>
+  <xsd:complexType name="RespondingGateway_PRPA_IN201306UV02RequestType">
+    <xsd:sequence>
+      <xsd:element ref="PRPA_IN201306UV02"/>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_PRPA_IN201306UV02Request" type="RespondingGateway_PRPA_IN201306UV02RequestType"/>
+  <xsd:complexType name="RespondingGateway_PRPA_IN201306UV02SecuredRequestType">
+    <xsd:sequence>
+      <xsd:element ref="PRPA_IN201306UV02"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_PRPA_IN201306UV02SecuredRequest" type="RespondingGateway_PRPA_IN201306UV02SecuredRequestType"/>
   <xsd:complexType name="RespondingGateway_PRPA_IN201306UV02ResponseType">
     <xsd:sequence>
       <xsd:element name="communityResponse" type="Community_PRPA_IN201306UV02ResponseType" maxOccurs="unbounded"/>
@@ -225,6 +241,25 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="PIXConsumer_MCCI_IN000002UV01Request" type="PIXConsumer_MCCI_IN000002UV01RequestType"/>
+  <xsd:complexType name="AsyncAdapterPatientDiscoveryErrorRequestType">
+    <xsd:sequence>
+      <xsd:element ref="PRPA_IN201305UV02"/>
+      <xsd:element ref="PRPA_IN201306UV02"/>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+      <xsd:element name="errorMsg" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AsyncAdapterPatientDiscoveryErrorRequest" type="AsyncAdapterPatientDiscoveryErrorRequestType"/>
+  <xsd:complexType name="AsyncAdapterPatientDiscoveryErrorSecuredRequestType">
+    <xsd:sequence>
+      <xsd:element ref="PRPA_IN201305UV02"/>
+      <xsd:element ref="PRPA_IN201306UV02"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+      <xsd:element name="errorMsg" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AsyncAdapterPatientDiscoveryErrorSecuredRequest" type="AsyncAdapterPatientDiscoveryErrorSecuredRequestType"/>
 </xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
@@ -271,6 +306,7 @@
       <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
       <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
       <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
+      <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -42389,7 +42425,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       </xs:simpleType>
     </xs:attribute>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</con:endpoint><con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqEndpoint}</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ProcessPatientDiscoveryAsyncReq" name="ProcessPatientDiscoveryAsyncReq" bindingOperationName="ProcessPatientDiscoveryAsyncReq" type="Request-Response" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="AdapterPatientDiscoveryTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AdapterPatientDiscoveryTestCase" searchProperties="true" id="98618f34-29fe-4ddd-8e10-07b60b1caf48"><con:settings/><con:testStep type="request" name="AdapterPatientDiscoveryRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryAsyncReqBindingSoap</con:interface><con:operation>ProcessPatientDiscoveryAsyncReq</con:operation><con:request name="AdapterPatientDiscoveryRequest" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqEndpoint}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</con:endpoint><con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqEndpoint}</con:endpoint><con:endpoint>http://localhost/NhinConnect/AdapterPatientDiscoveryAsyncReq</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ProcessPatientDiscoveryAsyncReq" name="ProcessPatientDiscoveryAsyncReq" bindingOperationName="ProcessPatientDiscoveryAsyncReq" type="Request-Response" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="AdapterPatientDiscoveryTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AdapterPatientDiscoveryTestCase" searchProperties="true" id="98618f34-29fe-4ddd-8e10-07b60b1caf48"><con:settings/><con:testStep type="request" name="AdapterPatientDiscoveryRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryAsyncReqBindingSoap</con:interface><con:operation>ProcessPatientDiscoveryAsyncReq</con:operation><con:request name="AdapterPatientDiscoveryRequest" outgoingWss="" incomingWss="" wssPasswordType="" useWsAddressing="true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqEndpoint}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -42675,4 +42711,5 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 </soap:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" name="Verify Receiver"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:receiver[1]/ns1:device[1]/ns1:asAgent[1]/ns1:representedOrganization[1]/ns1:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Verify Sender"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:sender[1]/ns1:device[1]/ns1:asAgent[1]/ns1:representedOrganization[1]/ns1:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Verify Ack Message"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
-//ns1:MCCI_IN000002UV01[1]/ns1:acknowledgement[1]/ns1:acknowledgementDetail[1]/ns1:text[1]/text()</path><content>Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq/AdapterPatientDiscoveryAsyncReqPortType/ProcessPatientDiscoveryAsyncReqAsyncRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>AdapterPatientDiscoveryAsyncReqEndpoint</con:name><con:value>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+//ns1:MCCI_IN000002UV01[1]/ns1:acknowledgement[1]/ns1:acknowledgementDetail[1]/ns1:text[1]/text()</path><content>Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Verify RelatesTo"><con:configuration><path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
+//ns1:RelatesTo[1]/text()</path><content>uuid:1111111111.11111.111.11</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:1111111111.11111.111.11"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>AdapterPatientDiscoveryAsyncReqEndpoint</con:name><con:value>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
