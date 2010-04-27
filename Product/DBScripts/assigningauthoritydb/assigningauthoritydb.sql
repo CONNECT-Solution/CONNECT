@@ -1,4 +1,4 @@
--- MySQL dump 10.11
+:- MySQL dump 10.11
 --
 -- Host: localhost    Database: assigningauthoritydb
 -- ------------------------------------------------------
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `assigningauthoritytohomecommunitymapping`
+-- Table structure for table `aa_to_home_community_mapping`
 --
 
-DROP TABLE IF EXISTS `assigningauthoritytohomecommunitymapping`;
+DROP TABLE IF EXISTS `aa_to_home_community_mapping`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-CREATE TABLE `assigningauthoritytohomecommunitymapping` (
+CREATE TABLE `aa_to_home_community_mapping` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `assigningauthorityid` varchar(45) NOT NULL,
   `homecommunityid` varchar(45) NOT NULL,
@@ -31,13 +31,13 @@ CREATE TABLE `assigningauthoritytohomecommunitymapping` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `assigningauthoritytohomecommunitymapping`
+-- Dumping data for table `aa_to_home_community_mapping`
 --
 
-LOCK TABLES `assigningauthoritytohomecommunitymapping` WRITE;
-/*!40000 ALTER TABLE `assigningauthoritytohomecommunitymapping` DISABLE KEYS */;
-INSERT INTO `assigningauthoritytohomecommunitymapping` VALUES (1,'1.1','1.2.3.4.55.500'),(2,'1.2','1.2.3.4.55.501'),(3,'1.3','2.16.840.1.113883.3.200'),(4,'1.4','2.16.840.1.113883.3.198'),(5,'1.5','2.16.840.1.113883.3.184');
-/*!40000 ALTER TABLE `assigningauthoritytohomecommunitymapping` ENABLE KEYS */;
+LOCK TABLES `aa_to_home_community_mapping` WRITE;
+/*!40000 ALTER TABLE `aa_to_home_community_mapping` DISABLE KEYS */;
+INSERT INTO `aa_to_home_community_mapping` VALUES (1,'1.1','1.2.3.4.55.500'),(2,'1.2','1.2.3.4.55.501'),(3,'1.3','2.16.840.1.113883.3.200'),(4,'1.4','2.16.840.1.113883.3.198'),(5,'1.5','2.16.840.1.113883.3.184');
+/*!40000 ALTER TABLE `aa_to_home_community_mapping` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
