@@ -43,7 +43,7 @@
   	<property name="practiceSetting" column="PracticeSetting" type="string" length="64" not-null="false" />
   	<property name="practiceSettingScheme" column="PracticeSettingScheme" type="string" length="64" not-null="false" />
   	<property name="practiceSettingDisplayName" column="PracticeSettingDisplayName" type="string" length="64" not-null="false" />
-  	<property name="size" column="Size" type="int" not-null="false" />
+  	<property name="size" column="DocumentSize" type="int" not-null="false" />
   	<property name="sourcePatientId" column="SourcePatientId" type="string" length="128" not-null="false" />
   	<property name="pid3" column="Pid3" type="string" length="128" not-null="false" />
   	<property name="pid5" column="Pid5" type="string" length="128" not-null="false" />
