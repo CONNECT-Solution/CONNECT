@@ -209,4 +209,24 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_MCCI_IN000002UV01Request" type="PIXConsumer_MCCI_IN000002UV01RequestType"/>
+
+        <xsd:complexType name="AsyncAdapterPatientDiscoveryErrorRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201305UV02"/>
+                        <xsd:element ref="PRPA_IN201306UV02"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+                        <xsd:element name="errorMsg" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AsyncAdapterPatientDiscoveryErrorRequest" type="AsyncAdapterPatientDiscoveryErrorRequestType"/>
+	<xsd:complexType name="AsyncAdapterPatientDiscoveryErrorSecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201305UV02"/>
+                        <xsd:element ref="PRPA_IN201306UV02"/>
+			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+                        <xsd:element name="errorMsg" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AsyncAdapterPatientDiscoveryErrorSecuredRequest" type="AsyncAdapterPatientDiscoveryErrorSecuredRequestType"/>
 </xsd:schema>

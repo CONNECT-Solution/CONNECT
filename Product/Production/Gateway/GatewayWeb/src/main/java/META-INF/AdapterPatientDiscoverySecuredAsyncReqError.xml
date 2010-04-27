@@ -17,8 +17,10 @@
     </wsdl:message>
     <wsdl:portType name="AdapterPatientDiscoverySecuredAsyncReqErrorPortType">
         <wsdl:operation name="ProcessPatientDiscoveryAsyncReqError">
-            <wsdl:input name="ProcessPatientDiscoveryAsyncReqErrorRequest" message="tns:ProcessPatientDiscoveryAsyncReqErrorRequestMessage"/>
-            <wsdl:output name="ProcessPatientDiscoveryAsyncReqErrorResponse" message="tns:ProcessPatientDiscoveryAsyncReqErrorResponseMessage"/>
+            <wsdl:input name="ProcessPatientDiscoveryAsyncReqErrorRequest" message="tns:ProcessPatientDiscoveryAsyncReqErrorRequestMessage"
+            wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror:ProcessPatientDiscoveryAsyncReqErrorRequest"/>
+            <wsdl:output name="ProcessPatientDiscoveryAsyncReqErrorResponse" message="tns:ProcessPatientDiscoveryAsyncReqErrorResponseMessage"
+            wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror:ProcessPatientDiscoveryAsyncReqErrorResponse"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="AdapterPatientDiscoverySecuredAsyncReqErrorBindingSoap" type="tns:AdapterPatientDiscoverySecuredAsyncReqErrorPortType">

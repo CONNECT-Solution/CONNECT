@@ -4,7 +4,9 @@
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-   xmlns:hl7="urn:hl7-org:v3" 
+   xmlns:hl7="urn:hl7-org:v3"
+   xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    name="AdapterPatientDiscoveryAsyncReq"
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq">
@@ -32,9 +34,11 @@
     <wsdl:portType name="AdapterPatientDiscoveryAsyncReqPortType">
         <wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
             <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest"
-                  message="tns:ProcessPatientDiscoveryAsyncReqRequestMessage"/>
+                  message="tns:ProcessPatientDiscoveryAsyncReqRequestMessage"
+                  wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest"/>
             <wsdl:output name="ProcessPatientDiscoveryAsyncReqAsyncResponse"
-                   message="tns:ProcessPatientDiscoveryAsyncReqResponseMessage"/>
+                   message="tns:ProcessPatientDiscoveryAsyncReqResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -42,6 +46,7 @@
                 type="tns:AdapterPatientDiscoveryAsyncReqPortType">
         <soap12:binding style="document"
                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsaws:UsingAddressing/>
         <wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
             <soap12:operation soapAction="urn:ProcessPatientDiscoveryAsyncReq"/>
             <wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest" >

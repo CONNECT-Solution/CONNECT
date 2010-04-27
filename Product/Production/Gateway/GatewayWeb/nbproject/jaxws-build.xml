@@ -912,6 +912,11 @@
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
+    <target name="wsimport-service-NhinPatientDiscoveryAsyncReq" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured">
@@ -931,6 +936,11 @@
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+    <target name="wsimport-service-NhinPatientDiscoveryAsyncResp" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured">
