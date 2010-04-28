@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import javax.xml.ws.WebServiceContext;
@@ -22,6 +23,13 @@ public class AdapterPatientDiscoverySecuredAsyncReqQueueImpl {
         unsecureRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
         unsecureRequest.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
         unsecureRequest.setAssertion(SamlTokenExtractor.GetAssertion(context));
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (request != null &&
+                unsecureRequest.getAssertion() != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        }
 
         MCCIIN000002UV01 ack = addPatientDiscoveryAsyncReq(unsecureRequest);
 

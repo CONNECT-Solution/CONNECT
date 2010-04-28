@@ -5,8 +5,10 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery.entity.async.request;
 
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -15,9 +17,11 @@ import javax.xml.ws.BindingType;
 @WebService(serviceName = "EntityPatientDiscoveryAsyncReq", portName = "EntityPatientDiscoveryAsyncReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryAsyncReq/EntityPatientDiscoveryAsyncReq.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class EntityPatientDiscoveryAsyncReq {
+    @Resource
+    private WebServiceContext context;
 
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReq(org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType processPatientDiscoveryAsyncReqAsyncRequest) {
-        return new EntityPatientDiscoveryAsyncReqImpl().processPatientDiscoveryAsyncReq(processPatientDiscoveryAsyncReqAsyncRequest);
+        return new EntityPatientDiscoveryAsyncReqImpl().processPatientDiscoveryAsyncReq(processPatientDiscoveryAsyncReqAsyncRequest, context);
     }
 
 }
