@@ -150,8 +150,6 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -162,8 +160,6 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -211,9 +207,7 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
           &DevFailed;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -224,9 +218,7 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
           &DevFailed;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
       <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
@@ -335,10 +327,8 @@
           &ScriptsBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -348,10 +338,8 @@
           &ScriptsBuilding;
           &TestJUnitIntegrationBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -427,9 +415,7 @@
           &ReleaseBuilding;
           &DeployBuilding;
           &DeployFailed;
-          &TestPerformanceBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -440,9 +426,7 @@
           &ReleaseBuilding;
           &DeployBuilding;
           &DeployFailed;
-          &TestPerformanceBuilding;
           &TestValidationBuilding;
-          &TestRegressionBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -540,8 +524,6 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestJUnitIntegrationFailed;
-          &TestRegressionBuilding;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -553,8 +535,6 @@
           &DeployBuilding;
           &TestJUnitIntegrationBuilding;
           &TestJUnitIntegrationFailed;
-          &TestRegressionBuilding;
-          &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -632,320 +612,5 @@
         <buildTimeoutSeconds>300</buildTimeoutSeconds>
       </nant>
     </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Test-Regression">
-    <webURL>&Integration.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger
-          type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Test-Validation"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
-        <projectFilters>
-          &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
-          &TestValidationFailed;
-          &TestPerformanceBuilding;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
-          &TestValidationFailed;
-          &TestPerformanceBuilding;
-        </projectFilters>
-      </projectForceFilter>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Test-Validation</project>
-    </labeller>
-    <tasks>
-      <modificationWriter>
-        <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test-Regression</path>
-      </modificationWriter>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>SoapUI.Regression</target>
-        </targetList>
-
-        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Regression\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Regression\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Regression\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test-Regression">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Regression\SoapUITestReports\*.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Test-Performance">
-    <webURL>&Integration.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger
-          type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Test-Regression"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
-        <projectFilters>
-          &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
-          &TestValidationFailed;
-          &TestRegressionBuilding;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
-          &TestRegressionBuilding;
-        </projectFilters>
-      </projectForceFilter>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Test-Regression</project>
-    </labeller>
-    <tasks>
-      <modificationWriter>
-        <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test-Performance</path>
-      </modificationWriter>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>SoapUI.Performance</target>
-        </targetList>
-
-        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Performance\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Performance\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Performance\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test-Performance">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Performance\SoapUITestReports\*.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Test-Development">
-    <webURL>&Integration.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers/>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
-          &TestPerformanceBuilding;
-          &TestRegressionBuilding;
-        </projectFilters>
-      </projectForceFilter>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
-    </labeller>
-    <tasks>
-      <modificationWriter>
-        <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Test-Development</path>
-      </modificationWriter>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>SoapUI.Dev</target>
-        </targetList>
-
-        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Development\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Development\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Development\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test-Development">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Development\SoapUITestReports\*.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
+  </project>  
 </cruisecontrol>
