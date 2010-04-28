@@ -92,6 +92,10 @@ public class NhincConstants {
     public static final String ASYNC_REQUEST_MSG_TYPE_VAL = "request";
     public static final String ASYNC_RESPONSE_MSG_TYPE_VAL = "request";
 
+    public static final String NS_ADDRESSING_2005 = "http://www.w3.org/2005/08/addressing";
+    public static final String HEADER_MESSAGEID = "MessageID";
+    public static final String HEADER_RELATESTO = "RelatesTo";
+
 
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";

@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.async;
 
 import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.developer.JAXWSProperties;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -20,7 +21,8 @@ public class AsyncMessageIdExtractor {
 
         HeaderList hl = (HeaderList) context.getMessageContext().get(JAXWSProperties.INBOUND_HEADER_LIST_PROPERTY);
 
-        // TODO:  Extract the message id from the NHIN header
+        // Extract the message id from the NHIN header
+        messageId = hl.get(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_MESSAGEID, false).getStringContent();
         
         return messageId;
     }
@@ -30,7 +32,8 @@ public class AsyncMessageIdExtractor {
 
         HeaderList hl = (HeaderList) context.getMessageContext().get(JAXWSProperties.INBOUND_HEADER_LIST_PROPERTY);
 
-        // TODO:  Extract the relates to relates to id from the NHIN header
+        // Extract the relates to relates to id from the NHIN header
+        relatesToId = hl.get(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_RELATESTO, false).getStringContent();
 
         return relatesToId;
     }

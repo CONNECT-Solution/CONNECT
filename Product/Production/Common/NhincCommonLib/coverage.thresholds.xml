@@ -151,7 +151,7 @@
 <threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtfHelper" linecount="9" linerate="0.3333333333333333" linesexecuted="0.03"/>
 <threshold branchcount="28" branchrate="0.17857142857142858" branchsexecuted="0.05" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtility" linecount="80" linerate="0.3" linesexecuted="0.24"/>
 <threshold branchcount="6" branchrate="0.3333333333333333" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.xmlCommon.XpathHelper" linecount="28" linerate="0.42857142857142855" linesexecuted="0.12"/>
-<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageHandler" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageHandler" linecount="36" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdCreator" linecount="11" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="9" linerate="0.0" linesexecuted="0"/>
 </thresholds>
