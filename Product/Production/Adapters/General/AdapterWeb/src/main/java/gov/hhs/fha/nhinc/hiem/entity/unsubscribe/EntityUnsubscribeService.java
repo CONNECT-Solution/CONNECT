@@ -11,7 +11,7 @@ import javax.jws.HandlerChain;
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntityUnsubscribeService/EntitySubscriptionManagement.wsdl")
+@WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
 @HandlerChain(file = "EntityUnsubscribeSoapHeaderHandler.xml")
 public class EntityUnsubscribeService {
 
