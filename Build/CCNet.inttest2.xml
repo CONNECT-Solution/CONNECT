@@ -109,7 +109,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestRegressionBuilding '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
+                serverUri="&Integration2.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test-Regression">
              <exclusionFilters>
                <activities>
@@ -118,7 +118,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestRegressionFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="&Integration2.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test-Regression">
             <exclusionFilters>
               <conditions>
@@ -127,7 +127,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestPerformanceBuilding '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
+                serverUri="&Integration2.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test-Performance">
              <exclusionFilters>
                <activities>
