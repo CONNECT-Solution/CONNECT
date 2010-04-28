@@ -4,6 +4,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.async.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -54,6 +55,13 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         unsecureRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
         unsecureRequest.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
         unsecureRequest.setAssertion(SamlTokenExtractor.GetAssertion(context));
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (request != null &&
+                unsecureRequest.getAssertion() != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        }
 
         // Audit the Patient Discovery Request Message sent on the Entity Interface
         PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
@@ -151,8 +159,8 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         AsyncMsgRecord rec = new AsyncMsgRecord();
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
 
-        // TODO: Replace with message id from the assertion class
-        rec.setMessageId(new java.rmi.server.UID().toString());
+        // Replace with message id from the assertion class
+        rec.setMessageId(request.getAssertion().getAsyncMessageId());
         rec.setCreationTime(new Date());
         rec.setServiceName(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         rec.setMsgData(createBlob(request));

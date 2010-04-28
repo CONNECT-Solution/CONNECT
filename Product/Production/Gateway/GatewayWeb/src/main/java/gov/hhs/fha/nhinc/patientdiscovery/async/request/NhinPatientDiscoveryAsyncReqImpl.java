@@ -4,6 +4,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.async.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -34,6 +35,12 @@ public class NhinPatientDiscoveryAsyncReqImpl {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            assertion.setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        }
 
         // Audit the incoming Nhin 201305 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();

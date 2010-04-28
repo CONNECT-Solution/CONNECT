@@ -912,11 +912,6 @@
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
-    <target name="wsimport-service-NhinPatientDiscoveryAsyncReq" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured">
@@ -931,16 +926,30 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocquerysecured"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
     </target>
+    <target name="wsimport-service-NhinPatientDiscoveryAsyncReq" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscoveryAsyncReq">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncReq/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinPatientDiscoveryAsyncReq" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncReq"/>
+    </target>
     <target name="wsimport-service-EntityDocQuerySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
-    <target name="wsimport-service-NhinPatientDiscoveryAsyncResp" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured">
@@ -954,6 +963,25 @@
     <target name="wsimport-service-clean-EntityDocQuerySecured" depends="-init-project">
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitydocquery"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+    </target>
+    <target name="wsimport-service-NhinPatientDiscoveryAsyncResp" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscoveryAsyncResp">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscoveryAsyncResp/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinPatientDiscoveryAsyncResp" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscoveryAsyncResp"/>
     </target>
     <target name="wsimport-service-AdapterDocQueryService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryService"/>
@@ -1050,5 +1078,5 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxyauditlogquerysecured"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-AdapterDocRetrieveService, wsimport-service-EntityDocRetrieveSecured, wsimport-service-NhincProxyDocRetrieveSecured, wsimport-service-DocRetrieve, wsimport-service-NhincComponentAggregator, wsimport-service-GatewayPolicyEngineFacade, wsimport-service-PolicyEngineTransformationService, wsimport-service-AuditQuery, wsimport-service-EntityNotifySecured, wsimport-service-ProxyHiemNotifySecured, wsimport-service-ProxyHiemSubscribeSecured, wsimport-service-ProxyHiemUnsubscribeSecured, wsimport-service-EntitySubscribeSecuredService, wsimport-service-EntityUnsubscribeSecuredService, wsimport-service-GatewaySubscriptionReferenceRepository, wsimport-service-GatewaySubscriptionRepository, wsimport-service-HiemSubscriptionRepositoryUtilService, wsimport-service-HiemNotify, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-AdapterPatientDiscovery, wsimport-service-AdapterSubjectDiscovery, wsimport-service-EntityPatientDiscoverySecured, wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-EntitySubjectDiscoverySecured, wsimport-service-NhincSubjectDiscoverySecured, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-NhinXDR, wsimport-service-EntityXDRSecured, wsimport-service-NhincProxyXDRSecured, wsimport-service-NhincProxyXDRRequestSecured, wsimport-service-NhincProxyXDRResponseSecured, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse, wsimport-service-AdapterXDRRequest, wsimport-service-AdapterXDRResponse, wsimport-service-EntityXDRRequestSecured, wsimport-service-EntityXDRResponseSecured, wsimport-service-AdapterAsyncReqPatientDiscovery, wsimport-service-AdapterPatientDiscoveryAsyncResp, wsimport-service-AdapterPatientDiscoveryAsyncReqQueue, wsimport-service-EntityPatientDiscoverySecuredAsyncReqQueue, wsimport-service-AdapterPatientDiscoveryAsyncReqError, wsimport-service-EntityPatientDiscoverySecuredAsyncReq, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncReq, wsimport-service-NhincProxyDocQuerySecured, wsimport-service-EntityDocQuerySecured, wsimport-service-AdapterDocQueryService, wsimport-service-AdapterAuditQueryService, wsimport-service-AdapterPolicyEngine, wsimport-service-EntityAuditLogQuery, wsimport-service-NhincAuditQueryProxy"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-AdapterDocRetrieveService, wsimport-service-EntityDocRetrieveSecured, wsimport-service-NhincProxyDocRetrieveSecured, wsimport-service-DocRetrieve, wsimport-service-NhincComponentAggregator, wsimport-service-GatewayPolicyEngineFacade, wsimport-service-PolicyEngineTransformationService, wsimport-service-AuditQuery, wsimport-service-EntityNotifySecured, wsimport-service-ProxyHiemNotifySecured, wsimport-service-ProxyHiemSubscribeSecured, wsimport-service-ProxyHiemUnsubscribeSecured, wsimport-service-EntitySubscribeSecuredService, wsimport-service-EntityUnsubscribeSecuredService, wsimport-service-GatewaySubscriptionReferenceRepository, wsimport-service-GatewaySubscriptionRepository, wsimport-service-HiemSubscriptionRepositoryUtilService, wsimport-service-HiemNotify, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-AdapterPatientDiscovery, wsimport-service-AdapterSubjectDiscovery, wsimport-service-EntityPatientDiscoverySecured, wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-EntitySubjectDiscoverySecured, wsimport-service-NhincSubjectDiscoverySecured, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-NhinXDR, wsimport-service-EntityXDRSecured, wsimport-service-NhincProxyXDRSecured, wsimport-service-NhincProxyXDRRequestSecured, wsimport-service-NhincProxyXDRResponseSecured, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse, wsimport-service-AdapterXDRRequest, wsimport-service-AdapterXDRResponse, wsimport-service-EntityXDRRequestSecured, wsimport-service-EntityXDRResponseSecured, wsimport-service-AdapterAsyncReqPatientDiscovery, wsimport-service-AdapterPatientDiscoveryAsyncResp, wsimport-service-AdapterPatientDiscoveryAsyncReqQueue, wsimport-service-EntityPatientDiscoverySecuredAsyncReqQueue, wsimport-service-AdapterPatientDiscoveryAsyncReqError, wsimport-service-EntityPatientDiscoverySecuredAsyncReq, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncReq, wsimport-service-NhincProxyDocQuerySecured, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-EntityDocQuerySecured, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-AdapterDocQueryService, wsimport-service-AdapterAuditQueryService, wsimport-service-AdapterPolicyEngine, wsimport-service-EntityAuditLogQuery, wsimport-service-NhincAuditQueryProxy"/>
 </project>
