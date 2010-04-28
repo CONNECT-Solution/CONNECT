@@ -28,4 +28,25 @@
       <property name="PatientDiscovery.ExpectedResultCount">0</property>
     </testProperties>
   </test>
+  <test name="DocQuery-NoResults" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">X</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-OneResult" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">N600003</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">1</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-ThreeResults" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
+    </testProperties>
+  </test>
 </tests>
