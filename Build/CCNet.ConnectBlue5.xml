@@ -106,15 +106,7 @@
   <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Blue5">
     <webURL>&ConnectBlue5.Dashboard.Url;</webURL>
     <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger type="scheduleTrigger" time="7:00" buildCondition="ForceBuild" />
-        <projectFilters>
-          &ScriptsBuilding;
-          &IntegrationFailed;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
+    <triggers/>
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
