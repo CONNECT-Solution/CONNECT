@@ -44,7 +44,12 @@
   -->
 
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
-  
+  <propertyregex property="deploy.glassfish.domain.template"
+      input="${deployment.domain.template.file.path}"
+      regexp="\\"
+      replace="/"
+      casesensitive="false" />
+
   <target name="deploy.create.glassfish.password.file" unless="deploy.glassfish.password.file.path">
     <echo message="in deploy.create.glassfish.password.file"/>
     <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
@@ -246,9 +251,9 @@
       <try>
         <runtarget target="deploy.glassfish.stop.server"/>
         <sun-appserv-admin 
-          explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
-          asinstalldir="${glassfish.home}"
-          />
+            explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
+            asinstalldir="${glassfish.home}"
+            />
       </try>
       <catch>
         <echo message="${error}"/>
@@ -261,51 +266,23 @@
 
   <target name="create.glassfish.domain" depends="deploy.create.glassfish.password.file">
     <sun-appserv-admin 
-        explicitcommand='create-domain --profile developer --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
+        explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
         asinstalldir="${glassfish.home}"
         />
-  </target>
-
-  <target name="configure.glassfish.domain" depends="deploy.create.glassfish.password.file">
-    <runtarget target="deploy.glassfish.start.server"/>
-
-    <propertycopy  name="deployment.glassfish.domain.delete.jvm.options" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.delete.jvm.options"/>
-    <sun-appserv-admin
-        command='delete-jvm-options --target server ${deployment.glassfish.domain.delete.jvm.options}'
-        user="${deployment.glassfish.server.username}"
-        passwordfile="${deploy.glassfish.password.file.path}"
-        host="${deployment.glassfish.server}"
-        port="${deployment.glassfish.admin.port}"
-        asinstalldir="${glassfish.home}"
-        />
-
-    <propertycopy  name="deployment.glassfish.domain.create.jvm.options" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.create.jvm.options"/>
-    <sun-appserv-admin
-        command='create-jvm-options --target server ${deployment.glassfish.domain.create.jvm.options}'
-        user="${deployment.glassfish.server.username}"
-        passwordfile="${deploy.glassfish.password.file.path}"
-        host="${deployment.glassfish.server}"
-        port="${deployment.glassfish.admin.port}"
-        asinstalldir="${glassfish.home}"
-        />
-
-    <runtarget target="deploy.glassfish.stop.server"/>
-
-    <runtarget target="glassfish.install.domain.certificates"/>
   </target>
 
   <target name="backup.glassfish.domain">
-    <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true">
+    <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true"  failonerror="false">
       <filelist dir="${deployment.glassfish.domain.config.home}">
         <file name="log4j.properties"/>
         <file name="mpi.xml"/>
       </filelist>
-    </copy>
+    </copy>    
     <copy todir="${deployment.certificate.home}" verbose="true" overwrite="true">
-      <fileset dir="${deployment.glassfish.domain.config.home}">
+      <fileset dir="${deployment.glassfish.domain.config.home}" erroronmissingdir="false">
         <include name="*.jks"/>
       </fileset>
-    </copy>
+    </copy>    
   </target>
 
   <target name="restore.glassfish.domain">
@@ -335,11 +312,6 @@
         <include name="*.jks"/>
       </fileset>
     </copy>
-
-    <propertycopy name="deployment.glassfish.domain.keystore.alias" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.keystore.alias"/>
-    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
-      <replace path="//*[@*='s1as']/@value | //*[@*='s1as']/@cert-nickname" withText="${deployment.glassfish.domain.keystore.alias}"/> 
-    </xmltask> 
   </target>
 
   <target name="recreate.glassfish.domain">
@@ -347,7 +319,7 @@
     <runtarget target="delete.glassfish.domain"/>
     <runtarget target="create.glassfish.domain"/>
     <runtarget target="restore.glassfish.domain"/>
-    <runtarget target="configure.glassfish.domain"/>
+    <runtarget target="glassfish.install.domain.certificates"/>
   </target>
 
 </project>
