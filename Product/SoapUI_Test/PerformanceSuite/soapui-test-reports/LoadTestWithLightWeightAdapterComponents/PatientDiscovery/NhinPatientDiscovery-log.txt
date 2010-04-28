@@ -1,3 +1,0 @@
-time,type,step,message
-2010-04-27 21:15:29,Message,,"LoadTest started at Tue Apr 27 21:15:29 EDT 2010"
-2010-04-27 21:15:34,Message,,"LoadTest ended at Tue Apr 27 21:15:34 EDT 2010"

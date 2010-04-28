@@ -1,3 +1,0 @@
-Test Step,min,max,avg,last,cnt,tps,bytes,bps,err,rat
-Patient Discovery,3758,3758,3758.0,3758,1,0.26,2972,785,0,0
-TestCase:,3758,3758,3758.0,3758,1,0.26,2972,785,0,0
