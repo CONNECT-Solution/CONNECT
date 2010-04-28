@@ -82,7 +82,11 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncReqQueue.wsdl" uri="wsdl/EntityPatientDiscoverySecuredAsyncReqQueue.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncReq.wsdl" uri="wsdl/EntityPatientDiscoverySecuredAsyncReq.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl" uri="wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscovery.wsdl" uri="wsdl/EntityPatientDiscovery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl" uri="wsdl/EntityPatientDiscoverySecured.wsdl"/>
 </catalog>
+
+
 
 
 

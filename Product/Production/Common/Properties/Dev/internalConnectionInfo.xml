@@ -324,7 +324,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecuredasyncreqqueue</name>
@@ -954,7 +954,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecuredasyncreqqueue</name>
@@ -1524,7 +1524,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecuredasyncreqqueue</name>

@@ -272,7 +272,7 @@
 		<servlet-name>EntityPatientDiscoverySecured</servlet-name>
 		<url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
 	</servlet-mapping>
-        <servlet>
+    <servlet>
 		<servlet-name>EntityPatientDiscoverySecuredAsyncReqQueue</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoverySecuredAsyncReqQueue</servlet-class>
 	</servlet>

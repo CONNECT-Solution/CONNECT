@@ -54,6 +54,7 @@
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />
     <dependency org="junit" name="junit" rev="4.7" conf="test->default" />
     <dependency org="org.jmock" name="jmock-legacy" rev="2.5.1" conf="test->default" />
+    <dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="test->default" />
     
     <!-- global excludes -->
     

@@ -43,11 +43,12 @@ public class TrustMode implements ResponseMode{
 
 
          PRPAIN201306UV02 response = params.response;
-         WebServiceContext context = params.context;
+//         WebServiceContext context = params.context;
+         AssertionType assertion = params.assertion;
          PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
          // Create an assertion class from the contents of the SAML token
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+//        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         PRPAIN201301UV02 requestPatient = null;
 
         AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();

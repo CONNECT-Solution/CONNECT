@@ -533,9 +533,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincGatewayLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.hibernate3.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.hibernate3.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincGatewayLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincGatewayLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.hibernate3.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -546,6 +547,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincGatewayLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.hibernate3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

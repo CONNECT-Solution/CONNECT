@@ -52,13 +52,14 @@ public class VerifyMode implements ResponseMode{
     {
         log.debug("begin processResponse");
         PRPAIN201306UV02 response = params.response;
-        WebServiceContext context = params.context;
+//        WebServiceContext context = params.context;
+        AssertionType assertion = params.assertion;
         PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
         PRPAIN201306UV02 result = response;
 
         // Create an assertion class from the contents of the SAML token
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+//        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         if(patientExistsLocally(requestMsg, assertion, response))
         {
