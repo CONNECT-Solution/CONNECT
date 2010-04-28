@@ -323,15 +323,6 @@
         <servlet-name>ProxyHiemUnsubscribe</servlet-name>
         <url-pattern>/NhincProxySubscriptionManager</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>EntityPatientDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityPatientDiscovery</servlet-name>
-        <url-pattern>/EntityPatientDiscovery</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>EntityPatientDiscoveryAsyncReqQueue</servlet-name>
