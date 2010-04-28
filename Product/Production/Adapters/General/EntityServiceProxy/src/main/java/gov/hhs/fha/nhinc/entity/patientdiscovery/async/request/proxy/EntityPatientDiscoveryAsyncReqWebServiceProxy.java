@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.proxy;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -13,8 +14,10 @@ import gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncreq.EntityPatientDisc
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -26,6 +29,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
  * @author jhoppesc
  */
 public class EntityPatientDiscoveryAsyncReqWebServiceProxy implements EntityPatientDiscoveryAsyncReqProxy {
+
     private static Log log = LogFactory.getLog(EntityPatientDiscoveryAsyncReqWebServiceProxy.class);
     private static EntityPatientDiscoverySecuredAsyncReq service = new EntityPatientDiscoverySecuredAsyncReq();
 
@@ -39,17 +43,17 @@ public class EntityPatientDiscoveryAsyncReqWebServiceProxy implements EntityPati
         // Get the URL to the Entity Patient Discovery Async Req Queue
         String url = getUrl();
 
-        if (NullChecker.isNotNullish(url) && (request != null))
-        {
+        if (NullChecker.isNotNullish(url) && (request != null)) {
             EntityPatientDiscoverySecuredAsyncReqPortType port = getPort(url, request.getAssertion());
+
+
             response = port.processPatientDiscoveryAsyncReq(securedRequest);
         }
 
         return response;
     }
 
-    private EntityPatientDiscoverySecuredAsyncReqPortType getPort(String url, AssertionType assertion)
-    {
+    private EntityPatientDiscoverySecuredAsyncReqPortType getPort(String url, AssertionType assertion) {
         EntityPatientDiscoverySecuredAsyncReqPortType port = service.getEntityPatientDiscoverySecuredAsyncReqPortSoap();
 
         log.info("Setting endpoint address to Entity Patient Discovery Async Request Secured Service to " + url);
@@ -61,22 +65,27 @@ public class EntityPatientDiscoveryAsyncReqWebServiceProxy implements EntityPati
         Map requestContext = ((BindingProvider) port).getRequestContext();
         requestContext.putAll(samlMap);
 
+        ArrayList<Handler> handlerSetUp = new ArrayList<Handler>();
+        AsyncMessageHandler msgHandler = new AsyncMessageHandler();
+        handlerSetUp.add(msgHandler);
+        ((javax.xml.ws.BindingProvider) port).getBinding().setHandlerChain(handlerSetUp);
+
+        AsyncMessageIdCreator msgIdCreator = new AsyncMessageIdCreator();
+        requestContext.putAll(msgIdCreator.CreateRequestContextForMessageId(assertion));
+
         return port;
     }
 
     private String getUrl() {
         String url = null;
 
-        try
-        {
+        try {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME);
-        } catch (ConnectionManagerException ex)
-        {
+        } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
 
         return url;
     }
-
 }
