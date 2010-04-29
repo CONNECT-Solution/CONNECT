@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -14,8 +15,10 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredRespService;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -42,6 +45,14 @@ public class NhinPatientDiscoveryAsyncRespWebServiceProxy implements NhinPatient
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PATIENT_DISCOVERY_ACTION);
+
+            ArrayList<Handler> handlerSetUp = new ArrayList<Handler>();
+            AsyncMessageHandler msgHandler = new AsyncMessageHandler();
+            handlerSetUp.add(msgHandler);
+            ((javax.xml.ws.BindingProvider) port).getBinding().setHandlerChain(handlerSetUp);
+
+            AsyncMessageIdCreator msgIdCreator = new AsyncMessageIdCreator();
+            requestContext.putAll(msgIdCreator.CreateRequestContextForRelatesTo(assertion));
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
@@ -79,5 +90,4 @@ public class NhinPatientDiscoveryAsyncRespWebServiceProxy implements NhinPatient
 
         return url;
     }
-
 }
