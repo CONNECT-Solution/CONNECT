@@ -48,7 +48,7 @@ public class NhinPatientDiscoveryAsyncReqImpl {
 
         resp = respondingGatewayPRPAIN201305UV02(request, assertion);
 
-        // Audit the responding 201306 Message
+        // Audit the responding ack Message
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         return resp;

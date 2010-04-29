@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxy;
@@ -26,6 +27,13 @@ public class NhincProxyPatientDiscoverySecuredAsyncRespImpl {
         unsecureRequest.setNhinTargetSystem(request.getNhinTargetSystem());
         unsecureRequest.setPRPAIN201306UV02(request.getPRPAIN201306UV02());
         unsecureRequest.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (request != null &&
+                unsecureRequest.getAssertion() != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+        }
 
         MCCIIN000002UV01 ack = proxyProcessPatientDiscoveryAsyncResp(unsecureRequest);
 
