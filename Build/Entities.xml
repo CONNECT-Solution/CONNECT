@@ -52,6 +52,10 @@
 <!ENTITY Integration.Server.Rest.Url           'http://&Integration.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY Integration.Dashboard.Url             'http://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
 
+<!ENTITY Integration2.Server.Remoting.Url       'tcp://&Integration2.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY Integration2.Server.Rest.Url           'http://&Integration2.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY Integration2.Dashboard.Url             'http://&Integration2.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
 <!ENTITY ConnectBlue30.Server.Remoting.Url      'tcp://&ConnectBlue30.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY ConnectBlue30.Server.Rest.Url          'http://&ConnectBlue30.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY ConnectBlue30.Dashboard.Url            'http://&ConnectBlue30.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
