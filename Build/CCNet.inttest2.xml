@@ -19,7 +19,7 @@
         </groups>
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="&Integration2.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
             <exclusionFilters>
               <activities>
@@ -140,7 +140,7 @@
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&Integration2.Server.Rest.Url;">
   <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&Integration2.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -278,13 +278,13 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Test-Regression">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&Integration2.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger
           type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
+          serverUri="&Integration2.Server.Remoting.Url;"
           project="&ProjectName;-&ProjectCodeLineName;-Deploy"
         >
           <triggerStatus>Success</triggerStatus>
@@ -384,13 +384,13 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Test-Performance">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&Integration2.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger
           type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
+          serverUri="&Integration2.Server.Remoting.Url;"
           project="&ProjectName;-&ProjectCodeLineName;-Test-Regression"
         >
           <triggerStatus>Success</triggerStatus>
@@ -490,7 +490,7 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Test-Development">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&Integration2.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers/>
     <forceFilters>

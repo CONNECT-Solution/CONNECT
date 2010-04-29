@@ -79,6 +79,7 @@
   <strings id="CCNet.Project.Files">
     <string value="CCNet.build.xml"/>
     <string value="CCNet.inttest1.xml"/>
+    <string value="CCNet.inttest2.xml"/>
     <string value="CCNet.ConnectBlue30.xml"/>
     <string value="CCNet.ConnectRed30.xml"/>
   </strings>
