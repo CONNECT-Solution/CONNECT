@@ -88,7 +88,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.filters.documentfilter.MultipleSlotValuesFoundException" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.audit.AuditData" linecount="16" linerate="0.375" linesexecuted="0.06"/>
 <threshold branchcount="94" branchrate="0.5531914893617021" branchsexecuted="0.52" class="gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper" linecount="140" linerate="0.8785714285714286" linesexecuted="1.23"/>
-<threshold branchcount="96" branchrate="0.5" branchsexecuted="0.48" class="gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms" linecount="116" linerate="0.9051724137931034" linesexecuted="1.05"/>
+<threshold branchcount="100" branchrate="0.0368" branchsexecuted="3.68" class="gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms" linecount="116" linerate="0.9051724137931034" linesexecuted="1.05"/>
 <threshold branchcount="48" branchrate="0.5" branchsexecuted="0.24" class="gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms" linecount="103" linerate="0.912621359223301" linesexecuted="0.94"/>
 <threshold branchcount="36" branchrate="0.5" branchsexecuted="0.18" class="gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms" linecount="61" linerate="0.9344262295081968" linesexecuted="0.57"/>
 <threshold branchcount="44" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.audit.NotifyTransforms" linecount="85" linerate="0.0" linesexecuted="0"/>
@@ -151,7 +151,7 @@
 <threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtfHelper" linecount="9" linerate="0.3333333333333333" linesexecuted="0.03"/>
 <threshold branchcount="28" branchrate="0.17857142857142858" branchsexecuted="0.05" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtility" linecount="80" linerate="0.3" linesexecuted="0.24"/>
 <threshold branchcount="6" branchrate="0.3333333333333333" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.xmlCommon.XpathHelper" linecount="28" linerate="0.42857142857142855" linesexecuted="0.12"/>
-<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageHandler" linecount="36" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageHandler" linecount="41" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdCreator" linecount="11" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="9" linerate="0.0" linesexecuted="0"/>
 </thresholds>
