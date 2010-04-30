@@ -20140,7 +20140,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 //ns11:RegistryResponse[1]/ns11:RegistryErrorList[1]/ns11:RegistryError[1]/@errorCode</path><content>CONNECTPolicyCheckFailed</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Policy Engine Mock">
 				<con:settings/>
 				<con:config xsi:type="con:MockResponseStep" startStep="EntiityRequestMsg - XDR" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterPolicyEngineBindingSoap11</con:interface>
+					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPE</con:path>
 					<con:port>11231</con:port>
@@ -21989,7 +21989,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Policy Engine Mock">
 				<con:settings/>
 				<con:config xsi:type="con:MockResponseStep" startStep="EntiityRequestMsg - XDR" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterPolicyEngineBindingSoap11</con:interface>
+					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPE</con:path>
 					<con:port>11231</con:port>
