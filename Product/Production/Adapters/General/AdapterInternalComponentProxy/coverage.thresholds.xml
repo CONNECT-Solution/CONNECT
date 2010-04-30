@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <thresholds>
-<threshold branchcount="48" branchrate="0.6875" branchsexecuted="0.33" class="gov.hhs.fha.nhinc.adapter.reidentification.PseudonymMapManager" linecount="96" linerate="0.8541666666666666" linesexecuted="0.82"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMaps" linecount="5" linerate="0.6" linesexecuted="0.03"/>
-<threshold branchcount="4" branchrate="0.75" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMapsXML" linecount="13" linerate="0.9230769230769231" linesexecuted="0.12"/>
+<threshold branchcount="48" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.reidentification.PseudonymMapManager" linecount="96" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMaps" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMapsXML" linecount="13" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationException" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationImpl" linecount="54" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationJavaProxy" linecount="11" linerate="0.0" linesexecuted="0"/>
@@ -58,4 +58,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.proxy.AdapterPolicyEngineOrchestratorPermitNoOpImpl" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.proxy.AdapterPolicyEngineOrchestratorProxyObjectFactory" linecount="9" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.proxy.AdapterPolicyEngineOrchestratorWebServiceProxy" linecount="30" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMap" linecount="19" linerate="0.0" linesexecuted="0"/>
 </thresholds>
