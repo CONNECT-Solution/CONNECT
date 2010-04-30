@@ -46,6 +46,8 @@
 	<dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="compile->default" transitive="false" />
     <dependency org="log4j"               name="log4j"                          rev="1.2.15"              conf="compile->default" transitive="false" />	
     <dependency org="mysql" name="mysql-connector-java" rev="5.1.10"/>
+    <dependency org="Oracle"               name="ojdbc14-10g_xe" rev="1.0" conf="runtime->default" transitive="false" />
+
 
     
     <!-- jars for test only -->
