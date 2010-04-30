@@ -285,7 +285,7 @@
         <trigger
           type="projectTrigger"
           serverUri="&Integration2.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Deploy"
+          project="&ProjectName;-&ProjectCodeLineName;-Deploy-Test2"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
