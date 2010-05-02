@@ -2,20 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
  * @author JHOPPESC
  */
 public class NhinPatientDiscoveryUtils {
+
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryUtils.class);
 
     /**
@@ -51,4 +54,26 @@ public class NhinPatientDiscoveryUtils {
         return passThroughModeEnabled;
     }
 
+    public static II extractPatientIdFrom201306(PRPAIN201306UV02 msg) {
+        II id = new II();
+
+        if (msg != null &&
+                msg.getControlActProcess() != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject()) &&
+                msg.getControlActProcess().getSubject().get(0) != null &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+            id.setExtension(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
+            id.setRoot(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
+        } else {
+            id = null;
+        }
+
+        return id;
+    }
 }

@@ -7,11 +7,27 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.async.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncRespImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import javax.xml.ws.WebServiceContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 
@@ -20,6 +36,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
  * @author JHOPPESC
  */
 public class EntityPatientDiscoverySecuredAsyncRespImpl {
+    private static Log log = LogFactory.getLog(EntityPatientDiscoverySecuredAsyncRespImpl.class);
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02SecuredRequestType request, WebServiceContext context) {
         RespondingGatewayPRPAIN201306UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201306UV02RequestType();
@@ -48,6 +65,78 @@ public class EntityPatientDiscoverySecuredAsyncRespImpl {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType request) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        CMUrlInfos urlInfoList = null;
+        PatientDiscovery201306Processor pd201306Processor = new PatientDiscovery201306Processor();
+
+        if (request != null &&
+                request.getPRPAIN201306UV02() != null &&
+                request.getAssertion() != null) {
+            urlInfoList = getTargets(request.getNhinTargetCommunities());
+
+            //loop through the communities and send request if results were not null
+            if (urlInfoList != null &&
+                    urlInfoList.getUrlInfo() != null) {
+                for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+
+                    //create a new request to send out to each target community
+                    RespondingGatewayPRPAIN201306UV02RequestType newRequest = new RespondingGatewayPRPAIN201306UV02RequestType();
+                    PRPAIN201306UV02 new201306 = pd201306Processor.createNewRequest(request.getPRPAIN201306UV02(), urlInfo.getHcid());
+
+                    newRequest.setAssertion(request.getAssertion());
+                    newRequest.setPRPAIN201306UV02(new201306);
+                    newRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
+
+                    //check the policy for the outgoing request to the target community
+                    boolean bIsPolicyOk = checkPolicy(newRequest);
+
+                    if (bIsPolicyOk) {
+                        ack = sendToProxy(newRequest, urlInfo);
+                    } else {
+                        ack = HL7AckTransforms.createAckFrom201306(request.getPRPAIN201306UV02(), "Policy Failed");
+                    }
+                }
+            } else {
+                log.warn("No targets were found for the Patient Discovery Response");
+                ack = HL7AckTransforms.createAckFrom201306(request.getPRPAIN201306UV02(), "No Targets Found");
+            }
+        }
+
+        return ack;
+    }
+
+    protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities) {
+        CMUrlInfos urlInfoList = null;
+
+        // Obtain all the URLs for the targets being sent to
+        try {
+            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+            return null;
+        }
+
+        return urlInfoList;
+    }
+
+    protected boolean checkPolicy(RespondingGatewayPRPAIN201306UV02RequestType request) {
+        II patientId = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(request.getPRPAIN201306UV02());
+        return new PatientDiscoveryPolicyChecker().check201305Policy(request.getPRPAIN201306UV02(), patientId, request.getAssertion());
+    }
+
+    protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201306UV02RequestType request, CMUrlInfo urlInfo) {
+        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        NhincProxyPatientDiscoverySecuredAsyncRespImpl proxy = new NhincProxyPatientDiscoverySecuredAsyncRespImpl();
+
+        NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
+        oTargetSystemType.setUrl(urlInfo.getUrl());
+
+        //format request for nhincProxyPatientDiscoveryImpl call
+        ProxyPRPAIN201306UVProxyRequestType proxyReq = new ProxyPRPAIN201306UVProxyRequestType();
+        proxyReq.setPRPAIN201306UV02(request.getPRPAIN201306UV02());
+        proxyReq.setAssertion(request.getAssertion());
+        proxyReq.setNhinTargetSystem(oTargetSystemType);
+
+        ack = proxy.proxyProcessPatientDiscoveryAsyncResp(proxyReq);
 
         return ack;
     }

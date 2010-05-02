@@ -54,7 +54,7 @@ public class PatientDiscovery201305Processor {
         // Check to see if the Patient was found
         if (response != null &&
                 response.getControlActProcess() != null) {
-            II patIdOverride = new II();
+            II patIdOverride = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(response);
 
             if (NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
                     response.getControlActProcess().getSubject().get(0) != null &&
