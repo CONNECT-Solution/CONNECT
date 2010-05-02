@@ -12,6 +12,7 @@ import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
 import org.hl7.v3.MCCIMT000200UV01AcknowledgementDetail;
 import org.hl7.v3.MCCIMT000200UV01TargetMessage;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.junit.After;
@@ -49,26 +50,52 @@ public class HL7AckTransformsTest {
     /**
      * Test of createAckFrom201305 method, of class HL7AckTransforms.
      */
-    // This cannot be enabled until the HL7 Sender/Receiver bug is fixed
-//    @Test
-//    public void testCreateAckFrom201305() {
-//        System.out.println("createAckFrom201305");
-//
-//        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
-//        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
-//        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", null);
-//        String ackMsgText = "Success";
-//
-//        II origMsgId = request.getId();
-//
-//        MCCIIN000002UV01 result = HL7AckTransforms.createAckFrom201305(request, ackMsgText);
-//
-//        assertNotNull(result);
-//        TestHelper.assertReceiverIdEquals("1.1", result);
-//        TestHelper.assertSenderIdEquals("2.2", result);
-//        TestHelper.assertAckMsgEquals(ackMsgText, result);
-//        TestHelper.assertAckMsgIdEquals(origMsgId, result);
-//    }
+    @Test
+    public void testCreateAckFrom201305() {
+        System.out.println("testCreateAckFrom201305");
+
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
+        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", null);
+        String ackMsgText = "Success";
+
+        II origMsgId = request.getId();
+
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckFrom201305(request, ackMsgText);
+
+        assertNotNull(result);
+        TestHelper.assertReceiverIdEquals("1.1", result);
+        TestHelper.assertSenderIdEquals("2.2", result);
+        TestHelper.assertAckMsgEquals(ackMsgText, result);
+        TestHelper.assertAckMsgIdEquals(origMsgId, result);
+    }
+
+    /**
+     * Test of createAckFrom201305 method, of class HL7AckTransforms.
+     */
+    @Test
+    public void testCreateAckFrom201306() {
+        System.out.println("testCreateAckFrom201306");
+
+        JAXBElement<PRPAMT201301UV02Person> queryPerson = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        PRPAMT201301UV02Patient queryPatient = HL7PatientTransforms.create201301Patient(queryPerson, "1234", "1.1.1");
+        PRPAIN201305UV02 query = HL7PRPA201305Transforms.createPRPA201305(queryPatient, "1.1", "2.2", "1.1.1");
+
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, null, null);
+        PRPAIN201306UV02 request = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", query);
+        String ackMsgText = "Success";
+
+        II origMsgId = request.getId();
+
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckFrom201306(request, ackMsgText);
+
+        assertNotNull(result);
+        TestHelper.assertReceiverIdEquals("2.2", result);
+        TestHelper.assertSenderIdEquals("1.1", result);
+        TestHelper.assertAckMsgEquals(ackMsgText, result);
+        TestHelper.assertAckMsgIdEquals(origMsgId, result);
+    }
 
     /**
      * Test of createAckMessage method, of class HL7AckTransforms.

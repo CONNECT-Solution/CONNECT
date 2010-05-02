@@ -107,7 +107,7 @@ public class HL7ReceiverTransforms {
         return receiver;
     }
 
-    static MCCIMT000300UV01Receiver createMCCIMT000300UV01Receiver(String OID) {
+    public static MCCIMT000300UV01Receiver createMCCIMT000300UV01Receiver(String OID) {
         MCCIMT000300UV01Receiver receiver = new MCCIMT000300UV01Receiver();
 
         // Check the input parameter

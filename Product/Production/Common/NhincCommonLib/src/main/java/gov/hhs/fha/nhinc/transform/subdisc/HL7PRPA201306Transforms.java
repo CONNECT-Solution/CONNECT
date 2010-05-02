@@ -209,9 +209,13 @@ public class HL7PRPA201306Transforms {
 
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV", HL7Constants.INTERACTION_ID_ROOT));
 
-        if (patient != null) {
+        if (patient != null &&
+                NullChecker.isNotNullish(patient.getId()) &&
+                patient.getId().get(0) != null &&
+                NullChecker.isNotNullish(patient.getId().get(0).getExtension()) &&
+                NullChecker.isNotNullish(patient.getId().get(0).getRoot())) {
             log.debug("Add the Subject");
-           controlActProcess.getSubject().add(createSubject(patient, query, localDeviceId, aaId, orgId));
+           controlActProcess.getSubject().add(createSubject(patient, query, patient.getId().get(0).getExtension(), patient.getId().get(0).getRoot(), orgId));
         }
 
         log.debug("Add the Query Ack");

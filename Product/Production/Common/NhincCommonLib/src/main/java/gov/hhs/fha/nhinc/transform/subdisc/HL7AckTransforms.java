@@ -63,6 +63,52 @@ public class HL7AckTransforms {
         return ack;
     }
 
+    public static MCCIIN000002UV01 createAckFrom201306(PRPAIN201306UV02 request, String ackMsgText) {
+        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        II msgId = new II();
+        String senderOID = null;
+        String receiverOID = null;
+
+        if (request != null) {
+            // Extract the message id
+            if (request.getId() != null) {
+                msgId = request.getId();
+            }
+
+            // Set the sender OID to the receiver OID from the original message
+            if (NullChecker.isNotNullish(request.getReceiver()) &&
+                    request.getReceiver().get(0) != null &&
+                    request.getReceiver().get(0).getDevice() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            }
+
+            // Set the receiver OID to the sender OID from the original message
+            if (request.getSender() != null &&
+                    request.getSender().getDevice() != null &&
+                    request.getSender().getDevice().getAsAgent() != null &&
+                    request.getSender().getDevice().getAsAgent().getValue() != null &&
+                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            }
+
+            // Create the ack message
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ackMsgText, senderOID, receiverOID);
+        }
+
+        return ack;
+    }
+
     public static MCCIIN000002UV01 createAckMessage(String localDeviceId, II origMsgId, String msgText, String senderOID, String receiverOID) {
         MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
 
