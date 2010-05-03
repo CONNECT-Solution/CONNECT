@@ -71,43 +71,7 @@
                 <condition>Failure</condition>
               </conditions>
             </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY TestJUnitIntegrationBuilding '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Test-JUnit-Integration">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY TestJUnitIntegrationFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Test-JUnit-Integration">
-            <exclusionFilters>
-              <conditions>
-                <condition>Failure</condition>
-              </conditions>
-            </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY TestValidationBuilding '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Test-Validation">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY TestValidationFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Test-Validation">
-            <exclusionFilters>
-              <conditions>
-                <condition>Failure</condition>
-              </conditions>
-            </exclusionFilters>
-          </projectFilter>'>
+          </projectFilter>'>  
   <!ENTITY TestRegressionBuilding '<projectFilter
                 serverUri="&Integration2.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test-Regression">
