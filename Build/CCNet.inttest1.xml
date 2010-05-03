@@ -309,7 +309,16 @@
         </blocked>
       </forcedIntegrationFilter>
     </integrationFilter>
-    <sourcecontrol type="nullSourceControl" />
+    <sourcecontrol type="filtered">
+      <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <webUrlBuilder type="websvn">
+          <url>&Subversion.Repo.Url;{0}</url>
+        </webUrlBuilder>
+      </sourceControlProvider>
+    </sourcecontrol>
     <labeller type="stateFileLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
     </labeller>
