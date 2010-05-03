@@ -54,7 +54,7 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY DeployBuilding '<projectFilter
+  <!ENTITY RegressionTestBuilding '<projectFilter
                 serverUri="&Integration2.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Regression-Test">
              <exclusionFilters>
@@ -63,7 +63,7 @@
                </activities>
              </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY DeployFailed '<projectFilter
+  <!ENTITY RegressionTestFailed '<projectFilter
                serverUri="&Integration2.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Regression-Test">
             <exclusionFilters>
@@ -110,8 +110,7 @@
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &ReleaseBuilding;
-          &DeployBuilding;
+          &RegressionTestBuilding;
           &TestRegressionBuilding;
           &TestPerformanceBuilding;
         </projectFilters>
@@ -120,8 +119,7 @@
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
-          &ReleaseBuilding;
-          &DeployBuilding;
+          &RegressionTestBuilding;
           &TestRegressionBuilding;
           &TestPerformanceBuilding;
         </projectFilters>
@@ -169,8 +167,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &TestRegressionBuilding;
-          &ReleaseBuilding;
-          &ReleaseFailed;
           &TestPerformanceBuilding;
         </projectFilters>
       </projectTriggerFilter>
@@ -180,8 +176,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &TestRegressionBuilding;
-          &ReleaseBuilding;
-          &ReleaseFailed;
           &TestPerformanceBuilding;
         </projectFilters>
       </projectForceFilter>
@@ -256,8 +250,7 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
+          &RegressionTestBuilding;
           &TestRegressionBuilding;
         </projectFilters>
       </projectTriggerFilter>
@@ -266,8 +259,7 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
+          &RegressionTestBuilding;
           &TestRegressionBuilding;
         </projectFilters>
       </projectForceFilter>
@@ -355,8 +347,7 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
+          &RegressionTestBuilding;
           &TestPerformanceBuilding;
           &TestRegressionBuilding;
         </projectFilters>

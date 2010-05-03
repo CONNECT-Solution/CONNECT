@@ -54,7 +54,7 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY DeployBuilding '<projectFilter
+  <!ENTITY ValidationTestBuilding '<projectFilter
                 serverUri="&Integration.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Validation-Test">
              <exclusionFilters>
@@ -63,7 +63,7 @@
                </activities>
              </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY DeployFailed '<projectFilter
+  <!ENTITY ValidationTestFailed '<projectFilter
                serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Validation-Test">
             <exclusionFilters>
@@ -111,9 +111,7 @@
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
           &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
+          &ValidationTestBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -121,9 +119,7 @@
       <projectForceFilter>
         <projectFilters>
           &ReleaseBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
+          &ValidationTestBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -168,9 +164,7 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
+          &ValidationTestBuilding;
           &DevFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -179,9 +173,7 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &DeployBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
+          &ValidationTestBuilding;
           &DevFailed;
         </projectFilters>
       </projectForceFilter>
@@ -289,8 +281,6 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
         </projectFilters>
@@ -300,8 +290,6 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &TestJUnitIntegrationBuilding;
-          &TestValidationBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
         </projectFilters>
