@@ -45,7 +45,6 @@
     <dependency org="c3p0"                name="c3p0"                           rev="0.9.1.2"             conf="compile->default" transitive="false" />
     <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
     <dependency org="mysql"               name="mysql-connector-java" rev="5.1.10" conf="compile->default" transitive="false" />
-    <dependency org="Oracle"               name="ojdbc14-10g_xe" rev="1.0" conf="runtime->default" transitive="false" />
 
     <!-- runtime jars -->
     <!-- jars for test only -->
