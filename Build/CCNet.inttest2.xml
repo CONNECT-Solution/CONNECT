@@ -209,6 +209,10 @@
       <serverUri>&Integration.Server.Remoting.Url;</serverUri>
     </labeller>
     <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Regression-Test</path>
+      </modificationWriter>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>

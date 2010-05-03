@@ -323,6 +323,10 @@
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
     </labeller>
     <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Validation-Test</path>
+      </modificationWriter>      
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
