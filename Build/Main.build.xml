@@ -285,18 +285,33 @@
     </trycatch>
   </target>
 
-  <target name="Integration.Deploy" depends="SetUps">
+  <target name="Validation.Test" depends="SetUps">
     <trycatch>
       <try>
         <call target="TargetProcess.Get.Release.Report"/>
         <call target="GlassFish.Redeploy.Release.Build.Integration" />
+        <call target="JUnit.Integration" />
+        <call target="SoapUI.Validation" />
       </try>
       <finally>
         <call target="TearDowns" />
       </finally>
     </trycatch>
   </target>
-  
+
+  <target name="Regression.Test" depends="SetUps">
+    <trycatch>
+      <try>
+        <call target="TargetProcess.Get.Release.Report"/>
+        <call target="GlassFish.Redeploy.Release.Build.Integration" />
+        <call target="SoapUI.Regression" />
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+
   <target name="Staging.Deploy" depends="SetUps">
     <trycatch>
       <try>
