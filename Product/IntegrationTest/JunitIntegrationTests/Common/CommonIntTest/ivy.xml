@@ -46,7 +46,6 @@
             <exclude module="NhincCommonTypesLib"/>
     </dependency>
     <dependency org="mysql"               name="mysql-connector-java" rev="5.1.10"/>
-    <dependency org="Oracle"               name="ojdbc14-10g_xe" rev="1.0"     conf="runtime->default" transitive="false" />
   </dependencies>
 
 </ivy-module>
