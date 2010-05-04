@@ -51,7 +51,6 @@
       casesensitive="false" />
 
   <target name="deploy.create.glassfish.password.file" unless="deploy.glassfish.password.file.path">
-    <echo message="in deploy.create.glassfish.password.file"/>
     <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
     <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
     <echo message="deploy.glassfish.password.file.path: ${deploy.glassfish.password.file.path}"/>
@@ -259,7 +258,8 @@
         <echo message="${error}"/>
         <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
         <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
-        <delete dir="${deployment.glassfish.domain.home}" verbose="true"/>
+        <sleep minutes="1"/>
+        <delete dir="${deployment.glassfish.domain.home}" defaultexcludes="no" verbose="true"/>
       </catch>
     </trycatch>
   </target>
@@ -295,7 +295,7 @@
   </target>
 
   <target name="deploy.nhinc.configuration.to.glassfish">
-    <copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
+    <copy todir="${deployment.config.home}" verbose="true" overwrite="true">
       <fileset dir="${deployment.dir}/${deployment.environment.configuration.dir.name}"/>
     </copy>
   </target>
