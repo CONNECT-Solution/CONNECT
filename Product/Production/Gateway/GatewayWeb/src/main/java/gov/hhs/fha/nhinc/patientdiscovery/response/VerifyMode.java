@@ -139,8 +139,6 @@ public class VerifyMode implements ResponseMode {
         List<II> mpiIds;
         List<PRPAMT201306UV02LivingSubjectId> requestIds;
 
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
-
         mpiQuery = convert201306to201305(response);
 
         if (query != null &&
@@ -158,9 +156,12 @@ public class VerifyMode implements ResponseMode {
                 mpiQuery.getControlActProcess() != null &&
                 mpiQuery.getControlActProcess().getQueryByParameter() != null &&
                 mpiQuery.getControlActProcess().getQueryByParameter().getValue() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                NullChecker.isNotNullish(mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-            mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
+                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null) {
+
+            if (NullChecker.isNotNullish(mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
+                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
+            }
+
             PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
             if (mpiResult != null &&
@@ -195,6 +196,10 @@ public class VerifyMode implements ResponseMode {
                     log.error(ex.getMessage(), ex);
                     patId = null;
                 }
+            }
+            else {
+                log.warn("Patient was not found in local MPI");
+                patId = null;
             }
         }
 

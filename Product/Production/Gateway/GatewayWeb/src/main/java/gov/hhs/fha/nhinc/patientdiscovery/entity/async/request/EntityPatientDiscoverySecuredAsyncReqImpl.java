@@ -14,15 +14,14 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
-import javax.xml.bind.Marshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReqImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import java.beans.XMLEncoder;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,9 +35,6 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 import java.sql.Blob;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import org.hl7.v3.II;
 import org.hibernate.Hibernate;
 
@@ -182,24 +178,27 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         if (request != null &&
                 request.getPRPAIN201305UV02() != null) {
             II patId = msgProcessor.extractPatientIdFrom201305(request.getPRPAIN201305UV02());
+            baOutStrm.reset();
 
             try {
-                JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = JAXBContext.newInstance(II.class);
-                Marshaller marshaller = jc.createMarshaller();
-                baOutStrm.reset();
-
-                marshaller.marshal(new JAXBElement(new QName("org.hl7.v3", "II"), II.class, patId), baOutStrm);
-
-                byte[] buffer = baOutStrm.toByteArray();
-                log.debug("Byte Array: " + baOutStrm.toString());
-                data = Hibernate.createBlob(buffer);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException();
+                // Create XML encoder.
+                XMLEncoder xenc = new XMLEncoder(baOutStrm);
+                try {
+                    // Write object.
+                    xenc.writeObject(patId);
+                    xenc.flush();
+                } finally {
+                    xenc.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.error(ex.getMessage());
             }
 
+            byte[] buffer = baOutStrm.toByteArray();
+            log.debug("Byte Array: " + baOutStrm.toString());
+
+            data = Hibernate.createBlob(buffer);
         }
 
         return data;

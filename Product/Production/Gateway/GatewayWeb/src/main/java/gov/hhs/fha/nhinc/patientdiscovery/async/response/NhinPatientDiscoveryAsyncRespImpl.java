@@ -20,13 +20,10 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.TrustMode;
 import gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import java.beans.XMLDecoder;
 import java.sql.Blob;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,7 +65,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         String ackMsg = "Success";
-        
+
 
         // Check if the Patient Discovery Async Response Service is enabled
         if (isServiceEnabled()) {
@@ -76,7 +73,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
             if (checkPolicy(body, assertion)) {
 
                 // Store AA to HCID Mapping
-                storeMapping (body);
+                storeMapping(body);
 
                 // Obtain the response mode in order to determine how the message is to be processed
                 int respModeType = getResponseMode();
@@ -91,8 +88,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
                 }
 
                 resp = sendToAdapter(body, assertion);
-            }
-            else {
+            } else {
                 ackMsg = "Policy Check Failed";
                 log.error(ackMsg);
                 resp = HL7AckTransforms.createAckFrom201306(body, ackMsg);
@@ -107,9 +103,9 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         return resp;
     }
 
-    protected int getResponseMode () {
+    protected int getResponseMode() {
         ResponseFactory respFactory = new ResponseFactory();
-        
+
         return respFactory.getResponseModeType();
     }
 
@@ -165,31 +161,33 @@ public class NhinPatientDiscoveryAsyncRespImpl {
             TrustMode respProcessor = new TrustMode();
             PRPAIN201306UV02 resp = respProcessor.processResponse(body, assertion, patId);
 
-            // TODO: Clean up database entry
+            // Clean up database entry
+            cleanupDatabase(dbRec);
         }
     }
 
     private II extractPatId(Blob msgData) {
         II patId = new II();
 
-        patId.setExtension("1234");
-        patId.setRoot("1.1");
+        if (msgData != null) {
+            try {
+                XMLDecoder xdec = new XMLDecoder(msgData.getBinaryStream());
 
-//        if (msgData != null) {
-//            try {
-//                JAXBContextHandler oHandler = new JAXBContextHandler();
-//                JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
-//                Unmarshaller unmarshaller = jc.createUnmarshaller();
-//                patId = (II) unmarshaller.unmarshal(msgData.getBinaryStream());
-//
-//                log.debug("Patient Id Retrieved From the Database: " + patId.getExtension() + " " + patId.getRoot());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                throw new RuntimeException();
-//            }
-//        } else {
-//            log.error("Message Data contained in the database was null");
-//        }
+                try {
+                    Object o = xdec.readObject();
+                    patId = (II) o;
+                } finally {
+                    xdec.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                log.error(ex.getMessage());
+            }
+
+            log.debug("Patient Id Retrieved From the Database: " + patId.getExtension() + " " + patId.getRoot());
+        } else {
+            log.error("Message Data contained in the database was null");
+        }
 
         return patId;
     }
@@ -217,8 +215,13 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         return policyChecker.check201305Policy(response, patIdOverride, assertion);
     }
 
-    protected void storeMapping (PRPAIN201306UV02 msg) {
+    protected void storeMapping(PRPAIN201306UV02 msg) {
         PatientDiscovery201306Processor msgProcessor = new PatientDiscovery201306Processor();
         msgProcessor.storeMapping(msg);
+    }
+
+    protected void cleanupDatabase (AsyncMsgRecord dbRec) {
+        AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
+        asyncDbDao.delete(dbRec);
     }
 }
