@@ -73,6 +73,13 @@
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
     <runtarget target="deploy.ejbs.to.glassfish"/>
+
+    <if>
+      <isset property="stop.glassfish.after.deploy"/>
+      <then>
+        <runtarget target="deploy.glassfish.stop.server"/>
+      </then>
+    </if>
   </target>
 
   <target name="undeploy.from.production">
