@@ -297,6 +297,6 @@ public class NhinPatientDiscoveryAsyncReqImplTest {
         assertNotNull(result);
         TestHelper.assertReceiverEquals("1.1", result);
         TestHelper.assertSenderEquals("2.2", result);
-        TestHelper.assertAckMsgEquals("Patient Discovery Async Requets Service Not Enabled", result);
+        TestHelper.assertAckMsgEquals("Patient Discovery Async Request Service Not Enabled", result);
     }
 }

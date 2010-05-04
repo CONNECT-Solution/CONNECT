@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecuredImpl;
@@ -195,7 +196,7 @@ public class EntityPatientDiscoveryProcessor
                 {
                     PRPAIN201306UV02 resultFromNhin = sendToNhinProxy(newRequest, assertion, urlInfo.getUrl());
                     // Store AA to HCID Mapping from response
-                    getPRPAIN201306UV02MappingStorage().storeMapping(resultFromNhin);
+                    getPatientDiscovery201306Processor().storeMapping(resultFromNhin);
 
                     CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
                     communityResponse.setPRPAIN201306UV02(resultFromNhin);
@@ -214,9 +215,9 @@ public class EntityPatientDiscoveryProcessor
         return response;
     }
 
-    protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+    protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
     {
-        return new PRPAIN201306UV02MappingStorage();
+        return new PatientDiscovery201306Processor();
     }
 
     protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger()

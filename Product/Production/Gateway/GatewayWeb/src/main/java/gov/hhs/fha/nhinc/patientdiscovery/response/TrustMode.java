@@ -10,20 +10,19 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType;
 import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationServiceSecured;
-import javax.xml.ws.WebServiceContext;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 /**
@@ -37,18 +36,16 @@ public class TrustMode implements ResponseMode{
         super();
         log = createLogger();
     }
+
     public PRPAIN201306UV02 processResponse(ResponseParams params)
     {
         log.debug("begin processResponse");
 
 
          PRPAIN201306UV02 response = params.response;
-//         WebServiceContext context = params.context;
          AssertionType assertion = params.assertion;
          PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
-         // Create an assertion class from the contents of the SAML token
-//        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         PRPAIN201301UV02 requestPatient = null;
 
         AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
@@ -56,8 +53,6 @@ public class TrustMode implements ResponseMode{
         String url;
 
         url = getPCUrl();
-
-        //requestPatient.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAsOtherIDs()
 
         if(requestHasLivingSubjectId(requestMsg))
         {
@@ -81,6 +76,44 @@ public class TrustMode implements ResponseMode{
         
         return response;
     }
+    
+    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatId)
+    {
+        log.debug("begin processResponse");
+
+        PRPAIN201301UV02 requestPatient = null;
+
+        AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
+        AddPatientCorrelationSecuredResponseType responseType;
+        String url;
+
+        url = getPCUrl();
+
+        if(localPatId != null &&
+                NullChecker.isNotNullish(localPatId.getExtension()) &&
+                NullChecker.isNotNullish(localPatId.getRoot()))
+        {
+            try
+            {
+                requestPatient = mergeIds(createPRPA201301(response), localPatId);
+                request.setPRPAIN201301UV02(requestPatient);
+                PatientCorrelationSecuredPortType port =  getPCPort(url, assertion);
+
+                responseType = port.addPatientCorrelation(request);
+            }
+            catch(Exception ex)
+            {
+                log.error(ex.getMessage(),ex);
+            }
+        }
+        else
+        {
+            log.warn("Local Patient Id was not provided, no correlation will be attempted");
+        }
+        
+        return response;
+    }
+
     protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request)
     {
         boolean result = false;

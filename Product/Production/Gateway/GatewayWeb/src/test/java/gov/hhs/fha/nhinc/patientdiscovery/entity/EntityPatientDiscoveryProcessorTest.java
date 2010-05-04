@@ -6,6 +6,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecuredImpl;
@@ -55,7 +56,7 @@ public class EntityPatientDiscoveryProcessorTest
     final ResponseFactory mockResponseFactory = context.mock(ResponseFactory.class);
     final CMUrlInfos mockUrlInfos = context.mock(CMUrlInfos.class);
     final RespondingGatewayPRPAIN201305UV02RequestType mockRespondingGatewayPRPAIN201305UV02RequestType = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
-    final PRPAIN201306UV02MappingStorage mockPRPAIN201306UV02MappingStorage = context.mock(PRPAIN201306UV02MappingStorage.class);
+    final PatientDiscovery201306Processor mockPatientDiscovery201306Processor = context.mock(PatientDiscovery201306Processor.class);
     
 // <editor-fold defaultstate="collapsed" desc="Creation Methods">
     @Test
@@ -270,12 +271,12 @@ public class EntityPatientDiscoveryProcessorTest
         }
     }
 
-    protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+    protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
     {
-        return new PRPAIN201306UV02MappingStorage();
+        return new PatientDiscovery201306Processor();
     }
     @Test
-    public void testGetPRPAIN201306UV02MappingStorage()
+    public void testGetPatientDiscovery201306Processor()
     {
         try
         {
@@ -287,9 +288,9 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockLog;
                 }
                 @Override
-                protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
-                    return mockPRPAIN201306UV02MappingStorage;
+                    return mockPatientDiscovery201306Processor;
                 }
             };
             context.checking(new Expectations()
@@ -299,7 +300,7 @@ public class EntityPatientDiscoveryProcessorTest
                 }
             });
 
-            PRPAIN201306UV02MappingStorage mappingStorage = processor.getPRPAIN201306UV02MappingStorage();
+            PatientDiscovery201306Processor mappingStorage = processor.getPatientDiscovery201306Processor();
             assertNotNull("PRPAIN201306UV02MappingStorage was null", mappingStorage);
         }
         catch(Throwable t)
@@ -547,16 +548,16 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockPRPAIN201306UV02;
                 }
                 @Override
-                protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
-                    return mockPRPAIN201306UV02MappingStorage;
+                    return mockPatientDiscovery201306Processor;
                 }
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockPRPAIN201306UV02MappingStorage).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
+                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
                 }
             });
 
@@ -616,9 +617,9 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockPRPAIN201306UV02;
                 }
                 @Override
-                protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
-                    return mockPRPAIN201306UV02MappingStorage;
+                    return mockPatientDiscovery201306Processor;
                 }
             };
             context.checking(new Expectations()
@@ -686,9 +687,9 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockPRPAIN201306UV02;
                 }
                 @Override
-                protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
-                    return mockPRPAIN201306UV02MappingStorage;
+                    return mockPatientDiscovery201306Processor;
                 }
             };
             context.checking(new Expectations()
@@ -759,9 +760,9 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockPRPAIN201306UV02;
                 }
                 @Override
-                protected PRPAIN201306UV02MappingStorage getPRPAIN201306UV02MappingStorage()
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
-                    return mockPRPAIN201306UV02MappingStorage;
+                    return mockPatientDiscovery201306Processor;
                 }
             };
             context.checking(new Expectations()

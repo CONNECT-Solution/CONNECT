@@ -2,20 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery.response;
+
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType;
-import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationServiceSecured;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
@@ -24,7 +21,6 @@ import javax.xml.bind.JAXBElement;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201301UV02Patient;
-import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceAddress;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceName;
@@ -36,158 +32,199 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
-
 /**
  *
  * @author dunnek
  */
-public class VerifyMode implements ResponseMode{
+public class VerifyMode implements ResponseMode {
+
     private Log log = null;
-    
+
     public VerifyMode() {
         super();
         log = createLogger();
     }
-    public PRPAIN201306UV02 processResponse(ResponseParams params)
-    {
+
+    public PRPAIN201306UV02 processResponse(ResponseParams params) {
         log.debug("begin processResponse");
         PRPAIN201306UV02 response = params.response;
-//        WebServiceContext context = params.context;
         AssertionType assertion = params.assertion;
         PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
         PRPAIN201306UV02 result = response;
 
-        // Create an assertion class from the contents of the SAML token
-//        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        II patId = patientExistsLocally(requestMsg, assertion, response);
 
-        if(patientExistsLocally(requestMsg, assertion, response))
-        {
+        if (patId != null &&
+                NullChecker.isNotNullish(patId.getExtension()) &&
+                NullChecker.isNotNullish(patId.getRoot())) {
             log.debug("patient exists locally, adding correlation");
             new TrustMode().processResponse(params);
-        }
-        else
-        {
+        } else {
             log.warn("Patient does not exist locally, correlation not added");
         }
         return result;
     }
-    protected Log createLogger()
-    {
+
+    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion) {
+        log.debug("begin processResponse");
+
+        PRPAIN201306UV02 result = response;
+
+        II patId = patientExistsLocally(null, assertion, response);
+
+        if (patId != null &&
+                NullChecker.isNotNullish(patId.getExtension()) &&
+                NullChecker.isNotNullish(patId.getRoot())) {
+            log.debug("patient exists locally, adding correlation");
+            new TrustMode().processResponse(response, assertion, patId);
+        } else {
+            log.warn("Patient does not exist locally, correlation not added");
+        }
+        return result;
+    }
+
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected PRPAMT201301UV02Patient getPatient(PRPAMT201306UV02ParameterList paramList)
-    {
+    protected PRPAMT201301UV02Patient getPatient(PRPAMT201306UV02ParameterList paramList) {
         return HL7PatientTransforms.create201301Patient(paramList);
     }
-    protected String getLocalHomeCommunityId()
-    {
+
+    protected String getLocalHomeCommunityId() {
         String result = "";
 
-        try
-        {
+        try {
             result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
         return result;
     }
-    protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response)
-    {
-         PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
-         return HL7PatientTransforms.createPRPAMT201301UVPatient(remotePatient);
+
+    protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response) {
+        PRPAMT201301UV02Patient patient = null;
+
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
+                response.getControlActProcess().getSubject().get(0) != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
+            PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+            patient = HL7PatientTransforms.createPRPAMT201301UVPatient(remotePatient);
+        }
+
+        return patient;
     }
-    protected PRPAIN201305UV02 convert201306to201305(PRPAIN201306UV02 response)
-    {
-        PRPAIN201305UV02 result;
+
+    protected PRPAIN201305UV02 convert201306to201305(PRPAIN201306UV02 response) {
+        PRPAIN201305UV02 result = null;
         String localHCID = getLocalHomeCommunityId();
         PRPAMT201301UV02Patient patient = extractPatient(response);
-        result = HL7PRPA201305Transforms.createPRPA201305(patient, localHCID, localHCID, localHCID);
+
+        if (patient != null) {
+            result = HL7PRPA201305Transforms.createPRPA201305(patient, localHCID, localHCID, localHCID);
+        }
 
         return result;
     }
-    protected boolean patientExistsLocally(PRPAIN201305UV02 query, AssertionType assertion, PRPAIN201306UV02 response)
-    {
-        boolean result = false;
-        
-        //PRPAMT201301UV02Patient patient = getPatient(response.getControlActProcess().getQueryByParameter().getValue().getParameterList());
-        //query.getControlActProcess().setQueryByParameter(response.getControlActProcess().getQueryByParameter());
+
+    protected II patientExistsLocally(PRPAIN201305UV02 query, AssertionType assertion, PRPAIN201306UV02 response) {
+        II patId = null;
 
         PRPAIN201305UV02 mpiQuery;
         List<II> mpiIds;
         List<PRPAMT201306UV02LivingSubjectId> requestIds;
 
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
-        
-        mpiQuery =convert201306to201305(response);
-        requestIds = query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
 
-        log.debug("original Request Ids " + requestIds.size());
-        
-        mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
-        PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
+        mpiQuery = convert201306to201305(response);
 
-        if(mpiResult != null)
-        {
-            try
-            {
-                log.debug("Received result from mpi.");
-                mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
+        if (query != null &&
+                query.getControlActProcess() != null &&
+                query.getControlActProcess().getQueryByParameter() != null &&
+                query.getControlActProcess().getQueryByParameter().getValue() != null &&
+                query.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
+                NullChecker.isNotNullish(query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
+            requestIds = query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
+        } else {
+            requestIds = null;
+        }
 
-                log.debug("MPI Ids: " + mpiIds.size());
-                log.debug("Request Ids: " + requestIds.size());
-                result = compareId(mpiIds.get(0), requestIds.get(0).getValue().get(0));
-                //result = compareId(mpiIds, requestIds);
+        if (mpiQuery != null &&
+                mpiQuery.getControlActProcess() != null &&
+                mpiQuery.getControlActProcess().getQueryByParameter() != null &&
+                mpiQuery.getControlActProcess().getQueryByParameter().getValue() != null &&
+                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
+                NullChecker.isNotNullish(mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
+            mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
+            PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
-            }
-            catch(Exception ex)
-            {
-                log.error(ex.getMessage(), ex);
-                result = false;
+            if (mpiResult != null &&
+                    mpiResult.getControlActProcess() != null &&
+                    NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject()) &&
+                    mpiResult.getControlActProcess().getSubject().get(0) != null &&
+                    mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                    mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                    mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                    NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+                try {
+                    log.debug("Received result from mpi.");
+                    mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
+
+                    if (NullChecker.isNotNullish(requestIds)) {
+                        if (mpiIds.get(0) != null &&
+                                requestIds.get(0) != null &&
+                                NullChecker.isNotNullish(requestIds.get(0).getValue()) &&
+                                requestIds.get(0).getValue().get(0) != null) {
+                            boolean result = compareId(mpiIds.get(0), requestIds.get(0).getValue().get(0));
+
+                            if (result == true) {
+                                patId = mpiIds.get(0);
+                            }
+                        }
+                    } else {
+                        // If there was no Living Subject Id from the original message, but a match was found in the MPI query then use the
+                        // id returned from the MPI.
+                        patId = mpiIds.get(0);
+                    }
+                } catch (Exception ex) {
+                    log.error(ex.getMessage(), ex);
+                    patId = null;
+                }
             }
         }
-        return result;
 
-
+        return patId;
     }
 
-    protected boolean compareId(List<PRPAMT201306UV02LivingSubjectId> localIds, List<PRPAMT201306UV02LivingSubjectId> remoteIds)
-    {
+    protected boolean compareId(List<PRPAMT201306UV02LivingSubjectId> localIds, List<PRPAMT201306UV02LivingSubjectId> remoteIds) {
         boolean result = false;
 
-        try
-        {
-            for(PRPAMT201306UV02LivingSubjectId localId : localIds)
-            {
-                for(PRPAMT201306UV02LivingSubjectId remoteId : remoteIds)
-                {
-                    if(compareId(localId, remoteId))
-                    {
+        try {
+            for (PRPAMT201306UV02LivingSubjectId localId : localIds) {
+                for (PRPAMT201306UV02LivingSubjectId remoteId : remoteIds) {
+                    if (compareId(localId, remoteId)) {
                         result = true;
                         break;
                     }
                 }
             }
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
         return result;
     }
-    protected boolean compareId(PRPAMT201306UV02LivingSubjectId localId, PRPAMT201306UV02LivingSubjectId remoteId)
-    {
+
+    protected boolean compareId(PRPAMT201306UV02LivingSubjectId localId, PRPAMT201306UV02LivingSubjectId remoteId) {
         boolean result = false;
 
-        for(II localII : localId.getValue())
-        {
-            for(II remoteII :remoteId.getValue())
-            {
-                if (compareId(localII, remoteII))
-                {
+        for (II localII : localId.getValue()) {
+            for (II remoteII : remoteId.getValue()) {
+                if (compareId(localII, remoteII)) {
                     result = true;
                     break;
                 }
@@ -195,25 +232,24 @@ public class VerifyMode implements ResponseMode{
         }
         return result;
     }
-    private boolean compareId(II localId, II remoteId)
-    {
+
+    private boolean compareId(II localId, II remoteId) {
         boolean result = false;
 
-        if(localId != null && remoteId != null)
-        {
+        if (localId != null && remoteId != null) {
             String localExt = localId.getExtension();
             String localRoot = localId.getRoot();
             log.debug("Comparing Root: " + localRoot + " to " + remoteId.getRoot());
             log.debug("Comparing Ext: " + localExt + " to " + remoteId.getExtension());
-            if(remoteId.getExtension().equalsIgnoreCase(localExt) &&
-                      remoteId.getRoot().equalsIgnoreCase(localRoot))
-            {
+            if (remoteId.getExtension().equalsIgnoreCase(localExt) &&
+                    remoteId.getRoot().equalsIgnoreCase(localRoot)) {
                 result = true;
             }
         }
 
         return result;
     }
+
     protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
         PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
 
@@ -222,7 +258,7 @@ public class VerifyMode implements ResponseMode{
             AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
-            queryResults =  mpiProxy.findCandidates(query, assertion);
+            queryResults = mpiProxy.findCandidates(query, assertion);
 
         } else {
             log.error("MPI Request is null");
@@ -232,45 +268,39 @@ public class VerifyMode implements ResponseMode{
 
         return queryResults;
     }
-    private JAXBElement<PRPAMT201306UV02QueryByParameter> copyParameterList(PRPAMT201306UV02QueryByParameter input)
-    {
- 
+
+    private JAXBElement<PRPAMT201306UV02QueryByParameter> copyParameterList(PRPAMT201306UV02QueryByParameter input) {
+
         PRPAMT201306UV02QueryByParameter result = new PRPAMT201306UV02QueryByParameter();
 
         result.setParameterList(copyParameterList(input.getParameterList()));
-        
+
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "PRPAMT201306UV02QueryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> jaxbParams= new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, result);
+        JAXBElement<PRPAMT201306UV02QueryByParameter> jaxbParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, result);
 
 
         return jaxbParams;
     }
-    private PRPAMT201306UV02ParameterList copyParameterList(PRPAMT201306UV02ParameterList input)
-    {
+
+    private PRPAMT201306UV02ParameterList copyParameterList(PRPAMT201306UV02ParameterList input) {
         PRPAMT201306UV02ParameterList result = new PRPAMT201306UV02ParameterList();
 
-        for(PRPAMT201306UV02LivingSubjectAdministrativeGender gender : input.getLivingSubjectAdministrativeGender())
-        {
+        for (PRPAMT201306UV02LivingSubjectAdministrativeGender gender : input.getLivingSubjectAdministrativeGender()) {
             result.getLivingSubjectAdministrativeGender().add(gender);
         }
-        for(PRPAMT201306UV02LivingSubjectBirthPlaceAddress birthPlace : input.getLivingSubjectBirthPlaceAddress())
-        {
+        for (PRPAMT201306UV02LivingSubjectBirthPlaceAddress birthPlace : input.getLivingSubjectBirthPlaceAddress()) {
             result.getLivingSubjectBirthPlaceAddress().add(birthPlace);
         }
-        for(PRPAMT201306UV02LivingSubjectBirthPlaceName birthPlaceName : input.getLivingSubjectBirthPlaceName())
-        {
+        for (PRPAMT201306UV02LivingSubjectBirthPlaceName birthPlaceName : input.getLivingSubjectBirthPlaceName()) {
             result.getLivingSubjectBirthPlaceName().add(birthPlaceName);
         }
-        for(PRPAMT201306UV02LivingSubjectBirthTime birthTime : input.getLivingSubjectBirthTime())
-        {
+        for (PRPAMT201306UV02LivingSubjectBirthTime birthTime : input.getLivingSubjectBirthTime()) {
             result.getLivingSubjectBirthTime().add(birthTime);
         }
-        for(PRPAMT201306UV02LivingSubjectName subjectName : input.getLivingSubjectName())
-        {
+        for (PRPAMT201306UV02LivingSubjectName subjectName : input.getLivingSubjectName()) {
             result.getLivingSubjectName().add(subjectName);
         }
-        for(PRPAMT201306UV02MothersMaidenName motherName : input.getMothersMaidenName())
-        {
+        for (PRPAMT201306UV02MothersMaidenName motherName : input.getMothersMaidenName()) {
             result.getMothersMaidenName().add(motherName);
         }
 

@@ -15,9 +15,9 @@ public class ResponseFactory {
     public static final String RESPONSE_MODE_VERIFY = "verify";
     public static final String RESPONSE_MODE_TRUST = "trust";
     public static final String RESPONSE_MODE_PASSTHRU = "passthrough";
-    private static final int VERIFY_MODE = 0;
-    private static final int TRUST_MODE = 1;
-    private static final int PASSTHRU_MODE = 2;
+    public static final int VERIFY_MODE = 0;
+    public static final int TRUST_MODE = 1;
+    public static final int PASSTHRU_MODE = 2;
     private Log log = null;
 
     public ResponseFactory() {
@@ -75,7 +75,8 @@ public class ResponseFactory {
 
         return result;
     }
-    private int getResponseModeType()
+    
+    public int getResponseModeType()
     {
         int result = 0;
 

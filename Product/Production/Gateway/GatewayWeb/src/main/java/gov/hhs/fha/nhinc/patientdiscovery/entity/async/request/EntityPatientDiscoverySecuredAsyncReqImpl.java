@@ -185,7 +185,6 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
 
             try {
                 JAXBContextHandler oHandler = new JAXBContextHandler();
-                //JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
                 JAXBContext jc = JAXBContext.newInstance(II.class);
                 Marshaller marshaller = jc.createMarshaller();
                 baOutStrm.reset();

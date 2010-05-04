@@ -58,7 +58,7 @@ public class NhinPatientDiscoveryAsyncReqImpl {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         String ackMsg = "Success";
 
-        // Check if the Patient Discovery Service is enabled
+        // Check if the Patient Discovery Async Request Service is enabled
         if (isServiceEnabled()) {
 
             // Check if in Pass-Through Mode
@@ -89,7 +89,7 @@ public class NhinPatientDiscoveryAsyncReqImpl {
             }
         } else {
             // Send the error to the Adapter Error Interface
-            ackMsg = "Patient Discovery Async Requets Service Not Enabled";
+            ackMsg = "Patient Discovery Async Request Service Not Enabled";
             log.error(ackMsg);
             resp = sendToAgencyError(request, assertion, ackMsg);
         }
