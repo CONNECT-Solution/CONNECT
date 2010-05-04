@@ -18,9 +18,9 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
 //
 // Date         Proj   Act    Assign     Desc
 // ============ ====== ====== ========== ======================================
-// 2010/03/20   964G   1000   bgrantha   Initial Coding.
-// 2010/04/05   964G   1000   bgrantha   Browser-launch target(s) broken out
-// 2010/04/15   964G   1000   ckempton   Modified to be used for source install
+// 2010/04/15   964G   1000   ckempton   Initial coding (modified binary build
+//                                       file to work with source)
+// 2010/04/29   964G   1000   bgrantha   Automated deployment
 // 
 //*****************************************************************************
 -->
@@ -244,29 +244,11 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
     </target>
 
     <!-- Deployment -->
-    <!-- 
-    This is a temporary deployment target, due to an issue in the way the deploy.xml
-    returns control to the user after completion. The deploy process becomes tied to a
-    java executable and never fullantinstaller-versioy exits. This causes this build.xml to hang while
-    waiting for deploy.xml to return control. Need to work out how to call external
-    deploy.xml and receive control after deploy target invoked.
-    -->
     <target name="deployment">
         <echo message="Begin deployment task.." />
 
-        <exec executable="C:\WINDOWS\notepad.exe" failifexecutionfails="true" failonerror="true">
-            <arg value="${temporary.directory.workspace}\resources\txt\win-source-deployment.txt" />
-        </exec>
-
-        <echo message="End deployment task.." />
-    </target>
-
-    <!-- Deployment -->
-    <target name="deployment-original">
-        <echo message="Begin deployment task.." />
-
         <!-- Deploying Applications to GlassFish -->
-        <exec executable="${temporary.directory.workspace}\resources\bin\deploy.bat" failifexecutionfails="true" failonerror="true" vmlauncher="false">
+        <exec executable="${temporary.directory.workspace}\resources\bin\win.source.deploy.bat" failifexecutionfails="true" failonerror="true" vmlauncher="false">
             <!-- ARG 1 : AS_HOME -->
             <arg value="${actual.AS_HOME}" />
             <!-- ARG 2 : IDE_HOME -->
@@ -279,23 +261,10 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             <arg value="${actual.NHINC_PROPERTIES_DIR}" />
             <!-- ARG 6 : JAVA_HOME -->
             <arg value="${actual.JAVA_HOME}" />
-            <!-- ARG 7 : NHIN extract dir -->
-            <arg value="${directory.nhin.connect}\Product" />
+            <!-- ARG 7 : NHIN source\Product dir -->
+            <arg value="${directory.nhin.connect.source}\Product" />
             <!-- ARG 8 : NHINC_THIRDPARTY_DIR -->
             <arg value="${directory.nhin.connect.source.third.party}" />
-        </exec>
-
-        <!-- LOG4J -->
-        <echo message="Copying log4j.properties to GlassFish.." />
-        <copy todir="${actual.AS_HOME}\domains\domain1\config" overwrite="true">
-            <fileset dir="${actual.NHINC_PROPERTIES_DIR}">
-                <include name="log4j.properties" />
-            </fileset>
-        </copy>
-
-        <!-- Stop GlassFish -->
-        <exec dir="${actual.AS_HOME}/bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c asadmin stop-domain domain1" />
         </exec>
 
         <!-- Start GlassFish -->

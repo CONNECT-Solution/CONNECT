@@ -51,7 +51,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
 
     <target name="MakeNonExtractor" depends="Base">
         <installer file="${PROJECT_ROOT}/dist/${PROJECT_SHORT_NAME}-installer.jar" compress="true" extractType="NonExtractor" 
-            installConfig="${PROJECT_ROOT}/win.source.antinstall.config.xml" buildFile="${PROJECT_ROOT}/win.source.build.xml" 
+            installConfig="${PROJECT_ROOT}/win.source.antinstall-config.xml" buildFile="${PROJECT_ROOT}/win.source.build.xml" 
             antInstallLib="${ANT_INSTALL_ROOT}/lib" antLib="${ANT_INSTALL_ROOT}/antlib" 
             validateConfig="true" icons="bluecurve">
 

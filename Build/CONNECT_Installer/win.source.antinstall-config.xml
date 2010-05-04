@@ -5,7 +5,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
 -->
 <!--
 //*****************************************************************************
-// FILE: antinstall-config.xml
+// FILE: win.source.antinstall-config.xml
 //
 // Copyright (C) 2010 TBD
 //
@@ -27,8 +27,8 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
 //                                       page
 // 2010/04/15   964G   1000   ckempton   Added prerequisite installation  
 //                                       instructions to install pages.
-// 2010/04/21   964G   1000   bgrantha   General cleanup, fixed XML errors
-// 2010/04/22   964G   1000   bgrantha   Renamed file
+// 2010/04/15   964G   1000   ckempton   Changed to Windows Source Install.
+//                                       Updated to handle different versions.
 //
 //*****************************************************************************
 -->
@@ -37,7 +37,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
     verbose="true"
     debug="false"
     lookAndFeel="org.tp23.jgoodies.plaf.plastic.PlasticXPLookAndFeel"
-    name="NHIN CONNECT Gateway (2.4) Installer"
+    name="NHIN CONNECT Gateway Source Installer"
     windowIcon="/resources/gkmain_inv.png"
     defaultImageResource="/resources/img/connect.PNG"
     loadDefaults="false"
@@ -47,40 +47,166 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
     <page
         type="input"
         name="welcome"
-        displayText="Welcome to the NHIN CONNECT (2.4) Installer"
+        displayText="Welcome to the NHIN CONNECT Installer"
         postDisplayTarget="antinstaller-setup"
         target="connect-install">
         <comment
-            displayText="This application partially automates the install of the NHIN CONNECT Gateway"
+            explanatoryText="This application partially automates the install of the NHIN CONNECT Gateway."
+            bold="false" />
+        <comment
+            displayText="The installer will extract and setup the NHIN CONNECT Windows Source files, and the Third"
+            bold="false" />
+        <comment
+            displayText="Party Components."
+            bold="false" />
+        <comment
+            displayText="Simple validation will occur at the time of install to ensure necessary environment variables."
+            bold="false" />
+        <comment
+            displayText="have been initialized on the system and the installer will make changes as needed."
             bold="false" />
         <comment
             displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText="Warning: Any existing installation will be overwritten by this installer."
             bold="true" />
         <comment
-            explanatoryText="The installer will extract and setup the NHIN CONNECT Windows Binary files, and the Third Party Components as described in the Windows Binary Install Guide"
-            bold="false" />
-        <comment
-            displayText=""
-            bold="false" />
-        <comment
-            explanatoryText="Simple validation will occur at the time of install to ensure necessary environment variables have been initialized on the system and the installer will make changes as needed"
-            bold="false" />
-        <comment
-            displayText=""
-            bold="false" />
-        <comment
-            displayText=""
-            bold="false" />
-        <comment
-            displayText="Warning: Any existing installation will be overwritten by this installer"
-            bold="true" />
-        <comment
-            displayText="Any existing installation should be backed up before continuing this installation"
+            displayText="Any existing installation should be backed up before continuing this installation."
             bold="false" />
     </page>
 
     <!-- LICENSE -->
     <!--  ... -->
+    <page
+        type="input"
+        name="version-page"
+        displayText="NHIN CONNECT Installer "
+        postDisplayTarget="antinstaller-version" >
+        <comment
+            displayText="CONNECT Version: ${source.version#}"
+            bold="true" />
+        <comment
+            displayText="The installer must install several prerequisite software applications prior "
+            bold="true" />
+        <comment
+            displayText="to installing CONNECT. If the prerequisite sofware is already installed,"
+            bold="true" />
+        <comment
+            displayText="the step may be skipped."
+            bold="true" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText="It is recommended that the installer READ all install pages to ensure"
+            bold="true" />
+        <comment
+            displayText="ALL MANUAL steps are performed."
+            bold="true" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="true" />
+        <comment
+            displayText="Click next to continue"
+            bold="false" />
+    </page>
+
+
+    <!-- PREREQUISITES 0a (SVN) -->
+    <page
+        type="input"
+        name="prerequisites0a"
+        displayText="NHIN CONNECT - Install Subversion"
+        postDisplayTarget="antinstaller-launch-browser-0a">
+        <comment
+            explanatoryText="The following prerequisite software must be installed and configured prior to downloading the CONNECT software source."
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+
+        <comment
+            displayText=""
+            bold="false" />
+
+        <comment
+            displayText="CollabNet Subversion Command-Line Client v1.6.X"
+            bold="true" />
+        <comment
+            displayText="Available for download at http://www.open.collab.net"
+            bold="false" />
+        <checkbox
+            property="launch.browser.for.svn"
+            displayText="Download Subversion?"
+            defaultValue="false"
+            force="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText="Click next to continue"
+            bold="false" />            
+            
+    </page>
+
+    <!-- FOLLOWUP 0a (SVN) -->
+    <page
+        type="input"
+        name="followup0a"
+        displayText="NHIN CONNECT - Install Subversion (continued)"
+        ifProperty="${launch.browser.for.svn}=true">
+        <comment
+            explanatoryText="Download and install the CollabNet Subversion Command-Line Client v1.6.x to the default location."
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+
+        <comment
+            displayText="First time users must register at site."
+            bold="false" />
+        <comment
+            displayText=""
+            bold="true" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+
+        <comment
+            displayText="Click Next once the Subversion software is installed."
+            bold="false" />
+    </page>
 
     <!-- PREREQUISITES 0 (Java) -->
     <page
@@ -89,11 +215,16 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install JDK"
         postDisplayTarget="antinstaller-launch-browser-0">
         <comment
-            explanatoryText="The following prerequisite software must be installed and configured prior to installing the CONNECT software"
+            displayText="The following prerequisite software must be installed and configured prior to"
             bold="false" />
+        <comment
+            displayText="installing the CONNECT software."
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
+
         <comment
             displayText="Java Platform Standard Edition (Java SE) 6 Update 16"
             bold="true" />
@@ -118,9 +249,9 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             displayText=""
             bold="false" />
         <comment
-            displayText="Click Next to continue"
+            displayText="Click next to continue"
             bold="false" />            
-
+            
     </page>
 
     <!-- FOLLOWUP 0 (Java) -->
@@ -130,25 +261,20 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install JDK (continued)"
         ifProperty="${launch.browser.for.java}=true">
         <comment
-            displayText="Download and install Java (Java SE) 6 Update 16"
+            displayText="Download and install the Java (SE) 6, update 16 version to the"
             bold="false" />
+        <comment
+            displayText="C:\Java\jdk1.6.0_16 directory."
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
         <comment
-            displayText="Install the JDK to the following folder:"
-            bold="false" />
-        <comment
-            displayText="C:\Java\jdk1.6.0_16"
-            bold="false" />
+            displayText=""
+            bold="true" />
         <comment
             displayText=""
-            bold="false" />
-        <comment
-            displayText="Install the JRE to the following folder:"
-            bold="false" />
-        <comment
-            displayText="C:\Java\jre6"
             bold="false" />
         <comment
             displayText=""
@@ -160,7 +286,14 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             displayText=""
             bold="false" />
         <comment
-            displayText="Click Next once Java has been installed"
+            displayText=""
+            bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+
+        <comment
+            displayText="Click Next once the JDK software is installed."
             bold="false" />
     </page>
 
@@ -168,23 +301,28 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
     <page
         type="input"
         name="prerequisites1"
-        displayText="NHIN CONNECT - Install NetBeans/GlassFish App."
+        displayText="NHIN CONNECT - Install Netbeans/GlassFish App."
         postDisplayTarget="antinstaller-launch-browser-1">
         <comment
-            explanatoryText="The following prerequisite software must be installed and configured prior to installing the CONNECT software"
+            displayText="The following prerequisite software must be installed and configured prior to"
             bold="false" />
+        <comment
+            displayText="installing the CONNECT software."
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
+
         <comment
-            displayText="NetBeans 6.7.1 Bundle with GlassFish 2.1 Application Server"
+            displayText="Netbeans 6.7.1 Bundle with GlassFish 2.1 Application Server"
             bold="true" />
         <comment
             displayText="Available for download at http://www.netbeans.org/"
             bold="false" />
         <checkbox
             property="launch.browser.for.netbeans.glassfish"
-            displayText="Download NetBeans/GlassFish?"
+            displayText="Download Netbeans/Glassfish?"
             defaultValue="false"
             force="false" />
         <comment
@@ -196,33 +334,29 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         <comment
             displayText=""
             bold="false" />
-        <comment
-            displayText=""
-            bold="false" />
-        <comment
+            
+         <comment
             displayText="Click Next to continue"
             bold="false" />
-
+           
     </page>
+ 
 
     <!-- FOLLOWUP 1 (GlassFish) -->
     <page
         type="input"
         name="followup1"
-        displayText="NHIN CONNECT - Install NetBeans/GlassFish App. (continued)"
+        displayText="NHIN CONNECT - Install Netbeans/GlassFish App. (continued)"
         ifProperty="${launch.browser.for.netbeans.glassfish}=true">
+        <!--overflow="true"-->
         <comment
-            displayText="Download the Java NetBeans IDE Bundle"
+            displayText="Download the Java Netbeans IDE Bundle"
             bold="false" />
         <comment
-            displayText=""
-            bold="false" />
-
-        <comment
-            displayText="- Install GlassFish Enterprise Server v2.1.1 (exclude v3 Prelude)"
+            displayText="- Install GlassFish Enterprise Server v2.1.1 (exclude v3 Prelude)."
             bold="false" />
         <comment
-            explanatoryText="    - To Exclude v3 Prelude, select the Customize... button on the NetBeans installer                        Welcome page."
+            explanatoryText="  - To Exclude v3 Prelude, select the Customize... button on the NetBeans installer                        Welcome page."
             bold="true" />           
         <comment
             displayText="- Sun GlassFish Enterprise Server v2.1.1 Install location:  C:\Sun\AppServer"
@@ -245,7 +379,11 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             bold="false" />
 
         <comment
-            displayText="Click Next once the NetBeans/GlassFish have been installed"
+            displayText=""
+            bold="false" />
+
+        <comment
+            displayText="Click Next once the prerequisite software is installed."
             bold="false" />
     </page>
 
@@ -260,6 +398,11 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         type="input"
         name="setEnvironmentVariables"
         displayText="NHIN CONNECT - Environment Variables">
+        <comment
+            explanatoryText="Recommended values are below. The paths will be validated prior to setting Environment Variables."
+            bold="false" />
+
+
         <app-root
             property="actual.JAVA_HOME"
             defaultValue=""
@@ -318,16 +461,8 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             defaultValue="${expected.ANT_OPTS}">
         </text>
 
-        <comment
-            displayText=""
-            bold="false" />
-
-        <comment
-            displayText="Default values are recommended"
-            bold="false" />
-
-        <comment
-            displayText="Click Next to continue (validation will occur)"
+         <comment
+            displayText="Click Next to continue"
             bold="false" />
 
     </page>
@@ -340,7 +475,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         postDisplayTarget="antinstaller-set-env">
 
         <comment
-            displayText="The installer will now set and update necessary environment variables"
+            displayText="The installer will now set and update necessary environment variables."
             bold="false" />
         <comment
             displayText=""
@@ -350,7 +485,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             bold="false" />
         <comment
             displayText="Do not change or close any Windows Helper or Environment windows"
-            bold="false" />
+            bold="true" />
         <comment
             displayText="These will close automatically once they have completed executing"
             bold="false" />
@@ -381,14 +516,18 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install Metro Web Service"
         postDisplayTarget="antinstaller-launch-browser-2">
         <comment
-            explanatoryText="The following prerequisite software must be installed and configured prior to installing the CONNECT software"
+            displayText="The following prerequisite software must be installed prior to installing "
             bold="false" />
+        <comment
+            displayText="CONNECT software."
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
 
         <comment
-            displayText="Metro Web Service Stack 1.5 for GlassFish"
+            displayText="Metro Web Service Stack 1.5 for Glassfish"
             bold="true" />
         <comment
             displayText="Available for download at https://metro.dev.java.net/"
@@ -407,13 +546,11 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         <comment
             displayText=""
             bold="false" />
-        <comment
-            displayText=""
-            bold="false" />            
-        <comment
-            displayText="Click Next to continue"
+            
+         <comment
+            displayText="Click next continue"
             bold="false" />
-
+            
     </page>
 
     <!-- FOLLOWUP 2 (Metro) -->
@@ -423,14 +560,14 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install Metro Web Service (continued)"
         ifProperty="${launch.browser.for.metro}=true">
         <comment
-            displayText="1.  Save the Metro JAR to C:\NHINC\ThirdPartyTools"
+            explanatoryText="1.  Using the file download dialog displayed, save metro jar in target directory below."
             bold="false" />
         <comment
             displayText="2.  From command window prompt execute:"
             bold="false" />
 
         <comment
-            displayText="  > cd C:\NHINC\ThirdPartyTools"
+            displayText="  > cd ${directory.nhin.connect.source.third.party.tools}"
             bold="false" />
         <comment
             displayText="  > java -jar metro-1_5.jar"
@@ -452,7 +589,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             bold="false" />
 
         <comment
-            displayText="Click Next once Metro has been installed"
+            displayText="Click Next once the prerequisite software is installed"
             bold="false" />
     </page>
 
@@ -463,8 +600,12 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install MySQL"
         postDisplayTarget="antinstaller-launch-browser-3">
         <comment
-            explanatoryText="The following prerequisite software must be installed and configured prior to installing the CONNECT software"
+            displayText="The following prerequisite software must be installed and configured prior to"
             bold="false" />
+        <comment
+            displayText="installing CONNECT software."
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
@@ -489,14 +630,11 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         <comment
             displayText=""
             bold="false" />
-        <comment
-            displayText=""
+            
+         <comment
+            displayText="Click Next continue"
             bold="false" />
-
-        <comment
-            displayText="Click Next to continue"
-            bold="false" />
-
+            
     </page>
 
     <!-- FOLLOWUP 3 (MySQL) -->
@@ -506,7 +644,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install MySQL (continued)"
         ifProperty="${launch.browser.for.mysql}=true">
         <comment
-            displayText="1.  Using the file download dialog displayed, save *.msi file in C:\NHINC\ThirdPartyTools"
+            explanatoryText="1.  Using the file download dialog displayed, save *.msi file in ${directory.nhin.connect.source.third.party.tools}"
             bold="false" />
         <comment
             displayText="2.  Run the MySQL wizard"
@@ -534,7 +672,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             bold="false" />
 
         <comment
-            displayText="Click Next once MySQL has been installed"
+            displayText="Click Next once the prerequisite software is installed and configured"
             bold="false" />
     </page>
 
@@ -545,8 +683,12 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install MySQL GUI Tools"
         postDisplayTarget="antinstaller-launch-browser-4">
         <comment
-            explanatoryText="The following prerequisite software must be installed and configured prior to installing the CONNECT software"
+            displayText="The following prerequisite software must be installed and configured prior to"
             bold="false" />
+        <comment
+            displayText="installing CONNECT software."
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
@@ -571,12 +713,9 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         <comment
             displayText=""
             bold="false" />
-        <comment
-            displayText=""
-            bold="false" />
-
-        <comment
-            displayText="Click Next to continue"
+            
+         <comment
+            displayText="Click Next continue"
             bold="false" />
 
     </page>
@@ -588,16 +727,16 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Install MySQL GUI Tools (continued)"
         ifProperty="${launch.browser.for.mysql.tools}=true">
         <comment
-            explanatoryText="Save the *.msi file to C:\NHINC\ThirdPartyTools.  Run the MySQL GUI Tools installer and accept the defaults.  Open the MySQL Administrator:  Start->All Programs->MySQL->MySQL Administrator."
+            explanatoryText="Using the file download dialog displayed, save *.msi file in ${directory.nhin.connect.source.third.party.tools} directory.  Run the MySQL wizard - Accept the defaults for install.  Open the MySQL Administrator:  Start->All Programs->MySQL->MySQL Administrator."
             bold="false" />
         <comment
-            displayText="1.  Open Options dialog by clicking the button next to the Stored Connections field"
+            displayText="1.  Open Options dialog by clicking the button next to the Stored Connections field."
             bold="false" />
         <comment
-            displayText="2.  Show the Connections panel by clicking Connections icon on left side of window"
+            displayText="2.  Show the Connections panel by clicking Connections icon on left side of window."
             bold="false" />
         <comment
-            displayText="3.  Click the New Connection button to activate the Connections panel"  
+            displayText="3.  Click the New Connection button to activate the Connections panel."  
             bold="false" />
         <comment
             displayText="4.  On the Connections panel, enter the following values in the specified fields:"
@@ -630,13 +769,13 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             explanatoryText="On the Connections panel, click the Apply button, and then click Close button.  After closing the Options window you should now see your new entry in the Stored Connection drop-down field."
             bold="false" />
         <comment
-            displayText=" 5.  Select new database from Stored Connections drop down menu"
+            displayText=" 5.  Select new database from Stored Connections drop down menu."
             bold="false" />
         <comment
             displayText="     Enter:  user name as root; password as NHIE-Gateway"
             bold="false" />
         <comment
-            displayText="     Select OK button"
+            displayText="     Select OK button."
             bold="false" />
         <comment
             explanatoryText="6.  Verify MySQL Administrator - Connection: NHINConnect window is displayed. Close the MySQL Administrator Tool."
@@ -647,12 +786,12 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         <comment
             displayText=""
             bold="false" />
-
+            
         <comment
             displayText=""
             bold="false" />
         <comment
-            displayText="Click Next once MySQL GUI Tools has been installed and configured"
+            displayText="Click Next once the prerequisite software is installed"
             bold="false" />
     </page>
 
@@ -663,8 +802,12 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Object Identifier Request (OID)"
         postDisplayTarget="antinstaller-launch-browser-5">
         <comment
-            displayText="An Object Identifier may be needed prior to installing CONNECT software"
+            displayText="An Object Identifier may be needed prior to installing CONNECT software."
             bold="false" />
+        <comment
+            displayText=""
+            bold="false" />
+
         <comment
             displayText=""
             bold="false" />
@@ -673,7 +816,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             displayText="Object Identifier Request (OID)"
             bold="true" />
         <comment
-            displayText="Required if system is to be used in the NHIN Production Environment"
+            displayText="Required if system is to be used in the NHIN Production Environment."
             bold="false" />
         <checkbox
             property="launch.browser.for.oid"
@@ -690,13 +833,9 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             displayText=""
             bold="false" />
         <comment
-            displayText=""
+            displayText="Click Next continue"
             bold="false" />
-
-        <comment
-            displayText="Click Next to continue"
-            bold="false" />
-
+            
     </page>
 
     <!-- FOLLOWUP 5 (OID) -->
@@ -706,10 +845,10 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         displayText="NHIN CONNECT - Object Identifier Request (OID) (continued)"
         ifProperty="${launch.browser.for.oid}=true">
         <comment
-            explanatoryText="Follow the instructions detailed in the NHIN CONNECT Request Object Identifier guide launched in the browser to request your OID."
+            displayText="Follow the instructions detailed in the NHIN CONNECT Request Object Identifier guide"
             bold="false" />
         <comment
-            displayText=""
+            displayText="launched in the browser to request your OID."
             bold="false" />
 
         <comment
@@ -735,7 +874,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             bold="false" />
 
         <comment
-            displayText="Click Next once the OID has been requested"
+            displayText="Click Next once the OID is requested."
             bold="false" />
     </page>
 
@@ -755,21 +894,30 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         <comment
             displayText=""
             bold="false" />
-        <comment
-            displayText=""
-            bold="false" />
-
+<!--       
+        <target
+            displayText="Checkout Source"
+            defaultValue="true"
+            force="false"
+            target="download-windows-source" />
+-->
         <target
             displayText="Create DB Schema/Tables"
             defaultValue="true"
             force="false"
             target="create-db" />
-
+<!--
         <target
             displayText="Create GlassFish domain"
             defaultValue="true"
             force="false"
             target="create-glassfish-domain" />
+-->
+        <target
+            displayText="Build CONNECT Source"
+            defaultValue="true"
+            force="false"
+            target="build-NHINC" />
 
         <target
             displayText="Deploy CONNECT"
@@ -786,7 +934,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             bold="false" />
 
         <comment
-            displayText="Click Next to continue"
+            displayText="Click Next continue"
             bold="false" />
 
     </page>
@@ -797,32 +945,32 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
         name="finalInfo"
         displayText="NHIN CONNECT - Install Notes **USER EDITS REQUIRED**">
         <comment
-            displayText="During the install, the gateway.properties file will be launched for editing."
+            displayText="During the install, files will be launched with instructions."
             bold="false" />
         <comment
-            displayText="- Verify/set the following properties are set.  Close file when complete."
+            displayText="Perform the steps as directed in the launched file, then close the file"
             bold="false" />
         <comment
-            displayText="  - UUDIInquiryEndpointURL = https://216.12.136.142/uddi/inquiry"
+            displayText="to continue."
             bold="false" />
         <comment
-            displayText="  - localHomeCommunityId = [OID requested and obtained in previous step]"
+            displayText=""
             bold="false" />
         <comment
-            displayText="  - localHomeCommunityDescription = [text description of your environment]"
+            displayText=""
             bold="false" />
         <comment
-            displayText="  - localDeviceId = [localHomeCommunityId]"
+            displayText=""
             bold="false" />
 
         <comment
-            displayText="The NHIN CONNECT Gateway will be extracted to ${directory.nhin.connect}"
+            displayText=""
             bold="false" />
         <comment
-            displayText="The Third Party Components will be extracted to ${directory.nhin.connect.third.party}"
+            displayText=""
             bold="false" />
         <comment
-            displayText="SSL Request and Installation needs to be done after the installation completes"
+            displayText="SSL Request and Installation needs to be done after the installation completes."
             bold="false" />
         <comment
             displayText=""

@@ -21,6 +21,8 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
 // 2010/03/20   964G   1000   bgrantha   Initial Coding.
 // 2010/04/05   964G   1000   bgrantha   Browser-launch target(s) broken out
 // 2010/04/22   964G   1000   bgrantha   Renamed file
+// 2010/04/28   964G   1000   bgrantha   Replaced temporary deployment target
+//                                       with working original version
 //
 //*****************************************************************************
 -->
@@ -187,16 +189,6 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             </fileset>
         </copy>
 
-        <!-- 
-        Install Third Party Components (4)
-        Start Glassfish
-        -->
-        <!--
-        <exec dir="${actual.AS_HOME}/bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c asadmin start-domain domain1" />
-        </exec>
-        -->
-
         <echo message="End copy libraries task" />
     </target>
 
@@ -238,25 +230,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
     </target>
 
     <!-- Deployment -->
-    <!-- 
-    This is a temporary deployment target, due to an issue in the way the deploy.xml
-    returns control to the user after completion. The deploy process becomes tied to a
-    java executable and never fully exits. This causes this build.xml to hang while
-    waiting for deploy.xml to return control. Need to work out how to call external
-    deploy.xml and receive control after deploy target invoked.
-    -->
     <target name="deployment">
-        <echo message="Begin deployment task.." />
-
-        <exec executable="C:\WINDOWS\notepad.exe" failifexecutionfails="true" failonerror="true">
-            <arg value="${temporary.directory.workspace}\resources\txt\deployment.txt" />
-        </exec>
-
-        <echo message="End deployment task.." />
-    </target>
-
-    <!-- Deployment -->
-    <target name="deployment-original">
         <echo message="Begin deployment task.." />
 
         <!-- Deploying Applications to GlassFish -->
@@ -356,27 +330,27 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
     <target name="antinstaller-set-env" depends="antinstaller-update-path-for-ant-and-java">
         <!-- User Input -->
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat JAVA_HOME=${actual.JAVA_HOME}" />
+            <arg line="/c WindowsHelper.exe JAVA_HOME=${actual.JAVA_HOME}" />
         </exec>
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat IDE_HOME=${actual.IDE_HOME}" />
+            <arg line="/c WindowsHelper.exe IDE_HOME=${actual.IDE_HOME}" />
         </exec>
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat AS_HOME=${actual.AS_HOME}" />
+            <arg line="/c WindowsHelper.exe AS_HOME=${actual.AS_HOME}" />
         </exec>
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat NHINC_PROPERTIES_DIR=${actual.NHINC_PROPERTIES_DIR}" />
+            <arg line="/c WindowsHelper.exe NHINC_PROPERTIES_DIR=${actual.NHINC_PROPERTIES_DIR}" />
         </exec>
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat ANT_HOME=${actual.ANT_HOME}" />
+            <arg line="/c WindowsHelper.exe ANT_HOME=${actual.ANT_HOME}" />
         </exec>
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat ANT_OPTS=${actual.ANT_OPTS}" />
+            <arg line="/c WindowsHelper.exe ANT_OPTS=${actual.ANT_OPTS}" />
         </exec>
 
         <!-- Not Configurable -->
         <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat NHINC_THIRDPARTY_DIR=${directory.nhin.connect.third.party}" />
+            <arg line="/c WindowsHelper.exe NHINC_THIRDPARTY_DIR=${directory.nhin.connect.third.party}" />
         </exec>
     </target>
 
@@ -408,7 +382,10 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
                 </or>
             </not>
             <then>
-                <var name="path.contents" value="${path.contents};${actual.ANT_HOME}\bin" />
+                <!-- Update PATH -->
+                <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+                    <arg line="/c WindowsHelper.exe PATH=%PATH;${actual.ANT_HOME}\bin" />
+                </exec>                
             </then>
         </if>
 
@@ -418,18 +395,12 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
                 <contains string="${path.contents}" substring="${expected.PATH.contains.java}" casesensitive="false" />
             </not>
             <then>
-                <var name="path.contents" value="${path.contents};${actual.JAVA_HOME}\bin" />
+                <!-- Update PATH -->
+                <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
+                    <arg line="/c WindowsHelper.exe PATH=%PATH;${actual.JAVA_HOME}\bin" />
+                </exec>                
             </then>
         </if>
-
-        <!-- Just in case something goes wrong, keep a copy of existing PATH -->
-        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat PATH_PRE_CONNECT=%PATH%" />
-        </exec>
-        <!-- Update PATH -->
-        <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-            <arg line="/c setenv.bat PATH=${path.contents}" />
-        </exec>
     </target>
 
     <!-- Update PATH for MySQL -->
@@ -441,7 +412,7 @@ vim:expandtab: softtabstop=4 shiftwidth=4 tabstop=4
             </not>
             <then>
                 <exec dir="${temporary.directory.workspace}\resources\bin" executable="cmd.exe" failifexecutionfails="true" failonerror="true">
-                    <arg line="/c setenv.bat PATH=${path.contents};${expected.MYSQL_BIN}" />
+                    <arg line="/c WindowsHelper.exe PATH=%PATH;${expected.MYSQL_BIN}" />
                 </exec>
             </then>
         </if>

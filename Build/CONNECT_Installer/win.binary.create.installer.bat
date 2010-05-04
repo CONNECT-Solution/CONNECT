@@ -17,10 +17,9 @@ rem // Date         Proj   Act    Assign     Desc
 rem // ============ ====== ====== ========== ===================================
 rem // 2010/03/20   964G   1000   bgrantha   Initial Coding.
 rem // 2010/04/02   964G   1000   bgrantha   Removed absolute paths
-rem // 2010/04/22   964G   1000   ckempton   Updated create installer name
 rem //
 rem //*****************************************************************************
 
 @echo on
 
-ant -buildfile win.create.source.installer.xml
+ant -buildfile win.binary.create.installer.xml
