@@ -19,6 +19,7 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
+                  <xs:attribute name="deleteOnExit" type="xs:string"/>
                   <xs:attribute name="filename" type="xs:string" />
                 </xs:complexType>
               </xs:element>

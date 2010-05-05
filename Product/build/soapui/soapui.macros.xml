@@ -15,6 +15,7 @@
           <param name="test.numberOfIteration" path="@numberOfIteration"/>
           <param name="test.numberOfThreads" path="@numberOfThreads"/>
           <param name="test.properties.file.name" path="testProperties/@filename"/>
+          <param name="test.properties.file.deleteOnExit" path="testProperties/@deleteOnExit" default="false"/>
           <actions>
             <if>
               <istrue value="${debug}"/>
@@ -25,6 +26,12 @@
             <soapUIUpdateTestProperties testcase="@{test.name}" projectConfFilePath="@{projectConfFilePath}" testPropFile="@{test.properties.file.name}"/>
             <var name="optionalArg" value="-l&quot;@{test.testCase}&quot; -m&quot;@{test.numberOfIteration}&quot; -n&quot;@{test.numberOfThreads}&quot;"/>
             <soapUILoadTestRunner projectName="@{projectName}" projectReportDir="@{projectReportDir}/@{test.name}" projectFilePath="@{projectFilePath}" optionalArg="${optionalArg}"/>
+            <if>
+              <istrue value="@{test.properties.file.deleteOnExit}"/>
+              <then>
+                <delete file="@{test.properties.file.name}"/>
+              </then>
+            </if>
           </actions>
         </call>
       </xmltask>

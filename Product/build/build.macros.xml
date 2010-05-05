@@ -2,10 +2,9 @@
 <project name="build.taskdef" xmlns:ora="antlib:net.sf.incanto">
 
 	<!-- ###############  Begin Import of Extra Ant Tasks  ############### -->
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 	<typedef resource="AgilexAnt.properties" />
-	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
 
   <macrodef name="project">
     <attribute name="name"/>

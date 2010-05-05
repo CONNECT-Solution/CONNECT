@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="soapui.targets">
+  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9he.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9-ant.jar"/>
 
-  <import file="soapui.properties.xml" />
-  <import file="soapui.macros.xml" />
+  <import file="soapui.properties.xml"/>
+  <import file="soapui.macros.xml"/>
 
   <target name="soapui.help">
     <echo taskname="help">
-      soapui.run - executes all soapui project files found in the project if it has the property soapui.hasTests set to true.  A soapui
-      project file has the format of *-soapui-project.xml.
+      soapui.run - executes all soapui project files found in the project if it has the property soapui.hasTests or soapui.hasLoadTests set to true.
+      A soapui project file has the format of *-soapui-project.xml.
     </echo>
   </target>
 
@@ -25,7 +26,8 @@
       <elseif>
         <istrue value="${soapui.hasLoadTests}" />
         <then>
-          <call target="-soapui.find.and.run.load.tests"/>
+          <call target="-soapui.find.and.run.loadtests"/>
+          <call target="-soapui.generate.loadtest.report"/>
         </then>
       </elseif>
       <else>
@@ -77,7 +79,7 @@
     </for>
   </target>
 
-  <target name="-soapui.find.and.run.load.tests">
+  <target name="-soapui.find.and.run.loadtests">
     <delete dir="${soapui.report.dir}" />
     <mkdir dir="${soapui.report.dir}"/>
     <for param="soapui.project.file.path">
@@ -129,5 +131,44 @@
         </junitreportplus>
       </then>
     </if>
+  </target>
+
+  <target name="-soapui.generate.loadtest.report">
+    <property name="soapui.statistics.list.file.path" value="${soapui.report.dir}/statistics.list.xml"/>
+    <runtarget target="-soapui.create.statistics.list.xml"/>
+    <saxon-xslt
+     in="${soapui.statistics.list.file.path}" out="${soapui.report.dir}/SoapUILoadTests.xml" 
+     style="${root.project.directory.path}/build/soapui/analitics_csv2xml.xslt"
+     force="true">
+    </saxon-xslt>
+    <delete file="${soapui.statistics.list.file.path}"/>
+  </target>
+
+  <target name="-soapui.create.statistics.list.xml" depends="-soapui.init.loadtest.statistics.list.xml">
+    <for param="file">
+      <path>
+        <fileset dir="${soapui.report.dir}">
+          <include name="**/*-statistics.txt"/>
+        </fileset>
+      </path>
+      <sequential>
+        <echo message="@{file}"/>
+        <var name="statistics.list.entry.xpath" value="/statistics"/>
+        <var name="statistics.list.entry" value="&lt;file&gt;@{file}&lt;/file&gt;"/>
+        <runtarget target="-soapui.insert.entry.to.statistics.list"/>
+      </sequential>
+    </for>
+  </target>
+
+  <target name="-soapui.init.loadtest.statistics.list.xml">
+    <xmltask dest="${soapui.statistics.list.file.path}" outputter="simple:3" encoding="UTF-8" standalone="YES">
+      <insert path="/" xml="&lt;statistics&gt;&lt;/statistics&gt;"/>
+    </xmltask>
+  </target>
+
+  <target name="-soapui.insert.entry.to.statistics.list">
+    <xmltask source="${soapui.statistics.list.file.path}" dest="${soapui.statistics.list.file.path}" outputter="simple:3"  encoding="UTF-8" standalone="YES">
+      <insert path="${statistics.list.entry.xpath}" xml="${statistics.list.entry}"/>
+    </xmltask>
   </target>
 </project>
