@@ -24329,7 +24329,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 //ns21:Acknowledgement[1]/message[1]</path><content>CONNECTPolicyCheckFailed</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Policy Engine Mock">
 				<con:settings/>
 				<con:config xsi:type="con:MockResponseStep" startStep="NhincXDRRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterPolicyEngineBindingSoap11</con:interface>
+					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPE</con:path>
 					<con:port>1882</con:port>
@@ -26850,7 +26850,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 //ns21:Acknowledgement[1]/message[1]</path><content>CONNECTPolicyCheckFailed</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Policy Engine Mock">
 				<con:settings/>
 				<con:config xsi:type="con:MockResponseStep" startStep="EntityXDRresponse - Request" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterPolicyEngineBindingSoap11</con:interface>
+					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPE</con:path>
 					<con:port>1883</con:port>
