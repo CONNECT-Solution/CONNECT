@@ -91,6 +91,12 @@ public class NhincConstants {
     public static final String ASYNC_MSG_TYPE_PROP = "msgType";
     public static final String ASYNC_REQUEST_MSG_TYPE_VAL = "request";
     public static final String ASYNC_RESPONSE_MSG_TYPE_VAL = "response";
+    public static final String ASYNC_DB_REC_EXP_VAL_PROP = "asyncDbRecExpValue";
+    public static final String ASYNC_DB_REC_EXP_VAL_UNITS_PROP = "asyncDbRecExpUnits";
+    public static final String ASYNC_DB_REC_EXP_VAL_UNITS_SEC = "seconds";
+    public static final String ASYNC_DB_REC_EXP_VAL_UNITS_MIN = "minutes";
+    public static final String ASYNC_DB_REC_EXP_VAL_UNITS_HOUR = "hours";
+    public static final String ASYNC_DB_REC_EXP_VAL_UNITS_DAY = "days";
 
     public static final String NS_ADDRESSING_2005 = "http://www.w3.org/2005/08/addressing";
     public static final String HEADER_MESSAGEID = "MessageID";
