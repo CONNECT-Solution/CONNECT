@@ -40,10 +40,10 @@ public class PatientDiscovery201305Processor {
 
     public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        String senderOID = null;
-        String receiverOID = null;
 
         // Set the sender and receiver OID for the response
+        String senderOID = extractSenderOID(request);
+        String receiverOID = extractReceiverOID(request);
 
         // Store Assigning Authority to Home Community Id Mapping
         storeMapping(request);
@@ -107,29 +107,8 @@ public class PatientDiscovery201305Processor {
 
 
         if (request != null) {
-            if (request.getSender() != null &&
-                    request.getSender().getDevice() != null &&
-                    request.getSender().getDevice().getAsAgent() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                hcid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
-            }
-
-            if (request.getControlActProcess() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
-                assigningAuthority = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
-            }
-
+            hcid = extractSenderOID(request);
+            assigningAuthority = extractAAOID(request);
         }
 
         if (NullChecker.isNotNullish(hcid) &&
@@ -144,7 +123,7 @@ public class PatientDiscovery201305Processor {
     }
 
     protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
-          return queryMpiForPatients(query, assertion);
+        return queryMpiForPatients(query, assertion);
     }
 
     public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion) {
@@ -210,15 +189,7 @@ public class PatientDiscovery201305Processor {
         try {
             if (request != null &&
                     request.getControlActProcess() != null) {
-                if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
-                        request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
-                        request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
-                        request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
-                        NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
-                        request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
-                        NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
-                    aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
-                }
+                aaId = extractAAOID(request);
 
                 if (NullChecker.isNotNullish(aaId)) {
                     if (request.getControlActProcess().getQueryByParameter() != null &&
@@ -259,8 +230,7 @@ public class PatientDiscovery201305Processor {
             MCCIMT000100UV01Receiver oNewReceiver = HL7ReceiverTransforms.createMCCIMT000100UV01Receiver(targetCommunityId);
             newRequest.getReceiver().add(oNewReceiver);
             log.debug("Created a new request for target communityId: " + targetCommunityId);
-        }
-        else {
+        } else {
             log.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
             return null;
         }
@@ -274,15 +244,8 @@ public class PatientDiscovery201305Processor {
 
         if (request != null &&
                 request.getControlActProcess() != null) {
-            if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
-                aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
-            }
+
+            aaId = extractAAOID(request);
 
             if (NullChecker.isNotNullish(aaId)) {
                 if (request.getControlActProcess().getQueryByParameter() != null &&
@@ -305,5 +268,62 @@ public class PatientDiscovery201305Processor {
         }
 
         return patId;
+    }
+
+    private String extractSenderOID(PRPAIN201305UV02 request) {
+        String oid = null;
+
+        if (request != null &&
+                request.getSender() != null &&
+                request.getSender().getDevice() != null &&
+                request.getSender().getDevice().getAsAgent() != null &&
+                request.getSender().getDevice().getAsAgent().getValue() != null &&
+                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            oid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
+
+        return oid;
+    }
+
+    private String extractReceiverOID(PRPAIN201305UV02 request) {
+        String oid = null;
+
+        if (request != null &&
+                NullChecker.isNotNullish(request.getReceiver()) &&
+                request.getReceiver().get(0) != null &&
+                request.getReceiver().get(0).getDevice() != null &&
+                request.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            oid = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
+
+        return oid;
+    }
+
+    private String extractAAOID(PRPAIN201305UV02 request) {
+        String oid = null;
+
+        if (request != null &&
+                request.getControlActProcess() != null &&
+                NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
+                request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
+                request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
+                request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
+                NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
+                request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
+            oid = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+        }
+
+        return oid;
     }
 }

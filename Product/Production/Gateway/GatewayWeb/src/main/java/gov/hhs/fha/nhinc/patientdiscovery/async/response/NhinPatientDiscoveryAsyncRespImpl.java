@@ -19,11 +19,16 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.TrustMode;
 import gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.beans.XMLDecoder;
 import java.sql.Blob;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -222,6 +227,67 @@ public class NhinPatientDiscoveryAsyncRespImpl {
 
     protected void cleanupDatabase (AsyncMsgRecord dbRec) {
         AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
+
+        // Delete the specific database record that was passed into this method.
         asyncDbDao.delete(dbRec);
+
+        // Clean up all database entries that have "expired"
+        removeExpiredEntries(asyncDbDao);
+    }
+
+    private void removeExpiredEntries (AsyncMsgRecordDao asyncDbDao) {
+        // Read the delta properties from the gateway.properties file
+        long value = 0;
+        String units = null;
+
+        try {
+            value = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
+        try {
+            units = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
+        // Determine the time to query on
+        Date expirationValue = calculateExpirationValue(value, units);
+        
+        // Query the database for all records older then the calculated time
+        List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByTime(expirationValue);
+
+        // Delete all of the records that were returned from the query
+        for (AsyncMsgRecord rec : asyncMsgRecs) {
+            asyncDbDao.delete(rec);
+        }
+    }
+
+    private Date calculateExpirationValue (long value, String units) {
+        Calendar currentTime = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+
+        // Convert the long to a Long Object and change the sign to negative so our query value ends up in the past.
+        Long longObj = Long.valueOf(0-value);
+
+        if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC)) {
+            currentTime.add(Calendar.SECOND, longObj.intValue());
+        }
+        else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN)) {
+            currentTime.add(Calendar.MINUTE, longObj.intValue());
+        }
+        else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR)) {
+            currentTime.add(Calendar.HOUR_OF_DAY, longObj.intValue());
+        }
+        else {
+            // Default to days
+            currentTime.add(Calendar.DAY_OF_YEAR, longObj.intValue());
+        }
+
+        Date expirationValue = currentTime.getTime();
+
+        return expirationValue;
     }
 }
