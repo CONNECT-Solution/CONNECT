@@ -97,7 +97,8 @@ public class PatientDiscovery201305Processor {
     }
 
     protected PRPAIN201306UV02 createEmpty201306(String senderOID, String receiverOID, PRPAIN201305UV02 request) {
-        return HL7PRPA201306Transforms.createPRPA201306(null, senderOID, null, receiverOID, null, request);
+        // Switch the sender and receiver OIDs before calling the transformation method because the response is going in the opposite direction.
+        return HL7PRPA201306Transforms.createPRPA201306(null, receiverOID, null, senderOID, null, request);
     }
 
     protected void storeMapping(PRPAIN201305UV02 request) {
