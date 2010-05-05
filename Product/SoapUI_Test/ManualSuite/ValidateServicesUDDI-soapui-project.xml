@@ -1,149 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="ValidateServicesUDDI" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap11" soapVersion="1_1" anonymous="optional" definition="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl"><con:part><con:url>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=3</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-.-->
-<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
-Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
-
-Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
-and to authorize others to do the foregoing, in any medium without fee or royalty is hereby
-granted for the purpose of developing and evaluating the WS-Addressing Specification.
-
-BEA, IBM, Microsoft, SAP AG, and Sun Microsystems (collectively, the "Authors") each agree 
-to grant a license to third parties, under royalty-free  and otherwise reasonable, 
-non-discriminatory terms and conditions, to their respective essential patent claims that
-they deem necessary to implement the WS-Addressing Specification.
-
-DISCLAIMERS:
-
-THE WS-Addressing Specification IS PROVIDED "AS IS", AND THE AUTHORS MAKE NO REPRESENTATIONS
-OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE 
-CONTENTS OF THE WS-Addressing Specification IS SUITABLE FOR ANY PURPOSE; NOR THAT THE 
-IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, 
-TRADEMARKS OR OTHER RIGHTS.
-
-THE AUTHORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL 
-DAMAGES ARISING OUT OF ANY USE OF THE WS-Addressing Specification OR THE PERFORMANCE OR 
-IMPLEMENTATION OF THE CONTENTS THEREOF.
-
-You may remove these disclaimers from your modified versions of the WS-Addressing 
-Specification provided that you effectively disclaim all warranties and liabilities on behalf 
-of all copyright holders in the copies of any such modified versions you distribute.
-
-The name and trademarks of the Authors may NOT be used in any manner, including advertising 
-or publicity pertaining to the WS-Addressing Specification or its contents without specific, 
-written prior permission. Title to copyright in the WS-Addressing Specification will at all 
-times remain with the Authors.
-
-No other rights are granted by implication, estoppel or otherwise.-->
-<xs:schema targetNamespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" elementFormDefault="qualified" blockDefault="#all" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-  <!--//////////////////// WS-Addressing ////////////////////-->
-  <!--Endpoint reference-->
-  <xs:element name="EndpointReference" type="wsa:EndpointReferenceType"/>
-  <xs:complexType name="EndpointReferenceType">
-    <xs:sequence>
-      <xs:element name="Address" type="wsa:AttributedURI"/>
-      <xs:element name="ReferenceProperties" type="wsa:ReferencePropertiesType" minOccurs="0"/>
-      <xs:element name="ReferenceParameters" type="wsa:ReferenceParametersType" minOccurs="0"/>
-      <xs:element name="PortType" type="wsa:AttributedQName" minOccurs="0"/>
-      <xs:element name="ServiceName" type="wsa:ServiceNameType" minOccurs="0"/>
-      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
-        <xs:annotation>
-          <xs:documentation>If "Policy" elements from namespace "http://schemas.xmlsoap.org/ws/2002/12/policy#policy" are used, they must appear first (before any extensibility elements).</xs:documentation>
-        </xs:annotation>
-      </xs:any>
-    </xs:sequence>
-    <xs:anyAttribute namespace="##other" processContents="lax"/>
-  </xs:complexType>
-  <xs:complexType name="ReferencePropertiesType">
-    <xs:sequence>
-      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ReferenceParametersType">
-    <xs:sequence>
-      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ServiceNameType">
-    <xs:simpleContent>
-      <xs:extension base="xs:QName">
-        <xs:attribute name="PortName" type="xs:NCName"/>
-        <xs:anyAttribute namespace="##other" processContents="lax"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <!--Message information header blocks-->
-  <xs:element name="MessageID" type="wsa:AttributedURI"/>
-  <xs:element name="RelatesTo" type="wsa:Relationship"/>
-  <xs:element name="To" type="wsa:AttributedURI"/>
-  <xs:element name="Action" type="wsa:AttributedURI"/>
-  <xs:element name="From" type="wsa:EndpointReferenceType"/>
-  <xs:element name="ReplyTo" type="wsa:EndpointReferenceType"/>
-  <xs:element name="FaultTo" type="wsa:EndpointReferenceType"/>
-  <xs:complexType name="Relationship">
-    <xs:simpleContent>
-      <xs:extension base="xs:anyURI">
-        <xs:attribute name="RelationshipType" type="xs:QName" use="optional"/>
-        <xs:anyAttribute namespace="##other" processContents="lax"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:simpleType name="RelationshipTypeValues">
-    <xs:restriction base="xs:QName">
-      <xs:enumeration value="wsa:Reply"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <!--June 19, 2007: The ReplyAfter element is deprecated. The name of this element does not match the
-    name (RetryAfter) used in the specification (http://www.w3.org/Submission/2004/SUBM-ws-addressing-20040810/).-->
-  <xs:element name="ReplyAfter" type="wsa:ReplyAfterType"/>
-  <xs:complexType name="ReplyAfterType">
-    <xs:simpleContent>
-      <xs:extension base="xs:nonNegativeInteger">
-        <xs:anyAttribute namespace="##other"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <!--June 19, 2007: The RetryAfter element has been added to be consistent with the specification
-    (http://www.w3.org/Submission/2004/SUBM-ws-addressing-20040810/).-->
-  <xs:element name="RetryAfter" type="wsa:RetryAfterType"/>
-  <xs:complexType name="RetryAfterType">
-    <xs:simpleContent>
-      <xs:extension base="xs:nonNegativeInteger">
-        <xs:anyAttribute namespace="##other"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:simpleType name="FaultSubcodeValues">
-    <xs:restriction base="xs:QName">
-      <xs:enumeration value="wsa:InvalidMessageInformationHeader"/>
-      <xs:enumeration value="wsa:MessageInformationHeaderRequired"/>
-      <xs:enumeration value="wsa:DestinationUnreachable"/>
-      <xs:enumeration value="wsa:ActionNotSupported"/>
-      <xs:enumeration value="wsa:EndpointUnavailable"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:attribute name="Action" type="xs:anyURI"/>
-  <!--Common declarations and definitions-->
-  <xs:complexType name="AttributedQName">
-    <xs:simpleContent>
-      <xs:extension base="xs:QName">
-        <xs:anyAttribute namespace="##other" processContents="lax"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="AttributedURI">
-    <xs:simpleContent>
-      <xs:extension base="xs:anyURI">
-        <xs:anyAttribute namespace="##other" processContents="lax"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-.-->
-<definitions name="ConnectionManagerService" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+<con:soapui-project name="ValidateServicesUDDI" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl</con:url><con:content><![CDATA[<definitions name="ConnectionManagerService" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
   <wsdl:types>
     <xsd:schema>
-      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" schemaLocation="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=1"/>
-      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=2"/>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" schemaLocation="../schemas/nhinc/common/ConnectionManagerInfo.xsd"/>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
     </xsd:schema>
   </wsdl:types>
   <message name="GetAllCommunitiesRequestMessage">
@@ -272,6 +132,12 @@ No other rights are granted by implication, estoppel or otherwise.-->
   <message name="GetConnectionInfoEndpontFromNhinTargetResponseMessage">
     <part name="GetConnectionInfoEndpontFromNhinTargetResponse" element="nccommon:EPR"/>
   </message>
+  <message name="GetUrlSetFromNhinTargetCommunitiesRequestMessage">
+    <part name="GetUrlSetFromNhinTargetCommunitiesRequest" element="conninfo:GetUrlSetByServiceName"/>
+  </message>
+  <message name="GetUrlSetFromNhinTargetCommunitiesResponseMessage">
+    <part name="GetUrlSetFromNhinTargetCommunitiesResponse" element="nccommon:UrlSet"/>
+  </message>
   <portType name="NhincComponentConnectionManagerPortType">
     <operation name="GetAllCommunities">
       <input name="GetAllCommunitiesRequest" message="tns:GetAllCommunitiesRequestMessage"/>
@@ -357,8 +223,12 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <input name="GetConnectionInfoEndpontFromNhinTargetRequest" message="tns:GetConnectionInfoEndpontFromNhinTargetRequestMessage"/>
       <output name="GetConnectionInfoEndpontFromNhinTargetResponse" message="tns:GetConnectionInfoEndpontFromNhinTargetResponseMessage"/>
     </operation>
+    <operation name="GetUrlSetFromNhinTargetCommunities">
+      <input name="GetUrlSetFromNhinTargetCommunitiesRequest" message="tns:GetUrlSetFromNhinTargetCommunitiesRequestMessage"/>
+      <output name="GetUrlSetFromNhinTargetCommunitiesResponse" message="tns:GetUrlSetFromNhinTargetCommunitiesResponseMessage"/>
+    </operation>
   </portType>
-  <binding name="NhincComponentConnectionManagerBindingSoap11" type="tns:NhincComponentConnectionManagerPortType">
+  <binding name="NhincComponentConnectionManagerBindingSoap" type="tns:NhincComponentConnectionManagerPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="StoreAssigningAuthorityToHomeCommunityMapping">
       <soap:operation soapAction="urn:StoreAssigningAuthorityToHomeCommunityMapping"/>
@@ -549,25 +419,33 @@ No other rights are granted by implication, estoppel or otherwise.-->
         <soap:body use="literal"/>
       </output>
     </operation>
+    <operation name="GetUrlSetFromNhinTargetCommunities">
+      <soap:operation soapAction="GetUrlSetFromNhinTargetCommunities"/>
+      <input name="GetUrlSetFromNhinTargetCommunitiesRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="GetUrlSetFromNhinTargetCommunitiesResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
   </binding>
   <service name="NhincComponentConnectionManager">
-    <port name="NhincComponentConnectionManagerPortSoap11" binding="tns:NhincComponentConnectionManagerBindingSoap11">
-      <soap:address location="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager"/>
+    <port name="NhincComponentConnectionManagerPortSoap" binding="tns:NhincComponentConnectionManagerBindingSoap">
+      <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager"/>
     </port>
   </service>
   <plnk:partnerLinkType name="NhincComponentConnectionManager">
-    <!--A partner link type is automatically generated when a new port 
-             type is added. Partner link types are used by BPEL processes. 
-             In a BPEL process, a partner link represents the interaction 
-             between the BPEL process and a partner service. Each partner 
-             link is associated with a partner link type.  A partner link 
-             type characterizes the conversational relationship between 
+    <!--A partner link type is automatically generated when a new port
+             type is added. Partner link types are used by BPEL processes.
+             In a BPEL process, a partner link represents the interaction
+             between the BPEL process and a partner service. Each partner
+             link is associated with a partner link type.  A partner link
+             type characterizes the conversational relationship between
              two services. The partner link type can have one or two roles.-->
     <plnk:role name="NhincComponentConnectionManagerPortTypeRole" portType="tns:NhincComponentConnectionManagerPortType"/>
   </plnk:partnerLinkType>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=1</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-.-->
-<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-  <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=2"/>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\ConnectionManagerInfo.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+  <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="NhincCommon.xsd"/>
   <xsd:complexType name="ConnectionInfosType">
     <xsd:sequence>
       <xsd:element name="connectionInfo" type="tns:ConnectionInfoType" minOccurs="0" maxOccurs="unbounded"/>
@@ -672,7 +550,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="states" type="tns:StatesType" minOccurs="0"/>
       <xsd:element name="federalHIE" type="xsd:boolean" minOccurs="0"/>
       <xsd:element name="publicKeyURI" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="publicKey" type="xsd:base64Binary" minOccurs="0"/>
+      <xsd:element name="publicKey" type="xsd:string" minOccurs="0"/>
       <xsd:element name="businessServices" type="tns:BusinessServicesType" minOccurs="0"/>
     </xsd:sequence>
     <xsd:attribute name="businessKey" type="xsd:string"/>
@@ -765,7 +643,6 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="names" type="tns:BindingNamesType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="descriptions" type="tns:BindingDescriptionsType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="uniformServiceName" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="serviceVersion" type="xsd:string" minOccurs="0"/>
       <xsd:element name="internalWebService" type="xsd:boolean" minOccurs="0"/>
       <xsd:element name="bindingTemplates" type="tns:BindingTemplatesType" minOccurs="0"/>
     </xsd:sequence>
@@ -794,6 +671,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xsd:sequence>
       <xsd:element name="endpointURL" type="xsd:string" minOccurs="0"/>
       <xsd:element name="wsdlURL" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="serviceVersion" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
     <xsd:attribute name="bindingKey" type="xsd:string"/>
   </xsd:complexType>
@@ -812,8 +690,8 @@ No other rights are granted by implication, estoppel or otherwise.-->
   <xsd:element name="GetAllBusinessEntitiesRequest" type="tns:GetAllBusinessEntitiesRequestType"/>
   <xsd:complexType name="GetBusinessEntityRequestType">
     <xsd:sequence>
-      <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="assigningAuthority" type="nccommon:AssigningAuthorityType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType" minOccurs="0"/>
+      <xsd:element name="assigningAuthority" type="nccommon:AssigningAuthorityType" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="GetBusinessEntityRequest" type="tns:GetBusinessEntityRequestType"/>
@@ -826,8 +704,8 @@ No other rights are granted by implication, estoppel or otherwise.-->
   <xsd:element name="GetConnectionInfoEndpointSetRequest" type="tns:GetConnectionInfoEndpointSetRequestType"/>
   <xsd:complexType name="GetBusinessEntitySetRequestType">
     <xsd:sequence>
-      <xsd:element name="homeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="homeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0"/>
+      <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="GetBusinessEntitySetRequest" type="tns:GetBusinessEntitySetRequestType"/>
@@ -1006,9 +884,15 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="GetConnectionInfoEndpontFromNhinTargetRequest" type="tns:GetConnectionInfoEndpontFromNhinTargetType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=2</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-.-->
-<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-  <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=3"/>
+  <xsd:complexType name="GetUrlSetByServiceNameType">
+    <xsd:sequence>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+      <xsd:element name="service" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GetUrlSetByServiceName" type="tns:GetUrlSetByServiceNameType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+  <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
       <xsd:element name="SubjectIdentifier" type="xsd:string"/>
@@ -1032,8 +916,6 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xsd:sequence>
       <xsd:element name="address" type="tns:AddressType"/>
       <xsd:element name="dateOfBirth" type="xsd:string"/>
-      <xsd:element name="dateOfSignature" type="xsd:string"/>
-      <xsd:element name="expirationDate" type="xsd:string"/>
       <xsd:element name="explanationNonClaimantSignature" type="xsd:string"/>
       <xsd:element name="haveSecondWitnessSignature" type="xsd:boolean"/>
       <xsd:element name="haveSignature" type="xsd:boolean"/>
@@ -1041,8 +923,6 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
       <xsd:element name="personName" type="tns:PersonNameType"/>
       <xsd:element name="phoneNumber" type="tns:PhoneType"/>
-      <!--purposeOfDisclosure deprecated element-->
-      <xsd:element name="purposeOfDisclosure" type="xsd:string"/>
       <xsd:element name="secondWitnessAddress" type="tns:AddressType"/>
       <xsd:element name="secondWitnessName" type="tns:PersonNameType"/>
       <xsd:element name="secondWitnessPhone" type="tns:PhoneType"/>
@@ -1054,11 +934,72 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="userInfo" type="tns:UserType"/>
       <xsd:element name="authorized" type="xsd:boolean"/>
       <xsd:element name="purposeOfDisclosureCoded" type="tns:CeType" minOccurs="0"/>
-      <xsd:element name="claimFormRef" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="claimFormRaw" type="xsd:base64Binary" minOccurs="0"/>
+      <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
+      <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
+      <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
+      <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
+  <xsd:complexType name="SamlAuthnStatementType">
+    <xsd:sequence>
+      <xsd:element name="authInstant" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="sessionIndex" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="authContextClassRef" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="subjectLocalityAddress" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="subjectLocalityDNSName" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthnStatement" type="tns:SamlAuthnStatementType"/>
+  <xsd:complexType name="SamlAuthzDecisionStatementType">
+    <xsd:sequence>
+      <xsd:element name="decision" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="resource" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="action" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="evidence" type="tns:SamlAuthzDecisionStatementEvidenceType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType"/>
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceType">
+    <xsd:sequence>
+      <xsd:element name="assertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatementEvidence" type="tns:SamlAuthzDecisionStatementEvidenceType"/>
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceAssertionType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="issueInstant" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="version" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="issuer" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="issuerFormat" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0"/>
+      <xsd:element name="accessConsentPolicy" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="instanceAccessConsentPolicy" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatementEvidenceAssertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType"/>
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceConditionsType">
+    <xsd:sequence>
+      <xsd:element name="notBefore" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="notOnOrAfter" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatementEvidenceConditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType"/>
+  <xsd:complexType name="SamlSignatureType">
+    <xsd:sequence>
+      <xsd:element name="keyInfo" type="tns:SamlSignatureKeyInfoType" minOccurs="0"/>
+      <xsd:element name="signatureValue" type="xsd:base64Binary" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlSignature" type="tns:SamlSignatureType"/>
+  <xsd:complexType name="SamlSignatureKeyInfoType">
+    <xsd:sequence>
+      <xsd:element name="rsaKeyValueModulus" type="xsd:base64Binary" minOccurs="0"/>
+      <xsd:element name="rsaKeyValueExponent" type="xsd:base64Binary" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlSignatureKeyInfo" type="tns:SamlSignatureKeyInfoType"/>
   <xsd:complexType name="AddressType">
     <xsd:sequence>
       <xsd:element name="addressType" type="tns:CeType"/>
@@ -1070,6 +1011,12 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Address" type="tns:AddressType"/>
+  <xsd:complexType name="AddressesType">
+    <xsd:sequence>
+      <xsd:element name="address" type="tns:AddressType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Addresses" type="tns:AddressesType"/>
   <xsd:complexType name="CeType">
     <xsd:sequence>
       <xsd:element name="code" type="xsd:string"/>
@@ -1078,7 +1025,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="codeSystemVersion" type="xsd:string"/>
       <xsd:element name="displayName" type="xsd:string"/>
       <xsd:element name="originalText" type="xsd:string"/>
-      <xsd:element name="translation" type="tns:CeType" maxOccurs="unbounded"/>
+      <xsd:element name="translation" type="tns:CeType" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Ce" type="tns:CeType"/>
@@ -1102,6 +1049,9 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="givenName" type="xsd:string"/>
       <xsd:element name="nameType" type="tns:CeType"/>
       <xsd:element name="secondNameOrInitials" type="xsd:string"/>
+      <xsd:element name="fullName" type="xsd:string"/>
+      <xsd:element name="prefix" type="xsd:string"/>
+      <xsd:element name="suffix" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="PersonName" type="tns:PersonNameType"/>
@@ -1119,8 +1069,6 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xsd:sequence>
       <xsd:element name="personName" type="tns:PersonNameType"/>
       <xsd:element name="userName" type="xsd:string"/>
-      <!--role deprecated element-->
-      <xsd:element name="role" type="xsd:string"/>
       <xsd:element name="org" type="tns:HomeCommunityType"/>
       <xsd:element name="roleCoded" type="tns:CeType" minOccurs="0"/>
     </xsd:sequence>
@@ -1186,6 +1134,8 @@ No other rights are granted by implication, estoppel or otherwise.-->
   <xsd:complexType name="NhinTargetCommunityType">
     <xsd:sequence>
       <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
+      <xsd:element name="list" type="xsd:string"/>
+      <xsd:element name="region" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="NhinTargetCommunitiesType">
@@ -1195,7 +1145,170 @@ No other rights are granted by implication, estoppel or otherwise.-->
   </xsd:complexType>
   <xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
   <xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>http://172.16.50.82:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:endpoint>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ForceRefreshInternalConnectCache" name="ForceRefreshInternalConnectCache" bindingOperationName="ForceRefreshInternalConnectCache" type="Request-Response" outputName="ForceRefreshInternalConnectCacheResponse" inputName="ForceRefreshInternalConnectCacheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ForceRefreshUDDICache" name="ForceRefreshUDDICache" bindingOperationName="ForceRefreshUDDICache" type="Request-Response" outputName="ForceRefreshUDDICacheResponse" inputName="ForceRefreshUDDICacheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntities" name="GetAllBusinessEntities" bindingOperationName="GetAllBusinessEntities" type="Request-Response" outputName="GetAllBusinessEntitiesResponse" inputName="GetAllBusinessEntitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntitySetByServiceName" name="GetAllBusinessEntitySetByServiceName" bindingOperationName="GetAllBusinessEntitySetByServiceName" type="Request-Response" outputName="GetAllBusinessEntitySetByServiceNameResponse" inputName="GetAllBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllCommunities" name="GetAllCommunities" bindingOperationName="GetAllCommunities" type="Request-Response" outputName="GetAllCommunitiesResponse" inputName="GetAllCommunitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoEndpointSetByServiceName" name="GetAllConnectionInfoEndpointSetByServiceName" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoSetByServiceName" name="GetAllConnectionInfoSetByServiceName" bindingOperationName="GetAllConnectionInfoSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoSetByServiceNameResponse" inputName="GetAllConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntity" name="GetBusinessEntity" bindingOperationName="GetBusinessEntity" type="Request-Response" outputName="GetBusinessEntityResponse" inputName="GetBusinessEntityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntityByServiceName" name="GetBusinessEntityByServiceName" bindingOperationName="GetBusinessEntityByServiceName" type="Request-Response" outputName="GetBusinessEntityByServiceNameResponse" inputName="GetBusinessEntityByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySet" name="GetBusinessEntitySet" bindingOperationName="GetBusinessEntitySet" type="Request-Response" outputName="GetBusinessEntitySetResponse" inputName="GetBusinessEntitySetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySetByServiceName" name="GetBusinessEntitySetByServiceName" bindingOperationName="GetBusinessEntitySetByServiceName" type="Request-Response" outputName="GetBusinessEntitySetByServiceNameResponse" inputName="GetBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoByServiceName" name="GetConnectionInfoByServiceName" bindingOperationName="GetConnectionInfoByServiceName" type="Request-Response" outputName="GetConnectionInfoByServiceNameResponse" inputName="GetConnectionInfoByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointByServiceName" name="GetConnectionInfoEndpointByServiceName" bindingOperationName="GetConnectionInfoEndpointByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointByServiceNameResponse" inputName="GetConnectionInfoEndpointByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSet" name="GetConnectionInfoEndpointSet" bindingOperationName="GetConnectionInfoEndpointSet" type="Request-Response" outputName="GetConnectionInfoEndpointSetResponse" inputName="GetConnectionInfoEndpointSetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSetByServiceName" name="GetConnectionInfoEndpointSetByServiceName" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSet" name="GetConnectionInfoSet" bindingOperationName="GetConnectionInfoSet" type="Request-Response" outputName="GetConnectionInfoSetResponse" inputName="GetConnectionInfoSetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSetByServiceName" name="GetConnectionInfoSetByServiceName" bindingOperationName="GetConnectionInfoSetByServiceName" type="Request-Response" outputName="GetConnectionInfoSetByServiceNameResponse" inputName="GetConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:StoreAssigningAuthorityToHomeCommunityMapping" name="StoreAssigningAuthorityToHomeCommunityMapping" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" type="Request-Response" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAssigningAuthoritiesByHomeCommunity" name="GetAssigningAuthoritiesByHomeCommunity" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" type="Request-Response" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetHomeCommunityByAssigningAuthority" name="GetHomeCommunityByAssigningAuthority" bindingOperationName="GetHomeCommunityByAssigningAuthority" type="Request-Response" outputName="GetHomeCommunityByAssigningAuthorityResponse" inputName="GetHomeCommunityByAssigningAuthorityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="GetConnectionInfoEndpontFromNhinTarget" name="GetConnectionInfoEndpontFromNhinTarget" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" type="Request-Response" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="ValidateServices TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServicesfor4.4 TestCase" searchProperties="true" id="e9f67712-af44-4fc3-bc36-57a8332642ec" timeout="0"><con:settings/><con:testStep type="request" name="GetConnectionInfoByDocQueryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocQueryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+  <xsd:complexType name="UrlSetType">
+    <xsd:sequence>
+      <xsd:element name="url" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UrlSet" type="tns:UrlSetType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
+
+Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
+and to authorize others to do the foregoing, in any medium without fee or royalty is hereby
+granted for the purpose of developing and evaluating the WS-Addressing Specification.
+
+BEA, IBM, Microsoft, SAP AG, and Sun Microsystems (collectively, the "Authors") each agree 
+to grant a license to third parties, under royalty-free  and otherwise reasonable, 
+non-discriminatory terms and conditions, to their respective essential patent claims that
+they deem necessary to implement the WS-Addressing Specification.
+
+DISCLAIMERS:
+
+THE WS-Addressing Specification IS PROVIDED "AS IS", AND THE AUTHORS MAKE NO REPRESENTATIONS
+OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF 
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE 
+CONTENTS OF THE WS-Addressing Specification IS SUITABLE FOR ANY PURPOSE; NOR THAT THE 
+IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, 
+TRADEMARKS OR OTHER RIGHTS.
+
+THE AUTHORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL 
+DAMAGES ARISING OUT OF ANY USE OF THE WS-Addressing Specification OR THE PERFORMANCE OR 
+IMPLEMENTATION OF THE CONTENTS THEREOF.
+
+You may remove these disclaimers from your modified versions of the WS-Addressing 
+Specification provided that you effectively disclaim all warranties and liabilities on behalf 
+of all copyright holders in the copies of any such modified versions you distribute.
+
+The name and trademarks of the Authors may NOT be used in any manner, including advertising 
+or publicity pertaining to the WS-Addressing Specification or its contents without specific, 
+written prior permission. Title to copyright in the WS-Addressing Specification will at all 
+times remain with the Authors.
+
+No other rights are granted by implication, estoppel or otherwise.-->
+<xs:schema targetNamespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" elementFormDefault="qualified" blockDefault="#all" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+  <!--//////////////////// WS-Addressing ////////////////////-->
+  <!--Endpoint reference-->
+  <xs:element name="EndpointReference" type="wsa:EndpointReferenceType"/>
+  <xs:complexType name="EndpointReferenceType">
+    <xs:sequence>
+      <xs:element name="Address" type="wsa:AttributedURI"/>
+      <xs:element name="ReferenceProperties" type="wsa:ReferencePropertiesType" minOccurs="0"/>
+      <xs:element name="ReferenceParameters" type="wsa:ReferenceParametersType" minOccurs="0"/>
+      <xs:element name="PortType" type="wsa:AttributedQName" minOccurs="0"/>
+      <xs:element name="ServiceName" type="wsa:ServiceNameType" minOccurs="0"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>If "Policy" elements from namespace "http://schemas.xmlsoap.org/ws/2002/12/policy#policy" are used, they must appear first (before any extensibility elements).</xs:documentation>
+        </xs:annotation>
+      </xs:any>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:complexType>
+  <xs:complexType name="ReferencePropertiesType">
+    <xs:sequence>
+      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReferenceParametersType">
+    <xs:sequence>
+      <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ServiceNameType">
+    <xs:simpleContent>
+      <xs:extension base="xs:QName">
+        <xs:attribute name="PortName" type="xs:NCName"/>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <!--Message information header blocks-->
+  <xs:element name="MessageID" type="wsa:AttributedURI"/>
+  <xs:element name="RelatesTo" type="wsa:Relationship"/>
+  <xs:element name="To" type="wsa:AttributedURI"/>
+  <xs:element name="Action" type="wsa:AttributedURI"/>
+  <xs:element name="From" type="wsa:EndpointReferenceType"/>
+  <xs:element name="ReplyTo" type="wsa:EndpointReferenceType"/>
+  <xs:element name="FaultTo" type="wsa:EndpointReferenceType"/>
+  <xs:complexType name="Relationship">
+    <xs:simpleContent>
+      <xs:extension base="xs:anyURI">
+        <xs:attribute name="RelationshipType" type="xs:QName" use="optional"/>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="RelationshipTypeValues">
+    <xs:restriction base="xs:QName">
+      <xs:enumeration value="wsa:Reply"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--June 19, 2007: The ReplyAfter element is deprecated. The name of this element does not match the
+    name (RetryAfter) used in the specification (http://www.w3.org/Submission/2004/SUBM-ws-addressing-20040810/).-->
+  <xs:element name="ReplyAfter" type="wsa:ReplyAfterType"/>
+  <xs:complexType name="ReplyAfterType">
+    <xs:simpleContent>
+      <xs:extension base="xs:nonNegativeInteger">
+        <xs:anyAttribute namespace="##other"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <!--June 19, 2007: The RetryAfter element has been added to be consistent with the specification
+    (http://www.w3.org/Submission/2004/SUBM-ws-addressing-20040810/).-->
+  <xs:element name="RetryAfter" type="wsa:RetryAfterType"/>
+  <xs:complexType name="RetryAfterType">
+    <xs:simpleContent>
+      <xs:extension base="xs:nonNegativeInteger">
+        <xs:anyAttribute namespace="##other"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="FaultSubcodeValues">
+    <xs:restriction base="xs:QName">
+      <xs:enumeration value="wsa:InvalidMessageInformationHeader"/>
+      <xs:enumeration value="wsa:MessageInformationHeaderRequired"/>
+      <xs:enumeration value="wsa:DestinationUnreachable"/>
+      <xs:enumeration value="wsa:ActionNotSupported"/>
+      <xs:enumeration value="wsa:EndpointUnavailable"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="Action" type="xs:anyURI"/>
+  <!--Common declarations and definitions-->
+  <xs:complexType name="AttributedQName">
+    <xs:simpleContent>
+      <xs:extension base="xs:QName">
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AttributedURI">
+    <xs:simpleContent>
+      <xs:extension base="xs:anyURI">
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>http://172.16.50.82:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:endpoint>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ForceRefreshInternalConnectCache" name="ForceRefreshInternalConnectCache" bindingOperationName="ForceRefreshInternalConnectCache" type="Request-Response" outputName="ForceRefreshInternalConnectCacheResponse" inputName="ForceRefreshInternalConnectCacheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ForceRefreshUDDICache" name="ForceRefreshUDDICache" bindingOperationName="ForceRefreshUDDICache" type="Request-Response" outputName="ForceRefreshUDDICacheResponse" inputName="ForceRefreshUDDICacheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntities" name="GetAllBusinessEntities" bindingOperationName="GetAllBusinessEntities" type="Request-Response" outputName="GetAllBusinessEntitiesResponse" inputName="GetAllBusinessEntitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntitySetByServiceName" name="GetAllBusinessEntitySetByServiceName" bindingOperationName="GetAllBusinessEntitySetByServiceName" type="Request-Response" outputName="GetAllBusinessEntitySetByServiceNameResponse" inputName="GetAllBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllCommunities" name="GetAllCommunities" bindingOperationName="GetAllCommunities" type="Request-Response" outputName="GetAllCommunitiesResponse" inputName="GetAllCommunitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoEndpointSetByServiceName" name="GetAllConnectionInfoEndpointSetByServiceName" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoSetByServiceName" name="GetAllConnectionInfoSetByServiceName" bindingOperationName="GetAllConnectionInfoSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoSetByServiceNameResponse" inputName="GetAllConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntity" name="GetBusinessEntity" bindingOperationName="GetBusinessEntity" type="Request-Response" outputName="GetBusinessEntityResponse" inputName="GetBusinessEntityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntityByServiceName" name="GetBusinessEntityByServiceName" bindingOperationName="GetBusinessEntityByServiceName" type="Request-Response" outputName="GetBusinessEntityByServiceNameResponse" inputName="GetBusinessEntityByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySet" name="GetBusinessEntitySet" bindingOperationName="GetBusinessEntitySet" type="Request-Response" outputName="GetBusinessEntitySetResponse" inputName="GetBusinessEntitySetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySetByServiceName" name="GetBusinessEntitySetByServiceName" bindingOperationName="GetBusinessEntitySetByServiceName" type="Request-Response" outputName="GetBusinessEntitySetByServiceNameResponse" inputName="GetBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoByServiceName" name="GetConnectionInfoByServiceName" bindingOperationName="GetConnectionInfoByServiceName" type="Request-Response" outputName="GetConnectionInfoByServiceNameResponse" inputName="GetConnectionInfoByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointByServiceName" name="GetConnectionInfoEndpointByServiceName" bindingOperationName="GetConnectionInfoEndpointByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointByServiceNameResponse" inputName="GetConnectionInfoEndpointByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSet" name="GetConnectionInfoEndpointSet" bindingOperationName="GetConnectionInfoEndpointSet" type="Request-Response" outputName="GetConnectionInfoEndpointSetResponse" inputName="GetConnectionInfoEndpointSetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSetByServiceName" name="GetConnectionInfoEndpointSetByServiceName" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSet" name="GetConnectionInfoSet" bindingOperationName="GetConnectionInfoSet" type="Request-Response" outputName="GetConnectionInfoSetResponse" inputName="GetConnectionInfoSetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSetByServiceName" name="GetConnectionInfoSetByServiceName" bindingOperationName="GetConnectionInfoSetByServiceName" type="Request-Response" outputName="GetConnectionInfoSetByServiceNameResponse" inputName="GetConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:StoreAssigningAuthorityToHomeCommunityMapping" name="StoreAssigningAuthorityToHomeCommunityMapping" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" type="Request-Response" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAssigningAuthoritiesByHomeCommunity" name="GetAssigningAuthoritiesByHomeCommunity" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" type="Request-Response" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetHomeCommunityByAssigningAuthority" name="GetHomeCommunityByAssigningAuthority" bindingOperationName="GetHomeCommunityByAssigningAuthority" type="Request-Response" outputName="GetHomeCommunityByAssigningAuthorityResponse" inputName="GetHomeCommunityByAssigningAuthorityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="GetConnectionInfoEndpontFromNhinTarget" name="GetConnectionInfoEndpontFromNhinTarget" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" type="Request-Response" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="GetUrlSetFromNhinTargetCommunities" name="GetUrlSetFromNhinTargetCommunities" bindingOperationName="GetUrlSetFromNhinTargetCommunities" type="Request-Response" outputName="GetUrlSetFromNhinTargetCommunitiesResponse" inputName="GetUrlSetFromNhinTargetCommunitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetUrlSetByServiceName>
+         <urn:NhinTargetCommunities>
+            <!--1 or more repetitions:-->
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
+               </urn1:homeCommunity>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+         <urn:service>?</urn:service>
+      </urn:GetUrlSetByServiceName>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetUrlSetFromNhinTargetCommunitiesRequest"/></con:call></con:operation></con:interface><con:testSuite name="ValidateServices TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServicesfor4.4 TestCase" searchProperties="true" id="e9f67712-af44-4fc3-bc36-57a8332642ec" timeout="0"><con:settings/><con:testStep type="request" name="GetConnectionInfoByDocQueryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocQueryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1226,7 +1339,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1257,7 +1370,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1288,7 +1401,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>Current Service ID</con:name><con:value>68</con:value></con:property><con:property><con:name>Service</con:name><con:value>nhincproxyauditquerysecured</con:value></con:property><con:property><con:name>Location</con:name><con:value>G</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServicesfor6.6 TestCase" searchProperties="true" timeout="0" id="9bc61880-c330-4f26-80ca-35380693c005"><con:settings/><con:testStep type="request" name="GetConnectionInfoByDocQueryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocQueryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>Current Service ID</con:name><con:value>68</con:value></con:property><con:property><con:name>Service</con:name><con:value>nhincproxyauditquerysecured</con:value></con:property><con:property><con:name>Location</con:name><con:value>G</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServicesfor6.6 TestCase" searchProperties="true" timeout="0" id="9bc61880-c330-4f26-80ca-35380693c005"><con:settings/><con:testStep type="request" name="GetConnectionInfoByDocQueryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocQueryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1319,7 +1432,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1350,7 +1463,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1381,7 +1494,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>Current Service ID</con:name><con:value>68</con:value></con:property><con:property><con:name>Service</con:name><con:value>nhincproxyauditquerysecured</con:value></con:property><con:property><con:name>Location</con:name><con:value>G</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServicesfor7.7 TestCase" searchProperties="true" timeout="0" id="cfa285b9-81b1-44d2-bc8a-bc3cf3c9a267"><con:settings/><con:testStep type="request" name="GetConnectionInfoByDocQueryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocQueryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>Current Service ID</con:name><con:value>68</con:value></con:property><con:property><con:name>Service</con:name><con:value>nhincproxyauditquerysecured</con:value></con:property><con:property><con:name>Location</con:name><con:value>G</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServicesfor7.7 TestCase" searchProperties="true" timeout="0" id="cfa285b9-81b1-44d2-bc8a-bc3cf3c9a267"><con:settings/><con:testStep type="request" name="GetConnectionInfoByDocQueryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocQueryService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1412,7 +1525,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByPatientDiscoveryService"><con:settings><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">false</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByPatientDiscoveryService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByPatientDiscoveryService"><con:settings><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">false</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1443,7 +1556,7 @@ if (location == "A") {
 } 
 
 def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap11</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NhincComponentConnectionManagerBindingSoap</con:interface><con:operation>GetConnectionInfoByServiceName</con:operation><con:request name="GetConnectionInfoByDocRetrieveService"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:HomeCommunityWithServiceName>
@@ -1488,4 +1601,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
-}</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+}</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
