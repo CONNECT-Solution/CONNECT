@@ -57,6 +57,8 @@
         ]]>
         </script>
 
+        <echo message="************** Executing test: ${soapui.report.dir}/${soapui.project.name} ***************"/>
+        
         <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
           <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
