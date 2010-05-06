@@ -13,18 +13,11 @@ import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
-import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.II;
-import org.hl7.v3.MCCIMT000100UV01Agent;
-import org.hl7.v3.MCCIMT000100UV01Device;
-import org.hl7.v3.MCCIMT000100UV01Organization;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -45,15 +38,15 @@ public class PatientDiscovery201305Processor {
         String senderOID = extractSenderOID(request);
         String receiverOID = extractReceiverOID(request);
 
-        // Store Assigning Authority to Home Community Id Mapping
-        storeMapping(request);
-
         // Query the MPI to see if we have a match
         response = queryMpi(request, assertion);
 
         // Check to see if the Patient was found
         if (response != null &&
                 response.getControlActProcess() != null) {
+            // Store Assigning Authority to Home Community Id Mapping
+            storeMapping(request);
+
             II patIdOverride = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(response);
 
             if (NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
