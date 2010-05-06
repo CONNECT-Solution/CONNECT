@@ -305,12 +305,31 @@
   <target name="Regression.Test" depends="SetUps">
     <trycatch>
       <try>
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
+        
         <call target="SourceModificationReport.ConsolidateReports" />
+        
         <call target="TargetProcess.CreateReport" />
-
-        <call target="TargetProcess.Get.Release.Report"/>
+        <call target="TargetProcess.Get.Release.Report"  failonerror="False"/>
+        
         <call target="GlassFish.Redeploy.Release.Build.Integration" />
-        <call target="SoapUI.Regression" />
+
+        <property name="SoapUI.Tests.HaveFailed" value="False"/>
+        <trycatch>
+          <try>
+            <property name="SoapUI.Suite" value="RegressionSuite" />
+            <call target="SoapUI.RunTests"/>
+          </try>
+          <catch property="exception">
+            <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
+            <property name="SoapUI.Tests.HaveFailed" value="True"/>
+          </catch>
+        </trycatch>
+
+        <if test="${SoapUI.Tests.HaveFailed}">
+          <fail message="${SoapUI.Tests.Exception.Message}"/>
+        </if>
       </try>
       <finally>
         <call target="TearDowns" />
@@ -389,39 +408,6 @@
           <fail message="${SoapUI.Validation.Tests.Exception.Message}"/>
         </if>
 
-      </try>
-      <finally>
-        <call target="TearDowns" />
-      </finally>
-    </trycatch>
-  </target>
-
-  <target name="SoapUI.Regression" depends="SetUps" >
-    <trycatch>
-      <try>
-        <call target="SourceModificationReport.ConsolidateReports" />
-
-        <call target="TargetProcess.CreateReport" />
-        <call target="TargetProcess.Get.Release.Report" failonerror="False" />
-
-        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
-        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
-
-        <property name="SoapUI.Tests.HaveFailed" value="False"/>
-        <trycatch>
-          <try>
-            <property name="SoapUI.Suite" value="RegressionSuite" />
-            <call target="SoapUI.RunTests"/>
-          </try>
-          <catch property="exception">
-            <property name="SoapUI.Tests.Exception.Message" value="${exception}"/>
-            <property name="SoapUI.Tests.HaveFailed" value="True"/>
-          </catch>
-        </trycatch>
-
-        <if test="${SoapUI.Tests.HaveFailed}">
-          <fail message="${SoapUI.Tests.Exception.Message}"/>
-        </if>
       </try>
       <finally>
         <call target="TearDowns" />
