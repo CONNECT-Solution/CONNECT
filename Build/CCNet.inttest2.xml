@@ -238,7 +238,7 @@
         <trigger
           type="projectTrigger"
           serverUri="&Integration2.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Test-Regression"
+          project="&ProjectName;-&ProjectCodeLineName;-Regression-Test"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
@@ -284,7 +284,7 @@
       </sourceControlProvider>
     </sourcecontrol>
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Test-Regression</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Regression-Test</project>
     </labeller>
     <tasks>
       <modificationWriter>
