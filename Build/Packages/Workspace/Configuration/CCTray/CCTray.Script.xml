@@ -8,7 +8,7 @@
     <xmlpeek
       file='${CCTray.ConfigFilePath}'
       property='CCTray.Config.IsOld'
-      xpath='boolean(/Configuration/Projects/Project[@serverUrl = "tcp://build.nhiegateway.org:${CCNet.Server.Remoting.Port}/CruiseManager.rem" and @projectName = "NHINC-Current-Build-Scripts"])'
+      xpath='boolean(/Configuration/Projects/Project[@serverUrl = "tcp://inttest2.connectopensource.org:${CCNet.Server.Remoting.Port}/CruiseManager.rem" and @projectName = "NHINC-Current-Test-Development"])'
     />
 
     <if test='${CCTray.Config.IsOld}'>
