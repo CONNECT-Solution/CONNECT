@@ -308,11 +308,11 @@
 	<target name="copy.conf.file" depends="setup.init,copy.conf.windows.file,copy.conf.unix.file" />
 
 	<target name="copy.conf.unix.file" if="unix">
-		<copy file="Install/GlassFish/templates/asenv.conf.template" 
+		<copy file="${script.root.directory}/GlassFish/templates/asenv.conf.template" 
           tofile="${glassfish.home}/config/asenv.conf" overwrite="true"/>
-		<copy file="Install/GlassFish/templates/asadmin.template" 
+		<copy file="${script.root.directory}/GlassFish/templates/asadmin.template" 
           tofile="${glassfish.home}/bin/asadmin" overwrite="true"/>
-		<copy file="Install/GlassFish/templates/asant.template" 
+		<copy file="${script.root.directory}/GlassFish/templates/asant.template" 
           tofile="${glassfish.home}/bin/asant" overwrite="true"/>
 
 		<chmod perm="ugo+x">
@@ -329,11 +329,11 @@
 	</target>
 
 	<target name="copy.conf.windows.file" if="windows">
-		<copy file="Install/GlassFish/templates/asenv.bat.template" 
+		<copy file="${script.root.directory}/GlassFish/templates/asenv.bat.template" 
           tofile="${glassfish.home}/config/asenv.bat" overwrite="true"/>
-		<copy file="Install/GlassFish/templates/asadmin.bat.template" 
+		<copy file="${script.root.directory}/GlassFish/templates/asadmin.bat.template" 
           tofile="${glassfish.home}/bin/asadmin.bat" overwrite="true"/>
-		<copy file="Install/GlassFish/templates/asant.bat.template" 
+		<copy file="${script.root.directory}/GlassFish/templates/asant.bat.template" 
           tofile="${glassfish.home}/bin/asant.bat" overwrite="true"/>
 	</target>
 
