@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ServiceUtil
 {
-    private static final String PROPERTIES_FILE = "connectCommon.properties";
+    private static final String PROPERTIES_FILE = "connectCommon";
     private static final String PROPERTY_KEY_WSDL_PATH = "wsdl.path";
 
     private Log log = null;
