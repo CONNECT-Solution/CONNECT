@@ -259,7 +259,9 @@
         <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
         <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
         <sleep minutes="1"/>
-        <delete dir="${deployment.glassfish.domain.home}" defaultexcludes="no" verbose="true"/>
+        <delete includeemptydirs="true" verbose="true">
+          <fileset dir="${deployment.glassfish.domain.home}" defaultexcludes="false"/>
+        </delete>
       </catch>
     </trycatch>
   </target>
