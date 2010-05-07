@@ -30,7 +30,7 @@
           </projectFilter>'>
   <!ENTITY IntegrationFailed '<projectFilter
                serverUri="&Integration.Server.Host.Name;"
-               project="&ProjectName;-&ProjectCodeLineName;-Test-Validation">
+               project="&ProjectName;-&ProjectCodeLineName;-Validation-Test">
             <exclusionFilters>
               <conditions>
                 <condition>Failure</condition>
