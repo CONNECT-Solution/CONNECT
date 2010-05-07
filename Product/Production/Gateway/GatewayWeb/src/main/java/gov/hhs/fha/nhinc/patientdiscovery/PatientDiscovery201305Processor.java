@@ -44,8 +44,6 @@ public class PatientDiscovery201305Processor {
         // Check to see if the Patient was found
         if (response != null &&
                 response.getControlActProcess() != null) {
-            // Store Assigning Authority to Home Community Id Mapping
-            storeMapping(request);
 
             II patIdOverride = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(response);
 
@@ -67,6 +65,9 @@ public class PatientDiscovery201305Processor {
             // Check to make sure the policy is valid
 
             if (checkPolicy(response, patIdOverride, assertion)) {
+                // Store Assigning Authority to Home Community Id Mapping
+                storeMapping(request);
+
                 II requestPatId = providedPatientId(request);
                 if (requestPatId != null) {
                     // Create a patient correlation
