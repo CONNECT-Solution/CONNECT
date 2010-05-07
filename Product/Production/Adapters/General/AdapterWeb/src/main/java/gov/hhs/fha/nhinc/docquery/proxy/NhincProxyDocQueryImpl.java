@@ -5,10 +5,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType;
-import gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecured;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.service.ServiceUtil;
 import java.util.Map;
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -17,8 +21,22 @@ import javax.xml.ws.BindingProvider;
  */
 public class NhincProxyDocQueryImpl
 {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhincProxyDocQueryImpl.class);
-    private static NhincProxyDocQuerySecured service = new NhincProxyDocQuerySecured();
+    private static Service cachedService = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured";
+    private static final String SERVICE_LOCAL_PART = "NhincProxyDocQuerySecured";
+    private static final String BINDING_LOCAL_PART = "NhincProxyDocQuerySecuredPortSoap";
+    private static final String WSDL_FILE = "NhincProxyDocQuerySecured.wsdl";
+    private Log log = null;
+
+    public NhincProxyDocQueryImpl()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest)
     {
@@ -50,14 +68,55 @@ public class NhincProxyDocQueryImpl
 
         return response;
     }
-    
-    private NhincProxyDocQuerySecuredPortType getPort(String url) {
-        NhincProxyDocQuerySecuredPortType port = service.getNhincProxyDocQuerySecuredPortSoap();
-        log.info("Setting endpoint address to NHIN Proxy Document Query Secured Service to " + url);
-        //service.addPort((QName) service.getNhincProxyDocQuerySecuredPortSoap12(), javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING, url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-        //javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING
+
+    protected Service getService()
+    {
+        if(cachedService == null)
+        {
+            try
+            {
+                cachedService = new ServiceUtil().createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            }
+            catch(Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
+    }
+
+    protected NhincProxyDocQuerySecuredPortType getPort(String url) {
+        
+        NhincProxyDocQuerySecuredPortType port = null;
+        Service service = getService();
+        if(service != null)
+        {
+            log.debug("Obtained service - creating port.");
+            port = service.getPort(new QName(NAMESPACE_URI, BINDING_LOCAL_PART), NhincProxyDocQuerySecuredPortType.class);
+            setEndpointAddress(port, url);
+        }
+        else
+        {
+            log.error("Unable to obtain serivce - no port created.");
+        }
         return port;
+    }
+
+    protected void setEndpointAddress(NhincProxyDocQuerySecuredPortType port, String url)
+    {
+        if(port == null)
+        {
+            log.error("Port was null - not setting endpoint address.");
+        }
+        else if((url == null) || (url.length() < 1))
+        {
+            log.error("URL was null or empty - not setting endpoint address.");
+        }
+        else
+        {
+            log.info("Setting endpoint address to NHIN Proxy Document Query Secured Service to " + url);
+            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        }
     }
 
 }
