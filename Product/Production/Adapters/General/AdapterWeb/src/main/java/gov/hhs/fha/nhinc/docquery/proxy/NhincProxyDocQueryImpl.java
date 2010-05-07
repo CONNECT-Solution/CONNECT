@@ -24,7 +24,7 @@ public class NhincProxyDocQueryImpl
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured";
     private static final String SERVICE_LOCAL_PART = "NhincProxyDocQuerySecured";
-    private static final String BINDING_LOCAL_PART = "NhincProxyDocQuerySecuredPortSoap";
+    private static final String PORT_LOCAL_PART = "NhincProxyDocQuerySecuredPortSoap";
     private static final String WSDL_FILE = "NhincProxyDocQuerySecured.wsdl";
     private Log log = null;
 
@@ -92,7 +92,7 @@ public class NhincProxyDocQueryImpl
         if(service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, BINDING_LOCAL_PART), NhincProxyDocQuerySecuredPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocQuerySecuredPortType.class);
             setEndpointAddress(port, url);
         }
         else
