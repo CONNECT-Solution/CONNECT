@@ -16,6 +16,12 @@
   <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc"/>
   <property name="deployment.interfaces.dir" value="${deployment.dir}/Interfaces"/>
   <property name="deployment.glassfish.admin.port" value="4848"/>
+
+	<property name="instance.port" value="8080"/>
+	<property name="orb.port" value="3700"/>
+	<property name="imq.port" value="7676"/>
+	<property name="https.port" value="8181"/>
+	
   <property name="deployment.glassfish.server" value="localhost"/>
 
   <property name="deployment.glassfish.domain.name" value="domain1"/>

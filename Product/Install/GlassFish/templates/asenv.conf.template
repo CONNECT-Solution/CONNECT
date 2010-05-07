@@ -1,0 +1,28 @@
+#
+# Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
+# Use is subject to license terms.
+#
+
+AS_ANT="/nhin/SUNWappserver/lib/ant"
+AS_ANT_LIB="/nhin/SUNWappserver/lib/ant/lib"
+AS_WEBSERVICES_LIB="/nhin/SUNWappserver/lib"
+AS_PERL="/nhin/SUNWappserver/lib/perl"
+AS_NSS="/nhin/SUNWappserver/lib"
+AS_NSS_BIN="/nhin/SUNWappserver/lib"
+AS_IMQ_LIB="/nhin/SUNWappserver/imq/lib"
+AS_IMQ_BIN="/nhin/SUNWappserver/imq/bin"
+AS_CONFIG="/nhin/SUNWappserver/config"
+AS_INSTALL="/nhin/SUNWappserver"
+AS_JAVA="/nhin/jdk/jdk1.6.0_16"
+AS_ACC_CONFIG="/nhin/SUNWappserver/domains/domain1/config/sun-acc.xml"
+AS_JHELP="/nhin/SUNWappserver/lib"
+AS_ICU_LIB="/nhin/SUNWappserver/lib"
+AS_DEF_DOMAINS_PATH="/nhin/SUNWappserver/domains"
+AS_JDMK_HOME="/nhin/SUNWappserver/lib/SUNWjdmk/5.1"
+AS_NATIVE_LAUNCHER="false"
+AS_NATIVE_LAUNCHER_LIB_PREFIX="/jre/lib/i386/client"
+AS_WEBCONSOLE_LIB="/nhin/SUNWappserver/lib"
+AS_JATO_LIB="/nhin/SUNWappserver/lib"
+AS_HADB="Does not exist"
+AS_DERBY_INSTALL="/nhin/SUNWappserver/javadb"
+AS_MFWK_HOME="/opt/SUNWmfwk"
