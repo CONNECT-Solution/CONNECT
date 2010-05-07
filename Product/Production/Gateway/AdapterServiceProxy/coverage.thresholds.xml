@@ -16,7 +16,7 @@
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseWebServiceProxy" linecount="35" linerate="0.4857142857142857" linesexecuted="0.17"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryWebServiceProxy" linecount="27" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="12" branchrate="0.5" branchsexecuted="0.06" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryWebServiceProxy" linecount="47" linerate="0.3191489361702128" linesexecuted="0.15"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveWebServiceSecuredProxy" linecount="37" linerate="0.0" linesexecuted="0"/>
