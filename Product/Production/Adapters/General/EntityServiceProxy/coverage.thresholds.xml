@@ -13,4 +13,12 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.patientdiscovery.async.response.proxy.EntityPatientDiscoveryAsyncRespWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.response.proxy.PassthruPatientDiscoveryAsyncRespProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.response.proxy.PassthruPatientDiscoveryAsyncRespWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.xdr.async.request.proxy.EntityXDRAsyncReqProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.xdr.async.request.proxy.EntityXDRAsyncReqWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.xdr.async.response.proxy.EntityXDRAsyncRespProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.entity.xdr.async.response.proxy.EntityXDRAsyncRespWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.xdr.async.request.proxy.PassthruXDRAsyncReqProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.xdr.async.request.proxy.PassthruXDRAsyncReqWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.xdr.async.response.proxy.PassthruXDRAsyncRespProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.passthru.xdr.async.response.proxy.PassthruXDRAsyncRespWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
 </thresholds>

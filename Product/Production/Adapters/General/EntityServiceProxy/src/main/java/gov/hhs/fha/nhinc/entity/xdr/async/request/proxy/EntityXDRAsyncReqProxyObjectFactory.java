@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.proxy;
+package gov.hhs.fha.nhinc.entity.xdr.async.request.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
@@ -25,18 +25,18 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * "getBean(String beanId)" method is called on the application context passing
  * in the beanId that is specified in the config file. Considering the default
  * correlation definition in the config file for this component:
- * <bean id="entitypatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.proxy.EntityPatientDiscoveryAsyncReqNoOpImpl"/>
- * the bean id is "entitypatientdiscoveryasyncreq" and an object of this type can be retrieved from
+ * <bean id="entityxdrasyncreq" class="gov.hhs.fha.nhinc.entity.xdr.async.request.proxy.EntityXDRAsyncReqNoOpImpl"/>
+ * the bean id is "entityxdrasyncreq" and an object of this type can be retrieved from
  * the application context by calling the getBean method like:
- * context.getBean("entitypatientdiscoveryasyncreq");. This returns an object that can be casted to
+ * context.getBean("entityxdrasyncreq");. This returns an object that can be casted to
  * the appropriate interface and then used in the application code. See the
- * getEntityPatientDisocoveryAsyncReqProxy() method in this class.
+ * getEntityXDRAsyncReqProxy() method in this class.
  *
  * @author Jon Hoppesch
  */
-public class EntityPatientDiscoveryAsyncReqProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "EntityPatientDiscoveryAsyncReqProxyConfig.xml";
-    private static final String BEAN_NAME_PATIENT_DISCOVERY = "entitypatientdiscoveryasyncreq";
+public class EntityXDRAsyncReqProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "EntityXDRAsyncReqProxyConfig.xml";
+    private static final String BEAN_NAME = "entityxdrasyncreq";
     private static ApplicationContext context = null;
 
     static {
@@ -46,15 +46,16 @@ public class EntityPatientDiscoveryAsyncReqProxyObjectFactory {
     /**
      * Retrieve a entity patient discovery implementation using the IOC framework.
      * This method retrieves the object from the framework that has an
-     * identifier of "entitypatientdiscoveryasyncreq."
+     * identifier of "entityxdrasyncreq."
      *
-     * @return EntityPatientDiscoveryAsyncReqProxy instance
+     * @return EntityXDRAsyncReqProxy instance
      */
-    public EntityPatientDiscoveryAsyncReqProxy getEntityPatientDiscoveryAsyncReqProxy() {
-        EntityPatientDiscoveryAsyncReqProxy entityPatientDiscoveryAsyncReq = null;
+    public EntityXDRAsyncReqProxy getEntityXDRAsyncReqProxy() {
+        EntityXDRAsyncReqProxy entityXDRAsyncReq = null;
         if (context != null) {
-            entityPatientDiscoveryAsyncReq = (EntityPatientDiscoveryAsyncReqProxy) context.getBean(BEAN_NAME_PATIENT_DISCOVERY);
+            entityXDRAsyncReq = (EntityXDRAsyncReqProxy) context.getBean(BEAN_NAME);
         }
-        return entityPatientDiscoveryAsyncReq;
+        return entityXDRAsyncReq;
     }
+
 }
