@@ -58,7 +58,7 @@ public class EntityXDRImpl {
            log.debug("Calling secure entity xdr: " + url);
            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest =  new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
            securedRequest.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
-           securedRequest.setNhinTargetSystem(request.getNhinTargetSystem());
+           securedRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
            response = port.provideAndRegisterDocumentSetB(securedRequest);
 
         } catch (Exception ex) {

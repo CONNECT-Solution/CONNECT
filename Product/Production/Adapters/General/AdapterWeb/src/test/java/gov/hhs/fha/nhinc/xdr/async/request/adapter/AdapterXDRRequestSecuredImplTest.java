@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
-import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponsePortType;
+import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 import ihe.iti.xdr._2007.AcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
@@ -135,10 +135,10 @@ public class AdapterXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected EntityXDRSecuredResponsePortType getEntityXDRSecuredResponsePort(String url) {
-                EntityXDRSecuredResponsePortType mockPort = new EntityXDRSecuredResponsePortType()
+            protected EntityXDRSecuredAsyncResponsePortType getEntityXDRSecuredResponsePort(String url) {
+                EntityXDRSecuredAsyncResponsePortType mockPort = new EntityXDRSecuredAsyncResponsePortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0)
+                    public AcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0)
                     {
                         return ack;
                     }
@@ -148,7 +148,7 @@ public class AdapterXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, EntityXDRSecuredResponsePortType port) {
+            protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
 
             }
         };
@@ -197,10 +197,10 @@ public class AdapterXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected EntityXDRSecuredResponsePortType getEntityXDRSecuredResponsePort(String url) {
-                EntityXDRSecuredResponsePortType mockPort = new EntityXDRSecuredResponsePortType()
+            protected EntityXDRSecuredAsyncResponsePortType getEntityXDRSecuredResponsePort(String url) {
+                EntityXDRSecuredAsyncResponsePortType mockPort = new EntityXDRSecuredAsyncResponsePortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0)
+                    public AcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0)
                     {
                         return ack;
                     }
@@ -210,7 +210,7 @@ public class AdapterXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, EntityXDRSecuredResponsePortType port) {
+            protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
 
             }
         };

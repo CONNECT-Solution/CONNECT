@@ -1,20 +1,27 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gov.hhs.fha.nhinc.xdr.request.entity;
 
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author Neil Webb
+ * @author jhoppesc
  */
-@WebService(serviceName = "EntityXDRRequest_Service", portName = "EntityXDRRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request", wsdlLocation = "WEB-INF/wsdl/EntityXDRRequest/EntityXDRRequest.wsdl")
+@WebService(serviceName = "EntityXDRAsyncRequest_Service", portName = "EntityXDRAsyncRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request", wsdlLocation = "WEB-INF/wsdl/EntityXDRRequest/EntityXDRRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityXDRRequest
-{
+public class EntityXDRRequest {
+    @Resource
+    private WebServiceContext context;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest)
-    {
-        return new EntityXDRRequestImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest);
+    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
+        return new EntityXDRRequestImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, context);
     }
 
 }

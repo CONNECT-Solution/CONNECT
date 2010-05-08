@@ -5,19 +5,11 @@
 
 package gov.hhs.fha.nhinc.xdr.async.response.adapter;
 
-import ihe.iti.xdr._2007.AcknowledgementType;
-import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 /**
  *
  * @author patlollav

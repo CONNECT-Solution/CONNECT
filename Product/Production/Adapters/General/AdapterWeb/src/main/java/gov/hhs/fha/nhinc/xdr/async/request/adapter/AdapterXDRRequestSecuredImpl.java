@@ -2,29 +2,32 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
+import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
-import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponsePortType;
-import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponseService;
+import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
+import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRImpl;
 import ihe.iti.xdr._2007.AcknowledgementType;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.Handler;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterXDRRequestSecuredImpl {
 
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestSecuredImpl.class);
-    private static EntityXDRSecuredResponseService entityXDRSecuredResponseService = null;
+    private static EntityXDRSecuredAsyncResponseService entityXDRSecuredResponseService = null;
     public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
     private static AdapterXDRService adapterXDRService = null;
 
@@ -58,21 +61,20 @@ public class AdapterXDRRequestSecuredImpl {
         return ack;
     }
 
-    protected AdapterComponentXDRImpl getAdapterComponentXDRImpl(){
+    protected AdapterComponentXDRImpl getAdapterComponentXDRImpl() {
         return new AdapterComponentXDRImpl();
     }
 
-    protected Log getLogger(){
+    protected Log getLogger() {
         return logger;
     }
 
-    protected AssertionType createAssertion(WebServiceContext context){
+    protected AssertionType createAssertion(WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         return assertion;
     }
 
-
-    protected RegistryResponseType callAdapterComponentXDR(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion){
+    protected RegistryResponseType callAdapterComponentXDR(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
 
         getLogger().debug("Calling AdapterComponentXDRImpl");
 
@@ -104,7 +106,7 @@ public class AdapterXDRRequestSecuredImpl {
      * @param assertion
      * @return
      */
-    public ihe.iti.xdr._2007.AcknowledgementType sendXDRResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion){
+    public ihe.iti.xdr._2007.AcknowledgementType sendXDRResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion) {
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
 
@@ -115,13 +117,13 @@ public class AdapterXDRRequestSecuredImpl {
         entityXDRSecuredResponseEndPointURL = getEntityXDRSecuredResponseEndPointURL();
 
         if (NullChecker.isNotNullish(entityXDRSecuredResponseEndPointURL)) {
-            EntityXDRSecuredResponsePortType port = getEntityXDRSecuredResponsePort(entityXDRSecuredResponseEndPointURL);
+            EntityXDRSecuredAsyncResponsePortType port = getEntityXDRSecuredResponsePort(entityXDRSecuredResponseEndPointURL);
 
             setRequestContext(assertion, entityXDRSecuredResponseEndPointURL, port);
 
             RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = createEntityXDRResponseSecuredRequest(body, assertion);
 
-            response = port.provideAndRegisterDocumentSetBResponse(request);
+            response = port.provideAndRegisterDocumentSetBAsyncResponse(request);
 
         } else {
             getLogger().error("The URL for service: " + NhincConstants.ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME + " is null");
@@ -135,10 +137,20 @@ public class AdapterXDRRequestSecuredImpl {
 
     }
 
-    protected void setRequestContext(AssertionType assertion, String entityXDRSecuredResponseEndPointURL, EntityXDRSecuredResponsePortType port)
-    {
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, entityXDRSecuredResponseEndPointURL, NhincConstants.ENTITY_XDR_SECURED_RESPONSE_ACTION);
+    protected void setRequestContext(AssertionType assertion, String entityXDRSecuredResponseEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
+        SamlTokenCreator tokenCreator = new SamlTokenCreator();
+        Map requestContext = tokenCreator.CreateRequestContext(assertion, entityXDRSecuredResponseEndPointURL, NhincConstants.ENTITY_XDR_SECURED_RESPONSE_ACTION);
+
+        // TODO:  Update with the extracted message id, this hardcode value is temporary.
+        assertion.setAsyncMessageId("uuid:111111111.11111.111.11");
+        
+        ArrayList<Handler> handlerSetUp = new ArrayList<Handler>();
+        AsyncMessageHandler msgHandler = new AsyncMessageHandler();
+        handlerSetUp.add(msgHandler);
+        ((javax.xml.ws.BindingProvider) port).getBinding().setHandlerChain(handlerSetUp);
+
+        AsyncMessageIdCreator msgIdCreator = new AsyncMessageIdCreator();
+        requestContext.putAll(msgIdCreator.CreateRequestContextForRelatesTo(assertion));
 
         ((BindingProvider) port).getRequestContext().putAll(requestContext);
     }
@@ -165,8 +177,8 @@ public class AdapterXDRRequestSecuredImpl {
      * @param url
      * @return
      */
-    protected EntityXDRSecuredResponsePortType getEntityXDRSecuredResponsePort(String url) {
-        EntityXDRSecuredResponsePortType port = getEntityXDRSecuredResponseService().getEntityXDRSecuredResponsePort();
+    protected EntityXDRSecuredAsyncResponsePortType getEntityXDRSecuredResponsePort(String url) {
+        EntityXDRSecuredAsyncResponsePortType port = getEntityXDRSecuredResponseService().getEntityXDRSecuredAsyncResponsePort();
 
         logger.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
@@ -174,27 +186,23 @@ public class AdapterXDRRequestSecuredImpl {
         return port;
     }
 
-
     /**
      *
      * @return
      */
-    protected EntityXDRSecuredResponseService getEntityXDRSecuredResponseService(){
-        if (entityXDRSecuredResponseService == null){
-            return new EntityXDRSecuredResponseService();
-        }
-        else{
+    protected EntityXDRSecuredAsyncResponseService getEntityXDRSecuredResponseService() {
+        if (entityXDRSecuredResponseService == null) {
+            return new EntityXDRSecuredAsyncResponseService();
+        } else {
             return entityXDRSecuredResponseService;
         }
 
     }
 
-
-    protected RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createEntityXDRResponseSecuredRequest(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion){
+    protected RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createEntityXDRResponseSecuredRequest(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion) {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         request.setRegistryResponse(body);
-        NhinTargetSystemType nhinTargetSystem = createNhinTargetSystem(assertion);
-        request.setNhinTargetSystem(nhinTargetSystem);
+        request.setNhinTargetCommunities(createNhinTargetCommunities(assertion));
 
         return request;
     }
@@ -202,12 +210,14 @@ public class AdapterXDRRequestSecuredImpl {
     /**
      * This will be removed once the broadcast PD is implented
      */
-    private NhinTargetSystemType createNhinTargetSystem(AssertionType assertion){
+    private NhinTargetCommunitiesType createNhinTargetCommunities(AssertionType assertion) {
 
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        targetSystem.setHomeCommunity(assertion.getHomeCommunity());
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType target = new NhinTargetCommunityType();
+        target.setHomeCommunity(assertion.getHomeCommunity());
+        targets.getNhinTargetCommunity().add(target);
 
-        return targetSystem;
+        return targets;
     }
 
     /**
@@ -236,14 +246,12 @@ public class AdapterXDRRequestSecuredImpl {
         return port;
     }
 
-    protected AdapterXDRService getAdapterXDRService()
-    {
-        if (adapterXDRService == null){
+    protected AdapterXDRService getAdapterXDRService() {
+        if (adapterXDRService == null) {
             return new AdapterXDRService();
-        }else{
+        } else {
             return adapterXDRService;
         }
 
     }
-
 }

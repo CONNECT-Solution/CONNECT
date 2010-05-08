@@ -4,17 +4,17 @@
  */
 
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
-import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponsePortType;
-import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredResponseService;
+import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
+import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterXDRRequestImpl {
     private static Log log = null;
-    private static EntityXDRSecuredResponseService entityXDRSecuredResponseService = null;
+    private static EntityXDRSecuredAsyncResponseService entityXDRSecuredResponseService = null;
     public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
     private static AdapterXDRService adapterXDRService = null;
 
@@ -116,13 +116,13 @@ public class AdapterXDRRequestImpl {
         entityXDRSecuredResponseEndPointURL = getEntityXDRSecuredResponseEndPointURL();
 
         if (NullChecker.isNotNullish(entityXDRSecuredResponseEndPointURL)) {
-            EntityXDRSecuredResponsePortType port = getEntityXDRSecuredResponsePort(entityXDRSecuredResponseEndPointURL);
+            EntityXDRSecuredAsyncResponsePortType port = getEntityXDRSecuredResponsePort(entityXDRSecuredResponseEndPointURL);
 
             setRequestContext(assertion, entityXDRSecuredResponseEndPointURL, port);
 
             RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = createEntityXDRResponseSecuredRequest(body, assertion);
 
-            response = port.provideAndRegisterDocumentSetBResponse(request);
+            response = port.provideAndRegisterDocumentSetBAsyncResponse(request);
 
         } else {
             getLogger().error("The URL for service: " + NhincConstants.ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME + " is null");
@@ -136,7 +136,7 @@ public class AdapterXDRRequestImpl {
 
     }
 
-    protected void setRequestContext(AssertionType assertion, String entityXDRSecuredResponseEndPointURL, EntityXDRSecuredResponsePortType port)
+    protected void setRequestContext(AssertionType assertion, String entityXDRSecuredResponseEndPointURL, EntityXDRSecuredAsyncResponsePortType port)
     {
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, entityXDRSecuredResponseEndPointURL, NhincConstants.ENTITY_XDR_SECURED_RESPONSE_ACTION);
@@ -166,8 +166,8 @@ public class AdapterXDRRequestImpl {
      * @param url
      * @return
      */
-    protected EntityXDRSecuredResponsePortType getEntityXDRSecuredResponsePort(String url) {
-        EntityXDRSecuredResponsePortType port = getEntityXDRSecuredResponseService().getEntityXDRSecuredResponsePort();
+    protected EntityXDRSecuredAsyncResponsePortType getEntityXDRSecuredResponsePort(String url) {
+        EntityXDRSecuredAsyncResponsePortType port = getEntityXDRSecuredResponseService().getEntityXDRSecuredAsyncResponsePort();
 
         log.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
@@ -180,9 +180,9 @@ public class AdapterXDRRequestImpl {
      *
      * @return
      */
-    protected EntityXDRSecuredResponseService getEntityXDRSecuredResponseService(){
+    protected EntityXDRSecuredAsyncResponseService getEntityXDRSecuredResponseService(){
         if (entityXDRSecuredResponseService == null){
-            return new EntityXDRSecuredResponseService();
+            return new EntityXDRSecuredAsyncResponseService();
         }
         else{
             return entityXDRSecuredResponseService;
@@ -194,8 +194,7 @@ public class AdapterXDRRequestImpl {
     protected RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createEntityXDRResponseSecuredRequest(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion){
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         request.setRegistryResponse(body);
-        NhinTargetSystemType nhinTargetSystem = createNhinTargetSystem(assertion);
-        request.setNhinTargetSystem(nhinTargetSystem);
+        request.setNhinTargetCommunities(createNhinTargetCommunities(assertion));
 
         return request;
     }
@@ -203,12 +202,14 @@ public class AdapterXDRRequestImpl {
     /**
      * This will be removed once the broadcast PD is implented
      */
-    private NhinTargetSystemType createNhinTargetSystem(AssertionType assertion){
+    private NhinTargetCommunitiesType createNhinTargetCommunities(AssertionType assertion){
 
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        targetSystem.setHomeCommunity(assertion.getHomeCommunity());
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType target = new NhinTargetCommunityType();
+        target.setHomeCommunity(assertion.getHomeCommunity());
+        targets.getNhinTargetCommunity().add(target);
 
-        return targetSystem;
+        return targets;
     }
 
     /**

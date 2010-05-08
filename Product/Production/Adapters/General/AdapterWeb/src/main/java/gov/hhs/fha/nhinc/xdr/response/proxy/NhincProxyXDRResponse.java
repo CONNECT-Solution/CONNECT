@@ -1,20 +1,27 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gov.hhs.fha.nhinc.xdr.response.proxy;
 
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author Neil Webb
+ * @author jhoppesc
  */
-@WebService(serviceName = "ProxyXDRResponse_Service", portName = "ProxyXDRResponse_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdr.async.response.ProxyXDRResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response", wsdlLocation = "WEB-INF/wsdl/NhincProxyXDRResponse/NhincProxyXDRResponse.wsdl")
+@WebService(serviceName = "ProxyXDRAsyncResponse_Service", portName = "ProxyXDRAsyncResponse_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdr.async.response.ProxyXDRAsyncResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response", wsdlLocation = "WEB-INF/wsdl/NhincProxyXDRResponse/NhincProxyXDRResponse.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyXDRResponse
-{
+public class NhincProxyXDRResponse {
+    @Resource
+    private WebServiceContext context;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterResponseRequest)
-    {
-        return new NhincProxyXDRResponseImpl().provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest);
+    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterAsyncRespRequest) {
+        return new NhincProxyXDRResponseImpl().provideAndRegisterDocumentSetBResponse(provideAndRegisterAsyncRespRequest, context);
     }
 
 }
