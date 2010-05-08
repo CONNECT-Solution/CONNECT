@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.xdr.response.proxy;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xdr.async.response.proxy.NhinXDRResponseObjectFactory;
@@ -33,6 +34,11 @@ public class NhincProxyXDRResponseSecuredImpl
         AcknowledgementType response = null;
 
         AssertionType assertion = extractAssertion(context);
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setAsyncMessageId(extractMessageId(context));
+        }
 
         response = provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest, assertion);
 
@@ -102,6 +108,11 @@ public class NhincProxyXDRResponseSecuredImpl
         }
         log.debug("End extractAssertion");
         return assertion;
+    }
+
+    protected String extractMessageId (WebServiceContext context) {
+        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+        return msgIdExtractor.GetAsyncRelatesTo(context);
     }
 
 }

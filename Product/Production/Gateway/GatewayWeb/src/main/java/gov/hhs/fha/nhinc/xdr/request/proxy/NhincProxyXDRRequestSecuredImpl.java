@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.xdr.request.proxy;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestObjectFactory;
 import gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestProxy;
@@ -31,6 +32,12 @@ public class NhincProxyXDRRequestSecuredImpl
     {
         log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
         AssertionType assertion = extractAssertion(context);
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setAsyncMessageId(extractMessageId(context));
+        }
+
         log.debug("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
         return provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest, assertion);
     }
@@ -97,6 +104,11 @@ public class NhincProxyXDRRequestSecuredImpl
     {
         NhinXDRRequestObjectFactory factory = new NhinXDRRequestObjectFactory();
         return factory.getNhinXDRRequestProxy();
+    }
+
+    protected String extractMessageId (WebServiceContext context) {
+        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+        return msgIdExtractor.GetAsyncMessageId(context);
     }
 
 }
