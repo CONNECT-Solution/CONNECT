@@ -773,8 +773,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRSecuredRequest.wsdl</local-wsdl-file>
-      <service-name>ProxyXDRSecuredRequest_Service</service-name>
-      <port-name>ProxyXDRSecuredRequest_Port</port-name>
+      <service-name>ProxyXDRSecuredAsyncRequest_Service</service-name>
+      <port-name>ProxyXDRSecuredAsyncRequest_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.request</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -797,8 +797,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRSecuredResponse.wsdl</local-wsdl-file>
-      <service-name>ProxyXDRSecuredResponse_Service</service-name>
-      <port-name>ProxyXDRSecuredResponse_Port</port-name>
+      <service-name>ProxyXDRSecuredAsyncResponse_Service</service-name>
+      <port-name>ProxyXDRSecuredAsyncResponse_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -917,8 +917,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRSecuredRequest.wsdl</local-wsdl-file>
-      <service-name>EntityXDRSecuredRequest_Service</service-name>
-      <port-name>EntityXDRSecuredRequest_Port</port-name>
+      <service-name>EntityXDRSecuredAsyncRequest_Service</service-name>
+      <port-name>EntityXDRSecuredAsyncRequest_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -941,8 +941,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRSecuredResponse.wsdl</local-wsdl-file>
-      <service-name>EntityXDRSecuredResponse_Service</service-name>
-      <port-name>EntityXDRSecuredResponse_Port</port-name>
+      <service-name>EntityXDRSecuredAsyncResponse_Service</service-name>
+      <port-name>EntityXDRSecuredAsyncResponse_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1130,7 +1130,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyDocQuerySecured">
-    <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyDocQuerySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyDocQuerySecured</service-name>
@@ -1200,7 +1200,7 @@
           <wsimport-option-value>true</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
-      </service>
+    </service>
     <service name="NhinPatientDiscoveryAsyncResp">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl</wsdl-url>
