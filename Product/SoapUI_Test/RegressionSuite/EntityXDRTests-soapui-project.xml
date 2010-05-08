@@ -19913,13 +19913,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </urn1:samlSignature>
          </urn:assertion>
 
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>Test HCID2</urn1:description>
-               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-               <urn1:name>HCID2</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>Test HCID2</urn1:description>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>Test HCID2</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
 
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
@@ -21545,7 +21547,7 @@ declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //xacml:Resource/xacml:Attribute[@AttributeId='urn:oasis:names:tc:xacml:1.0:resource:resource-id']/xacml:AttributeValue</path><content>SELF-5</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config>
 			</con:testStep><con:testStep type="groovy" name="Restore Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T13:07:59Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Policy Check mock Permit" searchProperties="true" id="c0fa99bf-5b63-4752-87a4-6b5968428456"><con:settings/><con:testStep type="groovy" name="ModifyInterrnalConnectionInfoForPE"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-08T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-08T01:50:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/08/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Policy Check mock Permit" searchProperties="true" id="c0fa99bf-5b63-4752-87a4-6b5968428456"><con:settings/><con:testStep type="groovy" name="ModifyInterrnalConnectionInfoForPE"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -21763,13 +21765,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </urn1:samlSignature>
          </urn:assertion>
 
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>Test HCID2</urn1:description>
-               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-               <urn1:name>HCID2</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>Test HCID2</urn1:description>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>Test HCID2</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
 
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
@@ -23394,7 +23398,7 @@ declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //xacml:Resource/xacml:Attribute[@AttributeId='urn:oasis:names:tc:xacml:1.0:resource:resource-id']/xacml:AttributeValue</path><content>SELF-5</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config>
 			</con:testStep><con:testStep type="groovy" name="Restore Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T13:08:08Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success message from NHINC - adapter" searchProperties="true" id="e25689da-daff-4d61-ba47-878285e9af01" disabled="true"><con:settings/><con:testStep type="request" name="EntiityRequestMsg - XDR"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSet-b</con:operation><con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-08T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-08T01:51:42Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/08/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success message from NHINC - adapter" searchProperties="true" id="e25689da-daff-4d61-ba47-878285e9af01"><con:settings/><con:testStep type="request" name="EntiityRequestMsg - XDR"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSet-b</con:operation><con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -23602,13 +23606,15 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
             </urn1:samlSignature>
          </urn:assertion>
 
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>Test HCID2</urn1:description>
-               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-               <urn1:name>HCID2</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>Test HCID2</urn1:description>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>Test HCID2</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
 
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
@@ -23826,7 +23832,7 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns14='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns14:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-03-01T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-03-01T16:52:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>03/01/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-03-31T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Error message from mock NHINC" searchProperties="true" id="4f6537aa-52b1-417f-beb6-f55988114985"><con:settings/><con:testStep type="groovy" name="Modify InternalConnectionInfo For NHINC Mock"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+//ns14:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-08T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-08T01:51:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/08/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Error message from mock NHINC" searchProperties="true" id="4f6537aa-52b1-417f-beb6-f55988114985"><con:settings/><con:testStep type="groovy" name="Modify InternalConnectionInfo For NHINC Mock"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -24047,13 +24053,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
             </urn1:samlSignature>
          </urn:assertion>
 
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>Test HCID2</urn1:description>
-               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-               <urn1:name>HCID2</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>Test HCID2</urn1:description>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>Test HCID2</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
 
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
@@ -24280,7 +24288,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
       </ns7:RegistryResponse>
    </S:Body>
 </S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="Restore Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T13:08:12Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success message from mock NHINC" searchProperties="true" id="7ab026d6-4438-498b-af6c-4e08d85df3b6"><con:settings/><con:testStep type="groovy" name="Modify InternalConnectionInfo For NHINC Mock"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-08T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-08T01:52:05Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/08/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success message from mock NHINC" searchProperties="true" id="7ab026d6-4438-498b-af6c-4e08d85df3b6"><con:settings/><con:testStep type="groovy" name="Modify InternalConnectionInfo For NHINC Mock"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -24501,13 +24509,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
             </urn1:samlSignature>
          </urn:assertion>
 
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>Test HCID2</urn1:description>
-               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-               <urn1:name>HCID2</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>Test HCID2</urn1:description>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>Test HCID2</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
 
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
@@ -24730,7 +24740,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
       &lt;ns14:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns6="http://docs.oasis-open.org/wsn/b-2" xmlns:ns7="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns8="http://docs.oasis-open.org/wsn/t-1" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns11="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns12="http://nhinc.services.com/schema/auditmessage" xmlns:ns13="urn:gov:hhs:fha:nhinc:gateway:samltokendata" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns15="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns16="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"/>
    &lt;/S:Body>
 &lt;/S:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="Restore Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T13:08:16Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Audit Log Check" searchProperties="true" id="a83d4d4f-cf93-41e9-abf8-19e76d2bccf0"><con:settings/><con:testStep type="groovy" name="Generate patient ID for Audit Log Query"><con:settings/><con:config><script>def localAA = context.findProperty('LocalAA')
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-08T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-08T01:52:18Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/08/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Audit Log Check" searchProperties="true" id="a83d4d4f-cf93-41e9-abf8-19e76d2bccf0"><con:settings/><con:testStep type="groovy" name="Generate patient ID for Audit Log Query"><con:settings/><con:config><script>def localAA = context.findProperty('LocalAA')
 def PatientID = context.findProperty('PatientId')
 
 context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${localAA}&amp;amp;ISO");
@@ -24947,13 +24957,15 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></
             </urn1:samlSignature>
          </urn:assertion>
 
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>Test HCID2</urn1:description>
-               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-               <urn1:name>HCID2</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>Test HCID2</urn1:description>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>Test HCID2</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
 
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
@@ -25407,7 +25419,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance" disabled="true"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
-count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T13:08:17Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>FullPatientID</con:name><con:value>XDR1^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>XDRUserId</con:name><con:value>XDR Inbound UserFri Apr 30 13:03:17 UTC 2010</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>Endpoint-XDRProxy</con:name><con:value>http://localhost:8080/CONNECTAdapter/ProxyXDR_Service</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>IncorrectPatientId</con:name><con:value>D1111</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Inbound User</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR1</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntityXDRTests-soapui-project.properties')
+count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-08T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-08T01:52:28Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/08/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property><con:property><con:name>FullPatientID</con:name><con:value>XDR1^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>XDRUserId</con:name><con:value>XDR Inbound UserSat May 08 01:47:28 UTC 2010</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>Endpoint-XDRProxy</con:name><con:value>http://localhost:8080/CONNECTAdapter/ProxyXDR_Service</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>IncorrectPatientId</con:name><con:value>D1111</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Inbound User</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR1</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntityXDRTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
@@ -25466,4 +25478,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     sql.close()
   }
 }
-</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
