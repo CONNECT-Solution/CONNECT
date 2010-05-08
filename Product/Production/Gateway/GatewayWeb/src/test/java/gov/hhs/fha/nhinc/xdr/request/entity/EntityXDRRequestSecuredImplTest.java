@@ -1,6 +1,9 @@
 package gov.hhs.fha.nhinc.xdr.request.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecuredImpl;
@@ -10,10 +13,7 @@ import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -85,6 +85,11 @@ public class EntityXDRRequestSecuredImplTest
             {
                 return true;
             }
+            
+            @Override
+            protected String extractMessageId (WebServiceContext context) {
+                return "uuid:1111111111.11111.111.11";
+            }
         };
 
         context.checking(new Expectations()
@@ -92,6 +97,7 @@ public class EntityXDRRequestSecuredImplTest
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -99,6 +105,13 @@ public class EntityXDRRequestSecuredImplTest
         });
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType target = new NhinTargetCommunityType();
+        HomeCommunityType hc = new HomeCommunityType();
+        hc.setHomeCommunityId("1.1");
+        target.setHomeCommunity(hc);
+        targets.getNhinTargetCommunity().add(target);
+        request.setNhinTargetCommunities(targets);
 
         AcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
 

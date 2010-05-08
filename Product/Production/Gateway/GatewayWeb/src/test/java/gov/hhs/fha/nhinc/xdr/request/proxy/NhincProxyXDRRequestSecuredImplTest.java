@@ -72,6 +72,11 @@ public class NhincProxyXDRRequestSecuredImplTest
                 return nhinProxy;
             }
 
+            @Override
+            protected String extractMessageId (WebServiceContext context) {
+                return "uuid:1111111111.11111.111.11";
+            }
+
         };
 
         context.checking(new Expectations()
@@ -79,6 +84,7 @@ public class NhincProxyXDRRequestSecuredImplTest
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -137,6 +143,11 @@ public class NhincProxyXDRRequestSecuredImplTest
                 return nhinProxy;
             }
 
+            @Override
+            protected String extractMessageId (WebServiceContext context) {
+                return "uuid:1111111111.11111.111.11";
+            }
+
         };
 
         context.checking(new Expectations()
@@ -144,6 +155,7 @@ public class NhincProxyXDRRequestSecuredImplTest
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));

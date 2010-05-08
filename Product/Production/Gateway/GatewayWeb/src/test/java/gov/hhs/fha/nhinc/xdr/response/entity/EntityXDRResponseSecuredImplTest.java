@@ -1,6 +1,9 @@
 package gov.hhs.fha.nhinc.xdr.response.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecuredImpl;
@@ -82,6 +85,11 @@ public class EntityXDRResponseSecuredImplTest
             {
                 return true;
             }
+
+            @Override
+            protected String extractMessageId (WebServiceContext context) {
+                return "uuid:1111111111.11111.111.11";
+            }
         };
 
         context.checking(new Expectations()
@@ -89,6 +97,8 @@ public class EntityXDRResponseSecuredImplTest
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                allowing(mockLogger).warn(with(any(String.class)));
+                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDRResponseRequest(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -96,6 +106,13 @@ public class EntityXDRResponseSecuredImplTest
         });
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType target = new NhinTargetCommunityType();
+        HomeCommunityType hc = new HomeCommunityType();
+        hc.setHomeCommunityId("1.1");
+        target.setHomeCommunity(hc);
+        targets.getNhinTargetCommunity().add(target);
+        request.setNhinTargetCommunities(targets);
 
         AcknowledgementType ack = sut.provideAndRegisterDocumentSetBResponse(request, mockWebServiceContext);
 
