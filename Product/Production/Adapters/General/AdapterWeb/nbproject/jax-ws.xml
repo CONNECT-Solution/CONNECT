@@ -965,8 +965,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequest</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRRequest.wsdl</local-wsdl-file>
-      <service-name>ProxyXDRRequest_Service</service-name>
-      <port-name>ProxyXDRRequest_Port</port-name>
+      <service-name>ProxyXDRAsyncRequest_Service</service-name>
+      <port-name>ProxyXDRAsyncRequest_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxyxdr.async.request</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -989,8 +989,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponse</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRResponse.wsdl</local-wsdl-file>
-      <service-name>ProxyXDRResponse_Service</service-name>
-      <port-name>ProxyXDRResponse_Port</port-name>
+      <service-name>ProxyXDRAsyncResponse_Service</service-name>
+      <port-name>ProxyXDRAsyncResponse_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxyxdr.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1061,8 +1061,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequest</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRRequest.wsdl</local-wsdl-file>
-      <service-name>EntityXDRRequest_Service</service-name>
-      <port-name>EntityXDRRequest_Port</port-name>
+      <service-name>EntityXDRAsyncRequest_Service</service-name>
+      <port-name>EntityXDRAsyncRequest_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincentityxdr.async.request</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1085,8 +1085,8 @@
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityEDRResponse</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>EntityXDRResponse.wsdl</local-wsdl-file>
-      <service-name>EntityXDRResponse_Service</service-name>
-      <port-name>EntityXDRResponse_Port</port-name>
+      <service-name>EntityXDRAsyncResponse_Service</service-name>
+      <port-name>EntityXDRAsyncResponse_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincentityxdr.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
