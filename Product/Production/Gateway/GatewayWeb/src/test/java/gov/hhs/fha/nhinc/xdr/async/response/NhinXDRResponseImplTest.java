@@ -98,6 +98,11 @@ public class NhinXDRResponseImplTest {
                 return ack;
             }
 
+            @Override
+            protected String extractMessageId (WebServiceContext context) {
+                return "uuid:1111111111.11111.111.11";
+            }
+
         };
 
         final RegistryResponseType body = new RegistryResponseType();
@@ -111,6 +116,7 @@ public class NhinXDRResponseImplTest {
         mockery.checking(new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
+                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
                 one(mockXDRAuditLogger).auditNhinXDRResponse(with(any(RegistryResponseType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 will(returnValue(ack));
                 one(mockXDRAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
