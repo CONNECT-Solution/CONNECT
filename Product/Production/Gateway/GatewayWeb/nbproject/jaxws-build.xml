@@ -662,8 +662,8 @@
     </target>
     <target name="wsimport-service-NhinXDRRequest" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRDeferredRequest.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
@@ -676,13 +676,13 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-NhinXDRRequest" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/async/request/_2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
     </target>
     <target name="wsimport-service-NhinXDRResponse" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRDeferredResponse.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
@@ -695,7 +695,7 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-NhinXDRResponse" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/async/response/_2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
     </target>
     <target name="wsimport-service-AdapterXDRRequest" depends="wsimport-init">

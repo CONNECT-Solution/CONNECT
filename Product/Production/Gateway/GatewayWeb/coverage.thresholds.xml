@@ -117,9 +117,9 @@
 <threshold branchcount="36" branchrate="0.05555555555555555" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.xdr.XDRAuditLogger" linecount="77" linerate="0.06493506493506493" linesexecuted="0.04999999999999999"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.XDRPolicyChecker" linecount="52" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequestImpl" linecount="43" linerate="0.37209302325581395" linesexecuted="0.16"/>
+<threshold branchcount="4" branchrate="0.4025" branchsexecuted="1.61" class="gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequestImpl" linecount="47" linerate="0.07148936170212766" linesexecuted="3.3600000000000003"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponseImpl" linecount="42" linerate="0.35714285714285715" linesexecuted="0.15"/>
+<threshold branchcount="4" branchrate="0.4025" branchsexecuted="1.61" class="gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponseImpl" linecount="46" linerate="0.07282608695652174" linesexecuted="3.35"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="32" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecuredImpl" linecount="76" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
