@@ -9,7 +9,11 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" uri="wsdl/NhinXDRRequest.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" uri="wsdl/NhinXDRResponse.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredRequest.wsdl" uri="wsdl/NhinXDRDeferredRequest.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredResponse.wsdl" uri="wsdl/NhinXDRDeferredResponse.wsdl"/>
 </catalog>
+
+
 
 
 

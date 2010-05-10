@@ -3,8 +3,8 @@ package gov.hhs.fha.nhinc.xdr.async.request.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xdr._2007.AcknowledgementType;
-import ihe.iti.xdr.async.request._2007.XDRRequestService;
-import ihe.iti.xdr.async.request._2007.XDRRequestPortType;
+import ihe.iti.xdr._2007.XDRDeferredRequestService;
+import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -36,7 +36,7 @@ public class NhinXDRRequestWebServiceProxyTest
     public void testProvideAndRegisterDocumentSetBRequest()
     {
         final Log mockLogger = context.mock(Log.class);
-        final XDRRequestService mockService = context.mock(XDRRequestService.class);
+        final XDRDeferredRequestService mockService = context.mock(XDRDeferredRequestService.class);
 
         NhinXDRRequestWebServiceProxy proxy = new NhinXDRRequestWebServiceProxy()
         {
@@ -53,11 +53,11 @@ public class NhinXDRRequestWebServiceProxyTest
             }
 
             @Override
-            protected XDRRequestPortType getPort(String url)
+            protected XDRDeferredRequestPortType getPort(String url)
             {
-                XDRRequestPortType mockPort = new XDRRequestPortType()
+                XDRDeferredRequestPortType mockPort = new XDRDeferredRequestPortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
+                    public AcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(ProvideAndRegisterDocumentSetRequestType arg0)
                     {
                         AcknowledgementType ack = new AcknowledgementType();
                         ack.setMessage("Mock Success");
@@ -68,12 +68,12 @@ public class NhinXDRRequestWebServiceProxyTest
             }
 
             @Override
-            protected void setRequestContext(AssertionType assertion, String url, XDRRequestPortType port)
+            protected void setRequestContext(AssertionType assertion, String url, XDRDeferredRequestPortType port)
             {
             }
 
             @Override
-            protected XDRRequestService createService()
+            protected XDRDeferredRequestService createService()
             {
                 return mockService;
             }

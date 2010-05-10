@@ -147,9 +147,9 @@
       </wsimport-options>
     </client>
     <client name="NhinXDRRequest">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
-      <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
-      <package-name>ihe.iti.xdr.async.request._2007</package-name>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDRDeferredRequest.wsdl</local-wsdl-file>
+      <package-name>ihe.iti.xdr._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -171,9 +171,9 @@
       </wsimport-options>
     </client>
     <client name="NhinXDRResponse">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
-      <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
-      <package-name>ihe.iti.xdr.async.response._2007</package-name>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDRDeferredResponse.wsdl</local-wsdl-file>
+      <package-name>ihe.iti.xdr._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

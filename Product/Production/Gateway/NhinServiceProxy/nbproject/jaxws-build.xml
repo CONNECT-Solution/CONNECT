@@ -115,7 +115,7 @@
     </target>
     <target name="wsimport-client-NhinXDRRequest" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinXDRRequest"/>
-        <property name="wsdl-NhinXDRRequest" location="xml-resources/web-service-references/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl"/>
+        <property name="wsdl-NhinXDRRequest" location="xml-resources/web-service-references/NhinXDRRequest/wsdl/NhinXDRDeferredRequest.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/NhinXDRRequest" wsdl="${wsdl-NhinXDRRequest}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinXDRRequest}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinXDRRequest"/>
@@ -128,11 +128,11 @@
     </target>
     <target name="wsimport-client-clean-NhinXDRRequest" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhinXDRRequest"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/async/request/_2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
     </target>
     <target name="wsimport-client-NhinXDRResponse" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinXDRResponse"/>
-        <property name="wsdl-NhinXDRResponse" location="xml-resources/web-service-references/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl"/>
+        <property name="wsdl-NhinXDRResponse" location="xml-resources/web-service-references/NhinXDRResponse/wsdl/NhinXDRDeferredResponse.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/NhinXDRResponse" wsdl="${wsdl-NhinXDRResponse}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" xnocompile="true">
             <depends file="${wsdl-NhinXDRResponse}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinXDRResponse"/>
@@ -145,7 +145,7 @@
     </target>
     <target name="wsimport-client-clean-NhinXDRResponse" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhinXDRResponse"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/async/response/_2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery, wsimport-client-NhincDocQuery, wsimport-client-NhincDocRetrieve, wsimport-client-NhinPatientDiscovery, wsimport-client-NhinSubjectDiscovery, wsimport-client-NhincSubscription, wsimport-client-NhinXDRRequest, wsimport-client-NhinXDRResponse"/>
 </project>
