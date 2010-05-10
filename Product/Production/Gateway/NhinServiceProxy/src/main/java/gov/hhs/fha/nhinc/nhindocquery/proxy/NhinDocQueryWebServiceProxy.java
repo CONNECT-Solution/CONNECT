@@ -125,7 +125,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy {
         }
         else
         {
-        log.info("Setting endpoint address to Nhin Document Query Service to " + url);
+            log.info("Setting endpoint address to Nhin Document Query Service to " + url);
             ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
     }

@@ -35,7 +35,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -44,7 +44,7 @@ public class NhincProxyDocQueryImplTest
                 }
 
             };
-            Log log = docQueryProxy.createLogger();
+            Log log = sut.createLogger();
             assertNotNull("Log was null", log);
         }
         catch(Throwable t)
@@ -60,7 +60,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -73,7 +73,7 @@ public class NhincProxyDocQueryImplTest
                     return mockService;
                 }
             };
-            Service service = docQueryProxy.getService();
+            Service service = sut.getService();
             assertNotNull("Service was null", service);
         }
         catch(Throwable t)
@@ -89,7 +89,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -104,7 +104,7 @@ public class NhincProxyDocQueryImplTest
             };
             NhincProxyDocQuerySecuredPortType port = mockPort;
             String url = "url";
-            docQueryProxy.setEndpointAddress(port, url);
+            sut.setEndpointAddress(port, url);
         }
         catch(Throwable t)
         {
@@ -119,7 +119,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -135,7 +135,7 @@ public class NhincProxyDocQueryImplTest
             });
             NhincProxyDocQuerySecuredPortType port = null;
             String url = "url";
-            docQueryProxy.setEndpointAddress(port, url);
+            sut.setEndpointAddress(port, url);
         }
         catch(Throwable t)
         {
@@ -150,7 +150,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -166,7 +166,7 @@ public class NhincProxyDocQueryImplTest
             });
             NhincProxyDocQuerySecuredPortType port = mockPort;
             String url = null;
-            docQueryProxy.setEndpointAddress(port, url);
+            sut.setEndpointAddress(port, url);
         }
         catch(Throwable t)
         {
@@ -181,7 +181,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -197,7 +197,7 @@ public class NhincProxyDocQueryImplTest
             });
             NhincProxyDocQuerySecuredPortType port = mockPort;
             String url = "";
-            docQueryProxy.setEndpointAddress(port, url);
+            sut.setEndpointAddress(port, url);
         }
         catch(Throwable t)
         {
@@ -212,7 +212,7 @@ public class NhincProxyDocQueryImplTest
     {
         try
         {
-            NhincProxyDocQueryImpl docQueryProxy = new NhincProxyDocQueryImpl()
+            NhincProxyDocQueryImpl sut = new NhincProxyDocQueryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -233,7 +233,7 @@ public class NhincProxyDocQueryImplTest
                 }
             });
             String url = "url";
-            NhincProxyDocQuerySecuredPortType port = docQueryProxy.getPort(url);
+            NhincProxyDocQuerySecuredPortType port = sut.getPort(url);
             assertNull("NhincProxyDocQuerySecuredPortType was not null", port);
         }
         catch(Throwable t)

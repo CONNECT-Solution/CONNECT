@@ -10,7 +10,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  * @author Neil Webb
  */
 @WebService(serviceName = "EntityPatientDiscovery", portName = "EntityPatientDiscoveryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscovery", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryUnsecured/EntityPatientDiscovery.wsdl")
-@BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoveryUnsecured
 {
     protected EntityPatientDiscoveryUnsecuredImpl getEntityPatientDiscoveryUnsecuredImpl()

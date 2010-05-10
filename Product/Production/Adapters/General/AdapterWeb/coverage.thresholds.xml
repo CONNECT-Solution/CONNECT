@@ -46,7 +46,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryImpl" linecount="23" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="-Infinity" branchsexecuted="-9.54" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryImpl" linecount="23" linerate="-0.6891304347826087" linesexecuted="-15.85"/>
+<threshold branchcount="12" branchrate="0.005000000000000042" branchsexecuted="0.0600000000000005" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryImpl" linecount="43" linerate="0.003488372093023264" linesexecuted="0.15000000000000036"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveImpl" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
