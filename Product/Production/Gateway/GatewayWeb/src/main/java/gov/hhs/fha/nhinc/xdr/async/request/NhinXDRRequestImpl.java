@@ -6,6 +6,7 @@
 package gov.hhs.fha.nhinc.xdr.async.request;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -50,6 +51,11 @@ public class NhinXDRRequestImpl
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
         AssertionType assertion = createAssertion(context);
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setAsyncMessageId(extractMessageId(context));
+        }
 
         AcknowledgementType ack = getXDRAuditLogger().auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
@@ -167,5 +173,10 @@ public class NhinXDRRequestImpl
         ihe.iti.xdr._2007.AcknowledgementType result= new ihe.iti.xdr._2007.AcknowledgementType();
         result.setMessage(XDR_POLICY_ERROR);
         return result;
+    }
+
+    protected String extractMessageId (WebServiceContext context) {
+        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+        return msgIdExtractor.GetAsyncMessageId(context);
     }
 }

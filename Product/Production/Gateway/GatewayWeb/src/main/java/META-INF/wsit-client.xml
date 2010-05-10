@@ -22,8 +22,8 @@
     <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
     <import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>
-    <import location="NhinXDRRequest.xml" namespace="urn:ihe:iti:xdr:async:request:2007"/>
-    <import location="NhinXDRResponse.xml" namespace="urn:ihe:iti:xdr:async:response:2007"/>
+    <import location="NhinXDRDeferredRequest.xml" namespace="urn:ihe:iti:xdr:2007"/>
+    <import location="NhinXDRDeferredResponse.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="AdapterXDRRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
     <import location="AdapterXDRResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>

@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gov.hhs.fha.nhinc.xdr.async.response;
 
 import ihe.iti.xdr._2007.AcknowledgementType;
@@ -10,18 +15,17 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  *
- * @author patlollav
+ * @author JHOPPESC
  */
-@WebService(serviceName = "XDRResponse_Service", portName = "XDRResponse_Port_Soap", endpointInterface = "ihe.iti.xdr.async.response._2007.XDRResponsePortType", targetNamespace = "urn:ihe:iti:xdr:async:response:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse/NhinXDRResponse.wsdl")
+@WebService(serviceName = "XDRDeferredResponse_Service", portName = "XDRDeferredResponse_Port_Soap", endpointInterface = "ihe.iti.xdr._2007.XDRDeferredResponsePortType", targetNamespace = "urn:ihe:iti:xdr:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse/NhinXDRDeferredResponse.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhinXDRResponse {
-
     @Resource
     private WebServiceContext context;
 
     private static final Log logger = LogFactory.getLog(NhinXDRResponse.class);
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
+    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         getLogger().debug("Entering NhinXDRResponse");
 
         AcknowledgementType ack = this.getNhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
@@ -41,6 +45,5 @@ public class NhinXDRResponse {
     protected Log getLogger(){
         return logger;
     }
-
 
 }
