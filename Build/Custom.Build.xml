@@ -139,10 +139,10 @@
       <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\NHINAdapterServiceEJB\dist\debug\" prefix="bin" failonempty="true">
         <include name="NHINAdapterServiceEJB.jar"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\DynamicDocumentTest" failonempty="true">
+      <fileset basedir="${Common.Directory.Product.Path}\SoapUI_Test\ManualSuite\" prefix="SelfTest\DynamicDocumentTest" failonempty="true">
         <include name="DynamicDocumentTest-Internal-soapui-project.*"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\DynamicDocumentTest" failonempty="true">
+      <fileset basedir="${Common.Directory.Product.Path}\SoapUI_Test\ManualSuite\" prefix="SelfTest\DynamicDocumentTest" failonempty="true">
         <include name="DynamicDocumentTest-EndtoEnd-soapui-project.*"/>
       </fileset>
     </zip>
