@@ -77,8 +77,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
             // Perform a policy check
             if (checkPolicy(body, assertion)) {
 
-                // Store AA to HCID Mapping
-                storeMapping(body);
+                
 
                 // Obtain the response mode in order to determine how the message is to be processed
                 int respModeType = getResponseMode();
@@ -86,8 +85,14 @@ public class NhinPatientDiscoveryAsyncRespImpl {
                 if (respModeType == ResponseFactory.PASSTHRU_MODE) {
                     // Nothing to do here, empty target to cover the passthrough case
                 } else if (respModeType == ResponseFactory.TRUST_MODE) {
+                    // Store AA to HCID Mapping
+                    storeMapping(body);
+
                     processRespTrustMode(body, assertion);
                 } else {
+                    // Store AA to HCID Mapping
+                    storeMapping(body);
+
                     // Default is Verify Mode
                     processRespVerifyMode(body, assertion);
                 }
@@ -120,7 +125,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
      * @return Returns true if the servicePatientDiscoveryAsyncReq is enabled in the properties file.
      */
     protected boolean isServiceEnabled() {
-        return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME);
+        return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
     }
 
     protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion) {
