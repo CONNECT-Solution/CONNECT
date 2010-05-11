@@ -64,7 +64,7 @@
       <property name="accesslog" value="${com.sun.aas.instanceRoot}/logs/access"/>
      <property name="sso-enabled" value="false"/>
 </virtual-server>
-     <request-processing header-buffer-length-in-bytes="8192" initial-thread-count="2" request-timeout-in-seconds="30" thread-count="5" thread-increment="1"/>
+     <request-processing header-buffer-length-in-bytes="8192" initial-thread-count="5" request-timeout-in-seconds="30" thread-count="100" thread-increment="5"/>
      <keep-alive max-connections="250" thread-count="1" timeout-in-seconds="30"/>
      <connection-pool max-pending-count="4096" queue-size-in-bytes="4096" receive-buffer-size-in-bytes="4096" send-buffer-size-in-bytes="8192"/>
      <http-protocol dns-lookup-enabled="false" version="HTTP/1.1" forced-type="text/html; charset=iso-8859-1" default-type="text/html; charset=iso-8859-1" forced-response-type="AttributeDeprecated" default-response-type="AttributeDeprecated" ssl-enabled="true"/>
