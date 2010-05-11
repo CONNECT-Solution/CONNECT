@@ -78,7 +78,7 @@
 
   <target name="GlassFish.Staging.Redeploy">
     <call target="GlassFish.Recreate.Domain"/>
-    <call target="GlassFish.Deploy"/>
+    <call target="GlassFish.Staging.Deploy"/>
   </target>
 
   <target name="GlassFish.Install.Domain.Certificates">
@@ -91,19 +91,18 @@
       <args/>
     </ant>
   </target>
-  
+
   <target name="GlassFish.Recreate.Domain">
-       <ant
-          target="recreate.glassfish.domain"
-          buildfile="${GlassFish.Deploy.Script.File.Path}"
-          logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
+    <ant
+       target="recreate.glassfish.domain"
+       buildfile="${GlassFish.Deploy.Script.File.Path}"
+       logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
           >
-          <environment refid="GlassFish.EnvironmentVariables.RefId"/>
-          <args>
-            <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name}"/>
-            <arg line="-Ddeployment.domain.template.file.path=${Common.Directory.Install.Path}/GlassFish/templates/connect/domain.xml.template"/>
-          </args>
-        </ant>
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
+      <args>
+        <arg line="-Ddeployment.domain.template.file.path=${Common.Directory.Install.Path}/GlassFish/templates/connect/domain.xml.template"/>
+      </args>
+    </ant>
   </target>
 
   <target name="GlassFish.Deploy.Configuration">
@@ -118,7 +117,7 @@
       </args>
     </ant>
   </target>
-  
+
   <target name="GlassFish.Undeploy">
     <ant.async
       target="undeploy"
@@ -136,7 +135,7 @@
       </tasknames>
     </waitforexit>
   </target>
-  
+
   <target name="GlassFish.Deploy">
     <ant.async
       target="deploy"
@@ -146,6 +145,27 @@
     >
       <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args/>
+    </ant.async>
+
+    <waitforexit>
+      <tasknames>
+        <string value='GlassFish.Deploy'/>
+      </tasknames>
+    </waitforexit>
+
+  </target>
+
+  <target name="GlassFish.Staging.Deploy">
+    <ant.async
+      target="deploy"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\deploy_log.xml"
+      taskname="GlassFish.Deploy"
+    >
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
+      <args>
+        <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name}"/>
+      </args>
     </ant.async>
 
     <waitforexit>
