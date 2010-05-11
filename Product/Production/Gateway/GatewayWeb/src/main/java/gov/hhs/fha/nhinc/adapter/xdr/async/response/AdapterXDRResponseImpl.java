@@ -7,8 +7,10 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.response;
 
 import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import ihe.iti.xdr._2007.AcknowledgementType;
+import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,8 +21,15 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterXDRResponseImpl {
     private static final Log logger = LogFactory.getLog(AdapterXDRResponseImpl.class);
 
-    public AcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body) {
+    public AcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (body != null &&
+                body.getAssertion() != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            body.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+        }
 
         AdapterXDRResponseProxyObjectFactory factory = new AdapterXDRResponseProxyObjectFactory();
 
