@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:nant="http://nant.sf.net/schemas/nant.xsd" elementFormDefault="qualified" targetNamespace="http://nant.sf.net/schemas/nant.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
-    <xs:documentation>NAnt schema generated at 05/11/2010 10:22:04</xs:documentation>
+    <xs:documentation>NAnt schema generated at 05/11/2010 13:43:44</xs:documentation>
   </xs:annotation>
   <xs:simpleType name="CIFactory.Properties">
     <xs:restriction base="xs:string">
@@ -58,6 +58,7 @@
       <xs:enumeration value="${Backup.ArtifactsDirectory}" />
       <xs:enumeration value="${Backup.BackupRepositoryDirectory}" />
       <xs:enumeration value="${Backup.CCNetServerDirectory}" />
+      <xs:enumeration value="${BatchFileName}" />
       <xs:enumeration value="${bool::parse(s)}" />
       <xs:enumeration value="${bool::to-string(value)}" />
       <xs:enumeration value="${BuildServerHostName}" />
@@ -195,7 +196,6 @@
       <xs:enumeration value="${environment::get-version()}" />
       <xs:enumeration value="${environment::variable-exists(name)}" />
       <xs:enumeration value="${envvar::change-var(refID, name, value)}" />
-      <xs:enumeration value="${ExeName}" />
       <xs:enumeration value="${exit}" />
       <xs:enumeration value="${file::exists(file)}" />
       <xs:enumeration value="${file::get-creation-time(path)}" />
@@ -1840,12 +1840,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -2085,12 +2085,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -2818,12 +2818,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -3080,12 +3080,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -4572,12 +4572,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -6445,12 +6445,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -6692,12 +6692,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -7113,7 +7113,7 @@
     <xs:attribute name="if" type="nant:CIFactory.Boolean" use="optional" />
     <xs:attribute name="unless" type="nant:CIFactory.Boolean" use="optional" />
   </xs:complexType>
-  <xs:complexType name="nant8fc8e4a39cbb4507afd59df44f3df642">
+  <xs:complexType name="nantfe63482686e74a5f8b7815415bdbd2ed">
     <xs:attribute name="program" type="nant:CIFactory.String" use="required" />
     <xs:attribute name="returnpropertyname" type="nant:CIFactory.String" use="optional" />
     <xs:attribute name="failonerror" type="nant:CIFactory.Boolean" use="optional" />
@@ -7121,7 +7121,7 @@
     <xs:attribute name="if" type="nant:CIFactory.Boolean" use="optional" />
     <xs:attribute name="unless" type="nant:CIFactory.Boolean" use="optional" />
   </xs:complexType>
-  <xs:complexType name="nant51967abd705a4d9e9c5806a25934c0bc">
+  <xs:complexType name="nant63d49915cef947b991aab76eed88c84b">
     <xs:attribute name="resultproperty" type="nant:CIFactory.String" use="optional" />
     <xs:attribute name="remotingurl" type="nant:CIFactory.String" use="optional" />
     <xs:attribute name="project" type="nant:CIFactory.String" use="optional" />
@@ -7130,7 +7130,7 @@
     <xs:attribute name="if" type="nant:CIFactory.Boolean" use="optional" />
     <xs:attribute name="unless" type="nant:CIFactory.Boolean" use="optional" />
   </xs:complexType>
-  <xs:complexType name="nant017d55952029453aa3398cb449f78c57">
+  <xs:complexType name="nant6f724f6c7f5e403f983f9a3c7aa0029e">
     <xs:attribute name="artifact" type="nant:CIFactory.String" use="required" />
     <xs:attribute name="dest" type="nant:CIFactory.String" use="required" />
     <xs:attribute name="build" type="nant:CIFactory.String" use="required" />
@@ -7144,7 +7144,7 @@
     <xs:attribute name="if" type="nant:CIFactory.Boolean" use="optional" />
     <xs:attribute name="unless" type="nant:CIFactory.Boolean" use="optional" />
   </xs:complexType>
-  <xs:complexType name="nantb11bc41746fd4966899eda2561629f38">
+  <xs:complexType name="nant026879883bfe42d6b01a15d5ac2bf6e5">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="1" maxOccurs="1" name="environment" type="nant:NAnt.Core.Types.EnvironmentSet" />
       <xs:element minOccurs="0" maxOccurs="1" name="args">
@@ -7165,7 +7165,7 @@
     <xs:attribute name="if" type="nant:CIFactory.Boolean" use="optional" />
     <xs:attribute name="unless" type="nant:CIFactory.Boolean" use="optional" />
   </xs:complexType>
-  <xs:complexType name="nant9ea6f6af141d4c45a8e0b6b5d1760c08">
+  <xs:complexType name="nantf64d9fbd000c47c5850a568ea7862d9d">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="1" maxOccurs="1" name="environment" type="nant:NAnt.Core.Types.EnvironmentSet" />
       <xs:element minOccurs="0" maxOccurs="1" name="args">
@@ -7187,7 +7187,7 @@
     <xs:attribute name="if" type="nant:CIFactory.Boolean" use="optional" />
     <xs:attribute name="unless" type="nant:CIFactory.Boolean" use="optional" />
   </xs:complexType>
-  <xs:complexType name="nantfd8d343101fc4ac098e0467025713848">
+  <xs:complexType name="nant17e3f6f6ed5b426e8845972d1732314b">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element minOccurs="1" maxOccurs="1" name="value" type="nant:NAnt.Core.Types.TextElement" />
       <xs:element minOccurs="1" maxOccurs="1" name="environment" type="nant:NAnt.Core.Types.EnvironmentSet" />
@@ -7366,12 +7366,12 @@
       <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
       <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
       <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-      <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-      <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-      <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-      <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-      <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-      <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+      <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+      <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+      <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+      <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+      <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+      <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
       <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
       <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
       <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
@@ -7576,12 +7576,12 @@
         <xs:element name="targetprocessreport" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessReportTask" />
         <xs:element name="targetprocessupdatestory" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateStoryTask" />
         <xs:element name="targetprocessupdatetask" type="nant:CIFactory.TargetProcess.NAnt.Tasks.TargetProcessUpdateTaskTask" />
-        <xs:element name="findprogram" type="nant:nant8fc8e4a39cbb4507afd59df44f3df642" />
-        <xs:element name="ask.published.good.build" type="nant:nant51967abd705a4d9e9c5806a25934c0bc" />
-        <xs:element name="get.published.artifact" type="nant:nant017d55952029453aa3398cb449f78c57" />
-        <xs:element name="ant" type="nant:nantb11bc41746fd4966899eda2561629f38" />
-        <xs:element name="ant.async" type="nant:nant9ea6f6af141d4c45a8e0b6b5d1760c08" />
-        <xs:element name="cmd" type="nant:nantfd8d343101fc4ac098e0467025713848" />
+        <xs:element name="findprogram" type="nant:nantfe63482686e74a5f8b7815415bdbd2ed" />
+        <xs:element name="ask.published.good.build" type="nant:nant63d49915cef947b991aab76eed88c84b" />
+        <xs:element name="get.published.artifact" type="nant:nant6f724f6c7f5e403f983f9a3c7aa0029e" />
+        <xs:element name="ant" type="nant:nant026879883bfe42d6b01a15d5ac2bf6e5" />
+        <xs:element name="ant.async" type="nant:nantf64d9fbd000c47c5850a568ea7862d9d" />
+        <xs:element name="cmd" type="nant:nant17e3f6f6ed5b426e8845972d1732314b" />
         <xs:element name="strings" type="nant:CIFactory.NAnt.Types.StringList" />
         <xs:element name="propertystructureiterator" type="nant:CIFactory.NAnt.Types.PropertyStructureIterator" />
         <xs:element name="url" type="nant:CIFactory.NAnt.Types.SpiderUrl" />
