@@ -4,6 +4,7 @@
  */
 
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -44,6 +45,13 @@ public class AdapterXDRRequestImpl {
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context)
     {
         getLogger().debug("Begin provideAndRegisterDocumentSetBRequest()");
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (body != null &&
+                body.getAssertion() != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            body.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+        }
 
         RegistryResponseType registryResponse = callAdapterComponentXDR(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion());
 

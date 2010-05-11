@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -48,6 +49,12 @@ public class AdapterXDRRequestSecuredImpl {
 
         // Call AdapterComponent implementation to process the request.
         AssertionType assertion = createAssertion(context);
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            assertion.setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        }
 
         RegistryResponseType registryResponse = callAdapterComponentXDR(body, assertion);
 
@@ -140,9 +147,6 @@ public class AdapterXDRRequestSecuredImpl {
     protected void setRequestContext(AssertionType assertion, String entityXDRSecuredResponseEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
         SamlTokenCreator tokenCreator = new SamlTokenCreator();
         Map requestContext = tokenCreator.CreateRequestContext(assertion, entityXDRSecuredResponseEndPointURL, NhincConstants.ENTITY_XDR_SECURED_RESPONSE_ACTION);
-
-        // TODO:  Update with the extracted message id, this hardcode value is temporary.
-        assertion.setAsyncMessageId("uuid:111111111.11111.111.11");
         
         ArrayList<Handler> handlerSetUp = new ArrayList<Handler>();
         AsyncMessageHandler msgHandler = new AsyncMessageHandler();
