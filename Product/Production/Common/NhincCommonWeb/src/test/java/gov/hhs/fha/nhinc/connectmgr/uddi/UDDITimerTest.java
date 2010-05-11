@@ -112,7 +112,7 @@ public class UDDITimerTest {
     @After
     public void tearDown() {
     }
-
+/**
     @Test
     public void testUDDINonInvocation() {
 
@@ -203,7 +203,7 @@ public class UDDITimerTest {
             fail("Unable to write properties " + gatewayPropFileName + ": " + ex.getMessage());
         }
     }
-
+*/
     private static void copyFile(String source, String destination) {
 
         FileInputStream fis = null;
