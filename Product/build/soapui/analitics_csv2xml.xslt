@@ -17,9 +17,9 @@
   </xsl:function>
 
   <xsl:template match="/">
-    <tests>
+    <testsuites>
     <xsl:apply-templates/>
-    </tests>
+    </testsuites>
   </xsl:template>
   
   <xsl:template match="file">
@@ -32,15 +32,18 @@
         <xsl:for-each select="$lines[position() > 1]">
           <xsl:variable name="elValue" select="."/>
           <xsl:if test="starts-with($elValue,'TestCase:,')">
-            <test file="{$filePath}">
-            <element name="name"><xsl:value-of select="$filePath"/></element>
+            <testsuites file="{$filePath}" package="">
+            <xsl:attribute name="name"><xsl:value-of select="replace(substring-before(substring-after($filePath,'/soapui-test-reports/'),'-statistics.txt'),'/','.')"/></xsl:attribute>
+            
             <xsl:variable name="lineItems" select="fn:getTokens(.)" as="xs:string+"/>
             <xsl:for-each select="$elemNames">
               <xsl:variable name="elName" select="."/>
               <xsl:variable name="pos" select="position()"/>
-              <element name="{$elName}"><xsl:value-of select="$lineItems[$pos]"/></element>
+              <xsl:if test="not(matches($elName,'Test Step'))">
+                <xsl:attribute name="{$elName}"><xsl:value-of select="$lineItems[$pos]"/></xsl:attribute>
+              </xsl:if>
             </xsl:for-each>
-            </test>
+            </testsuites>
           </xsl:if>
         </xsl:for-each>
       </xsl:when>
