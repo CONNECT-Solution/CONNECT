@@ -32,7 +32,7 @@
         <xsl:for-each select="$lines[position() > 1]">
           <xsl:variable name="elValue" select="."/>
           <xsl:if test="starts-with($elValue,'TestCase:,')">
-            <testsuites file="{$filePath}" package="">
+            <testsuite file="{$filePath}" package="">
             <xsl:attribute name="name"><xsl:value-of select="replace(substring-before(substring-after($filePath,'/soapui-test-reports/'),'-statistics.txt'),'/','.')"/></xsl:attribute>
             
             <xsl:variable name="lineItems" select="fn:getTokens(.)" as="xs:string+"/>
@@ -43,7 +43,7 @@
                 <xsl:attribute name="{$elName}"><xsl:value-of select="$lineItems[$pos]"/></xsl:attribute>
               </xsl:if>
             </xsl:for-each>
-            </testsuites>
+            </testsuite>
           </xsl:if>
         </xsl:for-each>
       </xsl:when>
