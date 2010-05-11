@@ -2,6 +2,8 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredService;
+import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -9,8 +11,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import ihe.iti.xdr._2007.AcknowledgementType;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import org.apache.commons.logging.Log;
 
 /**
@@ -18,10 +22,9 @@ import org.apache.commons.logging.Log;
  *
  * @author Visu Patlolla
  */
-public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
-{
-    private static org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(AdapterXDRRequestWebServiceProxy.class);
+public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy {
 
+    private static org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(AdapterXDRRequestWebServiceProxy.class);
     private static AdapterXDRRequestSecuredService securedAdapterService = null;
 
     /**
@@ -30,8 +33,8 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
      * @param assertion
      * @return
      */
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion){
-        
+    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
         String adapterXDRRequestSecuredEndPointURL = null;
@@ -59,10 +62,17 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
 
     }
 
-    protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, AdapterXDRRequestSecuredPortType port)
-    {
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, adapterXDRRequestSecuredEndPointURL, NhincConstants.ADAPTER_XDRREQUEST_SECURED_ACTION);
+    protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, AdapterXDRRequestSecuredPortType port) {
+        SamlTokenCreator tokenCreator = new SamlTokenCreator();
+        Map requestContext = tokenCreator.CreateRequestContext(assertion, adapterXDRRequestSecuredEndPointURL, NhincConstants.ADAPTER_XDRREQUEST_SECURED_ACTION);
+
+        ArrayList<Handler> handlerSetUp = new ArrayList<Handler>();
+        AsyncMessageHandler msgHandler = new AsyncMessageHandler();
+        handlerSetUp.add(msgHandler);
+        ((javax.xml.ws.BindingProvider) port).getBinding().setHandlerChain(handlerSetUp);
+
+        AsyncMessageIdCreator msgIdCreator = new AsyncMessageIdCreator();
+        requestContext.putAll(msgIdCreator.CreateRequestContextForMessageId(assertion));
 
         ((BindingProvider) port).getRequestContext().putAll(requestContext);
     }
@@ -98,7 +108,7 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
         return port;
     }
 
-    protected Log getLogger(){
+    protected Log getLogger() {
         return logger;
     }
 
@@ -106,14 +116,12 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
      *
      * @return
      */
-    protected AdapterXDRRequestSecuredService getAdapterXDRRequestSecuredService(){
-        if (securedAdapterService == null){
+    protected AdapterXDRRequestSecuredService getAdapterXDRRequestSecuredService() {
+        if (securedAdapterService == null) {
             return new AdapterXDRRequestSecuredService();
-        }
-        else{
+        } else {
             return securedAdapterService;
         }
 
     }
-
 }
