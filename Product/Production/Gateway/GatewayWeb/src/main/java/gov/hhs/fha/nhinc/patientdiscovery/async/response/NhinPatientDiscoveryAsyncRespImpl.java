@@ -145,6 +145,9 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         //       need for this method to return a value.
         VerifyMode respProcessor = new VerifyMode();
         PRPAIN201306UV02 resp = respProcessor.processResponse(body, assertion);
+
+        AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
+        removeExpiredEntries(asyncDbDao);
     }
 
     protected void processRespTrustMode(PRPAIN201306UV02 body, AssertionType assertion) {
