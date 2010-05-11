@@ -1,123 +1,81 @@
 package gov.hhs.fha.nhinc.tools.ws.processor.generator;
 
-import java.io.File;
-import java.io.FileReader;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+import java.util.List;
 import java.util.logging.Logger;
-import java.util.Properties;
 
 /**
- * @author Neil Webb
+ * Loads properties needed for web service implementation service classes
  *
+ * @author Neil Webb
  */
 public class ServicePropertyLoader
 {
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
-	private static final String PROPERTIES_FILE_NAME = "connectCommon.properties";
-	private static final String PROPERTY_KEY_WSDL_PATH = "wsdl.path";
-	private static Properties serviceProps = null;
+    private static final String JVM_OPTION_WSDL_DIR = "-Dwsdl.path";
+    private static final String ERROR_MSG_NO_WSDL_PATH_JVM_OPTION = "Unable to access the JVM option: " + JVM_OPTION_WSDL_DIR + ".";
+    private static final String WSDL_PATH;
 	private final static Logger logger = Logger.getLogger(ServicePropertyLoader.class.getName());
-    private static String m_sPropertyFileDir = "";
-    private static final String m_sFailedEnvVarMessage = "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
 
     static
     {
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
-        if ((sValue != null) && (sValue.length() > 0))
+        String sValue = null;
+        try
         {
-            // Set it up so that we always have a "/" at the end - in case
-            //------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
+            RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
+            if(runtimeMxBean != null)
             {
-                m_sPropertyFileDir = sValue;
+                List<String> inputArgs = runtimeMxBean.getInputArguments();
+                if(inputArgs != null)
+                {
+                    for(String inputArg : inputArgs)
+                    {
+                        logger.info("Input argument: " + inputArg);
+                        if((inputArg != null) && (inputArg.startsWith(JVM_OPTION_WSDL_DIR)))
+                        {
+                            int eqIndex = inputArg.indexOf("=");
+                            if(eqIndex != -1)
+                            {
+                                sValue = inputArg.substring(eqIndex + 1);
+                            }
+                            else
+                            {
+                                logger.info("JVM option did not contain '=' to assign a value");
+                            }
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    logger.warning("Input arguments list from RuntimeMXBean was null");
+                }
             }
             else
             {
-                String sFileSeparator = System.getProperty("file.separator");
-                m_sPropertyFileDir = sValue + sFileSeparator;
+                logger.warning("RuntimeMXBean was null.");
             }
         }
-        else
+        catch(Throwable t)
         {
-            logger.warning(m_sFailedEnvVarMessage);
+            logger.warning("Error encountered collecting the '" + JVM_OPTION_WSDL_DIR + "' JVM option: " + t.getMessage());
+            t.printStackTrace();
         }
+        if ((sValue == null) || (sValue.length() < 1))
+        {
+            logger.warning(ERROR_MSG_NO_WSDL_PATH_JVM_OPTION);
+        }
+        WSDL_PATH = sValue;
     }
 
-    private static Properties getProperties()
+	/**
+     * Retrieve the base path where WSDL files are located. This is retrieved from the 'wsdl.path' JVM option.
+     * 
+     * @return Path to WSDL files on the system.
+     */
+    public static String getBaseWsdlPath()
 	{
-		if(serviceProps == null)
-		{
-			if(m_sPropertyFileDir != null)
-			{
-		        FileReader frPropFile = null;
-
-				try
-				{
-			        String sPropFilePathAndName = m_sPropertyFileDir + PROPERTIES_FILE_NAME;
-					logger.info("Loading properties from : " + sPropFilePathAndName);
-		            File fPropFile = new File(sPropFilePathAndName);
-		            if (!fPropFile.exists())
-		            {
-		                logger.warning("Unable to load properties - " + sPropFilePathAndName + " does not exist.");
-		            }
-		            else
-		            {
-			            frPropFile = new FileReader(fPropFile);
-						if(frPropFile != null)
-						{
-							serviceProps = new Properties();
-							serviceProps.load(frPropFile);
-						}
-						else
-						{
-							logger.info("FileReader for properties file was null");
-						}
-		            }
-				}
-				catch(Throwable t)
-				{
-					serviceProps = null;
-					logger.warning("Error loading properties file: " + t.getMessage());
-				}
-				finally
-				{
-					if(frPropFile != null)
-					{
-						try
-						{
-							frPropFile.close();
-						}
-						catch(Throwable toIgnore)
-						{
-							// eat error
-						}
-					}
-				}
-			}
-			else
-			{
-				logger.warning("Did not attempt to load properties file because the NHINC_PROPERTIES_DIR environment variable value was not retrieved");
-			}
-		}
-		return serviceProps;
-	}
-
-	public static String getBaseWsdlPath()
-	{
-		logger.info("Begin getBaseWsdlPath");
-		String baseWsdlPath = null;
-
-		Properties props = getProperties();
-		if(props != null)
-		{
-			logger.info("Getting property using key: " + PROPERTY_KEY_WSDL_PATH);
-			baseWsdlPath = props.getProperty(PROPERTY_KEY_WSDL_PATH);
-		}
-		else
-		{
-			logger.info("Not retrieving property because properties object was null");
-		}
-
-		logger.info("Returning property: " + baseWsdlPath);
-		return baseWsdlPath;
+		logger.info("getBaseWsdlPath - returning: " + WSDL_PATH);
+		return WSDL_PATH;
 	}
 }

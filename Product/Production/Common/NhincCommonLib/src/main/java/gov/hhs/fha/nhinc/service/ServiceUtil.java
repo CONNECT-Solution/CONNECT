@@ -1,7 +1,6 @@
 package gov.hhs.fha.nhinc.service;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServicePropertyLoader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.namespace.QName;
@@ -15,8 +14,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ServiceUtil
 {
-    private static final String PROPERTIES_FILE = "connectCommon";
-    private static final String PROPERTY_KEY_WSDL_PATH = "wsdl.path";
 
     private Log log = null;
 
@@ -30,9 +27,9 @@ public class ServiceUtil
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected String getWsdlPath() throws PropertyAccessException
+    protected String getWsdlPath()
     {
-        return PropertyAccessor.getProperty(PROPERTIES_FILE, PROPERTY_KEY_WSDL_PATH);
+        return ServicePropertyLoader.getBaseWsdlPath();
     }
 
     protected Service constructService(String wsdlURL, String namespaceURI, String serviceLocalPart) throws MalformedURLException
@@ -40,7 +37,7 @@ public class ServiceUtil
         return Service.create(new URL(wsdlURL), new QName(namespaceURI, serviceLocalPart));
     }
 
-    public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart) throws MalformedURLException, PropertyAccessException
+    public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart) throws MalformedURLException
     {
         Service service = null;
         log.debug("Begin createService");

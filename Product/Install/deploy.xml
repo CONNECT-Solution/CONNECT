@@ -87,6 +87,7 @@
 	<target name="deploy.to.production">
 		<runtarget target="deploy.glassfish.stop.server"/>
 		<runtarget target="deploy.nhinc.configuration.to.glassfish"/>
+		<runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
 		<runtarget target="deploy.shared.libs.to.glassfish"/>
 
 		<runtarget target="deploy.glassfish.start.server"/>
@@ -389,7 +390,7 @@
 	</target>
 
 	<target name="deploy.nhinc.interfaces.to.glassfish">
-		<copy todir="${deployment.glassfish.domain.config.home}/META-INF" verbose="true" overwrite="true">
+		<copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
 			<fileset dir="${deployment.interfaces.dir}"/>
 		</copy>
 	</target>

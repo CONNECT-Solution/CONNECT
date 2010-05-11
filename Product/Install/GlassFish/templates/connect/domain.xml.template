@@ -201,6 +201,7 @@
         <jvm-options>-XX:MaxPermSize=132m</jvm-options>
         <jvm-options>-XX:PermSize=132m</jvm-options>
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
+        <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
         <jvm-options>-Dcom.sun.net.ssl.checkRevocation=true</jvm-options>
         <jvm-options>-Dcom.sun.security.enableCRLDP=true</jvm-options>
