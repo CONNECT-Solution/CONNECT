@@ -12,6 +12,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -178,7 +179,7 @@ public class XDRAuditLogger {
      * @param action
      * @return
      */
-    public AcknowledgementType auditAcknowledgement (ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+    public AcknowledgementType auditAcknowledgement (XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
 
         createLogger().debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();
@@ -196,7 +197,7 @@ public class XDRAuditLogger {
         }
         return ack;
     }
-    public AcknowledgementType auditEntityAcknowledgement (ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+    public AcknowledgementType auditEntityAcknowledgement (XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
 
         createLogger().debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();

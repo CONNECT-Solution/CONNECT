@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegi
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,7 +28,7 @@ public class NhincProxyXDRRequestSecuredImpl
         auditLogger = createAuditLogger();
     }
 
-    public AcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context)
     {
         log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
         AssertionType assertion = extractAssertion(context);
@@ -42,17 +42,16 @@ public class NhincProxyXDRRequestSecuredImpl
         return provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest, assertion);
     }
 
-    public AcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
     {
         log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
-        AcknowledgementType response = null;
 
         logRequest(provideAndRegisterRequestRequest, assertion);
 
         NhinXDRRequestProxy proxy = createNhinProxy();
 
         log.debug("Calling NHIN proxy");
-        response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
 
         logResponse(response, assertion);
 
@@ -67,7 +66,7 @@ public class NhincProxyXDRRequestSecuredImpl
         log.debug("End logRequest");
     }
 
-    private void logResponse(AcknowledgementType response, AssertionType assertion)
+    private void logResponse(XDRAcknowledgementType response, AssertionType assertion)
     {
         log.debug("Begin logResponse");
         auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);

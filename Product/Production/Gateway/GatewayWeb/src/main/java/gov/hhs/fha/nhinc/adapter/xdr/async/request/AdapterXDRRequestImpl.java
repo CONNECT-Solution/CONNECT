@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,7 +22,7 @@ public class AdapterXDRRequestImpl {
 
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestImpl.class);
 
-    public AcknowledgementType provideAndRegisterDocumentSetBRequest(AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
         AdapterXDRRequestProxyObjectFactory factory = new AdapterXDRRequestProxyObjectFactory();
@@ -36,7 +36,7 @@ public class AdapterXDRRequestImpl {
 
         AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();
 
-        ihe.iti.xdr._2007.AcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion());
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion());
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
 

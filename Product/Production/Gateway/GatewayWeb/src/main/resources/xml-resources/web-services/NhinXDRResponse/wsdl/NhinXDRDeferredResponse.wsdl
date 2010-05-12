@@ -13,6 +13,7 @@
              xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:nhin="http://www.hhs.gov/healthit/nhin"
              xmlns:xdr="urn:ihe:iti:xdr:2007"
              name="NhinXDRDeferredResponse"
              targetNamespace="urn:ihe:iti:xdr:2007">
@@ -22,7 +23,7 @@
             <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
             <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
-            <xsd:import namespace="urn:ihe:iti:xdr:2007" schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/xdr.xsd"/>
         </xsd:schema>
     </types>
     <message name="XDRResponseInputMessage">
@@ -31,7 +32,7 @@
     </message>
     <message name="XDRResponseAcknowledgementMessage">
         <documentation>XDR Response Acknowledgement Message</documentation>
-        <part name="body" element="xdr:Acknowledgement"/>
+        <part name="body" element="nhin:XDRAcknowledgement"/>
     </message>
     <portType name="XDRDeferredResponse_PortType">
         <operation name="ProvideAndRegisterDocumentSet-bDeferredResponse">

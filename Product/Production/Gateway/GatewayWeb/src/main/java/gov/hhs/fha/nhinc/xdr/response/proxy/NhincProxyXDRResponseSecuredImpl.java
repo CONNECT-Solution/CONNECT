@@ -9,7 +9,8 @@ import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,10 +29,10 @@ public class NhincProxyXDRResponseSecuredImpl
         auditLogger = createAuditLogger();
     }
 
-    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, WebServiceContext context)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, WebServiceContext context)
     {
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, WebServiceContext)");
-        AcknowledgementType response = null;
+        XDRAcknowledgementType response = null;
 
         AssertionType assertion = extractAssertion(context);
 
@@ -46,10 +47,13 @@ public class NhincProxyXDRResponseSecuredImpl
         return response;
     }
 
-    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, AssertionType assertion)
     {
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
-        AcknowledgementType response = null;
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        response.setMessage(regResp);
 
         logRequest(provideAndRegisterResponseRequest, assertion);
 
@@ -71,7 +75,7 @@ public class NhincProxyXDRResponseSecuredImpl
         log.debug("End logRequest");
     }
 
-    private void logResponse(AcknowledgementType response, AssertionType assertion)
+    private void logResponse(XDRAcknowledgementType response, AssertionType assertion)
     {
         log.debug("Begin logResponse");
         auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);

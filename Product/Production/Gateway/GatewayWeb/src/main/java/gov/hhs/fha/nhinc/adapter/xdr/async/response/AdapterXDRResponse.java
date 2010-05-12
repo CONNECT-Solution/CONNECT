@@ -20,8 +20,8 @@ public class AdapterXDRResponse {
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
-       return new AdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
+        return new AdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
     }
 
 }

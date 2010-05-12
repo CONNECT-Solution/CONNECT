@@ -1,7 +1,6 @@
 package gov.hhs.fha.nhinc.xdr.request.entity;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import ihe.iti.xdr._2007.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -13,6 +12,8 @@ import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecuredImpl;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,9 +31,9 @@ public class EntityXDRRequestSecuredImpl {
         auditLogger = createAuditLogger();
     }
 
-    public AcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context) {
         log.info("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
-        AcknowledgementType response = null;
+        XDRAcknowledgementType response = null;
         AssertionType assertion = extractAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
@@ -45,9 +46,12 @@ public class EntityXDRRequestSecuredImpl {
         return response;
     }
 
-    private AcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
+    private XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
         log.info("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
-        AcknowledgementType response = null;
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        response.setMessage(regResp);
 
         logRequest(provideAndRegisterRequestRequest, assertion);
 
@@ -73,9 +77,7 @@ public class EntityXDRRequestSecuredImpl {
                 log.debug("Sending request from entity service to NHIN proxy service");
                 response = proxy.provideAndRegisterDocumentSetBRequest(proxyRequest, assertion);
             } else {
-                log.info("Policy check unsuccessful");
-                response = new AcknowledgementType();
-                response.setMessage("CONNECTPolicyCheckFailed");
+                log.error("Policy check unsuccessful");
             }
         }
 
@@ -91,7 +93,7 @@ public class EntityXDRRequestSecuredImpl {
         log.debug("End logRequest");
     }
 
-    private void logResponse(AcknowledgementType response, AssertionType assertion) {
+    private void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
         log.debug("Beging logResponse");
         auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
         log.debug("End logResponse");

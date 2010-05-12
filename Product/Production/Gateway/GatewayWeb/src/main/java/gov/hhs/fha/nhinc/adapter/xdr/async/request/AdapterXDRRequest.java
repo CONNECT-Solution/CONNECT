@@ -5,7 +5,6 @@
 
 package gov.hhs.fha.nhinc.adapter.xdr.async.request;
 
-import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -21,7 +20,8 @@ public class AdapterXDRRequest {
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
     }
+
 }

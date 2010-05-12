@@ -12,7 +12,7 @@ import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author jhoppesc
+ * @author JHOPPESC
  */
 @WebService(serviceName = "EntityXDRSecuredAsyncRequest_Service", portName = "EntityXDRSecuredAsyncRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request.EntityXDRSecuredAsyncRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request", wsdlLocation = "WEB-INF/wsdl/EntityXDRRequestSecured/EntityXDRSecuredRequest.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
@@ -20,7 +20,7 @@ public class EntityXDRRequestSecured {
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
         return new EntityXDRRequestSecuredImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, context);
     }
 

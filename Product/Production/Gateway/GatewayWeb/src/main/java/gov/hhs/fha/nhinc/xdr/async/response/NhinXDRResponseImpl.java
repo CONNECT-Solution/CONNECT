@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -26,8 +27,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class NhinXDRResponseImpl
 {
-    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
-
     private static final Log logger = LogFactory.getLog(NhinXDRResponseImpl.class);
 
     /**
@@ -44,9 +43,12 @@ public class NhinXDRResponseImpl
      * @param context
      * @return
      */
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,WebServiceContext context ) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,WebServiceContext context ) {
 
-        ihe.iti.xdr._2007.AcknowledgementType result;
+        XDRAcknowledgementType result = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        result.setMessage(regResp);
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
 
@@ -73,7 +75,6 @@ public class NhinXDRResponseImpl
         else
         {
             getLogger().error("Policy Check Failed");
-            result = createFailedPolicyCheckResponse();
         }
 
         ack = getXDRAuditLogger().auditAcknowledgement(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
@@ -124,7 +125,7 @@ public class NhinXDRResponseImpl
      * @param context
      * @return
      */
-    protected ihe.iti.xdr._2007.AcknowledgementType forwardToAgency(RegistryResponseType body, AssertionType assertion)
+    protected XDRAcknowledgementType forwardToAgency(RegistryResponseType body, AssertionType assertion)
     {
         getLogger().debug("Entering forwardToAgency");
 
@@ -132,7 +133,7 @@ public class NhinXDRResponseImpl
 
         AdapterXDRResponseProxy proxy = factory.getAdapterXDRResponseProxy();
 
-        ihe.iti.xdr._2007.AcknowledgementType response = proxy.provideAndRegisterDocumentSetBResponse(body, assertion);
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBResponse(body, assertion);
 
         getLogger().debug("Exiting forwardToAgency");
 
@@ -160,17 +161,6 @@ public class NhinXDRResponseImpl
 
         return isPolicyOk;
 
-    }
-
-    /**
-     *
-     * @return
-     */
-    private ihe.iti.xdr._2007.AcknowledgementType createFailedPolicyCheckResponse()
-    {
-        ihe.iti.xdr._2007.AcknowledgementType result= new ihe.iti.xdr._2007.AcknowledgementType();
-        result.setMessage(XDR_POLICY_ERROR);
-        return result;
     }
 
     protected String extractMessageId (WebServiceContext context) {
