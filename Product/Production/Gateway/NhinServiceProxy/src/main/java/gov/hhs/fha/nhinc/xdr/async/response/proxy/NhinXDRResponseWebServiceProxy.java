@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xdr._2007.XDRDeferredResponseService;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
@@ -34,8 +34,12 @@ public class NhinXDRResponseWebServiceProxy implements NhinXDRResponseProxy {
         service = createService();
     }
 
-    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
-        AcknowledgementType response = null;
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        response.setMessage(regResp);
+
         String url = getUrl(targetSystem);
 
         if (NullChecker.isNotNullish(url)) {
@@ -47,13 +51,9 @@ public class NhinXDRResponseWebServiceProxy implements NhinXDRResponseProxy {
                 response = port.provideAndRegisterDocumentSetBDeferredResponse(request);
             } catch (Throwable t) {
                 log.error("Error in NHIN client for XDR Response: " + t.getMessage(), t);
-                response = new AcknowledgementType();
-                response.setMessage("Error");
             }
         } else {
             log.error("The URL for service: " + NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME + " is null");
-            response = new AcknowledgementType();
-            response.setMessage("Error");
         }
 
         return response;

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.apache.commons.logging.Log;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredResponseService;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -58,10 +58,12 @@ public class NhinXDRResponseWebServiceProxyTest
             {
                 XDRDeferredResponsePortType mockPort = new XDRDeferredResponsePortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(RegistryResponseType request)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(RegistryResponseType request)
                     {
-                        AcknowledgementType ack = new AcknowledgementType();
-                        ack.setMessage("Mock Success");
+                        XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                        RegistryResponseType regResp = new RegistryResponseType();
+                        regResp.setStatus("Mock Success");
+                        ack.setMessage(regResp);
                         return ack;
                     }
                 };
@@ -95,9 +97,9 @@ public class NhinXDRResponseWebServiceProxyTest
         AssertionType assertion = null;
         NhinTargetSystemType targetSystem = null;
 
-        AcknowledgementType ack = proxy.provideAndRegisterDocumentSetBResponse(request, assertion, targetSystem);
+        XDRAcknowledgementType ack = proxy.provideAndRegisterDocumentSetBResponse(request, assertion, targetSystem);
         assertNotNull("Ack was null", ack);
-        assertEquals("Ack value", "Mock Success", ack.getMessage());
+        assertEquals("Ack value", "Mock Success", ack.getMessage().getStatus());
     }
 
 }
