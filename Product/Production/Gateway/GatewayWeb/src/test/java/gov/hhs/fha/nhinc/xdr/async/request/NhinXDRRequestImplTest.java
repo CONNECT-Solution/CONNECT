@@ -2,15 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.xdr.async.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -64,7 +65,7 @@ public class NhinXDRRequestImplTest {
         final AssertionType mockAssertion = mockery.mock(AssertionType.class);
         final XDRAuditLogger mockXDRAuditLogger = mockery.mock(XDRAuditLogger.class);
 
-        final NhinXDRRequestImpl nhinXDRRequest = new NhinXDRRequestImpl(){
+        final NhinXDRRequestImpl nhinXDRRequest = new NhinXDRRequestImpl() {
 
             @Override
             protected Log getLogger() {
@@ -92,44 +93,43 @@ public class NhinXDRRequestImplTest {
             }
 
             @Override
-            protected AcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
-                AcknowledgementType ack = new AcknowledgementType();
-                ack.setMessage("SUCCESS");
+            protected XDRAcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regResp = new RegistryResponseType();
+                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regResp);
                 return ack;
             }
 
             @Override
-            protected String extractMessageId (WebServiceContext context) {
+            protected String extractMessageId(WebServiceContext context) {
                 return "uuid:1111111111.11111.111.11";
             }
-
         };
-        
+
         final ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
         final gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType ack = new gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType();
         ack.setMessage("SUCCESS");
         final HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId("2.2");
-        
-        AcknowledgementType expResult = null;
 
         mockery.checking(new Expectations() {
+
             {
                 allowing(mockLogger).debug(with(any(String.class)));
                 oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
                 one(mockXDRAuditLogger).auditNhinXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 will(returnValue(ack));
-                one(mockXDRAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+                one(mockXDRAuditLogger).auditAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(ack));
                 one(mockAssertion).getHomeCommunity();
                 will(returnValue(homeCommunity));
             }
         });
 
-        AcknowledgementType result = nhinXDRRequest.provideAndRegisterDocumentSetBRequest(body, context);
+        XDRAcknowledgementType result = nhinXDRRequest.provideAndRegisterDocumentSetBRequest(body, context);
         mockery.assertIsSatisfied();
-        assertEquals("SUCCESS", result.getMessage());
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
 
     }
-
 }
