@@ -97,7 +97,7 @@
 <threshold branchcount="72" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms" linecount="139" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms$PatientInfo" linecount="10" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="36" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms" linecount="98" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="112" branchrate="0.4017857142857143" branchsexecuted="0.45" class="gov.hhs.fha.nhinc.transform.audit.XDRTransforms" linecount="441" linerate="0.4217687074829932" linesexecuted="1.86"/>
+<threshold branchcount="110" branchrate="-0.010454545454545456" branchsexecuted="-1.1500000000000001" class="gov.hhs.fha.nhinc.transform.audit.XDRTransforms" linecount="441" linerate="0.4217687074829932" linesexecuted="1.86"/>
 <threshold branchcount="22" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform" linecount="58" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.document.DocumentTransformConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.marshallers.AdhocQueryRequestEventMarshaller" linecount="3" linerate="0.0" linesexecuted="0"/>

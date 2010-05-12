@@ -10,23 +10,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import com.sun.corba.se.spi.ior.Identifiable;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.bind.JAXBElement;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.hl7.v3.II;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import java.io.ByteArrayOutputStream;
@@ -750,18 +744,18 @@ public class XDRTransforms {
         }
     }
 
-    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, ihe.iti.xdr._2007.AcknowledgementType acknowledgement) throws RuntimeException {
+    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, XDRAcknowledgementType acknowledgement) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xdr._2007");
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xdr:2007", "Acknowledgement");
-            JAXBElement<ihe.iti.xdr._2007.AcknowledgementType> element;
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin", "XDRAcknowledgement");
+            JAXBElement<XDRAcknowledgementType> element;
 
-            element = new JAXBElement<ihe.iti.xdr._2007.AcknowledgementType>(xmlqname, ihe.iti.xdr._2007.AcknowledgementType.class, acknowledgement);
+            element = new JAXBElement<XDRAcknowledgementType>(xmlqname, XDRAcknowledgementType.class, acknowledgement);
 
 
             marshaller.marshal(element, baOutStrm);
@@ -862,7 +856,7 @@ public class XDRTransforms {
     /**
      * 
      */
-    public LogEventRequestType transformAcknowledgementToAuditMsg(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface, String action)
+    public LogEventRequestType transformAcknowledgementToAuditMsg(XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface, String action)
     {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
@@ -934,7 +928,7 @@ public class XDRTransforms {
      * @param assertion
      * @return
      */
-    protected boolean areRequiredAcknowledgementFieldsNull(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion)
+    protected boolean areRequiredAcknowledgementFieldsNull(XDRAcknowledgementType acknowledgement, AssertionType assertion)
     {
         if(assertion == null)
         {
@@ -951,7 +945,7 @@ public class XDRTransforms {
             log.error("One of more UserInfo fields from the Assertion object were null.");
             return true;
         }
-        if(acknowledgement.getMessage() == null || "".equalsIgnoreCase(acknowledgement.getMessage()))
+        if(acknowledgement.getMessage() == null)
         {
             log.error("Acknowledgement does not contain a message");
             return true;
