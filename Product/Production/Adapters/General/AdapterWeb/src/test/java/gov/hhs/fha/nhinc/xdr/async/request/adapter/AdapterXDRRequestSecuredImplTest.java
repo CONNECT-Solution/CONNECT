@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -65,7 +65,7 @@ public class AdapterXDRRequestSecuredImplTest {
         final AssertionType mockAssertion = mockery.mock(AssertionType.class);
         final WebServiceContext context = mockery.mock(WebServiceContext.class);
 
-        AdapterXDRRequestSecuredImpl adapterXDRRequestSecuredImpl = new AdapterXDRRequestSecuredImpl(){
+        AdapterXDRRequestSecuredImpl adapterXDRRequestSecuredImpl = new AdapterXDRRequestSecuredImpl() {
 
             @Override
             protected Log getLogger() {
@@ -83,27 +83,28 @@ public class AdapterXDRRequestSecuredImplTest {
             }
 
             @Override
-            public AcknowledgementType sendXDRResponse(RegistryResponseType body, AssertionType assertion) {
-                AcknowledgementType ack = new AcknowledgementType();
-                ack.setMessage("SUCCESS");
+            public XDRAcknowledgementType sendXDRResponse(RegistryResponseType body, AssertionType assertion) {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regResp = new RegistryResponseType();
+                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regResp);
                 return ack;
             }
-
         };
 
         mockery.checking(new Expectations() {
+
             {
                 allowing(mockLogger).debug(with(any(String.class)));
             }
         });
 
         ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
-        AcknowledgementType result = adapterXDRRequestSecuredImpl.provideAndRegisterDocumentSetBRequest(body, context);
-        assertEquals("SUCCESS", result.getMessage());
+        XDRAcknowledgementType result = adapterXDRRequestSecuredImpl.provideAndRegisterDocumentSetBRequest(body, context);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
 
 
     }
-
 
     /**
      * Test of sendXDRResponse method, of class AdapterXDRRequestSecuredImpl.
@@ -119,10 +120,12 @@ public class AdapterXDRRequestSecuredImplTest {
         };
 
         final Log mockLogger = mockery.mock(Log.class);
-        final AcknowledgementType ack = new AcknowledgementType();
-        ack.setMessage("SUCCESS");
+        final XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
-        AdapterXDRRequestSecuredImpl adapterXDRRequestSecuredImpl = new AdapterXDRRequestSecuredImpl(){
+        AdapterXDRRequestSecuredImpl adapterXDRRequestSecuredImpl = new AdapterXDRRequestSecuredImpl() {
 
             @Override
             protected Log getLogger() {
@@ -136,10 +139,9 @@ public class AdapterXDRRequestSecuredImplTest {
 
             @Override
             protected EntityXDRSecuredAsyncResponsePortType getEntityXDRSecuredResponsePort(String url) {
-                EntityXDRSecuredAsyncResponsePortType mockPort = new EntityXDRSecuredAsyncResponsePortType()
-                {
-                    public AcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0)
-                    {
+                EntityXDRSecuredAsyncResponsePortType mockPort = new EntityXDRSecuredAsyncResponsePortType() {
+
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0) {
                         return ack;
                     }
                 };
@@ -149,11 +151,11 @@ public class AdapterXDRRequestSecuredImplTest {
 
             @Override
             protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
-
             }
         };
 
         mockery.checking(new Expectations() {
+
             {
                 allowing(mockLogger).debug(with(any(String.class)));
             }
@@ -162,8 +164,8 @@ public class AdapterXDRRequestSecuredImplTest {
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
 
-        AcknowledgementType result = adapterXDRRequestSecuredImpl.sendXDRResponse(body, assertion);
-        assertEquals("SUCCESS", result.getMessage());
+        XDRAcknowledgementType result = adapterXDRRequestSecuredImpl.sendXDRResponse(body, assertion);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
 
     }
 
@@ -181,10 +183,12 @@ public class AdapterXDRRequestSecuredImplTest {
         };
 
         final Log mockLogger = mockery.mock(Log.class);
-        final AcknowledgementType ack = new AcknowledgementType();
-        ack.setMessage("SUCCESS");
+        final XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
-        AdapterXDRRequestSecuredImpl adapterXDRRequestSecuredImpl = new AdapterXDRRequestSecuredImpl(){
+        AdapterXDRRequestSecuredImpl adapterXDRRequestSecuredImpl = new AdapterXDRRequestSecuredImpl() {
 
             @Override
             protected Log getLogger() {
@@ -198,10 +202,9 @@ public class AdapterXDRRequestSecuredImplTest {
 
             @Override
             protected EntityXDRSecuredAsyncResponsePortType getEntityXDRSecuredResponsePort(String url) {
-                EntityXDRSecuredAsyncResponsePortType mockPort = new EntityXDRSecuredAsyncResponsePortType()
-                {
-                    public AcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0)
-                    {
+                EntityXDRSecuredAsyncResponsePortType mockPort = new EntityXDRSecuredAsyncResponsePortType() {
+
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType arg0) {
                         return ack;
                     }
                 };
@@ -211,11 +214,11 @@ public class AdapterXDRRequestSecuredImplTest {
 
             @Override
             protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
-
             }
         };
 
         mockery.checking(new Expectations() {
+
             {
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
@@ -225,9 +228,8 @@ public class AdapterXDRRequestSecuredImplTest {
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
 
-        AcknowledgementType result = adapterXDRRequestSecuredImpl.sendXDRResponse(body, assertion);
-        assertEquals(AdapterXDRRequestSecuredImpl.INVALID_ENDPOINT_MESSAGE, result.getMessage());
+        XDRAcknowledgementType result = adapterXDRRequestSecuredImpl.sendXDRResponse(body, assertion);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
 
     }
-
 }

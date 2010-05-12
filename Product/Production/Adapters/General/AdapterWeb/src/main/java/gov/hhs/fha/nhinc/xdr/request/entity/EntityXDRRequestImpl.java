@@ -1,10 +1,10 @@
 package gov.hhs.fha.nhinc.xdr.request.entity;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import ihe.iti.xdr._2007.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.entity.xdr.async.request.proxy.EntityXDRAsyncReqProxy;
 import gov.hhs.fha.nhinc.entity.xdr.async.request.proxy.EntityXDRAsyncReqProxyObjectFactory;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -14,9 +14,9 @@ import javax.xml.ws.WebServiceContext;
 public class EntityXDRRequestImpl
 {
 
-    public AcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context)
     {
-        AcknowledgementType response = null;
+        XDRAcknowledgementType response = null;
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (request != null &&

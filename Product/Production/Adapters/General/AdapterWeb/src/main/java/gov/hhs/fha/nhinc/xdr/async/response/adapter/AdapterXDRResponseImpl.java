@@ -4,6 +4,9 @@
  */
 
 package gov.hhs.fha.nhinc.xdr.async.response.adapter;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -12,18 +15,20 @@ import org.apache.commons.logging.LogFactory;
  * @author dunnek
  */
 public class AdapterXDRResponseImpl {
-    private static final String ACK_SUCCESS_MESSAGE = "SUCCESS";
     private static Log log = null;
 
     public AdapterXDRResponseImpl()
     {
         log = createLogger();
     }
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
         log.debug("begin provideAndRegisterDocumentSetBResponse()");
-        ihe.iti.xdr._2007.AcknowledgementType ack = new ihe.iti.xdr._2007.AcknowledgementType();
+        XDRAcknowledgementType ack = new XDRAcknowledgementType();
 
-        ack.setMessage(ACK_SUCCESS_MESSAGE);
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
+
         log.debug("end provideAndRegisterDocumentSetBResponse");
 
         return ack;

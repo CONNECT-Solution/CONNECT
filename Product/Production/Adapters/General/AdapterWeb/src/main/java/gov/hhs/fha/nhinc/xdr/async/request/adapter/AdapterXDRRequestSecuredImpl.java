@@ -23,7 +23,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRImpl;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
@@ -44,7 +44,7 @@ public class AdapterXDRRequestSecuredImpl {
     public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
     private static AdapterXDRService adapterXDRService = null;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
         // Call AdapterComponent implementation to process the request.
@@ -61,7 +61,7 @@ public class AdapterXDRRequestSecuredImpl {
         getLogger().debug("Registry Response from AdapterXDRComponentImpl: " + registryResponse);
 
         // Call the XDR Response service
-        ihe.iti.xdr._2007.AcknowledgementType ack = sendXDRResponse(registryResponse, assertion);
+        XDRAcknowledgementType ack = sendXDRResponse(registryResponse, assertion);
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
 
@@ -113,13 +113,13 @@ public class AdapterXDRRequestSecuredImpl {
      * @param assertion
      * @return
      */
-    public ihe.iti.xdr._2007.AcknowledgementType sendXDRResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion) {
+    public XDRAcknowledgementType sendXDRResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body, AssertionType assertion) {
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
 
         String entityXDRSecuredResponseEndPointURL = null;
 
-        ihe.iti.xdr._2007.AcknowledgementType response = null;
+        XDRAcknowledgementType response = null;
 
         entityXDRSecuredResponseEndPointURL = getEntityXDRSecuredResponseEndPointURL();
 
@@ -134,8 +134,10 @@ public class AdapterXDRRequestSecuredImpl {
 
         } else {
             getLogger().error("The URL for service: " + NhincConstants.ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME + " is null");
-            response = new AcknowledgementType();
-            response.setMessage(INVALID_ENDPOINT_MESSAGE);
+            response = new XDRAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         getLogger().debug("Existing provideAndRegisterDocumentSetBResponse");
@@ -147,7 +149,7 @@ public class AdapterXDRRequestSecuredImpl {
     protected void setRequestContext(AssertionType assertion, String entityXDRSecuredResponseEndPointURL, EntityXDRSecuredAsyncResponsePortType port) {
         SamlTokenCreator tokenCreator = new SamlTokenCreator();
         Map requestContext = tokenCreator.CreateRequestContext(assertion, entityXDRSecuredResponseEndPointURL, NhincConstants.ENTITY_XDR_SECURED_RESPONSE_ACTION);
-        
+
         ArrayList<Handler> handlerSetUp = new ArrayList<Handler>();
         AsyncMessageHandler msgHandler = new AsyncMessageHandler();
         handlerSetUp.add(msgHandler);

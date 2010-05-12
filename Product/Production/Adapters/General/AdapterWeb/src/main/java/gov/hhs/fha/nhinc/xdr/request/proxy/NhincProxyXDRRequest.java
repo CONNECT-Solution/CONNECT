@@ -12,7 +12,7 @@ import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author jhoppesc
+ * @author JHOPPESC
  */
 @WebService(serviceName = "ProxyXDRAsyncRequest_Service", portName = "ProxyXDRAsyncRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdr.async.request.ProxyXDRAsyncRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request", wsdlLocation = "WEB-INF/wsdl/NhincProxyXDRRequest/NhincProxyXDRRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -20,7 +20,7 @@ public class NhincProxyXDRRequest {
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
         return new NhincProxyXDRRequestImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, context);
     }
 
