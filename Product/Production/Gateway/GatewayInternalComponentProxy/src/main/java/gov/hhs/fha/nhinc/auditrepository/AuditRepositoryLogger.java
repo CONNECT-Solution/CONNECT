@@ -63,6 +63,7 @@ import gov.hhs.fha.nhinc.transform.audit.SubjectDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -73,6 +74,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+
+
 
 /**
  *
@@ -931,7 +934,7 @@ public class AuditRepositoryLogger {
      * @param action
      * @return
      */
-    public LogEventRequestType logAcknowledgement(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+    public LogEventRequestType logAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
         getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
 
         LogEventRequestType auditMsg = null;
@@ -944,7 +947,7 @@ public class AuditRepositoryLogger {
         getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
-    public LogEventRequestType logEntityAcknowledgement(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+    public LogEventRequestType logEntityAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
         getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
 
         LogEventRequestType auditMsg = null;
