@@ -7,14 +7,14 @@
              xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-             xmlns:xdr="urn:ihe:iti:xdr:2007"
+             xmlns:xdr="http://www.hhs.gov/healthit/nhin"
              name="AdapterXDRResponse"
              targetNamespace="urn:gov:hhs:fha:nhinc:adapterxdrresponse">
     <documentation>IHE Adapter Component for XDR Response</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
-            <xsd:import namespace="urn:ihe:iti:xdr:2007" schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/xdr.xsd"/>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
         </xsd:schema>
     </types>
@@ -24,7 +24,7 @@
     </message>
     <message name="XDRResponseAcknowledgementMessage">
         <documentation>XDR Response Acknowledgement Message</documentation>
-        <part name="body" element="xdr:Acknowledgement"/>
+        <part name="body" element="xdr:XDRAcknowledgement"/>
     </message>
     <portType name="AdapterXDRResponse_PortType">
         <operation name="ProvideAndRegisterDocumentSet-bResponse">
