@@ -6,7 +6,7 @@
 package gov.hhs.fha.nhinc.passthru.xdr.async.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,7 +48,7 @@ public class PassthruXDRAsyncReqNoOpImplTest {
         RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest = null;
         PassthruXDRAsyncReqNoOpImpl instance = new PassthruXDRAsyncReqNoOpImpl();
 
-        AcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterAsyncReqRequest);
+        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterAsyncReqRequest);
         assertNotNull(result);
     }
 

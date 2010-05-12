@@ -17,11 +17,12 @@ import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request.EntityXDRSecuredAsy
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,8 +34,13 @@ public class EntityXDRAsyncReqWebServiceProxy implements EntityXDRAsyncReqProxy 
     private static Log log = LogFactory.getLog(EntityXDRAsyncReqWebServiceProxy.class);
     private static EntityXDRSecuredAsyncRequestService service = new EntityXDRSecuredAsyncRequestService();
 
-    public AcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType request) {
-        AcknowledgementType response = new AcknowledgementType();
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType request) {
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        response.setMessage(regResp);
+
+
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         securedRequest.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
         securedRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());

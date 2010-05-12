@@ -6,7 +6,7 @@
 package gov.hhs.fha.nhinc.entity.xdr.async.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,7 +48,7 @@ public class EntityXDRAsyncRespNoOpImplTest {
         RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest = null;
         EntityXDRAsyncRespNoOpImpl instance = new EntityXDRAsyncRespNoOpImpl();
         
-        AcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest);
+        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest);
         assertNotNull(result);
     }
 

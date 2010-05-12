@@ -6,7 +6,7 @@
 package gov.hhs.fha.nhinc.entity.xdr.async.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  *
@@ -14,8 +14,8 @@ import ihe.iti.xdr._2007.AcknowledgementType;
  */
 public class EntityXDRAsyncReqNoOpImpl implements EntityXDRAsyncReqProxy {
 
-    public AcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest) {
-        return new AcknowledgementType();
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest) {
+        return new XDRAcknowledgementType();
     }
 
 }
