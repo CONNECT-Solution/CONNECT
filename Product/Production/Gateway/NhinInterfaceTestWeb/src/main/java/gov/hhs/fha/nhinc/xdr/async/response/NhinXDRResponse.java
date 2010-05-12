@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.xdr.async.response;
 
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -12,7 +13,7 @@ import javax.xml.ws.BindingType;
 public class NhinXDRResponse
 {
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body)
     {
         return new NhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body);
     }
