@@ -10,11 +10,12 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 
 /**
@@ -33,13 +34,13 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy 
      * @param assertion
      * @return
      */
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
         String adapterXDRRequestSecuredEndPointURL = null;
 
-        ihe.iti.xdr._2007.AcknowledgementType response = null;
+        XDRAcknowledgementType response = null;
 
         adapterXDRRequestSecuredEndPointURL = getAdapterXDRRequestSecuredUrl();
 
@@ -52,8 +53,10 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy 
 
         } else {
             getLogger().error("The URL for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME + " is null");
-            response = new AcknowledgementType();
-            response.setMessage("ERROR: AdapterXDRRequestSecured EndPointURL is null");
+            response = new XDRAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         getLogger().debug("Existing provideAndRegisterDocumentSetBRequest");

@@ -1,6 +1,9 @@
 package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -11,13 +14,14 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterXDRRequestNoOpImpl implements AdapterXDRRequestProxy
 {
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestNoOpImpl.class);
-    private final String SUCCESS_ACK = "SUCCESS";
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         getLogger().debug("Entering AdapterXDRRequestNoOpImpl");
 
-        ihe.iti.xdr._2007.AcknowledgementType ack = new ihe.iti.xdr._2007.AcknowledgementType();
-        ack.setMessage(SUCCESS_ACK);
+        XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
         getLogger().debug("Exiting AdapterXDRRequestNoOpImpl");
         return ack;

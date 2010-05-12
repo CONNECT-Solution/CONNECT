@@ -8,7 +8,8 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy;
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
@@ -62,8 +63,10 @@ public class AdapterXDRResponseWebServiceProxyTest {
         };
 
         final Log mockLogger = mockery.mock(Log.class);
-        final AcknowledgementType ack = new AcknowledgementType();
-        ack.setMessage("SUCCESS");
+        final XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
         AdapterXDRResponseWebServiceProxy adapterXDRResponseWebServiceProxy = new AdapterXDRResponseWebServiceProxy(){
 
@@ -81,7 +84,7 @@ public class AdapterXDRResponseWebServiceProxyTest {
             protected AdapterXDRResponseSecuredPortType getAdapterXDRResponseSecuredPort(String url) {
                 AdapterXDRResponseSecuredPortType mockPort = new AdapterXDRResponseSecuredPortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType arg0)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType arg0)
                     {
                         return ack;
                     }
@@ -105,8 +108,8 @@ public class AdapterXDRResponseWebServiceProxyTest {
 
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
-        AcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body, assertion);
-        assertEquals("SUCCESS", result.getMessage());
+        XDRAcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body, assertion);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
     }
 
     /**
@@ -124,8 +127,10 @@ public class AdapterXDRResponseWebServiceProxyTest {
         };
 
         final Log mockLogger = mockery.mock(Log.class);
-        final AcknowledgementType ack = new AcknowledgementType();
-        ack.setMessage("SUCCESS");
+        final XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
         AdapterXDRResponseWebServiceProxy adapterXDRResponseWebServiceProxy = new AdapterXDRResponseWebServiceProxy(){
 
@@ -143,7 +148,7 @@ public class AdapterXDRResponseWebServiceProxyTest {
             protected AdapterXDRResponseSecuredPortType getAdapterXDRResponseSecuredPort(String url) {
                 AdapterXDRResponseSecuredPortType mockPort = new AdapterXDRResponseSecuredPortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType arg0)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType arg0)
                     {
                         return ack;
                     }
@@ -168,8 +173,8 @@ public class AdapterXDRResponseWebServiceProxyTest {
 
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
-        AcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body, assertion);
-        assertEquals("ERROR: AdapterXDRResponseSecured EndPointURL is null", result.getMessage());
+        XDRAcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body, assertion);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
     }
 
     /**

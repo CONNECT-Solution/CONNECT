@@ -8,8 +8,10 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xdr._2007.AcknowledgementType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.junit.After;
@@ -63,8 +65,10 @@ public class AdapterXDRRequestWebServiceProxyTest {
         };
 
         final Log mockLogger = mockery.mock(Log.class);
-        final AcknowledgementType ack = new AcknowledgementType();
-        ack.setMessage("SUCCESS");
+        final XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
         AdapterXDRRequestWebServiceProxy adapterXDRRequestWebServiceProxy = new AdapterXDRRequestWebServiceProxy(){
 
@@ -82,7 +86,7 @@ public class AdapterXDRRequestWebServiceProxyTest {
             protected AdapterXDRRequestSecuredPortType getAdapterXDRRequestSecuredPort(String url) {
                 AdapterXDRRequestSecuredPortType mockPort = new AdapterXDRRequestSecuredPortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
                     {
                         return ack;
                     }
@@ -106,8 +110,8 @@ public class AdapterXDRRequestWebServiceProxyTest {
 
         ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
-        AcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
-        assertEquals("SUCCESS", result.getMessage());
+        XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
     }
 
     /**
@@ -125,8 +129,10 @@ public class AdapterXDRRequestWebServiceProxyTest {
         };
 
         final Log mockLogger = mockery.mock(Log.class);
-        final AcknowledgementType ack = new AcknowledgementType();
-        ack.setMessage("SUCCESS");
+        final XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        ack.setMessage(regResp);
 
         AdapterXDRRequestWebServiceProxy adapterXDRRequestWebServiceProxy = new AdapterXDRRequestWebServiceProxy(){
 
@@ -144,7 +150,7 @@ public class AdapterXDRRequestWebServiceProxyTest {
             protected AdapterXDRRequestSecuredPortType getAdapterXDRRequestSecuredPort(String url) {
                 AdapterXDRRequestSecuredPortType mockPort = new AdapterXDRRequestSecuredPortType()
                 {
-                    public AcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
                     {
                         return ack;
                     }
@@ -169,8 +175,8 @@ public class AdapterXDRRequestWebServiceProxyTest {
 
         ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
-        AcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
-        assertEquals("ERROR: AdapterXDRRequestSecured EndPointURL is null", result.getMessage());
+        XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
     }
 
     /**
