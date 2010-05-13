@@ -16,4 +16,6 @@ DROP DATABASE IF EXISTS docrepository;
 
 DROP DATABASE IF EXISTS patientcorrelationdb;
 
+DROP DATABASE IF EXISTS lift;
+
 DROP DATABASE IF EXISTS asyncmsgs;
