@@ -305,7 +305,7 @@
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger</logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-DGlassFish.Domain.Templates.File.Path=${GlassFish.NonFIPS.Domain.Templates.File.Path} -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Validation.Test</target>
         </targetList>
