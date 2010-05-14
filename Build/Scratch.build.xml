@@ -14,6 +14,8 @@
   <property name="CCNetListenerFile" value="C:\Temp\AntListener.txt" />
   <property name="Web.Credentials.UserName" value="" />
   <property name="Web.Credentials.Password" value="" />
+  <property name="TP.Username" value=""/>
+  <property name="TP.Password" value=""/>
   <property name="GlassFish.Domain1.NHINC.Configuration.Directory.Name" value="Dev" />
   
   <include buildfile="Properties.Build.xml" />
@@ -40,7 +42,8 @@
   </loadpackages>
 
   <target name="test">
-    <call target="Build.PublishZip.Release.Installer"/>
+    <property name="SoapUI.Suite" value="PerformanceSuite"/>
+    <call target="SoapUI.Performance.RunTests"/>
   </target>
 
   <target name="rebuild-setups">

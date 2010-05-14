@@ -82,6 +82,8 @@
     <string value="CCNet.inttest2.xml"/>
     <string value="CCNet.ConnectBlue30.xml"/>
     <string value="CCNet.ConnectRed30.xml"/>
+    <string value="CCNet.ConnectOrange30.xml"/>
+    <string value="CCNet.ConnectGreen30.xml"/>
   </strings>
   <property name="Common.Directory.Artifact.Name" value="${string::replace(CCNetBuildDate, '-', '')}${string::replace(CCNetBuildTime, ':', '')}"/>
   <echo message="The ArtifactFolderName is ${Common.Directory.Artifact.Name}"/>
