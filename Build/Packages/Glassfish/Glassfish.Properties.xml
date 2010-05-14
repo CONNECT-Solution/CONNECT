@@ -6,6 +6,8 @@
 
   <property name="GlassFish.Deploy.Directory.Path"        value="C:\${ProjectName}" overwrite="false"/>
   <property name="GlassFish.Deploy.Script.File.Path"      value="${GlassFish.Deploy.Directory.Path}\deploy.xml" overwrite="false"/>
+  <property name="GlassFish.NonFIPS.Domain.Templates.File.Path"      value="${Common.Directory.Install.Path}/GlassFish/templates/connect/domain.xml.template" overwrite="false"/>
+  <property name="GlassFish.FIPS.Domain.Templates.File.Path"      value="${Common.Directory.Install.Path}/GlassFish/templates/connect_fips/domain.xml.template" overwrite="false"/>
 
   <environment id="GlassFish.EnvironmentVariables.RefId">
     <variable name="JAVA_HOME" value="${Java.Home}" />

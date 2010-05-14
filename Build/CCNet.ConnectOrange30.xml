@@ -147,7 +147,7 @@
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger</logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Orange -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Orange -DGlassFish.Domain.Templates.File.Path=${GlassFish.FIPS.Domain.Templates.File.Path} -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Staging.Deploy</target>
         </targetList>

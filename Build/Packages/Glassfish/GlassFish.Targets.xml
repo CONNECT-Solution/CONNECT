@@ -100,7 +100,7 @@
           >
       <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args>
-        <arg line="-Ddeployment.domain.template.file.path=${Common.Directory.Install.Path}/GlassFish/templates/connect/domain.xml.template"/>
+        <arg line="-Ddeployment.domain.template.file.path=${GlassFish.Domain.Templates.File.Path}"/>
       </args>
     </ant>
   </target>
