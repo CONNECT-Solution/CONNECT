@@ -779,11 +779,12 @@
 	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType">
-			</xsd:element>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+			<xsd:element name="url" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequest" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestType"/>
+        
 	<xsd:complexType name="AdapterRegistryResponseType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
