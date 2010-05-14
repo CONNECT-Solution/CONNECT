@@ -4,7 +4,19 @@
 
   <property name="glassfish.home" value="${env.AS_HOME}"/>
   <property name="deployment.config.home" value="${env.NHINC_PROPERTIES_DIR}"/>
-  
+
+  <if>
+    <isset property="project.name" />
+    <then>
+      <property name="script.root.directory" value="${root.project.directory.path}/Install"/>
+    </then>
+    <else>
+      <property name="script.root.directory" value="${basedir}"/>
+    </else>
+  </if>
+
+  <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
+
   <condition property="deploy.os.settings.file" value="settings.win.xml">
     <os family="windows"/>
   </condition>
@@ -17,24 +29,24 @@
   <property name="deployment.interfaces.dir" value="${deployment.dir}/Interfaces"/>
   <property name="deployment.glassfish.admin.port" value="4848"/>
 
-	<property name="instance.port" value="8080"/>
-	<property name="orb.port" value="3700"/>
-	<property name="imq.port" value="7676"/>
-	<property name="https.port" value="8181"/>
-	
+  <property name="instance.port" value="8080"/>
+  <property name="orb.port" value="3700"/>
+  <property name="imq.port" value="7676"/>
+  <property name="https.port" value="8181"/>
+
   <property name="deployment.glassfish.server" value="localhost"/>
 
   <property name="deployment.glassfish.domain.name" value="domain1"/>
   <property name="deployment.glassfish.domain.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}"/>
   <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config"/>
-  
+
   <property name="deployment.glassfish.server.username" value="admin"/>
   <property name="deployment.glassfish.server.admin.password" value="adminadmin"/>
 
   <property name="glassfish.domain.profile.name" value="developer"/>
-  
+
   <property name="deployment.environment.configuration.dir.name" value="Dev"/>  
-  
+
   <property name="deployment.domain.template.file.path" value="${script.root.directory}/GlassFish/templates/connect/domain.selfsigned.xml.template"/>  
-  
+
 </project>
