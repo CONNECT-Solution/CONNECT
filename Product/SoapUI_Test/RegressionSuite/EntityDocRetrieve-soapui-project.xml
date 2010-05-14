@@ -3466,7 +3466,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="EntityDocRetrieveTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Fanout" searchProperties="true" id="f9ae55a3-041d-456c-8991-3f8768d021f0"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>EntityDocRetrieve-soapui-project.properties</con:source><con:properties><con:property><con:name>LocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>CorrectedLocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalAA</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>startDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>endDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>sigDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>expireDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalPatientID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRRepoID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>tmp</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host3</con:name><con:value xsi:nil="true"/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="get Dates"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="EntityDocRetrieveTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Fanout" searchProperties="true" id="f9ae55a3-041d-456c-8991-3f8768d021f0"><con:settings/><con:testStep type="properties" name="Test Case Properties" disabled="true"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>EntityDocRetrieve-soapui-project.properties</con:source><con:properties><con:property><con:name>LocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>CorrectedLocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalAA</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>startDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>endDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>sigDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>expireDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalPatientID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRRepoID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>tmp</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host3</con:name><con:value xsi:nil="true"/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="get Dates" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -3497,30 +3497,31 @@ groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr)
 groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Generate HCID for Doc Retrieve"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def RemoteHCID1 = propertyList.getPropertyValue( "RemoteHCID1" );
-def RemoteHCID2 = propertyList.getPropertyValue( "RemoteHCID2" );
+</script></con:config></con:testStep><con:testStep type="groovy" name="Generate HCID for Doc Retrieve"><con:settings/><con:config><script>//def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+//def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+//def RemoteHCID1 = propertyList.getPropertyValue( "RemoteHCID1" );
+//def RemoteHCID2 = propertyList.getPropertyValue( "RemoteHCID2" );
 
-correctedRemoteHCID1 = "urn:oid:" + RemoteHCID1;
-correctedRemoteHCID2 = "urn:oid:" + RemoteHCID2;
-groovyUtils.setPropertyValue( "Test Case Properties", "correctedRemoteHCID1", correctedRemoteHCID1);
-groovyUtils.setPropertyValue( "Test Case Properties", "correctedRemoteHCID2", correctedRemoteHCID2);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Set Connection Info"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+//correctedRemoteHCID1 = "urn:oid:" + RemoteHCID1;
+//correctedRemoteHCID2 = "urn:oid:" + RemoteHCID2;
+//groovyUtils.setPropertyValue( "Test Case Properties", "correctedRemoteHCID1", correctedRemoteHCID1);
+//groovyUtils.setPropertyValue( "Test Case Properties", "correctedRemoteHCID2", correctedRemoteHCID2);
+
+context.testCase.setPropertyValue('CorrectedRemoteHCID1', "urn:oid:${context.findProperty('RemoteHCID1')}")
+context.testCase.setPropertyValue('CorrectedRemoteHCID2', "urn:oid:${context.findProperty('RemoteHCID2')}")</script></con:config></con:testStep><con:testStep type="groovy" name="Set Connection Info"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def Host2 = dataSource.getPropertyValue("Host2");
-def HCID2 = dataSource.getPropertyValue( "RemoteHCID1" );
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty( "RemoteHCID1" );
 def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
-def Host3 = dataSource.getPropertyValue("Host3");
-def HCID3 = dataSource.getPropertyValue( "RemoteHCID2" );
+def Host3 = context.findProperty("Host3");
+def HCID3 = context.findProperty( "RemoteHCID2" );
 def docRetrieveURL2 = "https://" + Host3 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "RetrieveDocument", docRetrieveURL1, context, log)
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "RetrieveDocument", docRetrieveURL2, context, log)
-</script></con:config></con:testStep><con:testStep type="transfer" name="set doc retrieve properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocRetrieve</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>docID1</con:name><con:sourceType>DRDocID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
+</script></con:config></con:testStep><con:testStep type="transfer" name="set doc retrieve properties" disabled="true"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocRetrieve</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>docID1</con:name><con:sourceType>DRDocID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[1]/urn1:DocumentUniqueId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferChildNodes="false" transferToAll="false" entitize="false" useXQuery="false"><con:name>queryHCID1</con:name><con:sourceType>correctedRemoteHCID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
@@ -3548,22 +3549,22 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:HomeCommunityId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>docID2</con:name><con:sourceType>DRDocID2</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:DocumentUniqueId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" transferChildNodes="false"><con:name>TargetHCID</con:name><con:sourceType>RemoteHCID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:DocumentUniqueId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" transferChildNodes="false" ignoreEmpty="false" useXQuery="false"><con:name>TargetHCID</con:name><con:sourceType>RemoteHCID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Document Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Document Retrieve" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Document Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Document Retrieve" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="EntityDocRetrieve" testCase="Document Retrieve Fanout">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:2.2</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#TestCase#correctedRemoteHCID1}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>1.123401.11111</urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>${#Project#DRDocID1}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:3.3</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#TestCase#correctedRemoteHCID2}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>1.123409.22222</urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>${#Project#DRDocID2}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
@@ -3583,16 +3584,16 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">04/30/2010 15:44:38</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">05/30/2010 15:49:38</urn2:expirationDate>
+            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
+            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
             <urn2:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveWitnessSignature>
             <urn2:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-               <urn2:description>InternalTest</urn2:description>
-               <urn2:homeCommunityId>1.1</urn2:homeCommunityId>
-               <urn2:name>InternalTest</urn2:name>
+               <urn2:description>${#Project#LocalHCDescription}</urn2:description>
+               <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
+               <urn2:name>${#Project#LocalHCDescription}</urn2:name>
             </urn2:homeCommunity>
             <urn2:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:familyName>Smith</urn2:familyName>
@@ -3729,9 +3730,9 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn2:userName>kskagerb</urn2:userName>
                <urn2:role>Pharmacy</urn2:role>
                <urn2:org>
-                  <urn2:description>InternalTest</urn2:description>
-                  <urn2:homeCommunityId>1.1</urn2:homeCommunityId>
-                  <urn2:name>InternalTest</urn2:name>
+                  <urn2:description>${#Project#LocalHCDescription}</urn2:description>
+                  <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
+                  <urn2:name>${#Project#LocalHCDescription}</urn2:name>
                </urn2:org>
                <urn2:roleCoded>
                   <urn2:code>307969004</urn2:code>
@@ -3782,15 +3783,15 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
          </urn:assertion>
          <urn:nhinTargetSystem>
             <urn2:homeCommunity>
-               <urn2:description>InternalTest2</urn2:description>
-               <urn2:homeCommunityId>2.2</urn2:homeCommunityId>
-               <urn2:name>InternalTest2</urn2:name>
+               <urn2:description>${#Project#RemoteHCDescription1}</urn2:description>
+               <urn2:homeCommunityId>${#Project#RemoteHCID1}</urn2:homeCommunityId>
+               <urn2:name>${#Project#RemoteHCDescription1}</urn2:name>
             </urn2:homeCommunity>
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="DocumentResponseCount"><con:configuration><path>declare namespace ns16='urn:ihe:iti:xds-b:2007';
-count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Fanout - bad endpoint" searchProperties="true" id="db9ed78d-5fc0-473b-a15a-4ed7a5ab27b2"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>EntityDocRetrieve-soapui-project.properties</con:source><con:properties><con:property><con:name>LocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>CorrectedLocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalAA</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>startDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>endDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>sigDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>expireDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalPatientID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRRepoID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>tmp</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host3</con:name><con:value xsi:nil="true"/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="get Dates"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-13T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-13T18:10:26Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/13/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-12T00:00:00Z</con:value></con:property><con:property><con:name>CorrectedRemoteHCID1</con:name><con:value>urn:oid:2.2</con:value></con:property><con:property><con:name>CorrectedRemoteHCID2</con:name><con:value>urn:oid:3.3</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Fanout - bad endpoint" searchProperties="true" id="db9ed78d-5fc0-473b-a15a-4ed7a5ab27b2"><con:settings/><con:testStep type="properties" name="Test Case Properties" disabled="true"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>EntityDocRetrieve-soapui-project.properties</con:source><con:properties><con:property><con:name>LocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>CorrectedLocalHCID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalAA</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>startDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>endDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>sigDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>expireDate</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>LocalPatientID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRRepoID</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>correctedRemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteAA2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID1</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>DRDocID2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>tmp</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host2</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>Host3</con:name><con:value xsi:nil="true"/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="get Dates" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -3821,30 +3822,22 @@ groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr)
 groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Generate HCID for Doc Retrieve"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def RemoteHCID1 = propertyList.getPropertyValue( "RemoteHCID1" );
-def RemoteHCID2 = propertyList.getPropertyValue( "RemoteHCID2" );
-
-correctedRemoteHCID1 = "urn:oid:" + RemoteHCID1;
-correctedRemoteHCID2 = "urn:oid:" + RemoteHCID2;
-groovyUtils.setPropertyValue( "Test Case Properties", "correctedRemoteHCID1", correctedRemoteHCID1);
-groovyUtils.setPropertyValue( "Test Case Properties", "correctedRemoteHCID2", correctedRemoteHCID2);
+</script></con:config></con:testStep><con:testStep type="groovy" name="Generate HCID for Doc Retrieve"><con:settings/><con:config><script>context.testCase.setPropertyValue('CorrectedRemoteHCID1', "urn:oid:${context.findProperty('RemoteHCID1')}")
+context.testCase.setPropertyValue('CorrectedRemoteHCID2', "urn:oid:${context.findProperty('RemoteHCID2')}")
 </script></con:config></con:testStep><con:testStep type="groovy" name="Set Connection Info"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def Host2 = dataSource.getPropertyValue("Host2");
-def HCID2 = dataSource.getPropertyValue( "RemoteHCID1" );
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty( "RemoteHCID1" );
 def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
-def Host3 = dataSource.getPropertyValue("Host3");
-def HCID3 = dataSource.getPropertyValue( "RemoteHCID2" );
+def Host3 = context.findProperty("Host3");
+def HCID3 = context.findProperty( "RemoteHCID2" );
 def docRetrieveURL2 = "https://" + Host3 + ":8181/RespondingGateway_Retrieve_Service/DocRetriev";
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "RetrieveDocument", docRetrieveURL1, context, log)
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "RetrieveDocument", docRetrieveURL2, context, log)
-</script></con:config></con:testStep><con:testStep type="transfer" name="set doc retrieve properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocRetrieve</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>docID1</con:name><con:sourceType>DRDocID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
+</script></con:config></con:testStep><con:testStep type="transfer" name="set doc retrieve properties" disabled="true"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocRetrieve</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>docID1</con:name><con:sourceType>DRDocID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[1]/urn1:DocumentUniqueId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferChildNodes="false" transferToAll="false" entitize="false" useXQuery="false"><con:name>queryHCID1</con:name><con:sourceType>correctedRemoteHCID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
@@ -3874,20 +3867,20 @@ declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:DocumentUniqueId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" transferChildNodes="false"><con:name>TargetHCID</con:name><con:sourceType>RemoteHCID1</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Document Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Document Retrieve" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Document Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Document Retrieve" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="EntityDocRetrieve" testCase="Document Retrieve Fanout - bad endpoint">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:2.2</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#TestCase#correctedRemoteHCID1}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>1.123401.11111</urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>${#Project#DRDocID1}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:3.3</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#TestCase#correctedRemoteHCID2}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>1.123409.22222</urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>${#Project#DRDocID2}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
@@ -3907,16 +3900,16 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">04/30/2010 15:44:41</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">05/30/2010 15:49:41</urn2:expirationDate>
+            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
+            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
             <urn2:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveWitnessSignature>
             <urn2:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-               <urn2:description>InternalTest</urn2:description>
-               <urn2:homeCommunityId>1.1</urn2:homeCommunityId>
-               <urn2:name>InternalTest</urn2:name>
+               <urn2:description>${#Project#LocalHCDescription}</urn2:description>
+               <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
+               <urn2:name>${#Project#LocalHCDescription}</urn2:name>
             </urn2:homeCommunity>
             <urn2:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:familyName>Smith</urn2:familyName>
@@ -4053,9 +4046,9 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn2:userName>kskagerb</urn2:userName>
                <urn2:role>Pharmacy</urn2:role>
                <urn2:org>
-                  <urn2:description>InternalTest</urn2:description>
-                  <urn2:homeCommunityId>1.1</urn2:homeCommunityId>
-                  <urn2:name>InternalTest</urn2:name>
+                  <urn2:description>${#Project#LocalHCDescription}</urn2:description>
+                  <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
+                  <urn2:name>${#Project#LocalHCDescription}</urn2:name>
                </urn2:org>
                <urn2:roleCoded>
                   <urn2:code>307969004</urn2:code>
@@ -4106,9 +4099,9 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
          </urn:assertion>
          <urn:nhinTargetSystem>
             <urn2:homeCommunity>
-               <urn2:description>InternalTest2</urn2:description>
-               <urn2:homeCommunityId>2.2</urn2:homeCommunityId>
-               <urn2:name>InternalTest2</urn2:name>
+               <urn2:description>${#Project#RemoteHCDescription1}</urn2:description>
+               <urn2:homeCommunityId>${#Project#RemoteHCID1}</urn2:homeCommunityId>
+               <urn2:name>${#Project#RemoteHCDescription1}</urn2:name>
             </urn2:homeCommunity>
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -4116,4 +4109,64 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="DocumentResponseCount"><con:configuration><path>declare namespace ns16='urn:ihe:iti:xds-b:2007';
 count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns11='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-count(//ns11:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+count(//ns11:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-13T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-13T18:30:48Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/13/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-12T00:00:00Z</con:value></con:property><con:property><con:name>CorrectedRemoteHCID1</con:name><con:value>urn:oid:2.2</con:value></con:property><con:property><con:name>CorrectedRemoteHCID2</con:name><con:value>urn:oid:3.3</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>Host3</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemoteAA2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteAA1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>DRDocID2</con:name><con:value>1.123409.22222</con:value></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value>InternalTest3</con:value></con:property><con:property><con:name>DRDocID1</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileReader(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
+    use (org.codehaus.groovy.runtime.TimeCategory) {
+      def startDate = 5.minutes.ago
+      def endDate = 5.minutes.from.now
+      def expireDate = 30.days.from.now
+
+      def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+      def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+      runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+      runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+      runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+      runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+    }
+  }   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+    return delegate.getProperty(propertyName) ?:
+                delegate.testCase.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+  def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+  def host = delegate.findProperty('DBHost')
+  def port = delegate.findProperty('DBPort')
+  def user = delegate.findProperty('DBUser')
+  def pass = delegate.findProperty('DBPass')
+  
+  def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+  def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+  try {
+     block(sql)
+  } finally {
+    sql.close()
+  }
+}
+</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
