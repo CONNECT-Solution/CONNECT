@@ -303,6 +303,9 @@ public class NhincConstants {
 
     public static final String XDR_ACK_STATUS_MSG = "urn:nhin:DocumentSubmission:async:ResponseAccepted";
 
+    // LiFT Constants
+    public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
+
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
