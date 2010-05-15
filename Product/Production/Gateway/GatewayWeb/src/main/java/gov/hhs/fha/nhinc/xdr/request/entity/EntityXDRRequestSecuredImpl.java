@@ -5,8 +5,12 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.lift.file.manager.LiFTFileManager;
+import gov.hhs.fha.nhinc.lift.payload.builder.LiFTPayloadBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
@@ -50,8 +54,9 @@ public class EntityXDRRequestSecuredImpl {
         log.info("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         response.setMessage(regResp);
+        String errMsg = null;
+        boolean errorOccurred = false;
 
         logRequest(provideAndRegisterRequestRequest, assertion);
 
@@ -68,16 +73,49 @@ public class EntityXDRRequestSecuredImpl {
                 NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
                 targetSystemType.setHomeCommunity(provideAndRegisterRequestRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity());
 
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType proxyRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-                proxyRequest.setProvideAndRegisterDocumentSetRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
-                proxyRequest.setNhinTargetSystem(targetSystemType);
+                // If this is LiFT Message then check to see if the target supports LiFT and if it does
+                // insert the LiFT Payload into the request message
+                if (isLiftMessage(provideAndRegisterRequestRequest) && checkLiftProperty()) {
+                    // Check the connection manager to see if the target community supports LiFT
+                    if (doesTargetSupportLift(targetSystemType.getHomeCommunity().getHomeCommunityId())) {
+                        // Lift is supported by both the sides, now generate the payload
+                        if (generateLiFTPayload(provideAndRegisterRequestRequest, assertion)) {
+                            // LiFT Payload was successfully generated now copy the file
+                            if (copyFileToFileServer(provideAndRegisterRequestRequest.getUrl(), null) == false) {
+                                errMsg = "Failed to copy file to the file server";
+                                log.error(errMsg);
+                                regResp.setStatus(errMsg);
+                                errorOccurred = true;
+                            }
+                        } else {
+                            errMsg = "Failed to generate LiFT Payload";
+                            log.error(errMsg);
+                            regResp.setStatus(errMsg);
+                            errorOccurred = true;
+                        }
+                    } else {
+                        errMsg = "Target does not support LiFT, but a LiFT transfer was specified";
+                        log.error(errMsg);
+                        regResp.setStatus(errMsg);
+                        errorOccurred = true;
+                    }
+                }
 
-                NhincProxyXDRRequestSecuredImpl proxy = createNhinProxy();
+                if (errorOccurred == false) {
+                    gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType proxyRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+                    proxyRequest.setProvideAndRegisterDocumentSetRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
+                    proxyRequest.setNhinTargetSystem(targetSystemType);
 
-                log.debug("Sending request from entity service to NHIN proxy service");
-                response = proxy.provideAndRegisterDocumentSetBRequest(proxyRequest, assertion);
+                    NhincProxyXDRRequestSecuredImpl proxy = createNhinProxy();
+
+                    log.debug("Sending request from entity service to NHIN proxy service");
+                    response = proxy.provideAndRegisterDocumentSetBRequest(proxyRequest, assertion);
+                }
             } else {
-                log.error("Policy check unsuccessful");
+                errMsg = "Policy check unsuccessful";
+                log.error(errMsg);
+                regResp.setStatus(errMsg);
+
             }
         }
 
@@ -97,6 +135,73 @@ public class EntityXDRRequestSecuredImpl {
         log.debug("Beging logResponse");
         auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
         log.debug("End logResponse");
+    }
+
+    /**
+     * The method will determine if the input message contains a LiFT request
+     * @param request  The input message
+     * @return  true if the url field of the request message is specified, otherwise will return false
+     */
+    private boolean isLiftMessage(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+        boolean result = false;
+
+        // Check to see if a url was provided in the message and if LiFT is supported
+        if (NullChecker.isNotNullish(request.getUrl())) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    /**
+     * This method will place the LiFT payload in the Document Submission Request
+     * @param request  The message that contains the Document Submission Request
+     * @param assertion  The Assertion Object containing assertion information
+     * @return  true if the payload was successfully inserted, other false if an error occurs
+     */
+    protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+        // Call out to the LiFT Payload Builder Library to build the LiFT Payload
+        LiFTPayloadBuilder payloadBuilder = new LiFTPayloadBuilder();
+        return payloadBuilder.buildLiFTPayload(request.getProvideAndRegisterDocumentSetRequest(), assertion);
+    }
+
+    /**
+     * This method will copy a file to a destination
+     * @param url  URL to the file that will be copied
+     * @param destination  Destination in which the file should be copied to
+     * @return  true if the copy was successful, otherwise false if an error occurred
+     */
+    protected boolean copyFileToFileServer(String url, String destination) {
+        // Copy the file to the file server
+        LiFTFileManager fileManager = new LiFTFileManager();
+        return fileManager.copyFile(url, destination);
+    }
+
+    /**
+     * This method returns the value of the property that determines whether LiFT transfers are enabled or not
+     * @return  true if LiFT Transforms are enabled, false if they are not
+     */
+    protected boolean checkLiftProperty() {
+        boolean result = false;
+
+        // Check the property file to see if LiFT is supported
+        try {
+            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_ENABLED_PROPERTY_NAME);
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.LIFT_ENABLED_PROPERTY_NAME + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
+        return result;
+    }
+
+    protected boolean doesTargetSupportLift(String hcid) {
+        boolean result = false;
+
+        // Check with the connection management component to see if LiFT is supported by the target community
+
+
+        return result;
     }
 
     protected XDRAuditLogger createAuditLogger() {
@@ -150,7 +255,7 @@ public class EntityXDRRequestSecuredImpl {
         return bPolicyOk;
     }
 
-    protected String extractMessageId (WebServiceContext context) {
+    protected String extractMessageId(WebServiceContext context) {
         AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
         return msgIdExtractor.GetAsyncMessageId(context);
     }
