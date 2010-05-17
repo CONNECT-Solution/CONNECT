@@ -1795,5 +1795,141 @@ public class ConnectionManagerCacheTest {
 
         assertEquals(true, urlList.getUrlInfo().isEmpty());
     }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityTrue() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunity");
+
+        String homeCommunityId = "1111.1111.1111.1111";
+        String protocol = "HTTPS";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(true, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityTrueCaseDiff() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityTrueCaseDiff");
+
+        String homeCommunityId = "1111.1111.1111.1111";
+        String protocol = "https";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(true, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityTrueMultLast() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityTrueMultLast");
+
+        String homeCommunityId = "2.16.840.1.113883.3.200";
+        String protocol = "XMPP";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(true, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityTrueMultMidDiffCase() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityTrueMultMidDiffCase");
+
+        String homeCommunityId = "2.16.840.1.113883.3.200";
+        String protocol = "ftp";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(true, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityTrueMultFirstMixedCase() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityTrueMultFirstMixedCase");
+
+        String homeCommunityId = "2.16.840.1.113883.3.200";
+        String protocol = "hTtPs";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(true, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityFalseProtocol() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityFalseProtocol");
+
+        String homeCommunityId = "2.16.840.1.113883.3.200";
+        String protocol = "ABC";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityFalseFlag() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityFalseFlag");
+
+        String homeCommunityId = "1111.1111.1111.1111..2";
+        String protocol = "HTTPS";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of liftProtocolSupportedForHomeCommunity method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testLiftProtocolSupportedForHomeCommunityFalseNoTags() throws Exception
+    {
+        System.out.println("testLiftProtocolSupportedForHomeCommunityFalseNoTags");
+
+        String homeCommunityId = "3333.3333.3333.3333";
+        String protocol = "HTTPS";
+
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+
+        assertEquals(false, result);
+    }
     
 }

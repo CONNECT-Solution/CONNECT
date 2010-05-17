@@ -57,6 +57,11 @@ public class CMInternalConnectionInfosXMLTest
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
         oStates.getState().add(state);
         state.setName("FL");
+        CMInternalConnectionInfoLiftProtocols protocols = new CMInternalConnectionInfoLiftProtocols();
+        CMInternalConnectionInfoLiftProtocol protocol = new CMInternalConnectionInfoLiftProtocol();
+        protocol.setLiftProtocol("HTTPS");
+        protocols.getProtocol().add(protocol);
+        oConnInfo.setLiftProtocols(protocols);
         CMInternalConnInfoServices oServices = new CMInternalConnInfoServices();
         oConnInfo.setServices(oServices);
         CMInternalConnInfoService oService = new CMInternalConnInfoService();

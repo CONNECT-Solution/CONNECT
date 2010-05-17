@@ -315,6 +315,21 @@ public class CMUDDIConnectionInfoXMLTest {
         return oStates;
         
     }
+
+    /**
+     * Create the lift protocols associated with the business entity.
+     *
+     * @param sTag The tag to append to the data.
+     * @return The lift protocols that were created.
+     */
+    private CMLiftProtocols createBusinessLiftProtocols(String sTag)
+    {
+        CMLiftProtocols oProtocols = new CMLiftProtocols();
+        oProtocols.getProtocol().add("Protocol" + sTag + ".1");
+        oProtocols.getProtocol().add("Protocol" + sTag + ".2");
+        return oProtocols;
+
+    }
     
     /**
      * This method loads up a business entity with some test data.
@@ -337,6 +352,7 @@ public class CMUDDIConnectionInfoXMLTest {
         oEntity.setNames(createBusinessNames(sTag));
         oEntity.setStates(createBusinessStates(sTag));
         oEntity.setPublicKey("AA:11:22");
+        oEntity.setLiftProtocols(createBusinessLiftProtocols(sTag));
         
         
         return oEntity;
