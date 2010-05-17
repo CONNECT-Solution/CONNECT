@@ -29,7 +29,9 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 
+import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfoLiftProtocol;
 import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfoState;
+import gov.hhs.fha.nhinc.connectmgr.data.CMLiftProtocols;
 import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
@@ -194,7 +196,7 @@ public class ConnectionManagerCache {
      *
      * @param oStates The set of states to search.
      * @param state The name of the state to search for.
-     * @return True if the service is found.
+     * @return True if the state is found.
      */
     private static boolean containsState(CMStates oStates, String state) {
         boolean bFound = false;
@@ -214,7 +216,33 @@ public class ConnectionManagerCache {
         }
 
         return bFound;
+    }
 
+    /**
+     * This returns true if the set of protocols contains a protocol for the given protocol name.
+     *
+     * @param oStates The set of protocol to search.
+     * @param state The name of the protocol to search for.
+     * @return True if the protocol is found.
+     */
+    private static boolean containsProtocol(CMLiftProtocols oProtocols, String protocol) {
+        boolean bFound = false;
+
+        if ((oProtocols != null) &&
+                (oProtocols.getProtocol() != null) &&
+                (oProtocols.getProtocol().size() > 0) &&
+                (protocol != null) &&
+                (protocol.length() > 0)) {
+            for (String protocolName : oProtocols.getProtocol()) {
+                if ((protocol != null) &&
+                        (protocolName.equalsIgnoreCase(protocol))) {
+                    bFound = true;
+                }
+
+            }
+        }
+
+        return bFound;
     }
 
     /**
@@ -274,6 +302,30 @@ public class ConnectionManagerCache {
             for (String oState : oUDDIEntity.getStates().getState()) {
                 if (!containsState(oCombinedEntity.getStates(), oState)) {
                     oCombinedEntity.getStates().getState().add(oState);
+                }
+            }
+        }
+
+        // Put in the LiftSupported flag from the internalConnections
+        oCombinedEntity.setLiftSupported(oInternalEntity.getLiftSupported());
+
+        // Put in all of the lift protocols from the InternalConnection one next - they are the king...
+        //----------------------------------------------------------------------------------------
+        oCombinedEntity.setLiftProtocols(oInternalEntity.getLiftProtocols());
+        if (oCombinedEntity.getLiftProtocols() == null) {
+            oCombinedEntity.setLiftProtocols(new CMLiftProtocols());
+        }
+        else {
+        }
+
+        // Now only add in the states from the UDDI that we do not have
+        //-------------------------------------------------------------
+        if ((oUDDIEntity.getLiftProtocols() != null) &&
+                (oUDDIEntity.getLiftProtocols().getProtocol() != null) &&
+                (oUDDIEntity.getLiftProtocols().getProtocol().size() > 0)) {
+            for (String oProtocol : oUDDIEntity.getLiftProtocols().getProtocol()) {
+                if (!containsProtocol(oCombinedEntity.getLiftProtocols(), oProtocol)) {
+                    oCombinedEntity.getLiftProtocols().getProtocol().add(oProtocol);
                 }
             }
         }
@@ -557,6 +609,23 @@ public class ConnectionManagerCache {
                     }
                 }
             } // if (oConnInfo.getStates() != null &&
+
+            // LiftSupported Flag
+            oEntity.setLiftSupported(oConnInfo.getSupportsLIFTFlag());
+
+            // Lift Protocols
+            if (oConnInfo.getLiftProtocols() != null &&
+                    NullChecker.isNotNullish(oConnInfo.getLiftProtocols().getProtocol())) {
+                CMLiftProtocols protocols = new CMLiftProtocols();
+                oEntity.setLiftProtocols(protocols);
+
+                for (CMInternalConnectionInfoLiftProtocol protocol : oConnInfo.getLiftProtocols().getProtocol()) {
+                    if (NullChecker.isNotNullish(protocol.getLiftProtocol())) {
+                        protocols.getProtocol().add(protocol.getLiftProtocol());
+                    }
+                }
+            }
+
         }   // if (oConnInfo != null)
 
         return oEntity;
@@ -1139,11 +1208,11 @@ public class ConnectionManagerCache {
                     for (String state : entity.getStates().getState()) {
                         if (state.equalsIgnoreCase(region)) {
                             String url = getUrl(entity);
-                            String hcid = getHcid (entity);
+                            String hcid = getHcid(entity);
 
                             if (NullChecker.isNotNullish(url) &&
                                     NullChecker.isNotNullish(hcid)) {
-                                CMUrlInfo entry = new CMUrlInfo ();
+                                CMUrlInfo entry = new CMUrlInfo();
                                 entry.setHcid(hcid);
                                 entry.setUrl(url);
                                 urlList.getUrlInfo().add(entry);
@@ -1348,5 +1417,25 @@ public class ConnectionManagerCache {
         } else {
             return null;
         }
+    }
+
+    public static boolean liftProtocolSupportedForHomeCommunity(String homeCommunityId, String protocol) throws ConnectionManagerException {
+        boolean result = false;
+
+        CMBusinessEntity busEntity = getBusinessEntity(homeCommunityId);
+
+        if (busEntity != null &&
+                busEntity.getLiftProtocols() != null &&
+                NullChecker.isNotNullish(busEntity.getLiftProtocols().getProtocol()) &&
+                busEntity.getLiftSupported() == true) {
+            log.debug("LiFT transports are supported by " + busEntity.getLiftProtocols().getProtocol().size() + " protocols");
+            for (String liftProtocol : busEntity.getLiftProtocols().getProtocol()) {
+                if (liftProtocol.equalsIgnoreCase(protocol)) {
+                    result = true;
+                }
+            }
+        }
+
+        return result;
     }
 }

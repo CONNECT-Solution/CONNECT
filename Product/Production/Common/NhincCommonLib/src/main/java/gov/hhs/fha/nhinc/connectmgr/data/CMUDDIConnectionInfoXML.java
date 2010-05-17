@@ -40,6 +40,7 @@ public class CMUDDIConnectionInfoXML
             oXStream.addImplicitCollection(CMAddresses.class, "addressList", "address", CMAddress.class);
             oXStream.addImplicitCollection(CMAddress.class, "addressLineList", "addressLine", String.class);
             oXStream.addImplicitCollection(CMStates.class, "stateList", "state", String.class);
+            oXStream.addImplicitCollection(CMLiftProtocols.class, "protocolList", "liftProtocol", String.class);
             oXStream.addImplicitCollection(CMBusinessServices.class, "businessServiceList", "businessService", CMBusinessService.class);
             oXStream.useAttributeFor(CMBusinessService.class, "serviceKey");
             oXStream.addImplicitCollection(CMBindingNames.class, "nameList", "name", String.class);
@@ -90,6 +91,7 @@ public class CMUDDIConnectionInfoXML
             oXStream.addImplicitCollection(CMAddresses.class, "addressList", "address", CMAddress.class);
             oXStream.addImplicitCollection(CMAddress.class, "addressLineList", "addressLine", String.class);
             oXStream.addImplicitCollection(CMStates.class, "stateList", "state", String.class);
+            oXStream.addImplicitCollection(CMLiftProtocols.class, "protocolList", "liftProtocol", String.class);
             oXStream.addImplicitCollection(CMBusinessServices.class, "businessServiceList", "businessService", CMBusinessService.class);
             oXStream.useAttributeFor(CMBusinessService.class, "serviceKey");
             oXStream.addImplicitCollection(CMBindingNames.class, "nameList", "name", String.class);

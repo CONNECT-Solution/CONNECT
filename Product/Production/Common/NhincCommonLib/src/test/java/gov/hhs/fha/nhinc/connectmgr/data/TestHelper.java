@@ -17,6 +17,8 @@ public class TestHelper {
         if (NullChecker.isNullish(connInfo.getDescription()) &&
                 NullChecker.isNullish(connInfo.getHomeCommunityId()) &&
                 NullChecker.isNullish(connInfo.getName()) &&
+                connInfo.getSupportsLIFTFlag() == false &&
+                connInfo.getLiftProtocols() == null &&
                 connInfo.getServices() == null &&
                 connInfo.getStates() == null) {
             return true;
@@ -28,6 +30,7 @@ public class TestHelper {
        if (NullChecker.isNotNullish(connInfo.getDescription()) ||
                NullChecker.isNotNullish(connInfo.getHomeCommunityId()) ||
                NullChecker.isNotNullish(connInfo.getName()) ||
+               NullChecker.isNotNullish(connInfo.getLiftProtocols().getProtocol()) ||
                NullChecker.isNotNullish(connInfo.getServices().getService()) ||
                NullChecker.isNotNullish(connInfo.getStates().getState())) {
            return true;
@@ -35,10 +38,16 @@ public class TestHelper {
        return false;
     }
 
-    public static CMInternalConnectionInfo createConnInfo (String commId, String commName, String desc, String servDesc, String url, String servName, String stateName ) {
+    public static CMInternalConnectionInfo createConnInfo (String commId, String commName, String desc, String servDesc, String url, String servName, String stateName, boolean supportsLift, String protocolName) {
         String hcid = commId;
         String name = commName;
         String description = desc;
+        boolean flag = supportsLift;
+
+        CMInternalConnectionInfoLiftProtocols protocols = new CMInternalConnectionInfoLiftProtocols();
+        CMInternalConnectionInfoLiftProtocol protocol = new CMInternalConnectionInfoLiftProtocol();
+        protocols.getProtocol().add(protocol);
+        protocol.setLiftProtocol(protocolName);
 
         CMInternalConnInfoServices services = new CMInternalConnInfoServices();
         CMInternalConnInfoService service = new CMInternalConnInfoService();
@@ -57,10 +66,46 @@ public class TestHelper {
         instance.setDescription(description);
         instance.setHomeCommunityId(hcid);
         instance.setName(name);
+        instance.setSupportsLIFTFlag(flag);
+        instance.setLiftProtocols(protocols);
         instance.setServices(services);
         instance.setStates(states);
 
         return instance;
+    }
+
+     public static boolean assertBusinessEntityEmpty (CMBusinessEntity busEntity) {
+        if (busEntity.getHomeCommunityId().equals("") &&
+                busEntity.getBusinessKey().equals("") &&
+                busEntity.getPublicKey().equals("") &&
+                busEntity.getPublicKeyURI().equals("") &&
+                busEntity.getLiftSupported() == false &&
+                busEntity.getBusinessServices() == null &&
+                busEntity.getDescriptions() == null &&
+                busEntity.getDiscoveryURLs() == null &&
+                busEntity.isFederalHIE() == false &&
+                busEntity.getLiftProtocols() == null &&
+                busEntity.getContacts() == null &&
+                busEntity.getStates() == null) {
+            return true;
+        }
+        return false;
+    }
+
+     public static boolean assertConnInfoNotEmpty (CMBusinessEntity busEntity) {
+       if (NullChecker.isNotNullish(busEntity.getBusinessServices().getBusinessService()) ||
+               NullChecker.isNotNullish(busEntity.getDescriptions().getBusinessDescription()) ||
+               NullChecker.isNotNullish(busEntity.getDiscoveryURLs().getDiscoveryURL()) ||
+               NullChecker.isNotNullish(busEntity.getLiftProtocols().getProtocol()) ||
+               NullChecker.isNotNullish(busEntity.getContacts().getContact()) ||
+               NullChecker.isNotNullish(busEntity.getStates().getState()) ||
+               !busEntity.getHomeCommunityId().equals("") ||
+               !busEntity.getBusinessKey().equals("") ||
+               !busEntity.getPublicKey().equals("") ||
+               !busEntity.getPublicKeyURI().equals("")) {
+           return true;
+       }
+       return false;
     }
 
 }

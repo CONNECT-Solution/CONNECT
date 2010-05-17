@@ -45,7 +45,7 @@ public class CMInternalConnectionInfoTest {
     public void testClearWithData() {
         System.out.println("testClearWithData");
 
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "HTTPS");
 
         assertEquals(true, TestHelper.assertConnInfoNotEmpty(instance));
 
@@ -92,8 +92,8 @@ public class CMInternalConnectionInfoTest {
     public void testEquals() {
         System.out.println("testEquals");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -108,8 +108,8 @@ public class CMInternalConnectionInfoTest {
     public void testEqualsCaseDifference() {
         System.out.println("testEqualsCaseDifference");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "Community1", "NHIN Community 1", "Service 1 Description", "https://service1.COM", "Service 1", "fl");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "nhin Community 1", "SerVice 1 Description", "https://service1.com", "SERVICE 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "Community1", "NHIN Community 1", "Service 1 Description", "https://service1.COM", "Service 1", "fl", true, "Https");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "nhin Community 1", "SerVice 1 Description", "https://service1.com", "SERVICE 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -124,8 +124,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEquals() {
         System.out.println("testNotEquals");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community2", "NHIN Community 2", "Service 2 Description", "https://service2.com", "Service 2", "AL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community2", "NHIN Community 2", "Service 2 Description", "https://service2.com", "Service 2", "AL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "FTP");
 
         boolean result = instance.equals(oCompare);
 
@@ -140,8 +140,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsHcid() {
         System.out.println("testNotEqualsHcid");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -156,8 +156,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsCommName() {
         System.out.println("testNotEqualsCommName");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community2", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community2", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -172,8 +172,40 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsCommDesc() {
         System.out.println("testNotEqualsCommDesc");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 2", "Service 1 Description", "https://service1.com", "Service 1", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 2", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+
+        boolean result = instance.equals(oCompare);
+
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of equals method, of class CMInternalConnectionInfo.
+     *    Test that two objects are equal except for the Community Description
+     */
+    @Test
+    public void testNotEqualsSupportLiftFlag() {
+        System.out.println("testNotEqualsSupportLiftFlag");
+
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "HTTPS");
+
+        boolean result = instance.equals(oCompare);
+
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of equals method, of class CMInternalConnectionInfo.
+     *    Test that two objects are equal except for the Community Description
+     */
+    @Test
+    public void testNotEqualsLiftProtocols() {
+        System.out.println("testNotEqualsLiftProtocols");
+
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "FTP");
 
         boolean result = instance.equals(oCompare);
 
@@ -188,8 +220,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsServDesc() {
         System.out.println("testNotEqualsServDesc");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 2 Description", "https://service1.com", "Service 1", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 2 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -204,8 +236,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsServUrl() {
         System.out.println("testNotEqualsServUrl");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service2.com", "Service 1", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service2.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -220,8 +252,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsServName() {
         System.out.println("testNotEqualsServName");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 2", "FL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 2", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -236,8 +268,8 @@ public class CMInternalConnectionInfoTest {
     public void testNotEqualsState() {
         System.out.println("testNotEqualsState");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "AL");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "AL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -336,6 +368,75 @@ public class CMInternalConnectionInfoTest {
         String result = instance.getName();
 
         assertEquals("Community 1", result);
+    }
+
+    /**
+     * Test of setSupportsLIFT and getSupportsLIFT methods, of class CMInternalConnectionInfo.
+     *    Test setting/getting a false value
+     */
+    @Test
+    public void testSetGetSupportLiftFalse() {
+        System.out.println("testSetGetSupportLiftFalse");
+
+        CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
+        instance.setSupportsLIFTFlag(false);
+
+        boolean result = instance.getSupportsLIFTFlag();
+
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of setSupportsLIFT and getSupportsLIFT methods, of class CMInternalConnectionInfo.
+     *    Test setting/getting a true value
+     */
+    @Test
+    public void testSetGetSupportLiftTrue() {
+        System.out.println("testSetGetSupportLiftTrue");
+
+        CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
+        instance.setSupportsLIFTFlag(true);
+
+        boolean result = instance.getSupportsLIFTFlag();
+
+        assertEquals(true, result);
+    }
+
+    /**
+     * Test of getServices method, of class CMInternalConnectionInfo.
+     *    Test setting/getting a null service
+     */
+    @Test
+    public void testSetGetProtocolsNull() {
+        System.out.println("testSetGetProtocolsNull");
+
+        CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
+        CMInternalConnectionInfoLiftProtocols expResult = null;
+        instance.setLiftProtocols(expResult);
+
+        CMInternalConnectionInfoLiftProtocols result = instance.getLiftProtocols();
+        assertNull(result);
+
+    }
+
+    /**
+     * Test of setServices method, of class CMInternalConnectionInfo.
+     *    Test setting/getting a valid service
+     */
+    @Test
+    public void testSetGetProtocols() {
+        System.out.println("testSetGetProtocols");
+        CMInternalConnectionInfoLiftProtocols protocols = new CMInternalConnectionInfoLiftProtocols();
+        CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
+
+        CMInternalConnectionInfoLiftProtocol protocol = new CMInternalConnectionInfoLiftProtocol();
+        protocol.setLiftProtocol("HTTPS");
+        protocols.getProtocol().add(protocol);
+        instance.setLiftProtocols(protocols);
+
+        CMInternalConnectionInfoLiftProtocols result = instance.getLiftProtocols();
+
+        assertEquals(protocols, result);
     }
 
     /**
