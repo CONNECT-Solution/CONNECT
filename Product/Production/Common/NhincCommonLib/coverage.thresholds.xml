@@ -6,7 +6,7 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocumentrepository.proxy.AdapterDocumentRepositoryWebServiceProxy" linecount="21" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.CMEprUtil" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManager" linecount="1" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="482" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache" linecount="507" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="490" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache" linecount="514" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMAddress" linecount="14" linerate="0.0" linesexecuted="0"/>
