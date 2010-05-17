@@ -17,7 +17,7 @@ public class AggMessageResult
     private Date messageOutTime;
     private Date responseReceivedTime;
     private String responseMessageType;
-    private String responseMessage;
+    private byte[] responseMessageAsByteArray;
     private AggTransaction aggTransaction;
     
     /**
@@ -38,7 +38,7 @@ public class AggMessageResult
         messageOutTime = null;
         responseReceivedTime = null;
         responseMessageType = "";
-        responseMessage = "";
+        responseMessageAsByteArray = new byte[0];
         aggTransaction = null;
     }
 
@@ -119,7 +119,7 @@ public class AggMessageResult
      */
     public String getResponseMessage()
     {
-        return responseMessage;
+        return new String(responseMessageAsByteArray);
     }
 
     /**
@@ -131,7 +131,26 @@ public class AggMessageResult
      */
     public void setResponseMessage(String responseMessage)
     {
-        this.responseMessage = responseMessage;
+        this.responseMessageAsByteArray = responseMessage.getBytes();
+    }
+
+    /**
+     * Returns the response message to be aggregated as a byte array.
+     *
+     * @return  A byte array containing the response message to be aggregated.
+     */
+    public byte[]  getResponseMessageAsByteArray() {
+        return responseMessageAsByteArray;
+    }
+
+    /**
+     * Sets the response message to be aggregated.
+     *
+     * @param  A byte array containing the response message that is to be aggregated.
+     *
+     */
+    public void  setResponseMessageAsByteArray(byte[]  responseMessage) {
+        this.responseMessageAsByteArray = responseMessage;
     }
 
     /**
