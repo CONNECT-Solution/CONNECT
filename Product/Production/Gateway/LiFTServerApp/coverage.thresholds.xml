@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <thresholds>
-<threshold branchcount="4" branchrate="0.25" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.lift.ServerApp" linecount="42" linerate="0.19047619047619047" linesexecuted="0.08"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.ServerApp" linecount="42" linerate="0.0" linesexecuted="0"/>
 </thresholds>
