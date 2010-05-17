@@ -12,7 +12,12 @@
 	<import file="../ivy/ivy.targets.xml"/>
 	<import file="../junit/junit.targets.xml"/>
 	<import file="../common.build.xml"/>
-	<import file="${project.dir}/nbproject/jaxws-build.xml"/>
+	<if>
+      <exists path="${project.dir}/nbproject/jaxws-build.xml"/>
+      <then>
+        <import file="${project.dir}/nbproject/jaxws-build.xml"/>
+      </then>
+	</if>
 	
     <target name="-pre-init">
         <!-- Empty placeholder for easier customization. -->
