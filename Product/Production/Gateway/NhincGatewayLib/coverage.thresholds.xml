@@ -6,7 +6,6 @@
 <threshold branchcount="144" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator" linecount="228" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="140" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.document.DocRetrieveAggregator" linecount="224" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.model.AggMessageResult" linecount="32" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction" linecount="19" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="20" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.model.DocQueryMessageKey" linecount="59" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.gateway.aggregator.model.DocRetrieveMessageKey" linecount="57" linerate="0.0" linesexecuted="0"/>
