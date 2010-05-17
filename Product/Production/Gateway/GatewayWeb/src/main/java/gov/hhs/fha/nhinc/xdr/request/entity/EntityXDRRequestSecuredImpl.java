@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.lift.file.manager.LiFTFileManager;
 import gov.hhs.fha.nhinc.lift.payload.builder.LiFTPayloadBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -20,6 +21,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 
 /**
  *
@@ -196,11 +198,16 @@ public class EntityXDRRequestSecuredImpl {
     }
 
     protected boolean doesTargetSupportLift(String hcid) {
-        boolean result = false;
-
         // Check with the connection management component to see if LiFT is supported by the target community
-
-
+        boolean result = false;
+        
+        try {
+            result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(hcid, "HTTPS");
+        }
+        catch (ConnectionManagerException ex) {
+            log.error(ex.getMessage());
+        }
+        
         return result;
     }
 
