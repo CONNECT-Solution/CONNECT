@@ -313,6 +313,20 @@ public class NhincConstants {
     public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASYNCMSGS_REPOSITORY = "AsyncMsgs.hibernate.cfg.xml";
 
+    //LiFT Constants
+    public static final String LIFT_CLIENT_IP = "ClientManagerControllerIP";
+    public static final String LIFT_CLIENT_PORT = "ClientManagerControllerPort";
+    public static final String LIFT_KEYSTORE = "LiftKeyStore";
+    public static final String LIFT_KEYSTOREPASS = "LiftKeyStorePass";
+    public static final String LIFT_KEYALIAS = "LiftKeyAlias";
+    public static final String LIFT_TRUSTSTORE = "LiftTrustStore";
+    public static final String LIFT_TRUSTSTOREPASS = "LiftTrustStorePass";
+    public static final String LIFT_FILEDROP = "DefaultFileDest";
+    public static final String LIFT_PROXY_ADDRESS = "ProxyAddress";
+    public static final String LIFT_PROXY_PORT = "ProxyPort";
+    public static final String LIFT_FILESERVER_IP = "FileServerIP";
+    public static final String LIFT_FILESERVER_PORT = "FileServerPort";
+
     private NhincConstants() {
     }
 }

@@ -1,0 +1,128 @@
+//
+// Non-Export Controlled Information
+//
+//####################################################################
+//## The MIT License
+//## 
+//## Copyright (c) 2010 Harris Corporation
+//## 
+//## Permission is hereby granted, free of charge, to any person
+//## obtaining a copy of this software and associated documentation
+//## files (the "Software"), to deal in the Software without
+//## restriction, including without limitation the rights to use,
+//## copy, modify, merge, publish, distribute, sublicense, and/or sell
+//## copies of the Software, and to permit persons to whom the
+//## Software is furnished to do so, subject to the following conditions:
+//## 
+//## The above copyright notice and this permission notice shall be
+//## included in all copies or substantial portions of the Software.
+//## 
+//## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//## OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//## NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//## HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//## OTHER DEALINGS IN THE SOFTWARE.
+//## 
+//###################################################################
+//********************************************************************
+// FILE: SSLServer.java
+//
+// Copyright (C) 2010 Harris Corporation. All rights reserved.
+//
+// CLASSIFICATION: Unclassified
+//
+// DESCRIPTION: SSLServer.java 
+//              
+//
+// LIMITATIONS: None
+//
+// SOFTWARE HISTORY:
+//
+//> Feb 24, 2010 PTR#  - R. Robinson
+// Initial Coding.
+//<
+//********************************************************************
+package gov.hhs.fha.nhinc.lift.proxy.server;
+
+import java.io.IOException;
+import java.net.SocketAddress;
+
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+
+import gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class SSLServer extends Server {
+    private static Log log = LogFactory.getLog(SSLServer.class);
+	private final SSLServerSocket server;
+	
+	/**
+	 * Set up a SSL server socket on the provided address.  Makes and runs 
+	 * clones of the provided HandlerPrototype to handle client connections
+	 * to the Server.
+	 * @param address
+	 * @param prototype
+	 * @throws IOException
+	 */
+	public SSLServer(SocketAddress address, HandlerPrototype prototype) throws IOException
+	{
+		super(prototype);
+		System.out.println("handler: " + prototype);
+		SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+                System.out.println("default factory: " + factory);
+                InetSocketAddress addr = (InetSocketAddress)address;
+                System.out.println("Attempt to bind to port: " + addr.getPort());
+		ServerSocket createdSocket = factory.createServerSocket(addr.getPort());
+                System.out.println("creates: " + createdSocket);
+                server = (SSLServerSocket)createdSocket;
+	
+		// Doing this causes problems, I don't understand this much but I think it's necessary.
+//		server.setNeedClientAuth(true);
+
+                /*System.out.println("Attempt to bind: " + address);
+                InetSocketAddress addr = (InetSocketAddress)address;
+                System.out.println("Inet addr: " + addr.toString());
+		server.bind(address);*/
+		
+		log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
+	}
+	
+	public SSLServerSocket getServer() {
+		return server;
+	}
+
+	@Override
+	protected void acceptConnection() throws IOException {
+		System.out.println("SERVER: Waiting for incomming connection.");
+		
+		SSLSocket socket = (SSLSocket) server.accept();
+		
+		System.out.println("SERVER: Accepted a new connection.");
+		
+		System.out.println("SERVER: Handshaking with connection.");
+		
+		/*
+		 * Spawn off and start a new Handler thread to process
+		 * the new connection.
+		 */
+		HandlerPrototype hand = this.getPrototype().clone(new DemoProtocol(socket));
+			
+		if(hand != null)
+		{
+			System.out.println("SERVER: Passing connection to new HANDLER.");
+			(new Thread(hand)).start();
+		}else{
+			System.out.println("SERVER: Connection failed to handshake properly.");
+			
+			socket.close();
+		}
+	}
+}

@@ -89,7 +89,17 @@
         <name>NhinInterfaceTestWeb</name>
         <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
         <dist.type>war</dist.type>
-    </project>    
+    </project>
+    <project>
+        <name>LiFTClientApp</name>
+        <directory>/Production/Gateway/LiFTClientApp</directory>
+        <dist.type>jar</dist.type>
+    </project> 
+	<project>
+        <name>LiFTServerApp</name>
+        <directory>/Production/Gateway/LiFTServerApp</directory>
+        <dist.type>jar</dist.type>
+    </project>
     <project>
         <name>FTAConfigManager</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
