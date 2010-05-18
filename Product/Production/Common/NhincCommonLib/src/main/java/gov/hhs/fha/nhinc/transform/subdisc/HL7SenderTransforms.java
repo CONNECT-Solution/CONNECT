@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CommunicationFunctionType;
+import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Agent;
 import org.hl7.v3.MCCIMT000100UV01Device;
@@ -43,7 +44,7 @@ public class HL7SenderTransforms {
 
         MCCIMT000200UV01Device senderDevice = new MCCIMT000200UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-
+        senderDevice.setClassCode(EntityClassDevice.DEV);
         log.debug("Setting sender OID to 1.2.345.678.999");
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
 
@@ -82,7 +83,7 @@ public class HL7SenderTransforms {
 
         MCCIMT000100UV01Device senderDevice = new MCCIMT000100UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-
+        senderDevice.setClassCode(EntityClassDevice.DEV);
         log.debug("Setting sender OID to 1.2.345.678.999");
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
 
@@ -121,7 +122,7 @@ public class HL7SenderTransforms {
 
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-
+        senderDevice.setClassCode(EntityClassDevice.DEV);
         log.debug("Setting sender OID to 1.2.345.678.999");
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
 

@@ -17,7 +17,7 @@ public class HL7CustodianTransforms {
 
     public static MFMIMT700701UV01Custodian createMFMIMT700701UV01Custodian(String localDeviceId) {
         MFMIMT700701UV01Custodian custodian = new MFMIMT700701UV01Custodian();
-
+        custodian.getTypeCode().add("CST");
         if (NullChecker.isNullish(localDeviceId)) {
             localDeviceId = getDefaultLocalDeviceId();
         }
@@ -29,7 +29,7 @@ public class HL7CustodianTransforms {
 
     public static COCTMT090003UV01AssignedEntity createCOCTMT090003UVAssignedEntity(String localDeviceId) {
         COCTMT090003UV01AssignedEntity entity = new COCTMT090003UV01AssignedEntity();
-
+        entity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         if (NullChecker.isNullish(localDeviceId)) {
             localDeviceId = getDefaultLocalDeviceId();
         }
@@ -40,7 +40,7 @@ public class HL7CustodianTransforms {
 
     static MFMIMT700711UV01Custodian createMFMIMT700711UV01Custodian(String localDeviceId) {
         MFMIMT700711UV01Custodian custodian = new MFMIMT700711UV01Custodian();
-
+        custodian.getTypeCode().add("CST");
         if (NullChecker.isNullish(localDeviceId)) {
             localDeviceId = getDefaultLocalDeviceId();
         }

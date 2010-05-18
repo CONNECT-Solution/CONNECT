@@ -103,7 +103,8 @@ public class HL7Parser201306 {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
-
+        controlActProcess.setClassCode(ActClassControlAct.CACT);
+        
         CD code = new CD();
         code.setCode("PRPA_TE201306UV");
         code.setCodeSystem("2.16.840.1.113883.1.6");
@@ -131,7 +132,7 @@ public class HL7Parser201306 {
         catch (Exception e) {
             id.setRoot(DEFAULT_AA_OID);
         }
-
+        assignedDevice.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         assignedDevice.getId().add(id);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
@@ -186,7 +187,9 @@ public class HL7Parser201306 {
 
     private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(Patient patient, PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
-
+        regEvent.getMoodCode().add("EVN");
+        regEvent.getClassCode().add("REG");
+        
         II id = new II();
         id.getNullFlavor().add("NA");
         regEvent.getId().add(id);
@@ -205,15 +208,14 @@ public class HL7Parser201306 {
     
     private static MFMIMT700711UV01Custodian createCustodian (Patient patient) {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
-        
+        result.getTypeCode().add("CST");
         result.setAssignedEntity(createAssignEntity(patient));
-        
         return result;
     }
     
     private static COCTMT090003UV01AssignedEntity createAssignEntity (Patient patient) {
         COCTMT090003UV01AssignedEntity  assignedEntity = new COCTMT090003UV01AssignedEntity();
-        
+        assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         II id = new II();
         id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());       
         assignedEntity.getId().add(id);
@@ -223,7 +225,7 @@ public class HL7Parser201306 {
 
     private static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject1(Patient patient, PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
-
+        subject.setTypeCode(ParticipationTargetSubject.SBJ);
         // Add in patient
         subject.setPatient(createPatient(patient, query));
         
@@ -264,7 +266,8 @@ public class HL7Parser201306 {
     
     private static PRPAMT201310UV02QueryMatchObservation createQueryMatch () {
         PRPAMT201310UV02QueryMatchObservation queryMatch = new PRPAMT201310UV02QueryMatchObservation();
-        
+        queryMatch.getMoodCode().add("EVN");
+        queryMatch.getClassCode().add("CASE");
         CD code = new CD();
         code.setCode("IHE_PDQ");
         queryMatch.setCode(code);
@@ -278,7 +281,8 @@ public class HL7Parser201306 {
     
     private static JAXBElement<COCTMT150003UV03Organization> createProviderOrg (Patient patient) {
         COCTMT150003UV03Organization org = new COCTMT150003UV03Organization();
-        
+        org.setDeterminerCode("INSTANCE");
+        org.setClassCode("ORG");
         II id = new II();
         
         if (patient.getIdentifiers() != null &&
@@ -501,7 +505,7 @@ public class HL7Parser201306 {
 
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
-
+        receiverDevice.setClassCode(EntityClassDevice.DEV);
         log.debug("Setting receiver application to 1.2.345.678.999");
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
 
@@ -549,7 +553,7 @@ public class HL7Parser201306 {
 
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-
+        senderDevice.setClassCode(EntityClassDevice.DEV);
         log.debug("Setting sender OID to 1.2.345.678.999");
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
 

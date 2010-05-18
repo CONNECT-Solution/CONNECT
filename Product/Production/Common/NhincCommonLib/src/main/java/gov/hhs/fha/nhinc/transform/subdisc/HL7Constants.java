@@ -33,4 +33,5 @@ public class HL7Constants {
 
     public static final String AGENT_CLASS_CODE="AGNT";
     public static final String ORG_CLASS_CODE="ORG";
+    public static final String ASSIGNED_DEVICE_CLASS_CODE = "ASSIGNED";
 }

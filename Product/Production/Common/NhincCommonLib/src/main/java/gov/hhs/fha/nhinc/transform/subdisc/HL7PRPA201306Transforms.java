@@ -206,7 +206,7 @@ public class HL7PRPA201306Transforms {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
-
+        controlActProcess.setClassCode(ActClassControlAct.CACT);
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV", HL7Constants.INTERACTION_ID_ROOT));
 
         if (patient != null &&
@@ -309,7 +309,8 @@ public class HL7PRPA201306Transforms {
 
     private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(PRPAMT201301UV02Patient patient, PRPAIN201305UV02 query, String patientId, String aaID, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
-
+        regEvent.getMoodCode().add(HL7Constants.DETECTED_ISSUE_MOODCODE_EVN);
+        regEvent.getClassCode().add("REG");
         II id = new II();
         id.getNullFlavor().add("NA");
         regEvent.getId().add(id);
@@ -330,6 +331,7 @@ public class HL7PRPA201306Transforms {
 
     public static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject2(PRPAMT201301UV02Patient patient, PRPAIN201305UV02 query, String patId, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
+        subject.setTypeCode(ParticipationTargetSubject.SBJ);
         log.debug("patientID = " + patId);
         PRPAMT201310UV02Patient pat310 = HL7PatientTransforms.create201310Patient(patient, patId, orgId);
 
@@ -360,7 +362,8 @@ public class HL7PRPA201306Transforms {
 
     private static JAXBElement<COCTMT150003UV03Organization> createProviderOrg(PRPAMT201301UV02Patient patient) {
         COCTMT150003UV03Organization org = new COCTMT150003UV03Organization();
-
+        org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
+        org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         II id = new II();
 
 
@@ -383,14 +386,15 @@ public class HL7PRPA201306Transforms {
 
     private static PRPAMT201310UV02Subject createSubjectOf1() {
         PRPAMT201310UV02Subject result = new PRPAMT201310UV02Subject();
-
+        
         result.setQueryMatchObservation(createQueryMatch());
         return result;
     }
 
     private static PRPAMT201310UV02QueryMatchObservation createQueryMatch() {
         PRPAMT201310UV02QueryMatchObservation queryMatch = new PRPAMT201310UV02QueryMatchObservation();
-
+        queryMatch.getMoodCode().add(HL7Constants.DETECTED_ISSUE_MOODCODE_EVN);
+        queryMatch.getClassCode().add("CASE");
         CD code = new CD();
         code.setCode("IHE_PDQ");
         queryMatch.setCode(code);
@@ -404,7 +408,7 @@ public class HL7PRPA201306Transforms {
 
     private static MFMIMT700711UV01Custodian createCustodian(String oid) {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
-
+        result.getTypeCode().add("CST");
         result.setAssignedEntity(createAssignEntity(oid));
 
         return result;
@@ -412,7 +416,7 @@ public class HL7PRPA201306Transforms {
 
     private static COCTMT090003UV01AssignedEntity createAssignEntity(String oid) {
         COCTMT090003UV01AssignedEntity assignedEntity = new COCTMT090003UV01AssignedEntity();
-
+        assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         II id = new II();
         id.setRoot(oid);
         assignedEntity.getId().add(id);
