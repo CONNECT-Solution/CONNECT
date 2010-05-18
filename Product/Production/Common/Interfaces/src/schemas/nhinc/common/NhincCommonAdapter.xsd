@@ -57,6 +57,7 @@
 		<xsd:sequence>
 			<xsd:element ref="rs:RegistryResponse"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+                        <xsd:element name="url" type="nccommon:UrlInfoType" minOccurs="0" maxOccurs="1"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponse" type="tns:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponseType"/>
