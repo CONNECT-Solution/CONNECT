@@ -68,4 +68,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol" linecount="13" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.ProxyUtil" linecount="39" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.Response" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.6875" branchsexecuted="0.11" class="gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper" linecount="11" linerate="0.9090909090909091" linesexecuted="0.1"/>
 </thresholds>
