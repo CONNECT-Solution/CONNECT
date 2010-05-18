@@ -44,6 +44,7 @@ public class EntityXDRAsyncReqWebServiceProxy implements EntityXDRAsyncReqProxy 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         securedRequest.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
         securedRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
+        securedRequest.setUrl(request.getUrl());
 
         // Get the URL to the Entity XDR Async Req Service
         String url = getUrl();
