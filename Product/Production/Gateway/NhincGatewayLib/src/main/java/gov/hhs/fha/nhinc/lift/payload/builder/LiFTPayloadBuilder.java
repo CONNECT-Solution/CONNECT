@@ -4,14 +4,24 @@
  */
 package gov.hhs.fha.nhinc.lift.payload.builder;
 
+import gov.hhs.fha.nhinc.common.lift.payload.ClientDataType;
+import gov.hhs.fha.nhinc.common.lift.payload.LIFTDataElementType;
+import gov.hhs.fha.nhinc.common.lift.payload.LIFTMessageType;
+import gov.hhs.fha.nhinc.common.lift.payload.LIFTRequestElementType;
+import gov.hhs.fha.nhinc.common.lift.payload.ServerProxyDataType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -39,12 +49,14 @@ public class LiFTPayloadBuilder {
         log.debug("Entering LiFTPayloadBuilder.buildLiFTPayload method...");
         boolean result = false;
         ExtrinsicObjectType extObj = null;
-        Document liftPayload = new Document();
 
         // Validate input parameters
         if (msg != null &&
                 assertion != null &&
-                NullChecker.isNotNullish(urlInfoList)) {
+                NullChecker.isNotNullish(urlInfoList) &&
+                urlInfoList.get(0) != null &&
+                NullChecker.isNotNullish(urlInfoList.get(0).getUrl()) &&
+                NullChecker.isNotNullish(urlInfoList.get(0).getId())) {
 
             // Verify that the Documents Section of the Request message is empty, if not empty it.
             if (NullChecker.isNotNullish(msg.getDocument())) {
@@ -66,6 +78,13 @@ public class LiFTPayloadBuilder {
 
                     extObj.getSlot().add(transferServiceSlot);
                     extObj.getSlot().add(transferProtocolSlot);
+
+                    // Place the information about this document in the LiFT Database
+                    String guid = addEntryToLiftDatabase(urlInfoList.get(0).getUrl());
+
+                    // Place the Lift Payload in the XDR Request Message
+                    Document liftPayload = createLiftPayload(guid, urlInfoList.get(0).getId(), urlInfoList.get(0).getUrl());
+                    msg.getDocument().add(liftPayload);
 
                     result = true;
                 }
@@ -106,5 +125,63 @@ public class LiFTPayloadBuilder {
         transferProtocolSlot.setValueList(valueList);
 
         return transferProtocolSlot;
+    }
+
+    private Document createLiftPayload(String guid, String id, String fileUrl) {
+        Document payload = new Document();
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        LIFTMessageType liftPayload = new LIFTMessageType();
+
+        LIFTRequestElementType liftReqElem = new LIFTRequestElementType();
+        liftReqElem.setRequestGuid(guid);
+        liftPayload.setRequestElement(liftReqElem);
+
+        LIFTDataElementType dataElem = new LIFTDataElementType();
+        ClientDataType clientData = new ClientDataType();
+
+        // TODO:  This file URL should be the Apache File Server, not the original url
+        clientData.setClientData(fileUrl);
+        dataElem.setClientData(clientData);
+        
+        ServerProxyDataType serverProxyData = new ServerProxyDataType();
+
+        // TODO: Replace the hardcoded values with property file values
+        serverProxyData.setServerProxyAddress("test");
+        serverProxyData.setServerProxyPort(10000);
+        dataElem.setServerProxyData(serverProxyData);
+
+        liftPayload.setDataElement(dataElem);
+
+        // Marshall the Lift Payload Element into binary data
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.lift.payload");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory factory = new gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory();
+            JAXBElement oJaxbElement = factory.createLIFTMessage(liftPayload);
+            marshaller.marshal(oJaxbElement, baOutStrm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+
+        payload.setId(id);
+        payload.setValue(baOutStrm.toByteArray());
+
+        return payload;
+    }
+
+    private String addEntryToLiftDatabase (String fileUrl) {
+        String guid = null;
+
+        // TODO:  Replace with call to the Database to get the GUID
+        //        For the time being though just generate the value
+        java.rmi.server.UID uid = new java.rmi.server.UID();
+        guid = uid.toString();
+
+        return guid;
     }
 }
