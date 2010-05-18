@@ -14,6 +14,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
@@ -84,12 +86,12 @@ public class LiFTPayloadBuilder {
 
                     // Place the Lift Payload in the XDR Request Message
                     Document liftPayload = createLiftPayload(guid, urlInfoList.get(0).getId(), urlInfoList.get(0).getUrl());
-                    msg.getDocument().add(liftPayload);
-
-                    result = true;
+                    if (liftPayload != null) {
+                        msg.getDocument().add(liftPayload);
+                        result = true;
+                    }
                 }
-            }
-            else {
+            } else {
                 log.error("No Registry Object List was provided in the input message");
             }
         } else {
@@ -143,38 +145,46 @@ public class LiFTPayloadBuilder {
         // TODO:  This file URL should be the Apache File Server, not the original url
         clientData.setClientData(fileUrl);
         dataElem.setClientData(clientData);
-        
+
         ServerProxyDataType serverProxyData = new ServerProxyDataType();
 
         // TODO: Replace the hardcoded values with property file values
-        serverProxyData.setServerProxyAddress("test");
-        serverProxyData.setServerProxyPort(10000);
-        dataElem.setServerProxyData(serverProxyData);
+        String proxyAddr = getProxyAddressProperty();
+        int proxyPort = getProxyAddressPort();
 
-        liftPayload.setDataElement(dataElem);
+        if (NullChecker.isNotNullish(proxyAddr) &&
+                proxyPort > 0) {
+            serverProxyData.setServerProxyAddress(proxyAddr);
+            serverProxyData.setServerProxyPort(proxyPort);
+            dataElem.setServerProxyData(serverProxyData);
 
-        // Marshall the Lift Payload Element into binary data
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.lift.payload");
-            Marshaller marshaller = jc.createMarshaller();
-            baOutStrm.reset();
+            liftPayload.setDataElement(dataElem);
 
-            gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory factory = new gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createLIFTMessage(liftPayload);
-            marshaller.marshal(oJaxbElement, baOutStrm);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            // Marshall the Lift Payload Element into binary data
+            try {
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.lift.payload");
+                Marshaller marshaller = jc.createMarshaller();
+                baOutStrm.reset();
+
+                gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory factory = new gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory();
+                JAXBElement oJaxbElement = factory.createLIFTMessage(liftPayload);
+                marshaller.marshal(oJaxbElement, baOutStrm);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+
+            payload.setId(id);
+            payload.setValue(baOutStrm.toByteArray());
+        } else {
+            payload = null;
         }
-
-        payload.setId(id);
-        payload.setValue(baOutStrm.toByteArray());
 
         return payload;
     }
 
-    private String addEntryToLiftDatabase (String fileUrl) {
+    protected String addEntryToLiftDatabase(String fileUrl) {
         String guid = null;
 
         // TODO:  Replace with call to the Database to get the GUID
@@ -183,5 +193,35 @@ public class LiFTPayloadBuilder {
         guid = uid.toString();
 
         return guid;
+    }
+
+    protected String getProxyAddressProperty() {
+        String propVal = null;
+
+        // Check the property file to retreive the property
+        try {
+            propVal = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_ADDRESS);
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.LIFT_PROXY_ADDRESS + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
+        return propVal;
+    }
+
+    protected int getProxyAddressPort() {
+        long propVal = -1;
+
+        // Check the property file to retreive the property
+        try {
+            propVal = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_ADDRESS);
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.LIFT_PROXY_ADDRESS + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+            propVal = -1;
+        }
+
+        Long longObj = Long.valueOf(propVal);
+        return longObj.intValue();
     }
 }

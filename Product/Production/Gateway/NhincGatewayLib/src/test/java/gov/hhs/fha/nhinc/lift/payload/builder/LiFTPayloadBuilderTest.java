@@ -12,7 +12,6 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -62,7 +61,17 @@ public class LiFTPayloadBuilderTest {
         ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -89,7 +98,17 @@ public class LiFTPayloadBuilderTest {
         msg.getDocument().add(new Document());
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -110,7 +129,17 @@ public class LiFTPayloadBuilderTest {
 
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -130,7 +159,17 @@ public class LiFTPayloadBuilderTest {
         System.out.println("testBuildLiFTPayloadInvalidParamAssertion");
         ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -151,7 +190,17 @@ public class LiFTPayloadBuilderTest {
         ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -172,7 +221,17 @@ public class LiFTPayloadBuilderTest {
         ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -193,7 +252,17 @@ public class LiFTPayloadBuilderTest {
         ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
@@ -215,7 +284,79 @@ public class LiFTPayloadBuilderTest {
         msg.getDocument().add(new Document());
         AssertionType assertion = new AssertionType();
 
-        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
+
+        List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setId("Document01");
+        urlInfo.setUrl("file://C:/Temp/document.pdf");
+        urlInfoList.add(urlInfo);
+
+        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of buildLiFTPayload method, of class LiFTPayloadBuilder.
+     */
+    @Test
+    public void testBuildLiFTPayloadInvAddrProp() {
+        System.out.println("testBuildLiFTPayload");
+        ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
+        AssertionType assertion = new AssertionType();
+
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return null;
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
+
+        List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setId("Document01");
+        urlInfo.setUrl("file://C:/Temp/document.pdf");
+        urlInfoList.add(urlInfo);
+
+        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertEquals(false, result);
+    }
+
+    /**
+     * Test of buildLiFTPayload method, of class LiFTPayloadBuilder.
+     */
+    @Test
+    public void testBuildLiFTPayloadInvPortProp() {
+        System.out.println("testBuildLiFTPayloadInvPortProp");
+        ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
+        AssertionType assertion = new AssertionType();
+
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return -1;
+            }
+        };
 
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
