@@ -171,25 +171,6 @@ public class NotifyTransforms {
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
 
-        // Fill in the message field with the contents of the event message
-//        try {
-//            JAXBContext jc = JAXBContext.newInstance("gov.​hhs.​fha.​nhinc.​common.​nhinccommon");
-//            Marshaller marshaller = jc.createMarshaller();
-//            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-//            baOutStrm.reset();
-//            
-//            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
-//            JAXBElement oJaxbElement = factory.createAcknowledgement(message.getMessage().getAck());
-//            baOutStrm.close();
-//            marshaller.marshal(oJaxbElement, baOutStrm);
-//            
-//            participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
-//            throw new RuntimeException();
-//        }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
