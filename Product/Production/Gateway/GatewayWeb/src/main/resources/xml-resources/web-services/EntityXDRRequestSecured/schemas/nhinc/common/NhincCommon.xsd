@@ -259,5 +259,13 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="UrlSet" type="tns:UrlSetType"/>
+    <xsd:complexType name="UrlInfoType">
+        <xsd:sequence>
+            <xsd:element name="url" type="xsd:string"></xsd:element>
+            <xsd:element name="id" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UrlInfo" type="tns:UrlInfoType"></xsd:element>
 </xsd:schema>
+
 

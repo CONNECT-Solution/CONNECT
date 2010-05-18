@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.lift.file.manager.LiFTFileManager;
 import gov.hhs.fha.nhinc.lift.payload.builder.LiFTPayloadBuilder;
@@ -22,6 +23,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -78,12 +81,16 @@ public class EntityXDRRequestSecuredImpl {
                 // If this is LiFT Message then check to see if the target supports LiFT and if it does
                 // insert the LiFT Payload into the request message
                 if (isLiftMessage(provideAndRegisterRequestRequest) && checkLiftProperty()) {
+                    log.debug("Local Gateway is configured to use LIFT");
+
                     // Check the connection manager to see if the target community supports LiFT
                     if (doesTargetSupportLift(targetSystemType.getHomeCommunity().getHomeCommunityId())) {
+                        log.debug("Target Community supports LIFT");
+                        
                         // Lift is supported by both the sides, now generate the payload
                         if (generateLiFTPayload(provideAndRegisterRequestRequest, assertion)) {
                             // LiFT Payload was successfully generated now copy the file
-                            if (copyFileToFileServer(provideAndRegisterRequestRequest.getUrl(), null) == false) {
+                            if (copyFileToFileServer(provideAndRegisterRequestRequest.getUrl().getUrl(), null) == false) {
                                 errMsg = "Failed to copy file to the file server";
                                 log.error(errMsg);
                                 regResp.setStatus(errMsg);
@@ -148,10 +155,13 @@ public class EntityXDRRequestSecuredImpl {
         boolean result = false;
 
         // Check to see if a url was provided in the message and if LiFT is supported
-        if (NullChecker.isNotNullish(request.getUrl())) {
+        if (request.getUrl() != null &&
+                NullChecker.isNotNullish(request.getUrl().getUrl()) &&
+                NullChecker.isNotNullish(request.getUrl().getId())) {
             result = true;
         }
 
+        log.debug("isLiftMessage returning: " + result);
         return result;
     }
 
@@ -164,7 +174,10 @@ public class EntityXDRRequestSecuredImpl {
     protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
         // Call out to the LiFT Payload Builder Library to build the LiFT Payload
         LiFTPayloadBuilder payloadBuilder = new LiFTPayloadBuilder();
-        return payloadBuilder.buildLiFTPayload(request.getProvideAndRegisterDocumentSetRequest(), assertion);
+        List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
+        urlInfoList.add(request.getUrl());
+
+        return payloadBuilder.buildLiFTPayload(request.getProvideAndRegisterDocumentSetRequest(), assertion, urlInfoList);
     }
 
     /**
@@ -194,6 +207,7 @@ public class EntityXDRRequestSecuredImpl {
             log.error(ex.getMessage());
         }
 
+        log.debug("Obtained value of the " + NhincConstants.LIFT_ENABLED_PROPERTY_NAME + "property: " + result);
         return result;
     }
 

@@ -4,6 +4,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
@@ -206,7 +207,10 @@ public class EntityXDRRequestSecuredImplTest {
         target.setHomeCommunity(hc);
         targets.getNhinTargetCommunity().add(target);
         request.setNhinTargetCommunities(targets);
-        request.setUrl("file://C:/Temp/data.pdf");
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setUrl("file://C:/Temp/data.pdf");
+        urlInfo.setId("Document01");
+        request.setUrl(urlInfo);
 
         XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
 
@@ -305,7 +309,10 @@ public class EntityXDRRequestSecuredImplTest {
         target.setHomeCommunity(hc);
         targets.getNhinTargetCommunity().add(target);
         request.setNhinTargetCommunities(targets);
-        request.setUrl("file://C:/Temp/data.pdf");
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setUrl("file://C:/Temp/data.pdf");
+        urlInfo.setId("Document01");
+        request.setUrl(urlInfo);
 
         XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
 
@@ -405,7 +412,10 @@ public class EntityXDRRequestSecuredImplTest {
         target.setHomeCommunity(hc);
         targets.getNhinTargetCommunity().add(target);
         request.setNhinTargetCommunities(targets);
-        request.setUrl("file://C:/Temp/data.pdf");
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setUrl("file://C:/Temp/data.pdf");
+        urlInfo.setId("Document01");
+        request.setUrl(urlInfo);
 
         XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
 
@@ -505,7 +515,10 @@ public class EntityXDRRequestSecuredImplTest {
         target.setHomeCommunity(hc);
         targets.getNhinTargetCommunity().add(target);
         request.setNhinTargetCommunities(targets);
-        request.setUrl("file://C:/Temp/data.pdf");
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setUrl("file://C:/Temp/data.pdf");
+        urlInfo.setId("Document01");
+        request.setUrl(urlInfo);
 
         XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
 
@@ -605,7 +618,10 @@ public class EntityXDRRequestSecuredImplTest {
         target.setHomeCommunity(hc);
         targets.getNhinTargetCommunity().add(target);
         request.setNhinTargetCommunities(targets);
-        request.setUrl("file://C:/Temp/data.pdf");
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setUrl("file://C:/Temp/data.pdf");
+        urlInfo.setId("Document01");
+        request.setUrl(urlInfo);
 
         XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
 
