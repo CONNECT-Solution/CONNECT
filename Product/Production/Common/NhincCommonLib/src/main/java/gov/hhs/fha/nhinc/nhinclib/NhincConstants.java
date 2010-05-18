@@ -305,6 +305,10 @@ public class NhincConstants {
 
     // LiFT Constants
     public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
+    public static final String LIFT_TRANSPORT_SERVICE_SLOT_NAME = "transportService";
+    public static final String LIFT_TRANSPORT_SERVICE_SLOT_VALUE = "LIFT";
+    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_NAME = "transportServiceProtocol";
+    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_VALUE = "HTTPS";
 
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
