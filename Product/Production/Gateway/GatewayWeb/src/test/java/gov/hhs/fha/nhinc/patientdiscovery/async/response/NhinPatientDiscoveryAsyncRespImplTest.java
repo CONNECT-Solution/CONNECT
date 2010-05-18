@@ -281,7 +281,7 @@ public class NhinPatientDiscoveryAsyncRespImplTest {
 
             @Override
             protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion) {
-                return HL7AckTransforms.createAckFrom201306(body, "Success");
+                return HL7AckTransforms.createAckFrom201306(body, "Patient Discovery Async Response Service Not Enabled");
             }
         };
 
@@ -344,7 +344,7 @@ public class NhinPatientDiscoveryAsyncRespImplTest {
 
             @Override
             protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion) {
-                return HL7AckTransforms.createAckFrom201306(body, "Success");
+                return HL7AckTransforms.createAckFrom201306(body, "Policy Check Failed");
             }
         };
 

@@ -23,6 +23,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import java.beans.XMLDecoder;
 import java.sql.Blob;
 import java.util.Calendar;
@@ -69,8 +70,6 @@ public class NhinPatientDiscoveryAsyncRespImpl {
 
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
-        String ackMsg = "Success";
-
 
         // Check if the Patient Discovery Async Response Service is enabled
         if (isServiceEnabled()) {
@@ -96,19 +95,16 @@ public class NhinPatientDiscoveryAsyncRespImpl {
                     // Default is Verify Mode
                     processRespVerifyMode(body, assertion);
                 }
-
-                resp = sendToAdapter(body, assertion);
             } else {
-                ackMsg = "Policy Check Failed";
-                log.error(ackMsg);
-                resp = HL7AckTransforms.createAckFrom201306(body, ackMsg);
+                log.error("Policy Check Failed");
+                body.getControlActProcess().getSubject().clear();
             }
         } else {
-            ackMsg = "Patient Discovery Async Response Service Not Enabled";
-            log.error(ackMsg);
-            resp = HL7AckTransforms.createAckFrom201306(body, ackMsg);
+            log.error("Patient Discovery Async Response Service Not Enabled");
+            body.getControlActProcess().getSubject().clear();;
         }
 
+        resp = sendToAdapter(body, assertion);
 
         return resp;
     }
