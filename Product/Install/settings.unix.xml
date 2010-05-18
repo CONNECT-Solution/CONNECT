@@ -5,4 +5,6 @@
 
   <property name="deployment.certificate.home" value="/nhin/certificates" />
 
+  <property name="deployment.glassfish.asadmin.file.path" value="${glassfish.home}/bin/asadmin"/>
+  
 </project>

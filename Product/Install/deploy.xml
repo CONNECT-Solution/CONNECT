@@ -39,15 +39,7 @@
     </condition>
   </target>
 
-  <target name="-deploy.set.env" depends="-deploy.set.env.win,-deploy.set.env.unix"/>
-
-  <target name="-deploy.set.env.win" depends="-deploy.setup.init" if="windows">
-    <property name="ASADMIN" value="${glassfish.home}/bin/asadmin.bat"/>
-  </target>
-
-  <target name="-deploy.set.env.unix" depends="-deploy.setup.init" if="unix">
-    <property name="ASADMIN" value="${glassfish.home}/bin/asadmin"/>
-  </target>
+  <target name="-deploy.set.env" depends="-deploy.setup.init"/>
 
   <!--
  These properties should be defined in project build.xml files:
@@ -84,7 +76,7 @@
       <then>
         <runtarget target="deploy.glassfish.stop.server"/>
       </then>
-    </if>    
+    </if>
   </target>
 
   <target name="undeploy.from.production">
@@ -101,7 +93,7 @@
   <target name="-start.glassfish.server.on.windows" if="windows">
     <parallel>
       <daemons>
-        <exec executable="${ASADMIN}" failonerror="false" vmlauncher="false" inputstring="">
+        <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
           <arg line="start-domain" />
           <arg line="${deployment.glassfish.domain.name}" />
         </exec>
@@ -115,13 +107,13 @@
 
   <target name="-start.glassfish.server.on.unix" if="unix">
     <exec executable="bash" failonerror="true">
-      <arg line="${ASADMIN} start-domain" />
+      <arg line="${deployment.glassfish.asadmin.file.path} start-domain" />
       <arg line="${deployment.glassfish.domain.name}" />
     </exec>
   </target>
 
   <target name="deploy.glassfish.stop.server" depends="-deploy.set.env">
-    <exec executable="${ASADMIN}" failonerror="false" vmlauncher="false" inputstring="">
+    <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
       <arg line="stop-domain" />
       <arg line="${deployment.glassfish.domain.name}" />
     </exec>
@@ -245,7 +237,7 @@
 
   <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file">
     <echo message="Deploying: ${deployment.glassfish.war.file.path}"/>
-    <exec executable="${ASADMIN}" failonerror="false" vmlauncher="false" inputstring="">
+    <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
       <arg line="deploy"/>
       <arg line="--user"/>
       <arg line="${deployment.glassfish.server.username}"/>
@@ -279,11 +271,11 @@
     <delete file="${glassfish.home}/lib/${deployment.glassfish.shared.lib.file.name}" />
   </target>
 
-  <target name="delete.glassfish.domain">
+  <target name="-delete.glassfish.domain">
     <trycatch property="error">
       <try>
         <runtarget target="deploy.glassfish.stop.server"/>
-        <exec executable="${ASADMIN}" failonerror="true">
+        <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="true">
           <arg line="delete-domain " />
           <arg line="${deployment.glassfish.domain.name}" />
         </exec>
@@ -332,12 +324,12 @@
           tofile="${glassfish.home}/bin/asant.bat" overwrite="true"/>
   </target>
 
-  <target name="create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
+  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" />
-    <exec executable="${ASADMIN}" failonerror="true">
+    <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="true">
       <arg line="create-domain" />
       <arg line="--adminport ${deployment.glassfish.admin.port}" />
-      <arg line="--instanceport ${instance.port}" />
+      <arg line="--instanceport ${deployment.glassfish.instance.port}" />
       <arg line="--user ${deployment.glassfish.server.username}" />
       <arg line="--passwordfile &quot;${deploy.glassfish.password.file.path}&quot;" />
       <arg line="--template ${deploy.glassfish.domain.template}" />
@@ -345,13 +337,21 @@
     </exec>
   </target>
 
-  <target name="backup.glassfish.domain">
-    <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true"  failonerror="false">
-      <filelist dir="${deployment.glassfish.domain.config.home}">
-        <file name="log4j.properties"/>
-        <file name="mpi.xml"/>
-      </filelist>
-    </copy>
+  <target name="-backup.glassfish.domain.configuration">
+    <if>
+      <istrue value="${deployment.restore.configuration}"/>
+      <then>
+        <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true" failonerror="false">
+          <filelist dir="${deployment.glassfish.domain.config.home}">
+            <file name="log4j.properties"/>
+            <file name="mpi.xml"/>
+          </filelist>
+        </copy>
+      </then>
+    </if>    
+  </target>
+
+  <target name="-backup.glassfish.domain.certificates">
     <copy todir="${deployment.certificate.home}" verbose="true" overwrite="true">
       <fileset dir="${deployment.glassfish.domain.config.home}" erroronmissingdir="false">
         <include name="*.jks"/>
@@ -360,7 +360,23 @@
     </copy>
   </target>
 
-  <target name="restore.glassfish.domain">
+  <target name="-configure.glassfish.domain">
+    <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="false">
+      <filelist dir="${deployment.dir}/${deployment.environment.configuration.dir.name}">
+        <file name="log4j.properties"/>
+        <file name="mpi.xml"/>
+      </filelist>
+    </copy>
+
+    <if>
+      <istrue value="${deployment.restore.configuration}"/>
+      <then>
+        <runtarget target="-restore.glassfish.domain.configuration"/>
+      </then>
+    </if>    
+  </target>
+
+  <target name="-restore.glassfish.domain.configuration">
     <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="true">
       <filelist dir="${deployment.dir}/backup">
         <file name="log4j.properties"/>
@@ -381,7 +397,7 @@
     </copy>
   </target>
 
-  <target name="glassfish.install.domain.certificates">
+  <target name="-restore.glassfish.domain.certificates">
     <copy todir="${deployment.glassfish.domain.config.home}" overwrite="true" verbose="true">
       <fileset dir="${deployment.certificate.home}">
         <include name="*.jks"/>
@@ -391,11 +407,12 @@
   </target>
 
   <target name="recreate.glassfish.domain">
-    <runtarget target="backup.glassfish.domain"/>
-    <runtarget target="delete.glassfish.domain"/>
-    <runtarget target="create.glassfish.domain"/>
-    <runtarget target="restore.glassfish.domain"/>
-    <runtarget target="glassfish.install.domain.certificates"/>
+    <runtarget target="-backup.glassfish.domain.configuration"/>
+    <runtarget target="-backup.glassfish.domain.certificates"/>
+    <runtarget target="-delete.glassfish.domain"/>
+    <runtarget target="-create.glassfish.domain"/>
+    <runtarget target="-configure.glassfish.domain"/>
+    <runtarget target="-restore.glassfish.domain.certificates"/>
   </target>
 
 </project>
