@@ -1236,37 +1236,6 @@ public class EntityPatientDiscoveryProcessorTest
 
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="Misc Utilities">
-    @Test
-    public void testGetEndpointsNullCommunities()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
-            CMUrlInfos urlList = processor.getEndpoints(null);
-            assertNotNull("CMUrlInfos was null", urlList);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetEndpointsNullCommunities: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetEndpointsNullCommunities: " + t.getMessage());
-        }
-    }
 
 // </editor-fold>
 
