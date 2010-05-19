@@ -218,6 +218,8 @@ class FileUtils
     try{ 
       File destDir = new File(System.env['NHINC_PROPERTIES_DIR']);   
       File sourceDir = new File(System.env['Common.Directory.Product.Path']+"/Production/Common/Properties/Dev");   
+	 log.info System.env['NHINC_PROPERTIES_DIR'];
+	 log.info System.env['Common.Directory.Product.Path']+"/Production/Common/Properties/Dev";
       org.apache.commons.io.FileUtils.copyDirectory(sourceDir, destDir,false); 
     }catch(Throwable e) 
     { 
