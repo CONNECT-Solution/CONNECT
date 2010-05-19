@@ -100,9 +100,11 @@
       </daemons>
     </parallel>
 
-    <waitfor maxwait="30" maxwaitunit="second" timeoutproperty="timed.out">
-      <socket server="localhost" port="4848"/>
+    <waitfor maxwait="60" maxwaitunit="second" timeoutproperty="deploy.glassfish.start.timed.out">
+      <socket server="localhost" port="${deployment.glassfish.admin.port}"/>
     </waitfor>
+    
+    <fail message="Failed to start GlassFish" if="deploy.glassfish.start.timed.out"/>
   </target>
 
   <target name="-start.glassfish.server.on.unix" if="unix">
@@ -236,7 +238,6 @@
   </target>
 
   <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file">
-    <echo message="Deploying: ${deployment.glassfish.war.file.path}"/>
     <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
       <arg line="deploy"/>
       <arg line="--user"/>
