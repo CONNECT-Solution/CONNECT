@@ -158,4 +158,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncRespImpl" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="50" branchrate="0.7364" branchsexecuted="36.82" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor" linecount="39" linerate="0.5361538461538462" linesexecuted="20.91"/>
+<threshold branchcount="22" branchrate="0.9545454545454546" branchsexecuted="0.21" class="gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryProcessor" linecount="87" linerate="0.7931034482758621" linesexecuted="0.69"/>
 </thresholds>
