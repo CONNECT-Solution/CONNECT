@@ -28,43 +28,29 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  *
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryProcessor
-{
+public class EntityPatientDiscoveryProcessor {
+
     private Log log = null;
 
-    public EntityPatientDiscoveryProcessor()
-    {
+    public EntityPatientDiscoveryProcessor() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-    {
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         log.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-        if(request == null)
-        {
+        if (request == null) {
             log.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-        }
-        else if(assertion == null)
-        {
+        } else if (assertion == null) {
             log.warn("AssertionType was null.");
-        }
-        else if(request.getPRPAIN201305UV02() == null)
-        {
+        } else if (request.getPRPAIN201305UV02() == null) {
             log.warn("PRPAIN201305UV02 was null.");
-        }
-        else if(request.getNhinTargetCommunities() == null)
-        {
-            log.warn("NhinTargetCommunitiesType was null.");
-        }
-        else
-        {
+        } else {
             logEntityPatientDiscoveryRequest(request, assertion);
 
             response = getResponseFromCommunities(request, assertion);
@@ -75,35 +61,27 @@ public class EntityPatientDiscoveryProcessor
         return response;
     }
 
-    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-    {
+    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
         CMUrlInfos urlInfoList = null;
-        if(targetCommunities  != null)
-        {
-            try
-            {
-                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-            }
-            catch (ConnectionManagerException ex)
-            {
-                log.error("Failed to obtain target URLs", ex);
-            }
+
+        try {
+            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            log.error("Failed to obtain target URLs", ex);
         }
+
         return urlInfoList;
     }
 
-    protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
-    {
+    protected PatientDiscovery201305Processor getPatientDiscovery201305Processor() {
         return new PatientDiscovery201305Processor();
     }
 
-    protected NhincProxyPatientDiscoverySecuredImpl getNhincProxyPatientDiscoverySecuredImpl()
-    {
+    protected NhincProxyPatientDiscoverySecuredImpl getNhincProxyPatientDiscoverySecuredImpl() {
         return new NhincProxyPatientDiscoverySecuredImpl();
     }
 
-    protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-    {
+    protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         PRPAIN201305UV02 new201305 = getPatientDiscovery201305Processor().createNewRequest(request.getPRPAIN201305UV02(), urlInfo.getHcid());
 
@@ -113,29 +91,20 @@ public class EntityPatientDiscoveryProcessor
         return newRequest;
     }
 
-    protected ResponseFactory getResponseFactory()
-    {
+    protected ResponseFactory getResponseFactory() {
         return new ResponseFactory();
     }
 
-    protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
-    {
+    protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url) {
         PRPAIN201306UV02 resultFromNhin = null;
 
-        if(newRequest == null)
-        {
+        if (newRequest == null) {
             log.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-        }
-        else if(assertion == null)
-        {
+        } else if (assertion == null) {
             log.warn("AssertionType was null.");
-        }
-        else if(url == null)
-        {
+        } else if (url == null) {
             log.warn("URL was null.");
-        }
-        else
-        {
+        } else {
             NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
             oTargetSystemType.setUrl(url);
 
@@ -154,12 +123,9 @@ public class EntityPatientDiscoveryProcessor
             params.origRequest = oProxyPRPAIN201305UVProxySecuredRequestType;
             params.response = resultFromNhin;
 
-            try
-            {
+            try {
                 resultFromNhin = getResponseFactory().getResponseMode().processResponse(params);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 log.error("Error processing NHIN proxy response: " + ex.getMessage(), ex);
                 resultFromNhin = new PRPAIN201306UV02();
             }
@@ -168,32 +134,26 @@ public class EntityPatientDiscoveryProcessor
         return resultFromNhin;
     }
 
-    protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-    {
+    protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         log.debug("Entering getResponseFromCommunities");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
         CMUrlInfos urlInfoList = getEndpoints(request.getNhinTargetCommunities());
 
         //loop through the communities and send request if results were not null
-        if((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty()))
-        {
+        if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
             log.warn("No targets were found for the Patient Discovery Request");
-        } 
-        else
-        {
+        } else {
             response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
-            for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo())
-            {
+            for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
                 //create a new request to send out to each target community
                 RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, assertion, urlInfo);
 
                 //check the policy for the outgoing request to the target community
                 boolean bIsPolicyOk = checkPolicy(newRequest, assertion);
 
-                if (bIsPolicyOk)
-                {
+                if (bIsPolicyOk) {
                     PRPAIN201306UV02 resultFromNhin = sendToNhinProxy(newRequest, assertion, urlInfo.getUrl());
                     // Store AA to HCID Mapping from response
                     getPatientDiscovery201306Processor().storeMapping(resultFromNhin);
@@ -204,8 +164,7 @@ public class EntityPatientDiscoveryProcessor
                     log.debug("Adding Community Response to response object");
                     response.getCommunityResponse().add(communityResponse);
                 } //if (bIsPolicyOk)
-                else
-                {
+                else {
                     log.error("The policy engine evaluated the request and denied the request.");
                 } //else policy enging did not return a permit response
             } //for (NhinTargetCommunityType oTargetCommunity : request.getNhinTargetCommunities().getNhinTargetCommunity())
@@ -215,38 +174,30 @@ public class EntityPatientDiscoveryProcessor
         return response;
     }
 
-    protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-    {
+    protected PatientDiscovery201306Processor getPatientDiscovery201306Processor() {
         return new PatientDiscovery201306Processor();
     }
 
-    protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger()
-    {
+    protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
         return new PatientDiscoveryAuditLogger();
     }
 
-    protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-    {
+    protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         getPatientDiscoveryAuditLogger().auditEntity201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-    {
+    protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
         getPatientDiscoveryAuditLogger().auditEntity201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
-    protected PatientDiscoveryPolicyChecker getPatientDiscoveryPolicyChecker()
-    {
+    protected PatientDiscoveryPolicyChecker getPatientDiscoveryPolicyChecker() {
         return new PatientDiscoveryPolicyChecker();
     }
 
-    protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-    {
-        if(request != null)
-        {
+    protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+        if (request != null) {
             request.setAssertion(assertion);
         }
         return getPatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
     }
-
 }
