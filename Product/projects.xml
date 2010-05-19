@@ -205,6 +205,11 @@
       <dist.type>jar</dist.type>
     </project>
     <project>
+      <name>GatewayIntTest</name>
+      <directory>/IntegrationTest/JunitIntegrationTests/Gateway/GatewayIntTest</directory>
+      <dist.type>jar</dist.type>
+    </project>
+    <project>
       <name>HiemSubscriptionRepositoryIntegrationTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
       <dist.type>jar</dist.type>
