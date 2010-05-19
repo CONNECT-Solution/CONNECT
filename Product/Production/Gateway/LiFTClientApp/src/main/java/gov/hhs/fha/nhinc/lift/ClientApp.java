@@ -68,6 +68,7 @@ import org.apache.commons.logging.LogFactory;
  * @author vvickers
  */
 public class ClientApp {
+
     private static Log log = LogFactory.getLog(ClientApp.class);
 
     /**
@@ -75,32 +76,25 @@ public class ClientApp {
      */
     public static void main(String[] args) {
         try {
+
             String clientIP = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_IP);
             String clientPort = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_PORT);
-
-            ServerSocket server = new ServerSocket();
             SocketAddress saddr = new InetSocketAddress(clientIP, Integer.parseInt(clientPort));
+            ServerSocket server = new ServerSocket();
+            server.bind(saddr);
 
-            Properties proxyProp = new Properties();
+            ClientPropertiesFacade props = new ClientPropertiesService();
+            ConsumerProxyPropertiesFacade proxyProps = new ConsumerProxyPropertiesFacadeRI();
+            proxyProps.setTrustStore();
+            System.out.println("Set system truststore properties: " + System.getProperty("javax.net.ssl.trustStore") +
+                    " " + System.getProperty("javax.net.ssl.trustStorePassword"));
 
-		proxyProp.setProperty("ClientProxyAddress", "localhost");
-		proxyProp.setProperty(NhincConstants.LIFT_TRUSTSTORE, PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTORE));
-		proxyProp.setProperty(NhincConstants.LIFT_TRUSTSTOREPASS, PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTOREPASS));
-		proxyProp.setProperty(NhincConstants.LIFT_KEYSTORE, PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTORE));
-		proxyProp.setProperty(NhincConstants.LIFT_KEYSTOREPASS, PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTOREPASS));
-		proxyProp.setProperty(NhincConstants.LIFT_FILEDROP, PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_FILEDROP));
+            LSTClientManager manager = new LSTClientManager(props, proxyProps);
+            SocketClientManagerController con = new SocketClientManagerController(server, manager);
 
-                ClientPropertiesFacade props = new ClientPropertiesService();
-		ConsumerProxyPropertiesFacade proxyProps = new ConsumerProxyPropertiesFacadeRI(proxyProp);
-		proxyProps.setTrustStore();
+            (new Thread(con)).start();
+            System.out.println("ClientApp started: " + server);
 
-		LSTClientManager manager = new LSTClientManager(props, proxyProps);
-
-		SocketClientManagerController con = new SocketClientManagerController(server, manager);
-
-		(new Thread(con)).start();
-                 
-                
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
         } catch (IOException ex) {

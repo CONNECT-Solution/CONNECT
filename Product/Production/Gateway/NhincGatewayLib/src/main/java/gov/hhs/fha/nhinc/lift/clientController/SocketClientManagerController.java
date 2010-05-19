@@ -63,54 +63,50 @@ import gov.hhs.fha.nhinc.lift.common.util.JaxbUtil;
  * @author rrobin20
  *
  */
-public class SocketClientManagerController implements Runnable{
-	// TODO see if this even works (it's not log4j yet, may want to make it so)
-	private Logger log = Logger.getLogger(SocketClientManagerController.class.getName());
-	
-	private final ServerSocket server;
-	private final ClientManager manager;
-	
-	public SocketClientManagerController(ServerSocket server,
-			ClientManager manager) {
-		super();
-		this.server = server;
-		this.manager = manager;
-	}
+public class SocketClientManagerController implements Runnable {
 
-	@Override
-	public void run() {
-		/*
-		 * TODO Need to accept connections, read in data, and send data to the
-		 * ClientManager if possible. 
-		 */
-		
-		while(true)
-		{
-			try
-			{
-				Socket socket = server.accept();
-				
-				while(socket == null)
-				{
-					socket = server.accept();
-				}
-				
-				InputStream in = socket.getInputStream();
-				
-				// TODO Read information from the stream.
-				String message = InterProcessSocketProtocol.readData(in);
-				System.out.println("CMC recieved message: " + message);
-				
-				ClientMessage m = (ClientMessage) JaxbUtil.unmarshalFromReader(new StringReader(message), ClientMessage.class);
-				
-				// TODO Attempt to use the information to called the manager
-				manager.startClient(m);
-				
-			}catch(IOException e){
-				// TODO Use a better logging scheme than just standard out.
-				e.printStackTrace();
-				log.log(Level.SEVERE, e.getMessage());
-			}
-		}
-	}
+    private Logger log = Logger.getLogger(SocketClientManagerController.class.getName());
+    private final ServerSocket server;
+    private final ClientManager manager;
+
+    public SocketClientManagerController(ServerSocket server,
+            ClientManager manager) {
+        super();
+        this.server = server;
+        this.manager = manager;
+    }
+
+    @Override
+    public void run() {
+        /*
+         * TODO Need to accept connections, read in data, and send data to the
+         * ClientManager if possible.
+         */
+
+        while (true) {
+            try {
+                Socket socket = server.accept();
+
+                while (socket == null) {
+                    socket = server.accept();
+                }
+
+                InputStream in = socket.getInputStream();
+
+                // TODO Read information from the stream.
+                String message = InterProcessSocketProtocol.readData(in);
+                System.out.println("CMC recieved message: " + message);
+                if (message != null) {
+                    ClientMessage m = (ClientMessage) JaxbUtil.unmarshalFromReader(new StringReader(message), ClientMessage.class);
+
+                    // TODO Attempt to use the information to called the manager
+                    manager.startClient(m);
+                }
+            } catch (IOException e) {
+                // TODO Use a better logging scheme than just standard out.
+                e.printStackTrace();
+                System.out.println("CMC Error: " + e.getMessage());
+            }
+        }
+    }
 }

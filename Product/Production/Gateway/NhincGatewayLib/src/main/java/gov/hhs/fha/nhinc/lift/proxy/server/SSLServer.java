@@ -75,23 +75,15 @@ public class SSLServer extends Server {
 	public SSLServer(SocketAddress address, HandlerPrototype prototype) throws IOException
 	{
 		super(prototype);
-		System.out.println("handler: " + prototype);
+
 		SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-                System.out.println("default factory: " + factory);
-                InetSocketAddress addr = (InetSocketAddress)address;
-                System.out.println("Attempt to bind to port: " + addr.getPort());
-		ServerSocket createdSocket = factory.createServerSocket(addr.getPort());
-                System.out.println("creates: " + createdSocket);
+		ServerSocket createdSocket = factory.createServerSocket();
                 server = (SSLServerSocket)createdSocket;
 	
 		// Doing this causes problems, I don't understand this much but I think it's necessary.
 //		server.setNeedClientAuth(true);
 
-                /*System.out.println("Attempt to bind: " + address);
-                InetSocketAddress addr = (InetSocketAddress)address;
-                System.out.println("Inet addr: " + addr.toString());
-		server.bind(address);*/
-		
+		server.bind(address);
 		log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
 	}
 	

@@ -52,64 +52,73 @@ import gov.hhs.fha.nhinc.lift.proxy.client.Client;
 import gov.hhs.fha.nhinc.lift.proxy.client.SSLClient;
 import gov.hhs.fha.nhinc.lift.proxy.client.TestClientHandshaker;
 import gov.hhs.fha.nhinc.lift.proxy.properties.interfaces.ConsumerProxyPropertiesFacade;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Properties;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
  *
  */
 public class ConsumerProxyPropertiesFacadeRI implements ConsumerProxyPropertiesFacade {
-	private final Properties prop;
-	
-	public ConsumerProxyPropertiesFacadeRI(Properties prop)
-	{
-		this.prop = prop;
-	}
 
-	@Override
-	public Client getClientInstance(InetAddress address, 
-									int port,
-									SecurityToken token) throws IOException {
-		/*
-		 * Should load this from the properties file some how.  Could use 
-		 * reflection perhaps, feels evil for some reason though.
-		 */
-		TestClientHandshaker h = new TestClientHandshaker();
-		Client c = new SSLClient(address, port, token, h);
-		
-		return c;
-	}
+    private static Log log = LogFactory.getLog(ConsumerProxyPropertiesFacadeRI.class);
 
-	@Override
-	public InetAddress getClientProxyAddress() {
-		try {
-			return InetAddress.getByName(prop.getProperty("ClientProxyAddress"));
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+    public ConsumerProxyPropertiesFacadeRI() {
+    }
 
-	@Override
-	public void setTrustStore() {
-		String loc = prop.getProperty("TrustStore");
-		String pass = prop.getProperty("TrustStorePass");
-		
-		System.setProperty("javax.net.ssl.trustStore", loc);
-		System.setProperty("javax.net.ssl.trustStorePassword", pass);
-	}
-	
-	@Override
-	public void setKeyStoreProperty() {
-		String loc = prop.getProperty("KeyStore");
-		String pass = prop.getProperty("KeyStorePass");
-		System.setProperty("javax.net.ssl.keyStore", loc);
-		System.setProperty("javax.net.ssl.keyStorePassword", pass);
-	}
+    @Override
+    public Client getClientInstance(InetAddress address,
+            int port,
+            SecurityToken token) throws IOException {
+        /*
+         * Should load this from the properties file some how.  Could use
+         * reflection perhaps, feels evil for some reason though.
+         */
+        TestClientHandshaker h = new TestClientHandshaker();
+        Client c = new SSLClient(address, port, token, h);
 
+        return c;
+    }
+
+    @Override
+    public InetAddress getClientProxyAddress() {
+        try {
+            //only expects connection on the localhost from the file downloader
+            return InetAddress.getByName("localhost");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public void setTrustStore() {
+        try {
+            String loc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTORE);
+            String pass = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTOREPASS);
+            System.setProperty("javax.net.ssl.trustStore", loc);
+            System.setProperty("javax.net.ssl.trustStorePassword", pass);
+        } catch (PropertyAccessException ex) {
+            log.error(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void setKeyStoreProperty() {
+        try {
+            String loc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTORE);
+            String pass = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTOREPASS);
+            System.setProperty("javax.net.ssl.keyStore", loc);
+            System.setProperty("javax.net.ssl.keyStorePassword", pass);
+        } catch (PropertyAccessException ex) {
+            log.error(ex.getMessage());
+        }
+    }
 }

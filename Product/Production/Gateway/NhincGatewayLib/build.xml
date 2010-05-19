@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." default="package.create" name="NhincGatewayLib">
 
-	<property name="dist.type" value="jar" />
-	<property name="webtest.hasTests" value="false" />
-	<property name="unittest.hasTests" value="true" />
-	<property name="deploy.isDeployable" value="false"/>
-	<property name="coverage.isneeded" value="true" />
+    <property name="dist.type" value="jar" />
+    <property name="webtest.hasTests" value="false" />
+    <property name="unittest.hasTests" value="true" />
+    <property name="deploy.isDeployable" value="false"/>
+    <property name="coverage.isneeded" value="true" />
 
 	<!-- Please make sure that this goes up to the correct directory -->
-	<import file="../../../build/build.targets.xml" />
+    <import file="../../../build/build.targets.xml" />
 
-	<path id="build.classpath">
-		<fileset refid="classpath.compile" />
-		<fileset refid="classpath.runtime" />
+    <path id="build.classpath">
+        <fileset refid="classpath.compile" />
+        <fileset refid="classpath.runtime" />
 
-		<!-- Add classes from other projects like so...-->
-		<pathelement path="${project.AdapterServiceProxy.build.classes.dir}" />
-    <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
-    <pathelement path="${project.NhincCommonDAO.build.classes.dir}" />
-    <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
-    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
-    <pathelement path="${project.NhincGatewayDAO.build.classes.dir}" />
-    <pathelement path="${project.NhinServiceProxy.build.classes.dir}" />
+        <!-- Add classes from other projects like so...-->
+        <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
+        <pathelement path="${project.NhincCommonDAO.build.classes.dir}" />
+        <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+        <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
+        <pathelement path="${project.AdapterServiceProxy.build.classes.dir}" />
+        <pathelement path="${project.NhincGatewayDAO.build.classes.dir}" />
+        <pathelement path="${project.NhinServiceProxy.build.classes.dir}" />
     
-    
-	</path>
+    </path>
 
 	<!-- Add project dependencies here, these projects will be built first... -->
-	<path id="build.project.dependencies">
-		<filelist dir="${root.project.directory.path}">
-		</filelist>
-	</path>
+    <path id="build.project.dependencies">
+        <filelist dir="${root.project.directory.path}">
+            <!--<file name="${project.NhincCommonTypesLib.file}" />
+            <file name="${project.NhincCommonDAO.build.file}" />
+            <file name="${project.NhincCommonLib.build.file}" />
+            <file name="${project.GatewayInternalComponentProxy.build.file}" />
+            <file name="${project.AdapterServiceProxy.build.file}" />
+            <file name="${project.NhincGatewayDAO.build.file}" />
+            <file name="${project.NhinServiceProxy.build.file}" /> -->
+        </filelist>
+    </path>
 
 </project>

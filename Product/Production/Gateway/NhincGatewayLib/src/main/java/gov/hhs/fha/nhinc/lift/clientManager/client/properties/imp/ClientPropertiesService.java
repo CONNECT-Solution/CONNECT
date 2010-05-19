@@ -47,8 +47,14 @@
 package gov.hhs.fha.nhinc.lift.clientManager.client.properties.imp;
 
 import gov.hhs.fha.nhinc.lift.clientManager.client.properties.interfaces.ClientPropertiesFacade;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ClientPropertiesService implements ClientPropertiesFacade {
+    private static Log log = LogFactory.getLog(ClientPropertiesService.class);
     //private LiftManagement port;
 
     public ClientPropertiesService() {
@@ -61,11 +67,17 @@ public class ClientPropertiesService implements ClientPropertiesFacade {
         //LiftConsumingsubscriptions sub = port.getConsumingSubscription(subId);
         //return (sub == null ? null : sub.getStorageLocation());
         System.out.println("ClientPropertiesService.getFileDestinationForSubscription needs implementing");
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String getDefaultFileDestination() {
-        throw new UnsupportedOperationException();
+        String defaultFileLoc = null;
+        try {
+            defaultFileLoc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_FILEDROP);
+        } catch (PropertyAccessException ex) {
+            log.error(ex.getMessage());
+        }
+        return defaultFileLoc;
     }
 }

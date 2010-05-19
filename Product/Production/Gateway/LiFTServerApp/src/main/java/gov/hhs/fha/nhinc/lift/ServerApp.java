@@ -47,20 +47,22 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.net.UnknownHostException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.lift.proxy.properties.interfaces.ProducerProxyPropertiesFacade;
 import gov.hhs.fha.nhinc.lift.proxy.properties.imp.ProducerProxyPropertiesService;
 import gov.hhs.fha.nhinc.lift.proxy.server.ConnectingHandler;
 import gov.hhs.fha.nhinc.lift.proxy.server.SSLServer;
 import gov.hhs.fha.nhinc.lift.proxy.server.Server;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
@@ -78,7 +80,7 @@ public class ServerApp {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    void startServer() {
+    private void startServer() {
         Server serv = createServer();
         if (serv != null) {
             Thread st = new Thread(serv);
@@ -87,21 +89,22 @@ public class ServerApp {
         }
     }
 
-    Server createServer() {
+    private Server createServer() {
         Server serv = null;
         try {
-            InetSocketAddress addr = createSocketAddr();
             ProducerProxyPropertiesFacade props = setProxyProps();
+            InetSocketAddress addr = createSocketAddr();
+            
             int bufferSize = 65536;
             serv = new SSLServer(addr, new ConnectingHandler(props, bufferSize));
-            log.debug("LiFT Server Runnable created");
+            log.debug("LiFT Server Runnable created"); 
         } catch (IOException ex) {
             log.error("Failed to create LiFT Server " + ex.getMessage());
         }
         return serv;
     }
 
-    InetSocketAddress createSocketAddr() {
+    private InetSocketAddress createSocketAddr() {
         InetSocketAddress addr = null;
         String proxyAddr = "";
         String proxyPort = "";
@@ -121,13 +124,13 @@ public class ServerApp {
         return addr;
     }
 
-    ProducerProxyPropertiesFacade setProxyProps() {
+    private ProducerProxyPropertiesFacade setProxyProps() {
         ProducerProxyPropertiesFacade props = new ProducerProxyPropertiesService();
         props.setKeyStoreProperty();
         return props;
     }
 
-    public static void main(String... args) throws IOException, InterruptedException {
+    public static void main(String... args) throws InterruptedException {
         ServerApp app = new ServerApp();
         app.startServer();
     }

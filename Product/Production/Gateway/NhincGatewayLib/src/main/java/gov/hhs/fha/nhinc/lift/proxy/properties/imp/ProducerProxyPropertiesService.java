@@ -90,7 +90,7 @@ public class ProducerProxyPropertiesService implements
 
         return new SecurityToken(assertion, request); */
         System.out.println("Need to integrate in new table - ProducerProxyPropertiesService.getSecurityTokenForRequest");
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override

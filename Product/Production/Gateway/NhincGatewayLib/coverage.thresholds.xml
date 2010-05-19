@@ -39,9 +39,9 @@
 <threshold branchcount="32" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.processor.nhin.handler.DisabledChildModeSubscriptionHandler" linecount="77" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.processor.nhin.handler.ForwardChildModeSubscriptionHandler" linecount="23" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.processor.nhin.handler.SubscriptionHandlerFactory" linecount="15" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.clientController.SocketClientManagerController" linecount="17" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.clientController.SocketClientManagerController" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.clientManager.client.LSTClientManager" linecount="34" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.clientManager.client.properties.imp.ClientPropertiesService" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.clientManager.client.properties.imp.ClientPropertiesService" linecount="11" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.common.util.AssertionUtil" linecount="117" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.common.util.AssertionWrapper" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.common.util.ClientDataToken" linecount="8" linerate="0.0" linesexecuted="0"/>
@@ -58,11 +58,11 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.client.ClientConnectorManager" linecount="31" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.client.SSLClient" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.client.TestClientHandshaker" linecount="7" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.properties.imp.ConsumerProxyPropertiesFacadeRI" linecount="20" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.properties.imp.ConsumerProxyPropertiesFacadeRI" linecount="26" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.properties.imp.ProducerProxyPropertiesService" linecount="24" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.ConnectingHandler" linecount="65" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.HandlerPrototype" linecount="14" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.SSLServer" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.SSLServer" linecount="20" linerate="-0.16" linesexecuted="-3.2"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.Server" linecount="16" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.Connector" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol" linecount="13" linerate="0.0" linesexecuted="0"/>

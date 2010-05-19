@@ -7,14 +7,14 @@ import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.lift.clientManager.client.properties.interfaces.ClientPropertiesFacade;
 import gov.hhs.fha.nhinc.lift.common.util.ClientMessage;
 import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
 import gov.hhs.fha.nhinc.lift.fileConsumer.HttpFileConsumer;
 import gov.hhs.fha.nhinc.lift.proxy.client.ClientConnectorManager;
 import gov.hhs.fha.nhinc.lift.proxy.properties.interfaces.ConsumerProxyPropertiesFacade;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
@@ -24,7 +24,7 @@ public class LSTClientManager implements ClientManager {
 	private final ClientPropertiesFacade props;
 	private final ConsumerProxyPropertiesFacade proxyProps;
 
-	private static final Logger log = Logger.getLogger(LSTClientManager.class);
+	private static Log log = LogFactory.getLog(LSTClientManager.class);
 
 	public LSTClientManager(ClientPropertiesFacade props,
 			ConsumerProxyPropertiesFacade proxyProps) {
