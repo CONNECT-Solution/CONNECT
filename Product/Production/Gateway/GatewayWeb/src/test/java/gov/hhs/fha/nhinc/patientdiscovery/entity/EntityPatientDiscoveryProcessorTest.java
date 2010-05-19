@@ -477,12 +477,49 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return mockLog;
                 }
+                @Override
+                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+                {
+                }
+                @Override
+                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                }
+                @Override
+                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+                {
+                    CMUrlInfos urlInfoList = new CMUrlInfos();
+                    CMUrlInfo urlInfo = new CMUrlInfo();
+                    urlInfoList.getUrlInfo().add(urlInfo);
+                    urlInfo.setUrl("url");
+                    return urlInfoList;
+                }
+                @Override
+                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+                {
+                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+                }
+                @Override
+                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                    return true;
+                }
+                @Override
+                protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
+                {
+                    return mockPRPAIN201306UV02;
+                }
+                @Override
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+                {
+                    return mockPatientDiscovery201306Processor;
+                }
             };
             context.checking(new Expectations()
             {
                 {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).warn("NhinTargetCommunitiesType was null.");
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
                 }
             });
 
@@ -490,7 +527,7 @@ public class EntityPatientDiscoveryProcessorTest
             request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
 
             RespondingGatewayPRPAIN201306UV02ResponseType response = processor.respondingGatewayPRPAIN201305UV02(request, mockAssertion);
-            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
+            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
         }
         catch(Throwable t)
         {
@@ -1221,7 +1258,7 @@ public class EntityPatientDiscoveryProcessorTest
             });
 
             CMUrlInfos urlList = processor.getEndpoints(null);
-            assertNull("CMUrlInfos was not null", urlList);
+            assertNotNull("CMUrlInfos was null", urlList);
         }
         catch(Throwable t)
         {
