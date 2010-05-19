@@ -39,8 +39,6 @@ package gov.hhs.fha.nhinc.tools.ws.processor.generator;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.CodeSource;
-import java.security.ProtectionDomain;
 import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
@@ -67,7 +65,6 @@ import com.sun.codemodel.JMod;
 import com.sun.codemodel.JTryBlock;
 import com.sun.codemodel.JType;
 import com.sun.codemodel.JVar;
-import com.sun.tools.apt.main.Main;
 import com.sun.tools.ws.processor.generator.GeneratorBase;
 import com.sun.tools.ws.processor.generator.GeneratorUtil;
 import com.sun.tools.ws.processor.generator.Names;

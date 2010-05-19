@@ -356,6 +356,7 @@
       <fileset dir="${deployment.glassfish.domain.config.home}" erroronmissingdir="false">
         <include name="*.jks"/>
         <include name="*.db"/>
+        <include name="*.cfg"/>
       </fileset>
     </copy>
   </target>
@@ -402,6 +403,7 @@
       <fileset dir="${deployment.certificate.home}">
         <include name="*.jks"/>
         <include name="*.db"/>
+        <include name="*.cfg"/>
       </fileset>
     </copy>
   </target>
