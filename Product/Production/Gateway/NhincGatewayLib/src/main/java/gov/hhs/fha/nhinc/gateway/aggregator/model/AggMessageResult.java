@@ -147,7 +147,7 @@ public class AggMessageResult
      * Sets the response message to be aggregated.
      *
      * @param responseMessage  A byte array containing the response message to be aggregated.
-     /
+     */
      public void  setResponseMessageAsBytes(byte[]  responseMessage) {
          this.responseMessageAsBytes = responseMessage;
      }
