@@ -69,6 +69,8 @@ public class AsyncMsgRecordDaoTest {
 
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
 
+        init(instance);
+
         boolean expResult = true;
 
         boolean result = instance.insertRecords(asyncMsgRecs);
@@ -134,20 +136,28 @@ public class AsyncMsgRecordDaoTest {
 
         List<AsyncMsgRecord> result = instance.queryByMessageId(rec1.getMessageId());
         assertEquals(1, result.size());
-        instance.delete(rec1);
+        instance.delete(result.get(0));
         result = instance.queryByMessageId(rec1.getMessageId());
         assertEquals(0, result.size());
 
         result = instance.queryByMessageId(rec2.getMessageId());
         assertEquals(1, result.size());
-        instance.delete(rec2);
+        instance.delete(result.get(0));
         result = instance.queryByMessageId(rec2.getMessageId());
         assertEquals(0, result.size());
 
         result = instance.queryByMessageId(rec3.getMessageId());
         assertEquals(1, result.size());
-        instance.delete(rec3);
+        instance.delete(result.get(0));
         result = instance.queryByMessageId(rec3.getMessageId());
         assertEquals(0, result.size());
+    }
+
+    private void init (AsyncMsgRecordDao dao) {
+        List<AsyncMsgRecord> result = dao.queryByTime(new Date());
+
+        for (AsyncMsgRecord rec : result) {
+            dao.delete(rec);
+        }
     }
 }
