@@ -742,7 +742,7 @@
     </integrationFilter>
     <sourcecontrol type="filtered">
       <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</trunkUrl>
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;</trunkUrl>
         <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <webUrlBuilder type="websvn">
@@ -754,6 +754,10 @@
       <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
     </labeller>
     <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Release</path>
+      </modificationWriter>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
@@ -780,114 +784,6 @@
           <filepair>
             <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
             <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\SoapUITestReports\*.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Performance-Test">
-    <webURL>&CCNet.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger
-          type="projectTrigger"
-          serverUri="&CCNet.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Test"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
-        <projectFilters>
-          &ScriptsBuilding;
-          &DevBuilding;
-          &HeavyBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &DeployFailed;
-          &TestBuilding;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &DevBuilding;
-          &HeavyBuilding;
-          &ReleaseBuilding;
-          &DeployBuilding;
-          &DeployFailed;
-          &TestBuilding;
-        </projectFilters>
-      </projectForceFilter>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
-    </labeller>
-    <tasks>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>PerformanceTest</target>
-        </targetList>
-
-        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Performance-Test\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Performance-Test\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Performance-Test\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Performance-Test">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Performance-Test\SoapUITestReports\*.xml</xmlfile>
           </filepair>
         </filepairs>
       </xslmerger>
