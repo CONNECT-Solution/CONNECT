@@ -20,8 +20,6 @@ public class TransformHelper {
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     private static final String SERVICE_NAME_PATIENT_CORRELATION_FACADE_DTE_SERVICE = "patientcorrelationfacadedteservice";
-
-    private static final String ENDPOINT_ADDRESS_TRANSFORM = "http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService";
     
     /**
      * Cached web service object. Cached to prevent port creation delay after
@@ -68,17 +66,10 @@ public class TransformHelper {
                 (sEndpointURL.length() > 0)) {
             ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
         } else {
-            // Just a way to cover ourselves for the time being...
-            //-------------------------------------------------------------------------
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, ENDPOINT_ADDRESS_TRANSFORM);
-
-            log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_PATIENT_CORRELATION_FACADE_DTE_SERVICE + " and " +
-                    "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                    ENDPOINT_ADDRESS_TRANSFORM);
+            log.error("Did not find endpoint URL for service: " + SERVICE_NAME_PATIENT_CORRELATION_FACADE_DTE_SERVICE + " and " +
+                    "Home Community: " + sHomeCommunityId + ".");
         }
 
-
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, ENDPOINT_ADDRESS_TRANSFORM);
         return port;
     }
 

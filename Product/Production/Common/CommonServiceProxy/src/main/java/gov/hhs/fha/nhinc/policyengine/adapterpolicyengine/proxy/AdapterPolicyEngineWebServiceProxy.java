@@ -27,8 +27,7 @@ public class AdapterPolicyEngineWebServiceProxy implements AdapterPolicyEnginePr
     private static Log log = LogFactory.getLog(AdapterPolicyEngineWebServiceProxy.class);
     private static AdapterPolicyEngine oAdapterPolicyEngineService = null;
     private static String ADAPTER_POLICY_ENGINE_SERVICE_NAME = "adapterpolicyengine";
-    private static String ADAPTER_POLICY_ENGINE_DEFAULT_SERVICE_URL = "http://localhost:8080/NhinConnect/AdapterPolicyEngine";
-
+    
     /**
      * Return a handle to the AdapterPolicyEngine web service.
      *
@@ -52,16 +51,20 @@ public class AdapterPolicyEngineWebServiceProxy implements AdapterPolicyEnginePr
             //--------------------------------------------
             String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_POLICY_ENGINE_SERVICE_NAME);
 
-            if ((sEndpointURL == null) ||
-                (sEndpointURL.length() <= 0))
+            if ((sEndpointURL != null) ||
+                (sEndpointURL.length() > 0))
             {
-                sEndpointURL = ADAPTER_POLICY_ENGINE_DEFAULT_SERVICE_URL;
+                ((javax.xml.ws.BindingProvider)oAdapterPolicyEnginePort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } 
+            else 
+            {
                 String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-                                       ADAPTER_POLICY_ENGINE_DEFAULT_SERVICE_URL + "'.  " +
+                                       ADAPTER_POLICY_ENGINE_SERVICE_NAME + "'.  " +
                                        "Setting this to: '" + sEndpointURL + "'";
-                log.warn(sErrorMessage);
+                log.error(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider)oAdapterPolicyEnginePort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+
+            
         }
         catch (Exception e)
         {

@@ -400,6 +400,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://<Gateway-IP>:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -802,6 +807,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://<Gateway-IP>:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -878,6 +888,11 @@
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://<Gateway-IP>:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
         </services>
     </internalConnectionInfo>
@@ -956,6 +971,11 @@
                 <description>adapterauditquerysecured</description>
                 <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
             </service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://<Gateway-IP>:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
 </InternalConnectionInfos>

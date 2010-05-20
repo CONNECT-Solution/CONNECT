@@ -579,6 +579,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -2325,6 +2330,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -2839,6 +2849,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -2915,6 +2930,11 @@
 				<name>adapterauditquerysecured</name>
 				<description>adapterauditquerysecured</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
+			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>

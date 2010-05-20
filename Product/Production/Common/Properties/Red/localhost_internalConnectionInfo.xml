@@ -69,19 +69,24 @@
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
-			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
+			<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL> 
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
 			</service>
 			<service>
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
@@ -148,19 +153,24 @@
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
-			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
+			<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL> 
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
 			</service>
 			<service>
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
+			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
