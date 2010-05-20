@@ -17,19 +17,17 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.adapterpip.AdapterPIP;
 import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
 
-
 /**
  * This is the concrete implementation for the Web Service based call to the
  * AdapterPIP.
  *
  * @author Les Westberg
  */
-public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
-{
+public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
+
     private static Log log = LogFactory.getLog(AdapterPIPWebServiceProxy.class);
     private static AdapterPIP oAdapterPIPService = null;
     private static String ADAPTER_PIP_SERVICE_NAME = "adapterpip";
-    private static String ADAPTER_PIP_DEFAULT_SERVICE_URL = "http://localhost:8080/NhinConnect/AdapterPIP";
 
     /**
      * Return a handle to the AdapterPIP web service.
@@ -37,14 +35,11 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
      * @return The handle to the Adapter PIP port web service.
      */
     private AdapterPIPPortType getAdapterPIPPort()
-        throws AdapterPIPException
-    {
+            throws AdapterPIPException {
         AdapterPIPPortType oAdapterPIPPort = null;
 
-        try
-        {
-            if (oAdapterPIPService == null)
-            {
+        try {
+            if (oAdapterPIPService == null) {
                 oAdapterPIPService = new AdapterPIP();
             }
 
@@ -54,21 +49,18 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
             //--------------------------------------------
             String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_PIP_SERVICE_NAME);
 
-            if ((sEndpointURL == null) ||
-                (sEndpointURL.length() <= 0))
-            {
-                sEndpointURL = ADAPTER_PIP_DEFAULT_SERVICE_URL;
+            if (sEndpointURL != null &&
+                    sEndpointURL.length() > 0) {
+                ((javax.xml.ws.BindingProvider) oAdapterPIPPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
                 String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-                                       ADAPTER_PIP_SERVICE_NAME + "'.  " +
-                                       "Setting this to: '" + sEndpointURL + "'";
-                log.warn(sErrorMessage);
+                        ADAPTER_PIP_SERVICE_NAME + "'.  " +
+                        "Setting this to: '" + sEndpointURL + "'";
+                log.error(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider)oAdapterPIPPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve a handle to the Adapter PIP web service.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             log.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
@@ -82,19 +74,15 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
      * @param request The patient ID for which the consent is being retrieved.
      * @return The patient consent information for that patient.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
-    {
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request) {
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
 
-        try
-        {
+        try {
             AdapterPIPPortType oAdapterPIPPort = getAdapterPIPPort();
             oResponse = oAdapterPIPPort.retrievePtConsentByPtId(request);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.retrievePtConsentByPtId.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
@@ -110,19 +98,15 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
      * @return The patient consent settings for the patient associated with
      *         the given document identifiers.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
-    {
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request) {
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
-        try
-        {
+        try {
             AdapterPIPPortType oAdapterPIPPort = getAdapterPIPPort();
             oResponse = oAdapterPIPPort.retrievePtConsentByPtDocId(request);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.retrievePtConsentByPtDocId.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
@@ -137,19 +121,15 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
      * @return Status of the storage.  Currently this is either "SUCCESS" or
      *         or the word "FAILED" followed by a ':' followed by the error information.
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request)
-    {
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request) {
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
 
-        try
-        {
+        try {
             AdapterPIPPortType oAdapterPIPPort = getAdapterPIPPort();
             oResponse = oAdapterPIPPort.storePtConsent(request);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.storePtConsent.  Error: " +
-                                   e.getMessage();
+                    e.getMessage();
             oResponse.setStatus("FAILED: " + sErrorMessage);
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
@@ -157,5 +137,4 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
 
         return oResponse;
     }
-
 }

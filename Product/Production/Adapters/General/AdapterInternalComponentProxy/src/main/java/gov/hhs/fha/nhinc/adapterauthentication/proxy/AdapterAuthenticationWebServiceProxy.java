@@ -18,8 +18,6 @@ public class AdapterAuthenticationWebServiceProxy {
     private static Log log = LogFactory.getLog(AdapterAuthenticationWebServiceProxy.class);
     private static AdapterAuthentication authService = null;
     private static String ADAPTER_AUTH_SERVICE_NAME = "adapterauthentication";
-    private static String ADAPTER_AUTH_DEFAULT_SERVICE_URL = "http://localhost:8080/NhinConnect/AdapterAuthentication";
-
 
     /**
      * Given a request to authenticate a user, this service will determine if
@@ -74,7 +72,6 @@ public class AdapterAuthenticationWebServiceProxy {
             if ((endpointURL == null) ||
                 (endpointURL.length() <= 0))
             {
-                endpointURL = ADAPTER_AUTH_DEFAULT_SERVICE_URL;
                 String message = "Failed to retrieve the Endpoint URL for service: '" +
                                        ADAPTER_AUTH_SERVICE_NAME + "'.  " +
                                        "Setting this to: '" + endpointURL + "'";

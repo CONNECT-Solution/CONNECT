@@ -76,9 +76,6 @@ public class CDAConstants
     public static final String DOC_REGISTRY_SERVICE_NAME = "adapterxdsbdocregistry";
     public static final String DOC_REPOSITORY_SERVICE_NAME = "adapterxdsbdocrepository";
 
-    public static final String DOC_REGISTRY_SERVICE_DEFAULT_URL = "http://localhost:8080/DocumentRegistry_Service";
-    public static final String DOC_REPOSITORY_SERVICE_DEFAULT_URL = "http://localhost:8080/DocumentRepository_Service";
-
     //To build Assertion for Notification
     public static final String PERMISSION_DATE = "NotBeforeDate";
     public static final String EXPIRATION_DATE = "NotOnOrAfterDate";

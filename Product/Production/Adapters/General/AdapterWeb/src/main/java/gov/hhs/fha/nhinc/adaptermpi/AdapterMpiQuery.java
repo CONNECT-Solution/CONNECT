@@ -86,15 +86,9 @@ public class AdapterMpiQuery {
            (sEndpointURL.length() > 0)) {
            log.debug("calling " + sEndpointURL);
            ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-       }
-       else {
-           // Just a way to cover ourselves for the time being...  - assume port 8080
-           //-------------------------------------------------------------------------
-           ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/NhinConnect/AdapterComponentMpiService");
-
-           log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ADAPTER_COMPONENT_MPI_SERVICE + " and " +
-                    "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                    "'http://localhost:8080/NhinConnect/AdapterComponentMpiService'");
+       } else {
+           log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ADAPTER_COMPONENT_MPI_SERVICE +
+                         " from connection manager.");
        }
        
        if (findCandidatesRequest != null) {

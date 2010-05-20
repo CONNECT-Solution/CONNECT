@@ -24,7 +24,6 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
     private static Log log = LogFactory.getLog(AdapterPolicyEngineOrchestratorWebServiceProxy.class);
     private static AdapterPolicyEngineOrchestrator oAdapterPolicyEngineOrhcestratorService = null;
     private static String ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME = "adapterpolicyengineorchestrator";
-    private static String ADAPTER_POLICY_ENGINE_ORCHESTRATOR_DEFAULT_SERVICE_URL = "http://localhost:8080/NhinConnect/AdapterPolicyEngineOrchestrator";
 
     /**
      * Return a handle to the AdapterPolicyEngineOrchestrator web service.
@@ -49,16 +48,14 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
             //--------------------------------------------
             String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME);
 
-            if ((sEndpointURL == null) ||
-                (sEndpointURL.length() <= 0))
+            if(sEndpointURL != null &&
+                    sEndpointURL.length() > 0)
             {
-                sEndpointURL = ADAPTER_POLICY_ENGINE_ORCHESTRATOR_DEFAULT_SERVICE_URL;
-                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-                                       ADAPTER_POLICY_ENGINE_ORCHESTRATOR_DEFAULT_SERVICE_URL + "'.  " +
-                                       "Setting this to: '" + sEndpointURL + "'";
+                ((javax.xml.ws.BindingProvider)oAdapterPolicyEngineOrchestratorPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                String sErrorMessage = "Failed to retrieve the Endpoint URL for service name: " + ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME;
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider)oAdapterPolicyEngineOrchestratorPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
         }
         catch (Exception e)
         {

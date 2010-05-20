@@ -81,7 +81,6 @@ public class PatientConsentManager {
 
             if ((sEndpointURL == null) ||
                     (sEndpointURL.length() <= 0)) {
-                sEndpointURL = CDAConstants.DOC_REGISTRY_SERVICE_DEFAULT_URL;
                 String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
                         CDAConstants.DOC_REGISTRY_SERVICE_NAME + "'.  " +
                         "Setting this to: '" + sEndpointURL + "'";
@@ -129,7 +128,6 @@ public class PatientConsentManager {
 
             if ((sEndpointURL == null) ||
                     (sEndpointURL.length() <= 0)) {
-                sEndpointURL = CDAConstants.DOC_REPOSITORY_SERVICE_DEFAULT_URL;
                 String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
                         CDAConstants.DOC_REPOSITORY_SERVICE_NAME + "'.  " +
                         "Setting this to: '" + sEndpointURL + "'";

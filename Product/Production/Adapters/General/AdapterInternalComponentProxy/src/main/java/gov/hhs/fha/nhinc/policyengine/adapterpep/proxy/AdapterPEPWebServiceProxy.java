@@ -18,9 +18,7 @@ public class AdapterPEPWebServiceProxy {
     private static Log log = LogFactory.getLog(AdapterPEPWebServiceProxy.class);
     private static AdapterPEP pepService = null;
     private static String ADAPTER_PEP_SERVICE_NAME = "adapterpep";
-    private static String ADAPTER_PEP_DEFAULT_SERVICE_URL = "http://localhost:8080/NhinConnect/AdapterPEP";
-
-
+    
     /**
      * Given a request to check the access policy, this service will interface
      * with the PDP to determine if access is to be granted or denied.
@@ -69,16 +67,16 @@ public class AdapterPEPWebServiceProxy {
             // Get the real endpoint URL for this service.
             String endpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_PEP_SERVICE_NAME);
 
-            if ((endpointURL == null) ||
-                (endpointURL.length() <= 0))
+            if((endpointURL != null) ||
+                (endpointURL.length() > 0))
             {
-                endpointURL = ADAPTER_PEP_DEFAULT_SERVICE_URL;
+                ((javax.xml.ws.BindingProvider)pepPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
+            } else {
                 String message = "Failed to retrieve the Endpoint URL for service: '" +
                                        ADAPTER_PEP_SERVICE_NAME + "'.  " +
                                        "Setting this to: '" + endpointURL + "'";
-                log.warn(message);
+                log.error(message);
             }
-            ((javax.xml.ws.BindingProvider)pepPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
         }
         catch (Exception ex)
         {
