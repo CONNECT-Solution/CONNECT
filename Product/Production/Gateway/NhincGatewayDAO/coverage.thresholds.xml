@@ -51,4 +51,5 @@
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.repository.topicfilter.TopicFilterFactory" linecount="24" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="46" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao" linecount="114" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil" linecount="15" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.25" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.lift.persistence.HibernateUtil" linecount="24" linerate="0.5" linesexecuted="0.12"/>
 </thresholds>

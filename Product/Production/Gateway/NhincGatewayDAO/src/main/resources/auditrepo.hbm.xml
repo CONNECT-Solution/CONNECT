@@ -1,7 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC 
-"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
     Document   : eventlog.hbm.xml
     Created on : July 15, 2008, 10:28 PM
@@ -9,45 +7,44 @@
     Description:
         Purpose of the document follows.
 -->
-
 <hibernate-mapping>
   <class name="gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord" table="auditrepository">
-   <id name="id" type="int">
-       <column name="id" sql-type="INTEGER"/>
-       <generator class="native"/>
-  </id>
-  <property name="timeStamp">
-     <column name="audit_timeStamp" />
-  </property>
-  <property name="eventId">
-    <column name="eventId"/>
-  </property>
-  <property name="userId">
-    <column name="userId"/>
-  </property>
-  <property name="participationTypeCode">
+    <id name="id" type="int">
+      <column name="id" sql-type="INTEGER"/>
+      <generator class="native"/>
+    </id>
+    <property name="timeStamp">
+      <column name="audit_timeStamp"/>
+    </property>
+    <property name="eventId">
+      <column name="eventId"/>
+    </property>
+    <property name="userId">
+      <column name="userId"/>
+    </property>
+    <property name="participationTypeCode">
       <column name="participationTypeCode"/>
-  </property>
-  <property name="participationTypeCodeRole">
+    </property>
+    <property name="participationTypeCodeRole">
       <column name="participationTypeCodeRole"/>
-  </property>
-  <property name="participationIDTypeCode">
+    </property>
+    <property name="participationIDTypeCode">
       <column name="participationIDTypeCode"/>
-  </property>
-  <property name="receiverPatientId">
+    </property>
+    <property name="receiverPatientId">
       <column name="receiverPatientId"/>
-  </property>
-  <property name="senderPatientId">
+    </property>
+    <property name="senderPatientId">
       <column name="senderPatientId"/>
-  </property>
-  <property name="communityId">
+    </property>
+    <property name="communityId">
       <column name="communityId"/>
-  </property>
-  <property name="messageType">
+    </property>
+    <property name="messageType">
       <column name="messageType"/>
-  </property>
-  <property name="message">
+    </property>
+    <property name="message">
       <column name="message"/>
-  </property>
- </class>
+    </property>
+  </class>
 </hibernate-mapping>

@@ -1,7 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
-	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
     Document   : CorrelatedIdentifers.hbm.xml
     Created on : January 27, 2009, 3:57 PM
@@ -11,14 +9,13 @@
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.patientcorrelation.model">
   <class name="CorrelatedIdentifiers" table="correlatedidentifiers">
-    <id name="correlationId" column="correlationid" type="long">
-        <generator class="increment" />
+    <id column="correlationid" name="correlationId" type="long">
+      <generator class="increment"/>
     </id>
-    <property name="patientAssigningAuthorityId" column="PatientAssigningAuthorityId" type="string" length="45" not-null="true" />
-    <property name="patientId" column="PatientId" type="string" length="45" not-null="true" />
-    <property name="correlatedPatientAssigningAuthorityId" column="CorrelatedPatientAssignAuthId" type="string" length="45" not-null="true" />
-    <property name="correlatedPatientId" column="CorrelatedPatientId" type="string" length="45" not-null="true" />
-    <property name="correlationExpirationDate" column="CorrelationExpirationDate" type="timestamp" length="45" not-null="false" />
+    <property column="PatientAssigningAuthorityId" length="45" name="patientAssigningAuthorityId" not-null="true" type="string"/>
+    <property column="PatientId" length="45" name="patientId" not-null="true" type="string"/>
+    <property column="CorrelatedPatientAssignAuthId" length="45" name="correlatedPatientAssigningAuthorityId" not-null="true" type="string"/>
+    <property column="CorrelatedPatientId" length="45" name="correlatedPatientId" not-null="true" type="string"/>
+    <property column="CorrelationExpirationDate" length="45" name="correlationExpirationDate" not-null="false" type="timestamp"/>
   </class>
-  
 </hibernate-mapping>

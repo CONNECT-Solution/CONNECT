@@ -1,7 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC 
-"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
     Document   : asyncmsgs.hbm.xml
     Created on : April 12, 2010
@@ -10,13 +8,13 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.asyncmsgs.model">
-    <class name="AsyncMsgRecord" table="asyncmsgrepo">
-        <id name="Id" column="Id" type="long">
-            <generator class="increment" />
-        </id>
-        <property name="MessageId" column="MessageId" type="string" length="100"/>
-        <property column="CreationTime" name="CreationTime" not-null="true" type="timestamp"/>
-        <property column="ServiceName" length="100" name="ServiceName" not-null="false" type="string"/>
-        <property column="MsgData" name="MsgData" not-null="false"/>
-    </class>
+  <class name="AsyncMsgRecord" table="asyncmsgrepo">
+    <id column="Id" name="Id" type="long">
+      <generator class="increment"/>
+    </id>
+    <property column="MessageId" length="100" name="MessageId" type="string"/>
+    <property column="CreationTime" name="CreationTime" not-null="true" type="timestamp"/>
+    <property column="ServiceName" length="100" name="ServiceName" not-null="false" type="string"/>
+    <property column="MsgData" name="MsgData" not-null="false"/>
+  </class>
 </hibernate-mapping>

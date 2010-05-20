@@ -316,6 +316,7 @@ public class NhincConstants {
     public static final String HIBERNATE_PATIENT_CORRELATION = "CorrelatedIdentifers.hibernate.cfg.xml";
     public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASYNCMSGS_REPOSITORY = "AsyncMsgs.hibernate.cfg.xml";
+    public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
 
     //LiFT Constants
     public static final String LIFT_CLIENT_IP = "ClientManagerControllerIP";
