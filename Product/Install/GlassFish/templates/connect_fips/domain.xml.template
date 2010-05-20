@@ -212,6 +212,7 @@
         <jvm-options>-Dhttps.protocols=TLSv1</jvm-options>
         <jvm-options>-Dhttps.cipherSuites=TLS_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA,TLS_DHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA</jvm-options>
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
+        <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
       </java-config>
       <thread-pools>
         <thread-pool thread-pool-id="thread-pool-1" min-thread-pool-size="0" max-thread-pool-size="200" idle-thread-timeout-in-seconds="120" num-work-queues="1"/>
