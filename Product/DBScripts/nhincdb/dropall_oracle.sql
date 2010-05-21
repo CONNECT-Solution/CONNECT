@@ -8,6 +8,8 @@ DROP TABLE nhincuser.eventcode;
 DROP TABLE nhincuser.correlatedidentifiers;
 DROP TABLE nhincuser.subscription;
 DROP TABLE nhincuser.asyncmsgrepo;
+DROP TABLE nhincuser.gateway_lift_message
+DROP TABLE nhincuser.transfer_data
 
 DROP USER nhincuser;
 
