@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:lift" targetNamespace="urn:gov:hhs:fha:nhinc:gateway:lift" elementFormDefault="qualified">
+	<xsd:complexType name="StartLiftTransactionRequestType">
+		<xsd:sequence>
+			<xsd:element name="requestKeyGuid" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="StartLiftTransactionRequest" type="tns:StartLiftTransactionRequestType"/>
+	<xsd:complexType name="StartLiftTransactionResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="StartLiftTransactionResponse" type="tns:StartLiftTransactionResponseType"/>
+	
+	<xsd:complexType name="CompleteLiftTransactionRequestType">
+		<xsd:sequence>
+			<xsd:element name="requestKeyGuid" type="xsd:string"/>
+			<xsd:element name="fileURI" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CompleteLiftTransactionRequest" type="tns:CompleteLiftTransactionRequestType"/>
+	<xsd:complexType name="CompleteLiftTransactionResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CompleteLiftTransactionResponse" type="tns:CompleteLiftTransactionResponseType"/>
+	
+	<xsd:complexType name="FailedLiftTransactionRequestType">
+		<xsd:sequence>
+			<xsd:element name="requestKeyGuid" type="xsd:string"/>
+			<xsd:element name="errorMessage" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FailedLiftTransactionRequest" type="tns:FailedLiftTransactionRequestType"/>
+	<xsd:complexType name="FailedLiftTransactionResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FailedLiftTransactionResponse" type="tns:FailedLiftTransactionResponseType"/>
+
+</xsd:schema>

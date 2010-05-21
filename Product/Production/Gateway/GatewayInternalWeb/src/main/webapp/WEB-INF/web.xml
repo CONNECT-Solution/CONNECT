@@ -28,6 +28,15 @@
         <url-pattern>/GatewayService/PatientCorrelationFacadeDteService</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>GatewayLiftManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.lift.GatewayLiftManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GatewayLiftManager</servlet-name>
+        <url-pattern>/GatewayService/GatewayLiftManager</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AuditRepository</web-resource-name>

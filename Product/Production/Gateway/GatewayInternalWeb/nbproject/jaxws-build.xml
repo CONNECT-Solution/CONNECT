@@ -71,5 +71,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/componentpatientcorrelationfacadedte"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationFacadeDteService"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AuditRepository, wsimport-service-PatientCorrelationServiceSecured, wsimport-service-PatientCorrelationFacadeDteService"/>
+    <target name="wsimport-service-GatewayLiftManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/GatewayLiftManager"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/GatewayLiftManager" destdir="${build.generated.dir}/jax-wsCache/service/GatewayLiftManager" wsdl="${basedir}/${conf-dir}xml-resources/web-services/GatewayLiftManager/wsdl/NhincComponentLiftManager.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/GatewayLiftManager/wsdl/NhincComponentLiftManager.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/GatewayLiftManager"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/GatewayLiftManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/GatewayLiftManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/GatewayLiftManager/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-GatewayLiftManager" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentliftmanager"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/GatewayLiftManager"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-AuditRepository, wsimport-service-PatientCorrelationServiceSecured, wsimport-service-PatientCorrelationFacadeDteService, wsimport-service-GatewayLiftManager"/>
 </project>
