@@ -33,7 +33,7 @@
 			<xsd:element name="errorMessage" type="xsd:string"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="FailedLiftTransactionRequest" type="tns:CompleteLiftTransactionRequestType"/>
+	<xsd:element name="FailedLiftTransactionRequest" type="tns:FailedLiftTransactionRequestType"/>
 	<xsd:complexType name="FailedLiftTransactionResponseType">
 		<xsd:sequence>
 			<xsd:element name="status" type="xsd:string"/>
