@@ -21,6 +21,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
@@ -47,9 +48,9 @@ public class LiFTPayloadBuilder {
      * @param fileInfo  List of information on the file(s) to be transferred.  At this time only 1 is supported.
      * @return  true if the payload was successfully inserted, otherwise it will return false if an error occurs
      */
-    public boolean buildLiFTPayload(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, List<UrlInfoType> urlInfoList) {
+    public String buildLiFTPayload(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, List<UrlInfoType> urlInfoList) {
         log.debug("Entering LiFTPayloadBuilder.buildLiFTPayload method...");
-        boolean result = false;
+        String guid = null;
         ExtrinsicObjectType extObj = null;
 
         // Validate input parameters
@@ -82,13 +83,12 @@ public class LiFTPayloadBuilder {
                     extObj.getSlot().add(transferProtocolSlot);
 
                     // Place the information about this document in the LiFT Database
-                    String guid = addEntryToLiftDatabase(urlInfoList.get(0).getUrl());
+                    guid = addEntryToLiftDatabase(urlInfoList.get(0).getUrl());
 
                     // Place the Lift Payload in the XDR Request Message
                     Document liftPayload = createLiftPayload(guid, urlInfoList.get(0).getId(), urlInfoList.get(0).getUrl());
                     if (liftPayload != null) {
                         msg.getDocument().add(liftPayload);
-                        result = true;
                     }
                 }
             } else {
@@ -99,7 +99,7 @@ public class LiFTPayloadBuilder {
         }
 
         log.debug("Exiting LiFTPayloadBuilder.buildLiFTPayload method...");
-        return result;
+        return guid;
     }
 
     private SlotType1 createTransferServiceSlot() {
@@ -142,13 +142,14 @@ public class LiFTPayloadBuilder {
         LIFTDataElementType dataElem = new LIFTDataElementType();
         ClientDataType clientData = new ClientDataType();
 
-        // TODO:  This file URL should be the Apache File Server, not the original url
-        clientData.setClientData(fileUrl);
+        // Set the relative path to where the file will be located on the file server
+        String filePath = createDestFilePath (fileUrl, guid);
+        clientData.setClientData(filePath);
         dataElem.setClientData(clientData);
 
         ServerProxyDataType serverProxyData = new ServerProxyDataType();
 
-        // TODO: Replace the hardcoded values with property file values
+        // Obtain the proxy address and port number from the properties file
         String proxyAddr = getProxyAddressProperty();
         int proxyPort = getProxyAddressPort();
 
@@ -189,8 +190,9 @@ public class LiFTPayloadBuilder {
 
         // TODO:  Replace with call to the Database to get the GUID
         //        For the time being though just generate the value
-        java.rmi.server.UID uid = new java.rmi.server.UID();
-        guid = uid.toString();
+        UUID uuid = UUID.randomUUID();
+        
+        guid = uuid.toString();
 
         return guid;
     }
@@ -214,14 +216,28 @@ public class LiFTPayloadBuilder {
 
         // Check the property file to retreive the property
         try {
-            propVal = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_ADDRESS);
+            propVal = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_PORT);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.LIFT_PROXY_ADDRESS + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + NhincConstants.LIFT_PROXY_PORT + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
             propVal = -1;
         }
 
         Long longObj = Long.valueOf(propVal);
         return longObj.intValue();
+    }
+
+    private String createDestFilePath (String fileUrl, String guid) {
+        String destPath = null;
+        String fileName = null;
+
+        String[] splitStrings = fileUrl.split("/");
+        int len = splitStrings.length;
+
+        fileName = splitStrings[len-1];
+
+        destPath = "\\" + guid + "\\" + fileName;
+
+        return destPath;
     }
 }

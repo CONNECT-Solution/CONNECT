@@ -79,8 +79,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(true, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertNotNull(result);
         assertNotNull(msg);
         assertNotNull(msg.getDocument());
         assertEquals(1, msg.getDocument().size());
@@ -116,8 +116,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(true, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertNotNull(result);
     }
 
     /**
@@ -144,11 +144,11 @@ public class LiFTPayloadBuilderTest {
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
         urlInfo.setId("Document01");
-        urlInfo.setUrl("file://C:/Temp/document.pdf");
+        urlInfo.setUrl("file:///C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(null, assertion, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(null, assertion, urlInfoList);
+        assertNull(result);
     }
 
     /**
@@ -174,11 +174,11 @@ public class LiFTPayloadBuilderTest {
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
         UrlInfoType urlInfo = new UrlInfoType();
         urlInfo.setId("Document01");
-        urlInfo.setUrl("file://C:/Temp/document.pdf");
+        urlInfo.setUrl("file:///C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, null, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, null, urlInfoList);
+        assertNull(result);
     }
 
     /**
@@ -208,8 +208,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, null);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, assertion, null);
+        assertNull(result);
     }
 
     /**
@@ -239,8 +239,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl(null);
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+       assertNull(result);
     }
 
     /**
@@ -270,8 +270,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertNull(result);
     }
 
     /**
@@ -302,8 +302,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertNull(result);
     }
 
     /**
@@ -333,8 +333,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertNotNull(result);
     }
 
     /**
@@ -364,8 +364,8 @@ public class LiFTPayloadBuilderTest {
         urlInfo.setUrl("file://C:/Temp/document.pdf");
         urlInfoList.add(urlInfo);
 
-        boolean result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
-        assertEquals(false, result);
+        String result = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+        assertNotNull(result);
     }
 
     private ProvideAndRegisterDocumentSetRequestType createRequest (String docId) {
