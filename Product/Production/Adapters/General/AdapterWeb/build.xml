@@ -45,6 +45,7 @@
             <file name="${project.EntityServiceProxy.dist.file}" />
             <file name="${project.NhincCommonDAO.dist.file}" />
         </filelist>
+	 	<fileset refid="classpath.runtime" /> 
     </path>
   
 </project>
