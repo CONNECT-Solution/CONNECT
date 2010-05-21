@@ -303,13 +303,6 @@ public class NhincConstants {
 
     public static final String XDR_ACK_STATUS_MSG = "urn:nhin:DocumentSubmission:async:ResponseAccepted";
 
-    // LiFT Constants
-    public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
-    public static final String LIFT_TRANSPORT_SERVICE_SLOT_NAME = "transportService";
-    public static final String LIFT_TRANSPORT_SERVICE_SLOT_VALUE = "LIFT";
-    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_NAME = "transportServiceProtocol";
-    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_VALUE = "HTTPS";
-
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
@@ -319,6 +312,11 @@ public class NhincConstants {
     public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
 
     //LiFT Constants
+    public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
+    public static final String LIFT_TRANSPORT_SERVICE_SLOT_NAME = "transportService";
+    public static final String LIFT_TRANSPORT_SERVICE_SLOT_VALUE = "LIFT";
+    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_NAME = "transportServiceProtocol";
+    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_VALUE = "HTTPS";
     public static final String LIFT_CLIENT_IP = "ClientManagerControllerIP";
     public static final String LIFT_CLIENT_PORT = "ClientManagerControllerPort";
     public static final String LIFT_KEYSTORE = "LiftKeyStore";
@@ -331,6 +329,7 @@ public class NhincConstants {
     public static final String LIFT_PROXY_PORT = "ProxyPort";
     public static final String LIFT_FILESERVER_IP = "FileServerIP";
     public static final String LIFT_FILESERVER_PORT = "FileServerPort";
+    public static final String LIFT_BASE_FILE_SERVER_DIR_PROP_NAME = "BaseOutboundDir";
 
     private NhincConstants() {
     }
