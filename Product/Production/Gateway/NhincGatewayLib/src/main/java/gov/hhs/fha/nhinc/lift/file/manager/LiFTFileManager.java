@@ -13,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,10 +91,12 @@ public class LiFTFileManager {
         File outputFile = new File(filePath);
         byte[] c = new byte[FILECHUNK];
         int numBytes = 0;
+        FileInputStream in = null;
+        FileOutputStream out = null;
 
         try {
-            FileInputStream in = new FileInputStream(inputFile);
-            FileOutputStream out = new FileOutputStream(outputFile);
+            in = new FileInputStream(inputFile);
+            out = new FileOutputStream(outputFile);
             log.debug("Opened the input and output files successfully");
 
             while ((numBytes = in.read(c)) != -1) {
@@ -100,15 +104,21 @@ public class LiFTFileManager {
                 out.write(c, 0, numBytes);
             }
 
-            in.close();
-            out.close();
-
             transferSucceeded = true;
 
         } catch (IOException e) {
             log.error("File mover failed to move file.", e);
             e.printStackTrace();
             transferSucceeded = false;
+        }
+        finally {
+            try {
+                in.close();
+                out.close();
+            } catch (IOException ex) {
+                Logger.getLogger(LiFTFileManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
 
 

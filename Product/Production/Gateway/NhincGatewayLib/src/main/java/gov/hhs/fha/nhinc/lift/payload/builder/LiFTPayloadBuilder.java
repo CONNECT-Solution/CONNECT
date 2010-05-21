@@ -195,7 +195,7 @@ public class LiFTPayloadBuilder {
         guid = uuid.toString();
 
         // Add the entry to the Lift Tranfer Database
-        LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
+       // LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
         //LiftTransferRecord dbRec = new LiftTransferRecord();
         //dbDao.;
 
