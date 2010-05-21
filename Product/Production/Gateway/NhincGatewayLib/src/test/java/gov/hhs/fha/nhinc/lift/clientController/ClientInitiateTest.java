@@ -4,15 +4,13 @@
  */
 package gov.hhs.fha.nhinc.lift.clientController;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.lift.common.util.AssertionUtil;
+
 import gov.hhs.fha.nhinc.lift.common.util.ClientDataToken;
-import gov.hhs.fha.nhinc.lift.common.util.ClientMessage;
+import gov.hhs.fha.nhinc.lift.common.util.LiftMessage;
 import gov.hhs.fha.nhinc.lift.common.util.DataToken;
 import gov.hhs.fha.nhinc.lift.common.util.InterProcessSocketProtocol;
 import gov.hhs.fha.nhinc.lift.common.util.JaxbUtil;
 import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
 import gov.hhs.fha.nhinc.lift.common.util.ServerProxyDataToken;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -67,17 +65,15 @@ public class ClientInitiateTest {
             caddr = new InetSocketAddress(clientIP, Integer.parseInt(clientPort));
             Socket clientSocket = new Socket(caddr.getAddress(), caddr.getPort());
 
-            // client expects a ClientMessage type so we create one
-            ClientMessage message = new ClientMessage();
+            // client expects a LiftMessage type so we create one
+            LiftMessage message = new LiftMessage();
 
-            AssertionType assrt = AssertionUtil.createAssertion();
-            RequestToken request = new RequestToken("URIForRequest");
-            SecurityToken stoken = new SecurityToken(assrt, request);
-            message.setSecurityToken(stoken);
+            RequestToken request = new RequestToken("URIForRequest-GUID");
+            message.setRequest(request);
 
             DataToken data = new DataToken();
             ClientDataToken cdata = new ClientDataToken();
-            cdata.setData("FileName to retrieve");
+            cdata.setData("/testdata.pdf");
             data.setClientData(cdata);
 
             ServerProxyDataToken sdata = new ServerProxyDataToken();
@@ -88,9 +84,6 @@ public class ClientInitiateTest {
             sdata.setServerProxyPort(saddr.getPort());
             data.setServerProxyData(sdata);
             message.setData(data);
-
-            message.setSubscriptionID(null);
-            message.setTransferType("HTTPS");
             
             String content = JaxbUtil.marshalToString(message);
             System.out.println("Attempt to send: " + content);
@@ -101,5 +94,6 @@ public class ClientInitiateTest {
         } catch (PropertyAccessException ex) {
             Assert.fail("Could not obtain client socket ip and port properties ");
         }
-    }*/
+    }
+    */
 }

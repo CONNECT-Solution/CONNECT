@@ -47,85 +47,89 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.client;
 
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
+import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.proxy.util.ClientHandshaker;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
  *
  */
 public abstract class Client {
-	private final SecurityToken token;
-	
-	/**
-	 * Attempts to connect to a server at the provided address and calls the
-	 * perfomHandshake() method to trigger handshaking to occur after initial
-	 * connection is established.  How this handshaking is done is not defined 
-	 * at this point, it is left to how subclasses are implemented to decided
-	 * how to do handshaking.
-	 * 
-	 * NOTE: Subclasses may not call this constructor.  This means that perform
-	 * handshake may not happen.
-	 * @param address
-	 * @param token
-	 * @param handshaker 
-	 * @throws IOException
-	 */
-	public Client(InetAddress address, int port, SecurityToken token, ClientHandshaker handshaker) throws IOException
-	{
-		this.token = token;
-		
-		this.connect(address, port);
-		
-		if(performHandshake(handshaker))
-		{
-			System.out.println("CLIENT: Handshake successful, connection available.");
-		}
-	}
-	
-	protected abstract boolean connect(InetAddress address, int port) throws IOException;
-	
-	/**
-	 * Implementation specific, must know how to handshake with the server.
-	 * This method has nothing to do with SSL handshaking, it is in place for 
-	 * any additional handshaking between an proxy client and proxy server. 
-	 * @return
-	 * @throws IOException
-	 */
-	protected abstract boolean performHandshake(ClientHandshaker handshaker) throws IOException;
 
-	/**
-	 * Helper method in place to send a message.
-	 * @param mess
-	 * @throws IOException
-	 */
-	public abstract void sendLine(String mess) throws IOException;
-	
-	/**
-	 * Helper method in place to read line from the output stream of the
-	 * socket.
-	 * @return
-	 * @throws IOException
-	 */
-	public abstract String readLine() throws IOException;
-	
-	public abstract OutputStream getOutStream() throws IOException;
+    private Log log = null;
+    private final RequestToken token;
 
-	public abstract InputStream getInStream() throws IOException;
-	
-	protected SecurityToken getToken()
-	{
-		return token;
-	}
-	
-	/**
-	 * Closes the socket.
-	 * @throws IOException
-	 */
-	public abstract void close() throws IOException;
+    /**
+     * Attempts to connect to a server at the provided address and calls the
+     * perfomHandshake() method to trigger handshaking to occur after initial
+     * connection is established.  How this handshaking is done is not defined
+     * at this point, it is left to how subclasses are implemented to decided
+     * how to do handshaking.
+     *
+     * NOTE: Subclasses may not call this constructor.  This means that perform
+     * handshake may not happen.
+     * @param address
+     * @param token
+     * @param handshaker
+     * @throws IOException
+     */
+    public Client(InetAddress address, int port, RequestToken token, ClientHandshaker handshaker) throws IOException {
+        this.token = token;
+        this.connect(address, port);
+        log = createLogger();
+
+        if (performHandshake(handshaker)) {
+            log.info("CLIENT: Handshake successful, connection available.");
+        }
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected abstract boolean connect(InetAddress address, int port) throws IOException;
+
+    /**
+     * Implementation specific, must know how to handshake with the server.
+     * This method has nothing to do with SSL handshaking, it is in place for
+     * any additional handshaking between an proxy client and proxy server.
+     * @return
+     * @throws IOException
+     */
+    protected abstract boolean performHandshake(ClientHandshaker handshaker) throws IOException;
+
+    /**
+     * Helper method in place to send a message.
+     * @param mess
+     * @throws IOException
+     */
+    public abstract void sendLine(String mess) throws IOException;
+
+    /**
+     * Helper method in place to read line from the output stream of the
+     * socket.
+     * @return
+     * @throws IOException
+     */
+    public abstract String readLine() throws IOException;
+
+    public abstract OutputStream getOutStream() throws IOException;
+
+    public abstract InputStream getInStream() throws IOException;
+
+    protected RequestToken getToken() {
+        return token;
+    }
+
+    /**
+     * Closes the socket.
+     * @throws IOException
+     */
+    public abstract void close() throws IOException;
 }

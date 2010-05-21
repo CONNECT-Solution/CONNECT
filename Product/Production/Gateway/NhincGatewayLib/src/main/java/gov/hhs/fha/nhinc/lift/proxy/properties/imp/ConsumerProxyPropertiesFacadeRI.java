@@ -47,7 +47,7 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.properties.imp;
 
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
+import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.proxy.client.Client;
 import gov.hhs.fha.nhinc.lift.proxy.client.SSLClient;
 import gov.hhs.fha.nhinc.lift.proxy.client.TestClientHandshaker;
@@ -67,15 +67,20 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ConsumerProxyPropertiesFacadeRI implements ConsumerProxyPropertiesFacade {
 
-    private static Log log = LogFactory.getLog(ConsumerProxyPropertiesFacadeRI.class);
+    private Log log = null;
 
     public ConsumerProxyPropertiesFacadeRI() {
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     @Override
     public Client getClientInstance(InetAddress address,
             int port,
-            SecurityToken token) throws IOException {
+            RequestToken token) throws IOException {
         /*
          * Should load this from the properties file some how.  Could use
          * reflection perhaps, feels evil for some reason though.

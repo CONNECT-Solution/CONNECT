@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Http file downloader
@@ -32,62 +34,72 @@ import java.net.URLConnection;
  * @author rrobin20
  */
 public class HttpFileConsumer {
-	/**
-	 * Consume a file via HTTP
-	 * 
-	 * @param url
-	 *            The file URL
-	 * @param dest
-	 *            The file destination
-	 * @param bufferSize
-	 *            The buffer size
-	 * @throws IOException
-	 */
-	public static void consumeFile(String url, String dest, int bufferSize)
-			throws IOException {
-		long time = System.nanoTime();
 
-		System.out.println("URL provided: " + url);
-		url = url.replace('\\', '/');
+    private Log log = null;
 
-		URL fileUrl = new URL(url);
+    public HttpFileConsumer() {
+        log = createLogger();
+    }
 
-		URLConnection urlCon = fileUrl.openConnection();
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
 
-		InputStream in = urlCon.getInputStream();
+    /**
+     * Consume a file via HTTP
+     *
+     * @param url
+     *            The file URL
+     * @param dest
+     *            The file destination
+     * @param bufferSize
+     *            The buffer size
+     * @throws IOException
+     */
+    public static void consumeFile(String url, String dest, int bufferSize)
+            throws IOException {
+        long time = System.nanoTime();
 
-		String fileName = fileUrl.getFile();
+        System.out.println("URL provided: " + url);
+        url = url.replace('\\', '/');
 
-		if (fileName.lastIndexOf('/') >= 0) {
-			fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-		}
+        URL fileUrl = new URL(url);
 
-		String fileDest = dest;
+        URLConnection urlCon = fileUrl.openConnection();
 
-		File f = new File(fileDest, fileName);
+        InputStream in = urlCon.getInputStream();
 
-		FileOutputStream out = new FileOutputStream(f);
-		System.out.println("File name: " + f.getAbsolutePath());
+        String fileName = fileUrl.getFile();
 
-		byte[] buf = new byte[bufferSize];
+        if (fileName.lastIndexOf('/') >= 0) {
+            fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+        }
 
-		System.out.println("Starting to read resource.");
-		while (true) {
-			int length = in.read(buf);
+        String fileDest = dest;
 
-			System.out.println(length);
+        File f = new File(fileDest, fileName);
 
-			if (length < 0) {
-				break;
-			}
+        FileOutputStream out = new FileOutputStream(f);
+        System.out.println("File name: " + f.getAbsolutePath());
 
-			out.write(buf, 0, length);
-		}
-		System.out.println("Finished reading resource");
-		System.out.println("Time taken: " + (System.nanoTime() - time)
-				/ 1000000);
+        byte[] buf = new byte[bufferSize];
 
-		out.close();
-		in.close();
-	}
+        System.out.println("Starting to read resource.");
+        while (true) {
+            int length = in.read(buf);
+
+            System.out.println(length);
+
+            if (length < 0) {
+                break;
+            }
+
+            out.write(buf, 0, length);
+        }
+        System.out.println("Finished reading resource");
+        System.out.println("Time taken: " + (System.nanoTime() - time) / 1000000);
+
+        out.close();
+        in.close();
+    }
 }

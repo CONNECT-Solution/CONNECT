@@ -28,13 +28,13 @@
 //## 
 //####################################################################
 //********************************************************************
-// FILE: SecurityToken.java
+// FILE: ClientMessage.java
 //
 // Copyright (C) 2010 Harris Corporation. All rights reserved.
 //
 // CLASSIFICATION: Unclassified
 //
-// DESCRIPTION: SecurityToken.java
+// DESCRIPTION: ClientMessage.java
 //
 // LIMITATIONS: None
 //
@@ -51,73 +51,39 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-/**
- * @author rrobin20
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "SecurityToken")
-public class SecurityToken {
-	@XmlElement(name = "AssertionElement", required = true)
-	private AssertionType user;
+@XmlRootElement(name = "LiftMessage")
+public class LiftMessage {
 
-	@XmlElement(name = "RequestElement", required = true)
+	@XmlElement(name = "DataElement", required = true)
+	private DataToken data;
+
+	@XmlElement(name = "RequestElement", required = false)
 	private RequestToken request;
 
-	public SecurityToken() {
+	public LiftMessage() {
+		super();
 	}
 
-	public SecurityToken(AssertionType user, RequestToken request) {
-		this.user = user;
-		this.request = request;
+	public LiftMessage(DataToken data, RequestToken request) {
+		super();
+		this.data = data;
+                this.request = request;
 	}
 
-	public AssertionType getUser() {
-		return user;
+	public DataToken getData() {
+		return data;
 	}
 
-	protected void setUser(AssertionType user) {
-		this.user = user;
+	public void setData(DataToken data) {
+		this.data = data;
 	}
 
 	public RequestToken getRequest() {
 		return request;
 	}
 
-	protected void setRequest(RequestToken request) {
+	public void setRequest(RequestToken request) {
 		this.request = request;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((request == null) ? 0 : request.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SecurityToken other = (SecurityToken) obj;
-		if (request == null) {
-			if (other.request != null)
-				return false;
-		} else if (!request.equals(other.request))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
 	}
 }

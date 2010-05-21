@@ -61,10 +61,6 @@ public class DataToken {
 	@XmlElement(name = "ServerProxyData", required = true)
 	private ServerProxyDataToken serverProxyData;
 	
-	/*
-	 *  Need something to put, in the case of LST, where the file is on the
-	 *  server. 
-	 */
 	@XmlElement(name = "ClientData", required = true)
 	private ClientDataToken clientData;
 

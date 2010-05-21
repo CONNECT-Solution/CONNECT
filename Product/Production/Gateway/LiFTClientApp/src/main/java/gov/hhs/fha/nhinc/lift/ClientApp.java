@@ -86,8 +86,6 @@ public class ClientApp {
             ClientPropertiesFacade props = new ClientPropertiesService();
             ConsumerProxyPropertiesFacade proxyProps = new ConsumerProxyPropertiesFacadeRI();
             proxyProps.setTrustStore();
-            System.out.println("Set system truststore properties: " + System.getProperty("javax.net.ssl.trustStore") +
-                    " " + System.getProperty("javax.net.ssl.trustStorePassword"));
 
             LSTClientManager manager = new LSTClientManager(props, proxyProps);
             SocketClientManagerController con = new SocketClientManagerController(server, manager);

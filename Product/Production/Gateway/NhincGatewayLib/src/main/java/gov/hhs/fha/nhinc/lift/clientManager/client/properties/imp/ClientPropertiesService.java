@@ -54,19 +54,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class ClientPropertiesService implements ClientPropertiesFacade {
-    private static Log log = LogFactory.getLog(ClientPropertiesService.class);
-    //private LiftManagement port;
+
+    private Log log = null;
 
     public ClientPropertiesService() {
-        //LiftManagementService service = new LiftManagementService();
-        //port = service.getLiftManagementPort();
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     @Override
     public String getFileDestinationForSubscription(String subId) {
-        //LiftConsumingsubscriptions sub = port.getConsumingSubscription(subId);
-        //return (sub == null ? null : sub.getStorageLocation());
-        System.out.println("ClientPropertiesService.getFileDestinationForSubscription needs implementing");
         throw new UnsupportedOperationException();
     }
 
@@ -75,6 +75,7 @@ public class ClientPropertiesService implements ClientPropertiesFacade {
         String defaultFileLoc = null;
         try {
             defaultFileLoc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_FILEDROP);
+            log.debug("Assign default file location: " + defaultFileLoc);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
         }

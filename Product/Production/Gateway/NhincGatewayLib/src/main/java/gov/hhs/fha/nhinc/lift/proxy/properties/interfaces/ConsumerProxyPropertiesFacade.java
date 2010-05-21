@@ -47,7 +47,7 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.properties.interfaces;
 
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
+import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.proxy.client.Client;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -59,7 +59,7 @@ import java.net.InetAddress;
  *
  */
 public interface ConsumerProxyPropertiesFacade {
-	public Client getClientInstance(InetAddress address, int port, SecurityToken token) throws IOException;
+	public Client getClientInstance(InetAddress address, int port, RequestToken token) throws IOException;
 	
 	public InetAddress getClientProxyAddress();
 	

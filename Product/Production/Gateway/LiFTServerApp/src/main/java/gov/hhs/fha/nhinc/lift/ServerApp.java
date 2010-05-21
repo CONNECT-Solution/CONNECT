@@ -85,7 +85,7 @@ public class ServerApp {
         if (serv != null) {
             Thread st = new Thread(serv);
             st.start();
-            log.info("LiFT Server started.");
+            System.out.println("ServerApp started: " + serv);
         }
     }
 

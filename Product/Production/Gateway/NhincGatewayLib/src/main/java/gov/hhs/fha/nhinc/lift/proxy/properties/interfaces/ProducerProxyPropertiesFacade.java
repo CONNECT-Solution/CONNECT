@@ -47,19 +47,18 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.properties.interfaces;
 
+import gov.hhs.fha.nhinc.lift.common.util.LiftConnectionRequestToken;
 import java.io.IOException;
 import java.net.Socket;
 
-import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
 
 public interface ProducerProxyPropertiesFacade {
 	/**
-	 * Should return the known/allowed security token associated with the request
+	 * Should return if the request GUID is known
 	 * @param request
 	 * @return
 	 */
-	public SecurityToken getSecurityTokenForRequest(RequestToken request);
+	public boolean verifySecurityForRequest(LiftConnectionRequestToken request);
 	
 	/**
 	 * Should return a socket connected to the server that this request
@@ -69,7 +68,7 @@ public interface ProducerProxyPropertiesFacade {
 	 * @return
 	 * @throws IOException 
 	 */
-	public Socket getSocketToServerForRequest(RequestToken request) throws IOException;
+	public Socket getSocketToServerForRequest(LiftConnectionRequestToken request) throws IOException;
 	
 	public void setKeyStoreProperty();
 }

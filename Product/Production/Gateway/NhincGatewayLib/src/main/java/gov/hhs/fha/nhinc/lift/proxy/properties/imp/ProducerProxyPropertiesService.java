@@ -47,19 +47,14 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.properties.imp;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-import gov.hhs.fha.nhinc.lift.common.util.AssertionWrapper;
+import gov.hhs.fha.nhinc.lift.common.util.LiftConnectionRequestToken;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.IOException;
-import java.io.StringReader;
+
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-import gov.hhs.fha.nhinc.lift.common.util.JaxbUtil;
-import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
 import gov.hhs.fha.nhinc.lift.proxy.properties.interfaces.ProducerProxyPropertiesFacade;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -69,32 +64,26 @@ import org.apache.commons.logging.LogFactory;
 public class ProducerProxyPropertiesService implements
         ProducerProxyPropertiesFacade {
 
-    private static Log log = LogFactory.getLog(ProducerProxyPropertiesService.class);
+    private Log log = null;
 
     public ProducerProxyPropertiesService() {
+        log = createLogger();
     }
 
-    /* (non-Javadoc)
-     * @see com.harris.healthcare.LST.Proxy.properties.interfaces.ProducerProxyPropertiesFacade#getSecurityTokenForRequest(com.harris.healthcare.LST.common.util.RequestToken)
-     */
-    @Override
-    public SecurityToken getSecurityTokenForRequest(RequestToken request) {
-        String assertionXML = "";
-
-        /*	LoftRecord record = port.retrieveLoftRecord(request.getRequest());
-        if (record != null) {
-        assertionXML = record.getAssertionInformation();
-        }
-
-        AssertionType assertion = ((AssertionWrapper)JaxbUtil.unmarshalFromReader(new StringReader(assertionXML), AssertionWrapper.class)).getUser();
-
-        return new SecurityToken(assertion, request); */
-        System.out.println("Need to integrate in new table - ProducerProxyPropertiesService.getSecurityTokenForRequest");
-        throw new UnsupportedOperationException();
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     @Override
-    public Socket getSocketToServerForRequest(RequestToken request)
+    public boolean verifySecurityForRequest(LiftConnectionRequestToken request) {
+
+        System.out.println("Need to integrate in new table - ProducerProxyPropertiesService.verifySecurityForRequest");
+        System.out.println("For now returning TRUE - match found.");
+        return true;
+    }
+
+    @Override
+    public Socket getSocketToServerForRequest(LiftConnectionRequestToken request)
             throws IOException {
 
         Socket socket = new Socket();

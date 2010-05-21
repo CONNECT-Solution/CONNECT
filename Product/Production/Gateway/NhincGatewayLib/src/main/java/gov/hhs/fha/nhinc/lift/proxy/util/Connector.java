@@ -50,48 +50,53 @@ package gov.hhs.fha.nhinc.lift.proxy.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-public final class Connector implements Runnable
-{
-	private final InputStream in;
-	private final OutputStream out;
-	private final int bufferSize;
-	
-	public Connector(InputStream in, OutputStream out, int bufferSize) {
-		super();
-		this.in = in;
-		this.out = out;
-		this.bufferSize = bufferSize;
-	}
-	
-	public void run()
-	{
-		System.out.println("Connector started.");
-		
-		byte[] b = new byte[bufferSize];
-		
-		try {
-			while(true)
-			{
-				// Very slow, but works
+public final class Connector implements Runnable {
+
+    private Log log = null;
+    private final InputStream in;
+    private final OutputStream out;
+    private final int bufferSize;
+
+    public Connector(InputStream in, OutputStream out, int bufferSize) {
+        super();
+        this.in = in;
+        this.out = out;
+        this.bufferSize = bufferSize;
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    public void run() {
+        log.debug("Connector started.");
+
+        byte[] b = new byte[bufferSize];
+
+        try {
+            while (true) {
+                // Very slow, but works
 //				int next = in.read();
 //				out.write(next);
-				
-				//For debugging
+
+                //For debugging
 //				System.out.print((char)next);
-				
-				// Might be better
-				int length = in.read(b);
-				
-				System.out.println(length);
-				
-				if(length < 0)
-				{
-					break;
-				}
-				
-				out.write(b, 0, length);
-				
+
+                // Might be better
+                int length = in.read(b);
+
+                log.debug(length);
+
+                if (length < 0) {
+                    break;
+                }
+
+                out.write(b, 0, length);
+
 //				if(length >= 0)
 //				{
 //					out.write(b, 0, length);
@@ -99,14 +104,14 @@ public final class Connector implements Runnable
 //					out.write(-1);
 //					break;
 //				}
-				
+
 //				if(next == -1)
 //					break;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("Connector stopping.");
-	}
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        log.debug("Connector stopping.");
+    }
 }

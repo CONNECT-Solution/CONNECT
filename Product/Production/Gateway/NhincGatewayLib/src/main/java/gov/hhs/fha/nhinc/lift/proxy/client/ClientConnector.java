@@ -52,81 +52,90 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.Connector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-public class ClientConnector implements Runnable{
-	private final ServerSocket server;
-	private final Client proxyConnection;
-	private final int bufferSize;
+public class ClientConnector implements Runnable {
 
-	public ClientConnector(ServerSocket server, Client proxyConnection, int bufferSize) {
-		super();
-		this.server = server;
-		this.proxyConnection = proxyConnection;
-		this.bufferSize = bufferSize;
-	}
+    private Log log = null;
+    private final ServerSocket server;
+    private final Client proxyConnection;
+    private final int bufferSize;
 
-	@Override
-	public void run() {
-		/*
-		 * Accept a connection and tunnel messages through the proxy system.
-		 * 
-		 * May want to have some time out defined so this does not wait around
-		 * for too long.
-		 */
-		try {
-			Thread toProxyThread, fromProxyThread;
-			
-			Socket socket = server.accept();
-			
-			try {
-				System.out.println("Starting Connectors.");
-				
-				//Connection established, build Connectors to pass through messages.
-				Connector toProxy = new Connector(socket.getInputStream(), proxyConnection.getOutStream(), bufferSize);
-				Connector fromProxy = new Connector(proxyConnection.getInStream(), socket.getOutputStream(), bufferSize);
-				
-				toProxyThread = new Thread(toProxy);
-				fromProxyThread = new Thread(fromProxy);
-				
-				toProxyThread.start();
-				fromProxyThread.start();
-				
-				toProxyThread.join();
-				System.out.println("To proxy joined");
-				
+    public ClientConnector(ServerSocket server, Client proxyConnection, int bufferSize) {
+        super();
+        this.server = server;
+        this.proxyConnection = proxyConnection;
+        this.bufferSize = bufferSize;
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    @Override
+    public void run() {
+        /*
+         * Accept a connection and tunnel messages through the proxy system.
+         *
+         * May want to have some time out defined so this does not wait around
+         * for too long.
+         */
+        try {
+            Thread toProxyThread, fromProxyThread;
+
+            Socket socket = server.accept();
+
+            try {
+                log.debug("Starting Connectors.");
+
+                //Connection established, build Connectors to pass through messages.
+                Connector toProxy = new Connector(socket.getInputStream(), proxyConnection.getOutStream(), bufferSize);
+                Connector fromProxy = new Connector(proxyConnection.getInStream(), socket.getOutputStream(), bufferSize);
+
+                toProxyThread = new Thread(toProxy);
+                fromProxyThread = new Thread(fromProxy);
+
+                toProxyThread.start();
+                fromProxyThread.start();
+
+                toProxyThread.join();
+                log.debug("To proxy joined");
+
 //				System.out.println("Closing socket because to proxy connector joined.");
 //				socket.close();
 //				System.out.println("Closing connection between proxies.");
 //				proxyConnection.close();
-				
-				fromProxyThread.join();
-				System.out.println("From proxy joined");
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} finally {
-				socket.close();
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				System.out.println("Closing connection between proxies (if not yet closed).");
-				proxyConnection.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			try {
-				System.out.println("Stopping temporary server server.");
-				server.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+
+                fromProxyThread.join();
+                log.debug("From proxy joined");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                socket.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                log.debug("Closing connection between proxies (if not yet closed).");
+                proxyConnection.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            try {
+                log.debug("Stopping temporary server server.");
+                server.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }

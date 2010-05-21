@@ -55,66 +55,69 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SSLServer extends Server {
-    private static Log log = LogFactory.getLog(SSLServer.class);
-	private final SSLServerSocket server;
-	
-	/**
-	 * Set up a SSL server socket on the provided address.  Makes and runs 
-	 * clones of the provided HandlerPrototype to handle client connections
-	 * to the Server.
-	 * @param address
-	 * @param prototype
-	 * @throws IOException
-	 */
-	public SSLServer(SocketAddress address, HandlerPrototype prototype) throws IOException
-	{
-		super(prototype);
 
-		SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-		ServerSocket createdSocket = factory.createServerSocket();
-                server = (SSLServerSocket)createdSocket;
-	
-		// Doing this causes problems, I don't understand this much but I think it's necessary.
+    private Log log = null;
+    private final SSLServerSocket server;
+
+    /**
+     * Set up a SSL server socket on the provided address.  Makes and runs
+     * clones of the provided HandlerPrototype to handle client connections
+     * to the Server.
+     * @param address
+     * @param prototype
+     * @throws IOException
+     */
+    public SSLServer(SocketAddress address, HandlerPrototype prototype) throws IOException {
+        super(prototype);
+
+        log = createLogger();
+        SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        ServerSocket createdSocket = factory.createServerSocket();
+        server = (SSLServerSocket) createdSocket;
+
+        // Doing this causes problems, I don't understand this much but I think it's necessary.
 //		server.setNeedClientAuth(true);
 
-		server.bind(address);
-		log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
-	}
-	
-	public SSLServerSocket getServer() {
-		return server;
-	}
+        server.bind(address);
+        log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
+    }
 
-	@Override
-	protected void acceptConnection() throws IOException {
-		System.out.println("SERVER: Waiting for incomming connection.");
-		
-		SSLSocket socket = (SSLSocket) server.accept();
-		
-		System.out.println("SERVER: Accepted a new connection.");
-		
-		System.out.println("SERVER: Handshaking with connection.");
-		
-		/*
-		 * Spawn off and start a new Handler thread to process
-		 * the new connection.
-		 */
-		HandlerPrototype hand = this.getPrototype().clone(new DemoProtocol(socket));
-			
-		if(hand != null)
-		{
-			System.out.println("SERVER: Passing connection to new HANDLER.");
-			(new Thread(hand)).start();
-		}else{
-			System.out.println("SERVER: Connection failed to handshake properly.");
-			
-			socket.close();
-		}
-	}
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    public SSLServerSocket getServer() {
+        return server;
+    }
+
+    @Override
+    protected void acceptConnection() throws IOException {
+        log.debug("SERVER: Waiting for incomming connection.");
+
+        SSLSocket socket = (SSLSocket) server.accept();
+
+        log.debug("SERVER: Accepted a new connection.");
+
+        log.debug("SERVER: Handshaking with connection.");
+
+        /*
+         * Spawn off and start a new Handler thread to process
+         * the new connection.
+         */
+        HandlerPrototype hand = this.getPrototype().clone(new DemoProtocol(socket));
+
+        if (hand != null) {
+            log.debug("SERVER: Passing connection to new HANDLER.");
+            (new Thread(hand)).start();
+        } else {
+            log.debug("SERVER: Connection failed to handshake properly.");
+
+            socket.close();
+        }
+    }
 }

@@ -56,7 +56,7 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 public abstract class Server implements Runnable{
-     private static Log log = LogFactory.getLog(Server.class);
+     private Log log = null;
 	private HandlerPrototype prototype;
 	
 	/**
@@ -70,7 +70,12 @@ public abstract class Server implements Runnable{
 	public Server(HandlerPrototype prototype) throws IOException
 	{
 		this.setPrototype(prototype);
-	}
+	        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
 
 	protected HandlerPrototype getPrototype() {
 		return prototype;
@@ -86,7 +91,7 @@ public abstract class Server implements Runnable{
 
 	@Override
 	public void run() {
-		System.out.println("LIFT SERVER: Server started.");
+		          log.debug("LIFT SERVER: Server started.");
 		
 		int num = 0;
 		

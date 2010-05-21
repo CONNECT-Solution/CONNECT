@@ -49,14 +49,14 @@ package gov.hhs.fha.nhinc.lift.common.util;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author rrobin20
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SecurityToken")
+@XmlRootElement(name = "RequestToken")
 public class RequestToken {
 	@XmlElement(name = "Request", required = true)
 	private String request;

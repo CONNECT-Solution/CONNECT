@@ -47,13 +47,16 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.client;
 
+import gov.hhs.fha.nhinc.lift.common.util.LiftConnectionRequestToken;
 import java.io.IOException;
 import java.io.StringReader;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.ClientHandshaker;
 import gov.hhs.fha.nhinc.lift.proxy.util.ProtocolWrapper;
 import gov.hhs.fha.nhinc.lift.proxy.util.ProxyUtil;
-import gov.hhs.fha.nhinc.lift.proxy.util.Response;
+import gov.hhs.fha.nhinc.lift.proxy.util.LiftConnectionResponseToken;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
@@ -61,23 +64,32 @@ import gov.hhs.fha.nhinc.lift.proxy.util.Response;
  */
 public class TestClientHandshaker implements ClientHandshaker {
 
-	@Override
-	public boolean handshake(ProtocolWrapper wrapper, Client client) throws IOException {
-		System.out.println("CLIENT: Sending challenge.");
+    private Log log = null;
 
-		// Need to send security info to server for validation.
-		wrapper.sendLine(ProxyUtil.marshalToString(client.getToken()));
+    public TestClientHandshaker() {
+        log = createLogger();
+    }
 
-		String response = wrapper.readLine();
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
 
-		Response resp = (Response) ProxyUtil.unmarshalFromReader(
-				new StringReader(response), Response.class);
+    @Override
+    public boolean handshake(ProtocolWrapper wrapper, Client client) throws IOException {
+        log.debug("CLIENT: Sending challenge.");
 
-		System.out.println("CLIENT: Response to challenge: "
-				+ resp.getMessage());
+        // Need to send security info to server for validation.
+        LiftConnectionRequestToken token = new LiftConnectionRequestToken(client.getToken().getRequest());
+        wrapper.sendLine(ProxyUtil.marshalToString(token));
 
-		// Return if was a good response or not.
-		return resp.isSuccess();
-	}
+        String response = wrapper.readLine();
 
+        LiftConnectionResponseToken resp = (LiftConnectionResponseToken) ProxyUtil.unmarshalFromReader(
+                new StringReader(response), LiftConnectionResponseToken.class);
+
+        log.debug("CLIENT: Response to challenge: " + resp.getPermission());
+
+        // Return if was a good response or not.
+        return resp.isPermitted();
+    }
 }

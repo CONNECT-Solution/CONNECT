@@ -51,13 +51,13 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import gov.hhs.fha.nhinc.lift.clientManager.client.ClientManager;
-import gov.hhs.fha.nhinc.lift.common.util.ClientMessage;
+import gov.hhs.fha.nhinc.lift.common.util.LiftMessage;
 import gov.hhs.fha.nhinc.lift.common.util.InterProcessSocketProtocol;
 import gov.hhs.fha.nhinc.lift.common.util.JaxbUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
@@ -65,7 +65,7 @@ import gov.hhs.fha.nhinc.lift.common.util.JaxbUtil;
  */
 public class SocketClientManagerController implements Runnable {
 
-    private Logger log = Logger.getLogger(SocketClientManagerController.class.getName());
+    private Log log = null;
     private final ServerSocket server;
     private final ClientManager manager;
 
@@ -74,6 +74,11 @@ public class SocketClientManagerController implements Runnable {
         super();
         this.server = server;
         this.manager = manager;
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     @Override
@@ -95,9 +100,9 @@ public class SocketClientManagerController implements Runnable {
 
                 // TODO Read information from the stream.
                 String message = InterProcessSocketProtocol.readData(in);
-                System.out.println("CMC recieved message: " + message);
+                log.info("SocketClientManagerController received message: " + message);
                 if (message != null) {
-                    ClientMessage m = (ClientMessage) JaxbUtil.unmarshalFromReader(new StringReader(message), ClientMessage.class);
+                    LiftMessage m = (LiftMessage) JaxbUtil.unmarshalFromReader(new StringReader(message), LiftMessage.class);
 
                     // TODO Attempt to use the information to called the manager
                     manager.startClient(m);
@@ -105,7 +110,7 @@ public class SocketClientManagerController implements Runnable {
             } catch (IOException e) {
                 // TODO Use a better logging scheme than just standard out.
                 e.printStackTrace();
-                System.out.println("CMC Error: " + e.getMessage());
+                log.error("CMC Error: " + e.getMessage());
             }
         }
     }

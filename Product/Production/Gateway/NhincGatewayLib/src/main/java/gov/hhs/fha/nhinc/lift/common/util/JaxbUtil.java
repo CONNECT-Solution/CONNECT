@@ -107,7 +107,7 @@ public class JaxbUtil {
 			marshaller.marshal(obj, doc);
 			// log.info(doc.getNodeValue());
 		} catch (Exception ex) {
-			// log.error(ex.getMessage(), ex);
+			//log.error(ex.getMessage(), ex);
 			ex.printStackTrace();
 		}
 

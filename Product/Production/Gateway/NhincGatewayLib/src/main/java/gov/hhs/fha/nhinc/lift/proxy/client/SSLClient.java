@@ -47,7 +47,7 @@
 //********************************************************************
 package gov.hhs.fha.nhinc.lift.proxy.client;
 
-import gov.hhs.fha.nhinc.lift.common.util.SecurityToken;
+import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.proxy.util.ClientHandshaker;
 import gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol;
 import gov.hhs.fha.nhinc.lift.proxy.util.ProtocolWrapper;
@@ -61,79 +61,85 @@ import java.net.Socket;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author rrobin20
  * 
  */
 public class SSLClient extends Client {
-	private SSLSocket socket;
-	private ProtocolWrapper wrapper;
 
-	public SSLClient(InetAddress address, int port, SecurityToken token, ClientHandshaker handshaker)
-			throws IOException {
-		super(address, port, token, handshaker);
-	}
+    private Log log = null;
+    private SSLSocket socket;
+    private ProtocolWrapper wrapper;
 
-	@Override
-	protected boolean connect(InetAddress address, int port) throws IOException {
-		SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory
-				.getDefault();
-		socket = (SSLSocket) factory.createSocket();
+    public SSLClient(InetAddress address, int port, RequestToken token, ClientHandshaker handshaker)
+            throws IOException {
+        super(address, port, token, handshaker);
+        log = createLogger();
+    }
 
-		socket.connect(new InetSocketAddress(address, port));
-		
-		wrapper = new DemoProtocol(socket);
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
 
-		return true;
-	}
+    @Override
+    protected boolean connect(InetAddress address, int port) throws IOException {
+        SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        socket = (SSLSocket) factory.createSocket();
 
-	@Override
-	protected boolean performHandshake(ClientHandshaker handshaker) throws IOException {
-		boolean success = handshaker.handshake(wrapper, this); 
+        socket.connect(new InetSocketAddress(address, port));
 
-		// Return if was a good response or not.
-		if (success) {
-			return true;
-		} else {
-			socket.close();
-			throw new SSLHandshakeException(
-					"Failed handshaking process failed handshake with server.");
-		}
-	}
+        wrapper = new DemoProtocol(socket);
 
-	@Override
-	public void sendLine(String mess) throws IOException {
-		System.out.println("CLIENT: Sending message: " + mess);
+        return true;
+    }
 
-		wrapper.sendLine(mess);
+    @Override
+    protected boolean performHandshake(ClientHandshaker handshaker) throws IOException {
+        boolean success = handshaker.handshake(wrapper, this);
 
-		System.out.println("CLIENT: Sent message.");
-	}
+        // Return if was a good response or not.
+        if (success) {
+            return true;
+        } else {
+            socket.close();
+            throw new SSLHandshakeException(
+                    "Failed handshaking process failed handshake with server.");
+        }
+    }
 
-	@Override
-	public String readLine() throws IOException {
-		return wrapper.readLine();
-	}
+    @Override
+    public void sendLine(String mess) throws IOException {
+        log.debug("CLIENT: Sending message: " + mess);
 
-	@Override
-	public void close() throws IOException {
-		socket.close();
-	}
+        wrapper.sendLine(mess);
 
-	protected Socket getSocket() {
-		return socket;
-	}
+        log.debug("CLIENT: Sent message.");
+    }
 
-	@Override
-	public InputStream getInStream() throws IOException {
-		return this.getSocket().getInputStream();
-	}
+    @Override
+    public String readLine() throws IOException {
+        return wrapper.readLine();
+    }
 
-	@Override
-	public OutputStream getOutStream() throws IOException {
-		return this.getSocket().getOutputStream();
-	}
+    @Override
+    public void close() throws IOException {
+        socket.close();
+    }
 
+    protected Socket getSocket() {
+        return socket;
+    }
+
+    @Override
+    public InputStream getInStream() throws IOException {
+        return this.getSocket().getInputStream();
+    }
+
+    @Override
+    public OutputStream getOutStream() throws IOException {
+        return this.getSocket().getOutputStream();
+    }
 }

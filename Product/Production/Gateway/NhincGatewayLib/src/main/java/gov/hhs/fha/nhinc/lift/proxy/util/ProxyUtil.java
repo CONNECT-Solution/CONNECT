@@ -62,78 +62,78 @@ import org.w3c.dom.Document;
  * 
  */
 public class ProxyUtil {
+
     private static Log log = LogFactory.getLog(ProxyUtil.class);
 
-	public static org.w3c.dom.Element marshal(Object obj) {
-		Document doc = null;
+    public static org.w3c.dom.Element marshal(Object obj) {
+        Document doc = null;
 
-		try {
-			JAXBContext jc = JAXBContext.newInstance(obj.getClass());
-			Marshaller marshaller = jc.createMarshaller();
+        try {
+            JAXBContext jc = JAXBContext.newInstance(obj.getClass());
+            Marshaller marshaller = jc.createMarshaller();
 
-			javax.xml.parsers.DocumentBuilderFactory dbf;
+            javax.xml.parsers.DocumentBuilderFactory dbf;
 
-			dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
-			dbf.setNamespaceAware(true);
-			doc = dbf.newDocumentBuilder().newDocument();
+            dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+            dbf.setNamespaceAware(true);
+            doc = dbf.newDocumentBuilder().newDocument();
 
-			marshaller.marshal(obj, doc);
-			log.info("ProxyUtil.marshal: " + doc.getNodeValue());
-		} catch (Exception ex) {
-			// log.error(ex.getMessage(), ex);
-			ex.printStackTrace();
-		}
+            marshaller.marshal(obj, doc);
+            log.info("ProxyUtil.marshal: " + doc.getNodeValue());
+        } catch (Exception ex) {
+            // log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+        }
 
-		return doc.getDocumentElement();
-	}
+        return doc.getDocumentElement();
+    }
 
-	public static String marshalToString(Object obj) {
-		StringWriter writer = new StringWriter();
+    public static String marshalToString(Object obj) {
+        StringWriter writer = new StringWriter();
 
-		try {
-			JAXBContext jc = JAXBContext.newInstance(obj.getClass());
-			Marshaller marshaller = jc.createMarshaller();
+        try {
+            JAXBContext jc = JAXBContext.newInstance(obj.getClass());
+            Marshaller marshaller = jc.createMarshaller();
 
-			marshaller.marshal(obj, writer);
-			log.info("ProxyUtil.marshal: " + writer.toString());
-		} catch (Exception ex) {
-			// log.error(ex.getMessage(), ex);
-			ex.printStackTrace();
-		}
+            marshaller.marshal(obj, writer);
+            log.info("ProxyUtil.marshal: " + writer.toString());
+        } catch (Exception ex) {
+            // log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+        }
 
-		return writer.toString();
-	}
+        return writer.toString();
+    }
 
-	public static Object unmarshal(org.w3c.dom.Element elem, Class<?> c) {
-		Object result = null;
+    public static Object unmarshal(org.w3c.dom.Element elem, Class<?> c) {
+        Object result = null;
 
-		try {
-			JAXBContext jc = JAXBContext.newInstance(c);
-			Unmarshaller um = jc.createUnmarshaller();
+        try {
+            JAXBContext jc = JAXBContext.newInstance(c);
+            Unmarshaller um = jc.createUnmarshaller();
 
-			result = um.unmarshal(elem);
-		} catch (Exception ex) {
-			// log.error(ex.getMessage(), ex);
-			ex.printStackTrace();
-		}
+            result = um.unmarshal(elem);
+        } catch (Exception ex) {
+            // log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public static Object unmarshalFromReader(Reader reader, Class<?> c) {
-		Object result = null;
+    public static Object unmarshalFromReader(Reader reader, Class<?> c) {
+        Object result = null;
 
-		try {
-			JAXBContext jc = JAXBContext.newInstance(c);
-			Unmarshaller um = jc.createUnmarshaller();
+        try {
+            JAXBContext jc = JAXBContext.newInstance(c);
+            Unmarshaller um = jc.createUnmarshaller();
 
-			result = um.unmarshal(reader);
-		} catch (Exception ex) {
-			// log.error(ex.getMessage(), ex);
-			ex.printStackTrace();
-		}
+            result = um.unmarshal(reader);
+        } catch (Exception ex) {
+            // log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+        }
 
-		return result;
-	}
-
+        return result;
+    }
 }
