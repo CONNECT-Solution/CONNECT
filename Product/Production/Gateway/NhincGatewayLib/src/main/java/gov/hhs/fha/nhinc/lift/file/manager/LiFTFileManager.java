@@ -53,7 +53,7 @@ public class LiFTFileManager {
         return transferFile(destPath, sourceFile);
     }
 
-    private String createFileServerPath(String guid) {
+    protected String createFileServerPath(String guid) {
         String destDirectoryPath = null;
 
         // Get Properties to find apache/File server root location

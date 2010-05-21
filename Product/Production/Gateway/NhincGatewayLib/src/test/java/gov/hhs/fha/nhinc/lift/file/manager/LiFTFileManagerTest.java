@@ -47,6 +47,10 @@ public class LiFTFileManagerTest {
         String url = "file:///C:/testdata.pdf";
         String destination = "C:/Temp";
         LiFTFileManager instance = new LiFTFileManager() {
+            protected String createFileServerPath(String guid) {
+                return "C:/Temp";
+            }
+
             protected boolean transferFile(String filePath, File fileToMove) {
                 return true;
             }
@@ -70,6 +74,10 @@ public class LiFTFileManagerTest {
         String url = "file:///C:/testdata.pdf";
         String destination = "C:/Temp";
         LiFTFileManager instance = new LiFTFileManager() {
+            protected String createFileServerPath(String guid) {
+                return "C:/Temp";
+            }
+
             protected boolean transferFile(String filePath, File fileToMove) {
                 return false;
             }
@@ -93,6 +101,10 @@ public class LiFTFileManagerTest {
         String url = "file:///C:/testdata.pdf";
         String destination = "C:/Temp";
         LiFTFileManager instance = new LiFTFileManager() {
+            protected String createFileServerPath(String guid) {
+                return "C:/Temp";
+            }
+            
             protected boolean transferFile(String filePath, File fileToMove) {
                 return true;
             }

@@ -11,6 +11,7 @@ import gov.hhs.healthit.nhin.LIFTRequestElementType;
 import gov.hhs.healthit.nhin.ServerProxyDataType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.lift.dao.LiftTransferDataRecordDao;
 import gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -188,11 +189,16 @@ public class LiFTPayloadBuilder {
     protected String addEntryToLiftDatabase(String fileUrl) {
         String guid = null;
 
-        // TODO:  Replace with call to the Database to get the GUID
-        //        For the time being though just generate the value
+        // Generate the RequestGUID
         UUID uuid = UUID.randomUUID();
         
         guid = uuid.toString();
+
+        // Add the entry to the Lift Tranfer Database
+        LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
+        //LiftTransferRecord dbRec = new LiftTransferRecord();
+        //dbDao.;
+
 
         return guid;
     }
