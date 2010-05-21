@@ -8,7 +8,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.PatientCorrelationRetriever" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.helper.PatientCorrelationHelper" linecount="56" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.helper.PatientCorrelationHelperSecured" linecount="51" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.helper.TransformHelper" linecount="55" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.helper.TransformHelper" linecount="53" linerate="-0.03018867924528302" linesexecuted="-1.6"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyNoOpImpl" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeWebServiceProxy" linecount="3" linerate="0.0" linesexecuted="0"/>
