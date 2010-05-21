@@ -11,7 +11,8 @@ import gov.hhs.healthit.nhin.LIFTRequestElementType;
 import gov.hhs.healthit.nhin.ServerProxyDataType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.lift.dao.LiftTransferDataRecordDao;
+//import gov.hhs.fha.nhinc.lift.dao.LiftTransferDataRecordDao;
+//import gov.hhs.fha.nhinc.lift.model.LiftTransferDataRecord;
 import gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -194,10 +195,12 @@ public class LiFTPayloadBuilder {
         
         guid = uuid.toString();
 
-        // Add the entry to the Lift Tranfer Database
-       // LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
-        //LiftTransferRecord dbRec = new LiftTransferRecord();
-        //dbDao.;
+//        // Add the entry to the Lift Tranfer Database
+//        LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
+//        LiftTransferDataRecord dbRec = new LiftTransferDataRecord();
+//        dbRec.setRequestKeyGuid(guid);
+//        dbRec.setTransferState(NhincConstants.LIFT_TRANSFER_DB_STATE_ENTERED);
+//        dbDao.save(dbRec);
 
 
         return guid;
