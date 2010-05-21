@@ -35,7 +35,8 @@ public class LiFTFileManager {
             log.error("Could not create destination directory: " + destDirectory.getAbsolutePath());
             return false;
         }
-        
+
+        // Convert the url to a uri
         URI uri = null;
         
         try {
@@ -92,6 +93,7 @@ public class LiFTFileManager {
         try {
             FileInputStream in = new FileInputStream(inputFile);
             FileOutputStream out = new FileOutputStream(outputFile);
+            log.debug("Opened the input and output files successfully");
 
             while ((numBytes = in.read(c)) != -1) {
                 log.debug("Attepting to write " + numBytes + " bytes of the file to the destination directory");
@@ -123,6 +125,8 @@ public class LiFTFileManager {
             log.error("Error: Failed to retrieve " + NhincConstants.LIFT_BASE_FILE_SERVER_DIR_PROP_NAME + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
+
+        log.debug("Returning base directory value of " + propVal);
 
         return propVal;
     }

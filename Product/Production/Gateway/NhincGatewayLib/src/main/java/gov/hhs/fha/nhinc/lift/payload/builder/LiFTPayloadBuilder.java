@@ -4,11 +4,11 @@
  */
 package gov.hhs.fha.nhinc.lift.payload.builder;
 
-import gov.hhs.fha.nhinc.common.lift.payload.ClientDataType;
-import gov.hhs.fha.nhinc.common.lift.payload.LIFTDataElementType;
-import gov.hhs.fha.nhinc.common.lift.payload.LIFTMessageType;
-import gov.hhs.fha.nhinc.common.lift.payload.LIFTRequestElementType;
-import gov.hhs.fha.nhinc.common.lift.payload.ServerProxyDataType;
+import gov.hhs.healthit.nhin.ClientDataType;
+import gov.hhs.healthit.nhin.LIFTDataElementType;
+import gov.hhs.healthit.nhin.LIFTMessageType;
+import gov.hhs.healthit.nhin.LIFTRequestElementType;
+import gov.hhs.healthit.nhin.ServerProxyDataType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper;
@@ -164,11 +164,11 @@ public class LiFTPayloadBuilder {
             // Marshall the Lift Payload Element into binary data
             try {
                 JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.lift.payload");
+                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
                 Marshaller marshaller = jc.createMarshaller();
                 baOutStrm.reset();
 
-                gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory factory = new gov.hhs.fha.nhinc.common.lift.payload.ObjectFactory();
+                gov.hhs.healthit.nhin.ObjectFactory factory = new gov.hhs.healthit.nhin.ObjectFactory();
                 JAXBElement oJaxbElement = factory.createLIFTMessage(liftPayload);
                 marshaller.marshal(oJaxbElement, baOutStrm);
             } catch (Exception e) {

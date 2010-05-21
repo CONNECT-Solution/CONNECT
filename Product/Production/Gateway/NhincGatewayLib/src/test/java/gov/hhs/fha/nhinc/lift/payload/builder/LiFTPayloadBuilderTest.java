@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.lift.payload.builder;
 
-import gov.hhs.fha.nhinc.common.lift.payload.LIFTMessageType;
+import gov.hhs.healthit.nhin.LIFTMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
