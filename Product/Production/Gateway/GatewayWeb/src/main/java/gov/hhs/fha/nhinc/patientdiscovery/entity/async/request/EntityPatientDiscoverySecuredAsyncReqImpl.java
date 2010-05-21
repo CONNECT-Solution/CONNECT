@@ -174,7 +174,7 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
 
         PatientDiscovery201305Processor msgProcessor = new PatientDiscovery201305Processor();
         ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
+        
         if (request != null &&
                 request.getPRPAIN201305UV02() != null) {
             II patId = msgProcessor.extractPatientIdFrom201305(request.getPRPAIN201305UV02());

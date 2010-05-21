@@ -125,7 +125,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecuredImpl" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="50" branchrate="0.2896" branchsexecuted="14.48" class="gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecuredImpl" linecount="117" linerate="0.3316239316239316" linesexecuted="38.8"/>
+<threshold branchcount="50" branchrate="0.2896" branchsexecuted="14.48" class="gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecuredImpl" linecount="119" linerate="0.33949579831932775" linesexecuted="40.4"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.26833333333333337" branchsexecuted="1.61" class="gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecuredImpl" linecount="41" linerate="0.06560975609756098" linesexecuted="2.6900000000000004"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
@@ -159,4 +159,6 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncRespImpl" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="50" branchrate="0.7364" branchsexecuted="36.82" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor" linecount="39" linerate="0.5361538461538462" linesexecuted="20.91"/>
 <threshold branchcount="22" branchrate="0.9545454545454546" branchsexecuted="0.21" class="gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryProcessor" linecount="87" linerate="0.7931034482758621" linesexecuted="0.69"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.error.AdapterXDRRequestError" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.error.AdapterXDRRequestErrorImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 </thresholds>

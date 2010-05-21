@@ -172,8 +172,8 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-                return true;
+            protected String generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+                return "59139453-9e74-4a33-ba99-4105f2112e54";
             }
 
             @Override
@@ -208,7 +208,7 @@ public class EntityXDRRequestSecuredImplTest {
         targets.getNhinTargetCommunity().add(target);
         request.setNhinTargetCommunities(targets);
         UrlInfoType urlInfo = new UrlInfoType();
-        urlInfo.setUrl("file://C:/Temp/data.pdf");
+        urlInfo.setUrl("file:///C:/Temp/data.pdf");
         urlInfo.setId("Document01");
         request.setUrl(urlInfo);
 
@@ -274,8 +274,8 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-                return true;
+            protected String generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+                return "59139453-9e74-4a33-ba99-4105f2112e54";
             }
 
             @Override
@@ -376,8 +376,8 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-                return true;
+            protected String generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+                return "59139453-9e74-4a33-ba99-4105f2112e54";
             }
 
             @Override
@@ -479,8 +479,8 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-                return false;
+            protected String generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+                return null;
             }
 
             @Override
@@ -582,8 +582,8 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-                return true;
+            protected String generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+                return "59139453-9e74-4a33-ba99-4105f2112e54";
             }
 
             @Override

@@ -62,6 +62,7 @@ public class EntityXDRRequestSecuredImpl {
         response.setMessage(regResp);
         String errMsg = null;
         boolean errorOccurred = false;
+        String guid = null;
 
         logRequest(provideAndRegisterRequestRequest, assertion);
 
@@ -88,9 +89,10 @@ public class EntityXDRRequestSecuredImpl {
                         log.debug("Target Community supports LIFT");
                         
                         // Lift is supported by both the sides, now generate the payload
-                        if (generateLiFTPayload(provideAndRegisterRequestRequest, assertion)) {
+                        guid = generateLiFTPayload(provideAndRegisterRequestRequest, assertion);
+                        if (guid != null) {
                             // LiFT Payload was successfully generated now copy the file
-                            if (copyFileToFileServer(provideAndRegisterRequestRequest.getUrl().getUrl(), null) == false) {
+                            if (copyFileToFileServer(provideAndRegisterRequestRequest.getUrl().getUrl(), guid) == false) {
                                 errMsg = "Failed to copy file to the file server";
                                 log.error(errMsg);
                                 regResp.setStatus(errMsg);
@@ -171,7 +173,7 @@ public class EntityXDRRequestSecuredImpl {
      * @param assertion  The Assertion Object containing assertion information
      * @return  true if the payload was successfully inserted, other false if an error occurs
      */
-    protected boolean generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+    protected String generateLiFTPayload(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
         // Call out to the LiFT Payload Builder Library to build the LiFT Payload
         LiFTPayloadBuilder payloadBuilder = new LiFTPayloadBuilder();
         List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
