@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.lift.file.manager;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
@@ -28,47 +29,58 @@ public class LiFTFileManager {
     private final static int FILECHUNK = 65536;
 
     public boolean copyFile(String url, String guid) {
+        boolean result = false;
 
-        // Open the destination directory on the file server
-        File destDirectory = new File(createFileServerPath(guid));
+        if (NullChecker.isNotNullish(url) &&
+                NullChecker.isNotNullish(guid)) {
+            // Open the destination directory on the file server
+            File destDirectory = new File(createFileServerPath(guid));
 
-        // Test if directory exists on Apache Server
-        if (createDestDirectory (destDirectory) == false) {
-            log.error("Could not create destination directory: " + destDirectory.getAbsolutePath());
-            return false;
+            // Test if directory exists on Apache Server
+            if (createDestDirectory(destDirectory) == false) {
+                log.error("Could not create destination directory: " + destDirectory.getAbsolutePath());
+                return false;
+            }
+
+            // Convert the url to a uri
+            URI uri = null;
+
+            try {
+                uri = new URI(url);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            File sourceFile = new File(uri);
+
+            String destPath = destDirectory.getAbsolutePath() + "/" + extractFile(url);
+
+            result = transferFile(destPath, sourceFile);
         }
 
-        // Convert the url to a uri
-        URI uri = null;
-        
-        try {
-            uri = new URI(url);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        File sourceFile = new File(uri);
-
-        String destPath = destDirectory.getAbsolutePath() + "/" + extractFile(url);
-
-        return transferFile(destPath, sourceFile);
+        return result;
     }
 
     protected String createFileServerPath(String guid) {
         String destDirectoryPath = null;
 
-        // Get Properties to find apache/File server root location
-        String fileServerRoot = getBaseDirectoryProperty();
-        log.debug("File Server root is: " + fileServerRoot);
+        if (NullChecker.isNotNullish(guid)) {
+            // Get Properties to find apache/File server root location
+            String fileServerRoot = getBaseDirectoryProperty();
 
-        destDirectoryPath = fileServerRoot.concat("/" + guid);
-        log.debug("File Server destination directory is: " + destDirectoryPath);
+            if (NullChecker.isNotNullish(fileServerRoot)) {
+                log.debug("File Server root is: " + fileServerRoot);
+
+                destDirectoryPath = fileServerRoot.concat("/" + guid);
+                log.debug("File Server destination directory is: " + destDirectoryPath);
+            }
+        }
 
         return destDirectoryPath;
     }
 
-    protected boolean createDestDirectory (File destDirectory) {
+    protected boolean createDestDirectory(File destDirectory) {
         if (!destDirectory.exists()) {
             if (!destDirectory.mkdirs()) {
                 log.error("Failed to create directory to transfer file to: " + destDirectory);
@@ -110,15 +122,14 @@ public class LiFTFileManager {
             log.error("File mover failed to move file.", e);
             e.printStackTrace();
             transferSucceeded = false;
-        }
-        finally {
+        } finally {
             try {
                 in.close();
                 out.close();
             } catch (IOException ex) {
                 Logger.getLogger(LiFTFileManager.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
 
@@ -131,12 +142,11 @@ public class LiFTFileManager {
         // Check the property file to retreive the property
         try {
             propVal = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_BASE_FILE_SERVER_DIR_PROP_NAME);
+            log.debug("Returning base directory value of " + propVal);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.LIFT_BASE_FILE_SERVER_DIR_PROP_NAME + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
-
-        log.debug("Returning base directory value of " + propVal);
 
         return propVal;
     }

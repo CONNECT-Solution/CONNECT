@@ -59,7 +59,7 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.client.SSLClient" linecount="25" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.client.TestClientHandshaker" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.properties.imp.ConsumerProxyPropertiesFacadeRI" linecount="28" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.properties.imp.ProducerProxyPropertiesService" linecount="26" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.properties.imp.ProducerProxyPropertiesService" linecount="41" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.ConnectingHandler" linecount="64" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.HandlerPrototype" linecount="18" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.server.SSLServer" linecount="22" linerate="0.0" linesexecuted="0"/>
@@ -69,8 +69,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.ProxyUtil" linecount="39" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.Response" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.6875" branchsexecuted="0.11" class="gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper" linecount="11" linerate="0.9090909090909091" linesexecuted="0.1"/>
-<threshold branchcount="26" branchrate="0.8846153846153846" branchsexecuted="0.23" class="gov.hhs.fha.nhinc.lift.payload.builder.LiFTPayloadBuilder" linecount="99" linerate="0.06393939393939393" linesexecuted="6.33"/>
-<threshold branchcount="10" branchrate="0.2" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.lift.file.manager.LiFTFileManager" linecount="69" linerate="0.09681159420289855" linesexecuted="6.68"/>
+<threshold branchcount="26" branchrate="0.8846153846153846" branchsexecuted="0.23" class="gov.hhs.fha.nhinc.lift.payload.builder.LiFTPayloadBuilder" linecount="104" linerate="0.09932692307692308" linesexecuted="10.33"/>
+<threshold branchcount="18" branchrate="0.2222222222222222" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.lift.file.manager.LiFTFileManager" linecount="74" linerate="0.28378378378378377" linesexecuted="0.21"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.common.util.LiftConnectionRequestToken" linecount="25" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.common.util.LiftMessage" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.proxy.util.LiftConnectionResponseToken" linecount="12" linerate="0.0" linesexecuted="0"/>

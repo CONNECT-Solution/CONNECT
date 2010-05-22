@@ -55,9 +55,12 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+import gov.hhs.fha.nhinc.lift.dao.LiftTransferDataRecordDao;
+import gov.hhs.fha.nhinc.lift.model.LiftTransferDataRecord;
 import gov.hhs.fha.nhinc.lift.proxy.properties.interfaces.ProducerProxyPropertiesFacade;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -76,10 +79,32 @@ public class ProducerProxyPropertiesService implements
 
     @Override
     public boolean verifySecurityForRequest(LiftConnectionRequestToken request) {
+        boolean result = false;
+
+        LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
+        List<LiftTransferDataRecord> dbRecs = dbDao.findForGuid(request.getRequestGUID());
 
         System.out.println("Need to integrate in new table - ProducerProxyPropertiesService.verifySecurityForRequest");
         System.out.println("For now returning TRUE - match found.");
-        return true;
+        
+        if (dbRecs.size() == 1) {
+           log.debug("Found a single database entry matching the request GUID");
+           // update record to inprogress
+           LiftTransferDataRecord rec = new LiftTransferDataRecord();
+           rec.setId(dbRecs.get(0).getId());
+           rec.setRequestKeyGuid(dbRecs.get(0).getRequestKeyGuid());
+           rec.setTransferState(NhincConstants.LIFT_TRANSFER_DB_STATE_PROCESSING);
+           dbDao.updateRecord(rec);
+           result = true;
+        }
+        else if (dbRecs.size() > 1) {
+            log.error("Multiple records were found for the request GUID");
+        }
+        else {
+            log.error("No records were found for the request GUID");
+        }
+
+        return result;
     }
 
     @Override

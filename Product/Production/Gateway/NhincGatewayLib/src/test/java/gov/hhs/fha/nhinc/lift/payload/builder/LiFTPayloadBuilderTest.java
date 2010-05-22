@@ -63,6 +63,11 @@ public class LiFTPayloadBuilderTest {
 
         LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
             @Override
+            protected String addEntryToLiftDatabase(String fileUrl) {
+                return "123456";
+            }
+
+            @Override
             protected String getProxyAddressProperty() {
                 return "localhost";
             }
@@ -99,6 +104,11 @@ public class LiFTPayloadBuilderTest {
         AssertionType assertion = new AssertionType();
 
         LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String addEntryToLiftDatabase(String fileUrl) {
+                return "123456";
+            }
+
             @Override
             protected String getProxyAddressProperty() {
                 return "localhost";
@@ -317,6 +327,11 @@ public class LiFTPayloadBuilderTest {
 
         LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
             @Override
+            protected String addEntryToLiftDatabase(String fileUrl) {
+                return "123456";
+            }
+
+            @Override
             protected String getProxyAddressProperty() {
                 return null;
             }
@@ -347,6 +362,11 @@ public class LiFTPayloadBuilderTest {
         AssertionType assertion = new AssertionType();
 
         LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String addEntryToLiftDatabase(String fileUrl) {
+                return "123456";
+            }
+            
             @Override
             protected String getProxyAddressProperty() {
                 return "localhost";
