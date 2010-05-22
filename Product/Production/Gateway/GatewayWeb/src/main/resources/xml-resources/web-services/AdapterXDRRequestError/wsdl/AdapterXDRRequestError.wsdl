@@ -20,7 +20,7 @@
     </types>
     <message name="XDRRequestErrorInputMessage">
         <documentation>XDR Request Input Message</documentation>
-        <part name="body" element="nccommonadapter:Adapter_ProvideAndRegisterDocumentSetRequest"/>
+        <part name="body" element="nccommonadapter:Adapter_ProvideAndRegisterDocumentSetRequestError"/>
     </message>
     <message name="XDRRequestErrorAcknowledgementMessage">
         <documentation>XDR Request Acknowledgement Message</documentation>
