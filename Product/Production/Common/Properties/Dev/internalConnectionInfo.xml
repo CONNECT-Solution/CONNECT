@@ -590,7 +590,7 @@
 		<homeCommunityId>2.2</homeCommunityId>
 		<name>DoD</name>
 		<description>DoD Description</description>
-		<supportsLIFT>false</supportsLIFT>
+		<supportsLIFT>true</supportsLIFT>
 		<liftProtocols>
 			<liftProtocol>
 				<name>HTTPS</name>
