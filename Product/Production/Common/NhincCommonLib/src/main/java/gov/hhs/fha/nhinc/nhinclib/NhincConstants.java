@@ -331,6 +331,9 @@ public class NhincConstants {
     public static final String LIFT_FILESERVER_PORT = "FileServerPort";
     public static final String LIFT_BASE_FILE_SERVER_DIR_PROP_NAME = "BaseOutboundDir";
 
+    public static final String LIFT_TRANSFER_DB_STATE_ENTERED = "ENTERED";
+    public static final String LIFT_TRANSFER_DB_STATE_PROCESSING = "PROCESSING";
+
     private NhincConstants() {
     }
 }
