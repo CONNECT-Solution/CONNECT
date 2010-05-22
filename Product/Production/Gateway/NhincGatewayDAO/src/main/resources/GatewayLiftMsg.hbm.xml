@@ -24,4 +24,13 @@
     <property column="Message" name="message" not-null="false"/>
     <property column="Assertion" name="assertion" not-null="false"/>
   </class>
+  
+  <class name="LiftTransferDataRecord" table="transfer_data">
+      <id name="Id" type="long">
+        <column name="id"/>
+        <generator class="native"/>
+      </id>
+      <property column="requestKeyGuid" length="32" name="RequestKeyGuid" not-null="true" type="string"/>
+      <property column="transferState" length="32" name="TransferState" not-null="true" type="string"/>
+   </class>
 </hibernate-mapping>
