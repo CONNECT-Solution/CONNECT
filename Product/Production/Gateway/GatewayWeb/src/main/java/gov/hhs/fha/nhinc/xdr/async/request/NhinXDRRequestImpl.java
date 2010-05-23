@@ -21,6 +21,9 @@ import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
 
 /**
  *
@@ -78,6 +81,7 @@ public class NhinXDRRequestImpl
         else
         {
             getLogger().error("Policy Check Failed");
+            result = sendErrorToAgency(body, assertion, "Policy Check Failed");
         }
 
         ack = getXDRAuditLogger().auditAcknowledgement(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
@@ -141,6 +145,22 @@ public class NhinXDRRequestImpl
         getLogger().debug("Exiting forwardToAgency");
 
         return response;
+    }
+
+    public XDRAcknowledgementType sendErrorToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String errMsg) {
+        AdapterProvideAndRegisterDocumentSetRequestErrorType adapterReq = new AdapterProvideAndRegisterDocumentSetRequestErrorType();
+
+        AdapterXDRRequestErrorProxyObjectFactory factory = new AdapterXDRRequestErrorProxyObjectFactory();
+        AdapterXDRRequestErrorProxy proxy = factory.getAdapterXDRRequestErrorProxy();
+
+        adapterReq.setAssertion(assertion);
+        adapterReq.setProvideAndRegisterDocumentSetRequest(body);
+        adapterReq.setErrorMsg(errMsg);
+
+
+        XDRAcknowledgementType adapterResp = proxy.provideAndRegisterDocumentSetBRequestError(adapterReq);
+
+        return adapterResp;
     }
 
 

@@ -400,6 +400,14 @@
 		<servlet-name>EntityXDRSecured</servlet-name>
 		<url-pattern>/EntityService/EntityXDRSecured</url-pattern>
 	</servlet-mapping>
+        <servlet>
+		<servlet-name>AdapterXDRRequestError</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.adapter.xdr.async.request.error.AdapterXDRRequestError</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdapterXDRRequestError</servlet-name>
+		<url-pattern>/AdapterService/AdapterXDRRequestError_Service</url-pattern>
+	</servlet-mapping>
     <!-- Start: XDR Request and Response services-->
     <servlet>
         <servlet-name>NhinXDRRequest</servlet-name>

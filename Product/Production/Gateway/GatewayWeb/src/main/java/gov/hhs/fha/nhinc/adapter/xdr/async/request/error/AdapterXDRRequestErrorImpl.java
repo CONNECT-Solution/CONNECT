@@ -5,6 +5,8 @@
 
 package gov.hhs.fha.nhinc.adapter.xdr.async.request.error;
 
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -35,6 +37,12 @@ public class AdapterXDRRequestErrorImpl {
         }
 
         log.error("Received an error from the Gateway.  Message: " + body.getErrorMsg());
+
+        AdapterXDRRequestErrorProxyObjectFactory adapterXdrAsyncReqErrorFactory = new AdapterXDRRequestErrorProxyObjectFactory();
+
+        AdapterXDRRequestErrorProxy proxy = adapterXdrAsyncReqErrorFactory.getAdapterXDRRequestErrorProxy();
+
+        ack = proxy.provideAndRegisterDocumentSetBRequestError(body);
 
         return ack;
     }
