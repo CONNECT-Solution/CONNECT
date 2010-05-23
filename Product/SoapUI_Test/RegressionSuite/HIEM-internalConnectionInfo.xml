@@ -424,6 +424,11 @@
 				<description>NHIN Proxy XDR Response</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationfacadedteservice</name>
+				<description>Patient Correlation Facade DTE Service</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
+			</service>
       </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
