@@ -57,7 +57,7 @@
 		<xsd:sequence>
 			<xsd:element ref="rs:RegistryResponse"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-                        <xsd:element name="url" type="nccommon:UrlInfoType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="url" type="nccommon:UrlInfoType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponse" type="tns:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponseType"/>
@@ -634,7 +634,7 @@
         the Policy Engine PIP (Policy Information Point) -->
 	<xsd:complexType name="BinaryDocumentPolicyCriterionType">
 		<xsd:sequence>
-			<xsd:element name="policyOID" type="xsd:string"  minOccurs="0"/>
+			<xsd:element name="policyOID" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="documentUniqueId" type="xsd:string"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="documentTitle" type="xsd:string"/>
@@ -785,63 +785,55 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequest" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestType"/>
-        
 	<xsd:complexType name="AdapterRegistryResponseType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="RegistryResponse" type="rs:RegistryResponseType">
-			</xsd:element>
+			<xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="AdapterRegistryResponse" type="tns:AdapterRegistryResponseType"/>
-
-        <xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestErrorType">
+	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestErrorType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
 			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
-                        <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
 			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequestError" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestErrorType"/>
-
-        <xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestErrorSecuredType">
+	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestErrorSecuredType">
 		<xsd:sequence>
 			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
-                        <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
 			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequestErrorSecured" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestErrorSecuredType"/>
-
-        <!-- ====================================================================
+	<!-- ====================================================================
          Redaction
          ==================================================================== -->
-    <xsd:complexType name="FilterDocQueryResultsRequestType">
-        <xsd:sequence>
-            <xsd:element ref="query:AdhocQueryRequest"/>
-            <xsd:element ref="query:AdhocQueryResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocQueryResultsRequestType">
+		<xsd:sequence>
+			<xsd:element ref="query:AdhocQueryRequest"/>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocQueryResultsRequest" type="tns:FilterDocQueryResultsRequestType"/>
-    <xsd:complexType name="FilterDocQueryResultsResponseType">
-        <xsd:sequence>
-            <xsd:element ref="query:AdhocQueryResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocQueryResultsResponseType">
+		<xsd:sequence>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocQueryResultsResponse" type="tns:FilterDocQueryResultsResponseType"/>
-    <xsd:complexType name="FilterDocRetrieveResultsRequestType">
-        <xsd:sequence>
-            <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
-            <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocRetrieveResultsRequestType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocRetrieveResultsRequest" type="tns:FilterDocRetrieveResultsRequestType"/>
-    <xsd:complexType name="FilterDocRetrieveResultsResponseType">
-        <xsd:sequence>
-            <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocRetrieveResultsResponseType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocRetrieveResultsResponse" type="tns:FilterDocRetrieveResultsResponseType"/>
 </xsd:schema>
-
