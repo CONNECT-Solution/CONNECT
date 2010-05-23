@@ -24,7 +24,7 @@
 <threshold branchcount="2" branchrate="0.8" branchsexecuted="1.6" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecuredImpl" linecount="25" linerate="0.32" linesexecuted="8"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpi" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpiProxyImpl" linecount="21" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpiQuery" linecount="46" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpiQuery" linecount="45" linerate="-0.017777777777777778" linesexecuted="-0.8"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpimanager.CommonChecks" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpimanager.MpiDataAccess" linecount="14" linerate="0.0" linesexecuted="0"/>
@@ -137,4 +137,6 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoveryAsyncRespImpl" linecount="9" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoveryAsyncRespImpl" linecount="9" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestErrorImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 </thresholds>

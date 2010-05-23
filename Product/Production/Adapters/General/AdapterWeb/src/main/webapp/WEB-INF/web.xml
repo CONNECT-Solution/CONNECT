@@ -442,6 +442,14 @@
         <servlet-name>AdapterXDRResponseSecured</servlet-name>
         <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
+        <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>EntityXDRRequest</servlet-name>
@@ -529,6 +537,10 @@
         <web-resource-collection>
             <web-resource-name>AdapterXDRResponseSecured</web-resource-name>
             <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRSecuredRequestError</web-resource-name>
+            <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
         </web-resource-collection>
         <!-- End: XDR Request and Response services-->
 
