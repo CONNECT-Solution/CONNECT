@@ -513,6 +513,16 @@
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
 			</service>
 			<service>
+				<name>adapterxdrsecuredasyncreqerror</name>
+				<description>Adapter Component XDR Request Error Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestErrorSecured_Service</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdrrequesterror</name>
+				<description>Adapter Component XDR RequestError</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
+			</service>
+			<service>
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
@@ -590,7 +600,7 @@
 		<homeCommunityId>2.2</homeCommunityId>
 		<name>DoD</name>
 		<description>DoD Description</description>
-		<supportsLIFT>true</supportsLIFT>
+		<supportsLIFT>false</supportsLIFT>
 		<liftProtocols>
 			<liftProtocol>
 				<name>HTTPS</name>
@@ -1050,6 +1060,16 @@
 				<name>adapterxdrrequest</name>
 				<description>Adapter Component XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdrsecuredasyncreqerror</name>
+				<description>Adapter Component XDR Request Error Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestErrorSecured_Service</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdrrequesterror</name>
+				<description>Adapter Component XDR RequestError</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
 			</service>
 			<service>
 				<name>xdrrequest</name>
@@ -1619,6 +1639,16 @@
 				<name>adapterxdrrequest</name>
 				<description>Adapter Component XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdrsecuredasyncreqerror</name>
+				<description>Adapter Component XDR Request Error Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestErrorSecured_Service</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdrrequesterror</name>
+				<description>Adapter Component XDR RequestError</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
 			</service>
 			<service>
 				<name>xdrrequest</name>
