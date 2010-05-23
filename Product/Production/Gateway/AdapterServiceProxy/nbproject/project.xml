@@ -18,5 +18,9 @@
                 <root id="test.resources.dir"/>
             </test-roots>
         </data>
+        <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
+            <config-files/>
+            <config-file-groups/>
+        </spring-data>
     </configuration>
 </project>

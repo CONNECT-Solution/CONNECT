@@ -1,11 +1,21 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-public class AdapterXDRRequestProxyObjectFactory
-{
+/**
+ *
+ * @author JHOPPESC
+ */
+public class AdapterXDRRequestProxyObjectFactory {
+
     private static final String CONFIG_FILE_NAME = "AdapterXDRRequestProxyConfig.xml";
     private static final String BEAN_NAME_ADAPTER_DOCQUERY = "adapterxdrrequest";
     private static ApplicationContext context = null;
@@ -16,7 +26,7 @@ public class AdapterXDRRequestProxyObjectFactory
     }
 
     /**
-     * 
+     *
      * @return
      */
     public AdapterXDRRequestProxy getAdapterXDRRequestProxy()
@@ -28,4 +38,7 @@ public class AdapterXDRRequestProxyObjectFactory
         }
         return adapterDocQuery;
     }
+
 }
+
+

@@ -46,4 +46,10 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.proxy.AdapterPatientDiscoveryAsyncReqErrorProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.proxy.AdapterPatientDiscoveryAsyncReqErrorWebServiceProxy" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.request.error.proxy.AdapterXDRRequestErrorNoOpImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.request.error.proxy.AdapterXDRRequestErrorWebServiceProxy" linecount="34" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorNoOpImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorWebServiceProxy" linecount="33" linerate="-0.024242424242424242" linesexecuted="-0.8"/>
 </thresholds>
