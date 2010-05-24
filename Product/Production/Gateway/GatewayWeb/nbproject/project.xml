@@ -12,9 +12,6 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.NhincCommonDAO.jar}</file>
                 </library>
                 <library>
@@ -140,6 +137,10 @@
                 </library>
                 <library>
                     <file>${file.reference.hibernate3.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
