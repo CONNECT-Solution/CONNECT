@@ -14,7 +14,7 @@
 	<target name="-package.create">
 		<mkdir dir="${dist.dir}" />
 
-		<echo message="check if out of date ${dist.file}" />
+		<echo message="check if out of date ${dist.file}" level="info"/>
 
 		<if>
 			<exists path="${dist.file}" />
@@ -22,11 +22,10 @@
 				<property name="force.package" value="false" />
 			</then>
 			<else>
-				<echo message="The package will be forced, the dist file does not exist: ${dist.file}." />
+				<echo message="The package will be forced, the dist file does not exist: ${dist.file}." level="info"/>
 				<property name="force.package" value="true" />
 			</else>
 		</if>
-
 
 		<outofdate verbose="true" force="${force.package}">
 			<sourcefiles>
@@ -50,20 +49,20 @@
 	</target>
 
 	<target name="-package.recreate">
-		<echo message="Creating package ${dist.file}..."/>
+		<echo message="Creating package ${dist.file}..." level="info"/>
 		<delete file="${dist.file}" />
 		<mkdir dir="${build.dist.meta-inf.dir}" />
 
 		<manifest file="${build.dist.manifest.file}" mode="update">
-			<attribute name="Implementation-Vendor" value="ConnectOpensource.org." />
-			<attribute name="Implementation-Title" value="NHINC" />
+			<attribute name="Implementation-Vendor" value="connectopensource.org" />
+			<attribute name="Implementation-Title" value="NHIN CONNECT" />
       <attribute name="Implementation-Version" value="${ProductVersion}" />
       <attribute name="Specification-Version" value="${ProductVersion}" />
     </manifest>
 
 		<switch value="${dist.type}">
 			<case value="jar">
-				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" />
+				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
 				<mkdir dir="${build.war.lib.dir}" />
@@ -75,7 +74,9 @@
 				</for>
 				<war compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}">
 					<path refid="war.files" />
-					<fileset dir="${build.dist.root}" />
+					<fileset dir="${build.dist.root}">
+            <exclude name="**/*.flag"/>
+          </fileset>
 				</war>
 			</case>
 			<case value="ear">
@@ -91,7 +92,7 @@
 				</ear>
 			</case>
 			<default>
-				<fail message="Tag your it! Packaging ${dist.type}s has not yet been implemented, you can write it..." />
+				<fail message="Tag your it! Packaging ${dist.type}s has not yet been implemented, you can write it..."/>
 			</default>
 		</switch>
 	</target>

@@ -168,7 +168,7 @@
 		<if>
 			<istrue value="${coverage.isneeded}" />
 			<then>
-				<echo message="check if out of date ${dist.instrumented.file}" />
+				<echo message="check if out of date ${dist.instrumented.file}" level="info"/>
 
 				<mkdir dir="${dist.instrumented.dir}" />
 

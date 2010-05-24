@@ -12,7 +12,7 @@
 	</target>
 
 	<target name="-compile.source">
-		<echo message="compile.source for ${project.name}" />
+		<echo message="compile.source for ${project.name}" level="info"/>
 
 		<call target="compile.javac" />
 		<call target="compile.resources" />
