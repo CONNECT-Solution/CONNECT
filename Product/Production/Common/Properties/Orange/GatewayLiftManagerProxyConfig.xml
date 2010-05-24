@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <bean id="gatewayliftmanager" class="gov.hhs.fha.nhinc.lift.proxy.GatewayLiftManagerNoOpImpl"/>
+    <bean id="gatewayliftmanager" class="gov.hhs.fha.nhinc.lift.proxy.GatewayLiftManagerProxyNoOpImpl"/>
 	
 	<!-- Web-service implementation unsecured -->
     <!-- <bean id="gatewayliftmanager" class="gov.hhs.fha.nhinc.lift.proxy.GatewayLiftManagerWebServiceUnsecuredImpl"/>  -->
