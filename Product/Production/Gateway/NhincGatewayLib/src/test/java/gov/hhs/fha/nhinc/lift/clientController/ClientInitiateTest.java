@@ -49,51 +49,53 @@ public class ClientInitiateTest {
     @After
     public void tearDown() {
     }
-
+/*
     @Test
     public void testClientSocket() {
         //Temporary place holder
     }
-    
-//    @Test
-//    public void testClientSocket() {
-//        InetSocketAddress caddr = null;
-//        try {
-//            // client socket should be started
-//            String clientIP = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_IP);
-//            String clientPort = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_PORT);
-//            caddr = new InetSocketAddress(clientIP, Integer.parseInt(clientPort));
-//            Socket clientSocket = new Socket(caddr.getAddress(), caddr.getPort());
-//
-//            // client expects a LiftMessage type so we create one
-//            LiftMessage message = new LiftMessage();
-//
-//            RequestToken request = new RequestToken("5d4bb0d5-414e-48b4-b86a-be31926a4076");
-//            message.setRequest(request);
-//
-//            DataToken data = new DataToken();
-//            ClientDataToken cdata = new ClientDataToken();
-//            cdata.setData("/5d4bb0d5-414e-48b4-b86a-be31926a4076/document.pdf");
-//            data.setClientData(cdata);
-//
-//            ServerProxyDataToken sdata = new ServerProxyDataToken();
-//            String serverIP = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_ADDRESS);
-//            String serverPort = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_PORT);
-//            InetSocketAddress saddr = new InetSocketAddress(serverIP, Integer.parseInt(serverPort));
-//            sdata.setServerProxyAddress(saddr.getAddress().getHostAddress());
-//            sdata.setServerProxyPort(saddr.getPort());
-//            data.setServerProxyData(sdata);
-//            message.setData(data);
-//
-//            String content = JaxbUtil.marshalToString(message);
-//            System.out.println("Attempt to send: " + content);
-//            InterProcessSocketProtocol.sendData(content, clientSocket.getOutputStream());
-//            clientSocket.close();
-//        } catch (IOException ex) {
-//            Assert.fail("Could not connect to client socket: " + caddr);
-//        } catch (PropertyAccessException ex) {
-//            Assert.fail("Could not obtain client socket ip and port properties ");
-//        }
-//    }
+    */
+    @Test
+    public void testClientSocket() {
+        InetSocketAddress caddr = null;
+        try {
+            // client socket should be started
+            String clientIP = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_IP);
+            String clientPort = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_PORT);
+            caddr = new InetSocketAddress(clientIP, Integer.parseInt(clientPort));
+            Socket clientSocket = new Socket(caddr.getAddress(), caddr.getPort());
+
+            // client expects a LiftMessage type so we create one
+            LiftMessage message = new LiftMessage();
+
+            RequestToken request = new RequestToken("5d4bb0d5-414e-48b4-b86a-be31926a4076");
+            message.setRequest(request);
+
+            DataToken data = new DataToken();
+            ClientDataToken cdata = new ClientDataToken();
+            cdata.setData("/5d4bb0d5-414e-48b4-b86a-be31926a4076/05222009-3.png");
+            //cdata.setData("/5d4bb0d5-414e-48b4-b86a-be31926a4076/testdata.pdf");
+            //cdata.setData("/5d4bb0d5-414e-48b4-b86a-be31926a4076/README.txt");
+            data.setClientData(cdata);
+
+            ServerProxyDataToken sdata = new ServerProxyDataToken();
+            String serverIP = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_ADDRESS);
+            String serverPort = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_PROXY_PORT);
+            InetSocketAddress saddr = new InetSocketAddress(serverIP, Integer.parseInt(serverPort));
+            sdata.setServerProxyAddress(saddr.getAddress().getHostAddress());
+            sdata.setServerProxyPort(saddr.getPort());
+            data.setServerProxyData(sdata);
+            message.setData(data);
+
+            String content = JaxbUtil.marshalToString(message);
+            System.out.println("Attempt to send: " + content);
+            InterProcessSocketProtocol.sendData(content, clientSocket.getOutputStream());
+            clientSocket.close();
+        } catch (IOException ex) {
+            Assert.fail("Could not connect to client socket: " + caddr);
+        } catch (PropertyAccessException ex) {
+            Assert.fail("Could not obtain client socket ip and port properties ");
+        }
+    }
     
 }

@@ -83,9 +83,6 @@ public class ProducerProxyPropertiesService implements
 
         LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
         List<LiftTransferDataRecord> dbRecs = dbDao.findForGuid(request.getRequestGUID());
-
-        System.out.println("Need to integrate in new table - ProducerProxyPropertiesService.verifySecurityForRequest");
-        System.out.println("For now returning TRUE - match found.");
         
         if (dbRecs.size() == 1) {
            log.debug("Found a single database entry matching the request GUID");
@@ -128,6 +125,18 @@ public class ProducerProxyPropertiesService implements
     }
 
     @Override
+    public void setTrustStore() {
+        try {
+            String loc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTORE);
+            String pass = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTOREPASS);
+            System.setProperty("javax.net.ssl.trustStore", loc);
+            System.setProperty("javax.net.ssl.trustStorePassword", pass);
+        } catch (PropertyAccessException ex) {
+            log.error(ex.getMessage());
+        }
+    }
+
+    @Override
     public void setKeyStoreProperty() {
         try {
             String loc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTORE);
@@ -138,4 +147,5 @@ public class ProducerProxyPropertiesService implements
             log.error(ex.getMessage());
         }
     }
+
 }

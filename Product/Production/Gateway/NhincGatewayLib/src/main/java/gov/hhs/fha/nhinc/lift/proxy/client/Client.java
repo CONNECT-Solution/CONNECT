@@ -80,6 +80,7 @@ public abstract class Client {
      * @throws IOException
      */
     public Client(InetAddress address, int port, RequestToken token, ClientHandshaker handshaker) throws IOException {
+        System.out.println("New SSLClient");
         this.token = token;
         this.connect(address, port);
         log = createLogger();

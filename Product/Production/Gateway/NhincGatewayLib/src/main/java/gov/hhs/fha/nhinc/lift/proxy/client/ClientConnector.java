@@ -52,6 +52,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.Connector;
+import javax.net.ssl.SSLServerSocket;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -48,53 +48,59 @@
 package gov.hhs.fha.nhinc.lift.proxy.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javax.net.ssl.SSLSocket;
 
 /**
  * @author rrobin20
  *
  */
 public final class DemoProtocol implements ProtocolWrapper {
-	private final Socket socket;
-	
-	public DemoProtocol(Socket socket) {
-		super();
-		this.socket = socket;
-	}
 
-	@Override
-	public String readLine() throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    private final SSLSocket socket;
 
-		return in.readLine();
-	}
+    public DemoProtocol(SSLSocket socket) {
+        super();
+        this.socket = socket;
+    }
 
-	@Override
-	public void sendLine(String mess) throws IOException {
-		PrintWriter out = new PrintWriter(socket.getOutputStream());
-		
-		out.println(mess);
-		out.flush();
-	}
+    @Override
+    public String readLine() throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-	@Override
-	public InputStream getInStream() throws IOException {
-		return socket.getInputStream();
-	}
+        return in.readLine();
+    }
 
-	@Override
-	public OutputStream getOutStream() throws IOException {
-		return socket.getOutputStream();
-	}
+    @Override
+    public void sendLine(String mess) throws IOException {
+        socket.startHandshake();
+        PrintWriter out = new PrintWriter(
+                new BufferedWriter(
+                new OutputStreamWriter(
+                socket.getOutputStream())));
+        out.println(mess);
+        out.flush();
+    }
 
-	@Override
-	public void close() throws IOException {
-		socket.close();
-	}
+    @Override
+    public InputStream getInStream() throws IOException {
+        return socket.getInputStream();
+    }
 
+    @Override
+    public OutputStream getOutStream() throws IOException {
+        return socket.getOutputStream();
+    }
+
+    @Override
+    public void close() throws IOException {
+        socket.close();
+    }
 }

@@ -55,7 +55,13 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol;
+import java.io.FileInputStream;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.security.KeyStore;
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -76,15 +82,16 @@ public class SSLServer extends Server {
         super(prototype);
 
         log = createLogger();
-        SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        ServerSocket createdSocket = factory.createServerSocket();
+
+        InetSocketAddress addr = (InetSocketAddress) address;
+        ServerSocketFactory factory = getTLSServerSocketFactory();
+        ServerSocket createdSocket = factory.createServerSocket(addr.getPort());
         server = (SSLServerSocket) createdSocket;
+        log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
 
         // Doing this causes problems, I don't understand this much but I think it's necessary.
-//		server.setNeedClientAuth(true);
+        //server.setNeedClientAuth(true);
 
-        server.bind(address);
-        log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
     }
 
     protected Log createLogger() {
@@ -93,6 +100,32 @@ public class SSLServer extends Server {
 
     public SSLServerSocket getServer() {
         return server;
+    }
+
+    private ServerSocketFactory getTLSServerSocketFactory() {
+
+        ServerSocketFactory ssf = ServerSocketFactory.getDefault();
+        try {
+            // set up key manager to do server authentication
+            SSLContext ctx;
+            KeyManagerFactory kmf;
+            KeyStore ks;
+            char[] passphrase = System.getProperty("javax.net.ssl.keyStorePassword").toCharArray();
+
+            ctx = SSLContext.getInstance("TLS");
+            kmf = KeyManagerFactory.getInstance("SunX509");
+            ks = KeyStore.getInstance("JKS");
+
+            ks.load(new FileInputStream(System.getProperty("javax.net.ssl.keyStore")), passphrase);
+            kmf.init(ks, passphrase);
+            ctx.init(kmf.getKeyManagers(), null, null);
+
+            ssf = ctx.getServerSocketFactory();
+            return ssf;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ssf;
     }
 
     @Override

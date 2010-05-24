@@ -51,6 +51,7 @@ import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.proxy.util.ClientHandshaker;
 import gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol;
 import gov.hhs.fha.nhinc.lift.proxy.util.ProtocolWrapper;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -58,6 +59,9 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+import java.security.KeyStore;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -86,11 +90,12 @@ public class SSLClient extends Client {
 
     @Override
     protected boolean connect(InetAddress address, int port) throws IOException {
-        SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        System.out.println("SSLClient.connect");
+        SSLSocketFactory factory = getTLSSocketFactory();
         socket = (SSLSocket) factory.createSocket();
-
+        System.out.println("SSLClient.connect to " + address + ":" + port);
         socket.connect(new InetSocketAddress(address, port));
-
+        System.out.println("SSLClient creates a TLS socket bound to: " + socket);
         wrapper = new DemoProtocol(socket);
 
         return true;
@@ -98,16 +103,46 @@ public class SSLClient extends Client {
 
     @Override
     protected boolean performHandshake(ClientHandshaker handshaker) throws IOException {
+        System.out.println("SSLClient Initiates performHandshake");
         boolean success = handshaker.handshake(wrapper, this);
-
         // Return if was a good response or not.
         if (success) {
+            System.out.println("performHandshake was good");
             return true;
         } else {
+            System.out.println("performHandshake failed");
             socket.close();
             throw new SSLHandshakeException(
                     "Failed handshaking process failed handshake with server.");
         }
+    }
+
+    private SSLSocketFactory getTLSSocketFactory() throws IOException {
+        System.out.println("SSLClient.getTLSSocketFactory");
+        SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        try {
+            SSLContext ctx;
+            KeyManagerFactory kmf;
+            KeyStore ks;
+            char[] passphrase = System.getProperty("javax.net.ssl.keyStorePassword").toCharArray();
+
+            ctx = SSLContext.getInstance("TLS");
+            kmf = KeyManagerFactory.getInstance("SunX509");
+            ks = KeyStore.getInstance("JKS");
+            System.out.println("SSLClient loads keystore: " + System.getProperty("javax.net.ssl.keyStore")
+                    + " using " + System.getProperty("javax.net.ssl.keyStorePassword"));
+            ks.load(new FileInputStream(System.getProperty("javax.net.ssl.keyStore")), passphrase);
+
+            kmf.init(ks, passphrase);
+            ctx.init(kmf.getKeyManagers(), null, null);
+
+            sf = ctx.getSocketFactory();
+        } catch (Exception e) {
+            System.out.println("SSLClient can not create socket factory: " + e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("created socket factory: " + sf);
+        return sf;
     }
 
     @Override

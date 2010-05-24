@@ -69,6 +69,8 @@ public interface ProducerProxyPropertiesFacade {
 	 * @throws IOException 
 	 */
 	public Socket getSocketToServerForRequest(LiftConnectionRequestToken request) throws IOException;
-	
+
+        public void setTrustStore();
+        
 	public void setKeyStoreProperty();
 }

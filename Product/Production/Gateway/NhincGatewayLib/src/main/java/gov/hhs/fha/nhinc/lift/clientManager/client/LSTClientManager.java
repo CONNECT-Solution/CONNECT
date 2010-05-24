@@ -95,6 +95,7 @@ public class LSTClientManager implements ClientManager {
          * Launch file downloader. Could instead do whatever is necessary to
          * start some other client if desired.
          */
-        HttpFileConsumer.consumeFile(url.toString(), fileDest, bufferSize);
+        HttpFileConsumer consumer = new HttpFileConsumer();
+        consumer.consumeFile(url.toString(), fileDest, bufferSize);
     }
 }

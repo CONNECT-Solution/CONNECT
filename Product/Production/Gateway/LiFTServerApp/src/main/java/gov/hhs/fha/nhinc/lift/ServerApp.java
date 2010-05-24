@@ -127,6 +127,7 @@ public class ServerApp {
     private ProducerProxyPropertiesFacade setProxyProps() {
         ProducerProxyPropertiesFacade props = new ProducerProxyPropertiesService();
         props.setKeyStoreProperty();
+        props.setTrustStore();
         return props;
     }
 

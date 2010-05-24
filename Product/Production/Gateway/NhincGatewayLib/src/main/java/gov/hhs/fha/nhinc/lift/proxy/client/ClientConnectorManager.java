@@ -49,12 +49,20 @@ package gov.hhs.fha.nhinc.lift.proxy.client;
 
 import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.proxy.properties.interfaces.ConsumerProxyPropertiesFacade;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocketFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -125,6 +133,18 @@ public class ClientConnectorManager {
         InetSocketAddress connectorAddress = new InetSocketAddress(localProxyAddress, 0);
 
         log.debug("Starting server socket for real Client to access on port: " + connectorAddress.getPort());
+        //Try SSLContext
+        //ServerSocketFactory factory = getTLSServerSocketFactory();
+        //ServerSocket createdSocket = factory.createServerSocket(connectorAddress.getPort());
+        //SSLServerSocket server = (SSLServerSocket) createdSocket;
+
+        //TRY2WAY
+        //SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        //ServerSocket createdSocket = factory.createServerSocket();
+        //SSLServerSocket server = (SSLServerSocket) createdSocket;
+        //server.bind(connectorAddress);
+
+        //Original
         ServerSocket server = new ServerSocket();
         server.bind(connectorAddress);
         log.debug("Server bound to port: " + server.getLocalPort());
@@ -138,6 +158,32 @@ public class ClientConnectorManager {
         conn.start();
 
         return new InetSocketAddress(server.getInetAddress(), server.getLocalPort());
+    }
+
+    private ServerSocketFactory getTLSServerSocketFactory() {
+
+        ServerSocketFactory ssf = ServerSocketFactory.getDefault();
+        try {
+            // set up key manager to do server authentication
+            SSLContext ctx;
+            KeyManagerFactory kmf;
+            KeyStore ks;
+            char[] passphrase = System.getProperty("javax.net.ssl.keyStorePassword").toCharArray();
+
+            ctx = SSLContext.getInstance("TLS");
+            kmf = KeyManagerFactory.getInstance("SunX509");
+            ks = KeyStore.getInstance("JKS");
+
+            ks.load(new FileInputStream(System.getProperty("javax.net.ssl.keyStore")), passphrase);
+            kmf.init(ks, passphrase);
+            ctx.init(kmf.getKeyManagers(), null, null);
+
+            ssf = ctx.getServerSocketFactory();
+            return ssf;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ssf;
     }
 
     /**

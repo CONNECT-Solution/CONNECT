@@ -56,11 +56,11 @@ public class HttpFileConsumer {
      *            The buffer size
      * @throws IOException
      */
-    public static void consumeFile(String url, String dest, int bufferSize)
+    public void consumeFile(String url, String dest, int bufferSize)
             throws IOException {
         long time = System.nanoTime();
 
-        System.out.println("URL provided: " + url);
+        log.debug("URL provided: " + url);
         url = url.replace('\\', '/');
 
         URL fileUrl = new URL(url);
@@ -80,11 +80,11 @@ public class HttpFileConsumer {
         File f = new File(fileDest, fileName);
 
         FileOutputStream out = new FileOutputStream(f);
-        System.out.println("File name: " + f.getAbsolutePath());
+        log.debug("File name: " + f.getAbsolutePath());
 
         byte[] buf = new byte[bufferSize];
 
-        System.out.println("Starting to read resource.");
+        log.debug("Starting to read resource.");
         while (true) {
             int length = in.read(buf);
 
@@ -96,8 +96,8 @@ public class HttpFileConsumer {
 
             out.write(buf, 0, length);
         }
-        System.out.println("Finished reading resource");
-        System.out.println("Time taken: " + (System.nanoTime() - time) / 1000000);
+        log.debug("Finished reading resource");
+        log.debug("Time taken: " + (System.nanoTime() - time) / 1000000);
 
         out.close();
         in.close();

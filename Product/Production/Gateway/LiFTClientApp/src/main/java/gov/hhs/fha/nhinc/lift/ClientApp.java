@@ -86,6 +86,7 @@ public class ClientApp {
             ClientPropertiesFacade props = new ClientPropertiesService();
             ConsumerProxyPropertiesFacade proxyProps = new ConsumerProxyPropertiesFacadeRI();
             proxyProps.setTrustStore();
+            proxyProps.setKeyStoreProperty();
 
             LSTClientManager manager = new LSTClientManager(props, proxyProps);
             SocketClientManagerController con = new SocketClientManagerController(server, manager);
