@@ -88,37 +88,18 @@
     <runtarget target="undeploy.shared.libs.from.glassfish"/>
   </target>
 
-  <target name="deploy.glassfish.start.server" depends="-deploy.set.env,-deploy.create.glassfish.password.file, -start.glassfish.server.on.windows,-start.glassfish.server.on.unix"/>
-
-  <target name="-start.glassfish.server.on.windows" if="windows">
-    <parallel>
-      <daemons>
-        <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
-          <arg line="start-domain" />
-          <arg line="${deployment.glassfish.domain.name}" />
-        </exec>
-      </daemons>
-    </parallel>
-
-    <waitfor maxwait="60" maxwaitunit="second" timeoutproperty="deploy.glassfish.start.timed.out">
-      <socket server="localhost" port="${deployment.glassfish.admin.port}"/>
-    </waitfor>
-    
-    <fail message="Failed to start GlassFish" if="deploy.glassfish.start.timed.out"/>
+  <target name="deploy.glassfish.start.server">
+    <sun-appserv-admin
+      explicitcommand="start-domain ${deployment.glassfish.domain.name}"
+      asinstalldir="${glassfish.home}"
+      />
   </target>
 
-  <target name="-start.glassfish.server.on.unix" if="unix">
-    <exec executable="bash" failonerror="true">
-      <arg line="${deployment.glassfish.asadmin.file.path} start-domain" />
-      <arg line="${deployment.glassfish.domain.name}" />
-    </exec>
-  </target>
-
-  <target name="deploy.glassfish.stop.server" depends="-deploy.set.env">
-    <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
-      <arg line="stop-domain" />
-      <arg line="${deployment.glassfish.domain.name}" />
-    </exec>
+  <target name="deploy.glassfish.stop.server">
+    <sun-appserv-admin
+      explicitcommand="stop-domain ${deployment.glassfish.domain.name}"
+      asinstalldir="${glassfish.home}"
+      />
   </target>
 
   <target name="deploy.ejbs.to.glassfish">
@@ -238,18 +219,14 @@
   </target>
 
   <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file">
-    <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="false" vmlauncher="false" inputstring="">
-      <arg line="deploy"/>
-      <arg line="--user"/>
-      <arg line="${deployment.glassfish.server.username}"/>
-      <arg line="--passwordfile"/>
-      <arg line="${deploy.glassfish.password.file.path}"/>
-      <arg line="--host"/>  
-      <arg line="${deployment.glassfish.server}"/>
-      <arg line="--port"/>
-      <arg line="${deployment.glassfish.admin.port}"/>
-      <arg line="${deployment.glassfish.war.file.path}"/>
-    </exec>
+    <sun-appserv-deploy
+        user="${deployment.glassfish.server.username}"
+        passwordfile="${deploy.glassfish.password.file.path}"
+        host="${deployment.glassfish.server}"
+        port="${deployment.glassfish.admin.port}"
+        file="${deployment.glassfish.war.file.path}"
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
   <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file">
@@ -276,10 +253,10 @@
     <trycatch property="error">
       <try>
         <runtarget target="deploy.glassfish.stop.server"/>
-        <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="true">
-          <arg line="delete-domain " />
-          <arg line="${deployment.glassfish.domain.name}" />
-        </exec>
+        <sun-appserv-admin 
+            explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
+            asinstalldir="${glassfish.home}"
+            />
       </try>
       <catch>
         <echo message="${error}"/>
@@ -327,15 +304,10 @@
 
   <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" />
-    <exec executable="${deployment.glassfish.asadmin.file.path}" failonerror="true">
-      <arg line="create-domain" />
-      <arg line="--adminport ${deployment.glassfish.admin.port}" />
-      <arg line="--instanceport ${deployment.glassfish.instance.port}" />
-      <arg line="--user ${deployment.glassfish.server.username}" />
-      <arg line="--passwordfile &quot;${deploy.glassfish.password.file.path}&quot;" />
-      <arg line="--template ${deploy.glassfish.domain.template}" />
-      <arg line="${deployment.glassfish.domain.name}" />
-    </exec>
+    <sun-appserv-admin 
+        explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
   <target name="-backup.glassfish.domain.configuration">
