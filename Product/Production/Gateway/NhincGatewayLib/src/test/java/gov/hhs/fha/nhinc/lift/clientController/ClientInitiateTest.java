@@ -49,12 +49,12 @@ public class ClientInitiateTest {
     @After
     public void tearDown() {
     }
-/*
+
     @Test
     public void testClientSocket() {
         //Temporary place holder
     }
-    */
+    /*
     @Test
     public void testClientSocket() {
         InetSocketAddress caddr = null;
@@ -97,5 +97,5 @@ public class ClientInitiateTest {
             Assert.fail("Could not obtain client socket ip and port properties ");
         }
     }
-    
+    */
 }
