@@ -334,6 +334,9 @@ public class NhincConstants {
 
     public static final String LIFT_TRANSFER_DB_STATE_ENTERED = "ENTERED";
     public static final String LIFT_TRANSFER_DB_STATE_PROCESSING = "PROCESSING";
+    public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_ENTERED = "ENTERED";
+    public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_PROCESSING = "PROCESSING";
+    public static final String LIFT_GATEWAY_MESSAGE_DB_TYPE_DOC_SUB = "DEFERRED_DOCUMENT_SUBMISSION";
 
     private NhincConstants() {
     }
