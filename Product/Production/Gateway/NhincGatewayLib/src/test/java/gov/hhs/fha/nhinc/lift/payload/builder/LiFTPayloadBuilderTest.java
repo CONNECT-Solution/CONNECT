@@ -388,6 +388,85 @@ public class LiFTPayloadBuilderTest {
         assertNotNull(result);
     }
 
+    /**
+     * Test of extractLiftPayload method, of class LiFTPayloadBuilder.
+     */
+    @Test
+    public void testExtractLiftPayload() {
+        System.out.println("testExtractLiftPayload");
+        ProvideAndRegisterDocumentSetRequestType msg = createRequest("Document01");
+        AssertionType assertion = new AssertionType();
+
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder() {
+            @Override
+            protected String addEntryToLiftDatabase(String fileUrl) {
+                return "123456";
+            }
+
+            @Override
+            protected String getProxyAddressProperty() {
+                return "localhost";
+            }
+
+            @Override
+            protected int getProxyAddressPort() {
+                return 1037;
+            }
+        };
+
+        List<UrlInfoType> urlInfoList = new ArrayList<UrlInfoType>();
+        UrlInfoType urlInfo = new UrlInfoType();
+        urlInfo.setId("Document01");
+        urlInfo.setUrl("file://C:/Temp/document.pdf");
+        urlInfoList.add(urlInfo);
+
+        String guid = instance.buildLiFTPayload(msg, assertion, urlInfoList);
+
+        assertNotNull(msg);
+        assertNotNull(msg.getDocument());
+        assertNotNull(msg.getDocument().get(0));
+
+        LIFTMessageType result = instance.extractLiftPayload(msg.getDocument().get(0));
+
+        assertNotNull(result);
+        assertNotNull(result.getDataElement());
+        assertNotNull(result.getDataElement().getClientData());
+        assertNotNull(result.getDataElement().getClientData().getClientData());
+        assertNotNull(result.getRequestElement());
+        assertNotNull(result.getRequestElement().getRequestGuid());
+        assertEquals(guid, result.getRequestElement().getRequestGuid());
+        assertNotNull(result.getDataElement().getServerProxyData());
+        assertNotNull(result.getDataElement().getServerProxyData().getServerProxyAddress());
+    }
+
+    /**
+     * Test of extractLiftPayload method, of class LiFTPayloadBuilder.
+     */
+    @Test
+    public void testExtractLiftPayloadNullDoc() {
+        System.out.println("testExtractLiftPayloadNullDoc");
+
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+
+        LIFTMessageType result = instance.extractLiftPayload(null);
+
+        assertNull(result);
+    }
+
+    /**
+     * Test of extractLiftPayload method, of class LiFTPayloadBuilder.
+     */
+    @Test
+    public void testExtractLiftPayloadEmptyDoc() {
+        System.out.println("testExtractLiftPayloadEmptyDoc");
+
+        LiFTPayloadBuilder instance = new LiFTPayloadBuilder();
+
+        LIFTMessageType result = instance.extractLiftPayload(new Document());
+
+        assertNull(result);
+    }
+
     private ProvideAndRegisterDocumentSetRequestType createRequest (String docId) {
         ProvideAndRegisterDocumentSetRequestType message = new ProvideAndRegisterDocumentSetRequestType();
 
@@ -420,7 +499,7 @@ public class LiFTPayloadBuilderTest {
             if (data != null && data.length > 0) {
                 //InputStream in = new InputStream(data);
                 JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.lift.payload");
+                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(baInStrm);
                 liftMsg = (LIFTMessageType) jaxEle.getValue();

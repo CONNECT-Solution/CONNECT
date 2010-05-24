@@ -21,12 +21,14 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -104,6 +106,31 @@ public class LiFTPayloadBuilder {
         return guid;
     }
 
+    public LIFTMessageType extractLiftPayload(Document document) {
+        LIFTMessageType payload = null;
+
+        if (document != null &&
+                document.getValue() != null) {
+            byte[] data = document.getValue();
+            ByteArrayInputStream baInStrm = new ByteArrayInputStream(data);
+
+            try {
+                if (data != null && data.length > 0) {
+                    //InputStream in = new InputStream(data);
+                    JAXBContextHandler oHandler = new JAXBContextHandler();
+                    JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
+                    Unmarshaller unmarshaller = jc.createUnmarshaller();
+                    JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(baInStrm);
+                    payload = (LIFTMessageType) jaxEle.getValue();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return payload;
+    }
+
     private SlotType1 createTransferServiceSlot() {
         SlotType1 transferServiceSlot = new SlotType1();
         ValueListType valueList = new ValueListType();
@@ -145,7 +172,7 @@ public class LiFTPayloadBuilder {
         ClientDataType clientData = new ClientDataType();
 
         // Set the relative path to where the file will be located on the file server
-        String filePath = createDestFilePath (fileUrl, guid);
+        String filePath = createDestFilePath(fileUrl, guid);
         clientData.setClientData(filePath);
         dataElem.setClientData(clientData);
 
@@ -192,7 +219,7 @@ public class LiFTPayloadBuilder {
 
         // Generate the RequestGUID
         UUID uuid = UUID.randomUUID();
-        
+
         guid = uuid.toString();
 
         // Add the entry to the Lift Tranfer Database
@@ -236,14 +263,14 @@ public class LiFTPayloadBuilder {
         return longObj.intValue();
     }
 
-    private String createDestFilePath (String fileUrl, String guid) {
+    private String createDestFilePath(String fileUrl, String guid) {
         String destPath = null;
         String fileName = null;
 
         String[] splitStrings = fileUrl.split("/");
         int len = splitStrings.length;
 
-        fileName = splitStrings[len-1];
+        fileName = splitStrings[len - 1];
 
         destPath = "/" + guid + "/" + fileName;
 

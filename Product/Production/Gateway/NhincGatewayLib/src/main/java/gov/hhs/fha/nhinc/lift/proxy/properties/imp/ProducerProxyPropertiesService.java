@@ -83,21 +83,24 @@ public class ProducerProxyPropertiesService implements
 
         LiftTransferDataRecordDao dbDao = new LiftTransferDataRecordDao();
         List<LiftTransferDataRecord> dbRecs = dbDao.findForGuid(request.getRequestGUID());
-        
+
         if (dbRecs.size() == 1) {
-           log.debug("Found a single database entry matching the request GUID");
-           // update record to inprogress
-           LiftTransferDataRecord rec = new LiftTransferDataRecord();
-           rec.setId(dbRecs.get(0).getId());
-           rec.setRequestKeyGuid(dbRecs.get(0).getRequestKeyGuid());
-           rec.setTransferState(NhincConstants.LIFT_TRANSFER_DB_STATE_PROCESSING);
-           dbDao.updateRecord(rec);
-           result = true;
-        }
-        else if (dbRecs.size() > 1) {
+            if (dbRecs.get(0).getTransferState().equalsIgnoreCase(NhincConstants.LIFT_TRANSFER_DB_STATE_ENTERED)) {
+                log.debug("Found a single database entry matching the request GUID");
+                // update record to inprogress
+                LiftTransferDataRecord rec = new LiftTransferDataRecord();
+                rec.setId(dbRecs.get(0).getId());
+                rec.setRequestKeyGuid(dbRecs.get(0).getRequestKeyGuid());
+                rec.setTransferState(NhincConstants.LIFT_TRANSFER_DB_STATE_PROCESSING);
+                dbDao.updateRecord(rec);
+                result = true;
+            } else {
+                log.warn("One record was found, but it was marked as PROCESSING");
+                result = false;
+            }
+        } else if (dbRecs.size() > 1) {
             log.error("Multiple records were found for the request GUID");
-        }
-        else {
+        } else {
             log.error("No records were found for the request GUID");
         }
 
