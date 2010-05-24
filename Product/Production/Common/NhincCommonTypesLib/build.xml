@@ -6,7 +6,7 @@
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
-  
+
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
 
@@ -58,7 +58,7 @@
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
 
   <target name="-compile.source">
-    <echo message="compile.source for ${project.name}" />
+    <echo message="compile.source for ${project.name}" level="info"/>
 
     <call target="generate.proxies.xjc"/>
     <call target="generate.proxies.wsdl"/>
@@ -67,11 +67,11 @@
   </target>
 
   <target name="copy.util.src">
-      <copy todir="${build.dir}/generated/client">
-          <fileset dir="src/main/java">
-              <include name="**/*.java"/>
-          </fileset>
-      </copy>
+    <copy todir="${build.dir}/generated/client">
+      <fileset dir="src/main/java">
+        <include name="**/*.java"/>
+      </fileset>
+    </copy>
   </target>
 
   <target name="generate.proxies.xjc">
@@ -91,7 +91,7 @@
             <patternset refid="schema.list"/>
           </schema>
         </xjc>
-		<echo file="${build.dir.root}/compilexjc.flag" append="false"/>
+        <echo file="${build.dir.root}/compilexjc.flag" append="false"/>
       </sequential>
     </outofdate>
   </target>
@@ -121,7 +121,7 @@
             </WsImportConnect>			
           </sequential>
         </for>  
-		<echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
+        <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
       </sequential>
     </outofdate>
   </target>
