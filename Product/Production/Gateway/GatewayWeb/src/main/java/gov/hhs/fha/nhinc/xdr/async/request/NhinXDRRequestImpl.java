@@ -36,10 +36,18 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import gov.hhs.fha.nhinc.lift.utils.LiFTMessageHelper;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.healthit.nhin.LIFTMessageType;
+import java.beans.XMLEncoder;
+import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -302,10 +310,10 @@ public class NhinXDRRequestImpl {
                     NullChecker.isNotNullish(liftMsg.getRequestElement().getRequestGuid()) &&
                     liftMsg.getDataElement().getServerProxyData() != null &&
                     NullChecker.isNotNullish(liftMsg.getDataElement().getServerProxyData().getServerProxyAddress())) {
-                dbRec.setAssertion(null);
+                dbRec.setAssertion(createAssertionBlob(assertion));
                 dbRec.setFileNameToRetrieve(liftMsg.getDataElement().getClientData().getClientData());
                 dbRec.setInitialEntryTimestamp(new Date());
-                dbRec.setMessage(null);
+                dbRec.setMessage(createMsgBlob(request));
                 dbRec.setMessageState(NhincConstants.LIFT_GATEWAY_MESSAGE_DB_STATE_ENTERED);
                 dbRec.setMessageType(NhincConstants.LIFT_GATEWAY_MESSAGE_DB_TYPE_DOC_SUB);
                 dbRec.setProducerProxyAddress(liftMsg.getDataElement().getServerProxyData().getServerProxyAddress());
@@ -325,6 +333,69 @@ public class NhinXDRRequestImpl {
 
         return guid;
     }
+
+    private Blob createAssertionBlob (AssertionType assertion) {
+        Blob data = null;
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        if (assertion != null) {
+            baOutStrm.reset();
+
+            // Marshall the Assertion Element into binary data
+            try {
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
+                Marshaller marshaller = jc.createMarshaller();
+                baOutStrm.reset();
+
+                gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+                JAXBElement oJaxbElement = factory.createAssertion(assertion);
+                marshaller.marshal(oJaxbElement, baOutStrm);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error(e.getMessage());
+            }
+
+            byte[] buffer = baOutStrm.toByteArray();
+            logger.debug("Byte Array: " + baOutStrm.toString());
+
+            data = Hibernate.createBlob(buffer);
+        }
+
+        return data;
+    }
+
+    private Blob createMsgBlob (ProvideAndRegisterDocumentSetRequestType msg) {
+        Blob data = null;
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        if (msg != null) {
+            baOutStrm.reset();
+
+            // Marshall the Message Element into binary data
+            try {
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
+                Marshaller marshaller = jc.createMarshaller();
+                baOutStrm.reset();
+
+                ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
+                JAXBElement oJaxbElement = factory.createProvideAndRegisterDocumentSetRequest(msg);
+                marshaller.marshal(oJaxbElement, baOutStrm);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error(e.getMessage());
+            }
+
+            byte[] buffer = baOutStrm.toByteArray();
+            logger.debug("Byte Array: " + baOutStrm.toString());
+
+            data = Hibernate.createBlob(buffer);
+        }
+
+        return data;
+    }
+
 
     private StartLiftTransactionResponseType sendNotificationToLiftManager(String guid) {
         GatewayLiftManagerProxyObjectFactory factory = new GatewayLiftManagerProxyObjectFactory();

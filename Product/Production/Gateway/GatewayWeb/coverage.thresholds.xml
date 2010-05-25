@@ -117,7 +117,7 @@
 <threshold branchcount="36" branchrate="0.05555555555555555" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.xdr.XDRAuditLogger" linecount="77" linerate="0.06493506493506493" linesexecuted="0.04999999999999999"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.XDRPolicyChecker" linecount="52" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest" linecount="2" linerate="-2.4" linesexecuted="-4.8"/>
-<threshold branchcount="48" branchrate="0.14583333333333334" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequestImpl" linecount="115" linerate="0.21739130434782608" linesexecuted="0.25"/>
+<threshold branchcount="52" branchrate="0.1346153846153846" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequestImpl" linecount="153" linerate="0.16339869281045752" linesexecuted="0.25"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse" linecount="2" linerate="-2.4" linesexecuted="-4.8"/>
 <threshold branchcount="4" branchrate="0.4025" branchsexecuted="1.61" class="gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponseImpl" linecount="46" linerate="0.07282608695652174" linesexecuted="3.35"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
