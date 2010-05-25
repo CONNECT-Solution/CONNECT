@@ -81,10 +81,7 @@ public class ConsumerProxyPropertiesFacadeRI implements ConsumerProxyPropertiesF
     public Client getClientInstance(InetAddress address,
             int port,
             RequestToken token) throws IOException {
-        /*
-         * Should load this from the properties file some how.  Could use
-         * reflection perhaps, feels evil for some reason though.
-         */
+
         TestClientHandshaker h = new TestClientHandshaker();
         Client c = new SSLClient(address, port, token, h);
 
@@ -99,7 +96,6 @@ public class ConsumerProxyPropertiesFacadeRI implements ConsumerProxyPropertiesF
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

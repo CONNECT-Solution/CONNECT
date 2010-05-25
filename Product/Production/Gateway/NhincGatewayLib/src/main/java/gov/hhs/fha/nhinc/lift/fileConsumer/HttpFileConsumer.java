@@ -60,6 +60,7 @@ public class HttpFileConsumer {
             throws IOException {
         long time = System.nanoTime();
 
+        System.out.println("Requesting file: " + url);
         log.debug("URL provided: " + url);
         url = url.replace('\\', '/');
 
@@ -80,15 +81,12 @@ public class HttpFileConsumer {
         File f = new File(fileDest, fileName);
 
         FileOutputStream out = new FileOutputStream(f);
-        log.debug("File name: " + f.getAbsolutePath());
+        log.debug("File created: " + f.getAbsolutePath());
 
         byte[] buf = new byte[bufferSize];
 
-        log.debug("Starting to read resource.");
         while (true) {
             int length = in.read(buf);
-
-            System.out.println(length);
 
             if (length < 0) {
                 break;
@@ -96,8 +94,9 @@ public class HttpFileConsumer {
 
             out.write(buf, 0, length);
         }
-        log.debug("Finished reading resource");
+        log.debug("Finished writing to file " + f.getAbsolutePath());
         log.debug("Time taken: " + (System.nanoTime() - time) / 1000000);
+        System.out.println("Generated file: " + f.getAbsolutePath());
 
         out.close();
         in.close();

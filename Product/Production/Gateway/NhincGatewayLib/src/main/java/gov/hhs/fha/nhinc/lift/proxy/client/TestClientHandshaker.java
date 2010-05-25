@@ -76,7 +76,7 @@ public class TestClientHandshaker implements ClientHandshaker {
 
     @Override
     public boolean handshake(ProtocolWrapper wrapper, Client client) throws IOException {
-        log.debug("CLIENT: Sending challenge.");
+        log.debug("Initiating handshake.");
 
         // Need to send security info to server for validation.
         LiftConnectionRequestToken token = new LiftConnectionRequestToken(client.getToken().getRequest());
@@ -87,7 +87,7 @@ public class TestClientHandshaker implements ClientHandshaker {
         LiftConnectionResponseToken resp = (LiftConnectionResponseToken) ProxyUtil.unmarshalFromReader(
                 new StringReader(response), LiftConnectionResponseToken.class);
 
-        log.debug("CLIENT: Response to challenge: " + resp.getPermission());
+        log.debug("Response to handshake: " + resp.getPermission());
 
         // Return if was a good response or not.
         return resp.isPermitted();

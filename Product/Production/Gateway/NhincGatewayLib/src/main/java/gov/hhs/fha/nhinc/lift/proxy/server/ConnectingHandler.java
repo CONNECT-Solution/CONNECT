@@ -80,40 +80,34 @@ public class ConnectingHandler extends HandlerPrototype {
     @Override
     protected HandlerPrototype createInstance(ProtocolWrapper wrapper) {
         HandlerPrototype hand = new ConnectingHandler(props, bufferSize);
-
         hand.setWrapper(wrapper);
-
         return hand;
     }
 
     @Override
     protected boolean performHandshake() throws IOException {
-        log.debug("HANDLER: Waiting for challenge.");
 
+        boolean state;
         String str = this.readLine();
-
-        log.debug("HANDLER: " + str);
-
+        log.debug("Performing the handshake: " + str);
         Object obj = ProxyUtil.unmarshalFromReader(new StringReader(str), LiftConnectionRequestToken.class);
-
-        log.debug("HANDLER: Received challenge.");
 
         if (validChallenge(obj)) {
             LiftConnectionResponseToken resp = new LiftConnectionResponseToken("granted");
             String res = ProxyUtil.marshalToString(resp);
 
-            //Should swap this out for something less dependent on the idea of a socket.
             this.sendLine(res);
 
-            return true;
+            state = true;
         } else {
             LiftConnectionResponseToken resp = new LiftConnectionResponseToken("denied");
             String res = ProxyUtil.marshalToString(resp);
 
             this.sendLine(res);
 
-            return false;
+            state = false;
         }
+        return state;
     }
 
     /**
@@ -126,21 +120,17 @@ public class ConnectingHandler extends HandlerPrototype {
         boolean isKnown = false;
         if (obj instanceof LiftConnectionRequestToken) {
             LiftConnectionRequestToken token = (LiftConnectionRequestToken) obj;
-
-            log.debug("HANDLER: Challenge is a token: " + token + ", validating against properties.");
             isKnown = props.verifySecurityForRequest(token);
+            log.debug("Validation against database return a known entry: " + isKnown);
             this.token = token;
-
         } else {
-            log.debug("HANDLER: Challenge is not a LiftConnectionRequestToken.");
+            log.error("Handshake expects a LiftConnectionRequestToken: " + obj);
         }
         return isKnown;
     }
 
     @Override
     public void run() {
-        log.debug("HANDLER: In Connecting handler.");
-
         /*
          * Try to connect to the server for this request.  May want to check if
          * a connection already exists which would then mean that this request
@@ -148,26 +138,22 @@ public class ConnectingHandler extends HandlerPrototype {
          */
         try {
             Thread toProxyThread, fromProxyThread;
-
-            log.debug("HANDLER: Connecting to server from properties facade.");
             Socket socket = props.getSocketToServerForRequest(token);
-            log.debug("HANDLER: Connected to server: " + socket.getInetAddress() + " on port: " + socket.getPort());
 
             try {
-                log.debug("HANDLER: Starting Connectors.");
-
                 //Connection established, build Connectors to pass through messages.
                 Connector toProxy = new Connector(socket.getInputStream(), this.getWrapper().getOutStream(), bufferSize);
+                log.debug("Connector started TO proxy");
                 Connector fromProxy = new Connector(this.getWrapper().getInStream(), socket.getOutputStream(), bufferSize);
+                log.debug("Connector started FROM proxy");
 
                 toProxyThread = new Thread(toProxy);
                 fromProxyThread = new Thread(fromProxy);
-
                 toProxyThread.start();
                 fromProxyThread.start();
 
                 fromProxyThread.join();
-                log.debug("HANDLER: From proxy joined");
+                log.debug("Connector FROM proxy complete");
 
 //				System.out.println("HANDLER: Closing socket because from proxy connector joined.");
 //				socket.close();
@@ -175,7 +161,7 @@ public class ConnectingHandler extends HandlerPrototype {
 //				this.getWrapper().close();
 
                 toProxyThread.join();
-                log.debug("HANDLER: To proxy joined");
+                log.debug("Connector TO proxy complete");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -188,7 +174,7 @@ public class ConnectingHandler extends HandlerPrototype {
             e.printStackTrace();
         } finally {
             try {
-                log.debug("HANDLER: Closing connection between proxies (if not yet closed).");
+                log.debug("Closing connection between proxies (if not yet closed).");
                 this.getWrapper().close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block

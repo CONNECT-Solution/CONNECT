@@ -73,40 +73,20 @@ public final class Connector implements Runnable {
     }
 
     public void run() {
-        log.debug("Connector started.");
 
         byte[] b = new byte[bufferSize];
 
         try {
             while (true) {
-                // Very slow, but works
-//				int next = in.read();
-//				out.write(next);
 
-                //For debugging
-//				System.out.print((char)next);
-
-                // Might be better
                 int length = in.read(b);
-
-                log.debug(length);
+                log.debug(" reading " + length + " bytes");
 
                 if (length < 0) {
                     break;
                 }
 
                 out.write(b, 0, length);
-
-//				if(length >= 0)
-//				{
-//					out.write(b, 0, length);
-//				}else{
-//					out.write(-1);
-//					break;
-//				}
-
-//				if(next == -1)
-//					break;
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -51,7 +51,6 @@ import java.io.IOException;
 import java.net.SocketAddress;
 
 import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.DemoProtocol;
@@ -87,11 +86,8 @@ public class SSLServer extends Server {
         ServerSocketFactory factory = getTLSServerSocketFactory();
         ServerSocket createdSocket = factory.createServerSocket(addr.getPort());
         server = (SSLServerSocket) createdSocket;
-        log.info("SERVER: Bound to address: " + server.getInetAddress() + ":" + server.getLocalPort());
-
-        // Doing this causes problems, I don't understand this much but I think it's necessary.
-        //server.setNeedClientAuth(true);
-
+        server.setNeedClientAuth(true);
+        log.info("2-way TLS server is bound to port: " + server.getLocalPort());
     }
 
     protected Log createLogger() {
@@ -130,13 +126,10 @@ public class SSLServer extends Server {
 
     @Override
     protected void acceptConnection() throws IOException {
-        log.debug("SERVER: Waiting for incomming connection.");
 
+        log.debug("Waiting for incoming connection.");
         SSLSocket socket = (SSLSocket) server.accept();
-
-        log.debug("SERVER: Accepted a new connection.");
-
-        log.debug("SERVER: Handshaking with connection.");
+        log.debug("Accepted a new connection.");
 
         /*
          * Spawn off and start a new Handler thread to process
@@ -145,11 +138,10 @@ public class SSLServer extends Server {
         HandlerPrototype hand = this.getPrototype().clone(new DemoProtocol(socket));
 
         if (hand != null) {
-            log.debug("SERVER: Passing connection to new HANDLER.");
+            log.debug("Passing connection to new handler thread.");
             (new Thread(hand)).start();
         } else {
-            log.debug("SERVER: Connection failed to handshake properly.");
-
+            log.debug("Connection failed to handshake properly.");
             socket.close();
         }
     }

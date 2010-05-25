@@ -61,6 +61,8 @@ import gov.hhs.fha.nhinc.lift.proxy.server.ConnectingHandler;
 import gov.hhs.fha.nhinc.lift.proxy.server.SSLServer;
 import gov.hhs.fha.nhinc.lift.proxy.server.Server;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -85,7 +87,7 @@ public class ServerApp {
         if (serv != null) {
             Thread st = new Thread(serv);
             st.start();
-            System.out.println("ServerApp started: " + serv);
+            System.out.println("ServerApp started. ");
         }
     }
 
@@ -97,7 +99,7 @@ public class ServerApp {
             
             int bufferSize = 65536;
             serv = new SSLServer(addr, new ConnectingHandler(props, bufferSize));
-            log.debug("LiFT Server Runnable created"); 
+            log.debug("LiFT Server Connecting Handler Runnable created");
         } catch (IOException ex) {
             log.error("Failed to create LiFT Server " + ex.getMessage());
         }
@@ -115,7 +117,7 @@ public class ServerApp {
 
             InetAddress inetAddr = InetAddress.getByName(proxyAddr);
             addr = new InetSocketAddress(inetAddr, portNum);
-            log.debug("LiFT Server Addr: " + addr.toString());
+            log.debug("LiFT Server Address defined as: " + addr.toString());
         } catch (UnknownHostException ex) {
             log.error("Unknown LiFT Proxy Address and Port " + proxyAddr + ":" + proxyPort + " " + ex.getMessage());
         } catch (PropertyAccessException ex) {

@@ -83,13 +83,10 @@ public class SocketClientManagerController implements Runnable {
 
     @Override
     public void run() {
-        /*
-         * TODO Need to accept connections, read in data, and send data to the
-         * ClientManager if possible.
-         */
 
         while (true) {
             try {
+
                 Socket socket = server.accept();
 
                 while (socket == null) {
@@ -98,19 +95,14 @@ public class SocketClientManagerController implements Runnable {
 
                 InputStream in = socket.getInputStream();
 
-                // TODO Read information from the stream.
                 String message = InterProcessSocketProtocol.readData(in);
                 log.info("SocketClientManagerController received message: " + message);
                 if (message != null) {
                     LiftMessage m = (LiftMessage) JaxbUtil.unmarshalFromReader(new StringReader(message), LiftMessage.class);
-
-                    // TODO Attempt to use the information to called the manager
                     manager.startClient(m);
                 }
             } catch (IOException e) {
-                // TODO Use a better logging scheme than just standard out.
-                e.printStackTrace();
-                log.error("CMC Error: " + e.getMessage());
+                log.error("Client is unable to process incoming socket information" + e.getMessage());
             }
         }
     }

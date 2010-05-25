@@ -119,42 +119,28 @@ public class ClientConnectorManager {
          *
          * Which type of client to use should come from configuration somewhere.
          */
-        log.debug("Creating Client instance to connect to server proxy.");
+        log.debug("Creating Client instance to connect to server proxy: " + serverProxyAddress + ":" +serverProxyPort);
         Client client = props.getClientInstance(serverProxyAddress, serverProxyPort, token);
 
         /*
          * Start up a socket server bound to the local proxy hostname and to a
          * port unique to this request.
          */
-        log.debug("Getting local proxy address");
         InetAddress localProxyAddress = props.getClientProxyAddress();
-        log.debug("Local proxy address is: " + localProxyAddress);
+        log.debug("Local client proxy address set as: " + localProxyAddress);
 
         InetSocketAddress connectorAddress = new InetSocketAddress(localProxyAddress, 0);
+        log.debug("Starting server socket for client to access on port: " + connectorAddress.getPort());
 
-        log.debug("Starting server socket for real Client to access on port: " + connectorAddress.getPort());
-        //Try SSLContext
-        //ServerSocketFactory factory = getTLSServerSocketFactory();
-        //ServerSocket createdSocket = factory.createServerSocket(connectorAddress.getPort());
-        //SSLServerSocket server = (SSLServerSocket) createdSocket;
-
-        //TRY2WAY
-        //SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        //ServerSocket createdSocket = factory.createServerSocket();
-        //SSLServerSocket server = (SSLServerSocket) createdSocket;
-        //server.bind(connectorAddress);
-
-        //Original
         ServerSocket server = new ServerSocket();
         server.bind(connectorAddress);
         log.debug("Server bound to port: " + server.getLocalPort());
 
         ClientConnector connector = new ClientConnector(server, client, bufferSize);
-
         Thread conn = new Thread(connector);
         connectors.put(connectorAddress.getPort(), conn);
 
-        log.debug("Starting ClientConnector.");
+        log.debug("Starting new Client Connector thread.");
         conn.start();
 
         return new InetSocketAddress(server.getInetAddress(), server.getLocalPort());

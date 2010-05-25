@@ -41,10 +41,7 @@ public class LSTClientManager implements ClientManager {
     public void startClient(LiftMessage message) throws UnknownHostException,
             IOException {
 
-        /*
-         * Use default file destination
-         */
-        String fileDest = props.getDefaultFileDestination();
+        log.debug("Processing incoming message ");
 
         /*
          * Use message contents to get server proxy location and security token
@@ -61,25 +58,18 @@ public class LSTClientManager implements ClientManager {
          * implementations are responsible for that functionality.
          */
         String clientData = message.getData().getClientData().getData();
-        log.debug("Client data: " + clientData);
-
-        /*
-         * Just going to fix a buffer size, not really important at this point.
-         *
-         * TODO Might was to put this in the properties somewhere though.
-         */
         int bufferSize = 65536;
         String serverFile = clientData;
+        log.debug("Client data: " + clientData);
 
         /* ClientConnectionManager lives in LiFTProxy */
         ClientConnectorManager ccm = ClientConnectorManager.getInstance();
-
         RequestToken token = message.getRequest();
-
         InetSocketAddress clientProxyAddress = ccm.startConnector(token,
                 InetAddress.getByName(serverAddress), serverPort, bufferSize,
                 proxyProps);
         log.debug("Client proxy address: " + clientProxyAddress.getAddress().toString());
+
         /*
          * Take the client proxy address and turn it into a URL with client
          * data and give it to the test client.
@@ -89,12 +79,12 @@ public class LSTClientManager implements ClientManager {
         URL url = new URL("http", clientProxyAddress.getHostName(),
                 clientProxyAddress.getPort(), serverFile.replace('\\', '/'));
 
-        log.debug("URL going to give file consumer: " + url);
-
         /*
          * Launch file downloader. Could instead do whatever is necessary to
          * start some other client if desired.
          */
+        String fileDest = props.getDefaultFileDestination();
+        log.debug("File destination set from properties as: " + fileDest);
         HttpFileConsumer consumer = new HttpFileConsumer();
         consumer.consumeFile(url.toString(), fileDest, bufferSize);
     }

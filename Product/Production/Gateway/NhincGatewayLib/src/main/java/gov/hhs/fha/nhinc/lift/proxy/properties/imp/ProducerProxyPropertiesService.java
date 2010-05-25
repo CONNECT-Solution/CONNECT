@@ -104,6 +104,11 @@ public class ProducerProxyPropertiesService implements
             log.error("No records were found for the request GUID");
         }
 
+        if (result) {
+            System.out.println("Processing request " + request.getRequestGUID());
+        } else {
+            System.out.println("Can not process request " + request.getRequestGUID());
+        }
         return result;
     }
 
@@ -150,5 +155,4 @@ public class ProducerProxyPropertiesService implements
             log.error(ex.getMessage());
         }
     }
-
 }

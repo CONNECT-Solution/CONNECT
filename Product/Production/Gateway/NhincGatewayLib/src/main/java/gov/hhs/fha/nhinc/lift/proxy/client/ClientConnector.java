@@ -52,7 +52,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import gov.hhs.fha.nhinc.lift.proxy.util.Connector;
-import javax.net.ssl.SSLServerSocket;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,12 +88,10 @@ public class ClientConnector implements Runnable {
             Socket socket = server.accept();
 
             try {
-                log.debug("Starting Connectors.");
-
-                //Connection established, build Connectors to pass through messages.
                 Connector toProxy = new Connector(socket.getInputStream(), proxyConnection.getOutStream(), bufferSize);
+                log.debug("Starting Connector TO proxy");
                 Connector fromProxy = new Connector(proxyConnection.getInStream(), socket.getOutputStream(), bufferSize);
-
+                log.debug("Starting Connector FROM proxy");
                 toProxyThread = new Thread(toProxy);
                 fromProxyThread = new Thread(fromProxy);
 
@@ -102,7 +99,7 @@ public class ClientConnector implements Runnable {
                 fromProxyThread.start();
 
                 toProxyThread.join();
-                log.debug("To proxy joined");
+                log.debug("Connector TO proxy complete");
 
 //				System.out.println("Closing socket because to proxy connector joined.");
 //				socket.close();
@@ -110,7 +107,7 @@ public class ClientConnector implements Runnable {
 //				proxyConnection.close();
 
                 fromProxyThread.join();
-                log.debug("From proxy joined");
+                log.debug("Connector FROM proxy complete");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

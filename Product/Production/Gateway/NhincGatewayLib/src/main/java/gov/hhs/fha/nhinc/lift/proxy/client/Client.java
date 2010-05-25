@@ -80,13 +80,13 @@ public abstract class Client {
      * @throws IOException
      */
     public Client(InetAddress address, int port, RequestToken token, ClientHandshaker handshaker) throws IOException {
-        System.out.println("New SSLClient");
+
+        log = createLogger();
         this.token = token;
         this.connect(address, port);
-        log = createLogger();
 
         if (performHandshake(handshaker)) {
-            log.info("CLIENT: Handshake successful, connection available.");
+            log.info("Handshake successful, connection available.");
         }
     }
 

@@ -97,7 +97,7 @@ public abstract class Server implements Runnable, HostnameVerifier {
 
     @Override
     public void run() {
-        log.debug("LIFT SERVER: Server started.");
+        log.debug("LiFT Server started.");
 
         int num = 0;
 

@@ -121,11 +121,9 @@ public abstract class HandlerPrototype implements Cloneable, Runnable {
     }
 
     public void sendLine(String mess) throws IOException {
-        log.debug("HANDLER: Sending message: " + mess);
 
         this.getWrapper().sendLine(mess);
-
-        log.debug("HANDLER: Sent message.");
+        log.debug("Sending message: " + mess);
     }
 
     /**
@@ -135,6 +133,8 @@ public abstract class HandlerPrototype implements Cloneable, Runnable {
      * @throws IOException
      */
     public String readLine() throws IOException {
-        return this.getWrapper().readLine();
+        String mess = this.getWrapper().readLine();
+        log.debug("Received message: " + mess);
+        return mess;
     }
 }

@@ -75,7 +75,6 @@ public class ClientPropertiesService implements ClientPropertiesFacade {
         String defaultFileLoc = null;
         try {
             defaultFileLoc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_FILEDROP);
-            log.debug("Assign default file location: " + defaultFileLoc);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
         }

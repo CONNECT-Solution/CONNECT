@@ -79,9 +79,9 @@ public class ProxyUtil {
             doc = dbf.newDocumentBuilder().newDocument();
 
             marshaller.marshal(obj, doc);
-            log.info("ProxyUtil.marshal: " + doc.getNodeValue());
+            log.info("Marshal: " + doc.getNodeValue());
         } catch (Exception ex) {
-            // log.error(ex.getMessage(), ex);
+            log.error(ex.getMessage(), ex);
             ex.printStackTrace();
         }
 
@@ -96,9 +96,9 @@ public class ProxyUtil {
             Marshaller marshaller = jc.createMarshaller();
 
             marshaller.marshal(obj, writer);
-            log.info("ProxyUtil.marshal: " + writer.toString());
+            log.info("Marshal: " + writer.toString());
         } catch (Exception ex) {
-            // log.error(ex.getMessage(), ex);
+            log.error(ex.getMessage(), ex);
             ex.printStackTrace();
         }
 
@@ -114,7 +114,7 @@ public class ProxyUtil {
 
             result = um.unmarshal(elem);
         } catch (Exception ex) {
-            // log.error(ex.getMessage(), ex);
+            log.error(ex.getMessage(), ex);
             ex.printStackTrace();
         }
 
@@ -130,7 +130,7 @@ public class ProxyUtil {
 
             result = um.unmarshal(reader);
         } catch (Exception ex) {
-            // log.error(ex.getMessage(), ex);
+            log.error(ex.getMessage(), ex);
             ex.printStackTrace();
         }
 

@@ -68,20 +68,25 @@ import org.apache.commons.logging.LogFactory;
  * @author vvickers
  */
 public class ClientApp {
+    private Log log = null;
 
-    private static Log log = LogFactory.getLog(ClientApp.class);
+    public ClientApp() {
+        log = createLogger();
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    private void startClient() {
+
         try {
-
             String clientIP = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_IP);
             String clientPort = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CLIENT_PORT);
             SocketAddress saddr = new InetSocketAddress(clientIP, Integer.parseInt(clientPort));
             ServerSocket server = new ServerSocket();
             server.bind(saddr);
+            log.debug("Client listening on " + saddr);
 
             ClientPropertiesFacade props = new ClientPropertiesService();
             ConsumerProxyPropertiesFacade proxyProps = new ConsumerProxyPropertiesFacadeRI();
@@ -92,12 +97,18 @@ public class ClientApp {
             SocketClientManagerController con = new SocketClientManagerController(server, manager);
 
             (new Thread(con)).start();
-            System.out.println("ClientApp started: " + server);
+            System.out.println("ClientApp started. ");
 
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
         } catch (IOException ex) {
             log.error(ex.getMessage());
         }
+    }
+
+
+    public static void main(String[] args) {
+        ClientApp app = new ClientApp();
+        app.startClient();
     }
 }
