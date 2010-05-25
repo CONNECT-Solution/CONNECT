@@ -19,11 +19,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-class FileUtils
-{
-   FileUtils() {}
+class FileUtils {
+  FileUtils() {}
    
-   static String ReadFile(String FileName,context,log) {
+  static String ReadFile(String FileName,context,log) {
 			log.info("read file: " + FileName);
 			File sourceFile = new File(FileName);  
 			String filecontents = null;
@@ -57,9 +56,8 @@ class FileUtils
 			//log.info("read file contents (" + filecontents.length() + ")");
 			return filecontents;
    }
- 
-   
-   static MoveFile(sourceDirectory, sourceFileName, destinationDirectory, destinationFileName, context, log) {
+
+  static MoveFile(sourceDirectory, sourceFileName, destinationDirectory, destinationFileName, context, log) {
       //entries can either be the actual entry or pointer to config item
       //bad naming convention. Developer should be flogged. :)
       sourceDirectory = context.expand( sourceDirectory )
@@ -72,9 +70,6 @@ class FileUtils
 			
 			// Copy test file
 			log.info("copying property file from " + sourceFile + " to " + destinationFile);
-						
-
-
 
 			if(sourceFile.exists())
 			{
@@ -119,7 +114,6 @@ class FileUtils
 	}
 
 	static String ReadProperty(String directory, String filename, String propertyKey, context, log) {
-
 		log.info("begin ReadProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';");
 		File file = new File(directory,filename);
 		Properties properties = new Properties();
@@ -213,22 +207,34 @@ class FileUtils
 		log.info("end CreateOrUpdateConnection");
 	}
 
-  static InitializeNHINCProperties(context, log) { 
-    log.info( "Start directory copy "); 
+  static InitializeNHINCProperties(context, log) {}
+  
+  static backupConfiguration(context, log) {
+    log.info("Start backupConfiguration(context, log)"); 
+    try{
+      File destDir = new File(System.getProperty("java.io.tmpdir"), "nhinc_conf");
+      File sourceDir = new File(System.env['NHINC_PROPERTIES_DIR']);
+      
+      org.apache.commons.io.FileUtils.copyDirectory(sourceDir, destDir);
+    } catch(Throwable e) {
+      context.getTestRunner.fail("Failed to backup NHINC configuration: " + e.getMessage());
+    }
+    log.info("End backupConfiguration(context, log)"); 
+  }
+  
+  static restoreConfiguration(context, log) {
+    log.info("Start restoreConfiguration(context, log)"); 
     try{ 
       File destDir = new File(System.env['NHINC_PROPERTIES_DIR']);   
-      File sourceDir = new File(System.env['Common.Directory.Product.Path']+"/Production/Common/Properties/Dev");   
-	 log.info System.env['NHINC_PROPERTIES_DIR'];
-	 log.info System.env['Common.Directory.Product.Path']+"/Production/Common/Properties/Dev";
-      org.apache.commons.io.FileUtils.copyDirectory(sourceDir, destDir,false); 
-    }catch(Throwable e) 
-    { 
-      e.printStackTrace(); 
-      return; 
-    } 
-    log.info( "Done directory copy "); 
-  } 
-  
+      File sourceDir = new File(System.getProperty("java.io.tmpdir"), "nhinc_conf");   
+
+      org.apache.commons.io.FileUtils.copyDirectory(sourceDir, destDir); 
+    }catch(Throwable e) { 
+      context.getTestRunner.fail("Failed to restore NHINC configuration: " + e.getMessage());
+    }
+    log.info("End restoreConfiguration(context, log)"); 
+  }
+
   static stopGlassFishDomain(context, log){
     try{
       def os = System.getProperty("os.name");
@@ -245,7 +251,7 @@ class FileUtils
     }
   }
   
-    static startGlassFishDomain(context, log){
+  static startGlassFishDomain(context, log){
     try{
       def os = System.getProperty("os.name");
       def GF_HOME = System.env['AS_HOME'];
@@ -260,4 +266,4 @@ class FileUtils
       e.printStackTrace(); 
     }
   }
- } 
+} 
