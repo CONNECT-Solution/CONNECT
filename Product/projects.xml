@@ -21,8 +21,8 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>GatewayInternalComponentProxy</name>
-		<directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
+		<name>NhincGatewayDAO</name>
+		<directory>/Production/Gateway/NhincGatewayDAO</directory>
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
@@ -31,13 +31,18 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>NhincGatewayDAO</name>
-		<directory>/Production/Gateway/NhincGatewayDAO</directory>
+		<name>NhinServiceProxy</name>
+		<directory>/Production/Gateway/NhinServiceProxy</directory>
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>NhinServiceProxy</name>
-		<directory>/Production/Gateway/NhinServiceProxy</directory>
+		<name>NhincGatewayLib</name>
+		<directory>/Production/Gateway/NhincGatewayLib</directory>
+		<dist.type>jar</dist.type>
+	</project>
+	<project>
+		<name>GatewayInternalComponentProxy</name>
+		<directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
@@ -48,11 +53,6 @@
 	<project>
 		<name>DocumentRepository</name>
 		<directory>/Production/Adapters/General/DocumentRepository</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>NhincGatewayLib</name>
-		<directory>/Production/Gateway/NhincGatewayLib</directory>
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
