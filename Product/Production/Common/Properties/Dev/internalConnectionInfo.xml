@@ -4,12 +4,6 @@
 		<homeCommunityId>1.1</homeCommunityId>
 		<name>DoD</name>
 		<description>DoD Description</description>
-		<supportsLIFT>false</supportsLIFT>
-		<liftProtocols>
-			<liftProtocol>
-				<name>HTTPS</name>
-			</liftProtocol>
-		</liftProtocols>
 		<states>
 			<state>
 				<name>US-FL</name>
@@ -526,6 +520,12 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
 			</service>
 			<service>
 				<name>nhincproxyxdrrequestsecured</name>
@@ -600,12 +600,6 @@
 		<homeCommunityId>2.2</homeCommunityId>
 		<name>DoD</name>
 		<description>DoD Description</description>
-		<supportsLIFT>false</supportsLIFT>
-		<liftProtocols>
-			<liftProtocol>
-				<name>HTTPS</name>
-			</liftProtocol>
-		</liftProtocols>
 		<states>
 			<state>
 				<name>US-NY</name>
@@ -1075,6 +1069,12 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
 			</service>
 			<service>
 				<name>nhincproxyxdrrequestsecured</name>
@@ -1199,12 +1199,6 @@
 		<homeCommunityId>3.3</homeCommunityId>
 		<name>Interface Test Harness</name>
 		<description>Interface Test Harness</description>
-		<supportsLIFT>false</supportsLIFT>
-		<liftProtocols>
-			<liftProtocol>
-				<name>HTTPS</name>
-			</liftProtocol>
-		</liftProtocols>
 		<states>
 			<state>
 				<name>US-FL</name>
@@ -1654,6 +1648,12 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
 			</service>
 			<service>
 				<name>nhincproxyxdrrequestsecured</name>
