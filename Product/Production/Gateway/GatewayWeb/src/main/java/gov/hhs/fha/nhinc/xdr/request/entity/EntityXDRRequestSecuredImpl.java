@@ -218,7 +218,7 @@ public class EntityXDRRequestSecuredImpl {
         boolean result = false;
         
         try {
-            result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(hcid, "HTTPS");
+            result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(hcid, "HTTPS", NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
         }
         catch (ConnectionManagerException ex) {
             log.error(ex.getMessage());
