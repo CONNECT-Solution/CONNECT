@@ -3,9 +3,7 @@
 
 	<import file="build/build.targets.xml" />
 
-	<property name="temp.dir" value="/temp" />
-	<mkdir dir="${temp.dir}" />
-	<condition property="progress-filepath" value="${temp.dir}/ant-progress.txt">
+	<condition property="progress-filepath" value="${temp.directory.path}/ant-progress.txt">
 		<not>
 			<isset property="progress-filepath" />
 		</not>
@@ -105,7 +103,7 @@
 				<include name="**/*.ser" />
 			</fileset>
 		</cobertura-merge>
-		<property name="coverage.temp.source" value="${temp.dir}/coverage-source"/>
+		<property name="coverage.temp.source" value="${temp.directory.path}/coverage-source"/>
 		<delete dir="${coverage.temp.source}"/>
 		<mkdir dir="${coverage.temp.source}"/>
 
@@ -261,11 +259,11 @@
 				<param name="project.directory" path="directory/text()" />
 				<actions>
 					<math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
-					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
-					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
+					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" level="info"/>
+					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" level="info"/>
 					<project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
-					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
-					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
+					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" level="info"/>
+					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" level="info"/>
 				</actions>
 			</call>
 		</xmltask>
