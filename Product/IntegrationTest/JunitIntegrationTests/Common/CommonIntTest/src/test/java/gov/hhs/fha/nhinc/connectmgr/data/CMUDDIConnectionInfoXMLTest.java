@@ -119,6 +119,8 @@ public class CMUDDIConnectionInfoXMLTest {
         oService.setBindingTemplates(createBindingTemplates(sTag));
         oService.setNames(createBindingNames(sTag));
         oService.setDescriptions(createBindingDescriptions(sTag));
+        oService.setLiftProtocols(createBusinessLiftProtocols(sTag));
+        oService.setLiftSupported(true);
         
         return oService;
     }
@@ -352,7 +354,6 @@ public class CMUDDIConnectionInfoXMLTest {
         oEntity.setNames(createBusinessNames(sTag));
         oEntity.setStates(createBusinessStates(sTag));
         oEntity.setPublicKey("AA:11:22");
-        oEntity.setLiftProtocols(createBusinessLiftProtocols(sTag));
         
         
         return oEntity;

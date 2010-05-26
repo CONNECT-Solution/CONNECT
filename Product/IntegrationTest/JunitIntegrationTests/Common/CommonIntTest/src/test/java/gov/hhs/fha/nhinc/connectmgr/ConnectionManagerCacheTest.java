@@ -1808,7 +1808,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "1111.1111.1111.1111";
         String protocol = "HTTPS";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "Service 1 Name");
 
         assertEquals(true, result);
     }
@@ -1825,7 +1825,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "1111.1111.1111.1111";
         String protocol = "https";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "Service 1 Name");
 
         assertEquals(true, result);
     }
@@ -1842,7 +1842,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "2.16.840.1.113883.3.200";
         String protocol = "XMPP";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "nhincsubjectdiscovery");
 
         assertEquals(true, result);
     }
@@ -1859,7 +1859,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "2.16.840.1.113883.3.200";
         String protocol = "ftp";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "nhincsubjectdiscovery");
 
         assertEquals(true, result);
     }
@@ -1876,7 +1876,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "2.16.840.1.113883.3.200";
         String protocol = "hTtPs";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "nhincsubjectdiscovery");
 
         assertEquals(true, result);
     }
@@ -1893,7 +1893,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "2.16.840.1.113883.3.200";
         String protocol = "ABC";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "nhincsubjectdiscovery");
 
         assertEquals(false, result);
     }
@@ -1910,7 +1910,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "1111.1111.1111.1111..2";
         String protocol = "HTTPS";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "Service 5 Name");
 
         assertEquals(false, result);
     }
@@ -1927,7 +1927,7 @@ public class ConnectionManagerCacheTest {
         String homeCommunityId = "3333.3333.3333.3333";
         String protocol = "HTTPS";
 
-        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol);
+        boolean result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(homeCommunityId, protocol, "Service 7 Name");
 
         assertEquals(false, result);
     }
