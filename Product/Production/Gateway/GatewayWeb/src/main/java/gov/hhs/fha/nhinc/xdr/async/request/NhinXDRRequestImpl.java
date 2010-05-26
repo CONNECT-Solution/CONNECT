@@ -24,6 +24,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.lift.dao.GatewayLiftMessageDao;
@@ -166,7 +167,10 @@ public class NhinXDRRequestImpl {
 
         AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();
 
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
+        AdapterProvideAndRegisterDocumentSetSecuredRequestType oRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
+        oRequest.setProvideAndRegisterDocumentSetRequest(body);
+
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(oRequest, assertion);
 
         getLogger().debug("Exiting forwardToAgency");
 

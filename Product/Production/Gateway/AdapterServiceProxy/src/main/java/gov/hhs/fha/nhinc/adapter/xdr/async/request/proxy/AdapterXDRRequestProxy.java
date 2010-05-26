@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 
 /**
  * 
@@ -9,5 +10,5 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public interface AdapterXDRRequestProxy
 {
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion);
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(AdapterProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion);
 }

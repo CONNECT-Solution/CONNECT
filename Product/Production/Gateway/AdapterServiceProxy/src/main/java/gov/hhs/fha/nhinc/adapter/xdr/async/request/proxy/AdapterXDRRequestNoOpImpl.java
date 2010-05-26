@@ -15,7 +15,7 @@ public class AdapterXDRRequestNoOpImpl implements AdapterXDRRequestProxy
 {
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestNoOpImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion) {
         getLogger().debug("Entering AdapterXDRRequestNoOpImpl");
 
         XDRAcknowledgementType ack = new XDRAcknowledgementType();

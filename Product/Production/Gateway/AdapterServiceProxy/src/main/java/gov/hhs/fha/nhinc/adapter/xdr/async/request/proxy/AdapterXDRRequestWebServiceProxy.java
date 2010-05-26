@@ -34,7 +34,7 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy 
      * @param assertion
      * @return
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion) {
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 

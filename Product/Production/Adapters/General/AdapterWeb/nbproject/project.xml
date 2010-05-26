@@ -13,7 +13,8 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
+                    <file>${file.reference.debug-dist}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.NhincCommonLib.jar}</file>

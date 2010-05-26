@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -99,7 +100,9 @@ public class AdapterXDRRequestSecuredImplTest {
             }
         });
 
-        ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
+        AdapterProvideAndRegisterDocumentSetSecuredRequestType body = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
+        ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
+        body.setProvideAndRegisterDocumentSetRequest(iheMsg);
         XDRAcknowledgementType result = adapterXDRRequestSecuredImpl.provideAndRegisterDocumentSetBRequest(body, context);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
 

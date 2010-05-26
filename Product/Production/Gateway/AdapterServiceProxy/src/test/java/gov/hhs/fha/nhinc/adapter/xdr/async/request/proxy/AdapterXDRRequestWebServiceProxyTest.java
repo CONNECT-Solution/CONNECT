@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -86,7 +87,7 @@ public class AdapterXDRRequestWebServiceProxyTest {
             protected AdapterXDRRequestSecuredPortType getAdapterXDRRequestSecuredPort(String url) {
                 AdapterXDRRequestSecuredPortType mockPort = new AdapterXDRRequestSecuredPortType()
                 {
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType arg0)
                     {
                         return ack;
                     }
@@ -108,7 +109,9 @@ public class AdapterXDRRequestWebServiceProxyTest {
             }
         });
 
-        ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
+        AdapterProvideAndRegisterDocumentSetSecuredRequestType body = new gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType();
+        ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
+        body.setProvideAndRegisterDocumentSetRequest(iheMsg);
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
@@ -150,7 +153,7 @@ public class AdapterXDRRequestWebServiceProxyTest {
             protected AdapterXDRRequestSecuredPortType getAdapterXDRRequestSecuredPort(String url) {
                 AdapterXDRRequestSecuredPortType mockPort = new AdapterXDRRequestSecuredPortType()
                 {
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType arg0)
+                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(AdapterProvideAndRegisterDocumentSetSecuredRequestType arg0)
                     {
                         return ack;
                     }
@@ -173,7 +176,9 @@ public class AdapterXDRRequestWebServiceProxyTest {
             }
         });
 
-        ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
+        AdapterProvideAndRegisterDocumentSetSecuredRequestType body = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
+        ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
+        body.setProvideAndRegisterDocumentSetRequest(iheMsg);
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());

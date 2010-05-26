@@ -44,7 +44,7 @@ public class AdapterXDRRequestSecuredImpl {
     public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
     private static AdapterXDRService adapterXDRService = null;
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
         // Call AdapterComponent implementation to process the request.
@@ -56,7 +56,7 @@ public class AdapterXDRRequestSecuredImpl {
             assertion.setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
-        RegistryResponseType registryResponse = callAdapterComponentXDR(body, assertion);
+        RegistryResponseType registryResponse = callAdapterComponentXDR(body.getProvideAndRegisterDocumentSetRequest(), assertion);
 
         getLogger().debug("Registry Response from AdapterXDRComponentImpl: " + registryResponse);
 

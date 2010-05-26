@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -36,7 +37,10 @@ public class AdapterXDRRequestImpl {
 
         AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();
 
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion());
+        AdapterProvideAndRegisterDocumentSetSecuredRequestType oRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
+        oRequest.setProvideAndRegisterDocumentSetRequest(body.getProvideAndRegisterDocumentSetRequest());
+        oRequest.setUrl(body.getUrl());
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(oRequest, body.getAssertion());
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
 
