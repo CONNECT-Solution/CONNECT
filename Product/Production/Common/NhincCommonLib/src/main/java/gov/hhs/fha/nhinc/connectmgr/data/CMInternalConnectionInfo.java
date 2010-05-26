@@ -10,8 +10,6 @@ public class CMInternalConnectionInfo
     private String homeCommunityId;
     private String name;
     private String description;
-    private boolean supportsLIFT;
-    private CMInternalConnectionInfoLiftProtocols liftProtocols;
     private CMInternalConnInfoServices services;
     private CMInternalConnectionInfoStates states;
 
@@ -31,8 +29,6 @@ public class CMInternalConnectionInfo
         homeCommunityId = "";
         name = "";
         description = "";
-        supportsLIFT = false;
-        liftProtocols = null;
         services = null;
         states = null;
     }
@@ -49,8 +45,6 @@ public class CMInternalConnectionInfo
         boolean descMatch = false;
         boolean nameMatch = false;
         boolean hcidMatch = false;
-        boolean supportLiftMatch = false;
-        boolean protocolMatch = false;
         boolean serviceMatch = false;
         boolean stateMatch = false;
         boolean result = false;
@@ -100,27 +94,6 @@ public class CMInternalConnectionInfo
             }
         }
 
-        // Compare the supportsLIFT flag
-        if (oCompare.supportsLIFT == this.supportsLIFT) {
-            supportLiftMatch = true;
-        }
-        else {
-            supportLiftMatch = false;
-        }
-
-        // Compare the protocols
-        if (oCompare.liftProtocols == null && this.liftProtocols == null) {
-            protocolMatch = true;
-        }
-        else if (oCompare.liftProtocols == null || this.liftProtocols == null) {
-            protocolMatch = false;
-        }
-        else {
-            if (this.liftProtocols.equals(oCompare.liftProtocols)) {
-                protocolMatch = true;
-            }
-        }
-
         // Compare the services
         if (oCompare.services == null && this.services == null) {
             serviceMatch = true;
@@ -147,7 +120,7 @@ public class CMInternalConnectionInfo
             }
         }
 
-        if (descMatch == true && nameMatch == true && hcidMatch == true && serviceMatch == true && stateMatch == true && supportLiftMatch == true && protocolMatch == true) {
+        if (descMatch == true && nameMatch == true && hcidMatch == true && serviceMatch == true && stateMatch == true) {
             result = true;
         }
         else {
@@ -217,46 +190,6 @@ public class CMInternalConnectionInfo
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    /**
-     * Return the value of the supportsLIFT flag.
-     *
-     * @return The value of the supportsLIFT flag.
-     */
-    public boolean getSupportsLIFTFlag()
-    {
-        return supportsLIFT;
-    }
-
-    /**
-     * Sets the supportsLIFT flag .
-     *
-     * @param flag The value of the supportsLIFT flag.
-     */
-    public void setSupportsLIFTFlag(boolean flag)
-    {
-        this.supportsLIFT = flag;
-    }
-
-    /**
-     * Return the LIFT protocols associated with this home community.
-     *
-     * @return The LIFT protocols associated with this home community.
-     */
-    public CMInternalConnectionInfoLiftProtocols getLiftProtocols()
-    {
-        return liftProtocols;
-    }
-
-    /**
-     * Sets the LIFT protocols associated with this home community.
-     *
-     * @param services The LIFT protocols associated with this home community.
-     */
-    public void setLiftProtocols(CMInternalConnectionInfoLiftProtocols liftProtocols)
-    {
-        this.liftProtocols = liftProtocols;
     }
 
     /**

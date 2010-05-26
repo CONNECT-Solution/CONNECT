@@ -246,52 +246,6 @@ public class CMBusinessEntityTest {
         assertEquals("FL", result.getState().get(0));
     }
 
-    /**
-     * Test of getLiftSupported method, of class CMBusinessEntity.
-     */
-    @Test
-    public void testSetGetLiftSupportedFalse() {
-        System.out.println("testSetGetLiftSupportedFalse");
-        CMBusinessEntity instance = new CMBusinessEntity();
-        instance.setLiftSupported(false);
-
-        boolean expResult = false;
-
-        boolean result = instance.getLiftSupported();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setLiftSupported method, of class CMBusinessEntity.
-     */
-    @Test
-    public void testSetGetLiftSupportedTrue() {
-        System.out.println("testSetGetLiftSupportedTrue");
-        CMBusinessEntity instance = new CMBusinessEntity();
-        instance.setLiftSupported(true);
-
-        boolean expResult = true;
-
-        boolean result = instance.getLiftSupported();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getLiftProtocols method, of class CMBusinessEntity.
-     */
-    @Test
-    public void testSetGetLiftProtocols() {
-        System.out.println("getLiftProtocols");
-        CMBusinessEntity instance = new CMBusinessEntity();
-        CMLiftProtocols protocols = new CMLiftProtocols();
-        String protocol = new String();
-        protocol = "HTTPS";
-        protocols.getProtocol().add(protocol);
-        instance.setLiftProtocols(protocols);
-
-        CMLiftProtocols result = instance.getLiftProtocols();
-
-        assertEquals("HTTPS", result.getProtocol().get(0));
-    }
+    
 
 }

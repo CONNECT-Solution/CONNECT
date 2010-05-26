@@ -306,30 +306,6 @@ public class ConnectionManagerCache {
             }
         }
 
-        // Put in the LiftSupported flag from the internalConnections
-        oCombinedEntity.setLiftSupported(oInternalEntity.getLiftSupported());
-
-        // Put in all of the lift protocols from the InternalConnection one next - they are the king...
-        //----------------------------------------------------------------------------------------
-        oCombinedEntity.setLiftProtocols(oInternalEntity.getLiftProtocols());
-        if (oCombinedEntity.getLiftProtocols() == null) {
-            oCombinedEntity.setLiftProtocols(new CMLiftProtocols());
-        }
-        else {
-        }
-
-        // Now only add in the states from the UDDI that we do not have
-        //-------------------------------------------------------------
-        if ((oUDDIEntity.getLiftProtocols() != null) &&
-                (oUDDIEntity.getLiftProtocols().getProtocol() != null) &&
-                (oUDDIEntity.getLiftProtocols().getProtocol().size() > 0)) {
-            for (String oProtocol : oUDDIEntity.getLiftProtocols().getProtocol()) {
-                if (!containsProtocol(oCombinedEntity.getLiftProtocols(), oProtocol)) {
-                    oCombinedEntity.getLiftProtocols().getProtocol().add(oProtocol);
-                }
-            }
-        }
-
         // Put in all of the services from the InternalConnection one next - they are the king...
         //----------------------------------------------------------------------------------------
         oCombinedEntity.setBusinessServices(oInternalEntity.getBusinessServices());
@@ -576,6 +552,22 @@ public class ConnectionManagerCache {
                         oBindingDescriptions.getDescription().add(oService.getDescription());
                     }
 
+                    // LiftSupported Flag
+                    oBusinessService.setLiftSupported(oService.getSupportsLIFTFlag());
+
+                    // Lift Protocols
+                    if (oService.getLiftProtocols() != null &&
+                            NullChecker.isNotNullish(oService.getLiftProtocols().getProtocol())) {
+                        CMLiftProtocols protocols = new CMLiftProtocols();
+                        oBusinessService.setLiftProtocols(protocols);
+
+                        for (CMInternalConnectionInfoLiftProtocol protocol : oService.getLiftProtocols().getProtocol()) {
+                            if (NullChecker.isNotNullish(protocol.getLiftProtocol())) {
+                                protocols.getProtocol().add(protocol.getLiftProtocol());
+                            }
+                        }
+                    }
+
                     // Is this External or internal?
                     //-------------------------------
                     if (oService.isExternalService()) {
@@ -609,22 +601,6 @@ public class ConnectionManagerCache {
                     }
                 }
             } // if (oConnInfo.getStates() != null &&
-
-            // LiftSupported Flag
-            oEntity.setLiftSupported(oConnInfo.getSupportsLIFTFlag());
-
-            // Lift Protocols
-            if (oConnInfo.getLiftProtocols() != null &&
-                    NullChecker.isNotNullish(oConnInfo.getLiftProtocols().getProtocol())) {
-                CMLiftProtocols protocols = new CMLiftProtocols();
-                oEntity.setLiftProtocols(protocols);
-
-                for (CMInternalConnectionInfoLiftProtocol protocol : oConnInfo.getLiftProtocols().getProtocol()) {
-                    if (NullChecker.isNotNullish(protocol.getLiftProtocol())) {
-                        protocols.getProtocol().add(protocol.getLiftProtocol());
-                    }
-                }
-            }
 
         }   // if (oConnInfo != null)
 
@@ -1419,23 +1395,27 @@ public class ConnectionManagerCache {
         }
     }
 
-    public static boolean liftProtocolSupportedForHomeCommunity(String homeCommunityId, String protocol) throws ConnectionManagerException {
+    public static boolean liftProtocolSupportedForHomeCommunity(String homeCommunityId, String protocol, String service) throws ConnectionManagerException {
         boolean result = false;
 
-        CMBusinessEntity busEntity = getBusinessEntity(homeCommunityId);
+        CMBusinessEntity busEntity = getBusinessEntityByServiceName(homeCommunityId, service);
 
         if (busEntity != null &&
-                busEntity.getLiftProtocols() != null &&
-                NullChecker.isNotNullish(busEntity.getLiftProtocols().getProtocol()) &&
-                busEntity.getLiftSupported() == true) {
-            log.debug("LiFT transports are supported by " + busEntity.getLiftProtocols().getProtocol().size() + " protocols");
-            for (String liftProtocol : busEntity.getLiftProtocols().getProtocol()) {
-                if (liftProtocol.equalsIgnoreCase(protocol)) {
-                    result = true;
+                busEntity.getBusinessServices() != null &&
+                NullChecker.isNotNullish(busEntity.getBusinessServices().getBusinessService())) {
+            for (CMBusinessService serviceName : busEntity.getBusinessServices().getBusinessService()) {
+                if (serviceName.getLiftSupported() == true &&
+                        serviceName.getLiftProtocols() != null &&
+                        NullChecker.isNotNullish(serviceName.getLiftProtocols().getProtocol())) {
+                    log.debug("LiFT transports are supported by " + serviceName.getLiftProtocols().getProtocol().size() + " protocols");
+                    for (String liftProtocol : serviceName.getLiftProtocols().getProtocol()) {
+                        if (liftProtocol.equalsIgnoreCase(protocol)) {
+                            result = true;
+                        }
+                    }
                 }
             }
         }
-
         return result;
     }
 }

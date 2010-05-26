@@ -6,7 +6,7 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocumentrepository.proxy.AdapterDocumentRepositoryWebServiceProxy" linecount="21" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.CMEprUtil" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManager" linecount="1" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="490" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache" linecount="514" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="484" branchrate="-0.009917355371900825" branchsexecuted="-4.8" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache" linecount="508" linerate="-0.009448818897637795" linesexecuted="-4.8"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMAddress" linecount="14" linerate="0.0" linesexecuted="0"/>
@@ -17,9 +17,9 @@
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplates" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessDescriptions" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities" linecount="14" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="28" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity" linecount="96" linerate="0.71875" linesexecuted="0.69"/>
+<threshold branchcount="22" branchrate="-0.21818181818181817" branchsexecuted="-4.8" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity" linecount="82" linerate="-0.12817073170731708" linesexecuted="-10.51"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessNames" linecount="14" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService" linecount="37" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="-0.1" branchsexecuted="-1.6" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService" linecount="47" linerate="0.6170212765957447" linesexecuted="0.29"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMBusinessServices" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMContact" linecount="40" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMContactDescriptions" linecount="14" linerate="0.0" linesexecuted="0"/>
@@ -28,9 +28,9 @@
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMEmails" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMEprInfo" linecount="21" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity" linecount="26" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="76" branchrate="0.17434210526315788" branchsexecuted="13.25" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfo" linecount="83" linerate="0.19024096385542166" linesexecuted="15.79"/>
+<threshold branchcount="60" branchrate="0.0074999999999999884" branchsexecuted="0.4499999999999993" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfo" linecount="64" linerate="0.009218749999999998" linesexecuted="0.5899999999999999"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfos" linecount="14" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfosXML" linecount="31" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfosXML" linecount="31" linerate="0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMPersonNames" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMPhones" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.data.CMStates" linecount="14" linerate="0.0" linesexecuted="0"/>
@@ -155,4 +155,5 @@
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdCreator" linecount="11" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="9" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.service.ServiceUtil" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="26" branchrate="0.7692307692307693" branchsexecuted="0.2" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnInfoService" linecount="46" linerate="0.8695652173913043" linesexecuted="0.4"/>
 </thresholds>

@@ -17,8 +17,6 @@ public class TestHelper {
         if (NullChecker.isNullish(connInfo.getDescription()) &&
                 NullChecker.isNullish(connInfo.getHomeCommunityId()) &&
                 NullChecker.isNullish(connInfo.getName()) &&
-                connInfo.getSupportsLIFTFlag() == false &&
-                connInfo.getLiftProtocols() == null &&
                 connInfo.getServices() == null &&
                 connInfo.getStates() == null) {
             return true;
@@ -30,7 +28,6 @@ public class TestHelper {
        if (NullChecker.isNotNullish(connInfo.getDescription()) ||
                NullChecker.isNotNullish(connInfo.getHomeCommunityId()) ||
                NullChecker.isNotNullish(connInfo.getName()) ||
-               NullChecker.isNotNullish(connInfo.getLiftProtocols().getProtocol()) ||
                NullChecker.isNotNullish(connInfo.getServices().getService()) ||
                NullChecker.isNotNullish(connInfo.getStates().getState())) {
            return true;
@@ -56,6 +53,8 @@ public class TestHelper {
         service.setEndpointURL(url);
         service.setExternalService(false);
         service.setName(servName);
+        service.setSupportsLIFTFlag(flag);
+        service.setLiftProtocols(protocols);
 
         CMInternalConnectionInfoStates states = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
@@ -66,8 +65,6 @@ public class TestHelper {
         instance.setDescription(description);
         instance.setHomeCommunityId(hcid);
         instance.setName(name);
-        instance.setSupportsLIFTFlag(flag);
-        instance.setLiftProtocols(protocols);
         instance.setServices(services);
         instance.setStates(states);
 
@@ -79,12 +76,10 @@ public class TestHelper {
                 busEntity.getBusinessKey().equals("") &&
                 busEntity.getPublicKey().equals("") &&
                 busEntity.getPublicKeyURI().equals("") &&
-                busEntity.getLiftSupported() == false &&
                 busEntity.getBusinessServices() == null &&
                 busEntity.getDescriptions() == null &&
                 busEntity.getDiscoveryURLs() == null &&
                 busEntity.isFederalHIE() == false &&
-                busEntity.getLiftProtocols() == null &&
                 busEntity.getContacts() == null &&
                 busEntity.getStates() == null) {
             return true;
@@ -96,7 +91,6 @@ public class TestHelper {
        if (NullChecker.isNotNullish(busEntity.getBusinessServices().getBusinessService()) ||
                NullChecker.isNotNullish(busEntity.getDescriptions().getBusinessDescription()) ||
                NullChecker.isNotNullish(busEntity.getDiscoveryURLs().getDiscoveryURL()) ||
-               NullChecker.isNotNullish(busEntity.getLiftProtocols().getProtocol()) ||
                NullChecker.isNotNullish(busEntity.getContacts().getContact()) ||
                NullChecker.isNotNullish(busEntity.getStates().getState()) ||
                !busEntity.getHomeCommunityId().equals("") ||

@@ -12,6 +12,8 @@ public class CMBusinessService {
     private CMBindingDescriptions descriptions = null;
     private String uniformServiceName = "";
     private boolean internalWebService = false;
+    private boolean liftSupported = false;
+    private CMLiftProtocols liftProtocols = null;
     private CMBindingTemplates bindingTemplates = null;
 
     /**
@@ -27,6 +29,8 @@ public class CMBusinessService {
     public void clear() {
         uniformServiceName = "";
         internalWebService = false;
+        liftSupported = false;
+        liftProtocols = null;
         serviceKey = "";
         names = null;
         descriptions = null;
@@ -46,7 +50,9 @@ public class CMBusinessService {
                 (!this.serviceKey.equals(oCompare.serviceKey)) ||
                 (!this.names.equals(oCompare.names)) ||
                 (!this.descriptions.equals(oCompare.descriptions)) ||
-                (!this.bindingTemplates.equals(oCompare.bindingTemplates))) {
+                (!this.bindingTemplates.equals(oCompare.bindingTemplates)) ||
+                (this.liftSupported != oCompare.liftSupported) ||
+                (!this.liftProtocols.equals(oCompare.liftProtocols))) {
             return false;
         }
 
@@ -165,5 +171,41 @@ public class CMBusinessService {
      */
     public void setUniformServiceName(String uniformServiceName) {
         this.uniformServiceName = uniformServiceName;
+    }
+
+        /**
+     * Returns the value of the liftSupported flag.
+     *
+     * @return The value of the liftSupported flag associated with this business entity.
+     */
+    public boolean getLiftSupported() {
+        return liftSupported;
+    }
+
+    /**
+     * Sets the lift supported flag associated with this business entity.
+     *
+     * @param states The lift supported flag associated with this business entity.
+     */
+    public void setLiftSupported(boolean liftSupported) {
+        this.liftSupported = liftSupported;
+    }
+
+    /**
+     * Returns the lift protocols list.
+     *
+     * @return The lift protocols list associated with this business entity.
+     */
+    public CMLiftProtocols getLiftProtocols() {
+        return liftProtocols;
+    }
+
+    /**
+     * Sets the lift protocol list associated with this business entity.
+     *
+     * @param states The lift protocol list associated with this business entity.
+     */
+    public void setLiftProtocols(CMLiftProtocols liftProtocols) {
+        this.liftProtocols = liftProtocols;
     }
 }
