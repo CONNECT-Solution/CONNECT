@@ -11,5 +11,8 @@
 	<condition property="soapui.install.bin.directory.path" value="/nhin/soapui-pro-3.0.1/bin">
 		<os family="unix" />
 	</condition>
+	<condition property="yourkitjprofiler.install.directory.path" value="C:\Program Files (x86)\YourKit Java Profiler 9.0.2">
+		<os family="windows" />
+	</condition>
 
 </project>
