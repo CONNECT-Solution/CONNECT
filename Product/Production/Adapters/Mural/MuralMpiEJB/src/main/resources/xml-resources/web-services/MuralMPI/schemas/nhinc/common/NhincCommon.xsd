@@ -24,8 +24,6 @@
 		<xsd:sequence>
 			<xsd:element name="address" type="tns:AddressType"/>
 			<xsd:element name="dateOfBirth" type="xsd:string"/>
-			<xsd:element name="dateOfSignature" type="xsd:string"/>
-			<xsd:element name="expirationDate" type="xsd:string"/>
 			<xsd:element name="explanationNonClaimantSignature" type="xsd:string"/>
 			<xsd:element name="haveSecondWitnessSignature" type="xsd:boolean"/>
 			<xsd:element name="haveSignature" type="xsd:boolean"/>
@@ -33,8 +31,6 @@
 			<xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
 			<xsd:element name="personName" type="tns:PersonNameType"/>
 			<xsd:element name="phoneNumber" type="tns:PhoneType"/>
-			<!-- purposeOfDisclosure deprecated element -->
-			<xsd:element name="purposeOfDisclosure" type="xsd:string"/>
 			<xsd:element name="secondWitnessAddress" type="tns:AddressType"/>
 			<xsd:element name="secondWitnessName" type="tns:PersonNameType"/>
 			<xsd:element name="secondWitnessPhone" type="tns:PhoneType"/>
@@ -46,11 +42,10 @@
 			<xsd:element name="userInfo" type="tns:UserType"/>
 			<xsd:element name="authorized" type="xsd:boolean"/>
 			<xsd:element name="purposeOfDisclosureCoded" type="tns:CeType" minOccurs="0"/>
-			<xsd:element name="claimFormRef" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="claimFormRaw" type="xsd:base64Binary" minOccurs="0"/>
 			<xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
 			<xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
 			<xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
+                        <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -87,9 +82,8 @@
 			<xsd:element name="issuer" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="issuerFormat" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0"/>
-			<xsd:element name="contentReference" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="contentType" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+			<xsd:element name="accessConsentPolicy" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="instanceAccessConsentPolicy" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="SamlAuthzDecisionStatementEvidenceAssertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType"/>
@@ -183,8 +177,6 @@
 		<xsd:sequence>
 			<xsd:element name="personName" type="tns:PersonNameType"/>
 			<xsd:element name="userName" type="xsd:string"/>
-			<!-- role deprecated element -->
-			<xsd:element name="role" type="xsd:string"/>
 			<xsd:element name="org" type="tns:HomeCommunityType"/>
 			<xsd:element name="roleCoded" type="tns:CeType" minOccurs="0"/>
 		</xsd:sequence>
@@ -261,4 +253,19 @@
 	</xsd:complexType>
 	<xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
 	<xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
+    <xsd:complexType name="UrlSetType">
+        <xsd:sequence>
+            <xsd:element name="url" type="xsd:string" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UrlSet" type="tns:UrlSetType"/>
+    <xsd:complexType name="UrlInfoType">
+        <xsd:sequence>
+            <xsd:element name="url" type="xsd:string"></xsd:element>
+            <xsd:element name="id" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UrlInfo" type="tns:UrlInfoType"></xsd:element>
 </xsd:schema>
+
+
