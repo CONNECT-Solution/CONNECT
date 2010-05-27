@@ -22,6 +22,7 @@
         <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
         <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.NhincGatewayDAO.build.classes.dir}" />
+        <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
     </path>
 
   <!-- Add project dependencies here, these projects will be built first... -->

@@ -4,6 +4,10 @@
  */
 package gov.hhs.fha.nhinc.lift.proxy;
 
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestNoOpImpl;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionRequestType;
@@ -13,10 +17,15 @@ import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.lift.dao.GatewayLiftMessageDao;
 import gov.hhs.fha.nhinc.lift.model.GatewayLiftMsgRecord;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import javax.xml.bind.JAXBException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,6 +58,9 @@ public class GatewayLiftManagerProxyJavaImplTest
     final Log mockLog = context.mock(Log.class);
     final GatewayLiftMessageDao mockDAO = context.mock(GatewayLiftMessageDao.class);
     final Socket mockSocket = context.mock(Socket.class);
+    final Blob mockBlob = context.mock(Blob.class);
+    final InputStream mockInputStream = context.mock(InputStream.class);
+    final AdapterXDRRequestProxy mockAdapterProxy = context.mock(AdapterXDRRequestProxy.class);
 
     public GatewayLiftManagerProxyJavaImplTest()
     {
@@ -296,6 +308,49 @@ public class GatewayLiftManagerProxyJavaImplTest
             System.out.println("Error running testSetRecordToProcessingHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testSetRecordToProcessingHappyPath test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test of deleteRecord method with happy path, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testDeleteRecordHappyPath()
+    {
+        System.out.println("testDeleteRecordHappyPath");
+
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockDAO).deleteRecord(with(any(GatewayLiftMsgRecord.class)));
+                }
+            });
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected GatewayLiftMessageDao getGatewayLiftMessageDao()
+                {
+                    return mockDAO;
+                }
+            };
+
+            GatewayLiftMsgRecord oRecord = new GatewayLiftMsgRecord();
+            oRecord.setRequestKeyGuid("111-111");
+            oImpl.deleteRecord(oRecord);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testDeleteRecordHappyPath test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testDeleteRecordHappyPath test: " + t.getMessage());
         }
     }
 
@@ -1278,6 +1333,657 @@ public class GatewayLiftManagerProxyJavaImplTest
     }
 
     /**
+     * Test completionRequestContainsValidData method with happy path.
+     */
+    @Test
+    public void testCompletionRequestContainsValidDataHappyPath()
+    {
+        System.out.println("testCompletionRequestContainsValidDataHappyPath");
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl();
+        CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
+        oRequest.setRequestKeyGuid("111-111");
+        oRequest.setFileURI("file://temp.pdf");
+        boolean bResult = oImpl.completionRequestContainsValidData(oRequest);
+        assertEquals("completionRequestContainsValid should have returned true.  ", true, bResult);
+    }
+
+    /**
+     * Test completionRequestContainsValidData method with null.
+     */
+    @Test
+    public void testCompletionRequestContainsValidDataNull()
+    {
+        System.out.println("testCompletionRequestContainsValidDataNull");
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl();
+        boolean bResult = oImpl.completionRequestContainsValidData(null);
+        assertEquals("completionRequestContainsValid should have returned false.  ", false, bResult);
+    }
+
+    /**
+     * Test completionRequestContainsValidData method with request key guid = null.
+     */
+    @Test
+    public void testCompletionRequestContainsValidDataNullRequestKeyGuid()
+    {
+        System.out.println("testCompletionRequestContainsValidDataNullRequestKeyGuid");
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl();
+        CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
+        oRequest.setRequestKeyGuid(null);
+        oRequest.setFileURI("file://temp.pdf");
+        boolean bResult = oImpl.completionRequestContainsValidData(oRequest);
+        assertEquals("completionRequestContainsValid should have returned false.  ", false, bResult);
+    }
+
+    /**
+     * Test completionRequestContainsValidData method with fileUri = null.
+     */
+    @Test
+    public void testCompletionRequestContainsValidDataNullFileURI()
+    {
+        System.out.println("testCompletionRequestContainsValidDataNullFileURI");
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl();
+        CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
+        oRequest.setRequestKeyGuid("111-111");
+        oRequest.setFileURI(null);
+        boolean bResult = oImpl.completionRequestContainsValidData(oRequest);
+        assertEquals("completionRequestContainsValid should have returned false.  ", false, bResult);
+    }
+
+    /**
+     * Test getMessageBlob with null.  (Note we cannot test it with happy path because
+     * a Blob requires external resources.)
+     *
+     */
+    @Test
+    public void testGetMessageBlob()
+    {
+        System.out.println("testGetMessageBlob");
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl();
+        Blob oBlob = oImpl.getMessageBlob(null);
+        assertNull("messageBlob should have returned null.  ", oBlob);
+    }
+
+    /**
+     * Test getAssertionBlob with null.  (Note we cannot test it with happy path because
+     * a Blob requires external resources.)
+     *
+     */
+    @Test
+    public void testGetAssertionBlob()
+    {
+        System.out.println("testGetAssertionBlob");
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl();
+        Blob oBlob = oImpl.getAssertionBlob(null);
+        assertNull("assertionBlob should have returned null.  ", oBlob);
+    }
+
+    /**
+     * Test recordValidForCompletion method with happy path.
+     */
+    @Test
+    public void testRecordValidForCompletionHappyPath()
+    {
+        System.out.println("testRecordValidForCompletionHappyPath");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+            };
+
+            GatewayLiftMsgRecord oRecord = new GatewayLiftMsgRecord();
+            oRecord.setRequestKeyGuid("111-111");
+
+            boolean bResult = oImpl.recordValidForCompletion(oRecord);
+            assertEquals("recordValidForCompletion should have returned true.  ", true, bResult);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRecordValidForCompletionHappyPath test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRecordValidForCompletionHappyPath test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test recordValidForCompletion method with null record.
+     */
+    @Test
+    public void testRecordValidForCompletionNullRecord()
+    {
+        System.out.println("testRecordValidForCompletionNullRecord");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+            };
+
+            boolean bResult = oImpl.recordValidForCompletion(null);
+            assertEquals("recordValidForCompletion should have returned false.  ", false, bResult);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRecordValidForCompletionNullRecord test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRecordValidForCompletionNullRecord test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test recordValidForCompletion method with null message blob.
+     */
+    @Test
+    public void testRecordValidForCompletionNullMessageBlob()
+    {
+        System.out.println("testRecordValidForCompletionNullMessageBlob");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return null;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+            };
+
+            boolean bResult = oImpl.recordValidForCompletion(null);
+            assertEquals("recordValidForCompletion should have returned false.  ", false, bResult);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRecordValidForCompletionNullMessageBlob test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRecordValidForCompletionNullMessageBlob test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test recordValidForCompletion method with null assertion blob.
+     */
+    @Test
+    public void testRecordValidForCompletionNullAssertionBlob()
+    {
+        System.out.println("testRecordValidForCompletionNullAssertionBlob");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return null;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+            };
+
+            boolean bResult = oImpl.recordValidForCompletion(null);
+            assertEquals("recordValidForCompletion should have returned false.  ", false, bResult);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRecordValidForCompletionNullAssertionBlob test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRecordValidForCompletionNullAssertionBlob test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test recordValidForCompletion method with zero blob length.
+     */
+    @Test
+    public void testRecordValidForCompletionZeroBlobLength()
+    {
+        System.out.println("testRecordValidForCompletionZeroBlobLength");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 0;
+                }
+
+            };
+
+            boolean bResult = oImpl.recordValidForCompletion(null);
+            assertEquals("recordValidForCompletion should have returned false.  ", false, bResult);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRecordValidForCompletionZeroBlobLength test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRecordValidForCompletionZeroBlobLength test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test extractStringFromBlob method happy path.
+     */
+    @Test
+    public void testExtractStringFromBlobHappyPath()
+    {
+        System.out.println("testExtractStringFromBlobHappyPath");
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockInputStream).read(with(any(byte[].class)));
+                }
+            });
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+                @Override
+                protected InputStream getBlobBinaryInputStream(Blob oBlob)
+                {
+                    return mockInputStream;
+                }
+
+            };
+
+            String sResult = oImpl.extractStringFromBlob(mockBlob);
+            assertNotNull("Should not have been null.  ", sResult);
+            assertEquals("Length should have been 1: ", 1, sResult.length());
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractStringFromBlobHappyPath test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractStringFromBlobHappyPath test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test extractStringFromBlob method null blob.
+     */
+    @Test
+    public void testExtractStringFromBlobNull()
+    {
+        System.out.println("testExtractStringFromBlobNull");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+                @Override
+                protected InputStream getBlobBinaryInputStream(Blob oBlob)
+                {
+                    return mockInputStream;
+                }
+
+            };
+
+            String sResult = oImpl.extractStringFromBlob(null);
+            assertNotNull("Should not have been null.  ", sResult);
+            assertEquals("Length should have been 1: ", 0, sResult.length());
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractStringFromBlobNull test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractStringFromBlobNull test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test extractStringFromBlob method 0 length.
+     */
+    @Test
+    public void testExtractStringFromBlobZeroLength()
+    {
+        System.out.println("testExtractStringFromBlobZeroLength");
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 0;
+                }
+
+                @Override
+                protected InputStream getBlobBinaryInputStream(Blob oBlob)
+                {
+                    return mockInputStream;
+                }
+
+            };
+
+            String sResult = oImpl.extractStringFromBlob(mockBlob);
+            assertNotNull("Should not have been null.  ", sResult);
+            assertEquals("Length should have been 1: ", 0, sResult.length());
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testExtractStringFromBlobZeroLength test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testExtractStringFromBlobZeroLength test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test of sendMessageToAdapter method with happy path, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testSendMessageToAdapterHappyPath()
+    {
+        System.out.println("testSendMessageToAdapterHappyPath");
+
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockAdapterProxy).provideAndRegisterDocumentSetBRequest(with(any(AdapterProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)));
+                }
+            });
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String extractStringFromBlob(Blob oBlob)
+                {
+                    return "<test></text>";
+                }
+
+                @Override
+                protected AssertionType deserializeAssertion(String sAssertion)
+                {
+                    return new AssertionType();
+                }
+
+                @Override
+                protected ProvideAndRegisterDocumentSetRequestType deserializeMessage(String sMessage)
+                {
+                    return new ProvideAndRegisterDocumentSetRequestType();
+                }
+
+                @Override
+                protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+                {
+                    return mockAdapterProxy;
+                }
+
+            };
+
+            oImpl.sendMessageToAdapter(mockBlob, mockBlob, "file://temp.pdf");
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testSendMessageToAdapterHappyPath test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testSendMessageToAdapterHappyPath test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test of sendMessageToAdapter method with assertion deserialize exception, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testSendMessageToAdapterAssertDeserializeExcept()
+    {
+        System.out.println("testSendMessageToAdapterAssertDeserializeExcept");
+
+        context.checking(new Expectations()
+        {
+            {
+                oneOf(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+            }
+        });
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+        {
+            @Override
+            protected Log createLogger()
+            {
+                return mockLog;
+            }
+
+            @Override
+            protected String extractStringFromBlob(Blob oBlob)
+            {
+                return "<test></text>";
+            }
+
+            @Override
+            protected AssertionType deserializeAssertion(String sAssertion)
+                throws JAXBException
+            {
+                throw new JAXBException("This is an exception.");
+            }
+
+            @Override
+            protected ProvideAndRegisterDocumentSetRequestType deserializeMessage(String sMessage)
+            {
+                return new ProvideAndRegisterDocumentSetRequestType();
+            }
+
+            @Override
+            protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+            {
+                return mockAdapterProxy;
+            }
+
+        };
+
+        try
+        {
+            oImpl.sendMessageToAdapter(mockBlob, mockBlob, "file://temp.pdf");
+        }
+        catch (Exception e)
+        {
+            assertTrue("Incorrect exception was thrown.  It should have been a JAXBException.", e instanceof JAXBException);
+
+        }
+    }
+
+    /**
+     * Test of sendMessageToAdapter method with SQL exception, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testSendMessageToAdapterSqlException()
+    {
+        System.out.println("testSendMessageToAdapterSqlException");
+
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+        {
+            @Override
+            protected Log createLogger()
+            {
+                return mockLog;
+            }
+
+            @Override
+            protected String extractStringFromBlob(Blob oBlob)
+                throws SQLException
+            {
+                throw new SQLException("This is an exception.");
+            }
+
+            @Override
+            protected AssertionType deserializeAssertion(String sAssertion)
+                throws JAXBException
+            {
+                return new AssertionType();
+            }
+
+            @Override
+            protected ProvideAndRegisterDocumentSetRequestType deserializeMessage(String sMessage)
+            {
+                return new ProvideAndRegisterDocumentSetRequestType();
+            }
+
+            @Override
+            protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+            {
+                return mockAdapterProxy;
+            }
+
+        };
+
+        try
+        {
+            oImpl.sendMessageToAdapter(mockBlob, mockBlob, "file://temp.pdf");
+        }
+        catch (Exception e)
+        {
+            assertTrue("Incorrect exception was thrown.  It should have been a JAXBException.", e instanceof SQLException);
+
+        }
+    }
+
+
+    /**
+     * Test of sendMessageToAdapter method with Message deserialize exception, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testSendMessageToAdapterMessageDeserializeExcept()
+    {
+        System.out.println("testSendMessageToAdapterMessageDeserializeExcept");
+
+        context.checking(new Expectations()
+        {
+            {
+                oneOf(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+            }
+        });
+        GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+        {
+            @Override
+            protected Log createLogger()
+            {
+                return mockLog;
+            }
+
+            @Override
+            protected String extractStringFromBlob(Blob oBlob)
+            {
+                return "<test></text>";
+            }
+
+            @Override
+            protected AssertionType deserializeAssertion(String sAssertion)
+            {
+                return new AssertionType();
+            }
+
+            @Override
+            protected ProvideAndRegisterDocumentSetRequestType deserializeMessage(String sMessage)
+                throws JAXBException
+            {
+                throw new JAXBException("This is an exception.");
+            }
+
+            @Override
+            protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+            {
+                return mockAdapterProxy;
+            }
+
+        };
+
+        try
+        {
+            oImpl.sendMessageToAdapter(mockBlob, mockBlob, "file://temp.pdf");
+        }
+        catch (Exception e)
+        {
+            assertTrue("Incorrect exception was thrown.  It should have been a JAXBException.", e instanceof JAXBException);
+
+        }
+    }
+
+    /**
      * Test of completeLiftTransaction method with happy path, of class GatewayLiftManagerProxyJavaImpl.
      */
     @Test
@@ -1287,6 +1993,13 @@ public class GatewayLiftManagerProxyJavaImplTest
 
         try
         {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockDAO).deleteRecord(with(any(GatewayLiftMsgRecord.class)));
+                    exactly(1).of(mockAdapterProxy).provideAndRegisterDocumentSetBRequest(with(any(AdapterProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)));
+                }
+            });
             GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
             {
                 @Override
@@ -1300,6 +2013,64 @@ public class GatewayLiftManagerProxyJavaImplTest
                 {
                     return mockDAO;
                 }
+
+                @Override
+                protected GatewayLiftMsgRecord readRecord(String sRequestKeyGuid)
+                {
+                    GatewayLiftMsgRecord oRecord = new GatewayLiftMsgRecord();
+                    oRecord.setRequestKeyGuid(sRequestKeyGuid);
+                    oRecord.setMessageState("ENTERED");
+                    oRecord.setFileNameToRetrieve("/temp/temp.pdf");
+                    oRecord.setProducerProxyAddress("localhost");
+                    oRecord.setProducerProxyPort(4444L);
+                    oRecord.setMessage(mockBlob);
+                    oRecord.setAssertion(mockBlob);
+                    return oRecord;
+                }
+
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+                @Override
+                protected String extractStringFromBlob(Blob oBlob)
+                {
+                    return "<test></text>";
+                }
+
+                @Override
+                protected AssertionType deserializeAssertion(String sAssertion)
+                {
+                    return new AssertionType();
+                }
+
+                @Override
+                protected ProvideAndRegisterDocumentSetRequestType deserializeMessage(String sMessage)
+                {
+                    return new ProvideAndRegisterDocumentSetRequestType();
+                }
+
+                @Override
+                protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+                {
+                    return mockAdapterProxy;
+                }
+
+
             };
 
             CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
@@ -1317,6 +2088,225 @@ public class GatewayLiftManagerProxyJavaImplTest
             fail("Error running testCompleteLiftTransactionHappyPath test: " + t.getMessage());
         }
     }
+
+    /**
+     * Test of completeLiftTransaction method with exception, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testCompleteLiftTransactionWithException()
+    {
+        System.out.println("testCompleteLiftTransactionWithException");
+
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).error(with(any(String.class)));
+                    oneOf(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+                }
+            });
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected GatewayLiftMessageDao getGatewayLiftMessageDao()
+                {
+                    return mockDAO;
+                }
+
+                @Override
+                protected boolean recordValidForCompletion(GatewayLiftMsgRecord oRecord)
+                    throws java.sql.SQLException
+                {
+                    throw new java.sql.SQLException("This is the exception.");
+                }
+
+                @Override
+                protected GatewayLiftMsgRecord readRecord(String sRequestKeyGuid)
+                {
+                    GatewayLiftMsgRecord oRecord = new GatewayLiftMsgRecord();
+                    oRecord.setRequestKeyGuid(sRequestKeyGuid);
+                    oRecord.setMessageState("ENTERED");
+                    oRecord.setFileNameToRetrieve("/temp/temp.pdf");
+                    oRecord.setProducerProxyAddress("localhost");
+                    oRecord.setProducerProxyPort(4444L);
+                    return oRecord;
+                }
+
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+            };
+
+            CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
+            oRequest.setRequestKeyGuid("111-111");
+            oRequest.setFileURI("file://temp.file");
+
+            CompleteLiftTransactionResponseType oResponse = oImpl.completeLiftTransaction(oRequest);
+            assertNotNull("CompleteLiftTransactionResponse should not have been null. ", oResponse);
+            assertTrue("Status was incorrect: ", oResponse.getStatus().startsWith("FAILED: An unexpected exception has occurred.  Error: "));
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testCompleteLiftTransactionWithException test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testCompleteLiftTransactionWithException test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test of completeLiftTransaction method with record in invalid state, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testCompleteLiftTransactionWithInvalidRecord()
+    {
+        System.out.println("testCompleteLiftTransactionWithInvalidRecord");
+
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).error(with(any(String.class)));
+                }
+            });
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected GatewayLiftMessageDao getGatewayLiftMessageDao()
+                {
+                    return mockDAO;
+                }
+
+                @Override
+                protected boolean recordValidForCompletion(GatewayLiftMsgRecord oRecord)
+                    throws java.sql.SQLException
+                {
+                    return false;
+                }
+
+                @Override
+                protected GatewayLiftMsgRecord readRecord(String sRequestKeyGuid)
+                {
+                    GatewayLiftMsgRecord oRecord = new GatewayLiftMsgRecord();
+                    oRecord.setRequestKeyGuid(sRequestKeyGuid);
+                    oRecord.setMessageState("ENTERED");
+                    oRecord.setFileNameToRetrieve("/temp/temp.pdf");
+                    oRecord.setProducerProxyAddress("localhost");
+                    oRecord.setProducerProxyPort(4444L);
+                    return oRecord;
+                }
+
+                @Override
+                protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+                {
+                    return mockBlob;
+                }
+
+                @Override
+                protected long getBlobLength(Blob oBlob)
+                {
+                    return 1;
+                }
+
+            };
+
+            CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
+            oRequest.setRequestKeyGuid("111-111");
+            oRequest.setFileURI("file://temp.file");
+
+            CompleteLiftTransactionResponseType oResponse = oImpl.completeLiftTransaction(oRequest);
+            assertNotNull("CompleteLiftTransactionResponse should not have been null. ", oResponse);
+            assertTrue("Status was incorrect: ", oResponse.getStatus().startsWith("FAILED: The record in GATEWAY_LIFT_MESSAGE Record with RequestKeyGuid: "));
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testCompleteLiftTransactionWithInvalidRecord test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testCompleteLiftTransactionWithInvalidRecord test: " + t.getMessage());
+        }
+    }
+
+
+
+    /**
+     * Test of completeLiftTransaction method with bad request data, of class GatewayLiftManagerProxyJavaImpl.
+     */
+    @Test
+    public void testCompleteLiftTransactionBadRequestData()
+    {
+        System.out.println("testCompleteLiftTransactionBadRequestData");
+
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    oneOf(mockLog).error(with(any(String.class)));
+                }
+            });
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected GatewayLiftMessageDao getGatewayLiftMessageDao()
+                {
+                    return mockDAO;
+                }
+            };
+
+            CompleteLiftTransactionRequestType oRequest = new CompleteLiftTransactionRequestType();
+            CompleteLiftTransactionResponseType oResponse = oImpl.completeLiftTransaction(null);
+            assertNotNull("CompleteLiftTransactionResponse should not have been null. ", oResponse);
+            assertEquals("Status was incorrect: ", "FAILED: Failed to complete LiftTransaction, either the RequestKeyGuid or fileURI was not passed.",
+                         oResponse.getStatus());
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testCompleteLiftTransactionBadRequestData test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testCompleteLiftTransactionBadRequestData test: " + t.getMessage());
+        }
+    }
+
 
     /**
      * Test of failedLiftTransaction method, of class GatewayLiftManagerProxyJavaImpl.

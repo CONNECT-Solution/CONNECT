@@ -1,5 +1,9 @@
 package gov.hhs.fha.nhinc.lift.proxy;
 
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionResponseType;
@@ -21,13 +25,27 @@ import gov.hhs.fha.nhinc.lift.common.util.ServerProxyDataToken;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
 
 /**
  * This is the no-op implementation of the GatewayLiftManager.
@@ -99,6 +117,18 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
 
         GatewayLiftMessageDao oDao = getGatewayLiftMessageDao();
         oDao.updateRecord(oRecord);
+    }
+
+    /**
+     * This method deletes the specified record from the GATEWAY_LIFT_MESSAGE
+     * table.
+     *
+     * @param oRecord The record to be deleted.
+     */
+    protected void deleteRecord(GatewayLiftMsgRecord oRecord)
+    {
+        GatewayLiftMessageDao oDao = getGatewayLiftMessageDao();
+        oDao.deleteRecord(oRecord);
     }
 
     /**
@@ -328,6 +358,242 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     }
 
     /**
+     * This verifies the CompleteLiftTransactionRequestType to make sure it has
+     * all the data it is supposed to have.
+     *
+     * @param oRequest The request parameter to be verified.
+     * @return TRUE if it is all in order.
+     */
+    protected boolean completionRequestContainsValidData(CompleteLiftTransactionRequestType oRequest)
+    {
+        if ((oRequest != null) &&
+            (oRequest.getRequestKeyGuid() != null) &&
+            (oRequest.getRequestKeyGuid().length() > 0) &&
+            (oRequest.getFileURI() != null) &&
+            (oRequest.getFileURI().length() > 0))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Return the message blob from the GatewayLiftMsgRecord.  This is a helper class
+     * so that we can mock the Blob in unit tests.
+     *
+     * @param oRecord The record containing the message blob.
+     * @return The message blob.
+     */
+    protected Blob getMessageBlob(GatewayLiftMsgRecord oRecord)
+    {
+        return (oRecord != null) ? oRecord.getMessage() : null;
+    }
+
+    /**
+     * Return the length of a blob.  This is a helper class
+     * so that we can mock the Blob in unit tests.
+     *
+     * @param oRecord The record containing the message blob.
+     * @return The message blob.
+     */
+    protected long getBlobLength(Blob oBlob)
+        throws java.sql.SQLException
+    {
+        return (oBlob != null) ? oBlob.length() : 0;
+    }
+
+    /**
+     * Return the assertion blob from the GatewayLiftMsgRecord.  This is a helper class
+     * so that we can mock the Blob in unit tests.
+     *
+     * @param oRecord The record containing the assertion blob.
+     * @return The assertion blob.
+     */
+    protected Blob getAssertionBlob(GatewayLiftMsgRecord oRecord)
+    {
+        return (oRecord != null) ? oRecord.getMessage() : null;
+    }
+
+    /**
+     * This extracts the binary input stream from a blob.
+     *
+     * @param oBlob The blob containing the binary input stream.
+     * @return The InputStream object from the blob.
+     */
+    protected InputStream getBlobBinaryInputStream(Blob oBlob)
+        throws java.sql.SQLException
+    {
+        return (oBlob != null) ? oBlob.getBinaryStream() : null;
+    }
+
+    /**
+     * This method checks to see if the record is valid for completion.
+     *
+     * @param oRecord The gateway lift message record that is being checked.
+     * @return TRUE if it is valid.
+     */
+    protected boolean recordValidForCompletion(GatewayLiftMsgRecord oRecord)
+        throws java.sql.SQLException
+    {
+        if ((oRecord != null) &&
+            (getMessageBlob(oRecord) != null) &&
+            (getBlobLength(getMessageBlob(oRecord)) > 0) &&
+            (getAssertionBlob(oRecord) != null) &&
+            (getBlobLength(getAssertionBlob(oRecord)) > 0))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * This method extracts a string from a blob.
+     *
+     * @param oBlob The blob containing the string.
+     * @return The string from the blob.
+     */
+    protected String extractStringFromBlob(Blob oBlob)
+        throws java.sql.SQLException, java.io.IOException
+    {
+        String sResult = "";
+
+        if ((oBlob != null) &&
+            (getBlobLength(oBlob) > 0))
+        {
+            int iLen = (int) getBlobLength(oBlob);
+            byte[] byteResult = new byte[iLen];
+            InputStream oInputStream = getBlobBinaryInputStream(oBlob);
+            oInputStream.read(byteResult);
+            sResult = new String(byteResult);
+        }
+
+        return sResult;
+    }
+
+    /**
+     * This returns a handle to the AdapterXDRRequest proxy object.
+     * 
+     * @return The handle to the AdapterXDRRequest proxy object.
+     */
+    protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+    {
+        AdapterXDRRequestProxyObjectFactory oFactory = new AdapterXDRRequestProxyObjectFactory();
+        AdapterXDRRequestProxy oAdapterXDRRequestService = oFactory.getAdapterXDRRequestProxy();
+        return oAdapterXDRRequestService;
+    }
+
+    /**
+     * This method takes the assertion and deserializes the XML into an
+     * Assertion object.
+     *
+     * @param sAssertion The string version of the assertion class.
+     * @return The object form of the Assertion.
+     */
+    protected AssertionType deserializeAssertion(String sAssertion)
+        throws JAXBException
+    {
+        AssertionType oAssertion = null;
+
+        JAXBContextHandler oHandler = new JAXBContextHandler();
+        JAXBContext oJaxbContext = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
+        Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
+
+        StringReader srXML = new StringReader(sAssertion);
+
+        JAXBElement oJAXBElementConsent = (JAXBElement) oUnmarshaller.unmarshal(srXML);
+        if (oJAXBElementConsent.getValue() instanceof AssertionType)
+        {
+            oAssertion = (AssertionType) oJAXBElementConsent.getValue();
+        }
+
+        return oAssertion;
+    }
+
+    /**
+     * This method takes the XML version of the request message and
+     * deserializes it into an object verison of the data.
+     *
+     * @param sMessage The message in XML form.
+     * @return The message in object form.
+     */
+    protected ProvideAndRegisterDocumentSetRequestType deserializeMessage(String sMessage)
+        throws JAXBException
+    {
+        ProvideAndRegisterDocumentSetRequestType oRequest = null;
+
+        JAXBContextHandler oHandler = new JAXBContextHandler();
+        JAXBContext oJaxbContext = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
+        Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
+
+        StringReader srXML = new StringReader(sMessage);
+
+        JAXBElement oJAXBElementConsent = (JAXBElement) oUnmarshaller.unmarshal(srXML);
+        if (oJAXBElementConsent.getValue() instanceof ProvideAndRegisterDocumentSetRequestType)
+        {
+            oRequest = (ProvideAndRegisterDocumentSetRequestType) oJAXBElementConsent.getValue();
+        }
+
+        return oRequest;
+    }
+
+    /**
+     * This method sends the message to the adapter.
+     *
+     * @param oMessageBlob The message to be sent to the adapter.
+     * @param oAssertionBlob The assertion to be sent to the adapter.
+     * @param sFileURI The file URI to be sent to the adapter.
+     */
+    protected void sendMessageToAdapter(Blob oMessageBlob, Blob oAssertionBlob, String sFileURI)
+        throws java.sql.SQLException, java.io.IOException, JAXBException
+    {
+        String sMessage = extractStringFromBlob(oMessageBlob);
+        String sAssertion = extractStringFromBlob(oAssertionBlob);
+        AssertionType oAssertion = null;
+        ProvideAndRegisterDocumentSetRequestType oMessage = null;
+
+        try
+        {
+            oAssertion = deserializeAssertion(sAssertion);
+        }
+        catch (Exception e)
+        {
+            String sErrorMessage = "Failed to deserialize the assertion string to an AssertionType object.  Error: " +
+                                   e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new JAXBException(sErrorMessage, e);
+        }
+
+        try
+        {
+            oMessage = deserializeMessage(sMessage);
+        }
+        catch (Exception e)
+        {
+            String sErrorMessage = "Failed to deserialize the message string to a ProvideAndRegisterDocumentSetRequestType object.  Error: " +
+                                   e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new JAXBException(sErrorMessage, e);
+        }
+
+        AdapterProvideAndRegisterDocumentSetSecuredRequestType oRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
+        oRequest.setProvideAndRegisterDocumentSetRequest(oMessage);
+        oRequest.setUrl(sFileURI);
+
+        AdapterXDRRequestProxy oAdapterXDRRequestService = getAdapterXDRRequestProxyObject();
+        XDRAcknowledgementType oAck = oAdapterXDRRequestService.provideAndRegisterDocumentSetBRequest(oRequest, oAssertion);
+
+        // not sure what to do with the ACK at this point.  The message already went back to the initiating gateway when we
+        // queued the request.  So at this point we will do nothing with it.
+        //-------------------------------------------------------------------------------------------------------------------
+    }
+
+    /**
      * This method tells the Gateway Lift Manager that a lift transaction has been completed successfully.
      *
      * @param completeLiftTransactionRequest The information needed to start a lift transaction.
@@ -337,7 +603,47 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     public CompleteLiftTransactionResponseType completeLiftTransaction(CompleteLiftTransactionRequestType completeLiftTransactionRequest)
     {
         CompleteLiftTransactionResponseType oResponse = new CompleteLiftTransactionResponseType();
-        oResponse.setStatus("SUCCESS");
+
+        if (completionRequestContainsValidData(completeLiftTransactionRequest))
+        {
+            try
+            {
+                String sRequestKeyGuid = completeLiftTransactionRequest.getRequestKeyGuid();
+                GatewayLiftMsgRecord oRecord = readRecord(sRequestKeyGuid);
+                if (recordValidForCompletion(oRecord))
+                {
+                    sendMessageToAdapter(oRecord.getMessage(), oRecord.getAssertion(), completeLiftTransactionRequest.getFileURI());
+                    deleteRecord(oRecord);
+                    oResponse.setStatus("SUCCESS");
+                }
+                else
+                {
+                    // The record did not have the required data: Message and/or Assertion.
+                    //---------------------------------------------------------
+                    String sErrorMessage = "The record in GATEWAY_LIFT_MESSAGE Record with RequestKeyGuid: " + sRequestKeyGuid +
+                            " did not contain both a message and assertion blob.'";
+                    log.error(sErrorMessage);
+                    oResponse.setStatus("FAILED: " + sErrorMessage);
+                }
+            }
+            catch (Exception e)
+            {
+                // An unexpected exception has occurred.
+                //--------------------------------------
+                String sErrorMessage = "An unexpected exception has occurred.  Error: " + e.getMessage();
+                log.error(sErrorMessage, e);
+                oResponse.setStatus("FAILED: " + sErrorMessage);
+            }
+        }
+        else
+        {
+            // The information passed in was insufficient to complete this.
+            //-------------------------------------------------------------
+            String sErrorMessage = "Failed to complete LiftTransaction, either the RequestKeyGuid or fileURI was not passed.";
+            log.error(sErrorMessage);
+            oResponse.setStatus("FAILED: " + sErrorMessage);
+        }
+
         return oResponse;
     }
 

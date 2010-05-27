@@ -16,4 +16,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineNoOpImpl" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineWebServiceProxy" linecount="17" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="80" branchrate="0.7875" branchsexecuted="0.63" class="gov.hhs.fha.nhinc.lift.proxy.GatewayLiftManagerProxyJavaImpl" linecount="177" linerate="0.8361581920903954" linesexecuted="1.48"/>
 </thresholds>
