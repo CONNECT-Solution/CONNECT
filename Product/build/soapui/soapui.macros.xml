@@ -71,6 +71,9 @@
             <if>
               <istrue value="${profile}"/>
               <then>
+			      <runtarget target="deploy.glassfish.stop.server"/>
+				  <runtarget target="deploy.glassfish.start.server"/>
+
 				<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
 					<arg value="localhost"/>
 					<arg value="10001"/>
@@ -87,7 +90,6 @@
             <if>
               <istrue value="${profile}"/>
               <then>
-
 				<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
 					<arg value="localhost"/>
 					<arg value="10001"/>
