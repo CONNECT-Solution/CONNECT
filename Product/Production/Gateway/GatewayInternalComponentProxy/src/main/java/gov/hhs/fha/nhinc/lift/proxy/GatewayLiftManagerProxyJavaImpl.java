@@ -1,8 +1,12 @@
 package gov.hhs.fha.nhinc.lift.proxy;
 
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionRequestType;
@@ -381,6 +385,28 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     }
 
     /**
+     * This verifies the failedLiftTransactionRequestType to make sure it has
+     * all the data it is supposed to have.
+     *
+     * @param oRequest The request parameter to be verified.
+     * @return TRUE if it is all in order.
+     */
+    protected boolean failedRequestContainsValidData(FailedLiftTransactionRequestType oRequest)
+    {
+        if ((oRequest != null) &&
+            (oRequest.getRequestKeyGuid() != null) &&
+            (oRequest.getRequestKeyGuid().length() > 0))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    /**
      * Return the message blob from the GatewayLiftMsgRecord.  This is a helper class
      * so that we can mock the Blob in unit tests.
      *
@@ -489,6 +515,19 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     }
 
     /**
+     * This returns a handle to the AdapterXDRRequest proxy object.
+     *
+     * @return The handle to the AdapterXDRRequest proxy object.
+     */
+    protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+    {
+        AdapterXDRRequestErrorProxyObjectFactory oFactory = new AdapterXDRRequestErrorProxyObjectFactory();
+        AdapterXDRRequestErrorProxy oAdapterXDRRequestErrorService = oFactory.getAdapterXDRRequestErrorProxy();
+        return oAdapterXDRRequestErrorService;
+    }
+
+
+    /**
      * This method takes the assertion and deserializes the XML into an
      * Assertion object.
      *
@@ -594,6 +633,59 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     }
 
     /**
+     * This method sends the error message to the adapter.
+     *
+     * @param oMessageBlob The message to be sent to the adapter.
+     * @param oAssertionBlob The assertion to be sent to the adapter.
+     * @param sLiftErrorMessage The file URI to be sent to the adapter.
+     */
+    protected void sendErrorToAdapter(Blob oMessageBlob, Blob oAssertionBlob, String sLiftErrorMessage)
+        throws java.sql.SQLException, java.io.IOException, JAXBException
+    {
+        String sMessage = extractStringFromBlob(oMessageBlob);
+        String sAssertion = extractStringFromBlob(oAssertionBlob);
+        AssertionType oAssertion = null;
+        ProvideAndRegisterDocumentSetRequestType oMessage = null;
+
+        try
+        {
+            oAssertion = deserializeAssertion(sAssertion);
+        }
+        catch (Exception e)
+        {
+            String sErrorMessage = "Failed to deserialize the assertion string to an AssertionType object.  Error: " +
+                                   e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new JAXBException(sErrorMessage, e);
+        }
+
+        try
+        {
+            oMessage = deserializeMessage(sMessage);
+        }
+        catch (Exception e)
+        {
+            String sErrorMessage = "Failed to deserialize the message string to a ProvideAndRegisterDocumentSetRequestType object.  Error: " +
+                                   e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new JAXBException(sErrorMessage, e);
+        }
+
+        AdapterProvideAndRegisterDocumentSetRequestErrorType oRequest = new AdapterProvideAndRegisterDocumentSetRequestErrorType();
+        oRequest.setProvideAndRegisterDocumentSetRequest(oMessage);
+        oRequest.setErrorMsg(sLiftErrorMessage);
+        oRequest.setAssertion(oAssertion);
+
+        AdapterXDRRequestErrorProxy oAdapterXDRRequestErrorService = getAdapterXDRRequestErrorProxyObject();
+        XDRAcknowledgementType oAck = oAdapterXDRRequestErrorService.provideAndRegisterDocumentSetBRequestError(oRequest);
+
+        // not sure what to do with the ACK at this point.  The message already went back to the initiating gateway when we
+        // queued the request.  So at this point we will do nothing with it.
+        //-------------------------------------------------------------------------------------------------------------------
+    }
+
+
+    /**
      * This method tells the Gateway Lift Manager that a lift transaction has been completed successfully.
      *
      * @param completeLiftTransactionRequest The information needed to start a lift transaction.
@@ -657,7 +749,50 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     public FailedLiftTransactionResponseType failedLiftTransaction(FailedLiftTransactionRequestType failedLiftTransactionRequest)
     {
         FailedLiftTransactionResponseType oResponse = new FailedLiftTransactionResponseType();
-        oResponse.setStatus("SUCCESS");
+        
+        if (failedRequestContainsValidData(failedLiftTransactionRequest))
+        {
+            try
+            {
+                String sRequestKeyGuid = failedLiftTransactionRequest.getRequestKeyGuid();
+                GatewayLiftMsgRecord oRecord = readRecord(sRequestKeyGuid);
+                if (recordValidForCompletion(oRecord))
+                {
+                    sendErrorToAdapter(oRecord.getMessage(), oRecord.getAssertion(), failedLiftTransactionRequest.getErrorMessage());
+                    deleteRecord(oRecord);
+                    oResponse.setStatus("SUCCESS");
+                }
+                else
+                {
+                    // The record did not have the required data: Message and/or Assertion.
+                    //---------------------------------------------------------
+                    String sErrorMessage = "The record in GATEWAY_LIFT_MESSAGE Record with RequestKeyGuid: " + sRequestKeyGuid +
+                            " did not contain both a message and assertion blob.'";
+                    log.error(sErrorMessage);
+                    oResponse.setStatus("FAILED: " + sErrorMessage);
+                }
+            }
+            catch (Exception e)
+            {
+                // An unexpected exception has occurred.
+                //--------------------------------------
+                String sErrorMessage = "An unexpected exception has occurred.  Error: " + e.getMessage();
+                log.error(sErrorMessage, e);
+                oResponse.setStatus("FAILED: " + sErrorMessage);
+            }
+        }
+        else
+        {
+            // The information passed in was insufficient to complete this.
+            //-------------------------------------------------------------
+            String sErrorMessage = "Failed to handle failedLiftTransaction, the RequestKeyGuid was not passed.";
+            log.error(sErrorMessage);
+            oResponse.setStatus("FAILED: " + sErrorMessage);
+        }
+
+
+
+
         return oResponse;
     }
 }
