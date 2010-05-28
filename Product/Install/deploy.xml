@@ -88,13 +88,45 @@
     <runtarget target="undeploy.shared.libs.from.glassfish"/>
   </target>
 
-  <target name="deploy.glassfish.start.server">
-    <sun-appserv-admin
-      explicitcommand="start-domain ${deployment.glassfish.domain.name}"
-      asinstalldir="${glassfish.home}"
-      />
+  <target name="-deploy.init">
+    <condition property="win">
+      <and>
+        <os family="Windows"/>
+      </and>
+    </condition>
   </target>
 
+  <target name="-deploy.glassfish.asadmin">
+    <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin">
+      <os family="Unix" />
+    </condition>
+    <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin.bat">
+      <os family="Windows" />
+    </condition>
+    <property name="deploy.glassfish.password.file.path" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config/domain-passwords" />
+  </target>
+  
+  <target name="deploy.glassfish.start.server" depends="-deploy.init,-deploy.glassfish.start.server.win,-deploy.glassfish.start.server.notwin">
+    <echo message="Appserver is starting up ... please wait"/>
+    <sleep seconds="30"/>
+  </target>
+  
+  <target name="-deploy.glassfish.start.server.win" depends="-deploy.glassfish.asadmin" if="win">
+    <parallel>
+      <sequential>
+        <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false" >
+          <arg line="/c asadmin.bat start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
+        </exec>
+      </sequential>
+    </parallel>
+  </target>
+  
+  <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
+    <exec executable="${ASADMIN}">
+      <arg line="start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
+    </exec>  	
+  </target>
+  
   <target name="deploy.glassfish.stop.server">
     <sun-appserv-admin
       explicitcommand="stop-domain ${deployment.glassfish.domain.name}"
