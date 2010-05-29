@@ -450,6 +450,14 @@
         <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
         <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentXDRRequest</servlet-name>
+        <url-pattern>/AdapterComponentXDRRequest_Service</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>EntityXDRRequest</servlet-name>
