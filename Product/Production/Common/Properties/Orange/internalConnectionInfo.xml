@@ -528,6 +528,11 @@
 				</liftProtocols>
 			</service>
 			<service>
+				<name>nhincliftmanager</name>
+				<description>NHIN Component Lift Manager</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/GatewayLiftManager</endpointURL>
+			</service>
+			<service>
 				<name>nhincproxyxdrrequestsecured</name>
 				<description>NHIN Proxy XDR Request Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRRequestSecured</endpointURL>
@@ -1075,6 +1080,11 @@
 						<name>HTTPS</name>
 					</liftProtocol>
 				</liftProtocols>
+			</service>
+			<service>
+				<name>nhincliftmanager</name>
+				<description>NHIN Component Lift Manager</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/GatewayLiftManager</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrrequestsecured</name>
@@ -1654,6 +1664,11 @@
 						<name>HTTPS</name>
 					</liftProtocol>
 				</liftProtocols>
+			</service>
+			<service>
+				<name>nhincliftmanager</name>
+				<description>NHIN Component Lift Manager</description>
+				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/GatewayLiftManager</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrrequestsecured</name>

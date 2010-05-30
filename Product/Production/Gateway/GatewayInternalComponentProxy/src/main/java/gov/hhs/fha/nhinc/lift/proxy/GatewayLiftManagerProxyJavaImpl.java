@@ -177,7 +177,8 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
     protected void sendMessageToSocket(String sMessage, Socket oSocket)
         throws java.io.IOException
     {
-        InterProcessSocketProtocol.sendData(sMessage, oSocket.getOutputStream());
+        InterProcessSocketProtocol protocol = new InterProcessSocketProtocol();
+        protocol.sendData(sMessage, oSocket.getOutputStream());
     }
 
     /**

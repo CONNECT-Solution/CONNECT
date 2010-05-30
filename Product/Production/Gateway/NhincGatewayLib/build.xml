@@ -30,7 +30,6 @@
             <!--<file name="${project.NhincCommonTypesLib.file}" />
             <file name="${project.NhincCommonDAO.build.file}" />
             <file name="${project.NhincCommonLib.build.file}" />
-            <file name="${project.GatewayInternalComponentProxy.build.file}" />
             <file name="${project.AdapterServiceProxy.build.file}" />
             <file name="${project.NhincGatewayDAO.build.file}" />
             <file name="${project.NhinServiceProxy.build.file}" /> -->

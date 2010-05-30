@@ -61,8 +61,6 @@ import gov.hhs.fha.nhinc.lift.proxy.server.ConnectingHandler;
 import gov.hhs.fha.nhinc.lift.proxy.server.SSLServer;
 import gov.hhs.fha.nhinc.lift.proxy.server.Server;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

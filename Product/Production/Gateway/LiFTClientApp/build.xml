@@ -15,7 +15,7 @@
 	<!-- Add classes from other projects like so. Below is a sample..-->
         <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
-        <pathelement path="${project.NhincGatewayLib.build.classes.dir}" />
+        <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
 
     </path>
 
@@ -24,7 +24,7 @@
         <filelist dir="${root.project.directory.path}">
             <file name="${project.NhincCommonTypesLib.build.file}" />
             <file name="${project.NhincCommonLib.build.file}" />
-            <file name="${project.NhincGatewayLib.build.file}" />
+            <file name="${project.GatewayInternalComponentProxy.build.file}" />
         </filelist>
     </path>
 

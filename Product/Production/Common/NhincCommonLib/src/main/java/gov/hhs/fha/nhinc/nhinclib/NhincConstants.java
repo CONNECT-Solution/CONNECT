@@ -314,6 +314,8 @@ public class NhincConstants {
     public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
 
     //LiFT Constants
+    public static final String LIFT_MANAGER_SERVICE_NAME = "nhincliftmanager";
+
     public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
     public static final String LIFT_TRANSPORT_SERVICE_SLOT_NAME = "transportService";
     public static final String LIFT_TRANSPORT_SERVICE_SLOT_VALUE = "LIFT";

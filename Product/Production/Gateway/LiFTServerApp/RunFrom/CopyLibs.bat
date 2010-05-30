@@ -1,5 +1,5 @@
 copy C:\projects\NHINC\Current\Product\Production\Gateway\LiFTServerApp\dist\debug\LiFTServerApp.jar .
-copy C:\projects\NHINC\Current\Product\Production\Gateway\NhincGatewayLib\dist\debug\NhincGatewayLib.jar .
+copy C:\projects\NHINC\Current\Product\Production\Gateway\GatewayInternalComponentProxy\dist\debug\GatewayInternalComponentProxy.jar .
 copy C:\projects\NHINC\Current\Product\Production\Gateway\NhincGatewayDAO\dist\debug\NhincGatewayDAO.jar .
 copy C:\projects\NHINC\Current\ThirdParty\log4j\commons-logging-1.1.1.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\NhincCommonLib\dist\debug\NhincCommonLib.jar .

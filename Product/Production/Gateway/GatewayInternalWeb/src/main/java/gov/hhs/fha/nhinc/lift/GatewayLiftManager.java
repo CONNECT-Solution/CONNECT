@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionRequestType;
+import gov.hhs.fha.nhinc.lift.proxy.GatewayLiftManagerProxyJavaImpl;
 
 /**
  *
@@ -24,21 +25,22 @@ public class GatewayLiftManager {
 
     public StartLiftTransactionResponseType startLiftTransaction(StartLiftTransactionRequestType startLiftTransactionRequest)
     {
-        StartLiftTransactionResponseType oResponse = new StartLiftTransactionResponseType();
-        oResponse.setStatus("SUCCESS");
+        GatewayLiftManagerProxyJavaImpl impl = new GatewayLiftManagerProxyJavaImpl();
+        StartLiftTransactionResponseType oResponse = impl.startLiftTransaction(startLiftTransactionRequest);
         return oResponse;
     }
 
     public CompleteLiftTransactionResponseType completeLiftTransaction(CompleteLiftTransactionRequestType completeLiftTransactionRequest)
     {
-        CompleteLiftTransactionResponseType oResponse = new CompleteLiftTransactionResponseType();
-        oResponse.setStatus("SUCCESS");
+        GatewayLiftManagerProxyJavaImpl impl = new GatewayLiftManagerProxyJavaImpl();
+        CompleteLiftTransactionResponseType oResponse = impl.completeLiftTransaction(completeLiftTransactionRequest);
         return oResponse;
     }
 
     public FailedLiftTransactionResponseType failedLiftTransaction(FailedLiftTransactionRequestType failedLiftTransactionRequest)
     {
-        FailedLiftTransactionResponseType oResponse = new FailedLiftTransactionResponseType();
+        GatewayLiftManagerProxyJavaImpl impl = new GatewayLiftManagerProxyJavaImpl();
+        FailedLiftTransactionResponseType oResponse = impl.failedLiftTransaction(failedLiftTransactionRequest);
         oResponse.setStatus("SUCCESS");
         return oResponse;
     }

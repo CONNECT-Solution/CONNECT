@@ -530,9 +530,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.NhincCommonDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincCommonDAO.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincCommonLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincCommonDAO.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -540,6 +541,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.NhincCommonDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

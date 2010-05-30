@@ -40,4 +40,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.SenderReceiverHelperMCCIMT000200UV01" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.SenderReceiverHelperMCCIMT000300UV01" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.UniqueIdHelper" linecount="10" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.lift.GatewayLiftManager" linecount="11" linerate="0.0" linesexecuted="0"/>
 </thresholds>
