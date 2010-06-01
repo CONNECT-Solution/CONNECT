@@ -36,7 +36,7 @@
 		</operation>
 	</binding>
 	<service name="AdapterComponentXDRRequest_Service">
-		<port name="AdapterXDRRequest_Port" binding="tns:AdapterComponentXDRRequest_Binding">
+		<port name="AdapterComponentXDRRequest_Port" binding="tns:AdapterComponentXDRRequest_Binding">
 			<soap:address location="https://localhost:${HttpsDefaultPort}/AdapterComponentXDRRequest"/>
 		</port>
 	</service>
