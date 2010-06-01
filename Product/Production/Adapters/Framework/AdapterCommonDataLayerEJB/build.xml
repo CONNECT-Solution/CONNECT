@@ -22,9 +22,10 @@
 
   <!-- Add project dependencies here, these projects will be built first... -->
   <path id="build.project.dependencies">
-    <filelist dir="${root.project.directory.path}">
-      <!-- <file name="${project.NhincCommonLib.build.file}" /> -->
-    </filelist>
+    <filelist dir="${root.project.directory.path}"/>    
   </path>
 
+  <path id="jar.libs">
+    <fileset refid="classpath.runtime" /> 
+  </path>  
 </project>

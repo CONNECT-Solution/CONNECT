@@ -25,8 +25,8 @@
   </info>
 
   <configurations>
-    <conf name="compile" description="libraries required to run web-app" />
-    <conf name="runtime" extends="compile" description="libraries we will need to compile the project (example: j2ee.jar)" />
+    <conf name="runtime" description="libraries required to run web-app" />
+    <conf name="compile" extends="runtime" description="libraries we will need to compile the project (example: j2ee.jar)" />
     <conf name="test" description="what we need to run unit tests"/>
   </configurations>
 
@@ -39,12 +39,13 @@
 
     <!-- compile time jars -->
 
-	<dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="compile->default" transitive="false" />
+	  <dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="compile->default" transitive="false" />
     <dependency org="log4j"               name="log4j"                          rev="1.2.15"              conf="compile->default" transitive="false" />
-    <dependency org="Nux"                 name="nux"                 rev="1.0" conf="compile->default" transitive="false" />
-    <dependency org="Nux"                 name="xom"                 rev="1.0" conf="compile->default" transitive="false" />
     <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
+    
     <!-- runtime jars -->
+    <dependency org="Nux"                 name="nux"                 rev="1.0" conf="runtime->default" transitive="false" />
+    <dependency org="Nux"                 name="xom"                 rev="1.0" conf="runtime->default" transitive="false" />
 
     <!-- jars for test only -->
     

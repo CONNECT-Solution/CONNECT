@@ -25,9 +25,15 @@
 
   <!-- Add project dependencies here, these projects will be built first... -->
   <path id="build.project.dependencies">
-    <filelist dir="${root.project.directory.path}">
-      <!-- <file name="${project.NhincCommonLib.build.file}" /> -->
-    </filelist>
+    <filelist dir="${root.project.directory.path}"/>
   </path>
-
+  
+  <path id="jar.libs">
+    <filelist dir="${root.project.directory.path}">
+        <file name="${project.DocumentAssemblyManagerEJB.dist.file}" />
+        <file name="${project.TemplateManager.dist.file}" />
+    </filelist>
+  
+    <fileset refid="classpath.runtime" /> 
+  </path>  
 </project>

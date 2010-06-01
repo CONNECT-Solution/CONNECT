@@ -25,8 +25,8 @@
   </info>
 
   <configurations>
-    <conf name="compile" description="libraries required to run web-app" />
-    <conf name="runtime" extends="compile" description="libraries we will need to compile the project (example: j2ee.jar)" />
+    <conf name="runtime" description="libraries required to run web-app" />
+    <conf name="compile" extends="runtime" description="libraries we will need to compile the project (example: j2ee.jar)" />
     <conf name="test" description="what we need to run unit tests"/>
   </configurations>
 

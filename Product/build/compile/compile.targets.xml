@@ -245,7 +245,6 @@
   </target>
 
   <target name="copy.wsdl.to.web-inf">
-    <echo message="Copy wsdl and schema files to WEB-INF"/>
     <if>
       <equals arg1="${dist.type}" arg2="war"/>
       <then>
@@ -255,6 +254,7 @@
         <var name="copy.wsdl.to" value="META-INF/wsdl"/>
       </else>
     </if>
+    <echo message="Copy wsdl and schema files to ${copy.wsdl.to}"/>
     <for param="wsdl.item">
       <path>
         <dirset dir="${source.wsdl.resources.dir}">

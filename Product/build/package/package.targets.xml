@@ -62,6 +62,13 @@
 
 		<switch value="${dist.type}">
 			<case value="jar">
+        <mkdir dir="${build.jar.lib.dir}" />
+        <for param="jar.lib">
+          <path refid="jar.libs" />
+          <sequential>
+            <copy file="@{jar.lib}" todir="${build.jar.lib.dir}" />
+          </sequential>
+        </for>				
 				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
