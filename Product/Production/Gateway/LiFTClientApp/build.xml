@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." default="package.create" name="LiFTClientApp">
 
-    <property name="dist.type" value="jar" />
-    <property name="webtest.hasTests" value="false" />
-    <property name="unittest.hasTests" value="true" />
+  <property name="dist.type" value="jar" />
+  <property name="webtest.hasTests" value="false" />
+  <property name="unittest.hasTests" value="true" />
 
-	<!-- Please make sure that this goes up to the correct directory -->
-    <import file="../../../build/build.targets.xml" />
+  <property name="deploy.isDeployable" value="true"/>
+  <property name="deploy.type" value="executable" />
 
-    <path id="build.classpath">
-        <fileset refid="classpath.compile" />
-        <fileset refid="classpath.runtime" />
+  <!-- Please make sure that this goes up to the correct directory -->
+  <import file="../../../build/build.targets.xml" />
 
-	<!-- Add classes from other projects like so. Below is a sample..-->
-        <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
-        <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
-        <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
+  <path id="build.classpath">
+    <fileset refid="classpath.compile" />
+    <fileset refid="classpath.runtime" />
 
-    </path>
+    <!-- Add classes from other projects like so. Below is a sample..-->
+    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
+    <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+    <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
 
-    <!-- Add project dependencies here, these projects will be built first... -->
-    <path id="build.project.dependencies">
-        <filelist dir="${root.project.directory.path}">
-            <file name="${project.NhincCommonTypesLib.build.file}" />
-            <file name="${project.NhincCommonLib.build.file}" />
-            <file name="${project.GatewayInternalComponentProxy.build.file}" />
-        </filelist>
-    </path>
+  </path>
+
+  <!-- Add project dependencies here, these projects will be built first... -->
+  <path id="build.project.dependencies">
+    <filelist dir="${root.project.directory.path}">
+      <file name="${project.NhincCommonTypesLib.build.file}" />
+      <file name="${project.NhincCommonLib.build.file}" />
+      <file name="${project.GatewayInternalComponentProxy.build.file}" />
+    </filelist>
+  </path>
 
 </project>
 

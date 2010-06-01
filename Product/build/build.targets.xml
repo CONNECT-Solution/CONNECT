@@ -71,15 +71,7 @@ layer of abstraction
   
   <target name="create.deploy.list.xml">
     <xmltask dest="${deploy.application.list.file.path}" outputter="simple:3"> 
-      <insert path="/"> 
-        <![CDATA[ 
-              <applications>
-              <wars/>
-              <shared/>
-              <ejbs/>
-              </applications>
-              ]]>
-      </insert>  
+      <insert path="/" xml="&lt;applications&gt;&lt;wars/&gt;&lt;shared/&gt;&lt;ejbs/&gt;&lt;execs/&gt;&lt;/applications&gt;"/>
     </xmltask> 
   </target>
 
@@ -103,6 +95,11 @@ layer of abstraction
           <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
           <runtarget target="insert.entry.to.deploy.app.list"/>
         </case>
+        <case value="executable">
+          <var name="deploy.list.entry.xpath" value="/applications/execs"/>
+          <var name="deploy.list.entry" value="&lt;executable&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/executable&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>
+        </case>
         <default>
           <fail message="Deploy type ${deploy.type} is not supported."/>
         </default>
@@ -118,18 +115,6 @@ layer of abstraction
   </target>
   
   <target name="copy.deployable.artifacts">
-    <property file="${project.dir}/nbproject/project.properties"/>
-    <switch value="${deploy.type}">
-      <case value="war">
-        <property name="dist.file" value="${project.dir}/${dist.war}"/>
-      </case>
-      <default>
-        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-          <isset property="sedeployment.jar"/>
-        </condition>
-      </default>
-    </switch>
-
     <call target="addentry.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
   </target>
