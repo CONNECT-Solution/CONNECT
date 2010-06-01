@@ -26,6 +26,7 @@ import gov.hhs.fha.nhinc.lift.common.util.JaxbUtil;
 import gov.hhs.fha.nhinc.lift.common.util.RequestToken;
 import gov.hhs.fha.nhinc.lift.common.util.ServerProxyDataToken;
 
+import gov.hhs.fha.nhinc.lift.common.util.cleanup.GatewayLiFTRecordMonitor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -358,6 +359,8 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
             log.error(sErrorMessage);
             oResponse.setStatus("FAILED: " + sErrorMessage);
         }
+
+        startCleanupMonitorService();
 
         return oResponse;
     }
@@ -791,9 +794,35 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
             oResponse.setStatus("FAILED: " + sErrorMessage);
         }
 
-
-
-
         return oResponse;
     }
+
+    /**
+     * Start the cleanup monitor service thread. This will clean up stale transactions that have not completed
+     * processing for some reason.
+     */
+    protected void startCleanupMonitorService()
+    {
+        GatewayLiFTRecordMonitor monitor = getGatewayLiFTRecordMonitor();
+        if(monitor != null)
+        {
+            log.debug("Starting the GatewayLiFTRecordMonitor");
+            monitor.start();
+        }
+        else
+        {
+            log.warn("GatewayLiFTRecordMonitor was null.");
+        }
+    }
+
+    /**
+     * Get an instance o the cleanup monitor thread.
+     *
+     * @return Cleanup monitor thread instance
+     */
+    protected GatewayLiFTRecordMonitor getGatewayLiFTRecordMonitor()
+    {
+        return new GatewayLiFTRecordMonitor();
+    }
+
 }

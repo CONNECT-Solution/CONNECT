@@ -16,6 +16,7 @@ import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionResponseType;
+import gov.hhs.fha.nhinc.lift.common.util.cleanup.GatewayLiFTRecordMonitor;
 import gov.hhs.fha.nhinc.lift.dao.GatewayLiftMessageDao;
 import gov.hhs.fha.nhinc.lift.model.GatewayLiftMsgRecord;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -423,6 +424,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                 {
                     return "4444";
                 }
+                @Override
+                protected void startCleanupMonitorService()
+                {
+                }
 
             };
 
@@ -513,6 +518,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                 {
                     throw new RuntimeException("This is an exception.");
                 }
+                @Override
+                protected void startCleanupMonitorService()
+                {
+                }
 
 
             };
@@ -563,6 +572,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                 {
                     return mockDAO;
                 }
+                @Override
+                protected void startCleanupMonitorService()
+                {
+                }
             };
 
             StartLiftTransactionResponseType oResponse = oImpl.startLiftTransaction(null);
@@ -605,6 +618,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                 protected GatewayLiftMessageDao getGatewayLiftMessageDao()
                 {
                     return mockDAO;
+                }
+                @Override
+                protected void startCleanupMonitorService()
+                {
                 }
             };
 
@@ -651,6 +668,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                 protected GatewayLiftMessageDao getGatewayLiftMessageDao()
                 {
                     return mockDAO;
+                }
+                @Override
+                protected void startCleanupMonitorService()
+                {
                 }
             };
 
@@ -703,6 +724,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                 protected GatewayLiftMsgRecord readRecord(String sRequestKeyGuid)
                 {
                     return null;
+                }
+                @Override
+                protected void startCleanupMonitorService()
+                {
                 }
             };
 
@@ -757,6 +782,10 @@ public class GatewayLiftManagerProxyJavaImplTest
                     return false;
                 }
 
+                @Override
+                protected void startCleanupMonitorService()
+                {
+                }
             };
 
             StartLiftTransactionRequestType oRequest = new StartLiftTransactionRequestType();
@@ -2910,5 +2939,100 @@ public class GatewayLiftManagerProxyJavaImplTest
         }
     }
 
+    @Test
+    public void testGetGatewayLiFTRecordMonitor()
+    {
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+            };
+            GatewayLiFTRecordMonitor proxy = oImpl.getGatewayLiFTRecordMonitor();
+            assertNotNull("GatewayLiFTRecordMonitor was null", proxy);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetGatewayLiFTRecordMonitor test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetGatewayLiFTRecordMonitor test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testStartCleanupMonitorServiceHappy()
+    {
+        try
+        {
+            final GatewayLiFTRecordMonitor mockMonitor = context.mock(GatewayLiFTRecordMonitor.class);
+
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected GatewayLiFTRecordMonitor getGatewayLiFTRecordMonitor()
+                {
+                    return mockMonitor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockMonitor).start();
+                }
+            });
+            oImpl.startCleanupMonitorService();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testStartCleanupMonitorServiceHappy test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testStartCleanupMonitorServiceHappy test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testStartCleanupMonitorServiceNullMonitor()
+    {
+        try
+        {
+            GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected GatewayLiFTRecordMonitor getGatewayLiFTRecordMonitor()
+                {
+                    return null;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockLog).warn("GatewayLiFTRecordMonitor was null.");
+                }
+            });
+            oImpl.startCleanupMonitorService();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testStartCleanupMonitorServiceNullMonitor test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testStartCleanupMonitorServiceNullMonitor test: " + t.getMessage());
+        }
+    }
 
 }
