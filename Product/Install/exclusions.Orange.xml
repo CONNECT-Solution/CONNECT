@@ -13,4 +13,5 @@
 	<property name="deploy.exclude.ejb.DocumentManagerEJB" value="true"/>
 	<property name="deploy.exclude.ejb.NHINAdapterServiceEJB" value="true"/>
 	<property name="deploy.exclude.ejb.TemplateManager" value="true"/>
+  <property name="deploy.exclude.ejb.MuralMpiEJB" value="true"/>
 </project>
