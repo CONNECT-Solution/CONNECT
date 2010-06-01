@@ -2698,10 +2698,19 @@ count(//ns1:PRPA_IN201306UV02/ns1:controlActProcess/ns1:subject/ns1:registration
                   <urn3:name>Name</urn3:name>
                </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
+                  <urn3:description>Desc</urn3:description>
+                  <urn3:homeCommunityId>3.3</urn3:homeCommunityId>
+                  <urn3:name>Name</urn3:name>
+               </urn3:homeCommunity>
+            </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:mockService port="11223" path="/NhinDocQueryMockService" host="Visux64v" name="NhinDocQueryMockService" bindToHostOnly="false" docroot="" incomingWss="" outgoingWss="SAMLOUTWSS"><con:description/><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-version">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="RespondingGateway_Query_Binding_Soap" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+</soapenv:Envelope>]]></con:request><con:assertion type="XPath Match" name="count documents returned"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns13:AdhocQueryResponse/ns2:RegistryObjectList/ns2:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:mockService port="11223" path="/NhinDocQueryMockService" host="Visux64v" name="NhinDocQueryMockService" bindToHostOnly="false" docroot="" incomingWss="" outgoingWss="SAMLOUTWSS"><con:description/><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-version">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="RespondingGateway_Query_Binding_Soap" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
    <S:Header>
       <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
       <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryResponseMessage</Action>
@@ -3198,6 +3207,524 @@ count(//ns1:PRPA_IN201306UV02/ns1:controlActProcess/ns1:subject/ns1:registration
                   </ns4:Name>
                </ns4:ExternalIdentifier>
                <ns4:ExternalIdentifier value="'D123401^^^&amp;1.1&amp;ISO'" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="urn:uuid:7b94b17d-f9d5-4470-97cc-e490ac4a7b86" id="">
+                  <ns4:Name>
+                     <ns4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                  </ns4:Name>
+               </ns4:ExternalIdentifier>
+            </ns4:ExtrinsicObject>
+         </ns4:RegistryObjectList>
+      </ns11:AdhocQueryResponse>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="11224" path="/NhinDocQueryMockService22" host="Visux64v" name="NhinDocQueryMockService22" bindToHostOnly="false" docroot="" incomingWss="" outgoingWss="SAMLOUTWSS"><con:description/><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-version">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="RespondingGateway_Query_Binding_Soap" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8" outgoingWss="SAMLOUTWSS"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Header>
+      <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
+      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryResponseMessage</Action>
+      <MessageID xmlns="http://www.w3.org/2005/08/addressing">uuid:962b8799-81bf-4bf2-b1e5-4d52d040a1ce</MessageID>
+      <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">uuid:3bf26f85-cc96-40da-98f8-28636e50f30c</RelatesTo>
+   </S:Header>
+   <S:Body>
+      <ns11:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns6="http://docs.oasis-open.org/wsn/b-2" xmlns:ns7="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns8="http://docs.oasis-open.org/wsn/t-1" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns13="urn:gov:hhs:fha:nhinc:gateway:samltokendata" xmlns:ns14="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns16="http://nhinc.services.com/schema/auditmessage" xmlns:ns17="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+         <ns4:RegistryObjectList>
+            <ns4:ExtrinsicObject isOpaque="false" mimeType="text/xml" status="Active" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1" home="urn:oid:1.1" id="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154">
+               <ns4:Slot name="creationTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20080617124906</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="hash">
+                  <ns4:ValueList>
+                     <ns4:Value>be56ce49a2a021c5c88bd4a3eef617ce5b94e002</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="intendedRecipient">
+                  <ns4:ValueList>
+                     <ns4:Value>Scott Borst 2.2</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="languageCode">
+                  <ns4:ValueList>
+                     <ns4:Value>en-US</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="legalAuthenticator">
+                  <ns4:ValueList>
+                     <ns4:Value>legal</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="serviceStartTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20000320050000</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="serviceStopTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20080101050000</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="size">
+                  <ns4:ValueList>
+                     <ns4:Value>30845</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="sourcePatientId">
+                  <ns4:ValueList>
+                     <ns4:Value>D123401</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="sourcePatientInfo">
+                  <ns4:ValueList>
+                     <ns4:Value>PID-3|pid1^^^domain</ns4:Value>
+                     <ns4:Value>PID-5|Younger^Gallow^^^</ns4:Value>
+                     <ns4:Value>PID-7|19990627</ns4:Value>
+                     <ns4:Value>PID-8|M</ns4:Value>
+                     <ns4:Value>PID-11|1111 Main Street^^Kingsport^TN^37662^US</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="URI">
+                  <ns4:ValueList>
+                     <ns4:Value>1.123401.11111</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="repositoryUniqueId">
+                  <ns4:ValueList>
+                     <ns4:Value>1</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Name>
+                  <ns4:LocalizedString value="Younger CONNECT TESTGATEWAY Document 1"/>
+               </ns4:Name>
+               <ns4:Description>
+                  <ns4:LocalizedString value="Document 1 Younder CONNECT TESTGATEWAY comments"/>
+               </ns4:Description>
+               <ns4:Classification nodeRepresentation="" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" id="">
+                  <ns4:Slot name="authorPerson">
+                     <ns4:ValueList>
+                        <ns4:Value>Dr. Joseph Hoodwink</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorInstitution">
+                     <ns4:ValueList>
+                        <ns4:Value>Main Children's Hospital</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorRole">
+                     <ns4:ValueList>
+                        <ns4:Value>Primary Care Provider</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorSpecialty">
+                     <ns4:ValueList>
+                        <ns4:Value>Pediatrician</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="34133-9" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>2.16.840.1.113883.6.1</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="Summarization of Episode Note"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="Confidential" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>Confidential</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="Confidential"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="CDAR2/IHE 1.0" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>formatCodeScheme_value</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="formatCodeDisplayName_value"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="UTF-8" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>UTF-8</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="UTF-8"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="test" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>test</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="test"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="test" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>test</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="test"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:ExternalIdentifier value="1.123401.11111" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" registryObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" id="">
+                  <ns4:Name>
+                     <ns4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                  </ns4:Name>
+               </ns4:ExternalIdentifier>
+               <ns4:ExternalIdentifier value="'D123401^^^&amp;1.1&amp;ISO'" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" id="">
+                  <ns4:Name>
+                     <ns4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                  </ns4:Name>
+               </ns4:ExternalIdentifier>
+            </ns4:ExtrinsicObject>
+            <ns4:ExtrinsicObject isOpaque="false" mimeType="text/xml" status="Active" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1" home="urn:oid:1.1" id="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3">
+               <ns4:Slot name="creationTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20070517124906</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="hash">
+                  <ns4:ValueList>
+                     <ns4:Value>e2cad0cdfdf929725a883067637d8268f6d9c578</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="intendedRecipient">
+                  <ns4:ValueList>
+                     <ns4:Value>Jason Ray</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="languageCode">
+                  <ns4:ValueList>
+                     <ns4:Value>en-US</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="legalAuthenticator">
+                  <ns4:ValueList>
+                     <ns4:Value>legal</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="serviceStartTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20040320050000</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="serviceStopTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20050101050000</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="size">
+                  <ns4:ValueList>
+                     <ns4:Value>31486</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="sourcePatientId">
+                  <ns4:ValueList>
+                     <ns4:Value>D123401</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="sourcePatientInfo">
+                  <ns4:ValueList>
+                     <ns4:Value>PID-3|pid1^^^domain</ns4:Value>
+                     <ns4:Value>PID-5|Younger^Gallow^^^</ns4:Value>
+                     <ns4:Value>PID-7|19990627</ns4:Value>
+                     <ns4:Value>PID-8|M</ns4:Value>
+                     <ns4:Value>PID-11|1111 Main Street^^Kingsport^TN^37662^US</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="URI">
+                  <ns4:ValueList>
+                     <ns4:Value>1.123401.22222</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="repositoryUniqueId">
+                  <ns4:ValueList>
+                     <ns4:Value>1</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Name>
+                  <ns4:LocalizedString value="Younger CONNECT TESTGATEWAY Document 2"/>
+               </ns4:Name>
+               <ns4:Description>
+                  <ns4:LocalizedString value="Document 2 Younder CONNECT TESTGATEWAY comments"/>
+               </ns4:Description>
+               <ns4:Classification nodeRepresentation="" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" id="">
+                  <ns4:Slot name="authorPerson">
+                     <ns4:ValueList>
+                        <ns4:Value>Dr. Joseph Hoodwink</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorInstitution">
+                     <ns4:ValueList>
+                        <ns4:Value>Main Children's Hospital</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorRole">
+                     <ns4:ValueList>
+                        <ns4:Value>Primary Care Provider</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorSpecialty">
+                     <ns4:ValueList>
+                        <ns4:Value>Pediatrician</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="34133-9" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>2.16.840.1.113883.6.1</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="Summarization of Episode Note"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="Confidential" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>Confidential</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="Confidential"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="CDAR2/IHE 1.0" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>formatCodeScheme_value</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="formatCodeDisplayName_value"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="UTF-8" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>UTF-8</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="UTF-8"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="test" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>test</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="test"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="test" classifiedObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>test</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="test"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:ExternalIdentifier value="1.123401.22222" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" registryObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" id="">
+                  <ns4:Name>
+                     <ns4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                  </ns4:Name>
+               </ns4:ExternalIdentifier>
+               <ns4:ExternalIdentifier value="'D123401^^^&amp;1.1&amp;ISO'" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="urn:uuid:8cf3dcb2-85c6-4a48-a0fc-42381a7ad1f3" id="">
+                  <ns4:Name>
+                     <ns4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                  </ns4:Name>
+               </ns4:ExternalIdentifier>
+            </ns4:ExtrinsicObject>
+         </ns4:RegistryObjectList>
+      </ns11:AdhocQueryResponse>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="11225" path="/NhinDocQueryMockService33" host="Visux64v" name="NhinDocQueryMockService33" bindToHostOnly="false" docroot="" incomingWss="" outgoingWss="SAMLOUTWSS"><con:description/><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-version">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="RespondingGateway_Query_Binding_Soap" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Header>
+      <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
+      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryResponseMessage</Action>
+      <MessageID xmlns="http://www.w3.org/2005/08/addressing">uuid:962b8799-81bf-4bf2-b1e5-4d52d040a1ce</MessageID>
+      <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">uuid:3bf26f85-cc96-40da-98f8-28636e50f30c</RelatesTo>
+   </S:Header>
+   <S:Body>
+      <ns11:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns6="http://docs.oasis-open.org/wsn/b-2" xmlns:ns7="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns8="http://docs.oasis-open.org/wsn/t-1" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns13="urn:gov:hhs:fha:nhinc:gateway:samltokendata" xmlns:ns14="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns16="http://nhinc.services.com/schema/auditmessage" xmlns:ns17="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+         <ns4:RegistryObjectList>
+            <ns4:ExtrinsicObject isOpaque="false" mimeType="text/xml" status="Active" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1" home="urn:oid:1.1" id="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154">
+               <ns4:Slot name="creationTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20080617124906</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="hash">
+                  <ns4:ValueList>
+                     <ns4:Value>be56ce49a2a021c5c88bd4a3eef617ce5b94e002</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="intendedRecipient">
+                  <ns4:ValueList>
+                     <ns4:Value>Scott Borst 3.3</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="languageCode">
+                  <ns4:ValueList>
+                     <ns4:Value>en-US</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="legalAuthenticator">
+                  <ns4:ValueList>
+                     <ns4:Value>legal</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="serviceStartTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20000320050000</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="serviceStopTime">
+                  <ns4:ValueList>
+                     <ns4:Value>20080101050000</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="size">
+                  <ns4:ValueList>
+                     <ns4:Value>30845</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="sourcePatientId">
+                  <ns4:ValueList>
+                     <ns4:Value>D123401</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="sourcePatientInfo">
+                  <ns4:ValueList>
+                     <ns4:Value>PID-3|pid1^^^domain</ns4:Value>
+                     <ns4:Value>PID-5|Younger^Gallow^^^</ns4:Value>
+                     <ns4:Value>PID-7|19990627</ns4:Value>
+                     <ns4:Value>PID-8|M</ns4:Value>
+                     <ns4:Value>PID-11|1111 Main Street^^Kingsport^TN^37662^US</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="URI">
+                  <ns4:ValueList>
+                     <ns4:Value>1.123401.11111</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Slot name="repositoryUniqueId">
+                  <ns4:ValueList>
+                     <ns4:Value>1</ns4:Value>
+                  </ns4:ValueList>
+               </ns4:Slot>
+               <ns4:Name>
+                  <ns4:LocalizedString value="Younger CONNECT TESTGATEWAY Document 1"/>
+               </ns4:Name>
+               <ns4:Description>
+                  <ns4:LocalizedString value="Document 1 Younder CONNECT TESTGATEWAY comments"/>
+               </ns4:Description>
+               <ns4:Classification nodeRepresentation="" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" id="">
+                  <ns4:Slot name="authorPerson">
+                     <ns4:ValueList>
+                        <ns4:Value>Dr. Joseph Hoodwink</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorInstitution">
+                     <ns4:ValueList>
+                        <ns4:Value>Main Children's Hospital</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorRole">
+                     <ns4:ValueList>
+                        <ns4:Value>Primary Care Provider</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Slot name="authorSpecialty">
+                     <ns4:ValueList>
+                        <ns4:Value>Pediatrician</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="34133-9" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>2.16.840.1.113883.6.1</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="Summarization of Episode Note"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="Confidential" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>Confidential</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="Confidential"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="CDAR2/IHE 1.0" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>formatCodeScheme_value</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="formatCodeDisplayName_value"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="UTF-8" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>UTF-8</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="UTF-8"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="test" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>test</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="test"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:Classification nodeRepresentation="test" classifiedObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" id="">
+                  <ns4:Slot name="codingScheme">
+                     <ns4:ValueList>
+                        <ns4:Value>test</ns4:Value>
+                     </ns4:ValueList>
+                  </ns4:Slot>
+                  <ns4:Name>
+                     <ns4:LocalizedString value="test"/>
+                  </ns4:Name>
+               </ns4:Classification>
+               <ns4:ExternalIdentifier value="1.123401.11111" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" registryObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" id="">
+                  <ns4:Name>
+                     <ns4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                  </ns4:Name>
+               </ns4:ExternalIdentifier>
+               <ns4:ExternalIdentifier value="'D123401^^^&amp;1.1&amp;ISO'" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="urn:uuid:524f10c9-2acc-4743-a119-f4736e5b8154" id="">
                   <ns4:Name>
                      <ns4:LocalizedString value="XDSDocumentEntry.patientId"/>
                   </ns4:Name>
