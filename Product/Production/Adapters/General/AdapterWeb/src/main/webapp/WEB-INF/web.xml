@@ -443,6 +443,14 @@
         <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>AdapterComponentXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentXDRResponse</servlet-name>
+        <url-pattern>/AdapterComponentXDRResponse_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError</servlet-class>
     </servlet>
