@@ -302,6 +302,7 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_RESPONSE_SECURED_SERVICE_NAME = "adapterxdrresponsesecured";
     public static final String NHINC_XDR_RESPONSE_SERVICE_NAME = "xdrresponse";
     public static final String ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME="adapterxdrsecuredasyncreqerror";
+    public static final String ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME = "adaptercomponentxdrresponse";
 
     public static final String XDR_ACK_STATUS_MSG = "urn:nhin:DocumentSubmission:async:ResponseAccepted";
 
