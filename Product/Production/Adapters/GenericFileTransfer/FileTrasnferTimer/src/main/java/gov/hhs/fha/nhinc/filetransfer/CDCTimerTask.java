@@ -130,7 +130,7 @@ public class CDCTimerTask {
         log.debug("Begin - CDCFileTransferAdapter.sendNotification() - End");
         try { // Call Web Service Operation
             EntityNotificationConsumer service = new EntityNotificationConsumer();
-            EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap11();
+            EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap();
             //Create End point Dynamically
             String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
             log.info("EntityNotificationConsumerURL :" + endpointURL);

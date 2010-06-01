@@ -140,6 +140,21 @@
         <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
         <dist.type>war</dist.type>
     </project>
+    <project>
+        <name>FileTrasnferTimer</name>
+        <directory>/Production/Adapters/GenericFileTransfer/FileTrasnferTimer</directory>
+        <dist.type>jar</dist.type>
+    </project>
+    <project>
+        <name>FileTransferAdapterEJB</name>
+        <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterEJB</directory>
+        <dist.type>jar</dist.type>
+    </project>
+    <project>
+        <name>FileTransferAdapterGUI</name>
+        <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterGUI</directory>
+        <dist.type>war</dist.type>
+    </project>
     
     <!-- BEGIN Dynamic Document Generation Projects -->
     <project>

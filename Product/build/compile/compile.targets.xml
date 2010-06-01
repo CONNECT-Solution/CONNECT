@@ -270,7 +270,6 @@
 				              casesensitive="false"
 				              override="yes" />
 
-        <echo message="dir = ${wsdlfile}"/>
         <mkdir dir="${build.dist.root}/${copy.wsdl.to}/${wsdlfile}"/>
         <mkdir dir="${build.dist.root}/${copy.wsdl.to}/schemas"/>
 
