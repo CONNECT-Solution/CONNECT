@@ -1394,12 +1394,36 @@
       </wsimport-options>
     </service>
     <service name="AdapterComponentXDRRequest">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRRequest</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequest</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDRRequest_Service</service-name>
       <port-name>AdapterXDRRequest_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.adaptercomponentxdrrequest</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterComponentXDRResponse">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRResponse.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterComponentXDRResponse.wsdl</local-wsdl-file>
+      <service-name>AdapterComponentXDRResponse_Service</service-name>
+      <port-name>AdapterComponentXDRResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.adaptercomponentxdrresponse</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

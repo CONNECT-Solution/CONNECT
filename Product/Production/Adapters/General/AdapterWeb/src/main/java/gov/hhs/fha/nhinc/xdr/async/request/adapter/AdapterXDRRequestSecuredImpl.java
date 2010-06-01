@@ -34,7 +34,6 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterXDRRequestSecuredImpl {
 
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestSecuredImpl.class);
-    public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
     private static AdapterComponentXDRRequestService adapterXDRService = new AdapterComponentXDRRequestService();
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
@@ -113,7 +112,7 @@ public class AdapterXDRRequestSecuredImpl {
 
     protected AdapterComponentXDRRequestPortType getAdapterXDRPort(String url, AssertionType assertion) {
 
-        AdapterComponentXDRRequestPortType port = adapterXDRService.getAdapterXDRRequestPort();
+        AdapterComponentXDRRequestPortType port = adapterXDRService.getAdapterComponentXDRRequestPort();
 
         getLogger().info("Setting endpoint address to Adapter XDR Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);

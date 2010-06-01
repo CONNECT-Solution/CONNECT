@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.xdr.adapter;
+package gov.hhs.fha.nhinc.xdr.adapter.component.request;
 
+import gov.hhs.fha.nhinc.xdr.adapter.*;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

@@ -95,11 +95,11 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequest" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestImpl" linecount="91" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecured" linecount="2" linerate="-2.4" linesexecuted="-4.8"/>
-<threshold branchcount="4" branchrate="-0.7949999999999999" branchsexecuted="-3.1799999999999997" class="gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecuredImpl" linecount="46" linerate="-0.6026086956521739" linesexecuted="-27.72"/>
+<threshold branchcount="4" branchrate="-0.7949999999999999" branchsexecuted="-3.1799999999999997" class="gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecuredImpl" linecount="45" linerate="-0.6337777777777778" linesexecuted="-28.52"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponse" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecured" linecount="2" linerate="-2.4" linesexecuted="-4.8"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecuredImpl" linecount="11" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecuredImpl" linecount="42" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.entity.EntityXDR" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.entity.EntityXDRImpl" linecount="27" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.proxy.ProxyXDR" linecount="2" linerate="0.0" linesexecuted="0"/>
@@ -141,4 +141,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestErrorImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRRequest" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRRequestImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequest" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequestImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponseImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 </thresholds>
