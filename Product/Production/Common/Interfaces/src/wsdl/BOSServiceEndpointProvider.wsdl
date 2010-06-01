@@ -2,7 +2,7 @@
 <!--
   BOS Service Endpoint Provider WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
    xmlns:tns="urn:gov:hhs:fha:nhinc:bosserviceenpointprovider"
    xmlns:ep="http://xml.netbeans.org/schema/Endpoint"

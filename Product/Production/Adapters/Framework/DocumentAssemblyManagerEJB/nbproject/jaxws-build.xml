@@ -32,7 +32,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterCommonDataLayer" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterCommonDataLayer"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapter:commondatalayer"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapter/commondatalayer"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterCommonDataLayer"/>
 </project>

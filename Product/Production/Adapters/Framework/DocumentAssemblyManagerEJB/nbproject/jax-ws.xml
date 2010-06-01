@@ -6,7 +6,7 @@
     <client name="AdapterCommonDataLayer">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl</wsdl-url>
       <local-wsdl-file>AdapterCommonDataLayer.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapter:commondatalayer</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapter.commondatalayer</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-dispatch>true</use-dispatch>
       <wsimport-options>

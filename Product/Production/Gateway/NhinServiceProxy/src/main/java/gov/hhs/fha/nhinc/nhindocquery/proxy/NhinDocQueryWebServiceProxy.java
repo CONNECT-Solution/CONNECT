@@ -51,7 +51,6 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy {
                 log.info("Target Sys properties Home Comm Description"+request.getNhinTargetSystem().getHomeCommunity().getDescription());
                 log.info("Target Sys properties Home Comm Name"+request.getNhinTargetSystem().getHomeCommunity().getName());
                 url = ConnectionManagerCache.getEndpontURLFromNhinTarget(request.getNhinTargetSystem(), NhincConstants.DOC_QUERY_SERVICE_NAME);
-                log.info("SAI URL is:"+url);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME);
                 log.error(ex.getMessage());

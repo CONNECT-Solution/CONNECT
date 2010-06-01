@@ -30,7 +30,7 @@
     <client name="DocumentManager">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
       <local-wsdl-file>DocumentManager.wsdl</local-wsdl-file>
-      <package-name>ihe:iti:xds-b:2007</package-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for a Document Manager -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
 	xmlns="http://schemas.xmlsoap.org/wsdl/" 
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:ihe="urn:ihe:iti:xds-b:2007" 

@@ -8,12 +8,14 @@ package gov.hhs.fha.nhinc.document;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author cmatser
  */
 @WebService(serviceName = "DocumentRegistry_Service", portName = "DocumentRegistry_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.DocumentRegistryPortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "META-INF/wsdl/DocumentRegistryService/AdapterComponentDocRegistry.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Stateless
 public class DocumentRegistryService implements DocumentRegistryPortType {
 

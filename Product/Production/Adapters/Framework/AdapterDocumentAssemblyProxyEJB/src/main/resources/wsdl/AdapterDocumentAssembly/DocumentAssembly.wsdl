@@ -2,7 +2,7 @@
 <!--
   Document Assembly WSDL
   -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:documentassembly" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="DocumentAssembly" targetNamespace="urn:gov:hhs:fha:nhinc:documentassembly">
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:documentassembly" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="DocumentAssembly" targetNamespace="urn:gov:hhs:fha:nhinc:documentassembly">
 	<documentation>Adapter Document Assembly</documentation>
 	<types>
 		<xsd:schema>

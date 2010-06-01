@@ -33,7 +33,7 @@
     </target>
     <target name="wsimport-client-clean-BOSServiceEndpointProvider" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:bosserviceenpointprovider"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/bosserviceenpointprovider"/>
     </target>
     <target name="wsimport-client-DocumentManager" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/DocumentManager"/>
@@ -50,7 +50,7 @@
     </target>
     <target name="wsimport-client-clean-DocumentManager" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/DocumentManager"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xds-b:2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
     <target name="wsimport-client-DocumentAssembly" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/DocumentAssembly"/>
@@ -67,7 +67,7 @@
     </target>
     <target name="wsimport-client-clean-DocumentAssembly" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/DocumentAssembly"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:documentassembly"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/documentassembly"/>
     </target>
     <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>

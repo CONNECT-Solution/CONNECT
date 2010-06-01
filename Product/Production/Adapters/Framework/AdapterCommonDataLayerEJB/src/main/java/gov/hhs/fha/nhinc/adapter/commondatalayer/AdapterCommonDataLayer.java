@@ -7,12 +7,14 @@ package gov.hhs.fha.nhinc.adapter.commondatalayer;
 
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author kim
  */
 @WebService(serviceName = "CommonDataLayerService", portName = "CommonDataLayerPort", endpointInterface = "gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "META-INF/wsdl/AdapterCommonDataLayer/AdapterCommonDataLayer.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Stateless
 public class AdapterCommonDataLayer implements CommonDataLayerPortType {
 

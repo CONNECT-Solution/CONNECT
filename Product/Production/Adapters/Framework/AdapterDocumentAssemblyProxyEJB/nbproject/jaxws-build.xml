@@ -33,7 +33,7 @@
     </target>
     <target name="wsimport-client-clean-DocumentManager" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/DocumentManager"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xds-b:2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
     <target name="wsimport-service-AdapterDocumentAssembly" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocumentAssembly"/>
