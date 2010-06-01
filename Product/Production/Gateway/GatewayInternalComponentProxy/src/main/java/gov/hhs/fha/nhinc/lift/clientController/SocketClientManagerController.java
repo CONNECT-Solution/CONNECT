@@ -3,9 +3,9 @@
 //
 //####################################################################
 //## The MIT License
-//## 
+//##
 //## Copyright (c) 2010 Harris Corporation
-//## 
+//##
 //## Permission is hereby granted, free of charge, to any person
 //## obtaining a copy of this software and associated documentation
 //## files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 //## copy, modify, merge, publish, distribute, sublicense, and/or sell
 //## copies of the Software, and to permit persons to whom the
 //## Software is furnished to do so, subject to the following conditions:
-//## 
+//##
 //## The above copyright notice and this permission notice shall be
 //## included in all copies or substantial portions of the Software.
-//## 
+//##
 //## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 //## OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,7 @@
 //## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //## OTHER DEALINGS IN THE SOFTWARE.
-//## 
+//##
 //####################################################################
 //********************************************************************
 // FILE: SocketClientManagerController.java
@@ -63,38 +63,37 @@ import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionResponseType;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * @author rrobin20
- *
- */
 public class SocketClientManagerController implements Runnable {
 
     private Log log = null;
     private final ServerSocket server;
     private final ClientManager manager;
-    private Map<String, String> mesgState = new HashMap<String, String>();
+    private List<String> mesgState = new CopyOnWriteArrayList<String>();
 
-    public SocketClientManagerController(ServerSocket server,
-            ClientManager manager) {
+    public SocketClientManagerController(final ServerSocket sserver,
+            final ClientManager man) {
         super();
-        this.server = server;
-        this.manager = manager;
+        server = sserver;
+        manager = man;
         log = createLogger();
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    protected final Log createLogger() {
+        if(log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
     }
 
-    public void reportFailure(String request, String errorMesg) {
-        if (mesgState.containsKey(request)) {
-                        System.out.println("Call back FAIL removing " + request);
+    public final void reportFailure(final String request, final String errorMesg) {
+        if (mesgState.contains(request)) {
+            System.out.println("Call back FAIL removing " + request);
             mesgState.remove(request);
 
             GatewayLiftManagerProxyObjectFactory factory = new GatewayLiftManagerProxyObjectFactory();
@@ -109,9 +108,9 @@ public class SocketClientManagerController implements Runnable {
         }
     }
 
-    public void reportSuccess(String request, URI writtenFile) {
-        if (mesgState.containsKey(request)) {
-                        System.out.println("Call back SUCCESS removing " + request);
+    public final void reportSuccess(final String request, final URI writtenFile) {
+        if (mesgState.contains(request)) {
+            System.out.println("Call back SUCCESS removing " + request);
             mesgState.remove(request);
 
             GatewayLiftManagerProxyObjectFactory factory = new GatewayLiftManagerProxyObjectFactory();
@@ -127,7 +126,7 @@ public class SocketClientManagerController implements Runnable {
     }
 
     @Override
-    public void run() {
+    public final void run() {
 
         while (true) {
             Socket socket = null;
@@ -150,7 +149,7 @@ public class SocketClientManagerController implements Runnable {
                 if (message != null) {
                     mesg = (LiftMessage) JaxbUtil.unmarshalFromReader(new StringReader(message), LiftMessage.class);
                     System.out.println("Setting " + mesg.getRequest().getRequest() + " to in progress");
-                    mesgState.put(mesg.getRequest().getRequest(), "InProcess");
+                    mesgState.add(mesg.getRequest().getRequest());
                     writtenFile = manager.startClient(mesg, this);
                 }
             } catch (JAXBException ex) {
@@ -172,8 +171,8 @@ public class SocketClientManagerController implements Runnable {
                 if (writtenFile != null) {
                     reportSuccess(mesg.getRequest().getRequest(), writtenFile);
                 } else {
-                    if(mesg != null && mesg.getRequest() != null && mesg.getRequest().getRequest() != null) {
-                    reportFailure(mesg.getRequest().getRequest(), errorMesg);
+                    if (mesg != null && mesg.getRequest() != null && mesg.getRequest().getRequest() != null) {
+                        reportFailure(mesg.getRequest().getRequest(), errorMesg);
                     } else {
                         reportFailure(null, errorMesg);
                     }

@@ -15,10 +15,6 @@ import java.net.URI;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * @author rrobin20
- * 
- */
 public class LSTClientManager implements ClientManager {
 
     private final ClientPropertiesFacade props;
@@ -33,12 +29,15 @@ public class LSTClientManager implements ClientManager {
         log = createLogger();
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    protected final Log createLogger() {
+        if (log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
     }
 
     @Override
-    public URI startClient(LiftMessage message, SocketClientManagerController controller) throws IOException {
+    public URI startClient(final LiftMessage message, final SocketClientManagerController controller) throws IOException {
         URI writtenFile = null;
         try {
             log.debug("Processing incoming message ");

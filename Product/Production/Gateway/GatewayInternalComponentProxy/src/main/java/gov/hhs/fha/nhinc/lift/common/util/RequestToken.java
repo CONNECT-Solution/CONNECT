@@ -3,9 +3,9 @@
 //
 //####################################################################
 //## The MIT License
-//## 
+//##
 //## Copyright (c) 2010 Harris Corporation
-//## 
+//##
 //## Permission is hereby granted, free of charge, to any person
 //## obtaining a copy of this software and associated documentation
 //## files (the "Software"), to deal in the Software without
@@ -25,7 +25,7 @@
 //## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //## OTHER DEALINGS IN THE SOFTWARE.
-//## 
+//##
 //####################################################################
 //********************************************************************
 // FILE: RequestToken.java
@@ -51,10 +51,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * @author rrobin20
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "RequestToken")
 public class RequestToken {

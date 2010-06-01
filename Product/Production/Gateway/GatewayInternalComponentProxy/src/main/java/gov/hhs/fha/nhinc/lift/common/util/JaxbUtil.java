@@ -3,9 +3,9 @@
 //
 //####################################################################
 //## The MIT License
-//## 
+//##
 //## Copyright (c) 2010 Harris Corporation
-//## 
+//##
 //## Permission is hereby granted, free of charge, to any person
 //## obtaining a copy of this software and associated documentation
 //## files (the "Software"), to deal in the Software without
@@ -25,7 +25,7 @@
 //## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //## OTHER DEALINGS IN THE SOFTWARE.
-//## 
+//##
 //####################################################################
 //********************************************************************
 // FILE: JaxbUtil.java
@@ -50,8 +50,6 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.util.concurrent.ConcurrentHashMap;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -60,10 +58,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 
-/**
- * @author rrobin20
- * 
- */
 public class JaxbUtil {
 
     /*

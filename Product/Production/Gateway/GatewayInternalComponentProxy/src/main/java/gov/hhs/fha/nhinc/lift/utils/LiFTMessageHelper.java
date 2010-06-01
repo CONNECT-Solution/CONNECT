@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gov.hhs.fha.nhinc.lift.utils;
 
 import java.util.Iterator;
@@ -10,10 +7,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-/**
- *
- * @author jhoppesc
- */
 public class LiFTMessageHelper {
 
     public static ExtrinsicObjectType extractExtrinsicObject(RegistryObjectListType registryList) {

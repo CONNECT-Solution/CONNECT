@@ -32,7 +32,7 @@ public class CleanupUtil
     private static final String PROPERTY_KEY_STALE_MESSAGE_PROCESSING_MINUTES = "LiftStaleMessageDurationProcessingMinutes";
     private static final String FAILED_TRANSACTION_MESSAGE = "Message processing timed out.";
 
-	private Log log = null;
+    private Log log = null;
     private static boolean isRunning = false;
     private static Date lastCleanup = null;
 

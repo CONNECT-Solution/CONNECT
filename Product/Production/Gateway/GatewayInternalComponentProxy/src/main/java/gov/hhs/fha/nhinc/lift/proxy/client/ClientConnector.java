@@ -3,9 +3,9 @@
 //
 //####################################################################
 //## The MIT License
-//## 
+//##
 //## Copyright (c) 2010 Harris Corporation
-//## 
+//##
 //## Permission is hereby granted, free of charge, to any person
 //## obtaining a copy of this software and associated documentation
 //## files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 //## copy, modify, merge, publish, distribute, sublicense, and/or sell
 //## copies of the Software, and to permit persons to whom the
 //## Software is furnished to do so, subject to the following conditions:
-//## 
+//##
 //## The above copyright notice and this permission notice shall be
 //## included in all copies or substantial portions of the Software.
-//## 
+//##
 //## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 //## OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -25,7 +25,7 @@
 //## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //## OTHER DEALINGS IN THE SOFTWARE.
-//## 
+//##
 //####################################################################
 //********************************************************************
 // FILE: ClientConnector.java
@@ -73,7 +73,10 @@ public class ClientConnector implements Runnable {
     }
 
     protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+        if (log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class ClientConnector implements Runnable {
         } finally {
             if (socket != null) {
                 try {
-                    log.debug("Closing socket " + socket.getInetAddress()+ ": " + socket.getPort());
+                    log.debug("Closing socket " + socket.getInetAddress() + ": " + socket.getPort());
                     // Also closes associated streams
                     socket.close();
                 } catch (IOException ex) {
@@ -120,18 +123,15 @@ public class ClientConnector implements Runnable {
             }
             if (proxyConnection != null) {
                 try {
-                    log.debug("Closing proxy connection "
-                            + proxyConnection.getSocket().getInetAddress()
-                            + ": " + proxyConnection.getSocket().getPort());
+                    log.debug("Closing proxy connection " + proxyConnection.getSocket().getInetAddress() + ": " + proxyConnection.getSocket().getPort());
                     proxyConnection.close();
                 } catch (IOException ex) {
                     log.warn("Unable to close proxy connection: " + ex.getMessage());
                 }
             }
-            if(server != null) {
+            if (server != null) {
                 try {
-                    log.debug("Closing client connection server" 
-                            + server.getInetAddress() + ": " + server.getLocalPort());
+                    log.debug("Closing client connection server" + server.getInetAddress() + ": " + server.getLocalPort());
                     server.close();
                 } catch (IOException ex) {
                     log.warn("Unable to close proxy connection: " + ex.getMessage());

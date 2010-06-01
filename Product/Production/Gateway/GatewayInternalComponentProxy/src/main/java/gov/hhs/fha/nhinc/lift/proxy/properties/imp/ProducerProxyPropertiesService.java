@@ -74,7 +74,10 @@ public class ProducerProxyPropertiesService implements
     }
 
     protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+        if (log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
     }
 
     @Override

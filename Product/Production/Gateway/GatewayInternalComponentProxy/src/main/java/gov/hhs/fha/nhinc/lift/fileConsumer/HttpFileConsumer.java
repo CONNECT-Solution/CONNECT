@@ -43,7 +43,10 @@ public class HttpFileConsumer {
     }
 
     protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+        if (log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
     }
 
     /**
@@ -103,7 +106,7 @@ public class HttpFileConsumer {
                 try {
                     in.close();
                 } catch (IOException ex) {
-                    log.debug("Unable to close " + in+ ":" + ex.getMessage());
+                    log.debug("Unable to close " + in + ":" + ex.getMessage());
                 }
             }
         }
