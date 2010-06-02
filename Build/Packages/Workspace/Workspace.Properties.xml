@@ -40,7 +40,7 @@
   <include buildfile="${Package.Workspace.Directory.Path}\Software\SOAPUI\SoapUI.Script.xml"/>
 
   <strings id="Workspace.Configuration">
-    <string value="CCTray"/>
+    <!--<string value="CCTray"/>-->
 	</strings>
   
   <include buildfile="${Package.Workspace.Directory.Path}\Configuration\CCTray\CCTray.Script.xml"/>
