@@ -37,7 +37,7 @@
         </operation>
     </portType>
 
-    <binding name="BOSServiceEndpointProviderSoap11" type="tns:BOSServiceEndpointProviderPortType">
+    <binding name="BOSServiceEndpointProviderSoap" type="tns:BOSServiceEndpointProviderPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="FindEndpoint">
             <soap:operation soapAction="urn:FindEndPoint"/>
@@ -51,8 +51,8 @@
     </binding>
 
     <service name="BOSServiceEndpointProvider">
-        <port name="BOSServiceEndpointProviderSoap11"
-          binding="tns:BOSServiceEndpointProviderSoap11">
+        <port name="BOSServiceEndpointProviderSoap"
+          binding="tns:BOSServiceEndpointProviderSoap">
             <soap:address
          location="http://localhost:${HttpDefaultPort}/NhinConnect/BOSServiceEndpointProvider" />
         </port>
