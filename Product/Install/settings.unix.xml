@@ -7,4 +7,6 @@
 
   <property name="deployment.glassfish.asadmin.file.path" value="${glassfish.home}/bin/asadmin"/>
   
+  <property name="deployment.executables.home" value="/nhin/connect"/>
+  
 </project>

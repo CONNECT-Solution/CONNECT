@@ -105,12 +105,12 @@
     </condition>
     <property name="deploy.glassfish.password.file.path" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config/domain-passwords" />
   </target>
-  
+
   <target name="deploy.glassfish.start.server" depends="-deploy.init,-deploy.glassfish.start.server.win,-deploy.glassfish.start.server.notwin">
     <echo message="Appserver is starting up ... please wait"/>
-    <sleep seconds="30"/>
+    <sleep seconds="60"/>
   </target>
-  
+
   <target name="-deploy.glassfish.start.server.win" depends="-deploy.glassfish.asadmin" if="win">
     <parallel>
       <sequential>
@@ -120,13 +120,13 @@
       </sequential>
     </parallel>
   </target>
-  
+
   <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
     <exec executable="${ASADMIN}">
       <arg line="start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
     </exec>  	
   </target>
-  
+
   <target name="deploy.glassfish.stop.server">
     <sun-appserv-admin
       explicitcommand="stop-domain ${deployment.glassfish.domain.name}"
@@ -143,7 +143,7 @@
     <var name="target" value="undeploy.ejb.from.glassfish"/>
     <runtarget target="target.to.call.on.ejbs"/>
   </target>
-
+  
   <target name="target.to.call.on.ejbs">
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/ejbs/ejb">
@@ -223,6 +223,30 @@
     </xmltask>
   </target>
 
+  <target name="deploy.executables">
+    <var name="target" value="deploy.executable"/>
+    <runtarget target="target.to.call.on.executables"/>
+  </target>
+  
+  <target name="target.to.call.on.executables">
+    <xmltask source="${deploy.application.list.file.path}">
+      <call path="/applications/execs/executable">
+        <param name="shared.name" path="name/text()" />
+        <actions>
+          <if>
+            <not>
+              <isset property="deploy.exclude.lib.@{shared.name}"/>
+            </not>
+            <then>
+              <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+              <runtarget target="${target}"/>
+            </then>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
   <target name="copy.artifacts.to.development">
     <mkdir dir="${deployment.binaries.dir}" />
     <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>
@@ -281,6 +305,11 @@
     <delete file="${glassfish.home}/lib/${deployment.glassfish.shared.lib.file.name}" />
   </target>
 
+  <target name="deploy.executable">
+    <mkdir dir="${deployment.executables.home}"/>
+    <copy file="${deployment.executable.file.path}" todir="deployment.executables.home" overwrite="true" />
+  </target>
+  
   <target name="-delete.glassfish.domain">
     <trycatch property="error">
       <try>
@@ -420,6 +449,14 @@
     <runtarget target="-create.glassfish.domain"/>
     <runtarget target="-configure.glassfish.domain"/>
     <runtarget target="-restore.glassfish.domain.certificates"/>
+  </target>
+
+  <target name="deploy.lift.start">
+
+  </target>
+
+  <target name="deploy.lift.stop">
+
   </target>
 
 </project>
