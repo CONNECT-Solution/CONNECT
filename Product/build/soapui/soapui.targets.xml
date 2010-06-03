@@ -39,6 +39,8 @@
   <target name="-soapui.find.and.run.tests">
     <delete dir="${soapui.report.dir}" />
     <mkdir dir="${soapui.report.dir}"/>
+
+    <property name="soapui.project.count" value="0" />
     <for param="soapui.project.file.path">
       <path>
         <fileset dir="${project.dir}">
@@ -46,7 +48,19 @@
         </fileset>
       </path>
       <sequential>
+        <math result="soapui.project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
+      </sequential>
+    </for>
 
+    <property name="soapui.current.project.count" value="0" />
+    <for param="soapui.project.file.path">
+      <path>
+        <fileset dir="${project.dir}">
+          <include name="**/${soapui.project.file.pattern}"/>
+        </fileset>
+      </path>
+      <sequential>
+        <math result="soapui.current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
         <var unset="true" name="soapui.project.name" />
         <basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
         <script language="javascript">
@@ -57,8 +71,9 @@
         ]]>
         </script>
 
-        <echo message="************** Executing test: ${soapui.report.dir}/${soapui.project.name} ***************"/>
-        
+        <echo message=" ******************** Start ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
+        <echo message=" ******************** Start ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
+
         <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
           <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
@@ -77,6 +92,9 @@
         </replace>
         <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
         <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
+
+        <echo message=" ******************** End ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
+        <echo message=" ******************** End ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
       </sequential>
     </for>
   </target>
