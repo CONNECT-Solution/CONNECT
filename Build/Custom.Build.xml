@@ -163,6 +163,10 @@
         <include name="*.*"/>
         <exclude name="build.xml"/>
       </fileset>
+      <fileset basedir="${Common.Directory.Product.Path}\Production\Common\Properties\Dev" prefix="ValidationSuite" failonempty="true">
+        <include name="mpi.xml"/>
+        <include name="reidentification.xml"/>
+      </fileset>
     </zip>
 
     <property name="Publish.Web.File.Name" value="${SoapUI.Zip.FileName}"/>
