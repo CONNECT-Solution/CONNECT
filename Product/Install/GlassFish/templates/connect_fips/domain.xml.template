@@ -189,6 +189,7 @@
         <jvm-options>-Dcom.sun.enterprise.taglisteners=jsf-impl.jar</jvm-options>
         <jvm-options>-XX:NewRatio=2</jvm-options>
         <jvm-options>-Dcom.sun.appserv.nss.db=${com.sun.aas.instanceRoot}/config</jvm-options>
+        <jvm-options>-Dcom.sun.appserv.nss.db.password=nhinc123</jvm-options>
         <jvm-options>-Xmx1400m</jvm-options>
         <jvm-options>-XX:MaxPermSize=132m</jvm-options>
         <jvm-options>-XX:PermSize=132m</jvm-options>
@@ -358,6 +359,7 @@
         <jvm-options>-Dcom.sun.enterprise.taglisteners=jsf-impl.jar</jvm-options>
         <jvm-options>-XX:NewRatio=2</jvm-options>
         <jvm-options>-Dcom.sun.appserv.nss.db=${com.sun.aas.instanceRoot}/config</jvm-options>
+        <jvm-options>-Dcom.sun.appserv.nss.db.password=nhinc123</jvm-options>
         <jvm-options>-Xmx1400m</jvm-options>
         <jvm-options>-XX:MaxPermSize=132m</jvm-options>
         <jvm-options>-XX:PermSize=132m</jvm-options>
