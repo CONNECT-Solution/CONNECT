@@ -48,7 +48,7 @@
         </fileset>
       </path>
       <sequential>
-        <math result="soapui.project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
+        <math result="soapui.project.count" operand1="${soapui.project.count}" operation="+" operand2="1" datatype="int" />
       </sequential>
     </for>
 
@@ -60,7 +60,7 @@
         </fileset>
       </path>
       <sequential>
-        <math result="soapui.current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
+        <math result="soapui.current.project.count" operand1="${soapui.current.project.count}" operation="+" operand2="1" datatype="int" />
         <var unset="true" name="soapui.project.name" />
         <basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
         <script language="javascript">
