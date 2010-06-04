@@ -143,7 +143,7 @@
     <var name="target" value="undeploy.ejb.from.glassfish"/>
     <runtarget target="target.to.call.on.ejbs"/>
   </target>
-  
+
   <target name="target.to.call.on.ejbs">
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/ejbs/ejb">
@@ -227,7 +227,7 @@
     <var name="target" value="deploy.executable"/>
     <runtarget target="target.to.call.on.executables"/>
   </target>
-  
+
   <target name="target.to.call.on.executables">
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/execs/executable">
@@ -309,7 +309,7 @@
     <mkdir dir="${deployment.executables.home}"/>
     <copy file="${deployment.executable.file.path}" todir="deployment.executables.home" overwrite="true" />
   </target>
-  
+
   <target name="-delete.glassfish.domain">
     <trycatch property="error">
       <try>
@@ -442,6 +442,32 @@
     </copy>
   </target>
 
+  <target name="-check.is.NSS.Domain">
+    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml">
+      <xmlcatalog id="dtds">
+        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
+      </xmlcatalog>    
+      <copy path="count(/domain/configs/config)" property="count"/>
+    </xmltask>  
+    <echo message="domain/configs/config=${count}"/>    
+    <if>
+      <equals arg1="${count}" arg2="2" />
+      <then>
+        <echo message="domain/configs/config=${count}"/>    
+        <property name="isNSS" value="true" />
+      </then>
+    </if>
+  </target>
+
+  <target name="-uncomment.domain.config">    
+    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
+      <xmlcatalog id="dtds">
+        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
+      </xmlcatalog>    
+      <uncomment path="/domain/configs/config/java-config/comment()[1]"/>
+    </xmltask>   
+  </target>
+
   <target name="recreate.glassfish.domain">
     <runtarget target="-backup.glassfish.domain.configuration"/>
     <runtarget target="-backup.glassfish.domain.certificates"/>
@@ -449,7 +475,16 @@
     <runtarget target="-create.glassfish.domain"/>
     <runtarget target="-configure.glassfish.domain"/>
     <runtarget target="-restore.glassfish.domain.certificates"/>
+    <runtarget target="-check.is.NSS.Domain"/>    
+    <if>
+      <isset property="isNSS"/>
+      <then>
+        <runtarget target="-uncomment.domain.config"/>
+      </then>
+    </if>    
   </target>
+
+
 
   <target name="deploy.lift.start">
 
