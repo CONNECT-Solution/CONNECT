@@ -71,7 +71,7 @@ public class EntityDocRetrieveSecuredImpl {
             nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
             nhinDocRequest.getDocumentRequest().add(docRequest);
             nhinDocRetrieveMsg.setNhinTargetSystem(buildHomeCommunity(docRequest.getHomeCommunityId()));
-            if (isPolicyValid(nhinDocRequest, assertion)) {
+            if (isPolicyValid(nhinDocRequest, assertion, nhinDocRetrieveMsg.getNhinTargetSystem().getHomeCommunity())) {
                 // Create and start doc retrieve sender thread
                 DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, assertion);
                 docRetrieveSender.sendMessage();
@@ -168,7 +168,7 @@ public class EntityDocRetrieveSecuredImpl {
      * @param assertion
      * @return boolean
      */
-    private boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion) {
+    private boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion, HomeCommunityType targetCommunity) {
         boolean isValid = false;
         DocRetrieveEventType checkPolicy = new DocRetrieveEventType();
         DocRetrieveMessageType checkPolicyMessage = new DocRetrieveMessageType();
@@ -177,6 +177,7 @@ public class EntityDocRetrieveSecuredImpl {
         checkPolicy.setMessage(checkPolicyMessage);
         checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        checkPolicy.setReceivingHomeCommunity(targetCommunity);
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyDocRetrieve(checkPolicy);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
