@@ -215,7 +215,7 @@ class FileUtils {
       def backupDir = new File(System.getProperty("java.io.tmpdir"), "nhinc_conf")
       def confDir = new File(System.env['NHINC_PROPERTIES_DIR'])
       
-      def files2backup = ["internalconnectioninfo.xml", "gateway.properties", "UDDIconnectioninfo.xml", "adapter.properties"]
+      def files2backup = ["hiemTopicConfiguration.xml","internalConnectionInfo.xml","PCConfiguration.xml","uddiConnectionInfo.xml","XDSUniqueIds.properties","gateway.properties","adapter.properties"]
       files2backup.each{
         def file2backup = new File(confDir, it)
         org.apache.commons.io.FileUtils.copyFileToDirectory(file2backup, backupDir, true)
@@ -233,7 +233,8 @@ class FileUtils {
       def backupDir = new File(System.getProperty("java.io.tmpdir"), "nhinc_conf")
       def confDir = new File(System.env['NHINC_PROPERTIES_DIR'])
       
-      def files2resore = ["internalconnectioninfo.xml", "gateway.properties", "UDDIconnectioninfo.xml", "adapter.properties"]
+      def files2resore = ["hiemTopicConfiguration.xml","internalConnectionInfo.xml","PCConfiguration.xml","uddiConnectionInfo.xml","XDSUniqueIds.properties","gateway.properties","adapter.properties"]
+      
       files2resore.each{
         def file2resore = new File(backupDir, it)
         org.apache.commons.io.FileUtils.copyFileToDirectory(file2resore, confDir, true)
