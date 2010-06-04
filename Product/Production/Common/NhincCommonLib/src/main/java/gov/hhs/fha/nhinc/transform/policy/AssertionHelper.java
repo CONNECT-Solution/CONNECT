@@ -439,8 +439,8 @@ public class AssertionHelper {
                 }
             }
             if (patId != null) {
-                String patRoot = PatientIdFormatUtil.parsePatientId(patId);
-                String patExt = PatientIdFormatUtil.parseCommunityId(patId);
+                String patExt = PatientIdFormatUtil.parsePatientId(patId);
+                String patRoot = PatientIdFormatUtil.parseCommunityId(patId);
                 log.debug("UniquePatientId value=" + patId + " => root:" + patRoot + " extension:" + patExt);
                 if (patRoot != null && patExt != null) {
                     iiValue = HL7DataTransformHelper.IIFactory(patRoot, patExt);
