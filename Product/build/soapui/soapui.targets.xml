@@ -71,8 +71,8 @@
         ]]>
         </script>
 
-        <echo message=" ******************** Start ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
-        <echo message=" ******************** Start ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
+        <echo message=" ******************** Start @{soapui.project.file.path} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
+        <echo message=" ******************** Start @{soapui.project.file.path} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
 
         <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
           <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
@@ -93,8 +93,8 @@
         <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
         <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
 
-        <echo message=" ******************** End ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
-        <echo message=" ******************** End ${soapui.report.dir}/${soapui.project.name} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
+        <echo message=" ******************** End @{soapui.project.file.path} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
+        <echo message=" ******************** End @{soapui.project.file.path} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
       </sequential>
     </for>
   </target>
