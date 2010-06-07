@@ -8,14 +8,13 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType;
-import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationServiceSecured;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
@@ -24,7 +23,6 @@ import javax.xml.bind.JAXBElement;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201301UV02Patient;
-import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceAddress;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceName;
@@ -94,6 +92,26 @@ public class VerifyMode implements ResponseMode{
         }
         return result;
     }
+
+    private String getSenderCommunityId (PRPAIN201306UV02 response) {
+        String hcid = null;
+
+        if (response != null &&
+                response.getSender() != null &&
+                response.getSender().getDevice() != null &&
+                response.getSender().getDevice().getAsAgent() != null &&
+                response.getSender().getDevice().getAsAgent().getValue() != null &&
+                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            hcid = response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
+
+        return hcid;
+    }
+
     protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response)
     {
          PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
@@ -103,8 +121,9 @@ public class VerifyMode implements ResponseMode{
     {
         PRPAIN201305UV02 result;
         String localHCID = getLocalHomeCommunityId();
+        String remoteHCID = getSenderCommunityId(response);
         PRPAMT201301UV02Patient patient = extractPatient(response);
-        result = HL7PRPA201305Transforms.createPRPA201305(patient, localHCID, localHCID, localHCID);
+        result = HL7PRPA201305Transforms.createPRPA201305(patient, remoteHCID, localHCID, localHCID);
 
         return result;
     }
