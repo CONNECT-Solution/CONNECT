@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DocQueryLoadTest-soapui-project-conf.xsd">
+<!--
   <test name="PatientDiscovery" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
     <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
       <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
@@ -35,13 +36,15 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
     </testProperties>
   </test>
+-->
   <test name="DocQuery-OneResult" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
     <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600003</property>
+      <property name="DocQuery.PatientId">D123402</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">1</property>
     </testProperties>
   </test>
+<!--
   <test name="DocQuery-OneResult 1x20" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="20">
     <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
@@ -98,7 +101,6 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
-<!--
   <test name="DocQuery-ThreeResults 30x20" testcase="Nhin.DocQuery" numberOfThreads="30" numberOfIteration="20">
     <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
