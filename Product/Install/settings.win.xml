@@ -9,5 +9,5 @@
   
   <property name="deployment.executables.home" value="C:/CONNECT"/>
 
-  <property name="profiler.executables.home" value="C:\Program Files (x86)\YourKit Java Profiler 9.0.4"/>  
+  <property name="profiler.executables.home" value="C:\Program Files\YourKit Java Profiler 9.0.4"/>  
 </project>

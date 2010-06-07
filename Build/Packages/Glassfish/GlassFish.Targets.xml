@@ -118,6 +118,17 @@
     </ant>
   </target>
 
+  <target name="GlassFish.Enable.Profiler.Configuration">
+    <ant
+      target="add.profiler.domain.config"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\deploy.configuration.log.xml"
+    >
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
+      <args/>
+    </ant>
+  </target>
+
   <target name="GlassFish.Undeploy">
     <ant.async
       target="undeploy"
