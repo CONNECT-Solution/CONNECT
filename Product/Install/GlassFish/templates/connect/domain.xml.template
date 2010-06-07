@@ -170,8 +170,6 @@
     </monitoring-service>
     <diagnostic-service compute-checksum="true" verify-config="true" capture-install-log="true" capture-system-info="true" capture-hadb-info="true" capture-app-dd="true" min-log-level="INFO" max-log-entries="500"/>
     <java-config java-home="${com.sun.aas.javaRoot}" debug-enabled="false" debug-options="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009" rmic-options="-iiop -poa -alwaysgenerate -keepgenerated -g" javac-options="-g" system-classpath="" classpath-suffix="" env-classpath-ignored="true">
-    <!-- various required jvm-options -->
-        <!-- various required jvm-options -->
         <jvm-options>-client</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
         <jvm-options>-Djava.security.policy=${com.sun.aas.instanceRoot}/config/server.policy</jvm-options>
@@ -184,10 +182,6 @@
         <jvm-options>-Dcom.sun.enterprise.taglibs=appserv-jstl.jar,jsf-impl.jar</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.taglisteners=jsf-impl.jar</jvm-options>
         <jvm-options>-XX:NewRatio=2</jvm-options>
-        <!--
-        Use the following jvm-options element to disable the quick startup:
-	com.sun.enterprise.server.ss.ASQuickStartup=false
-      -->
         <jvm-options>-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true</jvm-options>
         <jvm-options>-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true</jvm-options>
         <jvm-options>-Djavax.enterprise.resource.xml.webservices.security.level=FINE</jvm-options>
@@ -209,10 +203,7 @@
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=gateway</jvm-options>
         <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>
-   <!--
-        Use the following jvm-options element to disable the quick startup:
-	com.sun.enterprise.server.ss.ASQuickStartup=false
-      --></java-config>
+   </java-config>
    <thread-pools>
         <thread-pool thread-pool-id="thread-pool-1" min-thread-pool-size="0" max-thread-pool-size="200" idle-thread-timeout-in-seconds="120" num-work-queues="1"/>
 
