@@ -442,29 +442,28 @@
     </copy>
   </target>
 
-  <target name="-check.is.NSS.Domain">
-    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml">
-      <xmlcatalog id="dtds">
-        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
-      </xmlcatalog>    
-      <copy path="count(/domain/configs/config)" property="count"/>
-    </xmltask>  
-    <echo message="domain/configs/config=${count}"/>    
-    <if>
-      <equals arg1="${count}" arg2="2" />
-      <then>
-        <echo message="domain/configs/config=${count}"/>    
-        <property name="isNSS" value="true" />
-      </then>
-    </if>
-  </target>
-
   <target name="-uncomment.domain.config">    
     <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
       <xmlcatalog id="dtds">
         <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
       </xmlcatalog>    
       <uncomment path="/domain/configs/config/java-config/comment()[1]"/>
+    </xmltask>   
+  </target>
+
+  <target name="add.profiler.domain.config">    
+    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true" outputter="simple:3">
+      <xmlcatalog id="dtds">
+        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
+      </xmlcatalog>          
+      <insert path="/domain/configs/config/java-config/child::node()[1]" position="before"> 
+<![CDATA[ 
+<profiler name="YourKit Java Profiler 9.0.2" enabled="true">
+<jvm-options>-agentpath:${profiler.executables.home}\bin\win32\yjpagent.dll=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=SunServer</jvm-options>
+<jvm-options>-Dcom.sun.enterprise.server.ss.ASQuickStartup=false</jvm-options>
+</profiler> 
+]]> 
+</insert>
     </xmltask>   
   </target>
 
@@ -475,13 +474,7 @@
     <runtarget target="-create.glassfish.domain"/>
     <runtarget target="-configure.glassfish.domain"/>
     <runtarget target="-restore.glassfish.domain.certificates"/>
-    <runtarget target="-check.is.NSS.Domain"/>    
-    <if>
-      <isset property="isNSS"/>
-      <then>
-        <runtarget target="-uncomment.domain.config"/>
-      </then>
-    </if>    
+    <runtarget target="-uncomment.domain.config"/>
   </target>
 
 
