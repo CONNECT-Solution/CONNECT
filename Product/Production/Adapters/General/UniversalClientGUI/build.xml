@@ -38,7 +38,7 @@
 			<file name="${project.AdapterInternalComponentProxy.dist.file}" />
 			<file name="${project.CommonServiceProxy.dist.file}" />
       <file name="${project.EntityServiceProxy.dist.file}" />
-			<file name="${project.GatewayInternalComponentProxy.dist.file}" />
+			<file name="${project.NhinServiceProxy.dist.file}" />
 			<file name="${project.NhincCommonDAO.dist.file}" />
 			<file name="${project.NhincCommonLib.dist.file}" />
       <file name="${project.NhincCommonTypesLib.dist.file}" />
