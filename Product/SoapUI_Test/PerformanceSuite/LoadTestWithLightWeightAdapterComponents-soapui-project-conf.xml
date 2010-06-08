@@ -63,7 +63,50 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
-<!--
+  <test name="DocQuery-ManyResults" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1</property>
+      <property name="DocQuery.PatientId">D123407</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-ManyResults 1x20" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="20">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1</property>
+      <property name="DocQuery.PatientId">D123407</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+    </testProperties>
+  </test>
+  <test name="DocRetrieve-OneDocument" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId">1.123402.11111</property>
+      <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
+    </testProperties>
+  </test>
+  <test name="DocRetrieve-SequentialRequestsForMultipleDocuments" testcase="Nhin.DocRetrieve.SequentialRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId-1">1.123409.44444</property>
+      <property name="DocRetrieve.DocumentId-2">1.123407.11111</property>
+      <property name="DocRetrieve.DocumentId-3">1.123407.22222</property>
+      <property name="DocRetrieve.DocumentId-4">1.123407.33333</property>
+      <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
+    </testProperties>
+  </test>
+  <test name="DocRetrieve-SingleRequestsForMultipleDocuments" testcase="Nhin.DocRetrieve.SingleRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId-1">1.123409.44444</property>
+      <property name="DocRetrieve.DocumentId-2">1.123407.11111</property>
+      <property name="DocRetrieve.DocumentId-3">1.123407.22222</property>
+      <property name="DocRetrieve.DocumentId-4">1.123407.33333</property>
+      <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
+    </testProperties>
+  </test>
   <test name="DocQuery-ThreeResults 2x20" testcase="Nhin.DocQuery" numberOfThreads="2" numberOfIteration="20">
     <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
@@ -118,51 +161,6 @@
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">N600001</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
-    </testProperties>
-  </test>
--->  
-  <test name="DocQuery-ManyResults" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
-    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
-      <property name="DocQuery.PatientAssigningAuthority">1.1</property>
-      <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
-    </testProperties>
-  </test>
-  <test name="DocQuery-ManyResults 1x20" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="20">
-    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
-      <property name="DocQuery.PatientAssigningAuthority">1.1</property>
-      <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
-    </testProperties>
-  </test>
-  <test name="DocRetrieve-OneDocument" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="1">
-    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
-      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
-      <property name="DocRetrieve.RepositoryId">1</property>
-      <property name="DocRetrieve.DocumentId">1.123402.11111</property>
-      <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
-    </testProperties>
-  </test>
-  <test name="DocRetrieve-SequentialRequestsForMultipleDocuments" testcase="Nhin.DocRetrieve.SequentialRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="1">
-    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
-      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
-      <property name="DocRetrieve.RepositoryId">1</property>
-      <property name="DocRetrieve.DocumentId-1">1.123409.44444</property>
-      <property name="DocRetrieve.DocumentId-2">1.123407.11111</property>
-      <property name="DocRetrieve.DocumentId-3">1.123407.22222</property>
-      <property name="DocRetrieve.DocumentId-4">1.123407.33333</property>
-      <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
-    </testProperties>
-  </test>
-  <test name="DocRetrieve-SingleRequestsForMultipleDocuments" testcase="Nhin.DocRetrieve.SingleRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="1">
-    <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
-      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
-      <property name="DocRetrieve.RepositoryId">1</property>
-      <property name="DocRetrieve.DocumentId-1">1.123409.44444</property>
-      <property name="DocRetrieve.DocumentId-2">1.123407.11111</property>
-      <property name="DocRetrieve.DocumentId-3">1.123407.22222</property>
-      <property name="DocRetrieve.DocumentId-4">1.123407.33333</property>
-      <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
     </testProperties>
   </test>
 </tests>
