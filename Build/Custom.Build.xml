@@ -4,9 +4,10 @@
   <target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
     <call target="Build.PublishZip.Release.Interfaces"/>
-    <call target="Build.Bundle.ESCs.Installers"/>
-    <call target="Build.Bundle.SoapUI"/>
-    <call target="Build.Bundle.Release.Properties"/>
+    <call target="Build.PublishZip.ESCs.Installers"/>
+    <call target="Build.PublishZip.SoapUI.Validation.Tests"/>
+    <call target="Build.PublishZip.Release.Properties"/>
+    <call target="Build.PublishZip.FTAManualTest"/>
   </target>
 
   <target name="Build.PublishZip.Release.Installer">
@@ -56,7 +57,7 @@
     <call target="Publish.Link" />
   </target>
 
-  <target name="Build.Bundle.Release.Properties">
+  <target name="Build.PublishZip.Release.Properties">
     <property name="Properties.Properties.Directory" value="Blue"/>
     <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
@@ -119,7 +120,7 @@
 
   </target>
 
-  <target name="Build.Bundle.ESCs.Installers">
+  <target name="Build.PublishZip.ESCs.Installers">
     <property name="ESC.Zip.FileName" value="${ProjectFullName}_DynamicDocuments_${CCNetLabel}.zip"/>
     <property name="ESC.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${ESC.Zip.FileName}"/>
 
@@ -154,7 +155,7 @@
 
   </target>
 
-  <target name="Build.Bundle.SoapUI">
+  <target name="Build.PublishZip.SoapUI.Validation.Tests">
     <property name="SoapUI.Zip.FileName" value="${ProjectFullName}_Validation_Tests_${CCNetLabel}.zip"/>
     <property name="SoapUI.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${SoapUI.Zip.FileName}"/>
 
@@ -170,6 +171,24 @@
     </zip>
 
     <property name="Publish.Web.File.Name" value="${SoapUI.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+
+  </target>
+
+  <target name="Build.PublishZip.FTAManualTest">
+    <property name="FTAManualTest.Zip.FileName" value="${ProjectFullName}_Generic_File_Transfer_Adapter_Test_${CCNetLabel}.zip"/>
+    <property name="FTAManualTest.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${FTAManualTest.Zip.FileName}"/>
+
+    <zip zipfile="${FTAManualTest.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Product.Path}\SoapUI_Test\ManualSuite\FTAManualTest" prefix="FTAManualTest" failonempty="true">
+        <include name="*.*"/>
+        <exclude name="build.xml"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${FTAManualTest.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
