@@ -93,6 +93,18 @@
         <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
         <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
 
+        <if>
+          <scriptcondition language="javascript">
+            <![CDATA[
+            var currentProjectCount = project.getProperty("soapui.current.project.count");
+            self.setValue(currentProjectCount%10==0);
+            ]]>
+          </scriptcondition>
+          <then>
+            <runtarget target="deploy.glassfish.stop.server"/>
+            <runtarget target="deploy.glassfish.start.server"/>
+          </then>
+        </if>
         <echo message=" ******************** End @{soapui.project.file.path} project ${soapui.current.project.count} of ${soapui.project.count} *************************" level="info"/>
         <echo message=" ******************** End @{soapui.project.file.path} project ${soapui.current.project.count} of ${soapui.project.count} *************************" file="${progress-filepath}" level="info"/>
       </sequential>
