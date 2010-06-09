@@ -157,7 +157,6 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
--->
   <test name="DocQuery-ThreeResults 50x20" testcase="Nhin.DocQuery" numberOfThreads="50" numberOfIteration="20">
     <testProperties filename="LoadTestWithLightWeightAdapterComponents-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
@@ -165,4 +164,5 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
+-->
 </tests>
