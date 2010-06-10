@@ -113,7 +113,10 @@
     <name>AdapterDocRepository2Soap12Web</name>
     <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
   </project>
-
+  <project>
+    <name>AdapterDocRegistry2Soap12Web</name>
+    <directory>/Production/Adapters/General/AdapterDocRegistry2Soap12Web</directory>
+  </project>
   <!-- BEGIN Dynamic Document Generation Projects -->
     <project>
 	<name>AdapterCommonDataLayerEJB</name>

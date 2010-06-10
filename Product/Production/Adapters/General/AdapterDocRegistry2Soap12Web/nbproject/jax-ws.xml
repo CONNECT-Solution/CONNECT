@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="AdapterDocRegistry2Soap12Service">
+      <implementation-class>gov.hhs.fha.nhinc.adapterdocumentregistry.soap12.AdapterDocRegistry2Soap12Service</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/2.4/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterComponentDocRegistry.wsdl</local-wsdl-file>
+      <service-name>DocumentRegistry_Service</service-name>
+      <port-name>DocumentRegistry_Port_Soap</port-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
