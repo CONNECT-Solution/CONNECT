@@ -36,7 +36,7 @@
 <!ENTITY Common.Directory.Transient.Path       '&Common.Directory.Build.Path;\&Common.Directory.Transient.Name;' >
 <!ENTITY Common.Directory.Tools.Path           '&Common.Directory.Build.Path;\&Common.Directory.Tools.Name;' >
 
-<!ENTITY CCNet.LabelPrefix                     '2.4.3.'>
+<!ENTITY CCNet.LabelPrefix                     '2.4.4.'>
 <!ENTITY CCNet.Server.Remoting.Port            '21524'>
 <!ENTITY CCNet.Server.Remoting.Url             'tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY CCNet.Server.Rest.Port                '21525'>
