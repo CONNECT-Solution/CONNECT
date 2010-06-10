@@ -245,6 +245,30 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
+  <test name="DocRetrieve-OneDocument(1tx5000r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="5000">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId">1.123402.11111</property>
+      <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
+    </testProperties>
+  </test>
+  <test name="DocRetrieve-OneDocument(2tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="2" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId">1.123402.11111</property>
+      <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
+    </testProperties>
+  </test>
+  <test name="DocRetrieve-OneDocument(4tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="4" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId">1.123402.11111</property>
+      <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
+    </testProperties>
+  </test>
 
 
 <!-- these are useful for testing locally, but not very use running on the real build server
