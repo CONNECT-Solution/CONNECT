@@ -237,7 +237,6 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
-  <!--
   <test name="DocRetrieve-OneDocument(1tx500r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="500">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
@@ -246,6 +245,7 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
+  <!--
   <test name="DocRetrieve-OneDocument(1tx5000r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="5000">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
