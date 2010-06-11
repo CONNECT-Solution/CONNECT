@@ -24,6 +24,8 @@
   
   <xsl:template match="file">
     <xsl:variable name="filePath" select="concat('file:///', replace(text(),'\\','/'))"/>
+    <xsl:variable name="packages" select="tokenize(replace(substring-before(substring-after($filePath,'/soapui-test-reports/'),'-statistics.txt'),'/','.'), '\.')"/>
+    
     <xsl:choose>
       <xsl:when test="unparsed-text-available($filePath)">
         <xsl:variable name="csv" select="unparsed-text($filePath)"/>
@@ -32,8 +34,9 @@
         <xsl:for-each select="$lines[position() > 1]">
           <xsl:variable name="elValue" select="."/>
           <xsl:if test="starts-with($elValue,'TestCase:,')">
-            <testsuite file="{$filePath}" package="">
-            <xsl:attribute name="name"><xsl:value-of select="replace(substring-before(substring-after($filePath,'/soapui-test-reports/'),'-statistics.txt'),'/','.')"/></xsl:attribute>
+            <testsuite>
+            <xsl:attribute name="name"><xsl:value-of select="$packages[2]"/></xsl:attribute>
+            <xsl:attribute name="package"><xsl:value-of select="$packages[1]"/>.<xsl:value-of select="$packages[3]"/></xsl:attribute>
             
             <xsl:variable name="lineItems" select="fn:getTokens(.)" as="xs:string+"/>
             <xsl:for-each select="$elemNames">
