@@ -37,74 +37,7 @@
           program="${SoapUI.Installer.File.Path}"
           verbose="true"
           />
-        <call target="Workspace.RequieredSoftware.SoapUI.License"/>
       </if>
-    </ifnot>
-  </target>
-
-  <target name="Workspace.RequieredSoftware.SoapUI.License">
-    <property name="SoapUI.License.File.Path" value="${environment::get-variable('USERPROFILE')}\.soapui\soapui.lic"/>
-    <ifnot test="${file::exists(SoapUI.License.File.Path)}">
-      <ask
-        answer="SoapUI.License.UserName"
-        caption="Subversion UserName?"
-        question="Please enter your Subversion user name, it will be used to retrieve your SoupUI Pro licence. Hint: This is your last name + first initial (Bob Smith = smithb). If you want to install it manually or don't have SoupUI Pro licence assigned to you just leave this field blank."
-        dialogmode="FreeText"
-      />
-
-      <property name="SoapUI.License.UserName" value="${string::to-lower(SoapUI.License.UserName)}"/>
-      <ifnot test="${SoapUI.License.UserName == ''}">
-        <property name="SoapUI.License.File.Name" value="notset"/>
-        <property name="SoapUI.License.Tracking.File.Path" value="${Package.Workspace.Directory.Path}\Software\SoapUI\licenses.xml"/>
-
-        <property name="SourceControl.CheckOut.File" value="${SoapUI.License.Tracking.File.Path}"/>
-        <call target="SourceControl.CheckOut"/>
-
-        <xmlpeek
-          file="${SoapUI.License.Tracking.File.Path}"
-          property="SoapUI.License.File.Name"
-          xpath="/licenses/license[@user='${SoapUI.License.UserName}']/@file"
-          failonerror="False"
-        />
-
-        <if test="${SoapUI.License.File.Name == 'notset'}">
-          <foreach item="File" property="canidate.file.path">
-            <in>
-              <items basedir="${Package.Workspace.Directory.Path}\Software\SoapUI\licenses">
-                <include name="pro*.lic"/>
-              </items>
-            </in>
-            <do>
-              <if test="${SoapUI.License.File.Name == 'notset'}">
-                <property name="canidate.file.name" value="${path::get-file-name(canidate.file.path)}"/>
-                <xmlpeek
-                  file="${SoapUI.License.Tracking.File.Path}"
-                  property="canidate.inuse"
-                  xpath="boolean(/licenses/license[@file='${canidate.file.name}'])"
-                />
-                <ifnot test="${bool::parse(canidate.inuse)}">
-                  <property name="SoapUI.License.File.Name" value="${canidate.file.name}"/>
-                  <xmlpoke
-                    file="${SoapUI.License.Tracking.File.Path}"
-                    pokemode="Add"
-                    value='&lt;license file="${SoapUI.License.File.Name}" user="${SoapUI.License.UserName}"/&gt;'
-                    xpath="/licenses"
-                  />
-
-                  <property name="SourceControl.CheckIn.File" value="${SoapUI.License.Tracking.File.Path}"/>
-                  <call target="SourceControl.CheckIn"/>
-                </ifnot>
-              </if>
-            </do>
-          </foreach>
-        </if>
-
-        <copy
-          file="${Package.Workspace.Directory.Path}\Software\SoapUI\licenses\${SoapUI.License.File.Name}"
-          tofile="${SoapUI.License.File.Path}"
-          verbose="True"
-        />
-      </ifnot>
     </ifnot>
   </target>
 
