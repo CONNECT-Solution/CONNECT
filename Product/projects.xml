@@ -140,6 +140,11 @@
         <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
         <dist.type>war</dist.type>
     </project>
+	<project>
+        <name>AdapterDocRegistry2Soap12Web</name>
+        <directory>/Production/Adapters/General/AdapterDocRegistry2Soap12Web</directory>
+        <dist.type>war</dist.type>
+    </project>
     <project>
         <name>FileTrasnferTimer</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTrasnferTimer</directory>
