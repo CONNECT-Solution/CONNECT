@@ -124,12 +124,18 @@
     <h2>Packages</h2>
     Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.
     <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
-      <xsl:call-template name="testsuite.test.header"/>
+      <tr valign="top">
+        <th width="80%">Name</th>
+        <th>Tests</th>
+        <th>Errors</th>
+        <th nowrap="nowrap">Ratio</th>
+      </tr>
       <!-- list all packages recursively -->
       <xsl:for-each select="./testsuite[not(./@package = preceding-sibling::testsuite/@package)]">
         <xsl:sort select="@package"/>
         <xsl:variable name="testsuites-in-package" select="//testsuites/testsuite[./@package = current()/@package]"/>
         <xsl:variable name="errorCount" select="sum($testsuites-in-package/@err)"/>
+        <xsl:variable name="testsCount" select="count($testsuites-in-package/@package)"/>
         <!-- write a summary for the package -->
         <tr valign="top">
           <!-- set a nice color depending if there is an error/failure -->
@@ -144,35 +150,14 @@
             </a>
           </td>
           <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@min), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@max), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@avg), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@last), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@cnt), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@tps), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@bytes), '#.##')"/>
-          </td>
-          <td>
-            <xsl:value-of select="format-number(sum($testsuites-in-package/@bps), '#.##')"/>
+            <xsl:value-of select="$testsCount"/>
           </td>
           <td>
             <xsl:value-of select="$errorCount"/>
           </td>
           <td>
             <xsl:call-template name="display-percent">
-              <xsl:with-param name="value" select="sum($testsuites-in-package/@rat) div count($testsuites-in-package/@rat)"/>
+              <xsl:with-param name="value" select="sum($testsuites-in-package/@rat) div $testsCount"/>
             </xsl:call-template>
           </td>
         </tr>
@@ -352,7 +337,6 @@
       <th>Tests</th>
       <th>Errors</th>
       <th>Failures</th>
-      <th nowrap="nowrap">Time(s)</th>
     </tr>
   </xsl:template>
 
