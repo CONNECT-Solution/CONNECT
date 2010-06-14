@@ -81,6 +81,7 @@
           <environment refid="${Common.EnvironmentVariables.RefId}"/>
           <args>
             <arg line="-Dcompile.debug=${Compile.Debug}"/>
+            <arg line="-Dprofile=true"/>
           </args>
         </ant>
         <property name="SoapUI.Failed" value="false"/>
@@ -93,6 +94,16 @@
     <property name="SoapUI.TestReport.Path" value="${SoapUI.Suites.Directory.Path}\${SoapUI.Suite}\soapui-test-reports\SoapUILoadTests.xml"/>
     <property name="SoapUI.TestReport.Suite.Name" value="SoapUILoadTests.xml" />
     <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\${SoapUI.TestReport.Suite.Name}"/>
+    <property name="SoapUI.Profiler.Zip.FilePath" value="${Common.Directory.Artifact.Path}\PerformanceTest_Profiler_Report.zip"/>
+    <property name="SoapUI.Profiler.TestReport.Path" value="${SoapUI.Suites.Directory.Path}\${SoapUI.Suite}\soapui-test-reports\"/>
+
+    <zip zipfile="${SoapUI.Profiler.Zip.FilePath}">
+      <fileset basedir="${SoapUI.Profiler.TestReport.Path}">
+        <include name="**\*.snapshot"/>
+        <exclude name="*.xml"/>
+        <exclude name="*.txt"/>
+      </fileset>
+    </zip>
 
     <copy
       file="${SoapUI.TestReport.Path}"
@@ -107,6 +118,7 @@
 			if="${file::exists(SoapUI.Report.File.Path)}"
 		/>
 
+    
     <if test="${SoapUI.Failed}">
       <fail message="Atleast one soapUI test has failed!  Please see the soapUI test section for more details..."/>
     </if>

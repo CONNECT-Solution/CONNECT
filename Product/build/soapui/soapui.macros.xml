@@ -15,23 +15,17 @@
 					<param name="test.numberOfIteration" path="@numberOfIteration" />
 					<param name="test.numberOfThreads" path="@numberOfThreads" />
 					<param name="test.properties.file.name" path="testProperties/@filename" />
-					<param name="test.properties.file.deleteOnExit" path="testProperties/@deleteOnExit"
-						default="false" />
+					<param name="test.properties.file.deleteOnExit" path="testProperties/@deleteOnExit" default="false" />
 					<actions>
 						<if>
 							<istrue value="${debug}" />
 							<then>
-								<echo
-									message="Reading load test configuration: name='@{test.name}' testcase='@{test.testcase}' numberOfIteration='@{test.numberOfIteration}' numberOfThreads='@{test.numberOfThreads}' test.properties.file.name='@{test.properties.file.name}'." />
+								<echo message="Reading load test configuration: name='@{test.name}' testcase='@{test.testcase}' numberOfIteration='@{test.numberOfIteration}' numberOfThreads='@{test.numberOfThreads}' test.properties.file.name='@{test.properties.file.name}'." />
 							</then>
 						</if>
-						<soapUIUpdateTestProperties testcase="@{test.name}"
-							projectConfFilePath="@{projectConfFilePath}" testPropFile="@{test.properties.file.name}" />
-						<var name="optionalArg"
-							value="-l&quot;@{test.testCase}&quot; -m&quot;@{test.numberOfIteration}&quot; -n&quot;@{test.numberOfThreads}&quot;" />
-						<soapUILoadTestRunner projectName="@{projectName}"
-							projectReportDir="@{projectReportDir}/@{test.name}"
-							projectFilePath="@{projectFilePath}" optionalArg="${optionalArg}" />
+						<soapUIUpdateTestProperties testcase="@{test.name}" projectConfFilePath="@{projectConfFilePath}" testPropFile="@{test.properties.file.name}" />
+						<var name="optionalArg" value="-l&quot;@{test.testCase}&quot; -m&quot;@{test.numberOfIteration}&quot; -n&quot;@{test.numberOfThreads}&quot;" />
+						<soapUILoadTestRunner projectName="@{projectName}" projectReportDir="@{projectReportDir}/@{test.name}" projectFilePath="@{projectFilePath}" optionalArg="${optionalArg}" />
 						<if>
 							<istrue value="@{test.properties.file.deleteOnExit}" />
 							<then>
@@ -56,8 +50,7 @@
 						<if>
 							<istrue value="${debug}" />
 							<then>
-								<echo
-									message="Reading property: '@{property.name}' = '@{property.value}'." />
+								<echo message="Reading property: '@{property.name}' = '@{property.value}'." />
 							</then>
 						</if>
 						<propertyfile file="@{testPropFile}">
@@ -81,47 +74,37 @@
 					<runtarget target="deploy.glassfish.stop.server" />
 					<runtarget target="deploy.glassfish.start.server" />
 
-					<java
-						jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar"
-						fork="true">
+					<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
 						<arg value="localhost" />
 						<arg value="10001" />
-						<arg value="start-cpu-tracing" />
+						<arg value="start-cpu-sampling" />
 					</java>
 				</then>
 			</if>
-			<exec dir="${soapui.install.bin.directory.path}" osfamily="windows"
-				executable="cmd.exe">
-				<arg
-					line="/c loadtestrunner.bat -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{projectName}&quot;" />
+			<exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
+				<arg line="/c loadtestrunner.bat -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{projectName}&quot;" />
 			</exec>
-			<exec dir="${soapui.install.bin.directory.path}" osfamily="unix"
-				executable="bash">
-				<arg
-					line="loadtestrunner.sh -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{project.name}&quot;" />
+			<exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">
+				<arg line="loadtestrunner.sh -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{project.name}&quot;" />
 			</exec>
 			<if>
 				<istrue value="${profile}" />
 				<then>
-					<java
-						jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar"
-						fork="true">
+					<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
 						<arg value="localhost" />
 						<arg value="10001" />
-						<arg value="capture-memory-snapshot" />
+						<arg value="capture-performance-snapshot" />
 					</java>
-					<java
-						jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar"
-						fork="true">
+					<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
 						<arg value="localhost" />
 						<arg value="10001" />
 						<arg value="stop-cpu-profiling" />
 					</java>
-					<copy todir="@{projectReportDir}">
-						<fileset dir="${user.home}/Snapshots">
-							<include name="**/*" />
-						</fileset>
-					</copy>
+          <tstamp>
+            <format property="TODAY_US" pattern="yyyy-MM-dd" locale="en,US"/>
+          </tstamp>  
+			    <move file="${user.home}/Snapshots/SunServer-${TODAY_US}.snapshot" 
+			            tofile="@{projectReportDir}.snapshot"/>
 					<delete dir="${user.home}/Snapshots">
 						<include name="**/*" />
 					</delete>
