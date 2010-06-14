@@ -20,8 +20,8 @@ import org.apache.commons.logging.LogFactory;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientcorrelation.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
@@ -48,14 +48,12 @@ public class TrustMode implements ResponseMode {
         // Create an assertion class from the contents of the SAML token
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
-        AddPatientCorrelationResponseType responseType;
-        String url;
+        PRPAIN201301UV02 request = new PRPAIN201301UV02();
 
         if (requestHasLivingSubjectId(requestMsg)) {
             try {
-                
-               
+
+
                 II localPatId = getPatientId(requestMsg);
                 II remotePatId = getPatientId(response);
 
@@ -64,20 +62,24 @@ public class TrustMode implements ResponseMode {
                         NullChecker.isNotNullish(localPatId.getExtension()) &&
                         remotePatId != null &&
                         NullChecker.isNotNullish(remotePatId.getRoot()) &&
-                        NullChecker.isNotNullish(remotePatId.getExtension()))  {
-                    QualifiedSubjectIdentifierType localId = new QualifiedSubjectIdentifierType();
-                    localId.setAssigningAuthorityIdentifier(localPatId.getRoot());
-                    localId.setSubjectIdentifier(localPatId.getExtension());
-                    QualifiedSubjectIdentifierType remoteId = new QualifiedSubjectIdentifierType();
-                    remoteId.setAssigningAuthorityIdentifier(remotePatId.getRoot());
-                    remoteId.setSubjectIdentifier(remotePatId.getExtension());
-                    request.getQualifiedPatientIdentifier().add(localId);
-                    request.getQualifiedPatientIdentifier().add(remoteId);
-                    request.setAssertion(assertion);
+                        NullChecker.isNotNullish(remotePatId.getExtension())) {
+                    request = HL7PRPA201301Transforms.createPRPA201301(response, localPatId.getRoot());
 
-                    PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
-                    PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
-                    patCorrelationProxy.addPatientCorrelation(request);
+                    if (request != null &&
+                            request.getControlActProcess() != null &&
+                            NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
+                            request.getControlActProcess().getSubject().get(0) != null &&
+                            request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                            request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                            request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                            NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+
+                        request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localPatId);
+
+                        PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
+                        PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
+                        patCorrelationProxy.addPatientCorrelation(request, assertion, null);
+                    }
                 }
             } catch (Exception ex) {
                 log.error(ex.getMessage(), ex);
