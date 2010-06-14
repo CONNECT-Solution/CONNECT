@@ -344,7 +344,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             PRPAMT201306UV02QueryByParameter queryParam201306 = queryParam.getValue();
             if (queryParam201306.getParameterList() != null && queryParam201306.getParameterList().getLivingSubjectId() != null) {
                 List<PRPAMT201306UV02LivingSubjectId> livingSubjectIdList = queryParam201306.getParameterList().getLivingSubjectId();
-                if (livingSubjectIdList != null) {
+                if (NullChecker.isNotNullish(livingSubjectIdList)) {
                     List<II> patinetIdList = livingSubjectIdList.get(0).getValue();
                     if (patinetIdList != null) {
                         ii = patinetIdList.get(0);
