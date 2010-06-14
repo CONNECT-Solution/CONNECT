@@ -2,7 +2,7 @@
         xmlns:lxslt="http://xml.apache.org/xslt"
 >
   <xsl:output method="xml" omit-xml-declaration="yes"
-    doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" version=""/>
+    doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" version="1.0"/>
   <xsl:decimal-format decimal-separator="." grouping-separator="," />
   <!--
    Licensed to the Apache Software Foundation (ASF) under one or more
@@ -129,7 +129,7 @@
       <xsl:for-each select="./testsuite[not(./@package = preceding-sibling::testsuite/@package)]">
         <xsl:sort select="@package"/>
         <xsl:variable name="testsuites-in-package" select="//testsuites/testsuite[./@package = current()/@package]"/>
-        <xsl:variable name="errorCount" select="$testsuites-in-package/@err"/>
+        <xsl:variable name="errorCount" select="sum($testsuites-in-package/@err)"/>
         <!-- write a summary for the package -->
         <tr valign="top">
           <!-- set a nice color depending if there is an error/failure -->
@@ -144,34 +144,36 @@
             </a>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@min"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@min), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@max"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@max), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@avg"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@avg), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@last"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@last), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@cnt"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@cnt), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@tps"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@tps), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@bytes"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@bytes), '#.##')"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@bps"/>
+            <xsl:value-of select="format-number(sum($testsuites-in-package/@bps), '#.##')"/>
           </td>
           <td>
             <xsl:value-of select="$errorCount"/>
           </td>
           <td>
-            <xsl:value-of select="$testsuites-in-package/@rat"/>
+            <xsl:call-template name="display-percent">
+              <xsl:with-param name="value" select="sum($testsuites-in-package/@rat) div count($testsuites-in-package/@rat)"/>
+            </xsl:call-template>
           </td>
         </tr>
       </xsl:for-each>
@@ -245,62 +247,37 @@
 
   <xsl:template name="summary">
     <h2>Summary</h2>
-    <xsl:variable name="errorCount" select="testsuite/@err"/>
+    <xsl:variable name="testCount" select="count(testsuite)"/>
+    <xsl:variable name="errorCount" select="sum(testsuite/@err)"/>
+    <xsl:variable name="failureCount" select="sum(testsuite/@failures)"/>
+    <xsl:variable name="timeCount" select="sum(testsuite/@time)"/>
+    <xsl:variable name="successRate" select="100 - (sum(testsuite/@rat) div $testCount)"/>
     <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
       <tr valign="top">
-        <th width="80%">Name</th>
-        <th>Min</th>
-        <th>Max</th>
-        <th>Avg</th>
-        <th>last</th>
-        <th>cnt</th>
-        <th>tps</th>
-        <th>bytes</th>
-        <th>bps</th>
-        <th>err</th>
-        <th nowrap="nowrap">rat</th>
+        <th>Tests</th>
+        <th>Failures</th>
+        <th>Errors</th>
+        <th>Success rate</th>
       </tr>
       <tr valign="top">
-        <!-- set a nice color depending if there is an error/failure -->
         <xsl:attribute name="class">
           <xsl:choose>
             <xsl:when test="$errorCount &gt; 0">Error</xsl:when>
           </xsl:choose>
         </xsl:attribute>
         <td>
-          <a href="#{@package}">
-            <xsl:value-of select="@package"/>
-          </a>
+          <xsl:value-of select="$testCount"/>
         </td>
         <td>
-          <xsl:value-of select="testsuite/@min"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@max"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@avg"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@last"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@cnt"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@tps"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@bytes"/>
-        </td>
-        <td>
-          <xsl:value-of select="testsuite/@bps"/>
+          <xsl:value-of select="$failureCount"/>
         </td>
         <td>
           <xsl:value-of select="$errorCount"/>
         </td>
         <td>
-          <xsl:value-of select="testsuite/@rat"/>
+          <xsl:call-template name="display-percent">
+            <xsl:with-param name="value" select="$successRate"/>
+          </xsl:call-template>
         </td>
       </tr>
     </table>
@@ -362,7 +339,7 @@
       <tr>
         <td align="left"></td>
         <td align="right">
-          Designed for use with <a href='http://www.soapui.org'>soapUI</a> and <a href='http://ant.apache.org/ant'>Ant</a>.
+          Designed for use with <a href='http://www.soapui.org/'>soapUI</a> and <a href='http://ant.apache.org/'>Ant</a>.
         </td>
       </tr>
     </table>
@@ -372,16 +349,10 @@
   <xsl:template match="testsuite" mode="header">
     <tr valign="top">
       <th width="80%">Name</th>
-      <th>Min</th>
-      <th>Max</th>
-      <th>Avg</th>
-      <th>last</th>
-      <th>cnt</th>
-      <th>tps</th>
-      <th>bytes</th>
-      <th>bps</th>
-      <th>err</th>
-      <th nowrap="nowrap">rat</th>
+      <th>Tests</th>
+      <th>Errors</th>
+      <th>Failures</th>
+      <th nowrap="nowrap">Time(s)</th>
     </tr>
   </xsl:template>
 
@@ -427,7 +398,7 @@
       <xsl:attribute name="class">
         <xsl:choose>
           <xsl:when test="@failures[.&gt; 0]">Failure</xsl:when>
-          <xsl:when test="@errors[.&gt; 0]">Error</xsl:when>
+          <xsl:when test="@err[.&gt; 0]">Error</xsl:when>
         </xsl:choose>
       </xsl:attribute>
 
@@ -575,7 +546,8 @@
 
   <xsl:template name="display-percent">
     <xsl:param name="value"/>
-    <xsl:value-of select="format-number($value,'0.00%')"/>
+    <xsl:value-of select="format-number($value,'0.00')"/>
+    <xsl:text>%</xsl:text>
   </xsl:template>
 
 </xsl:stylesheet>
