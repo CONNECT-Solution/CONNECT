@@ -134,7 +134,7 @@ public class VerifyMode implements ResponseMode {
                 query.getControlActProcess().getQueryByParameter() != null &&
                 query.getControlActProcess().getQueryByParameter().getValue() != null &&
                 query.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                NullChecker.isNotNullish(query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()))  {
+                NullChecker.isNotNullish(query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
 
             mpiQuery = convert201306to201305(response);
 
@@ -142,7 +142,6 @@ public class VerifyMode implements ResponseMode {
 
             log.debug("original Request Ids " + requestIds.size());
 
-            mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
             PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
             if (mpiResult != null) {
@@ -152,8 +151,22 @@ public class VerifyMode implements ResponseMode {
 
                     log.debug("MPI Ids: " + mpiIds.size());
                     log.debug("Request Ids: " + requestIds.size());
-                    result = compareId(mpiIds.get(0), requestIds.get(0).getValue().get(0));
-                    //result = compareId(mpiIds, requestIds);
+
+                    for (PRPAMT201306UV02LivingSubjectId patId : requestIds) {
+                        for (II id : patId.getValue()) {
+                            result = compareId(mpiIds.get(0), id);
+
+                            // If the patient id was found then break out of the inner loop
+                            if (result == true) {
+                                break;
+                            }
+                        }
+
+                        // If the patient id was found then breka out of the outer loop
+                        if (result == true) {
+                            break;
+                        }
+                    }
 
                 } catch (Exception ex) {
                     log.error(ex.getMessage(), ex);
@@ -163,7 +176,7 @@ public class VerifyMode implements ResponseMode {
         } else {
             log.debug("There was no patient id specified in the original request message, bypassing MPI check and returning false");
         }
-        
+
         return result;
     }
 

@@ -219,14 +219,23 @@ public class PatientDiscovery201305Processor {
                             request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
                             NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
                         for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
-                            if (NullChecker.isNotNullish(livingSubId.getValue()) &&
-                                    livingSubId.getValue().get(0) != null &&
-                                    NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
-                                    NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
-                                    aaId.contentEquals(livingSubId.getValue().get(0).getRoot())) {
-                                patId = new II();
-                                patId.setRoot(livingSubId.getValue().get(0).getRoot());
-                                patId.setExtension(livingSubId.getValue().get(0).getExtension());
+                            for (II id : livingSubId.getValue()) {
+                                if (id != null &&
+                                        NullChecker.isNotNullish(id.getRoot()) &&
+                                        NullChecker.isNotNullish(id.getExtension()) &&
+                                        aaId.contentEquals(id.getRoot())) {
+                                    patId = new II();
+                                    patId.setRoot(id.getRoot());
+                                    patId.setExtension(id.getExtension());
+
+                                    // break out of inner loop
+                                    break;
+                                }
+                            }
+
+                            // If the patient id was found then break out of outer loop
+                            if (patId != null) {
+                                break;
                             }
                         }
                     }
@@ -236,7 +245,6 @@ public class PatientDiscovery201305Processor {
             log.error(ex.getMessage(), ex);
             patId = null;
         }
-
 
         return patId;
     }
