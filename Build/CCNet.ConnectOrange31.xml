@@ -3,12 +3,12 @@
   <!ENTITY % entities SYSTEM "Entities.xml">
   %entities;
 
-  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Green30">
+  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Orange">
         <users>
           <user name="Jay Flowers"            group="buildmaster"       address="jay.flowers@agilex.com"/>
           <user name="Srikanth Vadlamani"     group="buildmaster"       address="srikanth.vadlamani@agilex.com"/>
           <user name="Mark Goldman"           group="buildmaster"       address="mark.goldman@agilex.com"/>
-        
+
           <user name="Build Notification"     group="change"            address="NHINBuildNotification@agilex.com"/>
 
           <user name="Notification Dev"       group="failed"            address="NHINBuildNotification@agilex.com"/>
@@ -20,8 +20,8 @@
         </groups>
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="&ConnectGreen30.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Green30">
+               serverUri="&ConnectOrange.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Orange30">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -38,8 +38,8 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployBuilding '<projectFilter
-                serverUri="&ConnectGreen30.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Deploy-Green30">
+                serverUri="&ConnectOrange.Server.Remoting.Url;"
+                project="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30">
              <exclusionFilters>
                <activities>
                  <activity>Building</activity>
@@ -47,8 +47,8 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
-               serverUri="&ConnectGreen30.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Deploy-Green30">
+               serverUri="&ConnectOrange.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30">
             <exclusionFilters>
               <conditions>
                 <condition>Failure</condition>
@@ -58,9 +58,9 @@
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&ConnectGreen30.Server.Rest.Url;">
-  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Green30">
-    <webURL>&ConnectGreen30.Dashboard.Url;</webURL>
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&ConnectOrange.Server.Rest.Url;">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Orange30">
+    <webURL>&ConnectOrange.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -103,8 +103,8 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Green30">
-    <webURL>&ConnectGreen30.Dashboard.Url;</webURL>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30">
+    <webURL>&ConnectOrange.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -147,7 +147,7 @@
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger</logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Green -D:GlassFish.Domain.Templates.File.Path=GlassFish.FIPS.Domain.Templates.File.Path -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Orange -D:GlassFish.Domain.Templates.File.Path=GlassFish.FIPS.Domain.Templates.File.Path -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Staging.Deploy</target>
         </targetList>
@@ -158,9 +158,9 @@
     <publishers>
       <merge>
         <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Green30\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Green30\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Green30\AntLogs\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />

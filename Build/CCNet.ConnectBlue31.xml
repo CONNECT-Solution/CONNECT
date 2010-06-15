@@ -3,7 +3,7 @@
   <!ENTITY % entities SYSTEM "Entities.xml">
   %entities;
 
-  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Blue30">
+  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Blue">
         <users>
           <user name="Jay Flowers"            group="buildmaster"       address="jay.flowers@agilex.com"/>
           <user name="Srikanth Vadlamani"     group="buildmaster"       address="srikanth.vadlamani@agilex.com"/>
@@ -20,7 +20,7 @@
         </groups>
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="&ConnectBlue30.Server.Remoting.Url;"
+               serverUri="&ConnectBlue.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Blue30">
             <exclusionFilters>
               <activities>
@@ -38,7 +38,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployBuilding '<projectFilter
-                serverUri="&ConnectBlue30.Server.Remoting.Url;"
+                serverUri="&ConnectBlue.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Deploy-Blue30">
              <exclusionFilters>
                <activities>
@@ -47,7 +47,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
-               serverUri="&ConnectBlue30.Server.Remoting.Url;"
+               serverUri="&ConnectBlue.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Deploy-Blue30">
             <exclusionFilters>
               <conditions>
@@ -58,9 +58,9 @@
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&ConnectBlue30.Server.Rest.Url;">
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&ConnectBlue.Server.Rest.Url;">
   <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Blue30">
-    <webURL>&ConnectBlue30.Dashboard.Url;</webURL>
+    <webURL>&ConnectBlue.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -104,7 +104,7 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Blue30">
-    <webURL>&ConnectBlue30.Dashboard.Url;</webURL>
+    <webURL>&ConnectBlue.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
