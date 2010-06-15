@@ -94,16 +94,15 @@
     <property name="SoapUI.TestReport.Path" value="${SoapUI.Suites.Directory.Path}\${SoapUI.Suite}\soapui-test-reports\SoapUILoadTests.xml"/>
     <property name="SoapUI.TestReport.Suite.Name" value="SoapUILoadTests.xml" />
     <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\${SoapUI.TestReport.Suite.Name}"/>
-    <property name="SoapUI.Profiler.Zip.FilePath" value="${Common.Directory.Artifact.Path}\PerformanceTest_Profiler_Report.zip"/>
     <property name="SoapUI.Profiler.TestReport.Path" value="${SoapUI.Suites.Directory.Path}\${SoapUI.Suite}\soapui-test-reports\"/>
 
-    <zip zipfile="${SoapUI.Profiler.Zip.FilePath}">
+    <copy todir="${Common.Directory.Artifact.Path}">
       <fileset basedir="${SoapUI.Profiler.TestReport.Path}">
         <include name="**\*.snapshot"/>
         <exclude name="*.xml"/>
         <exclude name="*.txt"/>
       </fileset>
-    </zip>
+    </copy>
 
     <copy
       file="${SoapUI.TestReport.Path}"

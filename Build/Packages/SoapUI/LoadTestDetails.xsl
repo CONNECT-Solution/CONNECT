@@ -219,6 +219,14 @@
       <div class="Properties">
         <a>
           <xsl:attribute name="href">
+            <xsl:value-of select="@name"/>
+          </xsl:attribute>
+          Java Profiler Snapshot &#187;
+        </a>
+      </div>
+      <div class="Properties">
+        <a>
+          <xsl:attribute name="href">
             javascript:displayProperties('<xsl:value-of select="@package"/>.<xsl:value-of select="@name"/>');
           </xsl:attribute>
           Properties &#187;
