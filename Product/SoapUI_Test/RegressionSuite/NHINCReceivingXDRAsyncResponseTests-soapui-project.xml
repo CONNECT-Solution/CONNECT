@@ -11755,7 +11755,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 //ns19:XDRAcknowledgement[1]/ns19:message[1]/@status</path><content>urn:nhin:DocumentSubmission:async:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check RelatesTo Field"><con:configuration><path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]</path><content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e&lt;/RelatesTo></content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Policy Engine Mock">
 				<con:settings/>
-				<con:config xsi:type="con:MockResponseStep" startStep="Check RelatesTo Field" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xsi:type="con:MockResponseStep" startStep="NhincXDRAsyncResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPE</con:path>
@@ -13390,7 +13390,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 //ns19:XDRAcknowledgement[1]/ns19:message[1]/@status</path><content>urn:nhin:DocumentSubmission:async:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check RelatesTo Field"><con:configuration><path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]</path><content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e&lt;/RelatesTo></content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="mockresponse" name="Policy Engine Mock">
 				<con:settings/>
-				<con:config xsi:type="con:MockResponseStep" startStep="Verify Response" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xsi:type="con:MockResponseStep" startStep="NhincXDRAsyncResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPE</con:path>
