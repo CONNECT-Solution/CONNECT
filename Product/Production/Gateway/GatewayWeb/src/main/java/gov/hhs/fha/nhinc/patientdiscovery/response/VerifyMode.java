@@ -19,7 +19,6 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceAddress;
@@ -103,6 +102,25 @@ public class VerifyMode implements ResponseMode {
         return result;
     }
 
+    private String getSenderCommunityId (PRPAIN201306UV02 response) {
+        String hcid = null;
+
+        if (response != null &&
+                response.getSender() != null &&
+                response.getSender().getDevice() != null &&
+                response.getSender().getDevice().getAsAgent() != null &&
+                response.getSender().getDevice().getAsAgent().getValue() != null &&
+                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            hcid = response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
+
+        return hcid;
+    }
+
     protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response) {
         PRPAMT201301UV02Patient patient = null;
 
@@ -123,10 +141,11 @@ public class VerifyMode implements ResponseMode {
     protected PRPAIN201305UV02 convert201306to201305(PRPAIN201306UV02 response) {
         PRPAIN201305UV02 result = null;
         String localHCID = getLocalHomeCommunityId();
+        String remoteHCID = getSenderCommunityId(response);
         PRPAMT201301UV02Patient patient = extractPatient(response);
 
         if (patient != null) {
-            result = HL7PRPA201305Transforms.createPRPA201305(patient, localHCID, localHCID, localHCID);
+            result = HL7PRPA201305Transforms.createPRPA201305(patient, remoteHCID, localHCID, localHCID);
         }
 
         return result;

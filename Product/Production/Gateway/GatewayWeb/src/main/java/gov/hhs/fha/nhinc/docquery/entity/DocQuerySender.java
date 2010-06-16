@@ -114,7 +114,7 @@ public class DocQuerySender {
         AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(oOriginalQueryRequest, sLocalHomeCommunity, oSubjectId.getAssigningAuthorityIdentifier(), oSubjectId.getSubjectIdentifier());
         docQuery.setAdhocQueryRequest(adhocQueryRequest);
         AdhocQueryResponse queryResults = null;
-        if (isValidPolicy(adhocQueryRequest, oAssertion)) {
+        if (isValidPolicy(adhocQueryRequest, oAssertion, targetCommunity)) {
             try {
                 queryResults = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery, oAssertion);
             } catch (Throwable t) {
@@ -122,7 +122,7 @@ public class DocQuerySender {
                 RegistryErrorList regErrList = new RegistryErrorList();
                 RegistryError regErr = new RegistryError();
                 regErrList.getRegistryError().add(regErr);
-                regErr.setCodeContext("Fault encountered processing internal document query for community "+sTargetHomeCommunityId);
+                regErr.setCodeContext("Fault encountered processing internal document query for community "+ sTargetHomeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
                 regErr.setSeverity("Error");
                 queryResults.setRegistryErrorList(regErrList);
@@ -158,7 +158,7 @@ public class DocQuerySender {
      * @param assertion
      * @return boolean
      */
-    private boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion) {
+    private boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion, HomeCommunityType targetCommunity) {
         boolean isValid = false;
         AdhocQueryRequestEventType checkPolicy = new AdhocQueryRequestEventType();
         AdhocQueryRequestMessageType checkPolicyMessage = new AdhocQueryRequestMessageType();
@@ -167,6 +167,7 @@ public class DocQuerySender {
         checkPolicy.setMessage(checkPolicyMessage);
         checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        checkPolicy.setReceivingHomeCommunity(targetCommunity);
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(checkPolicy);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();

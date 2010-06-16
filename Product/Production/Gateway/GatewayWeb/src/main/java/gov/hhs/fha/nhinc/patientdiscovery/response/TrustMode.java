@@ -8,21 +8,16 @@ import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201301UV02;
-import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
-import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType;
-import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationServiceSecured;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
+import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -33,7 +28,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 public class TrustMode implements ResponseMode {
 
     private Log log = null;
-    private static PatientCorrelationServiceSecured service = new PatientCorrelationServiceSecured();
 
     public TrustMode() {
         super();
@@ -48,24 +42,16 @@ public class TrustMode implements ResponseMode {
         AssertionType assertion = params.assertion;
         PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
-        PRPAIN201301UV02 requestPatient = null;
-
-        AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
-        AddPatientCorrelationSecuredResponseType responseType;
-        String url;
-
-        url = getPCUrl();
-
         if (requestHasLivingSubjectId(requestMsg)) {
             try {
-                requestPatient = mergeIds(createPRPA201301(response), getPatientId(requestMsg));
-                if (requestPatient != null) {
-                    request.setPRPAIN201301UV02(requestPatient);
-                    PatientCorrelationSecuredPortType port = getPCPort(url, assertion);
+                II localPatId = getPatientId(requestMsg);
+                II remotePatId = getPatientId(response);
 
-                    responseType = port.addPatientCorrelation(request);
+                if (localPatId != null &&
+                        remotePatId != null) {
+                    sendToPatientCorrelationComponent(localPatId, remotePatId, assertion);
                 } else {
-                    log.warn("Remote Patient Id was not included in the response, no correlation will be attempted");
+                    log.error("One or more of the Patient Id values are null");
                 }
             } catch (Exception ex) {
                 log.error(ex.getMessage(), ex);
@@ -80,36 +66,46 @@ public class TrustMode implements ResponseMode {
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatId) {
         log.debug("begin processResponse");
 
-        PRPAIN201301UV02 requestPatient = null;
+        II remotePatId = getPatientId(response);
 
-        AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
-        AddPatientCorrelationSecuredResponseType responseType;
-        String url;
-
-        url = getPCUrl();
-
-        if (localPatId != null &&
-                NullChecker.isNotNullish(localPatId.getExtension()) &&
-                NullChecker.isNotNullish(localPatId.getRoot())) {
-            try {
-                requestPatient = mergeIds(createPRPA201301(response), localPatId);
-
-                if (requestPatient != null) {
-                    request.setPRPAIN201301UV02(requestPatient);
-                    PatientCorrelationSecuredPortType port = getPCPort(url, assertion);
-
-                    responseType = port.addPatientCorrelation(request);
-                } else {
-                    log.warn("Remote Patient Id was not included in the response, no correlation will be attempted");
-                }
-            } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
+        try {
+            if (localPatId != null &&
+                    remotePatId != null) {
+                sendToPatientCorrelationComponent(localPatId, remotePatId, assertion);
+            } else {
+                log.error("One or more of the Patient Id values are null");
             }
-        } else {
-            log.warn("Local Patient Id was not provided, no correlation will be attempted");
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
         }
 
         return response;
+    }
+
+    protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion) {
+        AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
+
+        if (localPatId != null &&
+                NullChecker.isNotNullish(localPatId.getRoot()) &&
+                NullChecker.isNotNullish(localPatId.getExtension()) &&
+                remotePatId != null &&
+                NullChecker.isNotNullish(remotePatId.getRoot()) &&
+                NullChecker.isNotNullish(remotePatId.getExtension())) {
+            QualifiedSubjectIdentifierType localId = new QualifiedSubjectIdentifierType();
+            localId.setAssigningAuthorityIdentifier(localPatId.getRoot());
+            localId.setSubjectIdentifier(localPatId.getExtension());
+            QualifiedSubjectIdentifierType remoteId = new QualifiedSubjectIdentifierType();
+            remoteId.setAssigningAuthorityIdentifier(remotePatId.getRoot());
+            remoteId.setSubjectIdentifier(remotePatId.getExtension());
+            request.getQualifiedPatientIdentifier().add(localId);
+            request.getQualifiedPatientIdentifier().add(remoteId);
+            request.setAssertion(assertion);
+
+            PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
+            PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
+            patCorrelationProxy.addPatientCorrelation(request);
+        }
+
     }
 
     protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request) {
@@ -122,6 +118,29 @@ public class TrustMode implements ResponseMode {
 
     protected II getPatientId(PRPAIN201305UV02 request) {
         return new PatientDiscovery201305Processor().extractPatientIdFrom201305(request);
+    }
+
+    protected II getPatientId(PRPAIN201306UV02 request) {
+        II patId = null;
+
+        if (request != null &&
+                request.getControlActProcess() != null &&
+                NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
+                request.getControlActProcess().getSubject().get(0) != null &&
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
+                NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+
+            patId = new II();
+            patId.setRoot(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
+            patId.setExtension(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
+        }
+
+        return patId;
     }
 
     protected Log createLogger() {
@@ -145,33 +164,6 @@ public class TrustMode implements ResponseMode {
             log.error(ex.getMessage(), ex);
         }
         return result;
-    }
-
-    protected PatientCorrelationSecuredPortType getPCPort(String url, AssertionType assertion) {
-        PatientCorrelationSecuredPortType port = service.getPatientCorrelationSecuredPort();
-
-        log.info("Setting endpoint address to Nhin Patient Corrleation Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-        SamlTokenCreator tokenCreator = new SamlTokenCreator();
-        Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PAT_CORR_ACTION);
-
-        ((BindingProvider) port).getRequestContext().putAll(requestContext);
-        return port;
-    }
-
-    private String getPCUrl() {
-        String url = null;
-
-
-        try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
-            log.error(ex.getMessage());
-        }
-
-
-        return url;
     }
 
     private PRPAIN201301UV02 mergeIds(PRPAIN201301UV02 patient, II localId) {
