@@ -364,7 +364,7 @@
   </target>
 
   <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
-    <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" />
+    <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
     <sun-appserv-admin 
         explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
         asinstalldir="${glassfish.home}"
