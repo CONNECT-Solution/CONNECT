@@ -114,7 +114,7 @@
 <threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.FindAuditEventsTransformHelper" linecount="33" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.InboundOutboundChecker" linecount="9" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.NotifyTransformHelper" linecount="15" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="124" branchrate="0.14516129032258066" branchsexecuted="0.18" class="gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper" linecount="162" linerate="0.2345679012345679" linesexecuted="0.38"/>
+<threshold branchcount="148" branchrate="0.13094594594594594" branchsexecuted="19.38" class="gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper" linecount="166" linerate="0.021566265060240963" linesexecuted="3.58"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.PurposeForUseHelper" linecount="16" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.SubjectAddedTransformHelper" linecount="34" linerate="0.0" linesexecuted="0"/>

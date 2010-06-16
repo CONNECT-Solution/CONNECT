@@ -127,7 +127,25 @@ public class PatientDiscoveryPolicyTransformHelper {
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(qualifiedPatientIdentifier.getExtension());
             log.debug("transformPatientDiscoveryNhincToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
             resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
-            resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(event.getAssertion().getHomeCommunity(), event.getAssertion())));
+
+            HomeCommunityType homeCommunityId = null;
+
+            if (event != null &&
+                    event.getPRPAIN201305UV02() != null &&
+                    NullChecker.isNotNullish(event.getPRPAIN201305UV02().getReceiver()) &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0) != null &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    NullChecker.isNotNullish(event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                    event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                homeCommunityId = new HomeCommunityType();
+                homeCommunityId.setHomeCommunityId(event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
+            }
+            resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, event.getAssertion())));
 
             request.getResource().add(resource);
         }

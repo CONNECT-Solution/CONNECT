@@ -4,7 +4,6 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -40,6 +39,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.xerces.dom.ElementNSImpl;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Ignore;
@@ -469,8 +469,8 @@ public class AssertionHelperTest {
     private void verifyUniquePatientId(AttributeType attr, String expectedPatId) {
 
         if (expectedPatId != null && !expectedPatId.isEmpty()) {
-            String patRoot = PatientIdFormatUtil.parsePatientId(expectedPatId);
-            String patExt = PatientIdFormatUtil.parseCommunityId(expectedPatId);
+            String patExt = PatientIdFormatUtil.parsePatientId(expectedPatId);
+            String patRoot = PatientIdFormatUtil.parseCommunityId(expectedPatId);
 
             for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
                 if (actAttrVal.getContent() != null && !actAttrVal.getContent().isEmpty()) {
@@ -1250,5 +1250,22 @@ public class AssertionHelperTest {
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
+    }
+
+    @Test
+    public void UniquePatientIdFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getUniquePatientId().get(0);
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", XacmlAttributeId.UniquePatientId, sourceValue, II_DATATYPE);
+    }
+
+    @Test
+    public void UniquePatientIdFromAssertionToXacmlWithNullValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getUniquePatientId().clear();
+        assertion.getUniquePatientId().add(null);
+        String sourceValue = assertion.getUniquePatientId().get(0);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", XacmlAttributeId.UniquePatientId, sourceValue, II_DATATYPE);
     }
 }
