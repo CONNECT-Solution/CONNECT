@@ -68,7 +68,7 @@ public class PatientDiscovery201305Processor {
                 II requestPatId = providedPatientId(request);
                 if (requestPatId != null) {
                     // Create a patient correlation
-                    createPatientCorrelation(response, requestPatId, assertion);
+                    createPatientCorrelation(response, patIdOverride, assertion, request);
                 }
             } else {
                 log.error("Policy Check Failed");
@@ -154,14 +154,13 @@ public class PatientDiscovery201305Processor {
         return queryResults;
     }
 
-    private void createPatientCorrelation(PRPAIN201306UV02 queryResult, II remotePatient, AssertionType assertion) {
+    private void createPatientCorrelation(PRPAIN201306UV02 queryResult, II localPatId, AssertionType assertion, PRPAIN201305UV02 query) {
         PRPAIN201301UV02 request = new PRPAIN201301UV02();
         String localAA = null;
-
         if (queryResult != null &&
-                remotePatient != null &&
-                NullChecker.isNotNullish(remotePatient.getRoot()) &&
-                NullChecker.isNotNullish(remotePatient.getExtension()) &&
+                localPatId != null &&
+                NullChecker.isNotNullish(localPatId.getRoot()) &&
+                NullChecker.isNotNullish(localPatId.getExtension()) &&
                 assertion != null) {
             if (queryResult.getControlActProcess() != null &&
                     NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject()) &&
@@ -174,7 +173,7 @@ public class PatientDiscovery201305Processor {
                     NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
                 localAA = queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
             }
-            request = HL7PRPA201301Transforms.createPRPA201301(queryResult, localAA);
+            request = HL7PRPA201301Transforms.createPRPA201301(query, localAA);
 
             if (request != null &&
                     request.getControlActProcess() != null &&
@@ -184,6 +183,10 @@ public class PatientDiscovery201305Processor {
                     request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
                     request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
                     NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+                // Need to Switch patient ids so the sender and reciever match.  This is to avoid an exception by the Patient Correlation Component
+                II remotePatient = request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0);
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localPatId);
                 request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(remotePatient);
 
                 PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
