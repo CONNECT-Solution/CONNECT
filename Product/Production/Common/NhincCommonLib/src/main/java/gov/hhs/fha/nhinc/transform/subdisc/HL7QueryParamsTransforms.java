@@ -12,6 +12,7 @@ import org.hl7.v3.CE;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.PNExplicit;
+import org.hl7.v3.PRPAMT201301UV02OtherIDs;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
@@ -23,7 +24,6 @@ import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.ST;
-import org.hl7.v3.TEL;
 import org.hl7.v3.TELExplicit;
 
 /**
@@ -51,33 +51,38 @@ public class HL7QueryParamsTransforms {
         JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
         PRPAMT201301UV02Person person = jaxbPerson.getValue();
 
-        // Set the Subject Gender Code  
-        if (person.getAdministrativeGenderCode() != null &&
+        // Set the Subject Gender Code
+        if (person != null &&
+                person.getAdministrativeGenderCode() != null &&
                 NullChecker.isNotNullish(person.getAdministrativeGenderCode().getCode())) {
             paramList.getLivingSubjectAdministrativeGender().add(createGender(person.getAdministrativeGenderCode().getCode()));
         }
 
         // Set the Subject Birth Time
-        if (person.getBirthTime() != null &&
+        if (person != null &&
+                person.getBirthTime() != null &&
                 NullChecker.isNotNullish(person.getBirthTime().getValue())) {
            paramList.getLivingSubjectBirthTime().add(createBirthTime(person.getBirthTime().getValue()));
         }
-        
+
         // Set the address
-        if(person.getAddr() != null &&
+        if(person != null &&
+                person.getAddr() != null &&
                 person.getAddr().size() > 0)
         {
             paramList.getPatientAddress().add(createAddress(person.getAddr()));
         }
 
         // Set telephone number
-        if(person.getTelecom()!=null &&
+        if(person != null &&
+                person.getTelecom()!=null &&
                 person.getTelecom().size() > 0)
         {
             paramList.getPatientTelecom().add(createTelecom(person.getTelecom()));
         }
         // Set the Subject Name
-        if (person.getName() != null &&
+        if (person != null &&
+                person.getName() != null &&
                 person.getName().size() > 0) {
            paramList.getLivingSubjectName().add(createName(person.getName()));
         }
@@ -88,6 +93,16 @@ public class HL7QueryParamsTransforms {
                 patient.getId().size() > 0 &&
                 patient.getId().get(0) != null) {
             paramList.getLivingSubjectId().add(createSubjectId(patient.getId().get(0)));
+        }
+
+        // Set the other ids
+        if (person != null &&
+                NullChecker.isNotNullish(person.getAsOtherIDs())) {
+            for (PRPAMT201301UV02OtherIDs otherId : person.getAsOtherIDs()) {
+                for (II id : otherId.getId()) {
+                    paramList.getLivingSubjectId().add(createSubjectId(id));
+                }
+            }
         }
 
         return paramList;

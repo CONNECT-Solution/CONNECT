@@ -5,8 +5,12 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import javax.xml.bind.JAXBElement;
 import org.hl7.v3.II;
 import org.hl7.v3.CS;
+import org.hl7.v3.MCCIMT000100UV01Agent;
+import org.hl7.v3.MCCIMT000100UV01Organization;
+import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -124,7 +128,9 @@ public class HL7PRPA201301Transforms {
         result.setVersionCode(original.getVersionCode());
 
         result = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(original, result);
-        result = HL7ArrayTransforms.copyMCCIMT000100UV01Receiver(original, result);
+        for (MCCIMT000100UV01Receiver receiver : original.getReceiver()) {
+            result.getReceiver().add(receiver);
+        }
 
         result.setSecurityText(original.getSecurityText());
         result.setSender(original.getSender());
@@ -208,9 +214,8 @@ public class HL7PRPA201301Transforms {
                 original.getSubject().get(0).getRegistrationEvent() != null &&
                 original.getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
                 original.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
-        patient = HL7PatientTransforms.createPRPAMT201301UVPatient(original.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
-        }
-        else {
+            patient = HL7PatientTransforms.createPRPAMT201301UVPatient(original.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
+        } else {
             patient = null;
         }
 
@@ -239,10 +244,21 @@ public class HL7PRPA201301Transforms {
         result.setText(original.getText());
         result.setTypeId(original.getTypeId());
 
+        String localAAId = null;
         if (original.getAuthorOrPerformer() != null) {
             for (MFMIMT700711UV01AuthorOrPerformer item : original.getAuthorOrPerformer()) {
                 MFMIMT700701UV01AuthorOrPerformer newItem = copyAuthorOrPerformer(item);
                 result.getAuthorOrPerformer().add(newItem);
+
+                // Extract the local assigning authority id
+                if (newItem != null &&
+                        newItem.getAssignedDevice() != null &&
+                        newItem.getAssignedDevice().getValue() != null &&
+                        NullChecker.isNotNullish(newItem.getAssignedDevice().getValue().getId()) &&
+                        newItem.getAssignedDevice().getValue().getId().get(0) != null &&
+                        NullChecker.isNotNullish(newItem.getAssignedDevice().getValue().getId().get(0).getRoot())) {
+                    localAAId = newItem.getAssignedDevice().getValue().getId().get(0).getRoot();
+                }
             }
         }
         if (original.getId() != null) {
@@ -264,7 +280,7 @@ public class HL7PRPA201301Transforms {
 
         params = original.getQueryByParameter().getValue();
 
-        patient = HL7PatientTransforms.create201301Patient(params.getParameterList());
+        patient = HL7PatientTransforms.create201301Patient(params.getParameterList(), localAAId);
 
         result.getSubject().add(createPRPAIN201301UVMFMIMT700701UV01Subject1(patient, localDeviceId));
 
@@ -310,74 +326,6 @@ public class HL7PRPA201301Transforms {
 
         return result;
     }
-    /*
-    public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyControlActProcess(PRPAIN201306UV02MFMIMT700711UV01ControlActProcess original, String localDeviceId)
-    {
-    if (original == null)
-    {
-    return null;
-    }
-    PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
-
-    result.setClassCode(original.getClassCode());
-    result.setCode(original.getCode());
-    result.setEffectiveTime(original.getEffectiveTime());
-    result.setLanguageCode(original.getLanguageCode());
-    result.setMoodCode(original.getMoodCode());
-    result.setText(original.getText());
-    result.setTypeId(original.getTypeId());
-
-
-    if(original.getAuthorOrPerformer() != null)
-    {
-    for(MFMIMT700711UV01AuthorOrPerformer item : original.getAuthorOrPerformer())
-    {
-    MFMIMT700701UV01AuthorOrPerformer newItem = copyAuthorOrPerformer(item);
-    result.getAuthorOrPerformer().add(newItem);
-    }
-    }
-    if(original.getId() != null)
-    {
-    result.getId().clear();
-    for(II item : original.getId())
-    {
-    result.getId().add(item);
-    }
-    }
-    if(original.getDataEnterer() !=null)
-    {
-    result.getDataEnterer().clear();
-    for(MFMIMT700711UV01DataEnterer item : original.getDataEnterer())
-    {
-    MFMIMT700701UV01DataEnterer newItem = copyDataEnterer(item);
-    result.getDataEnterer().add(newItem);
-    }
-    }
-
-    if(original.getRealmCode() != null)
-    {
-    for(CS item : original.getRealmCode())
-    {
-    result.getRealmCode().add(item);
-    }
-    }
-    if(original.getInformationRecipient() != null)
-    {
-
-    }
-    result = HL7ArrayTransforms.copyNullFlavors(original, result);
-    PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(original.getQueryByParameter().getValue().getParameterList());
-
-    PRPAIN201301UV02MFMIMT700701UV01Subject1 subj1;
-
-    subj1 =createPRPAIN201301UVMFMIMT700701UV01Subject1(patient,"123");
-
-    result.getSubject().add(subj1);
-
-    return result;
-    }
-
-    /*/
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyControlActProcess(PRPAIN201305UV02QUQIMT021001UV01ControlActProcess original, String localDeviceId) {
         if (original == null) {
@@ -393,7 +341,18 @@ public class HL7PRPA201301Transforms {
         result.setText(original.getText());
         result.setTypeId(original.getTypeId());
 
+       String originalAAId = null;
+
         if (original.getAuthorOrPerformer() != null) {
+            if (original.getAuthorOrPerformer().get(0) != null &&
+                    original.getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
+                    original.getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
+                    NullChecker.isNotNullish(original.getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
+                    original.getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(original.getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
+                originalAAId = original.getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+            }
+
             for (QUQIMT021001UV01AuthorOrPerformer item : original.getAuthorOrPerformer()) {
                 MFMIMT700701UV01AuthorOrPerformer newItem = copyAuthorOrPerformer(item);
                 result.getAuthorOrPerformer().add(newItem);
@@ -422,7 +381,7 @@ public class HL7PRPA201301Transforms {
         }
         result = HL7ArrayTransforms.copyNullFlavors(original, result);
 
-        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(original.getQueryByParameter().getValue().getParameterList());
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(original.getQueryByParameter().getValue().getParameterList(), originalAAId);
 
         result.getSubject().add(createPRPAIN201301UVMFMIMT700701UV01Subject1(patient, localDeviceId));
 
@@ -539,6 +498,22 @@ public class HL7PRPA201301Transforms {
                 newDevice.setSoftwareName(orig.getDevice().getSoftwareName());
                 newDevice.setTypeId(orig.getDevice().getTypeId());
                 newDevice.getId().add(orig.getDevice().getId().get(0));
+                
+                MCCIMT000100UV01Agent newAgent = new MCCIMT000100UV01Agent();
+                MCCIMT000100UV01Organization newOrg = new MCCIMT000100UV01Organization();
+                newOrg.setClassCode(HL7Constants.ORG_CLASS_CODE);
+                newOrg.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
+                newOrg.getId().add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+
+                javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+                JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg, MCCIMT000100UV01Organization.class, newOrg);
+                newAgent.setRepresentedOrganization(orgElem);
+                newAgent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
+
+                javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+                JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent, MCCIMT000100UV01Agent.class, newAgent);
+
+                newDevice.setAsAgent(agentElem);
                 result.setDevice(newDevice);
             }
 

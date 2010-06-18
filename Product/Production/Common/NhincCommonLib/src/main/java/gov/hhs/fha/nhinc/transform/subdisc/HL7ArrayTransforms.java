@@ -4,6 +4,7 @@
  */
 
 package gov.hhs.fha.nhinc.transform.subdisc;
+import javax.xml.bind.JAXBElement;
 import org.hl7.v3.MFMIMT700701UV01DataEnterer;
 import org.hl7.v3.MFMIMT700711UV01DataEnterer;
 import org.hl7.v3.QUQIMT021001UV01DataEnterer;
@@ -28,9 +29,9 @@ import org.hl7.v3.ENExplicit;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.II;
 import org.hl7.v3.CS;
-import org.hl7.v3.CommunicationFunctionType;
-import org.hl7.v3.EntityClassDevice;
+import org.hl7.v3.MCCIMT000100UV01Agent;
 import org.hl7.v3.MCCIMT000100UV01Device;
+import org.hl7.v3.MCCIMT000100UV01Organization;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
@@ -306,8 +307,22 @@ public class HL7ArrayTransforms
             newDevice.setSoftwareName(orig.getDevice().getSoftwareName());
             newDevice.setTypeId(orig.getDevice().getTypeId());
 
-            if(orig.getDevice() != null && orig.getDevice().getId().size() >0)
-            {
+            MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
+            MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
+            org.setClassCode(HL7Constants.ORG_CLASS_CODE);
+            org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
+            org.getId().add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+
+            javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+            JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg, MCCIMT000100UV01Organization.class, org);
+            agent.setRepresentedOrganization(orgElem);
+            agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
+
+            javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+            JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent, MCCIMT000100UV01Agent.class, agent);
+            newDevice.setAsAgent(agentElem);
+
+            if (orig.getDevice() != null && orig.getDevice().getId().size() > 0) {
                 II deviceId = orig.getDevice().getId().get(0);
                 newDevice.getId().add(deviceId);
             }

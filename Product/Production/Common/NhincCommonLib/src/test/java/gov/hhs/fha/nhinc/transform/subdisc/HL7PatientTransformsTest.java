@@ -167,7 +167,7 @@ public class HL7PatientTransformsTest {
         String gender = "MALE";
         value.getLivingSubjectAdministrativeGender().add(HL7QueryParamsTransforms.createGender(gender));
 
-        PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value);
+        PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value, null);
 
         TestHelper.assertGenderEquals(gender, result.getPatientPerson().getValue().getAdministrativeGenderCode());
 
@@ -183,7 +183,7 @@ public class HL7PatientTransformsTest {
 
         value.getPatientTelecom().add(HL7QueryParamsTransforms.createTelecom(phoneList));
 
-        PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value);
+        PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value, null);
 
         assertEquals(1,result.getPatientPerson().getValue().getTelecom().size());
         assertEquals(phoneNumber,result.getPatientPerson().getValue().getTelecom().get(0).getValue());
@@ -206,7 +206,7 @@ public class HL7PatientTransformsTest {
 
         value.getPatientAddress().add(patAddr);
 
-        PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value);
+        PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value, null);
 
         assertEquals(1, result.getPatientPerson().getValue().getAddr().size());
         assertEquals(addrObject, result.getPatientPerson().getValue().getAddr().get(0));

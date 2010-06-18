@@ -338,16 +338,43 @@ public class PatientDiscoveryPolicyTransformHelper {
 
     private static II extractPatientIdentifier(PRPAIN201305UV02 message) {
         II ii = null;
+        String assigningAuthority = null;
+
+        if (message != null &&
+                message.getControlActProcess() != null &&
+                NullChecker.isNotNullish(message.getControlActProcess().getAuthorOrPerformer()) &&
+                message.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
+                message.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
+                message.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
+                NullChecker.isNotNullish(message.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
+                message.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(message.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
+            assigningAuthority = message.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+        }
 
         if ((message != null) && (message.getControlActProcess() != null) && (message.getControlActProcess().getQueryByParameter() != null)) {
             JAXBElement<PRPAMT201306UV02QueryByParameter> queryParam = message.getControlActProcess().getQueryByParameter();
             PRPAMT201306UV02QueryByParameter queryParam201306 = queryParam.getValue();
             if (queryParam201306.getParameterList() != null && queryParam201306.getParameterList().getLivingSubjectId() != null) {
                 List<PRPAMT201306UV02LivingSubjectId> livingSubjectIdList = queryParam201306.getParameterList().getLivingSubjectId();
-                if (livingSubjectIdList != null) {
-                    List<II> patinetIdList = livingSubjectIdList.get(0).getValue();
-                    if (patinetIdList != null) {
-                        ii = patinetIdList.get(0);
+                if (NullChecker.isNotNullish(livingSubjectIdList)) {
+                    for (PRPAMT201306UV02LivingSubjectId livingSubId : livingSubjectIdList) {
+                        for (II id : livingSubId.getValue()) {
+                            if (id != null &&
+                                    NullChecker.isNotNullish(id.getExtension()) &&
+                                    NullChecker.isNotNullish(id.getRoot()) &&
+                                    id.getRoot().equalsIgnoreCase(assigningAuthority)) {
+                                ii = id;
+
+                                // Break out of the inner loop
+                                break;
+                            }
+                        }
+
+                        // If the id was found break out of the outer loop
+                        if (ii != null) {
+                            break;
+                        }
                     }
                 }
             }

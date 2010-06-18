@@ -53,9 +53,12 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
     @Before
     public void setUp() {
-        context = new Mockery(){{
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }};
+        context = new Mockery() {
+
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
     }
 
     @After
@@ -66,12 +69,14 @@ public class PatientDiscoveryPolicyTransformHelperTest {
     public void testTransformPatientDiscoveryEntityToCheckPolicyWillFailForNullRequest() {
         final Log mockLogger = context.mock(Log.class);
         PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
+
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
         };
         context.checking(new Expectations() {
+
             {
                 exactly(1).of(mockLogger).debug(with(any(String.class)));
                 //Input Request Object can not be null
@@ -86,25 +91,27 @@ public class PatientDiscoveryPolicyTransformHelperTest {
     @Test
     public void testTransformPatientDiscoveryEntityToCheckPolicyWillPass() {
         final Log mockLogger = context.mock(Log.class);
-        
+
         RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
         PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         II patId = new II();
         patId.setExtension("1234");
-        patId.setRoot("1.1");
+        patId.setRoot("1.1.1");
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "0101195", "123456789");
         patient = HL7PatientTransforms.create201301Patient(person, patId);
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
         event.setPRPAIN201305UV02(msg);
         event.setAssertion(new AssertionType());
-       
+
         PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
+
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
         };
         context.checking(new Expectations() {
+
             {
                 allowing(mockLogger).debug(with(any(String.class)));
                 will(returnValue(with(any(CheckPolicyRequestType.class))));
@@ -119,7 +126,40 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         assertNotNull(result.getRequest().getSubject());
         assertEquals(1, result.getRequest().getSubject().size());
         verifyHomeCommunityId(result, "2.2");
+        verifyPatientId(result, patId);
+    }
 
+    @Test
+    public void testTransformPatientDiscoveryEntityToCheckPolicyNoPatId() {
+        final Log mockLogger = context.mock(Log.class);
+
+        RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
+        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
+        II patId = null;
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "0101195", null);
+        patient = HL7PatientTransforms.create201301Patient(person, patId);
+        PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
+        event.setPRPAIN201305UV02(msg);
+        event.setAssertion(new AssertionType());
+
+        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                will(returnValue(with(any(CheckPolicyRequestType.class))));
+            }
+        });
+        CheckPolicyRequestType result = testSubject.transformPatientDiscoveryEntityToCheckPolicy(event);
+        context.assertIsSatisfied();
+        assertNotNull(result);
+        verifyNoPatientId(result);
     }
 
     @Test
@@ -129,22 +169,25 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
         getHomeCommunityType(event);
         PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
+
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
         };
-        context.checking(new Expectations(){{
-            exactly(2).of(mockLogger).debug(with(any(String.class)));
-            will(returnValue(with(any(RequestType.class))));
-        }});
+        context.checking(new Expectations() {
+
+            {
+                exactly(2).of(mockLogger).debug(with(any(String.class)));
+                will(returnValue(with(any(RequestType.class))));
+            }
+        });
         testSubject.getRequestType(event);
         context.assertIsSatisfied();
     }
 
     @Test
-    public void testGetHomeCommunityFrom201305()
-    {
+    public void testGetHomeCommunityFrom201305() {
         RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
         HomeCommunityType expectedReturnvalue = getHomeCommunityType(event);
         PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper();
@@ -180,14 +223,14 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         return expectedReturnvalue;
     }
 
-    private void verifyHomeCommunityId (CheckPolicyRequestType result, String hcid) {
+    private void verifyHomeCommunityId(CheckPolicyRequestType result, String hcid) {
         assertNotNull(result.getRequest().getResource().get(0).getAttribute());
 
         boolean match = false;
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
             if (attr.getAttributeId().equalsIgnoreCase(Constants.HomeCommunityAttributeId)) {
-                if (((String)attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(hcid)) {
+                if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(hcid)) {
                     match = true;
                     break;
                 }
@@ -197,7 +240,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         assertEquals(true, match);
     }
 
-    private void verifyPatientId (CheckPolicyRequestType result, II patId) {
+    private void verifyPatientId(CheckPolicyRequestType result, II patId) {
         assertNotNull(result.getRequest().getResource().get(0).getAttribute());
 
         boolean aaMatch = false;
@@ -205,7 +248,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
             if (attr.getAttributeId().equalsIgnoreCase(Constants.AssigningAuthorityAttributeId)) {
-                if (((String)attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId.getRoot())) {
+                if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId.getRoot())) {
                     aaMatch = true;
                     break;
                 }
@@ -214,7 +257,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
             if (attr.getAttributeId().equalsIgnoreCase(Constants.ResourceIdAttributeId)) {
-                if (((String)attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId.getExtension())) {
+                if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId.getExtension())) {
                     patIdMatch = true;
                     break;
                 }
@@ -223,5 +266,29 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
         assertEquals(true, aaMatch);
         assertEquals(true, patIdMatch);
+    }
+
+    private void verifyNoPatientId(CheckPolicyRequestType result) {
+        assertNotNull(result.getRequest().getResource().get(0).getAttribute());
+
+        boolean aaMatch = false;
+        boolean patIdMatch = false;
+
+        for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.AssigningAuthorityAttributeId)) {
+                aaMatch = true;
+                break;
+            }
+        }
+
+        for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.ResourceIdAttributeId)) {
+                patIdMatch = true;
+                break;
+            }
+        }
+
+        assertEquals(false, aaMatch);
+        assertEquals(false, patIdMatch);
     }
 }
