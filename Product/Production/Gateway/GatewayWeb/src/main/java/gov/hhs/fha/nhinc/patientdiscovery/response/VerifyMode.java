@@ -87,10 +87,6 @@ public class VerifyMode implements ResponseMode {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected PRPAMT201301UV02Patient getPatient(PRPAMT201306UV02ParameterList paramList) {
-        return HL7PatientTransforms.create201301Patient(paramList);
-    }
-
     protected String getLocalHomeCommunityId() {
         String result = "";
 
@@ -102,7 +98,7 @@ public class VerifyMode implements ResponseMode {
         return result;
     }
 
-    private String getSenderCommunityId (PRPAIN201306UV02 response) {
+    private String getSenderCommunityId(PRPAIN201306UV02 response) {
         String hcid = null;
 
         if (response != null &&
@@ -158,6 +154,7 @@ public class VerifyMode implements ResponseMode {
         List<II> mpiIds;
         List<PRPAMT201306UV02LivingSubjectId> requestIds;
 
+        // Check to see if a patient id was specified in the original request
         mpiQuery = convert201306to201305(response);
 
         if (query != null &&
@@ -168,56 +165,33 @@ public class VerifyMode implements ResponseMode {
                 NullChecker.isNotNullish(query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
             requestIds = query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
         } else {
+            log.debug("There was no patient id specified in the original request message, bypassing MPI check and returning false");
             requestIds = null;
         }
 
-        if (mpiQuery != null &&
-                mpiQuery.getControlActProcess() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter().getValue() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null) {
+        log.debug("original Request Ids " + requestIds.size());
 
-            if (NullChecker.isNotNullish(mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
-            }
+        PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
-            PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
+        if (mpiResult != null) {
+            try {
+                log.debug("Received result from mpi.");
+                mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
+                for (PRPAMT201306UV02LivingSubjectId livingPatId : requestIds) {
+                    for (II id : livingPatId.getValue()) {
+                        boolean result = compareId(mpiIds.get(0), id);
 
-            if (mpiResult != null &&
-                    mpiResult.getControlActProcess() != null &&
-                    NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject()) &&
-                    mpiResult.getControlActProcess().getSubject().get(0) != null &&
-                    mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                    mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                    mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                    NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
-                try {
-                    log.debug("Received result from mpi.");
-                    mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
-
-                    if (NullChecker.isNotNullish(requestIds)) {
-                        if (mpiIds.get(0) != null &&
-                                requestIds.get(0) != null &&
-                                NullChecker.isNotNullish(requestIds.get(0).getValue()) &&
-                                requestIds.get(0).getValue().get(0) != null) {
-                            boolean result = compareId(mpiIds.get(0), requestIds.get(0).getValue().get(0));
-
-                            if (result == true) {
-                                patId = mpiIds.get(0);
-                            }
+                        if (result == true) {
+                            patId = mpiIds.get(0);
+                        } else {
+                            // If there was no Living Subject Id from the original message, but a match was found in the MPI query then use the
+                            // id returned from the MPI.
+                            patId = mpiIds.get(0);
                         }
-                    } else {
-                        // If there was no Living Subject Id from the original message, but a match was found in the MPI query then use the
-                        // id returned from the MPI.
-                        patId = mpiIds.get(0);
                     }
-                } catch (Exception ex) {
-                    log.error(ex.getMessage(), ex);
-                    patId = null;
                 }
-            }
-            else {
-                log.warn("Patient was not found in local MPI");
+            } catch (Exception ex) {
+                log.error(ex.getMessage(), ex);
                 patId = null;
             }
         }
@@ -234,12 +208,16 @@ public class VerifyMode implements ResponseMode {
                     if (compareId(localId, remoteId)) {
                         result = true;
                         break;
+
                     }
+
+
                 }
             }
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
+
         return result;
     }
 
@@ -251,7 +229,10 @@ public class VerifyMode implements ResponseMode {
                 if (compareId(localII, remoteII)) {
                     result = true;
                     break;
+
                 }
+
+
             }
         }
         return result;
@@ -269,6 +250,7 @@ public class VerifyMode implements ResponseMode {
                     remoteId.getRoot().equalsIgnoreCase(localRoot)) {
                 result = true;
             }
+
         }
 
         return result;
@@ -282,7 +264,8 @@ public class VerifyMode implements ResponseMode {
             AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
-            queryResults = mpiProxy.findCandidates(query, assertion);
+            queryResults =
+                    mpiProxy.findCandidates(query, assertion);
 
         } else {
             log.error("MPI Request is null");
@@ -303,31 +286,40 @@ public class VerifyMode implements ResponseMode {
         JAXBElement<PRPAMT201306UV02QueryByParameter> jaxbParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, result);
 
 
+
+
+
+
         return jaxbParams;
     }
 
-    private PRPAMT201306UV02ParameterList copyParameterList(PRPAMT201306UV02ParameterList input) {
+    private PRPAMT201306UV02ParameterList copyParameterList(
+            PRPAMT201306UV02ParameterList input) {
         PRPAMT201306UV02ParameterList result = new PRPAMT201306UV02ParameterList();
 
         for (PRPAMT201306UV02LivingSubjectAdministrativeGender gender : input.getLivingSubjectAdministrativeGender()) {
             result.getLivingSubjectAdministrativeGender().add(gender);
         }
+
         for (PRPAMT201306UV02LivingSubjectBirthPlaceAddress birthPlace : input.getLivingSubjectBirthPlaceAddress()) {
             result.getLivingSubjectBirthPlaceAddress().add(birthPlace);
         }
+
         for (PRPAMT201306UV02LivingSubjectBirthPlaceName birthPlaceName : input.getLivingSubjectBirthPlaceName()) {
             result.getLivingSubjectBirthPlaceName().add(birthPlaceName);
         }
+
         for (PRPAMT201306UV02LivingSubjectBirthTime birthTime : input.getLivingSubjectBirthTime()) {
             result.getLivingSubjectBirthTime().add(birthTime);
         }
+
         for (PRPAMT201306UV02LivingSubjectName subjectName : input.getLivingSubjectName()) {
             result.getLivingSubjectName().add(subjectName);
         }
+
         for (PRPAMT201306UV02MothersMaidenName motherName : input.getMothersMaidenName()) {
             result.getMothersMaidenName().add(motherName);
         }
-
 
         result.setId(input.getId());
 

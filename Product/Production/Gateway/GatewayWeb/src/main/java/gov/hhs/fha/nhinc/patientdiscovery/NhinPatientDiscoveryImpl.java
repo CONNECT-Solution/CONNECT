@@ -28,15 +28,13 @@ public class NhinPatientDiscoveryImpl {
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, WebServiceContext context) {
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
-        PRPAIN201306UV02 response = new PRPAIN201306UV02();
-
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Audit the incoming Nhin 201305 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
-        response = respondingGatewayPRPAIN201305UV02(body, assertion);
+        PRPAIN201306UV02 response = respondingGatewayPRPAIN201305UV02(body, assertion);
 
         // Audit the responding 201306 Message
         ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);

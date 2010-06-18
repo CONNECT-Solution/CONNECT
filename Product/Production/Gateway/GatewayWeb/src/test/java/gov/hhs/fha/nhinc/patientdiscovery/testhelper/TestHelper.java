@@ -12,6 +12,7 @@ import org.hl7.v3.MCCIMT000200UV01AcknowledgementDetail;
 import org.hl7.v3.MCCIMT000200UV01TargetMessage;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import static org.junit.Assert.*;
 
 /**
@@ -143,6 +144,27 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess());
         assertNotNull(message.getControlActProcess().getSubject());
         assertEquals(0, message.getControlActProcess().getSubject().size());
+    }
+
+    public static void assertSSNEquals(String ssn, PRPAIN201305UV02 message) {
+        assertNotNull(message);
+        assertNotNull(message.getControlActProcess());
+        assertNotNull(message.getControlActProcess().getQueryByParameter());
+        assertNotNull(message.getControlActProcess().getQueryByParameter().getValue());
+        assertNotNull(message.getControlActProcess().getQueryByParameter().getValue().getParameterList());
+        assertNotNull(message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId());
+
+        boolean match = false;
+
+        for (PRPAMT201306UV02LivingSubjectId livingSubId : message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+            for (II subId : livingSubId.getValue()) {
+                if (subId.getRoot().equalsIgnoreCase("2.16.840.1.113883.4.1") && subId.getExtension().equalsIgnoreCase(ssn)) {
+                    match = true;
+                }
+            }
+        }
+
+        assertEquals (true, match);
     }
 
 }

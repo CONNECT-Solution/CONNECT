@@ -70,6 +70,7 @@ public class VerifyModeTest {
         assertNotNull (result);
         TestHelper.assertReceiverEquals("1.1", msg);
         TestHelper.assertSenderEquals("2.2", msg);
+        TestHelper.assertSSNEquals("123456789", msg);
     }
 
 }

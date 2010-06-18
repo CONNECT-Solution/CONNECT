@@ -9,15 +9,13 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201301UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientcorrelation.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -49,7 +47,7 @@ public class TrustMode implements ResponseMode {
 
                 if (localPatId != null &&
                         remotePatId != null) {
-                    sendToPatientCorrelationComponent(localPatId, remotePatId, assertion);
+                    sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
                 } else {
                     log.error("One or more of the Patient Id values are null");
                 }
@@ -71,7 +69,7 @@ public class TrustMode implements ResponseMode {
         try {
             if (localPatId != null &&
                     remotePatId != null) {
-                sendToPatientCorrelationComponent(localPatId, remotePatId, assertion);
+                sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
             } else {
                 log.error("One or more of the Patient Id values are null");
             }
@@ -82,8 +80,8 @@ public class TrustMode implements ResponseMode {
         return response;
     }
 
-    protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion) {
-        AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
+    protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion, PRPAIN201306UV02 response) {
+        PRPAIN201301UV02 request = new PRPAIN201301UV02();
 
         if (localPatId != null &&
                 NullChecker.isNotNullish(localPatId.getRoot()) &&
@@ -91,21 +89,24 @@ public class TrustMode implements ResponseMode {
                 remotePatId != null &&
                 NullChecker.isNotNullish(remotePatId.getRoot()) &&
                 NullChecker.isNotNullish(remotePatId.getExtension())) {
-            QualifiedSubjectIdentifierType localId = new QualifiedSubjectIdentifierType();
-            localId.setAssigningAuthorityIdentifier(localPatId.getRoot());
-            localId.setSubjectIdentifier(localPatId.getExtension());
-            QualifiedSubjectIdentifierType remoteId = new QualifiedSubjectIdentifierType();
-            remoteId.setAssigningAuthorityIdentifier(remotePatId.getRoot());
-            remoteId.setSubjectIdentifier(remotePatId.getExtension());
-            request.getQualifiedPatientIdentifier().add(localId);
-            request.getQualifiedPatientIdentifier().add(remoteId);
-            request.setAssertion(assertion);
+            request = HL7PRPA201301Transforms.createPRPA201301(response, localPatId.getRoot());
 
-            PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
-            PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
-            patCorrelationProxy.addPatientCorrelation(request);
+            if (request != null &&
+                    request.getControlActProcess() != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
+                    request.getControlActProcess().getSubject().get(0) != null &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localPatId);
+
+                PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
+                PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
+                patCorrelationProxy.addPatientCorrelation(request, assertion, null);
+            }
         }
-
     }
 
     protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request) {
