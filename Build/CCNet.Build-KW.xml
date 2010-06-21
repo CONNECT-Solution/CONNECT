@@ -162,7 +162,7 @@
           <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Klocwork\AntLogs\*.xml</file>
         </files>
       </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test3">
         <filepairs>
           <filepair>
             <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
@@ -254,7 +254,7 @@
           <target>Performance.Test</target>
         </targetList>
 
-        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
+        <buildTimeoutSeconds>18000</buildTimeoutSeconds>
       </nant>
     </tasks>
     <publishers>
@@ -265,7 +265,7 @@
           <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Performance-Test\AntLogs\*.xml</file>
         </files>
       </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test2">
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test3">
         <filepairs>
           <filepair>
             <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
