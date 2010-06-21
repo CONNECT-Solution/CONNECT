@@ -170,29 +170,31 @@ public class VerifyMode implements ResponseMode {
             requestIds = null;
         }
 
-       
-        PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
+        // Only query the MPI and attempt a correlation if a Patient Id was present in the original message.
+        if (requestIds != null) {
+            PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
-        if (mpiResult != null) {
-            try {
-                log.debug("Received result from mpi.");
-                mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
-                for (PRPAMT201306UV02LivingSubjectId livingPatId : requestIds) {
-                    for (II id : livingPatId.getValue()) {
-                        boolean result = compareId(mpiIds.get(0), id);
+            if (mpiResult != null) {
+                try {
+                    log.debug("Received result from mpi.");
+                    mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
+                    for (PRPAMT201306UV02LivingSubjectId livingPatId : requestIds) {
+                        for (II id : livingPatId.getValue()) {
+                            boolean result = compareId(mpiIds.get(0), id);
 
-                        if (result == true) {
-                            patId = mpiIds.get(0);
-                        } else {
-                            // If there was no Living Subject Id from the original message, but a match was found in the MPI query then use the
-                            // id returned from the MPI.
-                            patId = mpiIds.get(0);
+                            if (result == true) {
+                                patId = mpiIds.get(0);
+                            } else {
+                                // If there was no Living Subject Id from the original message, but a match was found in the MPI query then use the
+                                // id returned from the MPI.
+                                patId = mpiIds.get(0);
+                            }
                         }
                     }
+                } catch (Exception ex) {
+                    log.error(ex.getMessage(), ex);
+                    patId = null;
                 }
-            } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
-                patId = null;
             }
         }
 
