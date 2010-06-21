@@ -27,15 +27,6 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY KlocworkBuilding '<projectFilter
-               serverUri="&Klocwork.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Klocwork">
-            <exclusionFilters>
-              <activities>
-                <activity>Building</activity>
-              </activities>
-            </exclusionFilters>
-          </projectFilter>'>
   <!ENTITY PerformanceTestBuilding '<projectFilter
                 serverUri="&Klocwork.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Performance-Test">
@@ -56,7 +47,6 @@
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &KlocworkBuilding;
           &PerformanceTestBuilding;
         </projectFilters>
       </projectTriggerFilter>
@@ -64,7 +54,6 @@
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
-          &KlocworkBuilding;
           &PerformanceTestBuilding;
         </projectFilters>
       </projectForceFilter>
@@ -96,94 +85,6 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Klocwork">
-    <webURL>&Klocwork.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers/>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &PerformanceTestBuilding;
-        </projectFilters>
-      </projectForceFilter>
-      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="true" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false" >
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="remoteProjectLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
-      <serverUri>tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
-    </labeller>
-    <tasks>
-      <modificationWriter>
-        <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Klocwork</path>
-      </modificationWriter>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>Klocwork</target>
-        </targetList>
-        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Klocwork\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Klocwork\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Klocwork\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test3">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Klocwork\UnitTestReports\*.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Performance-Test">
     <webURL>&Klocwork.Dashboard.Url;</webURL>
     <state type="state" />
@@ -199,7 +100,6 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &KlocworkBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -207,7 +107,6 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &KlocworkBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
