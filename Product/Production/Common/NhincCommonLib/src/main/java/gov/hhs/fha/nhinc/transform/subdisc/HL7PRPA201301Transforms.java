@@ -343,7 +343,7 @@ public class HL7PRPA201301Transforms {
 
        String originalAAId = null;
 
-        if (original.getAuthorOrPerformer() != null) {
+        if (NullChecker.isNotNullish(original.getAuthorOrPerformer())) {
             if (original.getAuthorOrPerformer().get(0) != null &&
                     original.getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
                     original.getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
