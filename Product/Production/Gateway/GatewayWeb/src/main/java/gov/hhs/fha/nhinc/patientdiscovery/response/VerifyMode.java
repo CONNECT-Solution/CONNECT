@@ -106,16 +106,30 @@ public class VerifyMode implements ResponseMode {
     }
 
     protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response) {
-        PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
-        return HL7PatientTransforms.createPRPAMT201301UVPatient(remotePatient);
+        PRPAMT201301UV02Patient patient = null;
+
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
+                response.getControlActProcess().getSubject().get(0) != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
+            PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+            patient = HL7PatientTransforms.createPRPAMT201301UVPatient(remotePatient);
+        }
+
+        return patient;
     }
 
     protected PRPAIN201305UV02 convert201306to201305(PRPAIN201306UV02 response) {
-        PRPAIN201305UV02 result;
+        PRPAIN201305UV02 result = null;
         String localHCID = getLocalHomeCommunityId();
         String remoteHCID = getSenderCommunityId(response);
         PRPAMT201301UV02Patient patient = extractPatient(response);
-        result = HL7PRPA201305Transforms.createPRPA201305(patient, remoteHCID, localHCID, localHCID);
+        if (patient != null) {
+            result = HL7PRPA201305Transforms.createPRPA201305(patient, remoteHCID, localHCID, localHCID);
+        }
 
         return result;
     }
