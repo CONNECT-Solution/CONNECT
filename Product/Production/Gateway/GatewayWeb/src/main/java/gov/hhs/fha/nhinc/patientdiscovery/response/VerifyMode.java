@@ -164,13 +164,13 @@ public class VerifyMode implements ResponseMode {
                 query.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
                 NullChecker.isNotNullish(query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
             requestIds = query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
+            log.debug("original Request Ids " + requestIds.size());
         } else {
             log.debug("There was no patient id specified in the original request message, bypassing MPI check and returning false");
             requestIds = null;
         }
 
-        log.debug("original Request Ids " + requestIds.size());
-
+       
         PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
         if (mpiResult != null) {
