@@ -12,10 +12,8 @@
         <call target="SoapUI::SoapUI.RunTests"/>
       </try>
       <finally>
-        <call target="SoapUI.RunTests.Log.Backup"/>
         <call target="GlassFish.StopServer"/>
-        <call target="SoapUI.RunTests.Log.Clean"/>
-        <call target="GlassFish.StartServer"/>
+        <call target="SoapUI.RunTests.Log.Backup"/>
       </finally>
     </trycatch>
   </target>
@@ -33,14 +31,12 @@
         <call target="SoapUI::SoapUI.Performance.RunTests"/>
       </try>
       <finally>
-        <call target="SoapUI.RunTests.Log.Backup"/>
         <call target="GlassFish.StopServer"/>
-        <call target="SoapUI.RunTests.Log.Clean"/>
-        <call target="GlassFish.StartServer"/>
+        <call target="SoapUI.RunTests.Log.Backup"/>
       </finally>
     </trycatch>
   </target>
-  
+
   <target name="SoapUI.RunTests.Log.Clean" override="True">
     <delete>
       <fileset basedir="${GlassFish.Domain.Server.Log.Dir.Path}">
@@ -48,12 +44,11 @@
       </fileset>
     </delete>
   </target>
-  
+
   <target name="SoapUI.RunTests.Log.Backup" override="True">
     <property name="Log.Backup.Zip.FileName" value="${ProjectFullName}_server_logs_${CCNetLabel}.zip"/>
     <property name="Log.Backup.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Log.Backup.Zip.FileName}"/>
-    
-    <call target="GlassFish.StopServer"/>
+
     <zip zipfile="${Log.Backup.Zip.FilePath}">
       <fileset basedir="${GlassFish.Domain.Server.Log.Dir.Path}">
         <include name="${GlassFish.Domain.Server.Log.File.Base.Name}"/>
@@ -61,9 +56,9 @@
     </zip>
 
     <property name="Publish.Web.File.Name" value="${Log.Backup.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+    <property name="Publish.Web.File.Path" value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link"/>
   </target>
-  
+
 </project>
