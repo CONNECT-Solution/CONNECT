@@ -189,7 +189,11 @@
 							<file name="${dist.file}" />
 						</filelist>
 					</sourcefiles>
-					<targetfiles path="${dist.instrumented.dir}/instrumentedclasses.flag"/>
+					<targetfiles>
+						<filelist dir="${dist.instrumented.dir}">
+							<file name="${dist.instrumented.file}" />
+						</filelist>
+					</targetfiles>
 					<sequential>
 						<cobertura-instrument datafile="${coverage.dist.report.file}" todir="${dist.instrumented.dir}">
 							<includeClasses regex=".*hhs.*" />
