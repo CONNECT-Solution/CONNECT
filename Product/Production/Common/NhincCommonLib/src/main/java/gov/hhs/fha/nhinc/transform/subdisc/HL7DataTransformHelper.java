@@ -159,43 +159,61 @@ public class HL7DataTransformHelper {
         return enName;
     }
 
-    public static PNExplicit convertENtoPN(ENExplicit value)
-    {
-        PNExplicit result = new PNExplicit();
+    public static PNExplicit convertENtoPN(ENExplicit value) {
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        PNExplicit result = (PNExplicit) (factory.createPNExplicit());
+        List namelist = result.getContent();
         String lastName = "";
         String firstName = "";
+        EnExplicitFamily explicitFamilyName = null;
+        EnExplicitGiven explicitGivenName = null;
 
 
-        for(Object item : value.getContent())
-        {
-            if(item instanceof EnFamily)
-            {
+        for (Object item : value.getContent()) {
+            if (item instanceof EnFamily) {
                 EnFamily familyName = (EnFamily) item;
                 lastName = familyName.getRepresentation().value();
-            }
-            else if(item instanceof EnGiven)
-            {
+
+                explicitFamilyName = new EnExplicitFamily();
+                explicitFamilyName.setPartType("FAM");
+                explicitFamilyName.setContent(lastName);
+                namelist.add(factory.createPNExplicitFamily(explicitFamilyName));
+                log.debug("Added family name " + lastName);
+            } else if (item instanceof EnGiven) {
                 EnGiven givenName = (EnGiven) item;
                 firstName = givenName.getRepresentation().value();
-            }
-            else if(item instanceof JAXBElement)
-            {
-                JAXBElement newItem = (JAXBElement)item;
-                if (newItem.getValue() instanceof EnExplicitFamily)
-                {
+
+                explicitGivenName = new EnExplicitGiven();
+                explicitGivenName.setPartType("GIV");
+                explicitGivenName.setContent(firstName);
+                namelist.add(factory.createPNExplicitGiven(explicitGivenName));
+                log.debug("Added given name " + firstName);
+            } else if (item instanceof JAXBElement) {
+                JAXBElement newItem = (JAXBElement) item;
+                if (newItem.getValue() instanceof EnExplicitFamily) {
                     EnExplicitFamily familyName = (EnExplicitFamily) newItem.getValue();
                     lastName = familyName.getContent();
-                }
-                else if( newItem.getValue() instanceof EnExplicitGiven)
-                {
+
+                    explicitFamilyName = new EnExplicitFamily();
+                    explicitFamilyName.setPartType("FAM");
+                    explicitFamilyName.setContent(lastName);
+                    namelist.add(factory.createPNExplicitFamily(explicitFamilyName));
+                    log.debug("Added family name " + lastName);
+                } else if (newItem.getValue() instanceof EnExplicitGiven) {
                     EnExplicitGiven givenName = (EnExplicitGiven) newItem.getValue();
                     firstName = givenName.getContent();
+
+                    explicitGivenName = new EnExplicitGiven();
+                    explicitGivenName.setPartType("GIV");
+                    explicitGivenName.setContent(firstName);
+                    namelist.add(factory.createPNExplicitGiven(explicitGivenName));
+                    log.debug("Added given name " + firstName);
                 }
             }
-            
+
         }
 
-        return CreatePNExplicit(firstName, lastName);
+        return result;
     }
 
     public static PNExplicit CreatePNExplicit (String firstName, String lastName) {

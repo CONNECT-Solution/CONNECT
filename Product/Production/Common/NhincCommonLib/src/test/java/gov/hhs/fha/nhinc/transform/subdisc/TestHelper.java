@@ -70,6 +70,13 @@ public class TestHelper {
         assertNameEquals(iterSerialObjects, family, given);
     }
 
+    public static void assertPNNameEquals(PNExplicit pnName, String family, String given, String middle) {
+        List<Serializable> choice = pnName.getContent();
+        Iterator<Serializable> iterSerialObjects = choice.iterator();
+
+        assertNameEquals(iterSerialObjects, family, given, middle);
+    }
+
     public static void assertNameEquals(Iterator<Serializable> iterSerialObjects, String family, String given) {
         EnExplicitFamily enFamilyName = null;
         EnExplicitGiven enGivenName = new EnExplicitGiven();
@@ -96,6 +103,54 @@ public class TestHelper {
 
         if (NullChecker.isNotNullish(given)) {
             assertEquals(given, enGivenName.getContent());
+        }
+    }
+
+    public static void assertNameEquals(Iterator<Serializable> iterSerialObjects, String family, String given, String middle) {
+        EnExplicitFamily enFamilyName = null;
+        EnExplicitGiven enGivenName = null;
+        EnExplicitGiven enMiddleName = null;
+
+        while (iterSerialObjects.hasNext()) {
+            Serializable contentItem = iterSerialObjects.next();
+
+            if (contentItem instanceof JAXBElement) {
+                JAXBElement oJAXBElement = (JAXBElement) contentItem;
+
+                if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
+                    enFamilyName = (EnExplicitFamily) oJAXBElement.getValue();
+                    log.info("Family Name: " + enFamilyName.getContent());
+                } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
+                    if (enGivenName == null) {
+                        enGivenName = (EnExplicitGiven) oJAXBElement.getValue();
+                        log.info("Given Name: " + enGivenName.getContent());
+                    } else {
+                        enMiddleName = (EnExplicitGiven) oJAXBElement.getValue();
+                        log.info("Middle Name: " + enMiddleName.getContent());
+                    }
+                }
+            }
+        }
+
+        if (NullChecker.isNotNullish(family)) {
+            assertEquals(family, enFamilyName.getContent());
+        }
+        else {
+            assertNull(enFamilyName);
+        }
+
+        if (NullChecker.isNotNullish(given)) {
+            assertEquals(given, enGivenName.getContent());
+        }
+        else {
+            assertNull(enGivenName);
+        }
+
+        if (NullChecker.isNotNullish(middle)) {
+            assertEquals(middle, enMiddleName.getContent());
+        }
+        else {
+            assertNull(enMiddleName);
         }
     }
 
@@ -393,7 +448,7 @@ public class TestHelper {
 
     public static void assertSsnEquals(String ssn, PRPAMT201301UV02Person person) {
         assertNotNull(person);
-        
+
 
         assertNotNull(person.getAsOtherIDs());
         assertNotNull(person.getAsOtherIDs().get(0));
@@ -515,8 +570,8 @@ public class TestHelper {
 
         assertNameEquals(iterSerialObjects, lastName, firstName);
     }
-    public static void assertPatientNameEquals(String firstName, String lastName, PRPAMT201301UV02Person person)
-    {
+
+    public static void assertPatientNameEquals(String firstName, String lastName, PRPAMT201301UV02Person person) {
         assertNotNull(person);
 
         PNExplicit pnName = person.getName().get(0);
@@ -583,13 +638,13 @@ public class TestHelper {
 
         assertGenderEquals(gender, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode());
     }
-    public static void assertGenderEquals(String gender, PRPAMT201301UV02Person person)
-    {
+
+    public static void assertGenderEquals(String gender, PRPAMT201301UV02Person person) {
         assertNotNull(person);
-        assertGenderEquals(gender,person.getAdministrativeGenderCode());
+        assertGenderEquals(gender, person.getAdministrativeGenderCode());
     }
-    public static void assertGenderEquals(String gender, CE genderCode)
-    {
+
+    public static void assertGenderEquals(String gender, CE genderCode) {
         assertNotNull(genderCode);
         assertNotNull(genderCode.getCode());
         assertEquals(gender, genderCode.getCode());
@@ -654,12 +709,14 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getBirthTime().getValue());
         assertEquals(birthTime, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getBirthTime().getValue());
     }
+
     public static void assertBirthTimeEquals(String birthTime, PRPAMT201301UV02Person person) {
         assertNotNull(person);
         assertNotNull(person.getBirthTime());
         assertNotNull(person.getBirthTime().getValue());
         assertEquals(birthTime, person.getBirthTime().getValue());
     }
+
     public static void assertBirthTimeNull(PRPAIN201301UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
@@ -738,7 +795,7 @@ public class TestHelper {
         assertNotNull(controlActProcess.getQueryByParameter().getValue().getParameterList());
     }
 
-    static void assertQueryParam(PRPAMT201307UV02QueryByParameter queryParam, PRPAIN201310UV02 message) {
+    public static void assertQueryParam(PRPAMT201307UV02QueryByParameter queryParam, PRPAIN201310UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertNotNull(message.getControlActProcess().getQueryAck());
         assertNotNull(message.getControlActProcess().getQueryAck().getQueryResponseCode());
@@ -751,14 +808,14 @@ public class TestHelper {
         }
     }
 
-    static void assertAckMsgEquals(String msgText, MCCIIN000002UV01 message) {
+    public static void assertAckMsgEquals(String msgText, MCCIIN000002UV01 message) {
         assertNotNull(message);
         assertNotNull(message.getAcknowledgement());
         assertNotNull(message.getAcknowledgement().get(0));
         assertAckMsgEquals(msgText, message.getAcknowledgement().get(0));
     }
 
-    static void assertAckMsgEquals(String msgText, MCCIMT000200UV01Acknowledgement message) {
+    public static void assertAckMsgEquals(String msgText, MCCIMT000200UV01Acknowledgement message) {
         assertNotNull(message);
         assertNotNull(message.getAcknowledgementDetail());
         assertNotNull(message.getAcknowledgementDetail().get(0));
@@ -766,7 +823,7 @@ public class TestHelper {
         assertAckMsgEquals(msgText, message.getAcknowledgementDetail().get(0));
     }
 
-    static void assertAckMsgEquals(String msgText, MCCIMT000200UV01AcknowledgementDetail message) {
+    public static void assertAckMsgEquals(String msgText, MCCIMT000200UV01AcknowledgementDetail message) {
         assertNotNull(message);
         assertNotNull(message.getText());
         assertNotNull(message.getText().getContent());
@@ -774,7 +831,7 @@ public class TestHelper {
         assertEquals(msgText, message.getText().getContent().get(0).toString());
     }
 
-    static void assertAckMsgIdEquals (II origMsgId, MCCIIN000002UV01 message) {
+    public static void assertAckMsgIdEquals(II origMsgId, MCCIIN000002UV01 message) {
         assertNotNull(message);
         assertNotNull(message.getAcknowledgement());
         assertNotNull(message.getAcknowledgement().get(0));
@@ -782,14 +839,14 @@ public class TestHelper {
         assertAckMsgIdEquals(origMsgId, message.getAcknowledgement().get(0));
     }
 
-    static void assertAckMsgIdEquals (II origMsgId, MCCIMT000200UV01Acknowledgement message) {
+    public static void assertAckMsgIdEquals(II origMsgId, MCCIMT000200UV01Acknowledgement message) {
         assertNotNull(message);
         assertNotNull(message.getTargetMessage());
 
         assertAckMsgIdEquals(origMsgId, message.getTargetMessage());
     }
 
-    static void assertAckMsgIdEquals (II origMsgId, MCCIMT000200UV01TargetMessage message) {
+    public static void assertAckMsgIdEquals(II origMsgId, MCCIMT000200UV01TargetMessage message) {
         assertNotNull(message);
         assertNotNull(message.getId());
         assertNotNull(message.getId().getExtension());
@@ -797,5 +854,38 @@ public class TestHelper {
 
         assertEquals(origMsgId.getExtension(), message.getId().getExtension());
         assertEquals(origMsgId.getRoot(), message.getId().getRoot());
+    }
+
+    public static ENExplicit createENexplicit(String firstName, String middleName, String lastName) {
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        List enNamelist = enName.getContent();
+        EnExplicitFamily familyName = new EnExplicitFamily();
+        EnExplicitGiven givenName = new EnExplicitGiven();
+        EnExplicitGiven midName = new EnExplicitGiven();
+
+        // Create the last name if specified
+        if (NullChecker.isNotNullish(lastName)) {
+            familyName.setPartType("FAM");
+            familyName.setContent(lastName);
+            enNamelist.add(factory.createENExplicitFamily(familyName));
+        }      
+
+        // Create the first name if specified
+        if (NullChecker.isNotNullish(firstName)) {
+            givenName.setPartType("GIV");
+            givenName.setContent(firstName);
+            enNamelist.add(factory.createENExplicitGiven(givenName));
+
+        }
+
+        // Create the middle name if specified
+        if (NullChecker.isNotNullish(middleName)) {
+            midName.setPartType("GIV");
+            midName.setContent(middleName);
+            enNamelist.add(factory.createENExplicitGiven(midName));
+        }
+
+        return enName;
     }
 }
