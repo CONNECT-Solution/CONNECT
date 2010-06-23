@@ -239,7 +239,7 @@
   </xsl:template>
 
   <xsl:template name="summary">
-    <h2>Summary</h2>
+    <h2>Summary</h2>   
     <xsl:variable name="testCount" select="count(testsuite)"/>
     <xsl:variable name="errorCount" select="sum(testsuite/@err)"/>
     <xsl:variable name="failureCount" select="sum(testsuite/@failures)"/>
@@ -333,6 +333,15 @@
         <td align="left"></td>
         <td align="right">
           Designed for use with <a href='http://www.soapui.org/'>soapUI</a> and <a href='http://ant.apache.org/'>Ant</a>.
+        </td>
+      </tr>
+    </table>
+    <table border="0" width="100%">
+      <tr>
+        <td style="text-align: justify;">
+          "YourKit is kindly supporting open source projects with its full-featured Java Profiler.
+          YourKit, LLC is the creator of innovative and intelligent tools for profiling Java and .NET applications. Take a look at YourKit's leading software products:
+          <a href="http://www.yourkit.com/java/profiler/index.jsp">YourKit Java Profiler</a> and <a href="http://www.yourkit.com/.net/profiler/index.jsp">YourKit .NET Profiler</a>."
         </td>
       </tr>
     </table>

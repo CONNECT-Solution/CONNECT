@@ -168,6 +168,9 @@
         <include name="mpi.xml"/>
         <include name="reidentification.xml"/>
       </fileset>
+      <fileset basedir="${Common.Directory.Product.Path}\DBScripts\nhincdb" prefix="ValidationSuite" failonempty="true">
+        <include name="populateTestData.sql"/>
+      </fileset>
     </zip>
 
     <property name="Publish.Web.File.Name" value="${SoapUI.Zip.FileName}"/>
