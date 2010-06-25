@@ -65,6 +65,15 @@ public class CMBindingNames
         return nameList;
     }
     
-    
+    /**
+     * Creates a deep copy of this object.
+     *
+     * @return A copy of this CMBindingNames object
+     */
+    public CMBindingNames createCopy() {
+        CMBindingNames namesCopy = new CMBindingNames();
+        namesCopy.getName().addAll(nameList);
+        return namesCopy;
+    }
     
 }

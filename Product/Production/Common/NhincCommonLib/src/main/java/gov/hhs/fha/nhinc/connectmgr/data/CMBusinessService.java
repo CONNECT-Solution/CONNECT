@@ -166,4 +166,39 @@ public class CMBusinessService {
     public void setUniformServiceName(String uniformServiceName) {
         this.uniformServiceName = uniformServiceName;
     }
+
+    /**
+     * Creates a deep copy of this business service.
+     *
+     * @return A copy of this service that includes copies of data structures
+     */
+    public CMBusinessService createCopy() {
+        CMBusinessService serviceCopy = new CMBusinessService();
+
+        if (bindingTemplates != null) {
+            serviceCopy.setBindingTemplates(bindingTemplates.createCopy());
+        } else {
+            serviceCopy.setBindingTemplates(null);
+        }
+
+        if (descriptions != null) {
+            serviceCopy.setDescriptions(descriptions.createCopy());
+        } else {
+            serviceCopy.setDescriptions(null);
+        }
+
+        serviceCopy.setInternalWebService(internalWebService);
+
+        if (names != null) {
+            serviceCopy.setNames(names.createCopy());
+        } else {
+            serviceCopy.setNames(null);
+        }
+
+        serviceCopy.setServiceKey(serviceKey);
+
+        serviceCopy.setUniformServiceName(uniformServiceName);
+
+        return serviceCopy;
+    }
 }

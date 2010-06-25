@@ -120,4 +120,18 @@ public class CMBindingTemplate {
     public void setServiceVersion(String serviceVersion) {
         this.serviceVersion = serviceVersion;
     }
+
+    /**
+     * Creates a deep copy of this object.
+     *
+     * @return A copy of this CMBindingTemplate object
+     */
+    public CMBindingTemplate createCopy() {
+        CMBindingTemplate templateCopy = new CMBindingTemplate();
+        templateCopy.setBindingKey(bindingKey);
+        templateCopy.setEndpointURL(endpointURL);
+        templateCopy.setServiceVersion(serviceVersion);
+        templateCopy.setWsdlURL(wsdlURL);
+        return templateCopy;
+    }
 }
