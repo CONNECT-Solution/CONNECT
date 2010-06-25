@@ -56,21 +56,21 @@
 <!ENTITY Integration2.Server.Rest.Url          'http://&Integration2.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY Integration2.Dashboard.Url            'http://&Integration2.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
-<!ENTITY ConnectBlue.Server.Remoting.Url       'tcp://&ConnectBlue.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectBlue.Server.Rest.Url           'http://&ConnectBlue.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectBlue.Dashboard.Url             'http://&ConnectBlue.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+<!ENTITY ConnectBlue.Server.Remoting.Url       'tcp://&ConnectBlue31.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectBlue.Server.Rest.Url           'http://&ConnectBlue31.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectBlue.Dashboard.Url             'http://&ConnectBlue31.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
-<!ENTITY ConnectRed.Server.Remoting.Url        'tcp://&ConnectRed.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectRed.Server.Rest.Url            'http://&ConnectRed.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectRed.Dashboard.Url              'http://&ConnectRed.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+<!ENTITY ConnectRed.Server.Remoting.Url        'tcp://&ConnectRed31.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectRed.Server.Rest.Url            'http://&ConnectRed31.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectRed.Dashboard.Url              'http://&ConnectRed31.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
-<!ENTITY ConnectOrange.Server.Remoting.Url     'tcp://&ConnectOrange.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectOrange.Server.Rest.Url         'http://&ConnectOrange.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectOrange.Dashboard.Url           'http://&ConnectOrange.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+<!ENTITY ConnectOrange.Server.Remoting.Url     'tcp://&ConnectOrange31.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectOrange.Server.Rest.Url         'http://&ConnectOrange31.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectOrange.Dashboard.Url           'http://&ConnectOrange31.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
-<!ENTITY ConnectGreen.Server.Remoting.Url      'tcp://&ConnectGreen.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectGreen.Server.Rest.Url          'http://&ConnectGreen.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectGreen.Dashboard.Url            'http://&ConnectGreen.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+<!ENTITY ConnectGreen.Server.Remoting.Url      'tcp://&ConnectGreen31.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY ConnectGreen.Server.Rest.Url          'http://&ConnectGreen31.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY ConnectGreen.Dashboard.Url            'http://&ConnectGreen31.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
 <!ENTITY Klocwork.Server.Remoting.Url          'tcp://&Klocwork.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Klocwork.Server.Rest.Url              'http://&Klocwork.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
