@@ -2,8 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.muralmpi;
+
 import com.sun.mdm.index.webservice.SearchPatientResult;
 import com.sun.mdm.index.webservice.PatientBean;
 import com.sun.mdm.index.webservice.EnterprisePatient;
@@ -20,8 +20,8 @@ import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.CE;
-import  gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-import  gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -36,15 +36,16 @@ import java.io.Serializable;
 import java.util.Iterator;
 import javax.xml.bind.JAXBElement;
 import gov.hhs.fha.nhinc.muralmpi.PersonName;
+
 /**
  *
  * @author dunnek
  */
 public class HL7Parser {
-     private static Log log = LogFactory.getLog(HL7Parser.class);
-     
-    public static JAXBElement<PRPAMT201301UV02Person>  createPatientPerson(PatientBean patient)
-    {
+
+    private static Log log = LogFactory.getLog(HL7Parser.class);
+
+    public static JAXBElement<PRPAMT201301UV02Person> createPatientPerson(PatientBean patient) {
 
         JAXBElement<PRPAMT201301UV02Person> result;
         log.debug("begin createPatientPerson");
@@ -58,54 +59,49 @@ public class HL7Parser {
         patLastName = patient.getLastName().trim();
         gender = patient.getGender();
         birthTime = convertMuralDateToHL7Date(patient.getDOB());
-        ssn= patient.getSSN();
-        log.debug("firstname = " + patFirstName + "; lastName = " + patLastName
-                + "; gender = " + gender + "; birthtime = " + birthTime +
+        ssn = patient.getSSN();
+        log.debug("firstname = " + patFirstName + "; lastName = " + patLastName + "; gender = " + gender + "; birthtime = " + birthTime +
                 "; ssn = " + ssn);
-        result = HL7PatientTransforms.create201301PatientPerson(patFirstName, patLastName,gender, birthTime, ssn);
+        result = HL7PatientTransforms.create201301PatientPerson(patFirstName, patLastName, gender, birthTime, ssn);
 
         log.debug("end createPatientPerson");
         return result;
 
     }
-    private static String convertFormattedDates(String date, String fromFormat, String toFormat)
-    {
+
+    private static String convertFormattedDates(String date, String fromFormat, String toFormat) {
         SimpleDateFormat fromDF = new SimpleDateFormat(fromFormat);
         SimpleDateFormat toDF = new SimpleDateFormat(toFormat);
         Date dte;
         String result = "";
 
-        try
-        {
-             dte = fromDF.parse(date);
-             result = toDF.format(dte);
-        }
-        catch(Exception ex)
-        {
-
+        try {
+            dte = fromDF.parse(date);
+            result = toDF.format(dte);
+        } catch (Exception ex) {
         }
 
         return result;
     }
-    private static String convertMuralDateToHL7Date(String date)
-    {
+
+    private static String convertMuralDateToHL7Date(String date) {
         SimpleDateFormat hl7DateFormat = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat muralDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date dob;
-        String result = convertFormattedDates(date,"MM/dd/yyyy", "yyyyMMdd" );
+        String result = convertFormattedDates(date, "MM/dd/yyyy", "yyyyMMdd");
 
         return result;
     }
-    public static PRPAIN201306UV02 createPRPA201306(SearchPatientResult muralPatient, PRPAIN201305UV02 query, String localId, String localAAID, String localOID)
-    {
+
+    public static PRPAIN201306UV02 createPRPA201306(SearchPatientResult muralPatient, PRPAIN201305UV02 query, String localId, String localAAID, String localOID) {
         log.debug("Begin createPRPA201306");
         JAXBElement<PRPAMT201301UV02Person> person;
         String senderOID = "";
 
         person = createPatientPerson(muralPatient.getPatient());
         log.debug("Created HL7 Person");
-        
-        log.debug("mural patient id = " + localId );
+
+        log.debug("mural patient id = " + localId);
         PRPAMT201301UV02Patient hl7Patient;
         hl7Patient = HL7PatientTransforms.create201301Patient(person, localId, localAAID);
         log.debug("Created HL7 patient");
@@ -117,7 +113,7 @@ public class HL7Parser {
         log.info("senderOID = " + senderOID);
         return HL7PRPA201306Transforms.createPRPA201306(hl7Patient, senderOID, localAAID, localOID, localId, query);
     }
-   
+
     public static String ExtractGender(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractGender method...");
 
@@ -154,7 +150,7 @@ public class HL7Parser {
         java.util.Date dob;
         SimpleDateFormat hl7DateFormat = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat muralDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        
+
         // Extract the birth time from the query parameters - Assume only one was specified
         if (params.getLivingSubjectBirthTime() != null &&
                 params.getLivingSubjectBirthTime().size() > 0 &&
@@ -166,19 +162,16 @@ public class HL7Parser {
                     birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
                 log.debug("Found birthTime in query parameters = " + birthday.getValue());
-                
-                try
-                {
+
+                try {
                     dob = hl7DateFormat.parse(birthday.getValue());
                     log.debug("Extracted dob = " + dob.toString());
                     birthDate = muralDateFormat.format(dob);
                     log.debug("Extracted birthTime in query parameters = " + birthDate);
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     log.error("unable to extract birthdate");
                 }
-                
+
             } else {
                 log.debug("message does not contain a birthtime");
             }
@@ -189,9 +182,8 @@ public class HL7Parser {
         log.debug("Exiting HL7Parser201305.ExtractBirthdate method...");
         return birthDate;
     }
-    
-    public static PatientBean extractPatientSearchCritieria(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest)
-    {
+
+    public static PatientBean extractPatientSearchCritieria(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest) {
         PatientBean result = new PatientBean();
         PRPAMT201306UV02ParameterList queryParams = ExtractHL7QueryParamsFromMessage(findCandidatesRequest);
 
@@ -206,11 +198,12 @@ public class HL7Parser {
 
             result.setGender(ExtractGender(queryParams));
             result.setDOB(ExtractBirthdate(queryParams));
-       
+
         }
 
         return result;
     }
+
     public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(
             org.hl7.v3.PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
@@ -241,7 +234,7 @@ public class HL7Parser {
         return queryParamList;
     }
 
-     public static PersonName ExtractPersonName(PRPAMT201306UV02ParameterList params) {
+    public static PersonName ExtractPersonName(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractPersonName method...");
 
         PersonName personname = new PersonName();
@@ -263,7 +256,8 @@ public class HL7Parser {
 
                 String nameString = "";
                 EnExplicitFamily lastname = new EnExplicitFamily();
-                EnExplicitGiven firstname = new EnExplicitGiven();
+                EnExplicitGiven firstname = null;
+                EnExplicitGiven middlename = null;
 
                 while (iterSerialObjects.hasNext()) {
                     log.info("in iterSerialObjects.hasNext() loop");
@@ -289,8 +283,13 @@ public class HL7Parser {
                             lastname = (EnExplicitFamily) oJAXBElement.getValue();
                             log.info("found lastname element; content=" + lastname.getContent());
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
-                            firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                            log.info("found firstname element; content=" + firstname.getContent());
+                            if (firstname == null) {
+                                firstname = (EnExplicitGiven) oJAXBElement.getValue();
+                                log.info("found firstname element; content=" + firstname.getContent());
+                            } else {
+                                middlename = (EnExplicitGiven) oJAXBElement.getValue();
+                                log.info("found firstname element; content=" + middlename.getContent());
+                            }
                         } else {
                             //log.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
                         }
@@ -302,15 +301,21 @@ public class HL7Parser {
                 // If text string in patient name, then set in name
                 // else set in element.
                 boolean namefound = false;
-                if (lastname.getContent() != null) {
+                if (lastname != null && lastname.getContent() != null) {
                     personname.setLastName(lastname.getContent());
                     log.info("FamilyName : " + personname.getLastName());
                     namefound = true;
                 }
 
-                if (firstname.getContent() != null) {
+                if (firstname != null && firstname.getContent() != null) {
                     personname.setFirstName(firstname.getContent());
                     log.info("GivenName : " + personname.getFirstName());
+                    namefound = true;
+                }
+
+                if (middlename != null && middlename.getContent() != null) {
+                    personname.setMiddleName(middlename.getContent());
+                    log.info("GivenName : " + personname.getMiddleName());
                     namefound = true;
                 }
 
@@ -329,6 +334,4 @@ public class HL7Parser {
         log.debug("Exiting HL7Parser201305.ExtractPersonName method...");
         return personname;
     }
-
-
 }
