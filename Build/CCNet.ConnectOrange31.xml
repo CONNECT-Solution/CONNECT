@@ -21,7 +21,7 @@
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="&ConnectOrange.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Orange30">
+               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Orange31">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -39,7 +39,7 @@
           </projectFilter>'>
   <!ENTITY DeployBuilding '<projectFilter
                 serverUri="&ConnectOrange.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30">
+                project="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange31">
              <exclusionFilters>
                <activities>
                  <activity>Building</activity>
@@ -48,7 +48,7 @@
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
                serverUri="&ConnectOrange.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30">
+               project="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange31">
             <exclusionFilters>
               <conditions>
                 <condition>Failure</condition>
@@ -59,7 +59,7 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&ConnectOrange.Server.Rest.Url;">
-  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Orange30">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Orange31">
     <webURL>&ConnectOrange.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
@@ -103,7 +103,7 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Orange31">
     <webURL>&ConnectOrange.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
@@ -158,9 +158,9 @@
     <publishers>
       <merge>
         <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange30\AntLogs\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange31\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange31\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Orange31\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />
