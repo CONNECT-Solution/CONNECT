@@ -690,14 +690,23 @@ public class UDDIAccessor {
      * name, a copy of the service will be created and it will be populated with
      * the alias and then added to the Business Entity structure.
      *
+     * @param oUDDIService The information on the service as retrieved from the 
+     *                     UDDI registry.
+     * @param oEntities The complete list of business entities against which the
+     *                  desired entity is found.  If multiple uniform service
+     *                  names are detected a new service will be added to this
+     *                  entity.
+     * @param oService  The business service which is updated with the uniform
+     *                  service name.  If multiples are detected a copy of this
+     *                  service will be made to form a new one.
      */
     public void populateUniformServiceName(BusinessService oUDDIService, CMBusinessEntities oEntities, CMBusinessService oService) {
         if ((oUDDIService.getCategoryBag() != null) &&
                 (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
                 (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
+
             // Uniform Service Name
             //---------------------
-
             List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag().getKeyedReference(),
                     UNIFORM_SERVICE_NAME_KEY);
 
