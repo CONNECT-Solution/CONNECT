@@ -675,7 +675,7 @@ public class UDDIAccessor {
                         // creation of oService copies so this should be the last
                         // population to be performed.
                         //----------------------------------------
-                        populateUniformServiceName(oUDDIService, oEntities, oService);
+                        populateUniformServiceNameAndReplicateService(oUDDIService, oEntities, oService);
 
                     }   // if (oService != null)
                 }   // if ((oUDDIService.getServiceKey() != null) &&  ...
@@ -686,9 +686,11 @@ public class UDDIAccessor {
 
     /**
      * This method is used to populate the Business Service with the retrieved
-     * uniform service information.  If there are multiple aliases for a service
-     * name, a copy of the service will be created and it will be populated with
-     * the alias and then added to the Business Entity structure.
+     * uniform service information. If there is a single service name, the
+     * service passed in will be populated with that name.  If there are
+     * multiple aliases for a service name, a copy of the service will be
+     * created and it will be populated with the alias and then added to the
+     * Business Entity structure.
      *
      * @param oUDDIService The information on the service as retrieved from the 
      *                     UDDI registry.
@@ -700,7 +702,7 @@ public class UDDIAccessor {
      *                  service name.  If multiples are detected a copy of this
      *                  service will be made to form a new one.
      */
-    public void populateUniformServiceName(BusinessService oUDDIService, CMBusinessEntities oEntities, CMBusinessService oService) {
+    public void populateUniformServiceNameAndReplicateService(BusinessService oUDDIService, CMBusinessEntities oEntities, CMBusinessService oService) {
         if ((oUDDIService.getCategoryBag() != null) &&
                 (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
                 (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {

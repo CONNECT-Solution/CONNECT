@@ -129,7 +129,7 @@ public class UDDIAccessorTest {
 
         // Test that the accessor populates the business entity
         // with a single service with the name service1
-        accessor.populateUniformServiceName(testUDDIService,
+        accessor.populateUniformServiceNameAndReplicateService(testUDDIService,
                 testBusinessEntities, testBusinessService);
         assertNotNull("Returned Business Entities was null",
                 testBusinessEntities);
@@ -212,7 +212,7 @@ public class UDDIAccessorTest {
         // Test that the accessor populates the business entity with 
         // three services with the names service1, service2, and service3
         // as set above in the override
-        accessor.populateUniformServiceName(testUDDIService,
+        accessor.populateUniformServiceNameAndReplicateService(testUDDIService,
                 testBusinessEntities, testBusinessService);
         assertNotNull("Returned Business Entities was null", testBusinessEntities);
         if (testBusinessEntities != null) {
