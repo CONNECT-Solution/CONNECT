@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterComponentDocRetrieveRequest" targetNamespace="urn:ihe:iti:xds-b:2007"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:tns="urn:ihe:iti:xds-b:2007"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:dr="http://www.hhs.gov/healthit/nhin"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization">
+    <documentation>IHE XDS.b Document Retrieve Request</documentation>
+    <types>
+    <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:ihe:iti:xds-b:2007"
+      xmlns:tns="urn:ihe:iti:xds-b:2007">
+      <!-- Include the message schema -->
+      <xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+    </xsd:schema>
+    <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+      xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+      <!-- Include the message schema -->
+      <xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
+    </xsd:schema>
+    <!-- While no elements are directly used from these schema in the WSDL,
+      they need to be present here in order for
+      code generating toolkits to work properly -->
+    <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
+      xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
+      <!-- Include the message schema -->
+      <xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
+    </xsd:schema>
+   <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+      xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      <!-- Include the message schema -->
+      <xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+    </xsd:schema>
+    <xsd:schema elementFormDefault="qualified"
+    targetNamespace="http://www.hhs.gov/healthit/nhin"
+    xmlns:dr="http://www.hhs.gov/healthit/nhin">
+        <!-- Include the message schema -->
+        <xsd:include   schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="RetrieveDocumentSetRequest_Message">
+    <documentation>Retrieve Document Set Request</documentation>
+    <part name="body" element="tns:RetrieveDocumentSetRequest"/>
+  </message>
+  <message name="RetrieveDocumentSetAcknowledgement_Message">
+    <documentation>Retrieve Document Set Acknowledgement</documentation>
+    <part name="body" element="dr:DocRetrieveAcknowledgement"/>
+   </message>
+  <portType name="DocumentRetrieveRequest_PortType">
+    <operation name="RetrieveDocumentSetRequest">
+      <input message="tns:RetrieveDocumentSetRequest_Message"/>
+      <output message="tns:RetrieveDocumentSetAcknowledgement_Message"/>
+    </operation>
+  </portType>
+  <binding name="DocumentRetrieveRequest_Binding"
+           type="tns:DocumentRetrieveRequest_PortType">
+    <soap:binding style="document"
+                    transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="RetrieveDocumentSetRequest">
+      <soap:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSetRequest"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="DocumentRetrieveRequest_Service">
+    <port name="DocumentRetrieveRequest_Port_Soap"
+          binding="tns:DocumentRetrieveRequest_Binding">
+      <soap:address
+         location="http://localhost:${NhincHttpPort}/DocumentRetrieveRequest_Service"/>
+    </port>
+  </service>
+<wsp:Policy wsu:Id="AdapterComponentDocRepositoryPolicy">
+          <wsp:ExactlyOne>
+              <wsp:All>
+                  <wsoma:OptimizedMimeSerialization/>
+              </wsp:All>
+          </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
+
+
