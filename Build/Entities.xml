@@ -1,6 +1,7 @@
 <!ENTITY HostName                              'build.connectopensource.org'>
 <!ENTITY Integration.Server.Host.Name          'inttest1.connectopensource.org'>
 <!ENTITY Integration2.Server.Host.Name         'inttest2.connectopensource.org'>
+<!ENTITY Integration3.Server.Host.Name         'inttest3.connectopensource.org'>
 <!ENTITY ConnectBlue.Server.Host.Name          'ConnectBlue31.fedsconnect.org'>
 <!ENTITY ConnectRed.Server.Host.Name           'ConnectRed31.fedsconnect.org'>
 <!ENTITY ConnectOrange.Server.Host.Name        'ConnectOrange31.fedsconnect.org'>
@@ -55,6 +56,10 @@
 <!ENTITY Integration2.Server.Remoting.Url      'tcp://&Integration2.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Integration2.Server.Rest.Url          'http://&Integration2.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY Integration2.Dashboard.Url            'http://&Integration2.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+
+<!ENTITY Integration3.Server.Remoting.Url      'tcp://&Integration3.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY Integration3.Server.Rest.Url          'http://&Integration3.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY Integration3.Dashboard.Url            'http://&Integration3.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
 <!ENTITY ConnectBlue.Server.Remoting.Url       'tcp://&ConnectBlue.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY ConnectBlue.Server.Rest.Url           'http://&ConnectBlue.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
