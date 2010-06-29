@@ -284,4 +284,25 @@ public class CMLiftProtocolsTest {
         assertEquals("FTP", result.get(2));
     }
 
+    /**
+     * Test of createCopy method, of class CMLiftProtocols.
+     */
+    @Test
+    public void testCreateCopy() {
+
+        CMLiftProtocols origCMLiftProtocols = generateTestCMLiftProtocols();
+        CMLiftProtocols copyCMLiftProtocols = origCMLiftProtocols.createCopy();
+        assertTrue(origCMLiftProtocols.equals(copyCMLiftProtocols));
+    }
+
+    /**
+     * Create a generic CMLiftProtocols filled with test data
+     *
+     * @return The test CMLiftProtocols
+     */
+    private CMLiftProtocols generateTestCMLiftProtocols() {
+        CMLiftProtocols testLiftProtocols = new CMLiftProtocols();
+        testLiftProtocols.getProtocol().add("testLiftProtocol");
+        return testLiftProtocols;
+    }
 }

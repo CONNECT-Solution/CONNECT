@@ -52,7 +52,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
  */
 public class UDDIAccessor {
 
-    private static Log log = LogFactory.getLog(UDDIAccessor.class);
+    private Log log = null;
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_INQUIRY_ENDPOINT_URL = "UDDIInquiryEndpointURL";
     private static String UDDI_BUSINESSES_TO_IGNORE = "UDDIBusinessesToIgnore";
@@ -69,6 +69,14 @@ public class UDDIAccessor {
     //------------------------------------------------------------------------------------
     private HashSet<String> m_hBusinessToIgnore = new HashSet<String>();
     private boolean m_bPropsLoaded = false;         // True if the props have been loaded.
+
+    public UDDIAccessor() {
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return LogFactory.getLog(getClass());
+    }
 
     /**
      * This method loads information from the gateway.properties file that are
@@ -311,7 +319,7 @@ public class UDDIAccessor {
      * @param sBusinessKey The business key to look for.
      * @return The item from the list that matches the business key.
      */
-    private CMBusinessEntity findSpecificBusiness(List<CMBusinessEntity> oaEntities, String sBusinessKey) {
+    protected CMBusinessEntity findSpecificBusiness(List<CMBusinessEntity> oaEntities, String sBusinessKey) {
         CMBusinessEntity oEntity = null;
 
         if ((oaEntities != null) &&
@@ -367,7 +375,7 @@ public class UDDIAccessor {
      * @param sDesiredKey The key to look for.
      * @return The values associated with that key.
      */
-    private List<String> findAndGetValueFromKeyedReference(List<KeyedReference> oaKeys, String sDesiredKey) {
+    protected List<String> findAndGetValueFromKeyedReference(List<KeyedReference> oaKeys, String sDesiredKey) {
         List<String> oValues = new ArrayList<String>();
 
         if ((oaKeys != null) &&
@@ -612,26 +620,6 @@ public class UDDIAccessor {
                             }
                         }   // if ((oUDDIService.getDescription() != null) && ...
 
-                        // Uniform Service Name 
-                        //----------------------------------------
-                        if ((oUDDIService.getCategoryBag() != null) &&
-                                (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
-                                (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
-                            // Uniform Service Name
-                            //---------------------
-                            List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag().getKeyedReference(),
-                                    UNIFORM_SERVICE_NAME_KEY);
-                            if (oServiceNames != null && oServiceNames.size() == 1) {
-                                for (String sValue : oServiceNames) {
-                                    if ((sValue != null) && (sValue.length() > 0)) {
-                                        oService.setUniformServiceName(sValue);
-                                    }
-                                }
-                            } else {
-                                log.debug("A single Normal Service value is NOT detected for UDDI Service " + oUDDIService.getBusinessKey() + " - " + oUDDIService.getServiceKey());
-                            }
-                        }   // if ((oUDDIService.getCategoryBag() != null) &&  ...
-
                         // Binding Template Information
                         //-----------------------------
                         if ((oUDDIService.getBindingTemplates() != null) &&
@@ -681,11 +669,71 @@ public class UDDIAccessor {
                             }
                         }
 
+                        // Uniform Service Name
+                        //
+                        // Multiple Uniform Service Names will result in the
+                        // creation of oService copies so this should be the last
+                        // population to be performed.
+                        //----------------------------------------
+                        populateUniformServiceNameAndReplicateService(oUDDIService, oEntities, oService);
+
                     }   // if (oService != null)
                 }   // if ((oUDDIService.getServiceKey() != null) &&  ...
             }   // for (BusinessService oUDDIService : oResult.getBusinessService())
 
         }   // if ((oResult != null) &&
+    }
+
+    /**
+     * This method is used to populate the Business Service with the retrieved
+     * uniform service information. If there is a single service name, the
+     * service passed in will be populated with that name.  If there are
+     * multiple aliases for a service name, a copy of the service will be
+     * created and it will be populated with the alias and then added to the
+     * Business Entity structure.
+     *
+     * @param oUDDIService The information on the service as retrieved from the
+     *                     UDDI registry.
+     * @param oEntities The complete list of business entities against which the
+     *                  desired entity is found.  If multiple uniform service
+     *                  names are detected a new service will be added to this
+     *                  entity.
+     * @param oService  The business service which is updated with the uniform
+     *                  service name.  If multiples are detected a copy of this
+     *                  service will be made to form a new one.
+     */
+    public void populateUniformServiceNameAndReplicateService(BusinessService oUDDIService, CMBusinessEntities oEntities, CMBusinessService oService) {
+        if ((oUDDIService.getCategoryBag() != null) &&
+                (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
+                (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
+
+            // Uniform Service Name
+            //---------------------
+            List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag().getKeyedReference(),
+                    UNIFORM_SERVICE_NAME_KEY);
+
+            if (oServiceNames != null && oServiceNames.size() > 0) {
+
+                // The existance of more than one service name will create multiple services for the entity
+                int serviceCount = 0;
+                for (String sValue : oServiceNames) {
+                    if ((sValue != null) && (sValue.length() > 0)) {
+                        if (serviceCount == 0) {
+                            oService.setUniformServiceName(sValue);
+                        } else {
+                            CMBusinessService oServiceCopy = oService.createCopy();
+                            oServiceCopy.setUniformServiceName(sValue);
+                            CMBusinessEntity oEntity = findSpecificBusiness(oEntities.getBusinessEntity(),
+                                    oUDDIService.getBusinessKey());
+                            oEntity.getBusinessServices().getBusinessService().add(oServiceCopy);
+                        }
+                        serviceCount++;
+                    }
+                }
+            } else {
+                log.debug("A Normal Service value is NOT detected for UDDI Service " + oUDDIService.getBusinessKey() + " - " + oUDDIService.getServiceKey());
+            }
+        }   // if ((oUDDIService.getCategoryBag() != null) &&  ...
     }
 
     /**

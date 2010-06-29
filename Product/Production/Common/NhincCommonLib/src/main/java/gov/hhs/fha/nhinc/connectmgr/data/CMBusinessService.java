@@ -208,4 +208,46 @@ public class CMBusinessService {
     public void setLiftProtocols(CMLiftProtocols liftProtocols) {
         this.liftProtocols = liftProtocols;
     }
+
+    /**
+     * Creates a deep copy of this business service.
+     *
+     * @return A copy of this service that includes copies of data structures
+     */
+    public CMBusinessService createCopy() {
+        CMBusinessService serviceCopy = new CMBusinessService();
+
+        if (bindingTemplates != null) {
+            serviceCopy.setBindingTemplates(bindingTemplates.createCopy());
+        } else {
+            serviceCopy.setBindingTemplates(null);
+        }
+
+        if (descriptions != null) {
+            serviceCopy.setDescriptions(descriptions.createCopy());
+        } else {
+            serviceCopy.setDescriptions(null);
+        }
+
+        serviceCopy.setInternalWebService(internalWebService);
+
+        if (names != null) {
+            serviceCopy.setNames(names.createCopy());
+        } else {
+            serviceCopy.setNames(null);
+        }
+
+        serviceCopy.setServiceKey(serviceKey);
+
+        serviceCopy.setUniformServiceName(uniformServiceName);
+
+        if(liftProtocols != null) {
+            serviceCopy.setLiftProtocols(liftProtocols.createCopy());
+        } else {
+            serviceCopy.setLiftProtocols(null);
+        }
+
+        serviceCopy.setLiftSupported(liftSupported);
+        return serviceCopy;
+    }
 }

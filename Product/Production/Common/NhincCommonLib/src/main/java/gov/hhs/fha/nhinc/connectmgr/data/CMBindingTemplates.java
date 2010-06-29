@@ -67,5 +67,16 @@ public class CMBindingTemplates
         return bindingTemplateList;
     }
     
-    
+    /**
+     * Creates a deep copy of this object.
+     *
+     * @return A copy of this CMBindingTemplates object
+     */
+    public CMBindingTemplates createCopy() {
+        CMBindingTemplates templatesCopy = new CMBindingTemplates();
+        for (CMBindingTemplate origTemplate : getBindingTemplate()) {
+            templatesCopy.getBindingTemplate().add(origTemplate.createCopy());
+        }
+        return templatesCopy;
+    }
 }

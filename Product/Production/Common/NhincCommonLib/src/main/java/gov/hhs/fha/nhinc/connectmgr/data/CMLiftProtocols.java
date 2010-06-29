@@ -85,4 +85,15 @@ public class CMLiftProtocols {
     {
         this.protocolList = protocolList;
     }
+
+    /**
+     * Creates a deep copy of this object.
+     *
+     * @return A copy of this CMLiftProtocols object
+     */
+    public CMLiftProtocols createCopy() {
+        CMLiftProtocols liftProtocolsCopy = new CMLiftProtocols();
+        liftProtocolsCopy.getProtocol().addAll(protocolList);
+        return liftProtocolsCopy;
+    }
 }

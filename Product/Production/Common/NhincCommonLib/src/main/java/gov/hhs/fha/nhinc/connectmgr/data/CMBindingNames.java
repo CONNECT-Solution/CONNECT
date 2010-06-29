@@ -57,14 +57,23 @@ public class CMBindingNames
     }
 
     /**
-     * 
-     * @return
+     * This is an accessor method to retrieve the list of binding names
+     * @return The collection of binding names
      */
     public List<String> getName()
     {
         return nameList;
     }
     
-    
+    /**
+     * Creates a deep copy of this object.
+     *
+     * @return A copy of this CMBindingNames object
+     */
+    public CMBindingNames createCopy() {
+        CMBindingNames namesCopy = new CMBindingNames();
+        namesCopy.getName().addAll(nameList);
+        return namesCopy;
+    }
     
 }
