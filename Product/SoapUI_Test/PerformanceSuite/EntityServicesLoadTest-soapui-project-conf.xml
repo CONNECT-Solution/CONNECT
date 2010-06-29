@@ -4,6 +4,7 @@
     <testProperties filename="EntityServicesLoadTest-soapui-project.properties">
     </testProperties>
   </test>
+<!--
   <test name="EntityDocQuery(1tx10r)" testcase="EntityDocQueryLoadTestCase" numberOfThreads="1" numberOfIteration="10">
     <testProperties filename="EntityServicesLoadTest-soapui-project.properties">
     </testProperties>
@@ -48,4 +49,5 @@
     <testProperties filename="EntityServicesLoadTest-soapui-project.properties">
     </testProperties>
   </test>
+-->
 </tests>
