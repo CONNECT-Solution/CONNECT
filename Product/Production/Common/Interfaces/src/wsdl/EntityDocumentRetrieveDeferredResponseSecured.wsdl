@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Entity Document Retrieve Request Secured
+  Entity Document Retrieve Deferred Response Secured
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
@@ -18,9 +18,9 @@
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
-   name="EntityDocRetrieveRequestSecured"
+   name="EntityDocRetrieveDeferredResponseSecured"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured">
-    <documentation>Entity Document Retrieve Request Secured</documentation>
+    <documentation>Entity Document Retrieve Deferred Response Secured</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
@@ -31,31 +31,31 @@
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
         </xsd:schema>
     </types>
-    <message name="CrossGatewayRetrieveRequestMessage">
+    <message name="CrossGatewayRetrieveResponseMessage">
         <part name="body"
-              element="ihe:RetrieveDocumentSetRequest"/>
+              element="ihe:RetrieveDocumentSetResponse"/>
     </message>
     <message name="CrossGatewayRetrieveAcknowledgementMessage">
         <part name="body"
               element="dr:DocRetrieveAcknowledgement"/>
     </message>
 
-    <portType name="EntityDocRetrieveRequestSecuredPortType">
-        <operation name="CrossGatewayRetrieveRequest">
-            <input name="CrossGatewayRetrieveRequestMessage"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+    <portType name="EntityDocRetrieveResponseSecuredPortType">
+        <operation name="CrossGatewayRetrieveResponse">
+            <input name="CrossGatewayRetrieveResponseMessage"
+                   message="tns:CrossGatewayRetrieveResponseMessage" />
             <output name="CrossGatewayRetrieveAcknowledgementMessage"
                     message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 
-    <binding name="EntityDocRetrieveRequestSecuredBindingSoap"
-             type="tns:EntityDocRetrieveRequestSecuredPortType">
+    <binding name="EntityDocRetrieveResponseSecuredBindingSoap"
+             type="tns:EntityDocRetrieveResponseSecuredPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
-        <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
-            <input name="CrossGatewayRetrieveRequestMessage">
+        <operation name="CrossGatewayRetrieveResponse">
+            <soap:operation soapAction="urn:CrossGatewayRetrieveResponse"/>
+            <input name="CrossGatewayRetrieveResponseMessage">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>
             </input>
@@ -66,25 +66,24 @@
         </operation>
     </binding>
 
-    <service name="EntityDocRetrieveRequestSecured">
-        <port name="EntityDocRetrieveRequestSecuredPortSoap"
-          binding="tns:EntityDocRetrieveRequestSecuredBindingSoap">
+    <service name="EntityDocRetrieveResponseSecured">
+        <port name="EntityDocRetrieveResponseSecuredPortSoap"
+          binding="tns:EntityDocRetrieveResponseSecuredBindingSoap">
             <soap:address
-               location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocRetrieveRequestSecured"/>
+               location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocRetrieveResponseSecured"/>
         </port>
     </service>
 
-    <plnk:partnerLinkType name="EntityDocRetrieveRequestSecured">
+    <plnk:partnerLinkType name="EntityDocRetrieveResponseSecured">
     <!-- A partner link type is automatically generated when a new port type is added.
          Partner link types are used by BPEL processes. In a BPEL process, a partner
          link represents the interaction between the BPEL process and a partner service.
          Each partner link is associated with a partner link type. A partner link type
          characterizes the conversational relationship between two services. The
          partner link type can have one or two roles.-->
-        <plnk:role name="EntityDocRetrieveRequestSecuredPortTypeRole"
-               portType="tns:EntityDocRetrieveRequestSecuredPortType"/>
+        <plnk:role name="EntityDocRetrieveResponseSecuredPortTypeRole"
+               portType="tns:EntityDocRetrieveResponseSecuredPortType"/>
     </plnk:partnerLinkType>
-
 
   <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">
     <wsp:ExactlyOne>
@@ -155,4 +154,3 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
 </definitions>
-

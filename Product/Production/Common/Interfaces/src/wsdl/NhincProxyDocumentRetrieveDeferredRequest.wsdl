@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Adapter Document Retrieve
+  Nhinc Proxy Document Retrieve Deferred Request
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
-   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
-   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-   name="AdapterDocRetrieveResponse"
-   targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrieve">
-    <documentation>Adapter document retrieve response</documentation>
+   xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+   name="NhincProxyDocRetrieveDeferredRequest"
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve">
+    <documentation>Nhinc Proxy document retrieve deferred request</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
                         schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-                        schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
         </xsd:schema>
     </types>
-    
-    <message name="CrossGatewayRetrieveResponse_Message">
-        <part name="CrossGatewayRetrieveResponse"
-              element="ihe:RetrieveDocumentSetResponse"/>
+    <message name="CrossGatewayRetrieveRequestMessage">
+        <part name="CrossGatewayRetrieveRequest"
+              element="nccommonproxy:RespondingGateway_CrossGatewayRetrieveRequest"/>
     </message>
-    <message name="CrossGatewayRetrieveAcknowledgement_Message">
-        <part name="CrossGatewayRetrieveResponseAck"
+    <message name="CrossGatewayRetrieveAcknowledgementMessage">
+        <part name="CrossGatewayRetrieveAcknowledgement"
               element="dr:DocRetrieveAcknowledgement"/>
     </message>
-    <portType name="AdapterDocRetrieveResponsePortType">
-        <operation name="CrossGatewayRetrieveResponse">
-            <input name="CrossGatewayRetrieveResponseRequest"
-                   message="tns:CrossGatewayRetrieveResponse_Message" />
+
+    <portType name="NhincProxyDocRetrieveRequestPortType">
+        <operation name="CrossGatewayRetrieveRequest">
+            <input name="CrossGatewayRetrieveRequest"
+                   message="tns:CrossGatewayRetrieveRequestMessage" />
             <output name="CrossGatewayRetrieveAcknowledgement"
-                    message="tns:CrossGatewayRetrieveAcknowledgement_Message"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 
-    <binding name="AdapterDocRetrieveResponseBindingSoap"
-             type="tns:AdapterDocRetrieveResponsePortType">
+    <binding name="NhincProxyDocRetrieveRequestBindingSoap"
+             type="tns:NhincProxyDocRetrieveRequestPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#AdapterDocRetrievePolicy"/>
-        <operation name="CrossGatewayRetrieveResponse">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveResponse"/>
-            <input name="CrossGatewayRetrieveResponseRequest">
+        <wsp:PolicyReference URI="#NhincProxyDocRetrievePolicy"/>
+        <operation name="CrossGatewayRetrieveRequest">
+            <soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
+            <input name="CrossGatewayRetrieveRequest">
                 <soap:body use="literal"/>
             </input>
             <output name="CrossGatewayRetrieveAcknowledgement">
@@ -60,24 +59,26 @@
         </operation>
     </binding>
 
-    <service name="AdapterDocRetrieveResponse">
-        <port name="AdapterDocRetrieveResponsePortSoap" binding="tns:AdapterDocRetrieveResponseBindingSoap">
-            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveResponse"/>
+    <service name="NhincProxyDocRetrieveRequest">
+        <port name="NhincProxyDocRetrieveRequestPortSoap"
+          binding="tns:NhincProxyDocRetrieveRequestBindingSoap">
+            <soap:address
+               location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveRequest"/>
         </port>
     </service>
 
-    <plnk:partnerLinkType name="AdapterDocRetrieveResponse">
+    <plnk:partnerLinkType name="NhincProxyDocRetrieveRequest">
     <!-- A partner link type is automatically generated when a new port type is added.
          Partner link types are used by BPEL processes. In a BPEL process, a partner
          link represents the interaction between the BPEL process and a partner service.
          Each partner link is associated with a partner link type. A partner link type
          characterizes the conversational relationship between two services. The
          partner link type can have one or two roles.-->
-        <plnk:role name="AdapterDocRetrieveResponsePortTypeRole"
-               portType="tns:AdapterDocRetrieveResponsePortType"/>
+        <plnk:role name="NhincProxyDocRetrieveRequestPortTypeRole"
+               portType="tns:NhincProxyDocRetrieveRequestPortType"/>
     </plnk:partnerLinkType>
 
-    <wsp:Policy wsu:Id="AdapterDocRetrievePolicy">
+    <wsp:Policy wsu:Id="NhincProxyDocRetrievePolicy">
         <wsp:ExactlyOne>
             <wsp:All>
                 <wsoma:OptimizedMimeSerialization/>

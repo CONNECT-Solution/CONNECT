@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Nhinc Proxy Document Retrieve Request Secured
+  Nhinc Proxy Document Retrieve Deferred Response Secured
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
-   name="NhincProxyDocRetrieveRequestSecured"
+   name="NhincProxyDocRetrieveDeferredResponseSecured"
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
@@ -21,7 +21,7 @@
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
-    <documentation>Nhinc Proxy document Retrieve Request Secured</documentation>
+    <documentation>Nhinc Proxy document Retrieve Deferred Response Secured</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
@@ -34,31 +34,31 @@
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
         </xsd:schema>
     </types>
-    <message name="CrossGatewayRetrieveRequestMessage">
+    <message name="CrossGatewayRetrieveResponseMessage">
         <part name="body"
-              element="nccommonproxy:RespondingGateway_CrossGatewayRetrieveSecuredRequest"/>
+              element="ihe:RetrieveDocumentSetResponse"/>
     </message>
     <message name="CrossGatewayRetrieveAcknowledgementMessage">
         <part name="body"
               element="dr:DocRetrieveAcknowledgement"/>
     </message>
 
-    <portType name="NhincProxyDocRetrieveRequestSecuredPortType">
-        <operation name="CrossGatewayRetrieveRequest">
-            <input name="CrossGatewayRetrieveRequest"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+    <portType name="NhincProxyDocRetrieveResponseSecuredPortType">
+        <operation name="CrossGatewayRetrieveResponse">
+            <input name="CrossGatewayRetrieveResponse"
+                   message="tns:CrossGatewayRetrieveResponseMessage" />
             <output name="CrossGatewayRetrieveAcknowledgement"
                     message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 
-    <binding name="NhincProxyDocRetrieveRequestSecuredBindingSoap"
-             type="tns:NhincProxyDocRetrieveRequestSecuredPortType">
+    <binding name="NhincProxyDocRetrieveResponseSecuredBindingSoap"
+             type="tns:NhincProxyDocRetrieveResponseSecuredPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
-        <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
-            <input name="CrossGatewayRetrieveRequest">
+        <operation name="CrossGatewayRetrieveResponse">
+            <soap:operation soapAction="urn:CrossGatewayRetrieveResponse"/>
+            <input name="CrossGatewayRetrieveResponse">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>
             </input>
@@ -69,23 +69,23 @@
         </operation>
     </binding>
 
-    <service name="NhincProxyDocRetrieveRequestSecured">
-        <port name="NhincProxyDocRetrieveRequestSecuredPortSoap"
-          binding="tns:NhincProxyDocRetrieveRequestSecuredBindingSoap">
+    <service name="NhincProxyDocRetrieveResponseSecured">
+        <port name="NhincProxyDocRetrieveResponseSecuredPortSoap"
+          binding="tns:NhincProxyDocRetrieveResponseSecuredBindingSoap">
             <soap:address
-               location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocRetrieveRequestSecured"/>
+               location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocRetrieveResponseSecured"/>
         </port>
     </service>
 
-    <plnk:partnerLinkType name="NhincProxyDocRetrieveRequestSecured">
+    <plnk:partnerLinkType name="NhincProxyDocRetrieveResponseSecured">
     <!-- A partner link type is automatically generated when a new port type is added.
          Partner link types are used by BPEL processes. In a BPEL process, a partner
          link represents the interaction between the BPEL process and a partner service.
          Each partner link is associated with a partner link type. A partner link type
          characterizes the conversational relationship between two services. The
          partner link type can have one or two roles.-->
-        <plnk:role name="NhincProxyDocRetrieveRequestSecuredPortTypeRole"
-               portType="tns:NhincProxyDocRetrieveRequestSecuredPortType"/>
+        <plnk:role name="NhincProxyDocRetrieveResponseSecuredPortTypeRole"
+               portType="tns:NhincProxyDocRetrieveResponseSecuredPortType"/>
     </plnk:partnerLinkType>
   <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">
     <wsp:ExactlyOne>

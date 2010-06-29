@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="AdapterComponentDocRetrieveRequest" targetNamespace="urn:ihe:iti:xds-b:2007"
+<definitions name="AdapterComponentDocRetrieveDeferredRequest" targetNamespace="urn:ihe:iti:xds-b:2007"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"

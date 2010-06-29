@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Adapter Document Retrieve
+  Adapter Document Retrieve Deferred Response
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
@@ -14,9 +14,9 @@
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-   name="AdapterDocRetrieveRequest"
+   name="AdapterDocRetrieveResponse"
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrieve">
-    <documentation>Adapter document retrieve request</documentation>
+    <documentation>Adapter document retrieve deferred response</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
@@ -27,31 +27,31 @@
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
         </xsd:schema>
     </types>
-    <message name="CrossGatewayRetrieveRequestMessage">
-        <part name="CrossGatewayRetrieveRequest"
-              element="nccommonadapter:RespondingGateway_CrossGatewayRetrieveRequest"/>
+    
+    <message name="CrossGatewayRetrieveResponse_Message">
+        <part name="CrossGatewayRetrieveResponse"
+              element="ihe:RetrieveDocumentSetResponse"/>
     </message>
-    <message name="CrossGatewayRetrieveRequestAcknowledgement_Message">
-        <part name="RespondingGateway_CrossGatewayRetrieveResponse"
+    <message name="CrossGatewayRetrieveAcknowledgement_Message">
+        <part name="CrossGatewayRetrieveResponseAck"
               element="dr:DocRetrieveAcknowledgement"/>
     </message>
-
-    <portType name="AdapterDocRetrieveRequestPortType">
-        <operation name="CrossGatewayRetrieveRequest">
-            <input name="CrossGatewayRetrieveRequestMessage"
-                   message="tns:CrossGatewayRetrieveRequestMessage"/>
+    <portType name="AdapterDocRetrieveResponsePortType">
+        <operation name="CrossGatewayRetrieveResponse">
+            <input name="CrossGatewayRetrieveResponseRequest"
+                   message="tns:CrossGatewayRetrieveResponse_Message" />
             <output name="CrossGatewayRetrieveAcknowledgement"
-                    message="tns:CrossGatewayRetrieveRequestAcknowledgement_Message"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgement_Message"/>
         </operation>
     </portType>
 
-    <binding name="AdapterDocRetrieveRequestBindingSoap"
-             type="tns:AdapterDocRetrieveRequestPortType">
+    <binding name="AdapterDocRetrieveResponseBindingSoap"
+             type="tns:AdapterDocRetrieveResponsePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#AdapterDocRetrievePolicy"/>
-        <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:RespondingGateway_CrossGatewayRetrieve"/>
-            <input name="CrossGatewayRetrieveRequestMessage">
+        <operation name="CrossGatewayRetrieveResponse">
+            <soap:operation soapAction="urn:CrossGatewayRetrieveResponse"/>
+            <input name="CrossGatewayRetrieveResponseRequest">
                 <soap:body use="literal"/>
             </input>
             <output name="CrossGatewayRetrieveAcknowledgement">
@@ -60,21 +60,21 @@
         </operation>
     </binding>
 
-    <service name="AdapterDocRetrieveRequest">
-        <port name="AdapterDocRetrieveRequestPortSoap" binding="tns:AdapterDocRetrieveRequestBindingSoap">
-            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveRequest"/>
+    <service name="AdapterDocRetrieveResponse">
+        <port name="AdapterDocRetrieveResponsePortSoap" binding="tns:AdapterDocRetrieveResponseBindingSoap">
+            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveResponse"/>
         </port>
     </service>
 
-    <plnk:partnerLinkType name="AdapterDocRetrieveRequest">
+    <plnk:partnerLinkType name="AdapterDocRetrieveResponse">
     <!-- A partner link type is automatically generated when a new port type is added.
          Partner link types are used by BPEL processes. In a BPEL process, a partner
          link represents the interaction between the BPEL process and a partner service.
          Each partner link is associated with a partner link type. A partner link type
          characterizes the conversational relationship between two services. The
          partner link type can have one or two roles.-->
-        <plnk:role name="AdapterDocRetrieveRequestPortTypeRole"
-               portType="tns:AdapterDocRetrieveRequestPortType"/>
+        <plnk:role name="AdapterDocRetrieveResponsePortTypeRole"
+               portType="tns:AdapterDocRetrieveResponsePortType"/>
     </plnk:partnerLinkType>
 
     <wsp:Policy wsu:Id="AdapterDocRetrievePolicy">
