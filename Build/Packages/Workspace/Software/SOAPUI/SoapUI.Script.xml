@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.SoapUI.Scripts">
 
-  <property name="SoapUI.Install.FriendlyName" value="SoapUI Pro 3.0.1"/>
+  <property name="SoapUI.Install.FriendlyName" value="SoapUI Pro 3.5.1"/>
 
-  <property name="SoapUI.Installer.File.Name" value="soapUI-Pro-3.0.1-silent-installer.exe"/>
+  <property name="SoapUI.Installer.File.Name" value="soapUI-Pro-x32-3_5_1.exe"/>
   <property name="SoapUI.Installer.File.Path" value="C:\Temp\${SoapUI.Installer.File.Name}"/>
   <property name="SoapUI.Installer.Download.URL" value="${Workspace.Ftp.Url}${SoapUI.Installer.File.Name}"/>
 
-  <property name="SoapUI.Install.Directory.Path" value="${ProgramFiles.Current.Processor.Type.Path}\eviware\soapUI-Pro-3.0.1"/>
-  <property name="SoapUI.Install.Check.File.Path" value="${SoapUI.Install.Directory.Path}\bin\soapui-pro-3.0.1.jar"/>
+  <property name="SoapUI.Install.Directory.Path" value="${ProgramFiles.Default.Path}\eviware\soapUI-Pro-3.5.1"/>
+  <property name="SoapUI.Install.Check.File.Path" value="${SoapUI.Install.Directory.Path}\bin\soapui-pro-3.5.1.jar"/>
 
   <target name="Workspace.RequieredSoftware.SoapUI">
     <call target="Workspace.RequieredSoftware.SoapUI.IDE"/>
+    <call target="Workspace.RequieredSoftware.SoapUI.InitialInstall.config"/>    
     <call target="Workspace.RequieredSoftware.SoapUI.InitialInstall.Cleanup"/>
   </target>
 
@@ -35,14 +36,27 @@
         <exec
           workingdir="${path::get-directory-name(SoapUI.Installer.File.Path)}"
           program="${SoapUI.Installer.File.Path}"
+          commandline='-q' 
           verbose="true"
-          />
+          />        
       </if>
     </ifnot>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.SoapUI.InitialInstall.config">
+    <copy todir="${SoapUI.Install.Directory.Path}\bin\ext">
+      <fileset basedir="${Common.Directory.ThirdParty.Path}\MySQLDB">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+    <copy tofile="${SoapUI.Install.Directory.Path}\bin\soapui-pro.bat" 
+          file="${Common.Directory.Packages.Path}\Workspace\Software\SOAPUI\soapui-pro.bat.template"/>
+    <copy tofile="${SoapUI.Install.Directory.Path}\bin\soapui-settings.xml"
+          file="${Common.Directory.Packages.Path}\Workspace\Software\SOAPUI\soapui-settings.xml.template"/>
+
   </target>
 
   <target name="Workspace.RequieredSoftware.SoapUI.InitialInstall.Cleanup">
     <delete file="${SoapUI.Installer.File.Path}" if="${file::exists(SoapUI.Installer.File.Path)}"/>
   </target>
-
 </project>
