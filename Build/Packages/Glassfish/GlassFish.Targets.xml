@@ -95,7 +95,7 @@
   <target name="GlassFish.Recreate.Domain">
     <property name="GlassFish.Recreate.Domain.Arg1" value=""/>
     <if test="${property::exists('GlassFish.Domain.Templates.File.Path')}">
-      <property name="GlassFish.Recreate.Domain.Arg1" value="-Ddeployment.domain.template.file.path=${property::value('GlassFish.Domain.Templates.File.Path')}" overwrite="True"/>
+      <property name="GlassFish.Recreate.Domain.Arg1" value="-Ddeployment.domain.template.file.path=${property::value(GlassFish.Domain.Templates.File.Path)}" overwrite="True"/>
     </if>
 
     <ant
