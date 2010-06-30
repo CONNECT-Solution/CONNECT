@@ -23,6 +23,7 @@ public class Patient implements java.io.Serializable {
     private PersonName name = null;
     private Identifiers patientIdentifiers = new Identifiers();
     private Address add = null;
+    private Addresses adds = new Addresses();
     private String middleName = "";
     private PhoneNumbers phoneNumbers = new PhoneNumbers();
     private PhoneNumber phoneNumber = new PhoneNumber("70312312345");
@@ -81,7 +82,15 @@ public class Patient implements java.io.Serializable {
         this.ssn = val;
     }
 
-
+    public Addresses getAddresses()
+    {
+        return adds;
+    }
+    public void setAddresses(Addresses val)
+    {
+        this.adds = val;
+    }
+    @Deprecated
     public Address getAddress()
     {
         if (add == null)
@@ -91,6 +100,7 @@ public class Patient implements java.io.Serializable {
         
         return add;
     }
+    @Deprecated
     public void setAddress(Address value)
     {
         add = value;

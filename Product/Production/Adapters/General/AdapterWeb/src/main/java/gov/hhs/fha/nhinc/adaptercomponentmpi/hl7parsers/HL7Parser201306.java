@@ -18,6 +18,7 @@ import java.util.GregorianCalendar;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.hl7.v3.*;
 
 
@@ -339,9 +340,28 @@ public class HL7Parser201306 {
         }
         
         // Set the Address
-        if (patient.getAddress() != null) {
-           person.getAddr().add(createAddress(patient));
+        if (patient.getAddresses().size() > 0 ) {
+            for(Address add : patient.getAddresses())
+            {
+               ADExplicit address =  HL7DataTransformHelper.CreateADExplicit(add.getStreet1(),
+                       add.getStreet2(), add.getCity(), add.getState(), add.getZip());
+               person.getAddr().add(address);
+            }
+           
         }
+
+
+        //Set the phone Numbers
+        if(patient.getPhoneNumbers().size() > 0)
+        {
+            for(PhoneNumber number : patient.getPhoneNumbers())
+            {
+                TELExplicit tele = HL7DataTransformHelper.createTELExplicit(number.getPhoneNumber());
+
+                person.getTelecom().add(tele);
+            }
+        }
+
         
         // Set the SSN
         if (patient.getSSN() != null &&
@@ -354,7 +374,16 @@ public class HL7Parser201306 {
         
         return result;
     }
-    
+
+    private static TELExplicit createPhoneNumber(String number)
+    {
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        TELExplicit result = (TELExplicit) (factory.createTELExplicit());
+        result.setValue(number);
+
+        return result;
+
+    }
     private static ADExplicit createAddress (Patient patient) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ADExplicit address =  (ADExplicit) (factory.createADExplicit());
@@ -439,7 +468,16 @@ public class HL7Parser201306 {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
-        
+
+        String lastName =  patient.getName().getLastName();
+        String firstName = patient.getName().getFirstName();
+        String middleName= patient.getName().getMiddleName();
+        String prefix = patient.getName().getTitle();
+        String suffix = patient.getName().getSuffix();
+
+
+        name = HL7DataTransformHelper.CreatePNExplicit(firstName, middleName, lastName, prefix, suffix);
+        /*
         if (patient.getName().getLastName() != null &&
                 patient.getName().getLastName().length() > 0) {
             EnExplicitFamily familyName = new EnExplicitFamily();
@@ -457,7 +495,17 @@ public class HL7Parser201306 {
             log.info("Setting Patient Firstname in 201306: " + patient.getName().getFirstName());
             namelist.add(factory.createPNExplicitGiven(givenName));
         }
-        
+        if (patient.getName().getMiddleName() != null &&
+                patient.getName().getMiddleName().length() > 0)
+        {
+            EnExplicitGiven givenName = new EnExplicitGiven();
+            givenName.setPartType("GIV");
+            givenName.setContent(patient.getName().getFirstName());
+            log.info("Setting Patient Firstname in 201306: " + patient.getName().getMiddleName());
+            namelist.add(factory.createPNExplicitGiven(givenName));
+        }
+
+       */
         return name;
     }
     private static CE createGender (Patient patient) {

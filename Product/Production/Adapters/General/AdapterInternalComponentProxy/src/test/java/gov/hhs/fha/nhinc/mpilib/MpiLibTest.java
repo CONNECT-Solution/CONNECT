@@ -539,8 +539,6 @@ public class MpiLibTest {
         assertEquals(searchResults.get(0).getName().getMiddleInitial(), patient.getName().getMiddleInitial());
         //assertEquals(searchResults.get(0).get)
 
-        //MiniMpi mpi =loadStandardMPI();
-        //MpiDataSaver.SaveMpi(mpi.getPatients(),"kieranMPI.xml");
     }
     @Test
     public void testPhoneNumber()
@@ -563,7 +561,15 @@ public class MpiLibTest {
         patient.setOptedIn(true);
 
         patient.getPhoneNumbers().add(new PhoneNumber(number));
-        assertEquals(patient.getPhoneNumbers().size(),1);
+
+        Address add = new Address();
+        add.setCity("Chantilly");
+        add.setState("VA");
+        add.setStreet1("5155 Parkstone Drive");
+        add.setStreet2("Att:Developer");
+        add.setZip("20151");
+
+        patient.getAddresses().add(add);
         mpi.AddUpdate(patient);
 
         assertEquals(1, mpi.getPatients().size());
@@ -580,8 +586,7 @@ public class MpiLibTest {
         assertEquals(searchResults.get(0).getPhoneNumbers().size(), patient.getPhoneNumbers().size());
         assertEquals(searchResults.get(0).getPhoneNumbers().get(0).getPhoneNumber(), patient.getPhoneNumbers().get(0).getPhoneNumber());
         assertEquals(searchResults.get(0).getPhoneNumbers().get(0).getPhoneNumber(), number);
-        //MiniMpi mpi =loadStandardMPI();
-        MpiDataSaver.SaveMpi(mpi.getPatients(),"kieranMPI.xml");
+
     }
     @Test
     public void testMultiplePhoneNumber()
@@ -619,8 +624,98 @@ public class MpiLibTest {
 
         assertEquals(number1, actualNumber1);
         assertEquals(number2, actualNumber2);
-        //MiniMpi mpi =loadStandardMPI();
-        //MpiDataSaver.SaveMpi(mpi.getPatients(),"kieranMPI.xml");
+
+    }
+    @Test
+    public void testAddress()
+    {
+        System.out.println("testAddress");
+        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+        Patient patient;
+
+        patient = new Patient();
+        patient.getName().setLastName("LastName");
+        patient.getName().setFirstName("FirstName");
+        patient.getName().setFirstName("MiddleName");
+
+
+        patient.getIdentifiers().add("id1", "A");
+        patient.getIdentifiers().add("id2", "B");
+        patient.setOptedIn(true);
+
+        Address add = new Address();
+        add.setCity("Chantilly");
+        add.setState("VA");
+        add.setStreet1("5155 Parkstone Drive");
+        add.setStreet2("Att:Developer");
+        add.setZip("20151");
+
+        patient.getAddresses().add(add);
+        mpi.AddUpdate(patient);
+
+        assertEquals(1, mpi.getPatients().size());
+
+
+        Patients searchResults = mpi.Search(patient);
+
+        assertEquals(searchResults.size(),1);
+        assertEquals(searchResults.get(0).getAddresses().size(), 1);
+        assertEquals("Chantilly",searchResults.get(0).getAddresses().get(0).getCity());
+        assertEquals("VA",searchResults.get(0).getAddresses().get(0).getState());
+        assertEquals("5155 Parkstone Drive",searchResults.get(0).getAddresses().get(0).getStreet1());
+        assertEquals("20151",searchResults.get(0).getAddresses().get(0).getZip());
+
+    }
+   @Test
+    public void testAddress_Multi()
+    {
+        System.out.println("testAddress_Multi");
+        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+        Patient patient;
+
+        patient = new Patient();
+        patient.getName().setLastName("LastName");
+        patient.getName().setFirstName("FirstName");
+        patient.getName().setFirstName("MiddleName");
+
+
+        patient.getIdentifiers().add("id1", "A");
+        patient.getIdentifiers().add("id2", "B");
+        patient.setOptedIn(true);
+
+        Address add = new Address();
+        add.setCity("Chantilly");
+        add.setState("VA");
+        add.setStreet1("5155 Parkstone Drive");
+        add.setStreet2("Att:Developer");
+        add.setZip("20151");
+
+        Address add2 = new Address();
+        add2.setCity("Melbourne");
+        add2.setState("FL");
+        add2.setStreet1("1025 West NASA Boulevard");
+        add2.setStreet2("Att:Developer");
+        add2.setZip("32919-0001");
+
+        patient.getAddresses().add(add);
+        patient.getAddresses().add(add2);
+        
+        
+        
+        mpi.AddUpdate(patient);
+
+        assertEquals(1, mpi.getPatients().size());
+
+
+        Patients searchResults = mpi.Search(patient);
+
+        assertEquals(1, searchResults.size());
+        assertEquals(2, searchResults.get(0).getAddresses().size());
+
+        assertEquals("VA",searchResults.get(0).getAddresses().get(0).getState());
+        assertEquals("FL",searchResults.get(0).getAddresses().get(1).getState());
     }
     private Patient loadPatient(String lName, String fName, String mName, 
             String sex, String dob, String ssn, String add1, String add2, 
