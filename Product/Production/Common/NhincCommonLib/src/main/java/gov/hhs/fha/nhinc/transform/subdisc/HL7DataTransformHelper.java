@@ -130,6 +130,43 @@ public class HL7DataTransformHelper {
         return creationTime;
     }
 
+    public static ENExplicit createEnExplicit(String firstName,
+            String middleName, String lastName, String title, String suffix)
+    {
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        List enNamelist = enName.getContent();
+                             
+
+        if(NullChecker.isNotNullish(lastName))
+        {
+            EnExplicitFamily familyName = createEnExplicitFamily(lastName);
+            enNamelist.add(factory.createENExplicitFamily(familyName));
+        }
+        if(NullChecker.isNotNullish(firstName))
+        {
+            EnExplicitGiven givenName = createEnExplicitGiven(firstName);
+            enNamelist.add(factory.createENExplicitGiven(givenName));
+        }
+        if(NullChecker.isNotNullish(middleName))
+        {
+            EnExplicitGiven givenName2 = createEnExplicitGiven(middleName);
+            enNamelist.add(factory.createENExplicitGiven(givenName2));
+        }
+        if(NullChecker.isNotNullish(title))
+        {
+            EnExplicitPrefix prefix = createEnExplicitPrefix(title);
+            enNamelist.add(factory.createENExplicitPrefix(prefix));
+        }
+        if(NullChecker.isNotNullish(suffix))
+        {
+            EnExplicitSuffix enSuffix = createEnExplicitSuffix(suffix);
+            enNamelist.add(factory.createENExplicitSuffix(enSuffix));
+        }
+
+        return enName;
+    }
+
     public static ENExplicit ConvertPNToEN(PNExplicit pnName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ENExplicit enName = (ENExplicit) (factory.createENExplicit());
@@ -152,6 +189,12 @@ public class HL7DataTransformHelper {
                 } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                     givenName = (EnExplicitGiven) oJAXBElement.getValue();
                     enNamelist.add(factory.createENExplicitGiven(givenName));
+                } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
+                    EnExplicitPrefix explicitPrefix = (EnExplicitPrefix) oJAXBElement.getValue();
+                    enNamelist.add(factory.createENExplicitPrefix(explicitPrefix));
+                } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
+                    EnExplicitSuffix explicitSuffix = (EnExplicitSuffix) oJAXBElement.getValue();
+                    enNamelist.add(factory.createENExplicitSuffix(explicitSuffix));
                 }
             }
         }
@@ -165,6 +208,7 @@ public class HL7DataTransformHelper {
         List namelist = result.getContent();
         String lastName = "";
         String firstName = "";
+
         EnExplicitFamily explicitFamilyName = null;
         EnExplicitGiven explicitGivenName = null;
 
@@ -174,21 +218,25 @@ public class HL7DataTransformHelper {
                 EnFamily familyName = (EnFamily) item;
                 lastName = familyName.getRepresentation().value();
 
-                explicitFamilyName = new EnExplicitFamily();
-                explicitFamilyName.setPartType("FAM");
-                explicitFamilyName.setContent(lastName);
+                explicitFamilyName = createEnExplicitFamily(lastName);
                 namelist.add(factory.createPNExplicitFamily(explicitFamilyName));
                 log.debug("Added family name" + lastName);
             } else if (item instanceof EnGiven) {
                 EnGiven givenName = (EnGiven) item;
                 firstName = givenName.getRepresentation().value();
 
-                explicitGivenName = new EnExplicitGiven();
-                explicitGivenName.setPartType("GIV");
-                explicitGivenName.setContent(firstName);
+                explicitGivenName = createEnExplicitGiven(firstName);
                 namelist.add(factory.createPNExplicitGiven(explicitGivenName));
                 log.debug("Added given name" + firstName);
-            } else if (item instanceof JAXBElement) {
+            }else if (item instanceof EnPrefix) {
+                EnPrefix enPrefix = (EnPrefix)item;
+                String prefix = enPrefix.getRepresentation().value();
+
+                EnExplicitPrefix explicitPrefix = createEnExplicitPrefix(prefix);
+                
+                namelist.add(factory.createPNExplicitPrefix(explicitPrefix));
+                log.debug("Added prefix" + prefix);
+            }else if (item instanceof JAXBElement) {
                 JAXBElement newItem = (JAXBElement) item;
                 if (newItem.getValue() instanceof EnExplicitFamily) {
                     EnExplicitFamily familyName = (EnExplicitFamily) newItem.getValue();
@@ -243,6 +291,44 @@ public class HL7DataTransformHelper {
         return name;
     }
 
+    public static PNExplicit CreatePNExplicit(String firstName, String middleName, String lastName) {
+        log.debug("begin CreatePNExplicit");
+        log.debug("firstName = " + firstName + "; lastName = " + lastName);
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        PNExplicit name = CreatePNExplicit(firstName, lastName);
+        List namelist = name.getContent();
+
+        if (NullChecker.isNotNullish(middleName)) {
+            EnExplicitGiven givenName = new EnExplicitGiven();
+            givenName.setPartType("GIV");
+            givenName.setContent(middleName);
+            log.info("Setting Patient Firstname: " + middleName);
+            namelist.add(factory.createPNExplicitGiven(givenName));
+        }
+
+        log.debug("end CreatePNExplicit");
+        return name;
+    }
+    public static PNExplicit CreatePNExplicit(String firstName, String middleName, String lastName, String title, String suffix)
+    {
+        PNExplicit result = CreatePNExplicit(firstName, middleName, lastName);
+        List namelist = result.getContent();
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        
+        if (NullChecker.isNotNullish(title)) {
+            EnExplicitPrefix prefix = createEnExplicitPrefix(title);
+
+            namelist.add(factory.createPNExplicitPrefix(prefix));
+        }
+        if (NullChecker.isNotNullish(suffix)) {
+            EnExplicitSuffix enSuffix = createEnExplicitSuffix(suffix);
+
+            namelist.add(factory.createPNExplicitSuffix(enSuffix));
+        }
+
+        return result;
+    }
+
     public static ADExplicit CreateADExplicit(boolean notOrdered, String street, String city, String state, String zip) {
         ADExplicit result = new ADExplicit();
 
@@ -266,4 +352,38 @@ public class HL7DataTransformHelper {
 
         return result;
     }
+    private static EnExplicitFamily createEnExplicitFamily(String lastName)
+    {
+        EnExplicitFamily familyName = new EnExplicitFamily();
+        familyName.setPartType("FAM");
+        familyName.setContent(lastName);
+
+        return familyName;
+    }
+    private static EnExplicitGiven createEnExplicitGiven(String givenName)
+    {
+        EnExplicitGiven result = new EnExplicitGiven();
+
+        result.setPartType("GIV");
+        result.setContent(givenName);
+
+        return result;
+    }
+    private static EnExplicitPrefix createEnExplicitPrefix(String prefix)
+    {
+        EnExplicitPrefix explicitPrefix = new EnExplicitPrefix();
+        explicitPrefix.setPartType("PFX");
+        explicitPrefix.setContent(prefix);
+
+        return explicitPrefix;
+    }
+    private static EnExplicitSuffix createEnExplicitSuffix(String suffix)
+    {
+        EnExplicitSuffix result = new EnExplicitSuffix();
+        result.setPartType("SFX");
+        result.setContent(suffix);
+
+        return result;
+    }
+
 }
