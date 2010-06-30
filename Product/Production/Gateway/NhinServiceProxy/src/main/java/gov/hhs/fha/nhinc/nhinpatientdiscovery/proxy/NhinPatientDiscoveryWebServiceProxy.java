@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import ihe.iti.xcpd._2009.RespondingGatewayService;
 import java.util.Map;
@@ -43,6 +44,9 @@ public class NhinPatientDiscoveryWebServiceProxy implements NhinPatientDiscovery
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PATIENT_DISCOVERY_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            log.info("jr: begin port init");
+            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
             response = port.respondingGatewayPRPAIN201305UV02(request);
 
