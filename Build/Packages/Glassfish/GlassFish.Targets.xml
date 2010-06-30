@@ -93,6 +93,11 @@
   </target>
 
   <target name="GlassFish.Recreate.Domain">
+    <property name="GlassFish.Recreate.Domain.Arg1" value=""/>
+    <if test="${property::exists('GlassFish.Domain.Templates.File.Path')}">
+      <property name="GlassFish.Recreate.Domain.Arg1" value="-Ddeployment.domain.template.file.path=${property::value('GlassFish.Domain.Templates.File.Path')}" overwrite="True"/>
+    </if>
+
     <ant
        target="recreate.glassfish.domain"
        buildfile="${GlassFish.Deploy.Script.File.Path}"
@@ -100,7 +105,7 @@
           >
       <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args>
-        <arg line="-Ddeployment.domain.template.file.path=${property::value(GlassFish.Domain.Templates.File.Path)}"/>
+        <arg line="${GlassFish.Recreate.Domain.Arg1}"/>
       </args>
     </ant>
   </target>
