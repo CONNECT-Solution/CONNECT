@@ -85,8 +85,8 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
         SubscriptionManager port = null;
         if (NullChecker.isNotNullish(url)) {
             port = nhinService.getSubscriptionManagerPort();
-            log.info("Setting endpoint address to Nhin Hiem Unsubscribe Service to " + url);
-            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+						gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.UNSUBSCRIBE_ACTION);

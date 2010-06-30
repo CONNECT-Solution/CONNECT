@@ -55,7 +55,7 @@ public class NhinPatientDiscoveryAsyncReqWebServiceProxy implements NhinPatientD
             requestContext.putAll(msgIdCreator.CreateRequestContextForMessageId(assertion));
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
+						gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
             response = port.respondingGatewayDeferredPRPAIN201305UV02(body);
 
         } else {
