@@ -506,6 +506,122 @@ public class MpiLibTest {
         f.delete();
         
     }
+    @Test
+    public void testName()
+    {
+        System.out.println("testName");
+        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+
+        Patient patient;
+
+        patient = new Patient();
+        patient.getName().setLastName("LastName");
+        patient.getName().setFirstName("FirstName");
+        patient.getName().setFirstName("MiddleName");
+        patient.getName().setSuffix("Suffix");
+        patient.getName().setTitle("title");
+        patient.getIdentifiers().add("id1", "A");
+        patient.getIdentifiers().add("id2", "B");
+        patient.setOptedIn(true);
+        mpi.AddUpdate(patient);
+
+        assertEquals(1, mpi.getPatients().size());
+
+
+        Patients searchResults = mpi.Search(patient);
+
+        assertEquals(searchResults.size(),1);
+
+        assertEquals(searchResults.get(0).getName().getFirstName(), patient.getName().getFirstName());
+        assertEquals(searchResults.get(0).getName().getLastName(), patient.getName().getLastName());
+        assertEquals(searchResults.get(0).getName().getMiddleName(), patient.getName().getMiddleName());
+        assertEquals(searchResults.get(0).getName().getMiddleInitial(), patient.getName().getMiddleInitial());
+        //assertEquals(searchResults.get(0).get)
+
+        //MiniMpi mpi =loadStandardMPI();
+        //MpiDataSaver.SaveMpi(mpi.getPatients(),"kieranMPI.xml");
+    }
+    @Test
+    public void testPhoneNumber()
+    {
+        System.out.println("testPhoneNumber");
+        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+        String number = "70312345678";
+
+        Patient patient;
+
+        patient = new Patient();
+        patient.getName().setLastName("LastName");
+        patient.getName().setFirstName("FirstName");
+        patient.getName().setFirstName("MiddleName");
+
+        
+        patient.getIdentifiers().add("id1", "A");
+        patient.getIdentifiers().add("id2", "B");
+        patient.setOptedIn(true);
+
+        patient.getPhoneNumbers().add(new PhoneNumber(number));
+        assertEquals(patient.getPhoneNumbers().size(),1);
+        mpi.AddUpdate(patient);
+
+        assertEquals(1, mpi.getPatients().size());
+
+
+        Patients searchResults = mpi.Search(patient);
+
+        assertEquals(searchResults.size(),1);
+        assertEquals(searchResults.get(0).getPhoneNumbers().size(),1);
+        assertEquals(searchResults.get(0).getName().getFirstName(), patient.getName().getFirstName());
+        assertEquals(searchResults.get(0).getName().getLastName(), patient.getName().getLastName());
+        assertEquals(searchResults.get(0).getName().getMiddleName(), patient.getName().getMiddleName());
+        assertEquals(searchResults.get(0).getName().getMiddleInitial(), patient.getName().getMiddleInitial());
+        assertEquals(searchResults.get(0).getPhoneNumbers().size(), patient.getPhoneNumbers().size());
+        assertEquals(searchResults.get(0).getPhoneNumbers().get(0).getPhoneNumber(), patient.getPhoneNumbers().get(0).getPhoneNumber());
+        assertEquals(searchResults.get(0).getPhoneNumbers().get(0).getPhoneNumber(), number);
+        //MiniMpi mpi =loadStandardMPI();
+        MpiDataSaver.SaveMpi(mpi.getPatients(),"kieranMPI.xml");
+    }
+    @Test
+    public void testMultiplePhoneNumber()
+    {
+        System.out.println("testMultiplePhoneNumber");
+        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+
+        Patient patient;
+        String number1 = "70312345678";
+        String number2 = "20212345678";
+        patient = new Patient();
+        patient.getName().setLastName("LastName");
+        patient.getName().setFirstName("FirstName");
+        patient.getName().setFirstName("MiddleName");
+        patient.getIdentifiers().add("id1", "A");
+        patient.getIdentifiers().add("id2", "B");
+        patient.setOptedIn(true);
+        patient.getPhoneNumbers().add(new PhoneNumber(number1));
+        patient.getPhoneNumbers().add(new PhoneNumber(number2));
+        mpi.AddUpdate(patient);
+
+        assertEquals(1, mpi.getPatients().size());
+
+
+        Patients searchResults = mpi.Search(patient);
+
+        assertEquals(searchResults.size(),1);
+
+        assertEquals(searchResults.get(0).getName().getLastName(), patient.getName().getLastName());
+
+        assertEquals(2,searchResults.get(0).getPhoneNumbers().size());
+        String actualNumber1 = searchResults.get(0).getPhoneNumbers().get(0).getPhoneNumber();
+        String actualNumber2 = searchResults.get(0).getPhoneNumbers().get(1).getPhoneNumber();
+
+        assertEquals(number1, actualNumber1);
+        assertEquals(number2, actualNumber2);
+        //MiniMpi mpi =loadStandardMPI();
+        //MpiDataSaver.SaveMpi(mpi.getPatients(),"kieranMPI.xml");
+    }
     private Patient loadPatient(String lName, String fName, String mName, 
             String sex, String dob, String ssn, String add1, String add2, 
             String city, String state, String zip)

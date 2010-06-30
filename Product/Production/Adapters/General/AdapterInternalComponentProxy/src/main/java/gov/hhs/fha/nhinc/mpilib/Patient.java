@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Patient implements java.io.Serializable {
     private static Log log = LogFactory.getLog(Patient.class);
-    static final long serialVersionUID = 449060013287108219L;
+    static final long serialVersionUID = 449060013287108229L;
     private String dateOfBirth = null;
     private String gender = "";
     //private QualifiedSubjectId RequesterSubjectId = null;
@@ -23,6 +23,9 @@ public class Patient implements java.io.Serializable {
     private PersonName name = null;
     private Identifiers patientIdentifiers = new Identifiers();
     private Address add = null;
+    private String middleName = "";
+    private PhoneNumbers phoneNumbers = new PhoneNumbers();
+    private PhoneNumber phoneNumber = new PhoneNumber("70312312345");
     private boolean optedIn = true;
     
     public Patient() {
@@ -43,6 +46,15 @@ public class Patient implements java.io.Serializable {
 
     public void setDateOfBirth(String newVal) {
         this.dateOfBirth = newVal;
+    }
+    public void setPhoneNumbers(PhoneNumbers val)
+    {
+        this.phoneNumbers = val;
+    }
+
+    public PhoneNumbers getPhoneNumbers()
+    {
+        return phoneNumbers;
     }
 
     public Identifiers getIdentifiers() {
