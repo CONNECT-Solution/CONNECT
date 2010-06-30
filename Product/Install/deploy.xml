@@ -311,24 +311,29 @@
   </target>
 
   <target name="-delete.glassfish.domain">
-    <trycatch property="error">
-      <try>
-        <runtarget target="deploy.glassfish.stop.server"/>
-        <sun-appserv-admin 
+    <if>
+      <available file="${deployment.glassfish.domain.home}" type="dir"/>
+      <then>
+        <trycatch property="error">
+          <try>
+            <runtarget target="deploy.glassfish.stop.server"/>
+            <sun-appserv-admin 
             explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
             asinstalldir="${glassfish.home}"
             />
-      </try>
-      <catch>
-        <echo message="${error}"/>
-        <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
-        <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
-        <sleep minutes="1"/>
-        <delete includeemptydirs="true" verbose="true">
-          <fileset dir="${deployment.glassfish.domain.home}" defaultexcludes="false"/>
-        </delete>
-      </catch>
-    </trycatch>
+          </try>
+          <catch>
+            <echo message="${error}"/>
+            <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
+            <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
+            <sleep minutes="1"/>
+            <delete includeemptydirs="true" verbose="true">
+              <fileset dir="${deployment.glassfish.domain.home}" defaultexcludes="false"/>
+            </delete>
+          </catch>
+        </trycatch>
+      </then>
+    </if>
   </target>
 
   <target name="copy.conf.file" depends="-deploy.setup.init,copy.conf.windows.file,copy.conf.unix.file" />
@@ -457,13 +462,13 @@
         <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
       </xmlcatalog>          
       <insert path="/domain/configs/config/java-config/child::node()[1]" position="before"> 
-<![CDATA[ 
+        <![CDATA[ 
 <profiler name="YourKit Java Profiler 9.0.2" enabled="true">
 <jvm-options>-agentpath:${profiler.executables.home}\bin\win32\yjpagent.dll=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=SunServer</jvm-options>
 <jvm-options>-Dcom.sun.enterprise.server.ss.ASQuickStartup=false</jvm-options>
 </profiler> 
 ]]> 
-</insert>
+      </insert>
     </xmltask>   
   </target>
 
@@ -475,16 +480,6 @@
     <runtarget target="-configure.glassfish.domain"/>
     <runtarget target="-restore.glassfish.domain.certificates"/>
     <runtarget target="-uncomment.domain.config"/>
-  </target>
-
-
-
-  <target name="deploy.lift.start">
-
-  </target>
-
-  <target name="deploy.lift.stop">
-
   </target>
 
 </project>
