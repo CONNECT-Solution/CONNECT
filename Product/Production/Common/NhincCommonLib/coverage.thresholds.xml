@@ -156,4 +156,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="9" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.service.ServiceUtil" linecount="24" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="26" branchrate="0.7692307692307693" branchsexecuted="0.2" class="gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnInfoService" linecount="46" linerate="0.8695652173913043" linesexecuted="0.4"/>
+<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="31" linerate="0.0" linesexecuted="0"/>
 </thresholds>
