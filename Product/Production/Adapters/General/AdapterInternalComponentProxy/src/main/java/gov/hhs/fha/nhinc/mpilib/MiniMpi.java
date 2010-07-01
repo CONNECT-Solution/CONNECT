@@ -78,10 +78,26 @@ public class MiniMpi implements IMPI {
     }
 
     private void ValidateNewPatient(Patient patient) {
-        if (patient.getName().getLastName().contentEquals("")) {
-            throw new IllegalArgumentException("Must supply a patient name");
+        if(patient.getNames().size() > 0)
+        {
+            for(PersonName name : patient.getNames())
+            {
+                if(!hasDemographicInfo(name))
+                {
+                    throw new IllegalArgumentException("Must supply a patient name");
+                }
+            }
         }
+        else
+        {
+            if(!hasDemographicInfo(patient.getName()))
+            {
+                throw new IllegalArgumentException("Must supply a patient name");
+            }
+        }
+
     }
+
 
     public Patient AddUpdate(Patient newPatient) {
         Patient resultPatient = null;
@@ -146,12 +162,33 @@ public class MiniMpi implements IMPI {
         return Search(searchParams, AllowSearchByDemographics, false);
     }
 
+    private boolean hasDemographicInfo(Patient params)
+    {
+        if(params.getNames().size() > 0)
+        {
+            return hasDemographicInfo(params.getNames().get(0));
+        }
+        else
+        {
+            return hasDemographicInfo(params.getName());
+        }
+    }
+    private boolean hasDemographicInfo(PersonName name)
+    {
+        boolean result = false;
+        if(name != null)
+        {
+            result =  !(name.getFirstName().contentEquals("") && name.getLastName().contentEquals(""));
+        }
+
+        return result;
+    }
     public Patients Search(Patient searchParams, boolean AllowSearchByDemographics, boolean includeOptOutPatient) {
         Patients results = new Patients();
 
         //if not results, try a demographics search
         log.info("should we perform an demographic search?");
-        if ((AllowSearchByDemographics) && (!(searchParams.getName().getFirstName().contentEquals("") && searchParams.getName().getLastName().contentEquals("")))) {
+        if ((AllowSearchByDemographics) && (hasDemographicInfo(searchParams))) {
             log.info("attempt demographic search");
             results = SearchByDemographics(searchParams, includeOptOutPatient);
             if (results == null) {

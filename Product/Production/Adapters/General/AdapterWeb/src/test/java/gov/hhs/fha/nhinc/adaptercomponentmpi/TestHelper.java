@@ -383,6 +383,32 @@ public class TestHelper {
         name.setLastName(lastName);
         name.setMiddleName(middleName);
         result.setName(name);
+        
+        // Set the patient gender
+        result.setGender(gender);
+
+        // Set the patient birth time
+        result.setDateOfBirth(birthTime);
+
+        // Set the patient Id
+        Identifiers ids = new Identifiers();
+        ids.add(subjectId);
+        result.setIdentifiers(ids);
+
+        return result;
+    }
+    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender, String birthTime, Identifier subjectId, String title, String suffix) {
+        Patient result = new Patient();
+
+        // Set the patient name
+        PersonName name = new PersonName();
+        name.setFirstName(firstName);
+        name.setLastName(lastName);
+        name.setMiddleName(middleName);
+        name.setTitle(title);
+        name.setSuffix(suffix);
+
+        result.getNames().add(name);
 
         // Set the patient gender
         result.setGender(gender);

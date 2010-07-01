@@ -330,8 +330,18 @@ public class HL7Parser201306 {
            person.setAdministrativeGenderCode(createGender(patient));
         }
         
-        // Set the Subject Name
-        person.getName().add(createSubjectName(patient));
+        // Set the Subject Name        
+        if(patient.getNames().size() > 0)
+        {
+            for(PersonName name : patient.getNames())
+            {
+                 person.getName().add(createSubjectName(name));
+            }
+        }
+        else
+        {
+            person.getName().add(createSubjectName(patient));
+        }
         
         // Set the Birth Time
         if (patient.getDateOfBirth() != null &&
@@ -465,47 +475,22 @@ public class HL7Parser201306 {
     }
     
     private static PNExplicit createSubjectName (Patient patient) {       
+        return createSubjectName(patient.getName());
+    }
+    private static PNExplicit createSubjectName (PersonName personName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
 
-        String lastName =  patient.getName().getLastName();
-        String firstName = patient.getName().getFirstName();
-        String middleName= patient.getName().getMiddleName();
-        String prefix = patient.getName().getTitle();
-        String suffix = patient.getName().getSuffix();
+        String lastName =  personName.getLastName();
+        String firstName =personName.getFirstName();
+        String middleName= personName.getMiddleName();
+        String prefix = personName.getTitle();
+        String suffix = personName.getSuffix();
 
 
         name = HL7DataTransformHelper.CreatePNExplicit(firstName, middleName, lastName, prefix, suffix);
-        /*
-        if (patient.getName().getLastName() != null &&
-                patient.getName().getLastName().length() > 0) {
-            EnExplicitFamily familyName = new EnExplicitFamily();
-            familyName.setPartType("FAM");
-            familyName.setContent(patient.getName().getLastName());
-            log.info("Setting Patient Lastname in 201306: " + patient.getName().getLastName());
-            namelist.add(factory.createPNExplicitFamily(familyName));
-        }
-        
-        if (patient.getName().getFirstName() != null &&
-                patient.getName().getFirstName().length() > 0) {
-            EnExplicitGiven givenName = new EnExplicitGiven();
-            givenName.setPartType("GIV");
-            givenName.setContent(patient.getName().getFirstName());
-            log.info("Setting Patient Firstname in 201306: " + patient.getName().getFirstName());
-            namelist.add(factory.createPNExplicitGiven(givenName));
-        }
-        if (patient.getName().getMiddleName() != null &&
-                patient.getName().getMiddleName().length() > 0)
-        {
-            EnExplicitGiven givenName = new EnExplicitGiven();
-            givenName.setPartType("GIV");
-            givenName.setContent(patient.getName().getFirstName());
-            log.info("Setting Patient Firstname in 201306: " + patient.getName().getMiddleName());
-            namelist.add(factory.createPNExplicitGiven(givenName));
-        }
 
-       */
         return name;
     }
     private static CE createGender (Patient patient) {

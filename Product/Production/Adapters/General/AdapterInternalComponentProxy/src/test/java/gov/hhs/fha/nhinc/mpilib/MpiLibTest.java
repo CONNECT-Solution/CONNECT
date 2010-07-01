@@ -717,31 +717,231 @@ public class MpiLibTest {
         assertEquals("VA",searchResults.get(0).getAddresses().get(0).getState());
         assertEquals("FL",searchResults.get(0).getAddresses().get(1).getState());
     }
+
+   public void createConformanceMPI()
+   {
+       MiniMpi mpi = loadConformanceMPI();
+
+       MpiDataSaver.SaveMpi(mpi.getPatients(), "conformanceMPI.xml");
+   }
+   @Test
+   public void testMultiPatientName()
+   {
+        System.out.println("testMultiplePhoneNumber");
+        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
+        mpi.Reset();
+
+        Patient patient;
+
+        patient = new Patient();
+
+
+        PersonName name1 = new PersonName();
+        name1.setFirstName("FirstName");
+        name1.setLastName("LastName");
+        name1.setMiddleName("MiddleName");
+        name1.setSuffix("Suffix");
+        name1.setTitle("Title");
+
+        patient.getNames().add(name1);
+
+        PersonName name2 = new PersonName();
+        name2.setFirstName("FirstName2");
+        name2.setLastName("LastName2");
+        name2.setMiddleName("MiddleName2");
+        name2.setSuffix("Suffix2");
+        name2.setTitle("Title2");
+
+        patient.getNames().add(name2);
+        
+        patient.setOptedIn(true);
+
+        mpi.AddUpdate(patient);
+
+        assertEquals(1, mpi.getPatients().size());
+
+
+        Patients searchResults = mpi.Search(patient);
+
+        assertEquals(searchResults.size(),1);
+        
+        PersonNames nameResults = searchResults.get(0).getNames();
+        assertEquals(2, nameResults.size());
+        assertEquals(name1.getFirstName(), nameResults.get(0).getFirstName());
+        assertEquals(name1.getLastName(), nameResults.get(0).getLastName());
+        assertEquals(name1.getMiddleName(), nameResults.get(0).getMiddleName());
+        assertEquals(name1.getTitle(), nameResults.get(0).getTitle());
+        assertEquals(name1.getSuffix(), nameResults.get(0).getSuffix());
+
+        assertEquals(name2.getFirstName(), nameResults.get(1).getFirstName());
+        assertEquals(name2.getLastName(), nameResults.get(1).getLastName());
+        assertEquals(name2.getMiddleName(), nameResults.get(1).getMiddleName());
+        assertEquals(name2.getTitle(), nameResults.get(1).getTitle());
+        assertEquals(name2.getSuffix(), nameResults.get(1).getSuffix());
+   }
+
     private Patient loadPatient(String lName, String fName, String mName, 
             String sex, String dob, String ssn, String add1, String add2, 
             String city, String state, String zip)
     {
         Patient patient = new Patient();
         PersonName name = new PersonName();
-        Address addy = new Address();
         
         name.setFirstName(fName);
         name.setLastName(lName);
         name.setMiddleName(mName);
-        patient.setName(name);
+        patient.getNames().add(name);
         
         patient.setDateOfBirth(dob);
         patient.setSSN(ssn);
         patient.setGender(sex);
+               
         
+        //patient.setAddress(addy);
+        patient.getAddresses().add(loadAddress(add1, add2, city, state, zip));
+        
+        return patient;
+    }
+    private Patient loadPatient(String lName, String fName, String mName,
+            String sex, String dob, String ssn, String add1, String add2,
+            String city, String state, String zip, String title, String suffix)
+    {
+        Patient p = loadPatient(lName, fName, mName, sex, dob, ssn, add1, add2,
+            city, state, zip);
+        p.getNames().get(0).setSuffix(suffix);
+        p.getNames().get(0).setTitle(title);
+
+
+        return p;
+    }
+    private Address loadAddress(String add1, String add2, String city, String state, String zip)
+    {
+        Address addy = new Address();
+
+        addy.setStreet1(add1);
+        addy.setStreet2(add2);
         addy.setCity(city);
         addy.setState(state);
         addy.setZip(zip);
-        
-        
-        patient.setAddress(addy);
-        
-        return patient;
+
+        return addy;
+    }
+    private PersonName loadPersonName(String firstName, String middleName, String lastName, String title, String suffix)
+    {
+        PersonName result = new PersonName();
+
+        result.setFirstName(firstName);
+        result.setMiddleName(middleName);
+        result.setLastName(lastName);
+        result.setSuffix(suffix);
+        result.setTitle(title);
+
+        return result;
+    }
+    private MiniMpi loadConformanceMPI()
+    {
+        MiniMpi mpi;
+        mpi = MiniMpi.GetMpiInstance();
+        mpi.Reset();
+
+        Patient p;
+
+        try
+        {
+            p = loadPatient("Hamilton", "Alan", "James", "M", "07/02/1980", "", "800 Telephone Ct", "", "Honolulu", "HI", "96801", "Mr.", "");
+            p.getIdentifiers().add("0000002009", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-808-300-2343"));
+            p.getPhoneNumbers().add(new PhoneNumber("1-808-300-3300"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Davidson", "Amy", "C", "F", "10/17/1983", "", "809 First Ave", "", "Springfield", "MO", "65801");
+            p.getIdentifiers().add("0000002010", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-417-989-0987"));
+            p.getPhoneNumbers().add(new PhoneNumber("1-417-989-3300"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Adams", "Theresa", "Susan", "F", "10/17/1983", "", "3131 Over Street", "", "Ft Worth", "TX", "76101", "Ms.","");
+            p.getIdentifiers().add("0000002008", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-682-633-0909"));
+            p.getPhoneNumbers().add(new PhoneNumber("714-625-7161"));
+            p.getAddresses().add(loadAddress("19 Main Street", "", "Fullerton", "CA", "92831"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Carson", "Robert", "M", "M", "02/10/1960", "", "290 Jackson Lane", "001111111", "Boulder", "CO", "80301", "Mr.", "");
+            p.getIdentifiers().add("0000002007", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-303-454-0909"));
+            p.getPhoneNumbers().add(new PhoneNumber("1-303-454-0111"));
+            
+
+            p = loadPatient("Turner", "Sara", "P", "M", "05/28/1960", "", "912 Coat Dr", "", "Kansas City", "MO", "64116", "Ms.", "");
+            p.getIdentifiers().add("0000002009", "");
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Smith", "John", "", "M", "04/23/1957", "", "", "", "", "", "");
+            p.getIdentifiers().add("0000002009", "");
+            mpi.AddUpdate(p);
+            
+            p = loadPatient("Stewart", "Elizabeth", "Ann", "M", "01/10/1983", "F", "59302 Imprint Drive", "", "Charlotte", "NC", "28201", "Mrs.", "");
+            p.getIdentifiers().add("N600025", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-704-424-9000"));
+            p.getPhoneNumbers().add(new PhoneNumber("1-704-424-9232"));
+
+            PersonName secondName = loadPersonName("Elizabeth", "Ann", "Moore", "Ms.", "");
+            p.getNames().add(secondName);
+            mpi.AddUpdate(p);
+
+
+            p = loadPatient("O'Hara", "Donna", "M", "F", "03/18/1945", "", "76 Mouse Drive", "", "Las Vegas", "NV", "89101", "Ms.", "");
+            p.getIdentifiers().add("N600025", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-704-424-9000"));
+            p.getPhoneNumbers().add(new PhoneNumber("1-704-424-9232"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Reagan", "Ellen", "Ann", "F", "01/10/1975", "", "3489 Mountain Lanet", "", "Ashburn", "VA", "20147", "Ms.", "");
+            p.getIdentifiers().add("0000002022", "");
+            p.getPhoneNumbers().add(new PhoneNumber("1-703-231-9000"));
+            p.getPhoneNumbers().add(new PhoneNumber("1-703-231-4001"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Oliver", "Timothy", "Steven", "M", "06/12/1959", "666660056", "555 Rainbow Ct", "", "Nashville", "TN", "37201", "Mr.", "III");
+            p.getIdentifiers().add("0000002022", "");
+            p.getPhoneNumbers().add(new PhoneNumber("615-500-2322"));
+            p.getPhoneNumbers().add(new PhoneNumber("615-232-1212"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("Parker", "Kenneth", "Thomas", "M", "03/18/1945", "", "40 Saratoga Drive", "", "Houston", "TX", "77053", "Mr.", "III");
+            p.getIdentifiers().add("0000002011", "");
+            p.getPhoneNumbers().add(new PhoneNumber("281-912-1122"));
+            p.getPhoneNumbers().add(new PhoneNumber("281-911-2121"));
+
+            mpi.AddUpdate(p);
+
+            p = loadPatient("De La Cruz", "Mary Beth", "A", "F", "01/18/1975", "", "301 Palace Drive", "", "El Paso", "TX", "79901");
+            p.getIdentifiers().add("0000002012", "");
+            p.getPhoneNumbers().add(new PhoneNumber("915-090-2222"));
+            p.getPhoneNumbers().add(new PhoneNumber("915-333-0112"));
+
+            mpi.AddUpdate(p);
+
+
+            p = loadPatient("Morgan", "William", "", "M", "02/20/1973", "", "450 Lake Drive", "", "Bakersfield", "CA", "93301", "Mr.", "");
+            p.getIdentifiers().add("0000002019", "");
+            mpi.AddUpdate(p);
+
+        }
+        catch(Exception ex)
+        {
+
+        }
+
+        return mpi;
+
     }
     private MiniMpi loadStandardMPI()
     {

@@ -82,4 +82,11 @@ public class PersonName implements java.io.Serializable {
     {
         return suffix;
     }
+    public String toString()
+    {
+        String result = "";
+        result = lastName + ", " + firstName;
+
+        return result;
+    }
 }

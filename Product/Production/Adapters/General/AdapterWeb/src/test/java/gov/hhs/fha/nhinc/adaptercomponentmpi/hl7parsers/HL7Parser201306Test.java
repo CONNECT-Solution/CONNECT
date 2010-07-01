@@ -274,6 +274,52 @@ public class HL7Parser201306Test {
 
     }
 
+    @Test
+    public void testBuildMessageFromMpiPatient_MultiNames() {
+        System.out.println("BuildMessageFromMpiPatient");
+        II subjectId = new II();
+        subjectId.setRoot("2.16.840.1.113883.3.200");
+        subjectId.setExtension("1234");
+
+        String firstExpectedName = "Joe";
+        String lastExpectedName = "Smith";
+        String middleExpectedName = "Middle";
+        String expectedTitle = "Title";
+        String expectedSuffix = "Suffix";
+
+        PRPAIN201305UV02 query = TestHelper.build201305(firstExpectedName,
+                lastExpectedName, "M", "March 1, 1956", subjectId);
+
+        Identifier patId = new Identifier();
+        patId.setId("1234");
+        patId.setOrganizationId("2.16.840.1.113883.3.200");
+        Patient patient = TestHelper.createMpiPatient(firstExpectedName,
+                lastExpectedName, middleExpectedName, "M", "March 1, 1956", patId, expectedTitle, expectedSuffix);
+
+        patient.getNames().add(new PersonName("lastname", "firstName"));
+
+
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        // TODO review the generated test code and remove the default call to fail.
+
+        assertEquals(2, result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().size());
+
+        PNExplicit pnResult = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().get(0);
+        PNExplicit pnResult2 = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().get(1);
+
+        PatientName patientName = extractName(pnResult);
+        PatientName patientName2 = extractName(pnResult2);
+        
+        assertEquals(lastExpectedName,patientName.LastName);
+        assertEquals(firstExpectedName, patientName.FirstName);
+        assertEquals(middleExpectedName, patientName.MiddleName);
+        assertEquals(expectedTitle, patientName.Title);
+        assertEquals(expectedSuffix, patientName.Suffix);
+
+        assertEquals("lastname", patientName2.LastName);
+        assertEquals("firstName", patientName2.FirstName);
+
+    }
     private static PatientName extractName (PNExplicit name) {
         String nameString = "";
         Boolean hasName = false;

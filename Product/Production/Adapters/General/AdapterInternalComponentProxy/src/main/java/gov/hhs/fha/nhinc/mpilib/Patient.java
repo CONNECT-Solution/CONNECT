@@ -21,6 +21,7 @@ public class Patient implements java.io.Serializable {
     private String lastName = "";
     private String firstName = "";
     private PersonName name = null;
+    private PersonNames names = new PersonNames();
     private Identifiers patientIdentifiers = new Identifiers();
     private Address add = null;
     private Addresses adds = new Addresses();
@@ -105,17 +106,25 @@ public class Patient implements java.io.Serializable {
     {
         add = value;
     }
+    @Deprecated
     public PersonName getName() {
         if (name == null) {
             name = new PersonName();
         }
         return name;
     }
-
+    @Deprecated
     public void setName(PersonName newVal) {
         this.name = newVal;
     }
-    
+    public void setNames(PersonNames newVal)
+    {
+        this.names = newVal;
+    }
+    public PersonNames getNames()
+    {
+        return names;
+    }
     public String getFirstName() {
         return firstName;
     }
@@ -130,5 +139,26 @@ public class Patient implements java.io.Serializable {
 
     public void setLastName(String newVal) {
         this.lastName = newVal;
+    }
+    public String toString()
+    {
+        String result = "";
+
+        if(this.names.size() > 0)
+        {
+
+
+            for(PersonName personName : this.names)
+            {
+                result += "|" + personName.toString() ;
+            }
+
+            result.replaceFirst("|", "");
+        }
+        else
+        {
+            result = this.name.toString();
+        }
+        return result;
     }
 }

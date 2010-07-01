@@ -31,7 +31,7 @@ public class PatientChecker {
             Patient sourcePatient = HL7Parser201305.ExtractMpiPatientFromQueryParams(queryParams);
             log.info("perform patient lookup in mpi");
 
-            log.info("source patient check 1 [" + sourcePatient.getName().getLastName() + "]");
+            log.info("source patient check 1 [" + sourcePatient.toString()+ "]");
             Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient);
             if (CommonChecks.isZeroSearchResult(searchResults)) {
                 log.info("patient not found in MPI");
@@ -42,7 +42,7 @@ public class PatientChecker {
             } else {
                 log.info("single patient found in MPI");
                 Patient searchResultPatient = searchResults.get(0);
-                log.info("Found patient " + searchResultPatient.getName().getFirstName() + " " + searchResultPatient.getName().getLastName());
+                log.info("Found patient " + searchResultPatient.toString());
             
                 result = HL7Parser201306.BuildMessageFromMpiPatient (searchResultPatient, query);
             }

@@ -57,7 +57,29 @@ public class PatientMatcher {
     }
     
     public static boolean IsSearchMatchByDemographics(Patient possibleMatch, Patient searchParams) {
-        boolean match = DoesNameMeetSearchCriteria(possibleMatch.getName(), searchParams.getName());
+
+        PersonName possibleMatchName = null;
+        PersonName searchName = null;
+
+        if(possibleMatch.getNames().size() > 0)
+        {
+            possibleMatchName = possibleMatch.getNames().get(0);
+        }
+        else
+        {
+            possibleMatchName = possibleMatch.getName();
+        }
+
+        if(searchParams.getNames().size() > 0)
+        {
+            searchName = searchParams.getNames().get(0);
+        }
+        else
+        {
+            searchName = searchParams.getName();
+        }
+
+        boolean match = DoesNameMeetSearchCriteria(possibleMatchName, searchName);
         log.debug("[" + SerializePatient(searchParams) + "]==[" + SerializePatient(possibleMatch) + "] -> " + match);
         return match;
     }
@@ -102,6 +124,6 @@ public class PatientMatcher {
     }
 
     private static String SerializePatient(Patient patient) {
-        return patient.getName().getLastName() + "," + patient.getName().getFirstName();
+        return patient.toString();
     }
 }
