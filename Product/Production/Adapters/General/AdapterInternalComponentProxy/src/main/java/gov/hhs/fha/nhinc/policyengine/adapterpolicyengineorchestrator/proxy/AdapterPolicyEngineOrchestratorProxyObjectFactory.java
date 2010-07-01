@@ -38,7 +38,7 @@ public class AdapterPolicyEngineOrchestratorProxyObjectFactory
 
     static
     {
-        String sConfigFileLocation = PropertyAccessor.getPropertyFileLocation();
+        String sConfigFileLocation = PropertyAccessor.getPropertyFileURL();
 
         context = new FileSystemXmlApplicationContext(sConfigFileLocation + SPRING_CONFIG_FILE);
     }

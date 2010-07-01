@@ -5,7 +5,6 @@
 
 package gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy;
 
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -22,7 +21,7 @@ public class AdapterXDRRequestProxyObjectFactory {
 
     static
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 
     /**

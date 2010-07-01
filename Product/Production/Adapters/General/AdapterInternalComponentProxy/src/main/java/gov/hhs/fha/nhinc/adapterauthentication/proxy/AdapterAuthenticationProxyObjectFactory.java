@@ -24,7 +24,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * the bean id is "adapterauthentication" and an object of this type can be retrieved from
  * the application context by calling the getBean method like:
  * context.getBean("adapterauthentication");. This returns an object that can be casted to
- * the appropriate interface and then used in the application code. 
+ * the appropriate interface and then used in the application code.
  *
  */
 public class AdapterAuthenticationProxyObjectFactory
@@ -36,7 +36,7 @@ public class AdapterAuthenticationProxyObjectFactory
 
     static
     {
-        String configFile = PropertyAccessor.getPropertyFileLocation();
+        String configFile = PropertyAccessor.getPropertyFileURL();
 
         context = new FileSystemXmlApplicationContext(configFile + SPRING_CONFIG_FILE);
     }

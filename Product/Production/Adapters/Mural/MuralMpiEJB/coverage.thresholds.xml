@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <thresholds>
-<threshold branchcount="68" branchrate="0.029411764705882353" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.muralmpi.HL7Parser" linecount="148" linerate="0.21621621621621623" linesexecuted="0.32"/>
+<threshold branchcount="78" branchrate="0.10282051282051281" branchsexecuted="8.02" class="gov.hhs.fha.nhinc.muralmpi.HL7Parser" linecount="156" linerate="0.04307692307692308" linesexecuted="6.720000000000001"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.muralmpi.MuralMPI" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.muralmpi.MuralMPIQuery" linecount="52" linerate="0.0" linesexecuted="0"/>
 </thresholds>

@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration;
 
 import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -43,7 +44,7 @@ public class TopicConfigurationManager {
 
 
     static {
-        String sValue = System.getenv(NhincConstants.NHINC_PROPERTIES_DIR);
+        String sValue = PropertyAccessor.getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
             //------------------------------------------------------------

@@ -37,7 +37,6 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
     private static final String PROPERTY_KEY_CONTENT_REF = "AssertionContentRef";
     private static final String PROPERTY_KEY_CONTENT_FILENAME = "AssertionContentFile";
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     private static Log log = LogFactory.getLog(AssertionCreator.class);
 
     AssertionType createAssertion() {
@@ -92,7 +91,7 @@ public class AssertionCreator {
         FileInputStream in = null;
         byte[] binOut = null;
         try {
-            String propDir = getPropertyDir();
+            String propDir = PropertyAccessor.getPropertyFileLocation();
             binFileName = propDir + PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_FILENAME);
             System.out.println("Requesting file: " + binFileName);
             File inFile = new File(binFileName);
@@ -138,27 +137,4 @@ public class AssertionCreator {
         return binOut;
     }
 
-    private String getPropertyDir() {
-        String propertyFileDir = "";
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
-        if ((sValue != null) && (sValue.length() > 0))
-        {
-            // Set it up so that we always have a "/" at the end - in case
-            //------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
-            {
-                propertyFileDir = sValue;
-            }
-            else
-            {
-                String sFileSeparator = System.getProperty("file.separator");
-                propertyFileDir = sValue + sFileSeparator;
-            }
-        }
-        else
-        {
-            log.error("");
-        }
-        return propertyFileDir;
-    }
 }

@@ -38,7 +38,7 @@ public class PatientCorrelationFacadeProxyObjectFactory
 
     static
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + SPRING_CONFIG_FILE);
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + SPRING_CONFIG_FILE);
     }
 
     /**

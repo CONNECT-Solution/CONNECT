@@ -12,11 +12,11 @@ public class AdapterXDRResponseProxyObjectFactory
 
     static
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public AdapterXDRResponseProxy getAdapterXDRResponseProxy()

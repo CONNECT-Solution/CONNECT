@@ -48,7 +48,6 @@ public class SessionBean1 extends AbstractSessionBean {
     private static Log log = LogFactory.getLog(ApplicationBean1.class);
 
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     private static String m_sPropertyFileDir = "";
     private static String m_sFileSeparator =
                           System.getProperty("file.separator");
@@ -57,7 +56,7 @@ public class SessionBean1 extends AbstractSessionBean {
     private static boolean m_bFailedToLoadEnvVar = false;
     static
     {
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
+        String sValue = PropertyAccessor.getPropertyFileLocation();
 
         if ((sValue != null) && (sValue.length() > 0))
         {

@@ -37,7 +37,7 @@ public class AdapterDocQueryProxyObjectFactory
 
     static
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 
     public AdapterDocQueryProxy getAdapterDocQueryProxy()

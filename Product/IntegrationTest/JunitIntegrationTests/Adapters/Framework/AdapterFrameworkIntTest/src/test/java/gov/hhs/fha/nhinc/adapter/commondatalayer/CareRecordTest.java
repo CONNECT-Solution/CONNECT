@@ -41,6 +41,7 @@ public class CareRecordTest {
 
     @Before
     public void setUp() {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     @After

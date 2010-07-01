@@ -36,6 +36,10 @@
     -->
 
     <!-- Project dependencies -->
+    <dependency name="NhincCommonLib" rev="latest.integration">
+            <exclude module="NhincCommonLib"/>
+     </dependency>
+
 
     <!-- compile time jars -->
 

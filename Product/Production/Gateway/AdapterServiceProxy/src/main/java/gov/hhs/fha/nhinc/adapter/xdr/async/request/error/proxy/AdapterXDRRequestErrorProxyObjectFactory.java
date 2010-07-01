@@ -3,7 +3,6 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
 
 public class AdapterXDRRequestErrorProxyObjectFactory
 {
@@ -13,7 +12,7 @@ public class AdapterXDRRequestErrorProxyObjectFactory
 
     static
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 
     /**

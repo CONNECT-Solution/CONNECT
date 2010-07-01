@@ -23,14 +23,13 @@ import org.apache.commons.logging.LogFactory;
 public class HibernateAccessor
 {
     private static Log log = LogFactory.getLog(PropertyAccessor.class);
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     private static final String CRLF = System.getProperty("line.separator");
     private static String m_sPropertyFileDir = "";
     private static boolean m_bFailedToLoadEnvVar = false;
-    
+
     static
     {
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
+        String sValue = PropertyAccessor.getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0))
         {
             // Set it up so that we always have a "/" at the end - in case
@@ -57,7 +56,7 @@ public class HibernateAccessor
         String sFileSeparator = System.getProperty("file.separator");
         checkEnvVarSet();
 
-        File result = new File(m_sPropertyFileDir + "hibernate" + 
+        File result = new File(m_sPropertyFileDir + "hibernate" +
                 sFileSeparator + hibernateFileName );
 
         if(result == null)

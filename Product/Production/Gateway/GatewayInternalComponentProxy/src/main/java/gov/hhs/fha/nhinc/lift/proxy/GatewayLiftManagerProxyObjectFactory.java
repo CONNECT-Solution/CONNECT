@@ -30,7 +30,7 @@ public class GatewayLiftManagerProxyObjectFactory
 
     protected ApplicationContext createApplicationContext()
     {
-        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
+        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 
     public GatewayLiftManagerProxy getGatewayLiftManagerProxy()

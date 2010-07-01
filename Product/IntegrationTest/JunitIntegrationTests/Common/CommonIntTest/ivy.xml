@@ -33,6 +33,9 @@
   <dependencies>
     <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
          then org=groupId, name=artifactId, rev=version -->
+    <dependency name="NhincCommonLib" rev="latest.integration">
+            <exclude module="NhincCommonLib"/>
+     </dependency>
     <dependency name="NhincCommonDAO" rev="latest.integration">
             <exclude module="NhincCommonDAO"/>
     </dependency>
@@ -46,6 +49,7 @@
             <exclude module="NhincCommonTypesLib"/>
     </dependency>
     <dependency org="mysql"               name="mysql-connector-java" rev="5.1.10"/>
+
   </dependencies>
 
 </ivy-module>

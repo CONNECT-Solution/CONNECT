@@ -63,8 +63,7 @@
      <dependency name="AdapterMpiEJB" rev="latest.integration">
             <exclude module="AdapterMpiEJB"/>
      </dependency>
-     
-     
+
   </dependencies>
 
 </ivy-module>

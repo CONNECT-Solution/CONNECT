@@ -66,6 +66,7 @@ public class UDDITimerTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
 
         // Create the property file backup
         gatewayPropFileName = PropertyAccessor.getPropertyFileLocation() + "gateway.properties";

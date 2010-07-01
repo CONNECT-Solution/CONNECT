@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
@@ -46,7 +47,6 @@ public class PatientConsentDocumentBuilderHelper {
 
     private Log log = null;
     private UTCDateUtil utcDateUtil = null;
-    private static final String PROP_DIR = "NHINC_PROPERTIES_DIR";
     private static final String FILE_NAME = "XDSUniqueIds.properties";
     private static String sPropertyFile = null;
     private static final String PDF_MIME_TYPE = "application/pdf";
@@ -70,7 +70,7 @@ public class PatientConsentDocumentBuilderHelper {
 
     protected String getPropertiesFilePath() {
         String propertiesFilePath = null;
-        String sValue = System.getenv(PROP_DIR);
+        String sValue = PropertyAccessor.getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
             //------------------------------------------------------------
@@ -814,7 +814,7 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     /**
-     * 
+     *
      * @param sDocId
      * @param oFactory
      * @param oPatCD
@@ -838,7 +838,7 @@ public class PatientConsentDocumentBuilderHelper {
 //        return cClass;
 //    }
     /**
-     * 
+     *
      * @param fact
      * @param name
      * @param value

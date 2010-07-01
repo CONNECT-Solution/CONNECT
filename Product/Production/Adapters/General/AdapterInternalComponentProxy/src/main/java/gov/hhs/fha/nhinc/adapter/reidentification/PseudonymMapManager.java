@@ -10,18 +10,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is used to manage the Pseudonym map.  It provides operations that 
+ * This class is used to manage the Pseudonym map.  It provides operations that
  * can be used to retrieve, save, and locate items within the map.
  */
 public class PseudonymMapManager {
 
     private static Log log = LogFactory.getLog(PseudonymMapManager.class);
     private static final String RE_ID_FILENAME = "reidentification.xml";
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     private static PseudonymMaps pseudonymMaps = new PseudonymMaps();
     private static File reIdFile;
 
@@ -30,7 +31,7 @@ public class PseudonymMapManager {
      */
     private static File getReidentificationFile() {
         if (reIdFile == null) {
-            String propertyDir = System.getenv(NHINC_PROPERTIES_DIR);
+            String propertyDir = PropertyAccessor.getPropertyFileLocation();
             if ((propertyDir != null) && (propertyDir.length() > 0)) {
                 reIdFile = new File(propertyDir, RE_ID_FILENAME);
             } else {
@@ -41,7 +42,7 @@ public class PseudonymMapManager {
     }
 
     /**
-     * This method reads the map in from the XML text file, de-serializes it, 
+     * This method reads the map in from the XML text file, de-serializes it,
      * and holds it in a private member variable.
      */
     public static void readMap() {
@@ -80,8 +81,8 @@ public class PseudonymMapManager {
     }
 
     /**
-     * This operation takes the map that is located in the private internal 
-     * memory location and writes it out to disk, replacing the old copy of the 
+     * This operation takes the map that is located in the private internal
+     * memory location and writes it out to disk, replacing the old copy of the
      * same file.
      */
     public static void writeMap() {
@@ -108,8 +109,8 @@ public class PseudonymMapManager {
     }
 
     /**
-     * This method takes the pseudonym patient ID assigning authority with it's 
-     * corresponding pseudonym patient ID and returns the mapping that is 
+     * This method takes the pseudonym patient ID assigning authority with it's
+     * corresponding pseudonym patient ID and returns the mapping that is
      * found in the map.  If no mapping is found, then null is returned.
      */
     public static PseudonymMap findPseudonymMap(String pseudonymPatientIdAssigningAuthority, String pseudonymPatientId) {
@@ -125,16 +126,16 @@ public class PseudonymMapManager {
                 }
             }
         }
-        
+
         log.debug("Exiting PseudonymMapManager.findPseudonymMap: " + foundMap);
         return foundMap;
     }
 
     /**
-     * This adds the pseudonym map to the mappings.  If there was already a map 
-     * for this pseudonym, then it replaces it, and passes back the old one.  
-     * If this is new, then null is returned.  Note that by design, a pseudonym 
-     * can only map to one real ID.  There cannot be a mapping of one pseudonym 
+     * This adds the pseudonym map to the mappings.  If there was already a map
+     * for this pseudonym, then it replaces it, and passes back the old one.
+     * If this is new, then null is returned.  Note that by design, a pseudonym
+     * can only map to one real ID.  There cannot be a mapping of one pseudonym
      * and pseudonym assigning authority to multiple real IDs.
      */
     public static PseudonymMap addPseudonymMap(PseudonymMap pseudonymMap) {
@@ -146,7 +147,7 @@ public class PseudonymMapManager {
                 boolean isIdFound = false;
                 for (PseudonymMap testMap : pseudonymMaps.getPseudonymMap()) {
                     if (mapKey.equals(testMap.getRealPatientId())) {
-                        // if successfully removed then return the previous map 
+                        // if successfully removed then return the previous map
                         // and add the new one
                         if (removePseudonymMap(testMap)) {
                             retMap = testMap;
@@ -173,8 +174,8 @@ public class PseudonymMapManager {
     }
 
     /**
-     * This looks for and removes the specified pseudonym mapping from the set 
-     * of maps.  If it existed and is actually removed, then true is returned.  
+     * This looks for and removes the specified pseudonym mapping from the set
+     * of maps.  If it existed and is actually removed, then true is returned.
      * If it was never in the map to begin with then false is returned.
      */
     public static boolean removePseudonymMap(PseudonymMap pseudonymMap) {

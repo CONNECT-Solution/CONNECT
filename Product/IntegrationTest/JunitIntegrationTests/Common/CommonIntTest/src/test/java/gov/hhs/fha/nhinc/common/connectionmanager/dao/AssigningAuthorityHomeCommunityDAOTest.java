@@ -24,6 +24,7 @@ public class AssigningAuthorityHomeCommunityDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     @AfterClass
@@ -44,7 +45,7 @@ public class AssigningAuthorityHomeCommunityDAOTest {
         AssigningAuthorityHomeCommunityMappingDAO aDao = new AssigningAuthorityHomeCommunityMappingDAO();
         //assertTrue(aDao.storeMapping("1.2.3.4.55.500", "1.6"));
     }
-     
+
     @Test
     public void testGetHomeCommunity() {
         AssigningAuthorityHomeCommunityMappingDAO aDao = new AssigningAuthorityHomeCommunityMappingDAO();

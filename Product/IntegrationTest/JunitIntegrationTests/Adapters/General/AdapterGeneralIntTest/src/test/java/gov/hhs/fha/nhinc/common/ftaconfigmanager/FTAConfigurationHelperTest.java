@@ -25,6 +25,7 @@ public class FTAConfigurationHelperTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     @AfterClass
@@ -45,7 +46,7 @@ public class FTAConfigurationHelperTest {
         FTAConfiguration config = FTAConfigurationHelper.loadFTAConfiguration();
         assertEquals(1, config.getInboundChannels().size());
     }
-	
+
     @Test
     public void testgetChannelByTopic()
     {

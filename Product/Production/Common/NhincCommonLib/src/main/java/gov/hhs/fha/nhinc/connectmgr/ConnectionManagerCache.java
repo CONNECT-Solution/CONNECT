@@ -57,7 +57,6 @@ public class ConnectionManagerCache {
     private static final String CRLF = System.getProperty("line.separator");
     private static final String UDDI_XML_FILE_NAME = "uddiConnectionInfo.xml";
     private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     // Hash maps for the UDDI connectin information.  This hash map is keyed by home community ID.
     //--------------------------------------------------------------------------------------------
     private static HashMap<String, CMBusinessEntity> m_hUDDIConnectInfo = new HashMap<String, CMBusinessEntity>();       // Array of connection information
@@ -74,11 +73,11 @@ public class ConnectionManagerCache {
     private static String m_sUDDIXMLfileDir = "";
     private static String m_sInternalXMLFileDir = "";
     private static String m_sFileSeparator = System.getProperty("file.separator");
-    private static final String m_sFailedEnvVarMessage = "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
+    private static final String m_sFailedEnvVarMessage = "Unable to access system variable: nhinc.properties.dir.";
     private static boolean m_bFailedToLoadEnvVar = false;
 
     static {
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
+        String sValue = PropertyAccessor.getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
             //------------------------------------------------------------

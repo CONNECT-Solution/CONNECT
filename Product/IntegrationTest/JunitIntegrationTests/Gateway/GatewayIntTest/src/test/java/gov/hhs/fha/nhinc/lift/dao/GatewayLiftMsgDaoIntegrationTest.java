@@ -45,6 +45,7 @@ public class GatewayLiftMsgDaoIntegrationTest
     @BeforeClass
     public static void setUpClass() throws Exception
     {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     /**
@@ -249,7 +250,7 @@ public class GatewayLiftMsgDaoIntegrationTest
             // This means one is null and one is not.
             fail("Message was not the same: ");
         }
-        
+
         if ((oOriginalRecord.getAssertion() != null) && (oNewRecord.getAssertion() != null))
         {
             String sOriginalAssertion = extractStringFromBlob(oOriginalRecord.getAssertion());
@@ -304,7 +305,7 @@ public class GatewayLiftMsgDaoIntegrationTest
     /**
      * This method tests the ability to insert, read, update, and delete a record
      * in the gateway_lift_message table.
-     * 
+     *
      */
     @Test
     public void testSingleInsertReadUpdateAndDeleteRecords()
@@ -449,6 +450,6 @@ public class GatewayLiftMsgDaoIntegrationTest
         {
             fail("Failed to successfully run testSingleInsertReadUpdateAndDeleteRecords.  Error: " + e.getMessage());
         }
-        
+
     }
 }

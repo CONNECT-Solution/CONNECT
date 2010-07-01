@@ -29,11 +29,11 @@ import static org.junit.Assert.*;
 public class PropertyAccessorTest
 {
     private static String m_sPropertiesDir = "";
-    
+
     private static final String CACHE_REFRESH_DURATION_PROPNAME = "CacheRefreshDuration";
     private static final int iCACHE_REFRESH_DURATION = 10000;  // 10 SECONDS
     private static final String CACHE_REFRESH_DURATION = iCACHE_REFRESH_DURATION + "";  // 10 SECONDS
-    
+
     private static final String PROPERTY_FILENAME_NEVER = "testnever";
     private static final String PROPERTY_FILENAME_ALWAYS = "testalways";
     private static final String PROPERTY_FILENAME_PERIODIC = "testperiodic";
@@ -51,16 +51,20 @@ public class PropertyAccessorTest
     private static final String PROPERTY_VALUE_5 = "t ";
     private static final String PROPERTY_NAME_6 = "Property6";
     private static final String PROPERTY_VALUE_6 = "TrUe ";
-    
+
+    private static String       tmpDir;
+    private static String       nhinPropertiesDir;
+    private static String       propertiesSubDir = "nhin";
+
 
     public PropertyAccessorTest()
     {
     }
-    
+
     /**
      * This method is used to load up the property object
      * with the standard set of properties.
-     * 
+     *
      * @param oProps The property object to load up.
      */
     private static void loadProps(Properties oProps)
@@ -72,12 +76,17 @@ public class PropertyAccessorTest
         oProps.setProperty(PROPERTY_NAME_5, PROPERTY_VALUE_5);
         oProps.setProperty(PROPERTY_NAME_6, PROPERTY_VALUE_6);
     }
-    
+
     @BeforeClass
     public static void setUpClass() throws Exception
     {
+        tmpDir = System.getProperty("user.dir", ".");
+        nhinPropertiesDir = tmpDir + File.separator + propertiesSubDir;
+        new File(nhinPropertiesDir).mkdirs();
+
+        System.setProperty("nhinc.properties.dir", nhinPropertiesDir );
         m_sPropertiesDir = PropertyAccessor.getPropertyFileLocation();
-        
+
         // Create some property files to be used for our testing...
         //---------------------------------------------------------
 
@@ -85,15 +94,15 @@ public class PropertyAccessorTest
         //---------------
         Properties oPropsNever = new Properties();
         loadProps(oPropsNever);
-        
+
         Properties oPropsAlways = new Properties();
         oPropsAlways.setProperty(CACHE_REFRESH_DURATION_PROPNAME, "0 ");
         loadProps(oPropsAlways);
-        
+
         Properties oPropsPeriodic = new Properties();
         oPropsPeriodic.setProperty(CACHE_REFRESH_DURATION_PROPNAME, CACHE_REFRESH_DURATION);
         loadProps(oPropsPeriodic);
-        
+
         Properties oPropsPeriodic2 = new Properties();
         oPropsPeriodic2.setProperty(CACHE_REFRESH_DURATION_PROPNAME, CACHE_REFRESH_DURATION);
         loadProps(oPropsPeriodic2);
@@ -129,7 +138,7 @@ public class PropertyAccessorTest
                 fwPropsAlways.close();
                 fwPropsAlways = null;
             }
-            
+
             if (fwPropsPeriodic != null)
             {
                 fwPropsPeriodic.close();
@@ -142,7 +151,7 @@ public class PropertyAccessorTest
                 fwPropsPeriodic2 = null;
             }
         }
-        
+
     }
 
     @AfterClass
@@ -152,7 +161,7 @@ public class PropertyAccessorTest
         //----------------------------------
         File fPropsNever = new File(m_sPropertiesDir + PROPERTY_FILENAME_NEVER + ".properties");
         fPropsNever.delete();
-        
+
         File fPropsAlways = new File(m_sPropertiesDir + PROPERTY_FILENAME_ALWAYS + ".properties");
         fPropsAlways.delete();
 
@@ -212,13 +221,13 @@ public class PropertyAccessorTest
         sPropertyName = PROPERTY_NAME_5;
         bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
         assertEquals(true, bValue);
-        
+
         // Test "TrUe"
         //-------------
         sPropertyName = PROPERTY_NAME_6;
         bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
         assertEquals(true, bValue);
-        
+
     }
 
     /**
@@ -228,11 +237,11 @@ public class PropertyAccessorTest
     public void testGetPropertyNames() throws Exception
     {
         System.out.println("getPropertyNames");
-        
+
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
         Set<String> setKeys = PropertyAccessor.getPropertyNames(sPropertyFile);
         assertNotNull(setKeys);
-        
+
         boolean bFoundProp[] = {false, false, false, false, false, false};
         Iterator<String> iterKeys = setKeys.iterator();
         while (iterKeys.hasNext())
@@ -267,7 +276,7 @@ public class PropertyAccessorTest
                 fail("Found property that was not supposed to be in the file: " + sKey);
             }
         }   // while (iterKeys.hasNext())
-        
+
         assertTrue(bFoundProp[0]);
         assertTrue(bFoundProp[1]);
         assertTrue(bFoundProp[2]);
@@ -287,11 +296,11 @@ public class PropertyAccessorTest
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
         Properties oProps = PropertyAccessor.getProperties(sPropertyFile);
         assertNotNull(oProps);
-        
+
         Set<String> setKeys = oProps.stringPropertyNames();
-        
+
         assertNotNull(setKeys);
-        
+
         boolean bFoundProp[] = {false, false, false, false, false, false};
         Iterator<String> iterKeys = setKeys.iterator();
         while (iterKeys.hasNext())
@@ -338,7 +347,7 @@ public class PropertyAccessorTest
                 fail("Found property that was not supposed to be in the file: " + sKey);
             }
         }   // while (iterKeys.hasNext())
-        
+
         assertTrue(bFoundProp[0]);
         assertTrue(bFoundProp[1]);
         assertTrue(bFoundProp[2]);
@@ -397,7 +406,7 @@ public class PropertyAccessorTest
         System.out.println("dumpPropsToLog");
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
         PropertyAccessor.dumpPropsToLog(sPropertyFile);
-        
+
         // Only real way to verify this is to look at the log/output.
         //------------------------------------------------------------
     }
@@ -413,17 +422,17 @@ public class PropertyAccessorTest
         String sPropertyName = PROPERTY_NAME_1;
         String sValue = "ANewValue";
         PropertyAccessor.setProperty(sPropertyFile, sPropertyName, sValue);
-        
+
         // See what happens to this...
         //----------------------------
         String sRetValue = PropertyAccessor.getProperty(sPropertyFile, sPropertyName);
         assertEquals(sValue, sRetValue);
-        
+
         // See what happened to the refresh info...
         //------------------------------------------
         int iDuration = PropertyAccessor.getRefreshDuration(sPropertyFile);
         assertEquals(-1, iDuration);
-        
+
         iDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
         assertEquals(-1, iDuration);
     }
@@ -437,33 +446,84 @@ public class PropertyAccessorTest
         System.out.println("forceRefresh");
         String sPropertyFile = PROPERTY_FILENAME_PERIODIC;
         PropertyAccessor.forceRefresh(sPropertyFile);
-        
+
         // let's sleep for 3 seconds.
         //---------------------------
-        try 
+        try
         {
             Thread.sleep(3000);
-        } 
-        catch (InterruptedException e) 
+        }
+        catch (InterruptedException e)
         {
         }
 
         int iFirstDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
-        
+
         PropertyAccessor.forceRefresh(sPropertyFile);
 
         int iSecondDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
-        
+
         // since we had a delay after the first one and no delay after the second one,
         // the second one should be larger than the first.
         //-----------------------------------------------------------------------------
         assertTrue(iSecondDuration > iFirstDuration);
-        
+
     }
-    
+
+    /**
+     * Test getting the origianl call.
+     */
+    @Test
+    public void  testGetPropertyFileLocation() {
+        String      location;
+
+        System.out.println("getPropertyFileLocation");
+
+        location = PropertyAccessor.getPropertyFileLocation();
+
+        //
+        // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
+        //
+        assertEquals(location, nhinPropertiesDir + File.separator);
+    }
+
+    /**
+     * Test getting the relative path.
+     */
+    @Test
+    public void  testGetAbsolutePropertyFileLocation() {
+        String      location;
+
+        System.out.println("getAbsolutePropertyFileLocation");
+
+        location = PropertyAccessor.getPropertyFileLocation();
+
+        //
+        // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
+        //
+        assertEquals(location, nhinPropertiesDir + File.separator);
+    }
+
+    /**
+     * Test getting the relative path.
+     */
+    @Test
+    public void  testGetPropertyFileURL() {
+        String      location;
+
+        System.out.println("getPropertyFileURL");
+
+        location = PropertyAccessor.getPropertyFileURL();
+
+        //
+        // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
+        //
+        assertEquals(location, propertiesSubDir + File.separator);
+    }
+
     /**
      * This method will read in the property file, change the given property and store it back out.
-     * 
+     *
      * @param sPropertyFile The name of the property file.
      * @param sPropertyName The name of the property to be changed.
      * @param sPropertyValue The value of the property to be changed.
@@ -482,7 +542,7 @@ public class PropertyAccessorTest
             oProps.load(frPropFile);
             frPropFile.close();
             frPropFile = null;
-            
+
             oProps.setProperty(sPropertyName, sPropertyValue);
             fwPropFile = new FileWriter(m_sPropertiesDir + sPropertyFile + ".properties");
             oProps.store(fwPropFile, "");
@@ -495,14 +555,14 @@ public class PropertyAccessorTest
             {
                 frPropFile.close();
             }
-            
+
             if (fwPropFile != null)
             {
                 fwPropFile.close();
             }
         }
     }
-    
+
  //  NOTE: THIS IS COMMENTED OUT FOR THE BUILD SERVER BECAUSE IT IS EXTREMELY TIME
  //  SENSITIVE - TESTING REFRESHING OF CACHE, ETC.  SO IT SHOULD BE UNCOMMENTED WHEN YOU
  //  WANT TO DO THIS LEVEL OF RUN.
@@ -519,36 +579,36 @@ public class PropertyAccessorTest
 //        //---------------------------------------------------------------
 //        String sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_NEVER, PROPERTY_NAME_1);
 //        assertEquals(PROPERTY_VALUE_1, sValue);
-//        
+//
 //        // Change the value and see if we can force a refresh - it should not change...
 //        //------------------------------------------------------------------------------
 //        changePropertyAndStore(PROPERTY_FILENAME_NEVER, PROPERTY_NAME_1, "ModifiedValue");
 //        PropertyAccessor.forceRefresh(PROPERTY_FILENAME_NEVER);
-//        
+//
 //        sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_NEVER, PROPERTY_NAME_1);
 //        assertEquals(PROPERTY_VALUE_1, sValue);
-//                
+//
 //        // Now let's test against the one that should always refresh
 //        //----------------------------------------------------------
 //        sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_ALWAYS, PROPERTY_NAME_2);
 //        assertEquals(PROPERTY_VALUE_2, sValue);
-//        
+//
 //        changePropertyAndStore(PROPERTY_FILENAME_ALWAYS, PROPERTY_NAME_2, "ModVal2");
-//        
+//
 //        // Note it should auto refresh.
 //        //------------------------------
 //        sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_ALWAYS, PROPERTY_NAME_2);
 //        assertEquals("ModVal2", sValue);
-//        
+//
 //        // Now let's test against the one that refreshes every 10 seconds...
 //        //------------------------------------------------------------------
 //        sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_PERIODIC, PROPERTY_NAME_3);
 //        assertEquals(PROPERTY_VALUE_3, sValue);
-//        
+//
 //        // Get a clean time on the clock...
 //        //----------------------------------
 //        PropertyAccessor.forceRefresh(PROPERTY_FILENAME_PERIODIC);
-//        
+//
 //        changePropertyAndStore(PROPERTY_FILENAME_PERIODIC, PROPERTY_NAME_3, "ModVal3");
 //
 //        // We should not have refreshed yet - so should have the old value.
@@ -556,14 +616,14 @@ public class PropertyAccessorTest
 //        //-----------------------------------------------------------------
 //        sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_PERIODIC, PROPERTY_NAME_3);
 //        assertEquals(PROPERTY_VALUE_3, sValue);
-//        
+//
 //        // Wait the cache duration time
 //        //-----------------------------
-//        try 
+//        try
 //        {
 //            Thread.sleep(iCACHE_REFRESH_DURATION);
-//        } 
-//        catch (InterruptedException e) 
+//        }
+//        catch (InterruptedException e)
 //        {
 //        }
 //
@@ -571,7 +631,24 @@ public class PropertyAccessorTest
 //        //---------------------------------
 //        sValue = PropertyAccessor.getProperty(PROPERTY_FILENAME_PERIODIC, PROPERTY_NAME_3);
 //        assertEquals("ModVal3", sValue);
-//        
-//    }    
-    
+//
+//    }
+    public static void main(String[] args) throws Exception {
+        PropertyAccessorTest        pat = new PropertyAccessorTest();
+
+        PropertyAccessorTest.setUpClass();
+        pat.testDumpPropsToLog();
+        pat.testForceRefresh();
+        pat.testGetAbsolutePropertyFileLocation();
+        pat.testGetDurationBeforeNextRefresh();
+        pat.testGetProperties();
+        pat.testGetProperty();
+        pat.testGetPropertyBoolean();
+        pat.testGetPropertyFileLocation();
+        pat.testGetPropertyNames();
+        pat.testGetRefreshDuration();
+        pat.testGetPropertyFileURL();
+        pat.testSetProperty();
+    }
+
 }

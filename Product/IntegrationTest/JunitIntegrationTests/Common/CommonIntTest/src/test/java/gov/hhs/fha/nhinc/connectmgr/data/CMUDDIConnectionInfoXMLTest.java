@@ -24,6 +24,7 @@ public class CMUDDIConnectionInfoXMLTest {
     @BeforeClass
     public static void setUpClass() throws Exception
     {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     @AfterClass
@@ -38,10 +39,10 @@ public class CMUDDIConnectionInfoXMLTest {
     @After
     public void tearDown() {
     }
-    
+
     /**
      * Create a set of binding names.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The BindingNames object.
      */
@@ -50,13 +51,13 @@ public class CMUDDIConnectionInfoXMLTest {
         CMBindingNames oBindingNames = new CMBindingNames();
         oBindingNames.getName().add("BindingName" + sTag + ".1");
         oBindingNames.getName().add("BindingName" + sTag + ".2");
-        
+
         return oBindingNames;
     }
-    
+
     /**
      * Create a set of binding descriptions.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The BindingDescriptions
      */
@@ -65,47 +66,47 @@ public class CMUDDIConnectionInfoXMLTest {
         CMBindingDescriptions oDescriptions = new CMBindingDescriptions();
         oDescriptions.getDescription().add("BindingDescription" + sTag + ".1");
         oDescriptions.getDescription().add("BindingDescription" + sTag + ".2");
-        
+
         return oDescriptions;
     }
-    
+
     /**
      * Create a single binding template with the data appended with the tag.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The new CMBindingTemplate.
      */
     private CMBindingTemplate createBindingTemplate(String sTag)
     {
         CMBindingTemplate oTemplate = new CMBindingTemplate();
-        
+
         oTemplate.setBindingKey("BindingKey" + sTag);
         oTemplate.setEndpointURL("EndpointURL" + sTag);
         oTemplate.setWsdlURL("WSDLURL" + sTag);
 		oTemplate.setServiceVersion("1.0");
-        
+
         return oTemplate;
     }
 
     /**
      * This method creates the binding templates.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The new binding templates.
      */
     private CMBindingTemplates createBindingTemplates(String sTag)
     {
         CMBindingTemplates oBindingTemplates = new CMBindingTemplates();
-        
+
         oBindingTemplates.getBindingTemplate().add(createBindingTemplate(sTag + ".1"));
         oBindingTemplates.getBindingTemplate().add(createBindingTemplate(sTag + ".2"));
-        
+
         return oBindingTemplates;
     }
-    
+
     /**
      * Create a single business service with the data containing the given tag.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The new business service.
      */
@@ -121,13 +122,13 @@ public class CMUDDIConnectionInfoXMLTest {
         oService.setDescriptions(createBindingDescriptions(sTag));
         oService.setLiftProtocols(createBusinessLiftProtocols(sTag));
         oService.setLiftSupported(true);
-        
+
         return oService;
     }
-    
+
     /**
      * This method loads up a business services.
-     * 
+     *
      * @param idx1 The first index to use in the data.
      * @return The new BusinessServices
      */
@@ -136,13 +137,13 @@ public class CMUDDIConnectionInfoXMLTest {
         CMBusinessServices oServices = new CMBusinessServices();
         oServices.getBusinessService().add(createBusinessService(sTag + ".1"));
         oServices.getBusinessService().add(createBusinessService(sTag + ".2"));
-        
+
         return oServices;
     }
-    
+
     /**
      * Creates the descriptions for a contact.
-     * 
+     *
      * @param sTag The data to append to the data.
      * @return The contact descriptions that were created.
      */
@@ -153,10 +154,10 @@ public class CMUDDIConnectionInfoXMLTest {
         oDescriptions.getDescription().add("ContactDescription" + sTag + ".2");
         return oDescriptions;
     }
-    
+
     /**
      * Creates the names for a contact.
-     * 
+     *
      * @param sTag The data to append to the data.
      * @return The contact names that were created.
      */
@@ -167,26 +168,26 @@ public class CMUDDIConnectionInfoXMLTest {
         oNames.getPersonName().add("ContactPersonName" + sTag + ".2");
         return oNames;
     }
-    
+
     /**
      * Creates the phone numbers for a contact.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The phone numbers.
      */
     private CMPhones createContactPhones(String sTag)
     {
         CMPhones oPhones = new CMPhones();
-        
+
         oPhones.getPhone().add("ContactPhone" + sTag + ".1");
         oPhones.getPhone().add("ContactPhone" + sTag + ".2");
-        
+
         return oPhones;
     }
-    
+
     /**
      * Create the email addresses for a contact.
-     * 
+     *
      * @param sTag the tag to append to the data.
      * @return The email addresses.
      */
@@ -195,10 +196,10 @@ public class CMUDDIConnectionInfoXMLTest {
         CMEmails oEmails = new CMEmails();
         oEmails.getEmail().add("Email" + sTag + ".1");
         oEmails.getEmail().add("Email" + sTag + ".2");
-        
+
         return oEmails;
     }
-    
+
 
     /**
      * Create a single address for a contact.
@@ -212,10 +213,10 @@ public class CMUDDIConnectionInfoXMLTest {
         oAddr.getAddressLine().add("AddressLine" + sTag + ".2");
         return oAddr;
     }
-    
+
     /**
      * Creates addresses for a contact.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The contacts addresses.
      */
@@ -229,26 +230,26 @@ public class CMUDDIConnectionInfoXMLTest {
 
     /**
      * Create a single contact.
-     * 
+     *
      * @param sTag Append this to the end of the data fields.
      * @return The contact that was created.
      */
     private CMContact createContact(String sTag)
     {
         CMContact oContact = new CMContact();
-        
+
         oContact.setDescriptions(createContactDescriptions(sTag));
         oContact.setPersonNames(createContactPersonNames(sTag));
         oContact.setPhones(createContactPhones(sTag));
         oContact.setEmails(createContactEmails(sTag));
         oContact.setAddresses(createContactAddresses(sTag));
-        
+
         return oContact;
     }
-    
+
     /**
      * Create a set of contacts.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The Contacts that were created.
      */
@@ -257,13 +258,13 @@ public class CMUDDIConnectionInfoXMLTest {
         CMContacts oContacts = new CMContacts();
         oContacts.getContact().add(createContact(sTag + ".1"));
         oContacts.getContact().add(createContact(sTag + ".2"));
-        
+
         return oContacts;
     }
-    
+
     /**
      * Create the business descriptions for this business entity.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The BusinessDescriptions that were added.
      */
@@ -277,7 +278,7 @@ public class CMUDDIConnectionInfoXMLTest {
 
     /**
      * Create the discovery URLs for the business entity.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The URLs
      */
@@ -288,10 +289,10 @@ public class CMUDDIConnectionInfoXMLTest {
         oURLs.getDiscoveryURL().add("URL" + sTag + ".2");
         return oURLs;
     }
-    
+
     /**
      * Creates a set of business names.
-     * 
+     *
      * @param sTag the tag to append to the data.
      * @return The busines names.
      */
@@ -302,10 +303,10 @@ public class CMUDDIConnectionInfoXMLTest {
         oNames.getBusinessName().add("BusinessName" + sTag + ".2");
         return oNames;
     }
-    
+
     /**
      * Create the states associated with the business entity.
-     * 
+     *
      * @param sTag The tag to append to the data.
      * @return The states that were created.
      */
@@ -315,7 +316,7 @@ public class CMUDDIConnectionInfoXMLTest {
         oStates.getState().add("State" + sTag + ".1");
         oStates.getState().add("State" + sTag + ".2");
         return oStates;
-        
+
     }
 
     /**
@@ -332,10 +333,10 @@ public class CMUDDIConnectionInfoXMLTest {
         return oProtocols;
 
     }
-    
+
     /**
      * This method loads up a business entity with some test data.
-     * 
+     *
      * @param index The index to add to the end of the values.
      * @return The CMBusinessEntity that was created.
      */
@@ -354,8 +355,8 @@ public class CMUDDIConnectionInfoXMLTest {
         oEntity.setNames(createBusinessNames(sTag));
         oEntity.setStates(createBusinessStates(sTag));
         oEntity.setPublicKey("AA:11:22");
-        
-        
+
+
         return oEntity;
     }
 
@@ -383,13 +384,13 @@ public class CMUDDIConnectionInfoXMLTest {
 
             CMUDDIConnectionInfo oResultConnInfo = CMUDDIConnectionInfoXML.deserialize(sXML);
 
-            assertTrue(oResultConnInfo.equals(oConnInfo));       
+            assertTrue(oResultConnInfo.equals(oConnInfo));
         }
         catch (Exception e)
         {
             fail("Unexpected exception occurred.  Error: " + e.getMessage());
         }
-        
+
     }
 
 }

@@ -36,6 +36,9 @@
     <dependency name="AdapterInternalComponentProxy" rev="latest.integration">
             <exclude module="AdapterInternalComponentProxy"/>
      </dependency>
+    <dependency name="NhincCommonLib" rev="latest.integration">
+            <exclude module="NhincCommonLib"/>
+     </dependency>
 
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />
     <dependency org="junit" name="junit" rev="4.7" conf="test->default" />

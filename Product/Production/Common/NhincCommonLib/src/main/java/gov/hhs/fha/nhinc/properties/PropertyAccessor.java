@@ -3,21 +3,20 @@ package gov.hhs.fha.nhinc.properties;
 import java.io.FileReader;
 import java.io.File;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Properties;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Calendar;
+import java.util.*;
 
-import java.util.Iterator;
-import java.util.Set;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 
 /**
  * This class is a POJO class that is used to access properties within a property
  * file.
- * 
+ *
  * @author Les Westberg
  * @version 1.0
  * @created 04-Sep-2008 1:21:31 PM
@@ -25,81 +24,81 @@ import org.apache.commons.logging.LogFactory;
 public class PropertyAccessor
 {
     private static Log log = LogFactory.getLog(PropertyAccessor.class);
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     private static final String CACHE_REFRESH_DURATION = "CacheRefreshDuration";
     private static final String CRLF = System.getProperty("line.separator");
-    
-    // This is a hash table that contains all the properties for all of the files that 
+
+    // This is a hash table that contains all the properties for all of the files that
     // have been accessed.  The hashtable is keyed off the property file name.
     //---------------------------------------------------------------------------------
     private static Hashtable<String, Properties> m_hAllProps = new Hashtable<String, Properties>();
-    
+
     // This hash table is used to contain the information about when the next refresh is supposed
     // to take place on the property file.  The key is the name of the property file.  The
     // value is a RefreshInfo class that contains the refresh mode and the date/time that the
     // refresh should take place.
     //------------------------------------------------------------------------------------------------------
     private static Hashtable<String, RefreshInfo> m_hNextRefresh = new Hashtable<String, RefreshInfo>();
-    private static String m_sPropertyFileDir = "";
-    private static final String m_sFailedEnvVarMessage = "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
-    private static boolean m_bFailedToLoadEnvVar = false;
-    
+    private static String m_sPropertyFileDirAbsolutePath = "";
+    private static final String m_sFailedPathMessage = "Unable to determine the path to the configuration files.  " +
+            "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location " +
+            "of your CONNECT configuration files.";
+    private static boolean m_bFailedToLoadPath = false;
+
     static
     {
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
-        if ((sValue != null) && (sValue.length() > 0))
-        {
-            // Set it up so that we always have a "/" at the end - in case
-            //------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
-            {
-                m_sPropertyFileDir = sValue;
-            }
-            else
-            {
-                String sFileSeparator = System.getProperty("file.separator");
-                m_sPropertyFileDir = sValue + sFileSeparator;
+        m_sPropertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
+
+        if(m_sPropertyFileDirAbsolutePath == null) {
+            log.warn("The runtime property nhinc.properties.dir is not set!!!  " +
+                    "Looking for the environment variable NHINC_PROPERTIES_DIR as a fall back.  " +
+                    "Please set the runtime nhinc.properties.dir system property in your configuration files.");
+            m_sPropertyFileDirAbsolutePath = System.getenv(NhincConstants.NHINC_PROPERTIES_DIR);
+            if(m_sPropertyFileDirAbsolutePath == null) {
+                m_bFailedToLoadPath = true;
+                log.error(m_sFailedPathMessage);
             }
         }
-        else
-        {
-            log.error(m_sFailedEnvVarMessage);
-            m_bFailedToLoadEnvVar = true;
+
+        //
+        // Set it up so that we always have a "/" at the end - in case
+        //------------------------------------------------------------
+        if (m_sPropertyFileDirAbsolutePath.endsWith(File.separator) == false) {
+            m_sPropertyFileDirAbsolutePath = m_sPropertyFileDirAbsolutePath + File.separator;
         }
     }
-    
-    
+
+
     /**
      * Default constructor.
      */
     public PropertyAccessor()
     {
     }
-    
+
     /**
-     * This method does a quick check to make sure that the environment variable has been
+     * This method does a quick check to make sure that the path variables have been
      * set.  It if has not, then an exception is thrown.
-     * 
-     * @return  True if the environment variable is set.   (It never gives false, because
+     *
+     * @return  True if the path variables are set.   (It never gives false, because
      *          if it is not set, it throws an exception).
-     * @throws PropertyAccessException This is thrown if the environment variable was not set.
+     * @throws PropertyAccessException This is thrown if the path variables were not set.
      */
-    private static boolean checkEnvVarSet()
+    public static boolean checkEnvVarSet()
         throws PropertyAccessException
     {
-        if (m_bFailedToLoadEnvVar)
+        if (m_bFailedToLoadPath)
         {
-            throw new PropertyAccessException(m_sFailedEnvVarMessage);
+            throw new PropertyAccessException(m_sFailedPathMessage);
         }
 
         return true;            // We only get here if the env variable was loaded.
     }
-    
+
     /**
      * This is a helper method that checks to see if the string is not
      * null and that it contains a value other than the empty string.  It throws
      * an exception if it is null or contains the empty string.
-     * 
+     *
      * @param sMethodName The name of the method that is calling this one.
      * @param sVarName The name of the variable that is being checked. (Used in the error message text.)
      * @param sValue The variable that is being checked.
@@ -110,34 +109,34 @@ public class PropertyAccessor
     {
         if (sValue == null)
         {
-            throw new PropertyAccessException("Method: " + sMethodName + 
-                                              ", Variable: " + sVarName + 
+            throw new PropertyAccessException("Method: " + sMethodName +
+                                              ", Variable: " + sVarName +
                                               " was null and it should have a valid value.");
         }
         else if ((sValue.length() == 0) ||
                  (sValue.trim().length() == 0))
         {
-            throw new PropertyAccessException("Method: " + sMethodName + 
-                                              ", Variable: " + sVarName + 
+            throw new PropertyAccessException("Method: " + sMethodName +
+                                              ", Variable: " + sVarName +
                                               " was '' (empty string) and it should have a valid value.");
         }
     }
-    
-    
+
+
     /**
      * This creates a new properties class with a full copy of all of the
      * properties.
-     * 
+     *
      * @param oProps The property file that is to be copied.
      * @return The copy that is returned.
-     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if 
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if
      *         it cannot load the property file for some reason.
      */
     private static Properties deepCopyProperties(Properties oProps)
         throws PropertyAccessException
     {
         Properties oRetProps = new Properties();
-        
+
         Set<String> setKeys = oProps.stringPropertyNames();
         Iterator<String> iterKeys = setKeys.iterator();
         while (iterKeys.hasNext())
@@ -150,30 +149,30 @@ public class PropertyAccessor
             }
             oRetProps.put(sKey, sValue);
         }
-        
+
         return oRetProps;
     }
-    
+
     /**
-     * This method loads the property file and sets the refresh time.  If the property: 
+     * This method loads the property file and sets the refresh time.  If the property:
      * "CacheRefreshDuration" is found in the property file, then it will set it as follows:
-     * If the value is "-1", then 
-     * 
+     * If the value is "-1", then
+     *
      * @param sPropertyFile The name of the property file to be loaded.
-     * @param oInfo The refresh information that we already know - this may be null if this 
+     * @param oInfo The refresh information that we already know - this may be null if this
      *              is the first time the file is being loaded.
-     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if 
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if
      *         it cannot load the property file for some reason.
      */
     private static void loadPropertyFile(String sPropertyFile, RefreshInfo oInfo)
         throws PropertyAccessException
     {
-        String sPropFilePathAndName = m_sPropertyFileDir + sPropertyFile + ".properties";
+        String sPropFilePathAndName = m_sPropertyFileDirAbsolutePath + sPropertyFile + ".properties";
         RefreshInfo oNewInfo = null;
         if (oInfo != null)
         {
             oNewInfo = oInfo;
-            
+
             // Reset the refresh time...
             //--------------------------
             if (oNewInfo.m_oRefreshMode == RefreshInfo.Mode.PERIODIC)
@@ -189,14 +188,14 @@ public class PropertyAccessor
         }
         else
         {
-            // Default Values - 
+            // Default Values -
             //------------------
             oNewInfo = new RefreshInfo();
             oNewInfo.m_oRefreshMode = RefreshInfo.Mode.NEVER;
             oNewInfo.m_dtRefreshDate = new Date();
             oNewInfo.m_iRefreshMilliseconds = -1;
         }
-        
+
         Properties oProps = new Properties();
         FileReader frPropFile = null;
         try
@@ -209,7 +208,7 @@ public class PropertyAccessor
             }
             frPropFile = new FileReader(fPropFile);
             oProps.load(frPropFile);
-            
+
             // Look to see if we have a refresh property setting.  If so, update
             // the settings we have had to the new ones...
             //-------------------------------------------------------------------
@@ -242,7 +241,7 @@ public class PropertyAccessor
                     oNewInfo.m_iRefreshMilliseconds = 0;
                     oNewInfo.m_dtRefreshDate = new Date();
                 }
-                else 
+                else
                 {
                     oNewInfo.m_oRefreshMode = RefreshInfo.Mode.PERIODIC;
                     oNewInfo.m_iRefreshMilliseconds = iMilliseconds;
@@ -251,7 +250,7 @@ public class PropertyAccessor
                     oNewInfo.m_dtRefreshDate = oRefreshDate.getTime();
                 }
             }   // if ((sValue != null) && (sValue.length() > 0))
-            
+
             // Now lets refresh the property information
             //------------------------------------------
             synchronized(m_hNextRefresh)
@@ -259,7 +258,7 @@ public class PropertyAccessor
                 m_hAllProps.put(sPropertyFile, oProps);
                 m_hNextRefresh.put(sPropertyFile, oNewInfo);
             }
-            
+
 //            if (log.isDebugEnabled())
 //            {
 //                String sMessage = "Loaded/Refreshed property file: " + sPropertyFile;
@@ -286,12 +285,12 @@ public class PropertyAccessor
             }
         }
     }
-    
+
     /**
-     * This method will check to see if the property file needs to be refreshed 
+     * This method will check to see if the property file needs to be refreshed
      * and if it does, it will reload it.  Otherwise it will leave it as is.
-     * 
-     * @param sPropertyFile The name of the property file that is being checked and 
+     *
+     * @param sPropertyFile The name of the property file that is being checked and
      *                      possibly loaded.
      * @throws PropertyAccessException If an error occurs during the load process,
      *                                 this exception is thrown.
@@ -301,8 +300,8 @@ public class PropertyAccessor
     {
         Date dtNow = new Date();
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
-        
-        if (oInfo != null) 
+
+        if (oInfo != null)
         {
             if ((oInfo.m_oRefreshMode == RefreshInfo.Mode.ALWAYS) ||
                 ((oInfo.m_oRefreshMode == RefreshInfo.Mode.PERIODIC)) &&
@@ -325,7 +324,7 @@ public class PropertyAccessor
      * current values in the properties file and then the property will be returned.
      * If the properties for that file are not cached at all, the property will be
      * retrieved from the properties file and returned.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.  This is the name of the
      * file without a path and without the ".properties" extension.   Examples of this
      * would be "connection" or "gateway".
@@ -337,17 +336,17 @@ public class PropertyAccessor
         throws PropertyAccessException
     {
         String sReturnValue = "";
-        
+
         // Make sure everything is in a good state.
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getProperty", "sPropertyFile", sPropertyFile);
         stringIsValid("getProperty", "sPropertyName", sPropertyName);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         Properties oProps = m_hAllProps.get(sPropertyFile);
-        
+
         if (oProps != null)
         {
             String sValue = oProps.getProperty(sPropertyName);
@@ -356,14 +355,14 @@ public class PropertyAccessor
                 sReturnValue = sValue.trim();
             }
         }
-        
+
         return sReturnValue;
     }
 
     /**
      * This will return true if the property value is: T, t, or any case combination
      * of "TRUE" and it will return false for all other values.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.
      * @param sPropertyName    The name of the property that contains a boolean value.
      * This will return true if the value is: T, t, or any case combination of "TRUE"
@@ -374,17 +373,17 @@ public class PropertyAccessor
         throws PropertyAccessException
     {
         boolean bReturnValue = false;
-        
+
         // Make sure everything is in a good state.
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getPropertyBoolean", "sPropertyFile", sPropertyFile);
         stringIsValid("getPropertyBoolean", "sPropertyName", sPropertyName);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         Properties oProps = m_hAllProps.get(sPropertyFile);
-        
+
         if (oProps != null)
         {
             String sValue = oProps.getProperty(sPropertyName);
@@ -395,14 +394,14 @@ public class PropertyAccessor
                 bReturnValue = true;
             }
         }
-        
+
         return bReturnValue;
     }
-    
+
     /**
      * This will return the long value conversion of the property.  If the property value
      * cannot be converted to a long, an exception will be thrown.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.
      * @param sPropertyName    The name of the property that contains a boolean value.
      * @return This will return the long representation of the value.
@@ -412,17 +411,17 @@ public class PropertyAccessor
         throws PropertyAccessException
     {
         long lReturnValue = 0;
-        
+
         // Make sure everything is in a good state.
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getPropertyBoolean", "sPropertyFile", sPropertyFile);
         stringIsValid("getPropertyBoolean", "sPropertyName", sPropertyName);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         Properties oProps = m_hAllProps.get(sPropertyFile);
-        
+
         if (oProps != null)
         {
             String sValue = oProps.getProperty(sPropertyName);
@@ -441,13 +440,13 @@ public class PropertyAccessor
                 }
             }
         }
-        
+
         return lReturnValue;
     }
-    
+
     /**
      * This method returns the set of keys in a property file.
-     * 
+     *
      * @param sPropertyFile The name of the property file.
      * @return An enumeration of property keys in the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
@@ -456,21 +455,21 @@ public class PropertyAccessor
         throws PropertyAccessException
     {
         Set<String> setPropNames = null;
-        
+
         // Make sure everything is in a good state.
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getPropertyNames", "sPropertyFile", sPropertyFile);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         Properties oProps = m_hAllProps.get(sPropertyFile);
-        
+
         if (oProps != null)
         {
             setPropNames = oProps.stringPropertyNames();
         }
-        
+
         return setPropNames;
     }
 
@@ -482,12 +481,12 @@ public class PropertyAccessor
      * in the properties file and then the property values will be returned.  If the
      * properties for that file are not cached at all, the property will be retrieved
      * from the properties file and returned.
-     * 
-     * NOTE:  THIS IS AN EXPENSIVE OPERATION.  IT WILL CREATE A DEEP COPY OF THE 
+     *
+     * NOTE:  THIS IS AN EXPENSIVE OPERATION.  IT WILL CREATE A DEEP COPY OF THE
      *        PROPERTIES AND RETURN IT.  THAT MEANS IT WILL CREATE AN EXACT REPLICA
      *        WITH ALL DATA.  THIS IS A PROTECTION TO MAKE SURE THAT A PROPERTY
      *        IS NOT INADVERTANTLY CHANGED OUTSIDE OF THIS CLASS.
-     * 
+     *
      * @param sPropertyFile    The name of the properties file without the path or
      *                         extension.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
@@ -499,20 +498,20 @@ public class PropertyAccessor
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getProperties", "sPropertyFile", sPropertyFile);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         Properties oProps = m_hAllProps.get(sPropertyFile);
-        
+
         Properties oRetProps = deepCopyProperties(oProps);
-        
+
         return oRetProps;
     }
 
     /**
      * This will return the in milliseconds the refresh duration on the property file.
      * A setting of -1 means it never refreshes.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
@@ -520,27 +519,27 @@ public class PropertyAccessor
         throws PropertyAccessException
     {
         int iRefreshDuration = -1;
-        
+
         // Make sure everything is in a good state.
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getRefreshDuration", "sPropertyFile", sPropertyFile);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
         if (oInfo != null)
         {
             iRefreshDuration = oInfo.m_iRefreshMilliseconds;
         }
-        
+
         return iRefreshDuration;
     }
 
     /**
      * This will return the duration in milliseconds before the next refresh of the
      * properties file.  A value of -1 indicates that no refresh will occur.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
@@ -548,14 +547,14 @@ public class PropertyAccessor
         throws PropertyAccessException
     {
         int iNextRefreshDuration = -1;
-        
+
         // Make sure everything is in a good state.
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("getDurationBeforeNextRefresh", "sPropertyFile", sPropertyFile);
-        
+
         checkForRefreshAndLoad(sPropertyFile);
-        
+
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
         if (oInfo != null)
         {
@@ -574,14 +573,14 @@ public class PropertyAccessor
                 iNextRefreshDuration = (int) (lRefreshMilli - lNowMilli);
             }
         }
-        
+
         return iNextRefreshDuration;
     }
 
     /**
      * If a property file has been cached, this will force a refresh of the property
      * file.  If a property file is not cached, then this operation will do nothing.
-     * 
+     *
      * @param sPropertyFile The name of the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
@@ -592,7 +591,7 @@ public class PropertyAccessor
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("forceRefresh", "sPropertyFile", sPropertyFile);
-        
+
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
         // This means we have never loaded the file - so load it now...
         //--------------------------------------------------------------
@@ -607,18 +606,25 @@ public class PropertyAccessor
     }
 
     /**
-     * This method will return the location of the property files.  Essentially it
-     * will return the value in the NHINC_PROPERTIES_DIR environment variable.
+     * This method will return the path to the property files for the currently running servlet.
      */
     public static String getPropertyFileLocation()
     {
-        return m_sPropertyFileDir;
+        return m_sPropertyFileDirAbsolutePath;
+    }
+
+    /**
+     * This method will return the path to the property files for the currently running servlet.
+     */
+    public static String getPropertyFileURL()
+    {
+        return "file:///" + m_sPropertyFileDirAbsolutePath;
     }
 
     /**
      * This method dumps the properties and associated values for a properties file to
      * the log file.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
@@ -629,9 +635,9 @@ public class PropertyAccessor
         //-----------------------------------------
         checkEnvVarSet();
         stringIsValid("dumpPropsToLog", "sPropertyFile", sPropertyFile);
-        
+
         StringBuffer sbLogMessage = new StringBuffer();
-        
+
         sbLogMessage.append("Dumping contents of property file: '" + sPropertyFile + "'." + CRLF);
 
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
@@ -650,9 +656,9 @@ public class PropertyAccessor
             {
                 sbLogMessage.append("RefreshInfo.RefreshDate=null" + CRLF);
             }
-            
+
             sbLogMessage.append("Properties:");
-            
+
             Properties oProps = m_hAllProps.get(sPropertyFile);
             if (oProps != null)
             {
@@ -676,7 +682,7 @@ public class PropertyAccessor
                     sbLogMessage.append("No properties were found in the property file." + CRLF);
                 }
             }   // if (oProps != null)
-            else    
+            else
             {
                 sbLogMessage.append("No properties were found in the property file." + CRLF);
             }
@@ -685,7 +691,7 @@ public class PropertyAccessor
         {
             sbLogMessage.append("No content.  Property file has never been loaded." + CRLF);
         }
-        
+
         log.info(sbLogMessage.toString());
     }
 
@@ -701,7 +707,7 @@ public class PropertyAccessor
      * the property file to be unknowningly changed.  2) Since a controlled
      * environment is required in testing, it is not wise to have the properties reset
      * back to the values in the stored file during the middle of a test.
-     * 
+     *
      * @param sPropertyFile    The name of the property file.
      * @param sPropertyName    The name of the property.
      * @param sValue    The value to set for the property.  NOTE:  This will only set
@@ -716,7 +722,7 @@ public class PropertyAccessor
         checkEnvVarSet();
         stringIsValid("setProperty", "sPropertyFile", sPropertyFile);
         stringIsValid("setProperty", "sPropertyName", sPropertyName);
-        
+
         // Check for null and set it to empty string...
         //---------------------------------------------
         String sPropValue = sValue;
@@ -724,10 +730,10 @@ public class PropertyAccessor
         {
             sPropValue = "";
         }
-        
+
         // This call is primarily for the case where the file has not
         // yet been loaded.  We need to make sure it gets laoded.  After that
-        // if a setProperty is called the mode will be set to Never, and this 
+        // if a setProperty is called the mode will be set to Never, and this
         // call will essentially turn into a NOOP.
         //---------------------------------------------------------------------
         checkForRefreshAndLoad(sPropertyFile);
@@ -735,7 +741,7 @@ public class PropertyAccessor
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
         if (oInfo == null)
         {
-            String sMessage = "Property file: '" + sPropertyFile + 
+            String sMessage = "Property file: '" + sPropertyFile +
                               "' does not exist.  You cannot set a property for a file that does not exist.";
             log.error(sMessage);
             throw new PropertyAccessException(sMessage);
@@ -752,19 +758,19 @@ public class PropertyAccessor
                 oInfo.m_dtRefreshDate = null;
                 m_hNextRefresh.put(sPropertyFile, oInfo);
             }
-            
+
             // Put out a warning that a property file has been modified with a run-time modification.
             //---------------------------------------------------------------------------------------
-            log.warn("Property File: " + sPropertyFile + " is being changed to 'NEVER' refresh because it is being " + 
+            log.warn("Property File: " + sPropertyFile + " is being changed to 'NEVER' refresh because it is being " +
                      "modified at run-time.");
         }
-        
+
         // Now update the property.
         //-------------------------
         Properties oProps = m_hAllProps.get(sPropertyFile);
         if (oProps == null)
         {
-            String sMessage = "Property file: '" + sPropertyFile + 
+            String sMessage = "Property file: '" + sPropertyFile +
                               "' does not exist.  You cannot set a property for a file that does not exist.";
             log.error(sMessage);
             throw new PropertyAccessException(sMessage);
@@ -778,14 +784,14 @@ public class PropertyAccessor
         log.warn("Property File: " + sPropertyFile + ", PropertyName=" + sPropertyName +
                  " is being changed at run-time to:'" + sValue + "'.");
     }
-    
+
     /**
      * This class is used to hold refresh information for a properties file.
      */
     private static class RefreshInfo
     {
         public static enum Mode {NEVER, ALWAYS, PERIODIC};
-        
+
         Mode m_oRefreshMode;
         Date m_dtRefreshDate;
         int m_iRefreshMilliseconds;

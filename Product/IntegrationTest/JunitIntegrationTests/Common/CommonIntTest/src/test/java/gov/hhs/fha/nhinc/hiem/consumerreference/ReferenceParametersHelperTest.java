@@ -20,6 +20,7 @@ public class ReferenceParametersHelperTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     @AfterClass

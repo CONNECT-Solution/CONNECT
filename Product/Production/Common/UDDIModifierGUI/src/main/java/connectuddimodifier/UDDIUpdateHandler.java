@@ -28,6 +28,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -49,7 +51,7 @@ public class UDDIUpdateHandler
 
     //name of child node we are adding.
     private static final     String xmlStringNodeName = "businessEntity";
-  
+
     //busEntStrParts 1 2 and 3 make up the businessEntity xml entry we want to
     //add seperated by the values we are taking in.
     private final static String busEntStrPart1 = "<businessEntity businessKey=\"\">" +
@@ -70,7 +72,7 @@ public class UDDIUpdateHandler
 
     public String updateUDDI(String homeCommunityID, String endPoint)
     {
-        //Keep track of progress and errors so we know what to display 
+        //Keep track of progress and errors so we know what to display
         // on return.
         String retval = "success";
 
@@ -79,10 +81,10 @@ public class UDDIUpdateHandler
                 busEntStrPart2 + endPoint + busEntStrPart3;
 
         //Get the NHIN properties directory to find the uddiConnectionInfo.xml
-        String path = GetShell.getEnvironmentVariable("NHINC_PROPERTIES_DIR");
+        String path = PropertyAccessor.getPropertyFileLocation();
 
         //path and file name we are writing too.
-        String xmlFileName = path+ "\\" + newFileName;
+        String xmlFileName = path+ File.separator + newFileName;
 
 
 

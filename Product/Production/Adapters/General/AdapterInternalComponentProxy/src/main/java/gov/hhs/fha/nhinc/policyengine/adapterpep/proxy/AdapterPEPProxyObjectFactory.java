@@ -37,7 +37,7 @@ public class AdapterPEPProxyObjectFactory
 
     static
     {
-        String configFile = PropertyAccessor.getPropertyFileLocation();
+        String configFile = PropertyAccessor.getPropertyFileURL();
 
         context = new FileSystemXmlApplicationContext(configFile + SPRING_CONFIG_FILE);
     }

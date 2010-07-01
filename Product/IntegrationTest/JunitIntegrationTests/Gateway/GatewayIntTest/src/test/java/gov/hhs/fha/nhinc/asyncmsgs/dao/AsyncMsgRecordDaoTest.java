@@ -44,6 +44,7 @@ public class AsyncMsgRecordDaoTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
     }
 
     @AfterClass
@@ -105,7 +106,7 @@ public class AsyncMsgRecordDaoTest {
         String messageId = "uuid:1234567890";
         String serviceName = "PatientDiscovery";
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
-        
+
         List<AsyncMsgRecord> result = instance.queryByMessageIdAndServiceName(messageId, serviceName);
         assertEquals(1, result.size());
         assertEquals(rec1.getMessageId(), result.get(0).getMessageId());
@@ -120,7 +121,7 @@ public class AsyncMsgRecordDaoTest {
         System.out.println("queryByTime");
 
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
-        
+
         List<AsyncMsgRecord> result = instance.queryByTime(new Date());
         assertEquals(3, result.size());
     }

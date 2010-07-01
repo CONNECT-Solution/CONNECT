@@ -17,8 +17,15 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Properties;
+
 import static org.junit.Assert.*;
 
 /**
@@ -41,6 +48,20 @@ public class RedactionEngineProxyWebImplTest
     final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
     final RetrieveDocumentSetRequestType mockRequest = context.mock(RetrieveDocumentSetRequestType.class);
     final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
+
+    @BeforeClass
+    public static void setUpClass() throws Exception
+    {
+        System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
+        System.setProperty("wsdl.path", System.getenv("NHINC_PROPERTIES_DIR") + File.separator + "wsdl");
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception
+    {
+    }
+
+
 
     @Test
     public void testCreateLogger()

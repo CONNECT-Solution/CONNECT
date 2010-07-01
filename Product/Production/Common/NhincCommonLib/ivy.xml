@@ -62,7 +62,6 @@
     <dependency org="commons-logging"     name="commons-logging"     rev="1.1.1"               conf="runtime->default" transitive="false" />
 
 
-
     <!-- global excludes -->
 
 

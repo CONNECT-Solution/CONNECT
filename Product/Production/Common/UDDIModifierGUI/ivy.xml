@@ -36,6 +36,9 @@
     -->
 
     <!-- Project dependencies -->
+    <dependency name="NhincCommonLib" rev="latest.integration">
+            <exclude module="NhincCommonLib"/>
+    </dependency>
 
     <!-- compile time jars -->
 
@@ -53,6 +56,7 @@
     <dependency org="OpenSSO"       name="openssoclientsdk"              rev="1.0" conf="runtime->default" transitive="false" />
     <dependency org="jsf"                   name="jsfcl" rev="1.0" />
     <dependency org="jsf"                   name="webui-jsf" rev="1.0" />
+    <dependency org="SpringFramework"       name="spring"              rev="1.0" conf="compile->default" transitive="false" />
     
     <!-- jars for test only -->
     <dependency org="junit" name="junit" rev="4.7" conf="test->default" />
