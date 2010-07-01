@@ -5,7 +5,7 @@
 
   <property name="SoapUI.Installer.File.Name" value="soapUI-Pro-x32-3_5_1.exe"/>
   <property name="SoapUI.Installer.File.Path" value="C:\Temp\${SoapUI.Installer.File.Name}"/>
-  <property name="SoapUI.Installer.Download.URL" value="${Workspace.Ftp.Url}${SoapUI.Installer.File.Name}"/>
+  <property name="SoapUI.Installer.Download.URL" value="http://dl.eviware.com/3_5_1/soapUI-Pro-x32-3_5_1.exe"/>
 
   <property name="SoapUI.Install.Directory.Path" value="${ProgramFiles.Default.Path}\eviware\soapUI-Pro-3.5.1"/>
   <property name="SoapUI.Install.Check.File.Path" value="${SoapUI.Install.Directory.Path}\bin\soapui-pro-3.5.1.jar"/>
