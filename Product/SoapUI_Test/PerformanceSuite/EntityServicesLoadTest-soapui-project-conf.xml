@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="soapui-project-conf.xsd">
   <test name="EntityDocQuery(1tx1r)" testcase="EntityDocQueryLoadTestCase" numberOfThreads="1" numberOfIteration="1">
-    <testProperties filename="EntityServicesLoadTest-soapui-project.properties">
-    </testProperties>
+    <testProperties filename="EntityServicesLoadTest-soapui-project.properties"/>
   </test>
 <!--
   <test name="EntityDocQuery(1tx10r)" testcase="EntityDocQueryLoadTestCase" numberOfThreads="1" numberOfIteration="10">

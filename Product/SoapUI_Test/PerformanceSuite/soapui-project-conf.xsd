@@ -9,7 +9,7 @@
               <xs:element name="testProperties" minOccurs="1" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="property" nillable="true" minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="property" nillable="true" minOccurs="0" maxOccurs="unbounded">
                       <xs:complexType>
                         <xs:simpleContent>
                           <xs:extension base="xs:string">
@@ -19,15 +19,15 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="deleteOnExit" type="xs:string"/>
+                  <xs:attribute name="deleteOnExit" type="xs:boolean"/>
                   <xs:attribute name="filename" type="xs:string" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required" />
             <xs:attribute name="testcase" type="xs:string" use="required" />
-            <xs:attribute name="numberOfIteration" type="xs:string" use="required" />
-            <xs:attribute name="numberOfThreads" type="xs:string" use="required" />
+            <xs:attribute name="numberOfIteration" type="xs:int" use="required" />
+            <xs:attribute name="numberOfThreads" type="xs:int" use="required" />
           </xs:complexType>
         </xs:element>
       </xs:choice>
