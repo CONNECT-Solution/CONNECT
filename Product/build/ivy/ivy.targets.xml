@@ -33,7 +33,7 @@ ivy.clean-cache - will delete the cache.
 	</target>
 
 	<target name="ivy.resolve">
-		<echo message="check if out of date-> ivy.xml to ${build.classes.dir}" />
+		<echo message="check if out of date-> ivy.xml to ${build.classes.dir}" level="info"/>
 
 		<outofdate verbose="true">
 			<sourcefiles>

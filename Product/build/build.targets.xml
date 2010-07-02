@@ -26,7 +26,6 @@ layer of abstraction
 		project.addBuildListener(targetListener);
 	]]>
   </script>
-  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
 
   <import file="properties.build.xml" />
   <import file="common.build.xml" />
@@ -40,9 +39,20 @@ layer of abstraction
   <import file="soapui/soapui.targets.xml"/>
   <import file="corbertura/corbertura.targets.xml"/>
   <import file="../Install/deploy.xml"/>
-  <import file="netbeans/netbeans.targets.xml"/>
   <import file="checkstyle/checkstyle.targets.xml"/>
-	
+  <import file="licensetool/license.targets.xml"/>
+
+  <property name="calling.anttarget.from.netbeans" value="false"/>
+  <!-- The above property is read from netbeans configuration file -->
+  <if>
+	<equals arg1="${calling.anttarget.from.netbeans}" arg2="true"/>
+	<then>
+	  <echo message="loadding........"/>
+	  <import file="netbeans/netbeans.targets.xml" />
+	</then>
+  </if>
+
+  
   <target name="deploy">
     <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
@@ -61,15 +71,7 @@ layer of abstraction
   
   <target name="create.deploy.list.xml">
     <xmltask dest="${deploy.application.list.file.path}" outputter="simple:3"> 
-      <insert path="/"> 
-        <![CDATA[ 
-              <applications>
-              <wars/>
-              <shared/>
-              <ejbs/>
-              </applications>
-              ]]>
-      </insert>  
+      <insert path="/" xml="&lt;applications&gt;&lt;wars/&gt;&lt;shared/&gt;&lt;ejbs/&gt;&lt;execs/&gt;&lt;/applications&gt;"/>
     </xmltask> 
   </target>
 
@@ -93,6 +95,11 @@ layer of abstraction
           <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
           <runtarget target="insert.entry.to.deploy.app.list"/>
         </case>
+        <case value="executable">
+          <var name="deploy.list.entry.xpath" value="/applications/execs"/>
+          <var name="deploy.list.entry" value="&lt;executable&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/executable&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>
+        </case>
         <default>
           <fail message="Deploy type ${deploy.type} is not supported."/>
         </default>
@@ -108,18 +115,6 @@ layer of abstraction
   </target>
   
   <target name="copy.deployable.artifacts">
-    <property file="${project.dir}/nbproject/project.properties"/>
-    <switch value="${deploy.type}">
-      <case value="war">
-        <property name="dist.file" value="${project.dir}/${dist.war}"/>
-      </case>
-      <default>
-        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-          <isset property="sedeployment.jar"/>
-        </condition>
-      </default>
-    </switch>
-
     <call target="addentry.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
   </target>
@@ -163,7 +158,7 @@ layer of abstraction
           <do>
             <call target="coverage.prepfortests" />
             <call target="-unittest.run"/>
-            <call target="-coverage.write.report" />
+            
             <call target="-coverage.check.project" />
             <var name="need.to.update.root.coverage.failure.file" value="false"/>
           </do>
@@ -214,7 +209,23 @@ layer of abstraction
   <target name="checkstyle">
     <call target="checkstyle.style"/>
   </target>
-	
+
+  <target name="scratch.files">
+    <!--    
+        <copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
+             <fileset dir="${project.dir}">
+                 <include name="build_new.xml" />
+             </fileset>
+        </copy>
+        <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
+          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
+        </exec>
+    --> 
+      <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
+        <arg line='/C svn move ${project.dir}/build_new.xml ${project.dir}/build.xml'/>
+      </exec>
+  </target>
+
   <target name="help">
     <echo taskname="help">
       run ant -p for the short help
@@ -275,7 +286,5 @@ layer of abstraction
     <call target="junit.help"/>
     <call target="coverage.help"/>
     <call target="soapui.help"/>
-
-  </target>
-
+  </target>	  	
 </project>

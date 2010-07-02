@@ -5,6 +5,8 @@
 	<path id="ear.files" />
 	<path id="war.libs" />
 	<path id="ear.libs" />
+	<path id="jar.libs" />
+	<path id="jar.files" />
 
 	<property name="dist.root.dir" value="${project.dir}/dist" />
 	<property name="dist.dir" value="${dist.root.dir}/${build.config}" />

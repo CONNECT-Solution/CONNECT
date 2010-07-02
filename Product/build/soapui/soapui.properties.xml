@@ -5,11 +5,11 @@
 	<property name="soapui.report.dir" value="${project.dir}/soapui-test-reports" />
 	<property name="soapui.project.file.pattern" value="*-soapui-project.xml" />
 
-	<condition property="soapui.install.bin.directory.path" value="C:\Program Files\eviware\soapUI-Pro-3.0.1\bin">
+	<property name="soapui.home" value="${env.SOAPUI_HOME}"/>
+	<property name="soapui.install.bin.directory.path" value="${soapui.home}/bin"/>
+	
+	<condition property="yourkitjprofiler.install.directory.path" value="C:\Program Files\YourKit Java Profiler 9.0.4">
 		<os family="windows" />
-	</condition>
-	<condition property="soapui.install.bin.directory.path" value="/nhin/soapui-pro-3.0.1/bin">
-		<os family="unix" />
 	</condition>
 
 </project>

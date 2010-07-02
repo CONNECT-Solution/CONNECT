@@ -2,25 +2,29 @@
 <project name="build.taskdef" xmlns:ora="antlib:net.sf.incanto">
 
 	<!-- ###############  Begin Import of Extra Ant Tasks  ############### -->
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 	<typedef resource="AgilexAnt.properties" />
-	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
 
   <macrodef name="project">
     <attribute name="name"/>
     <attribute name="target"/>
     <attribute name="dir"/>
-    <attribute name="file" default="build_new.xml"/>
+    <attribute name="file" default="build.xml"/>
     <attribute name="order"/>
     <sequential>
+      <var name="name" value="@{name}"/>
+      <var name="order" value="@{order}"/>
+      <var name="target" value="@{target}"/>
+      <var name="dir" value="@{dir}"/>
+      <var name="file" value="@{file}"/>
       <script language="javascript">
         <![CDATA[
-	        self.log('<name>@{name}</name>');
-          self.log('<order>@{order}</order>');
-	        self.log('<target>@{target}</target>');
-	        self.log('<dir>@{dir}</dir>');
-	        self.log('<file>@{file}</file>');
+	        self.log('<name>' + project.getProperty("name") + '</name>');
+          self.log('<order>' + project.getProperty("order") + '</order>');
+	        self.log('<target>' + project.getProperty("target") + '</target>');
+	        self.log('<dir>' + project.getProperty("dir") + '</dir>');
+	        self.log('<file>' + project.getProperty("file") + '</file>');
 	    ]]>
       </script>
       <ant dir="@{dir}" antfile="@{file}" inheritAll="false">
@@ -71,8 +75,8 @@
 						<then>
 							<var unset="true" name="dependent.project.directory" />
 							<dirname file="@{dependent.project.build.file}" property="dependent.project.directory" />
-							<echo message="begin-> ant ${dependent.project.directory}/build_new.xml @{target}" />
-							<ant dir="${dependent.project.directory}" antfile="build_new.xml" target="@{target}" inheritall="false" />
+							<echo message="begin-> ant ${dependent.project.directory}/build.xml @{target}" />
+							<ant dir="${dependent.project.directory}" antfile="build.xml" target="@{target}" inheritall="false" />
 							<echo message="end-> ant @{dependent.project.build.file} @{target}" />
 						</then>
 						<else>
@@ -158,11 +162,16 @@
     <sequential>
       <var unset="true" name="lines4@{file}"/>
       <loadfile property="lines4@{file}" srcfile="@{file}" />
-      <for delimiter="${line.separator}" param="@{var}" list="${lines4@{file}}">
-        <sequential>
-          <body />
-        </sequential>
-      </for>
+      <if>
+        <isset property="lines4@{file}"/>
+        <then>
+          <for delimiter="${line.separator}" param="@{var}" list="${lines4@{file}}">
+            <sequential>
+              <body />
+            </sequential>
+          </for>
+        </then>
+      </if>
     </sequential>
   </macrodef>
 

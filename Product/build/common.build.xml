@@ -54,17 +54,17 @@
 				</if>
 
 				<property name="project.@{project.name}.directory" location="${root.project.directory.path}/@{project.directory}" />
-				<property name="project.@{project.name}.build.file" location="${root.project.directory.path}/@{project.directory}/build_new.xml" />
+				<property name="project.@{project.name}.build.file" location="${root.project.directory.path}/@{project.directory}/build.xml" />
 				<property name="project.@{project.name}.dist.file" location="${root.project.directory.path}/@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}" />
 
-				<available file="${root.project.directory.path}/@{project.directory}/build_new.xml" property="build.available" value="true" />
+				<available file="${root.project.directory.path}/@{project.directory}/build.xml" property="build.available" value="true" />
 				<if>
 					<isset property="build.available" />
 					<then>
 						<!-- Good -->
 					</then>
 					<else>
-						<echo level="warning" message="Could not find build_new.xml in ${root.project.directory.path}/@{project.directory}!" />
+						<echo level="warning" message="Could not find build.xml in ${root.project.directory.path}/@{project.directory}!" />
 					</else>
 				</if>
 			</actions>

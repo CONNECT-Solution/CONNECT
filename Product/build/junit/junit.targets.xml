@@ -31,6 +31,16 @@
 		</if>
 	</target>
 
+  <target name="unittest.write.html.report" description="write html unit test reports in this projects directory unit-test-reports...">
+    <junitreportplus reportfile="${unittest.report.dir}/UnitTests.xml" testtype="unit">
+      <xmlreports>
+        <fileset dir="${unittest.report.dir}">
+          <include name="TEST-*.xml" />
+        </fileset>
+      </xmlreports>
+    </junitreportplus>
+  </target>
+
 	<target name="-webtest.run">
 		<if>
 			<istrue value="${webtest.hasTests}" />
@@ -47,11 +57,21 @@
 		</if>
 	</target>
 
+  <target name="webtest.write.html.report">
+    <junitreportplus reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web">
+      <xmlreports>
+        <fileset dir="${project.dir}/web-test-reports">
+          <include name="TEST-*.xml" />
+        </fileset>
+      </xmlreports>
+    </junitreportplus>
+  </target>
+
 	<target name="-integrationtest.run">
 		<if>
 			<istrue value="${integrationtest.hasTests}" />
 			<then>
-				<junitrun reportfile="${project.dir}/integration-test-reports/IntegrationTests.xml" testtype="integration" verbose="${debug}">
+				<junitrun reportfile="${integrationtest.report.dir}/IntegrationTests.xml" testtype="integration" verbose="${debug}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
@@ -63,4 +83,57 @@
 		</if>
 	</target>
 
+  <target name="integrationtest.write.html.report">
+    <junitreportplus reportfile="${project.dir}/integration-test-reports/IntegrationTests.xml" testtype="integration">
+      <xmlreports>
+        <fileset dir="${project.dir}/integration-test-reports">
+          <include name="TEST-*.xml" />
+        </fileset>
+      </xmlreports>
+    </junitreportplus>
+  </target>
+
+  <target name="-unittest.product.prep">
+    <delete file="${root.project.directory.path}/unit-test-reports/unittest.check.failure"/>
+    <mkdir dir="${root.project.directory.path}/unit-test-reports"/>
+  </target>
+
+  <target name="-unittest.product.check">
+    <if>
+      <exists path="${root.project.directory.path}/unit-test-reports/unittest.check.failure"/>
+      <then>
+        <foreach-line file="${root.project.directory.path}/unit-test-reports/unittest.check.failure" var="unittest.failing.project.name">
+          <echo message="At leaset one unit test failed, in the project @{unittest.failing.project.name}." level="error"/>
+        </foreach-line>
+        <fail message="At leaset one unit test failed, please Unit Test Report or Ant Report for details."/>
+      </then>
+    </if>
+  </target>
+
+  <target name="-unittest.update.failure.file">
+    <if>
+      <exists path="${unittest.report.dir}/test.flag" />
+      <then>
+        <mkdir dir="${root.project.directory.path}/unit-test-reports"/>
+
+        <property name="unittest.check.tag.file" value="${unittest.report.dir}/test.flag" />
+        <loadfile property="unittest.check.failures" srcfile="${unittest.check.tag.file}"/>
+        <if>
+          <equals arg1="${unittest.check.failures}" arg2="failed"/>
+          <then>
+            <if>
+              <isfalse value="${called.from.main.build}"/>
+              <then>
+                <fail message="Atleast one @{testtype} test has failed! You can run the target unittest.write.html.report to create an html report in this projects directory unit-test-reports." />
+              </then>
+              <else>
+                <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/unit-test-reports/unittest.check.failure"/>
+              </else>
+            </if>
+          </then>
+        </if>
+      </then>
+    </if>
+  </target>
+  
 </project>
