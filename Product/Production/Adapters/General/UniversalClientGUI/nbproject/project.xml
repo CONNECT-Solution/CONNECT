@@ -111,38 +111,35 @@
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.openssoclientsdk.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincSAMLCallbackLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist-1}</file>
                 </library>
                 <library>
-                    <file>${file.reference.CommonServiceProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist}</file>
                 </library>
                 <library>
-                    <file>${file.reference.AdapterInternalComponentProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist-8}</file>
                 </library>
                 <library>
-                    <file>${file.reference.EntityServiceProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist-2}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonDAO.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist-6}</file>
                 </library>
                 <library>
-                    <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist-3}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonLib.jar}</file>
+                    <file>${file.reference.debug-dist-4}</file>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-5}</file>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-7}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries>
