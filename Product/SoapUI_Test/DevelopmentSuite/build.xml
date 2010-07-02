@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="soapui.run" name="DevelopmentSuite">
+
+  <property name="dist.type" value="na" />
+  <property name="soapui.hasTests" value="true" />
+  <property name="unittest.hasTests" value="false"/>
+
+  <!-- Please make sure that this goes up to the correct directory -->
+  <import file="../../build/build.targets.xml" />
+
+  <target name="just.source.compile"/>
+  <target name="just.package.create"/>
+</project>

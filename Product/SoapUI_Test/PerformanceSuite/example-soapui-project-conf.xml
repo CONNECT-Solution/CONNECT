@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="soapui-project-conf.xsd">
+  <test name="DocQueryLoadTest1" testcase="DocQueryLoadTest-1t x 20r" numberOfIteration="1" numberOfThreads="1">
+    <testProperties filename="loadtest.properties">
+      <property name="propertyname">propertyvalue</property>
+      <property name="propertyname">propertyvalue</property>
+    </testProperties>
+  </test>
+  <test name="DocQueryLoadTest2" testcase="DocQueryLoadTest-1t x 20r" numberOfIteration="1" numberOfThreads="1">
+    <testProperties filename="loadtest.properties" deleteOnExit="true">
+      <property name="propertyname0">propertyvalue0</property>
+      <property name="propertyname1">propertyvalue1</property>
+      <property name="propertyname2">propertyvalue2</property>
+      <property name="propertyname3">propertyvalue3</property>
+    </testProperties>
+  </test>
+  <test name="DocQueryLoadTest3" testcase="DocQueryLoadTest-1t x 20r" numberOfIteration="1" numberOfThreads="1">
+    <testProperties filename="loadtest.properties">
+      <property name="property.name0">property.value0</property>
+      <property name="property.name1">property.value1</property>
+      <property name="property.name2">property.value2</property>
+      <property name="property.name3">property.value3</property>
+    </testProperties>
+  </test>
+</tests>
