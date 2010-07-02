@@ -13,6 +13,10 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.debug-dist-1}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
                     <file>${file.reference.debug-dist}</file>
                     <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
