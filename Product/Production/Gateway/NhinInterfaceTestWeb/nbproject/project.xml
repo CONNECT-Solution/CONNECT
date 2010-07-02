@@ -12,6 +12,9 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.debug-dist}</file>
+                </library>
+                <library>
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
