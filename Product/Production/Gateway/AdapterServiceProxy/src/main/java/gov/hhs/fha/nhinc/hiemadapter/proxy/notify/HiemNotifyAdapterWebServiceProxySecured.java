@@ -76,12 +76,8 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
     }
 
     private AdapterNotificationConsumerPortSecureType getPort(String url) {
-
         AdapterNotificationConsumerPortSecureType port = adapterNotifyService.getAdapterNotificationConsumerPortSecureType();
-
-        log.info("Setting endpoint address to Adapter Hiem Notify Service Secured to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
     private String getUrl()

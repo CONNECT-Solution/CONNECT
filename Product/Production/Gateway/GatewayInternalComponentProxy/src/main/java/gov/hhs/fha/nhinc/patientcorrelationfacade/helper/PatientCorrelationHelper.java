@@ -44,7 +44,7 @@ public class PatientCorrelationHelper
         }
         PatientCorrelationSecuredPortType port = service.getPatientCorrelationSecuredPort();
 
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 
@@ -168,7 +168,7 @@ public class PatientCorrelationHelper
             patientCorrelationService = new gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationService();
         }
         PatientCorrelationPortType port = patientCorrelationService.getPatientCorrelationPort();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, getPatientCorrelationEndpointAddress());
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, getPatientCorrelationEndpointAddress());
         return port;
     }
 

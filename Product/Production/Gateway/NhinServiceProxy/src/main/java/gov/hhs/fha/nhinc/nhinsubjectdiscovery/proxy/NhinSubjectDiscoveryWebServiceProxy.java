@@ -114,8 +114,7 @@ public class NhinSubjectDiscoveryWebServiceProxy implements NhinSubjectDiscovery
     private PIXConsumerPortType getPort(String url) {
         PIXConsumerPortType port = nhinService.getPIXConsumerPortSoap();
 
-        log.info("Setting endpoint address to Nhin Subject Discovery Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

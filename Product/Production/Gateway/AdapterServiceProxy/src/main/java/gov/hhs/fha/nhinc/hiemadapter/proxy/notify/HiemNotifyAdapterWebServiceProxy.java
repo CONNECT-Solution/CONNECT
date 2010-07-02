@@ -75,10 +75,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
-
-        log.info("Setting endpoint address to Adapter Hiem Notify Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 }

@@ -88,7 +88,7 @@ public class AdapterDocRetrieveSecuredImpl {
                 if (docMgrEndpoint != null && !docMgrEndpoint.isEmpty())
                 {
                     //Use the BOS Endpoint
-                    ((BindingProvider)port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,docMgrEndpoint);
+					gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, docMgrEndpoint);
                 }
                 log.debug("Calling Document Manager to retrieve from the Archive");
                 result = port.documentManagerRetrieveDynamicDocument(respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest());
@@ -115,7 +115,7 @@ public class AdapterDocRetrieveSecuredImpl {
                     if (docMgrEndpoint != null && !docMgrEndpoint.isEmpty())
                     {
                         //Use the BOS Endpoint
-                        ((BindingProvider)port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,docMgrEndpoint);
+						gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, docMgrEndpoint);
                     }
                     log.debug("Call to Document Manager to Mark the Documents to be saved");
 

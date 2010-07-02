@@ -80,7 +80,7 @@ public class AdapterAuthenticationWebServiceProxy {
                                        "Setting this to: '" + endpointURL + "'";
                 log.warn(message);
             }
-            ((javax.xml.ws.BindingProvider)authPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) authPort, endpointURL);
         }
         catch (Exception ex)
         {

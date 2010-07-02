@@ -96,8 +96,7 @@ public class ProxyXDRImpl {
     {
         ProxyXDRSecuredPortType port = service.getProxyXDRSecuredPort();
 
-        log.info("Setting endpoint address to Proxy XDR  Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

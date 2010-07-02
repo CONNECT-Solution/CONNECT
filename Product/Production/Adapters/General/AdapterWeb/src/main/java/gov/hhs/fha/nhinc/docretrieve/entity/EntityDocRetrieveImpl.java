@@ -52,10 +52,7 @@ public class EntityDocRetrieveImpl
     
     private EntityDocRetrieveSecuredPortType getPort(String url) {
         EntityDocRetrieveSecuredPortType port = service.getEntityDocRetrieveSecuredPortSoap11();
-
-        log.info("Setting endpoint address to Entity Document Retrieve Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 }

@@ -87,7 +87,7 @@ public class PatientConsentManager {
                         "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider) oDocRegistryPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) oDocRegistryPort,sEndpointURL);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve a handle to the Document Registry web service.  Error: " +
                     e.getMessage();
@@ -135,7 +135,7 @@ public class PatientConsentManager {
                         "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider) oDocRepositoryPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) oDocRepositoryPort, sEndpointURL);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve a handle to the Document Repository web service.  Error: " +
                     e.getMessage();

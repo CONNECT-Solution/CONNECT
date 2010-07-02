@@ -66,12 +66,12 @@ public class PatientChecker {
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 8080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/CommonDataLayerService/AdapterCommonDataLayer");
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:8080/CommonDataLayerService/AdapterCommonDataLayer");
 
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_COMMON_DATA_LAYER_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +

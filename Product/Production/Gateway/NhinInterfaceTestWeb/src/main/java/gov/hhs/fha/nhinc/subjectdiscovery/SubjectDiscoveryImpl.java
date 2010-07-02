@@ -55,8 +55,7 @@ public class SubjectDiscoveryImpl {
 
         NhincSubjectDiscoveryService service = new NhincSubjectDiscoveryService();
         NhincSubjectDiscoveryPortType port = service.getNhincSubjectDiscoveryPortSoap11();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         ackMsg = port.pixConsumerPRPAIN201301UV(pix201301Request);
 
         log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201301UV");
@@ -87,8 +86,7 @@ public class SubjectDiscoveryImpl {
 
         NhincSubjectDiscoveryService service = new NhincSubjectDiscoveryService();
         NhincSubjectDiscoveryPortType port = service.getNhincSubjectDiscoveryPortSoap11();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         ackMsg = port.pixConsumerPRPAIN201302UV(pix201302Request);
 
         log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201302UV");
@@ -125,8 +123,7 @@ public class SubjectDiscoveryImpl {
 
         NhincSubjectDiscoveryService service = new NhincSubjectDiscoveryService();
         NhincSubjectDiscoveryPortType port = service.getNhincSubjectDiscoveryPortSoap11();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         ret310 = port.pixConsumerPRPAIN201309UV(pix201309Request).getPRPAIN201310UV02();
 
         log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201309UV");

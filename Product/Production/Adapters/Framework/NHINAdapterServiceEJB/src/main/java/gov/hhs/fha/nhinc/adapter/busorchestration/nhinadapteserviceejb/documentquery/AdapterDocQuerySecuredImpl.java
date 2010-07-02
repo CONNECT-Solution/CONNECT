@@ -242,9 +242,7 @@ public class AdapterDocQuerySecuredImpl {
                         {
 
                             //Use the BOS Endpoint
-                            ((BindingProvider) port).getRequestContext().put(
-                                BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                assemblerEndpoint);
+							gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, assemblerEndpoint);
                         }
 
                         dynResult = port.dynamicAssemblyQuery(
@@ -277,9 +275,7 @@ public class AdapterDocQuerySecuredImpl {
                         {
 
                             //Use the BOS Endpoint
-                            ((BindingProvider) port).getRequestContext().put(
-                                BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                docMgrEndpoint);
+							gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, docMgrEndpoint);	
                         }
                         log.debug("Calling to Document Manager for matchs");
 
@@ -329,10 +325,7 @@ public class AdapterDocQuerySecuredImpl {
                             {
 
                                 //Use the BOS Endpoint
-                                ((BindingProvider) port).getRequestContext()
-                                    .put(
-                                        BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                        docMgrEndpoint);
+								gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, docMgrEndpoint);		
                             }
 
                             oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType result =

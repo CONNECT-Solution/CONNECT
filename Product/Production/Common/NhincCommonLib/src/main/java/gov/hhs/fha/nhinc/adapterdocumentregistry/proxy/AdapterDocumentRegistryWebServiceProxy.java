@@ -43,8 +43,7 @@ public class AdapterDocumentRegistryWebServiceProxy implements AdapterDocumentRe
     private gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType getPort(String url) {
         gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType port = adapterDocumentRegistryService.getAdapterDocQueryPortSoap11();
 
-        log.info("Setting endpoint address to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

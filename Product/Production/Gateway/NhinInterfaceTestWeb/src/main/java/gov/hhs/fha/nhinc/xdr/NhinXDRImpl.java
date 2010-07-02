@@ -37,8 +37,7 @@ public class NhinXDRImpl {
         if (NullChecker.isNotNullish(homeCommunityId)) {
             ProxyXDRService service = new ProxyXDRService();
             ProxyXDRPortType port = service.getProxyXDRPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port,SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
             response = port.provideAndRegisterDocumentSetB(request);
         } else {
            response = null;

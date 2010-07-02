@@ -48,8 +48,7 @@ public class HiemNotifyImpl {
         if (NullChecker.isNotNullish(homeCommunityId)) {
             NhincNotificationConsumerService service = new NhincNotificationConsumerService();
             NotificationConsumer port = service.getNotificationConsumerPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
             log.debug("attaching reference parameter headers");
             SoapUtil soapUtil = new SoapUtil();
             soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);

@@ -386,10 +386,7 @@ public class DocumentManagerImpl {
         try { // Call Web Service Operation
             DocumentRegistryService service = new DocumentRegistryService();
             DocumentRegistryPortType port = service.getDocumentRegistryPortSoap();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
-                   javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                   endpoint);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, endpoint);
             //Insert repository id for query
             insertRepositoryIdQuery(request, repositoryId);
 
@@ -425,10 +422,7 @@ public class DocumentManagerImpl {
         try { // Call Web Service Operation
             DocumentRepositoryService service = new DocumentRepositoryService();
             DocumentRepositoryPortType port = service.getDocumentRepositoryPortSoap();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
-                   javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                   endpoint);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, endpoint);
             //Insert doc unique id if one does not exist
             if (!createDocumentUniqueId(request))
                 throw new Exception("Failed to create document unique Id");
@@ -474,10 +468,7 @@ public class DocumentManagerImpl {
         try { // Call Web Service Operation
             DocumentRepositoryService service = new DocumentRepositoryService();
             DocumentRepositoryPortType port = service.getDocumentRepositoryPortSoap();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
-                   javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                   endpoint);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, endpoint);
             result = port.documentRepositoryRetrieveDocumentSet(request);
         } catch (Exception e) {
             e.printStackTrace();

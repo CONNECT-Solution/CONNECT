@@ -78,7 +78,7 @@ public class AdapterPEPWebServiceProxy {
                                        "Setting this to: '" + endpointURL + "'";
                 log.warn(message);
             }
-            ((javax.xml.ws.BindingProvider)pepPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) pepPort, endpointURL);
         }
         catch (Exception ex)
         {

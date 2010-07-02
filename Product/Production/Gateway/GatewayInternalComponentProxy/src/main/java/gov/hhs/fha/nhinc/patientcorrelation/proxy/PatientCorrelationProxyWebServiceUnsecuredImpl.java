@@ -86,8 +86,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     private PatientCorrelationPortType getPort(String url, AssertionType assertion) {
         PatientCorrelationPortType port = service.getPatientCorrelationPort();
 
-        log.info("Setting endpoint address to Patient Correlation Unsecure Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         SamlTokenCreator tokenCreator = new SamlTokenCreator();
         Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PAT_CORR_ACTION);

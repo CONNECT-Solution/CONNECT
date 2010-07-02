@@ -134,7 +134,7 @@ public class UDDIAccessor {
 
             // Need to load in the correct UDDI endpoint URL address.
             //--------------------------------------------------------
-            ((BindingProvider) oPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_sUDDIInquiryEndpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) oPort, m_sUDDIInquiryEndpointURL);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve the UDDI Inquiry Web Service port.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);

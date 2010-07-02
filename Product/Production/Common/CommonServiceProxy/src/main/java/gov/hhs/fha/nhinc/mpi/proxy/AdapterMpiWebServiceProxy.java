@@ -58,16 +58,12 @@ public class AdapterMpiWebServiceProxy implements AdapterMpiProxy {
 
     private AdapterComponentMpiPortType  getPort(String url) {
         AdapterComponentMpiPortType  port = mpiService.getAdapterComponentMpiPort();
-
-        log.info("Setting endpoint address to MPI Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
     private AdapterComponentMpiSecuredPortType  getSecuredPort(String url) {
         AdapterComponentMpiSecuredPortType  port = mpiSecuredService.getAdapterComponentMpiSecuredPort();
-
-        log.info("Setting endpoint address to MPI Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
     private String getSecuredURL()

@@ -43,8 +43,7 @@ public class AdapterAuditQueryWebServiceProxy implements AdapterAuditQueryProxy 
     private AdapterAuditLogQueryPortType getAdapterPort(String url) {
         AdapterAuditLogQueryPortType port = adapterService.getAdapterAuditLogQueryPortSoap11();
 
-        log.info("Setting endpoint address to Audit Repository Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

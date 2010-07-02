@@ -98,9 +98,7 @@ public class AuditRepositorySecuredWebServiceProxy implements AuditRepositoryPro
 
     private AuditRepositoryManagerSecuredPortType getPort(String url) {
         AuditRepositoryManagerSecuredPortType port = auditRepoService.getAuditRepositoryManagerSecuredPort();
-
-        log.info("Setting endpoint address to Audit Repository Secure Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 }

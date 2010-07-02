@@ -85,12 +85,12 @@ public class AdapterMpiQuery {
        if ((sEndpointURL != null) &&
            (sEndpointURL.length() > 0)) {
            log.debug("calling " + sEndpointURL);
-           ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+		   gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) mpiPort, sEndpointURL);
        }
        else {
            // Just a way to cover ourselves for the time being...  - assume port 8080
            //-------------------------------------------------------------------------
-           ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/NhinConnect/AdapterComponentMpiService");
+		   gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) mpiPort, "http://localhost:8080/NhinConnect/AdapterComponentMpiService");
 
            log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ADAPTER_COMPONENT_MPI_SERVICE + " and " +
                     "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
@@ -112,8 +112,7 @@ public class AdapterMpiQuery {
            AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
            AdapterComponentMpiSecuredPortType port = mpiSecuredService.getAdapterComponentMpiSecuredPort();
 
-           log.info("Setting endpoint address to MPI Component Secured Service to " + url);
-           ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+           gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
            return port;
        }

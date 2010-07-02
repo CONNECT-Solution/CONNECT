@@ -32,7 +32,7 @@ public class AdapterMpiSecuredImpl {
 
             AdapterComponentMpiPortType port = service.getAdapterComponentMpiPort();
             response = port.findCandidates(findCandidatesRequest);
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         }
 
         return response;

@@ -57,8 +57,7 @@ public class AdapterDocRetrieveWebServiceSecuredProxy implements AdapterDocRetri
     {
         log.debug("Creating secured adapter doc retrieve port");
         AdapterDocRetrieveSecuredPortType port = service.getAdapterDocRetrieveSecuredPortSoap11();
-        log.info("Setting endpoint address to Adapter doc retrieve secured to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
     

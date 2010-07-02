@@ -102,8 +102,7 @@ public class PatientCorrelationImpl {
 
         PatientCorrelationSecuredPortType port = service.getPatientCorrelationSecuredPort();
 
-        log.info("Setting endpoint address to Patient Correlation Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

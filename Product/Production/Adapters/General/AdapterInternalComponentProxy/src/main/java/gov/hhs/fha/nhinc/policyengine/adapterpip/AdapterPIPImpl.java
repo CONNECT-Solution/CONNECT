@@ -360,7 +360,7 @@ public class AdapterPIPImpl {
         entitynotificationconsumerPort = service.getEntityNotificationConsumerPortSoap11();
         // Need to load in the correct UDDI endpoint URL address.
         //--------------------------------------------------------
-        ((BindingProvider) entitynotificationconsumerPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) entitynotificationconsumerPort, endpointURL);
         return entitynotificationconsumerPort;
     }
 }

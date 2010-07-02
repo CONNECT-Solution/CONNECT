@@ -63,7 +63,7 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
                                        "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider)oAdapterPIPPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) oAdapterPIPPort,sEndpointURL);
         }
         catch (Exception e)
         {

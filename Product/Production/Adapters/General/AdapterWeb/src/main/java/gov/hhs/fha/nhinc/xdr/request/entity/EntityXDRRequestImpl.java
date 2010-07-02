@@ -107,10 +107,7 @@ public class EntityXDRRequestImpl
     protected EntityXDRSecuredRequestPortType getPort(String url)
     {
         EntityXDRSecuredRequestPortType port = service.getEntityXDRSecuredRequestPort();
-
-        log.info("Setting endpoint address to Entity XDR Request Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 }

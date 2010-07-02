@@ -80,8 +80,7 @@ public class ProxyHiemUnsubscribeImpl
     {
         NhincProxySubscriptionManagerSecuredPortType port = service.getNhincProxySubscriptionManagerSecuredPortSoap11();
 
-        log.info("Setting endpoint address to Proxy Unsubscribe Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

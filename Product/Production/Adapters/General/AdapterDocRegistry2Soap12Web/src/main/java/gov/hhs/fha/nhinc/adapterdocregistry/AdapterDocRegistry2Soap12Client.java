@@ -112,8 +112,7 @@ public class AdapterDocRegistry2Soap12Client
                 log.warn(sErrorMessage);
             }
 
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port,sEndpointURL);
             //add the soap header
             List<Header> headers = new ArrayList<Header>();
             QName qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_ACTION);

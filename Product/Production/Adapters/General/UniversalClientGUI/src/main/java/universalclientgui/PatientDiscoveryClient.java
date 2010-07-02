@@ -58,7 +58,7 @@ public class PatientDiscoveryClient {
 
         EntityPatientDiscoveryPortType port = service.getEntityPatientDiscoveryPortSoap11();
 
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

@@ -166,7 +166,7 @@ public class HiemUnsubscribeImpl {
             log.debug("preparing port");
             gov.hhs.fha.nhinc.nhincsubscription.NhincSubscriptionManagerService service = new gov.hhs.fha.nhinc.nhincsubscription.NhincSubscriptionManagerService();
             gov.hhs.fha.nhinc.nhincsubscription.SubscriptionManager port = service.getSubscriptionManagerPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
             log.debug("attaching reference parameter headers");
             SoapUtil soapUtil = new SoapUtil();

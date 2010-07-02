@@ -43,9 +43,7 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
                     (endpointURL.length() <= 0)) {
                 endpointURL = ENTITY_SUBJECT_DISCOVERY_SERVICE_URL;
             }
-            log.info("Setting endpoint address to Entity Subject Discovery Service to " + endpointURL);
-            ((BindingProvider) entitySecuredPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) entitySecuredPort, endpointURL);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map samlMap = tokenCreator.CreateRequestContext(assertIn, endpointURL, NhincConstants.SUBJECT_DISCOVERY_ACTION);
 

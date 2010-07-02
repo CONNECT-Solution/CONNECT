@@ -58,7 +58,7 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
                                        "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider)oAdapterPolicyEngineOrchestratorPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) oAdapterPolicyEngineOrchestratorPort, sEndpointURL);
         }
         catch (Exception e)
         {

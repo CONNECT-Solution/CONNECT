@@ -114,8 +114,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
     private NotificationConsumer getPort(String url) {
         NotificationConsumer port = nhinService.getNotificationConsumerPort();
 
-        log.info("Setting endpoint address to Nhin Hiem Notify Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

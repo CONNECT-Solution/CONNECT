@@ -150,8 +150,7 @@ public class PolicyDteWebServiceProxy implements IPolicyDteProxy {
         }
 
         if (NullChecker.isNotNullish(url)) {
-            log.info("Setting endpoint address to Audit Log Service to " + url);
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         } else {
             log.error("Error: URL is null");
             port = null;

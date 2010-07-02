@@ -180,10 +180,7 @@ public class AdapterXDRRequestSecuredImpl {
      */
     protected EntityXDRSecuredResponsePortType getEntityXDRSecuredResponsePort(String url) {
         EntityXDRSecuredResponsePortType port = getEntityXDRSecuredResponseService().getEntityXDRSecuredResponsePort();
-
-        logger.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 
@@ -250,21 +247,13 @@ public class AdapterXDRRequestSecuredImpl {
         return url;
     }
     protected AdapterXDRRequestPortType getAdapterXDRRequestPort(String url) {
-
         AdapterXDRRequestPortType port = getAdapterXDRRequestService().getAdapterXDRRequestPort();
-
-        getLogger().info("Setting endpoint address to Adapter XDR Request Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
     protected AdapterXDRPortType getAdapterXDRPort(String url) {
-
         AdapterXDRPortType port = getAdapterXDRService().getAdapterXDRPort();
-
-        getLogger().info("Setting endpoint address to Adapter XDR Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 

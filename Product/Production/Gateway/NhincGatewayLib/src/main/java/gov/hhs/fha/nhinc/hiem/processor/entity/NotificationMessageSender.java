@@ -39,8 +39,8 @@ public class NotificationMessageSender
         { // Call Web Service Operation
             org.oasis_open.docs.wsn.bw_2.NotificationConsumerService service = new org.oasis_open.docs.wsn.bw_2.NotificationConsumerService();
             org.oasis_open.docs.wsn.bw_2.NotificationConsumer port = service.getNotificationConsumerPort();
-
-            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointAddress);
+            
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, endpointAddress);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
             
             org.oasis_open.docs.wsn.b_2.Notify notify = new org.oasis_open.docs.wsn.b_2.Notify();

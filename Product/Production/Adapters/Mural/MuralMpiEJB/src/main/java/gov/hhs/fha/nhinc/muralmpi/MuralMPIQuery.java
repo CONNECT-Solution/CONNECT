@@ -55,8 +55,7 @@ public class MuralMPIQuery
 
        try
        {
-            ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, muralEndPoint);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) mpiPort, muralEndPoint);
             log.debug("Call Mural Search Service");
             result = mpiPort.searchExact(patient);
             log.debug("Mural Search Service call complete");

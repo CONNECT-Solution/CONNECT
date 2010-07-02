@@ -85,12 +85,8 @@ public class AdapterXDRResponseSecuredImpl {
         return url;
     }
     protected AdapterXDRResponsePortType getPort(String url) {
-
         AdapterXDRResponsePortType port = service.getAdapterXDRResponsePort();
-
-        getLogger().info("Setting endpoint address to Adapter XDR Response Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 }

@@ -37,8 +37,7 @@ public class DocRetrieveImpl {
 
         NhincDocRetrieveService service = new NhincDocRetrieveService();
         NhincDocRetrievePortType port = service.getNhincDocRetrievePortTypeBindingPort();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         resp = port.respondingGatewayCrossGatewayRetrieve(crossGatewayRetrieveRequest);
         log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
         return resp;

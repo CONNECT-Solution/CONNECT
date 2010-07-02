@@ -165,18 +165,16 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 9080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:9080/NhinConnect/EntityDocQuery");
-
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:9080/NhinConnect/EntityDocQuery");
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
                          "'http://localhost:9080/NhinConnect/EntityDocQuery'");
             }
-
             RespondingGatewayCrossGatewayQueryRequestType gateway = new RespondingGatewayCrossGatewayQueryRequestType();
             gateway.setAdhocQueryRequest(origAdhocQuery);
             gateway.setAssertion(origAssertion);
@@ -330,13 +328,12 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 8080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
-
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
                          "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
@@ -388,13 +385,12 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 9080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:9080/NhinConnect/EntityDocRetrieve");
-
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:9080/NhinConnect/EntityDocRetrieve");
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
                          "'http://localhost:9080/NhinConnect/EntityDocRetrieve'");
@@ -450,13 +446,12 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+                gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 8080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
-
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
                          "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
@@ -1021,13 +1016,12 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 8080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
-
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
                          "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
@@ -1146,13 +1140,12 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+                gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 8080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
-
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
                          "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");

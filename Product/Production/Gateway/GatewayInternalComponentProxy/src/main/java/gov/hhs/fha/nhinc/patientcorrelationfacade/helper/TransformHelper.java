@@ -36,7 +36,7 @@ public class TransformHelper
             dteService = new NhincComponentPatientCorrelationFacadeDteService();
         }
         PatientCorrelationFacadeDte port = dteService.getPatientCorrelationFacadeDteBindingPort();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, ENDPOINT_ADDRESS_TRANSFORM);
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, ENDPOINT_ADDRESS_TRANSFORM);
         return port;
     }
 

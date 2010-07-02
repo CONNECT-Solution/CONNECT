@@ -37,8 +37,7 @@ public class DocQueryImpl {
 
         NhincDocQueryService service = new NhincDocQueryService();
         NhincDocQueryPortType port = service.getNhincDocQueryPortTypeBindingPort();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
-
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         resp = port.respondingGatewayCrossGatewayQuery(crossGatewayQueryRequest);
         log.debug("Exiting DocQueryImpl.respondingGatewayCrossGatewayQuery");
         return resp;

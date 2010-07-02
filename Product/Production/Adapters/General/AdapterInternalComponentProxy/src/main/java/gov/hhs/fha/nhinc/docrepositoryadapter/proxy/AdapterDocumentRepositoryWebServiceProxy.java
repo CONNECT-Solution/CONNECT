@@ -89,8 +89,7 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
     private DocumentRepositoryPortType getPort(String url) {
         DocumentRepositoryPortType port = service.getDocumentRepositoryPortSoap();
 
-        log.debug("Setting endpoint address to adapter document repository to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }
