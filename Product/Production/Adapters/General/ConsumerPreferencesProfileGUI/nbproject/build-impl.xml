@@ -547,10 +547,6 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhinServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.appbase.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.appbase.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-beanutils.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-beanutils.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-collections.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-collections.jar" todir="${dist.ear.dir}"/>
@@ -570,17 +566,12 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf-tld.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-tld.zip" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.appbase.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-beanutils.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-collections.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -600,7 +591,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf-tld.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

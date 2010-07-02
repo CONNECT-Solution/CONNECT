@@ -4,8 +4,8 @@
 	<property name="dist.type" value="war" />
 	<property name="webtest.hasTests" value="false" />
 	<property name="unittest.hasTests" value="true" />
-  <property name="deploy.isDeployable" value="true"/>
-  <property name="deploy.type" value="war" />
+	<property name="deploy.isDeployable" value="true"/>
+	<property name="deploy.type" value="war" />
 
 	<!-- Please make sure that this goes up to the correct directory -->
 	<import file="../../../../build/build.targets.xml" />
@@ -15,14 +15,14 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so...-->
-    
-    <pathelement path="${project.AdapterInternalComponentProxy.build.classes.dir}" />
-    <pathelement path="${project.CommonServiceProxy.build.classes.dir}" />
-    <pathelement path="${project.DocumentRepository.build.classes.dir}" />
-    <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
-    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />    
-    <pathelement path="${project.NhinServiceProxy.build.classes.dir}" />    
-    <pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+		<pathelement path="${project.AdapterInternalComponentProxy.build.classes.dir}" />
+		<pathelement path="${project.CommonServiceProxy.build.classes.dir}" />
+		<pathelement path="${project.DocumentRepository.build.classes.dir}" />
+		<pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+		<pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />    
+		<pathelement path="${project.NhinServiceProxy.build.classes.dir}" />    
+		<pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
 		
 	</path>
 
@@ -35,6 +35,7 @@
   
   <path id="war.libs">
 		<filelist dir="${root.project.directory.path}">
+			<file name="${project.CONNECTCoreLib.dist.file}" />
 			<file name="${project.AdapterInternalComponentProxy.dist.file}" />
 			<file name="${project.CommonServiceProxy.dist.file}" />
 			<file name="${project.DocumentRepository.dist.file}" />
