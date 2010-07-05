@@ -83,7 +83,7 @@ public class DocRetrieveClient
     protected NhincProxyDocRetrievePortType getPort(String url)
     {
         NhincProxyDocRetrievePortType port = service.getNhincProxyDocRetrievePortSoap11();
-        ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+		gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 
