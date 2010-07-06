@@ -16,11 +16,11 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryWebServiceProxy" linecount="42" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.Address" linecount="22" linerate="0.5454545454545454" linesexecuted="0.12"/>
-<threshold branchcount="56" branchrate="0.6785714285714286" branchsexecuted="0.38" class="gov.hhs.fha.nhinc.mpilib.MiniMpi" linecount="108" linerate="0.6944444444444444" linesexecuted="0.75"/>
+<threshold branchcount="68" branchrate="0.14676470588235294" branchsexecuted="9.98" class="gov.hhs.fha.nhinc.mpilib.MiniMpi" linecount="119" linerate="0.08025210084033614" linesexecuted="9.55"/>
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.mpilib.MpiDataSaver" linecount="59" linerate="0.6101694915254238" linesexecuted="0.36"/>
-<threshold branchcount="4" branchrate="1.0" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.mpilib.Patient" linecount="44" linerate="0.7272727272727273" linesexecuted="0.32"/>
-<threshold branchcount="40" branchrate="0.675" branchsexecuted="0.27" class="gov.hhs.fha.nhinc.mpilib.PatientMatcher" linecount="43" linerate="0.6976744186046512" linesexecuted="0.3"/>
-<threshold branchcount="8" branchrate="0.375" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.mpilib.PersonName" linecount="29" linerate="0.5862068965517241" linesexecuted="0.17"/>
+<threshold branchcount="8" branchrate="0.405" branchsexecuted="3.24" class="gov.hhs.fha.nhinc.mpilib.Patient" linecount="65" linerate="0.2633846153846154" linesexecuted="17.12"/>
+<threshold branchcount="44" branchrate="0.07886363636363637" branchsexecuted="3.47" class="gov.hhs.fha.nhinc.mpilib.PatientMatcher" linecount="51" linerate="0.13137254901960785" linesexecuted="6.7"/>
+<threshold branchcount="8" branchrate="0.375" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.mpilib.PersonName" linecount="40" linerate="0.22425" linesexecuted="8.97"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.UnableToInitializeMpi" linecount="10" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpep.AdapterPEPException" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="168" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapterpep.AdapterPEPImpl" linecount="390" linerate="0.0" linesexecuted="0"/>

@@ -76,8 +76,10 @@ public class TestHelper {
         Iterator<Serializable> iterSerialObjects = choice.iterator();
 
         EnExplicitFamily familyName = new EnExplicitFamily();
-        EnExplicitGiven givenName = new EnExplicitGiven();
-
+        EnExplicitGiven givenName = null;
+        String middleName = "";
+        String prefix = "";
+        String suffix = "";
         while (iterSerialObjects.hasNext()) {
             Serializable contentItem = iterSerialObjects.next();
 
@@ -87,14 +89,42 @@ public class TestHelper {
                     familyName = (EnExplicitFamily) oJAXBElement.getValue();
                     hasName = true;
                 } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
-                    givenName = (EnExplicitGiven) oJAXBElement.getValue();
+
+                    if(givenName == null)
+                    {
+                        givenName = (EnExplicitGiven) oJAXBElement.getValue();
+                    }
+                    else
+                    {
+                        EnExplicitGiven middle =  (EnExplicitGiven) oJAXBElement.getValue();
+                        middleName = middle.getContent();
+                    }
                     hasName = true;
+                }else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
+                    EnExplicitPrefix prefixObj = (EnExplicitPrefix) oJAXBElement.getValue();
+                    prefix =  prefixObj.getContent();
+
+                }   else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
+                    EnExplicitSuffix suffixObj = (EnExplicitSuffix) oJAXBElement.getValue();
+                    suffix = suffixObj.getContent();
                 }
             }
         }
         
         if (hasName == true) {
             nameString = familyName.getContent() + " " + givenName.getContent();
+            if(middleName != "")
+            {
+                nameString += " " + middleName;
+            }
+            if(prefix != "")
+            {
+                nameString += " " + prefix;
+            }
+            if(suffix != "")
+            {
+                nameString += " " + suffix;
+            }
             System.out.println(nameString);
         }
         
@@ -343,7 +373,6 @@ public class TestHelper {
 
         return sender;
     }
-
     public static Patient createMpiPatient(String firstName, String lastName, String gender, String birthTime, Identifier subjectId) {
         Patient result = new Patient();
 
@@ -352,6 +381,55 @@ public class TestHelper {
         name.setFirstName(firstName);
         name.setLastName(lastName);
         result.setName(name);
+
+        // Set the patient gender
+        result.setGender(gender);
+
+        // Set the patient birth time
+        result.setDateOfBirth(birthTime);
+
+        // Set the patient Id
+        Identifiers ids = new Identifiers();
+        ids.add(subjectId);
+        result.setIdentifiers(ids);
+
+        return result;
+    }
+    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender, String birthTime, Identifier subjectId) {
+        Patient result = new Patient();
+
+        // Set the patient name
+        PersonName name = new PersonName();
+        name.setFirstName(firstName);
+        name.setLastName(lastName);
+        name.setMiddleName(middleName);
+        result.setName(name);
+        
+        // Set the patient gender
+        result.setGender(gender);
+
+        // Set the patient birth time
+        result.setDateOfBirth(birthTime);
+
+        // Set the patient Id
+        Identifiers ids = new Identifiers();
+        ids.add(subjectId);
+        result.setIdentifiers(ids);
+
+        return result;
+    }
+    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender, String birthTime, Identifier subjectId, String title, String suffix) {
+        Patient result = new Patient();
+
+        // Set the patient name
+        PersonName name = new PersonName();
+        name.setFirstName(firstName);
+        name.setLastName(lastName);
+        name.setMiddleName(middleName);
+        name.setTitle(title);
+        name.setSuffix(suffix);
+
+        result.getNames().add(name);
 
         // Set the patient gender
         result.setGender(gender);

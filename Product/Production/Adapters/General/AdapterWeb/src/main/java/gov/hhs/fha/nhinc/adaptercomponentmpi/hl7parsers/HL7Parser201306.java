@@ -18,6 +18,7 @@ import java.util.GregorianCalendar;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.hl7.v3.*;
 
 
@@ -104,7 +105,6 @@ public class HL7Parser201306 {
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setClassCode(ActClassControlAct.CACT);
-        
         CD code = new CD();
         code.setCode("PRPA_TE201306UV");
         code.setCodeSystem("2.16.840.1.113883.1.6");
@@ -189,7 +189,6 @@ public class HL7Parser201306 {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
         regEvent.getMoodCode().add("EVN");
         regEvent.getClassCode().add("REG");
-        
         II id = new II();
         id.getNullFlavor().add("NA");
         regEvent.getId().add(id);
@@ -210,6 +209,7 @@ public class HL7Parser201306 {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
         result.getTypeCode().add("CST");
         result.setAssignedEntity(createAssignEntity(patient));
+        
         return result;
     }
     
@@ -333,8 +333,18 @@ public class HL7Parser201306 {
            person.setAdministrativeGenderCode(createGender(patient));
         }
         
-        // Set the Subject Name
-        person.getName().add(createSubjectName(patient));
+        // Set the Subject Name        
+        if(patient.getNames().size() > 0)
+        {
+            for(PersonName name : patient.getNames())
+            {
+                 person.getName().add(createSubjectName(name));
+            }
+        }
+        else
+        {
+            person.getName().add(createSubjectName(patient));
+        }
         
         // Set the Birth Time
         if (patient.getDateOfBirth() != null &&
@@ -343,9 +353,28 @@ public class HL7Parser201306 {
         }
         
         // Set the Address
-        if (patient.getAddress() != null) {
-           person.getAddr().add(createAddress(patient));
+        if (patient.getAddresses().size() > 0 ) {
+            for(Address add : patient.getAddresses())
+            {
+               ADExplicit address =  HL7DataTransformHelper.CreateADExplicit(add.getStreet1(),
+                       add.getStreet2(), add.getCity(), add.getState(), add.getZip());
+               person.getAddr().add(address);
+            }
+           
         }
+
+
+        //Set the phone Numbers
+        if(patient.getPhoneNumbers().size() > 0)
+        {
+            for(PhoneNumber number : patient.getPhoneNumbers())
+            {
+                TELExplicit tele = HL7DataTransformHelper.createTELExplicit(number.getPhoneNumber());
+
+                person.getTelecom().add(tele);
+            }
+        }
+
         
         // Set the SSN
         if (patient.getSSN() != null &&
@@ -358,7 +387,16 @@ public class HL7Parser201306 {
         
         return result;
     }
-    
+
+    private static TELExplicit createPhoneNumber(String number)
+    {
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        TELExplicit result = (TELExplicit) (factory.createTELExplicit());
+        result.setValue(number);
+
+        return result;
+
+    }
     private static ADExplicit createAddress (Patient patient) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ADExplicit address =  (ADExplicit) (factory.createADExplicit());
@@ -440,28 +478,22 @@ public class HL7Parser201306 {
     }
     
     private static PNExplicit createSubjectName (Patient patient) {       
+        return createSubjectName(patient.getName());
+    }
+    private static PNExplicit createSubjectName (PersonName personName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
-        
-        if (patient.getName().getLastName() != null &&
-                patient.getName().getLastName().length() > 0) {
-            EnExplicitFamily familyName = new EnExplicitFamily();
-            familyName.setPartType("FAM");
-            familyName.setContent(patient.getName().getLastName());
-            log.info("Setting Patient Lastname in 201306: " + patient.getName().getLastName());
-            namelist.add(factory.createPNExplicitFamily(familyName));
-        }
-        
-        if (patient.getName().getFirstName() != null &&
-                patient.getName().getFirstName().length() > 0) {
-            EnExplicitGiven givenName = new EnExplicitGiven();
-            givenName.setPartType("GIV");
-            givenName.setContent(patient.getName().getFirstName());
-            log.info("Setting Patient Firstname in 201306: " + patient.getName().getFirstName());
-            namelist.add(factory.createPNExplicitGiven(givenName));
-        }
-        
+
+        String lastName =  personName.getLastName();
+        String firstName =personName.getFirstName();
+        String middleName= personName.getMiddleName();
+        String prefix = personName.getTitle();
+        String suffix = personName.getSuffix();
+
+
+        name = HL7DataTransformHelper.CreatePNExplicit(firstName, middleName, lastName, prefix, suffix);
+
         return name;
     }
     private static CE createGender (Patient patient) {
