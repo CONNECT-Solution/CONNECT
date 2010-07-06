@@ -82,16 +82,27 @@
           <arg line='testrunner.sh -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
 
-        <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"/>
+        <if>
+          <exists path="${soapui.report.dir}/${soapui.project.name}/report.xml" />
+          <then>
+            <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"/>
+          </then>
+        </if>
 
-        <replace
-      file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"
-      value="">
-          <replacefilter token="&lt;testsuites&gt;"/>
-          <replacefilter token="&lt;/testsuites&gt;"/>
-        </replace>
-        <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
-        <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
+        <if>
+          <exists path="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml" />
+          <then>
+            <replace
+              file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"
+              value="">
+              <replacefilter token="&lt;testsuites&gt;"/>
+              <replacefilter token="&lt;/testsuites&gt;"/>
+            </replace>
+            <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
+            <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
+          </then>
+        </if>
+            	
 
         <if>
           <scriptcondition language="javascript">
