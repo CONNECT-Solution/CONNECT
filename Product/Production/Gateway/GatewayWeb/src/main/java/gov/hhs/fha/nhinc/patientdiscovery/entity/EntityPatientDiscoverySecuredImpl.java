@@ -26,6 +26,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import javax.xml.bind.JAXBElement;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -88,6 +89,7 @@ public class EntityPatientDiscoverySecuredImpl {
         addLogDebug("Entering EntityPatientDiscoverySecuredImpl.getResponseFromCommunities...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
         CMUrlInfos urlInfoList = null;
+        PRPAIN201306UV02 resultFromNhin = null;
 
         NhincProxyPatientDiscoverySecuredImpl proxy = new NhincProxyPatientDiscoverySecuredImpl();
 
@@ -121,17 +123,23 @@ public class EntityPatientDiscoverySecuredImpl {
                             new ProxyPRPAIN201305UVProxySecuredRequestType();
                     oProxyPRPAIN201305UVProxySecuredRequestType.setPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
                     oProxyPRPAIN201305UVProxySecuredRequestType.setNhinTargetSystem(oTargetSystemType);
-
-                    PRPAIN201306UV02 resultFromNhin = proxy.proxyPRPAIN201305UV(oProxyPRPAIN201305UVProxySecuredRequestType, assertion);
-
-                    //process the response
                     ResponseParams params = new ResponseParams();
-                    params.context = context;
-                    params.origRequest = oProxyPRPAIN201305UVProxySecuredRequestType;
-                    params.response = resultFromNhin;
 
                     try {
+                        resultFromNhin = proxy.proxyPRPAIN201305UV(oProxyPRPAIN201305UVProxySecuredRequestType, assertion);
+
+                        params.context = context;
+                        params.origRequest = oProxyPRPAIN201305UVProxySecuredRequestType;
+                        params.response = resultFromNhin;
                         resultFromNhin = new ResponseFactory().getResponseMode().processResponse(params);
+
+                    } catch (Exception ex) {
+                        addLogError(ex.getMessage(), ex);
+                        resultFromNhin = new HL7PRPA201306Transforms().createPRPA201306ForErrors(oProxyPRPAIN201305UVProxySecuredRequestType.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+                    }
+
+
+                    try {
                     } catch (Exception ex) {
                         addLogError(ex.getMessage(), ex);
                         resultFromNhin = new PRPAIN201306UV02();
@@ -322,5 +330,4 @@ public class EntityPatientDiscoverySecuredImpl {
 
         }
     }
-
 }
