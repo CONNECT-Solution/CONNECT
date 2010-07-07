@@ -777,6 +777,9 @@
 			<xsd:element name="eventCodes" type="nccommon:CeType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
+        <!-- ====================================================================
+         Document Submission Schemas
+         ==================================================================== -->
 	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -843,4 +846,25 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="FilterDocRetrieveResultsResponse" type="tns:FilterDocRetrieveResultsResponseType"/>
+        <!-- ====================================================================
+         Document retrieve Deferred Schemas for Error handling
+         ==================================================================== -->
+         <xsd:complexType name="AdapterDocumentRetrieveDeferredRequestErrorType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+                        <xsd:element name="RetrieveDocumentSetRequest" type="ihe:RetrieveDocumentSetRequestType"/>
+			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AdapterDocumentRetrieveDeferredRequestError" type="tns:AdapterDocumentRetrieveDeferredRequestErrorType"/>
+	<xsd:complexType name="AdapterDocumentRetrieveDeferredRequestErrorSecuredType">
+		<xsd:sequence>
+			<xsd:element name="RetrieveDocumentSetRequest" type="ihe:RetrieveDocumentSetRequestType"/>
+			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AdapterDocumentRetrieveDeferredRequestErrorSecured" type="tns:AdapterDocumentRetrieveDeferredRequestErrorSecuredType"/>
+        <!-- ====================================================================
+         Continue adding from here for new Schemas
+         ==================================================================== -->
 </xsd:schema>
