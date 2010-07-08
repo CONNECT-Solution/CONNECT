@@ -15,13 +15,6 @@
 		<directory>/Production/Common/CONNECTCoreLib</directory>
 		<dist.type>jar</dist.type>
 	</project>
-<!--
-	<project>
-		<name>NhincCommonLib</name>
-		<directory>/Production/Common/NhincCommonLib</directory>
-		<dist.type>jar</dist.type>
-	</project>
--->
 	<project>
 		<name>NhincSAMLCallbackLib</name>
 		<directory>/Production/Common/NhincSAMLCallbackLib</directory>
