@@ -13,16 +13,13 @@
             <minimum-ant-version>1.6</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.debug-dist-3}</file>
+                </library>
+                <library>
                     <file>${file.reference.debug-dist}</file>
                 </library>
                 <library>
-                    <file>${file.reference.debug-dist-1}</file>
-                </library>
-                <library>
                     <file>${file.reference.debug-dist-2}</file>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist-3}</file>
                 </library>
                 <library>
                     <file>${file.reference.debug-dist-4}</file>

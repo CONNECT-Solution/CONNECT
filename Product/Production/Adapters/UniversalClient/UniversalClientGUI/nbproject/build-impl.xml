@@ -526,11 +526,12 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
+        <copyfiles files="${file.reference.debug-dist}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-1}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.errorhandler.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.errorhandler.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-suntheme.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jsfcl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsfcl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.json-2.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.json-2.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.sqlx.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.sqlx.jar" todir="${dist.ear.dir}"/>
@@ -542,7 +543,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jstl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jstl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.standard.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.standard.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.appbase.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.appbase.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jsf-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsf-api.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.activation.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.activation.jar" todir="${dist.ear.dir}"/>
@@ -569,15 +569,16 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.jstl.jar} ${manifest.file.reference.standard.jar} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.activation.jar} ${manifest.file.reference.FastInfoset.jar} ${manifest.file.reference.http.jar} ${manifest.file.reference.jaxb-api.jar} ${manifest.file.reference.jaxb-impl.jar} ${manifest.file.reference.jaxb-xjc.jar} ${manifest.file.reference.jaxws-api.jar} ${manifest.file.reference.jaxws-rt.jar} ${manifest.file.reference.jaxws-tools.jar} ${manifest.file.reference.jsr173_api.jar} ${manifest.file.reference.jsr181-api.jar} ${manifest.file.reference.jsr250-api.jar} ${manifest.file.reference.mimepull.jar} ${manifest.file.reference.saaj-api.jar} ${manifest.file.reference.saaj-impl.jar} ${manifest.file.reference.sjsxp.jar} ${manifest.file.reference.stax-ex.jar} ${manifest.file.reference.streambuffer.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.bcprov-jdk14-135.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.jstl.jar} ${manifest.file.reference.standard.jar} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.activation.jar} ${manifest.file.reference.FastInfoset.jar} ${manifest.file.reference.http.jar} ${manifest.file.reference.jaxb-api.jar} ${manifest.file.reference.jaxb-impl.jar} ${manifest.file.reference.jaxb-xjc.jar} ${manifest.file.reference.jaxws-api.jar} ${manifest.file.reference.jaxws-rt.jar} ${manifest.file.reference.jaxws-tools.jar} ${manifest.file.reference.jsr173_api.jar} ${manifest.file.reference.jsr181-api.jar} ${manifest.file.reference.jsr250-api.jar} ${manifest.file.reference.mimepull.jar} ${manifest.file.reference.saaj-api.jar} ${manifest.file.reference.saaj-impl.jar} ${manifest.file.reference.sjsxp.jar} ${manifest.file.reference.stax-ex.jar} ${manifest.file.reference.streambuffer.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.bcprov-jdk14-135.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
+        <copyfiles files="${file.reference.debug-dist}" todir="${build.web.dir}/WEB-INF/classes"/>
+        <copyfiles files="${file.reference.debug-dist-1}" todir="${build.web.dir}/WEB-INF/classes"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.errorhandler.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.jsfcl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.json-2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.sqlx.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -589,7 +590,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jstl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.standard.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.appbase.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.jsf-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.activation.jar}" todir="${build.web.dir}/WEB-INF/lib"/>

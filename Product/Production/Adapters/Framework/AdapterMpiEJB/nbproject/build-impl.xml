@@ -339,11 +339,11 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${libs.junit_4.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.debug-dist}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-1}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jdom-1.0.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jettison-1.0-RC2.jar}" todir="${build.classes.dir}"/>
@@ -359,11 +359,11 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.junit_4.classpath}" manifestproperty="manifest.libs.junit_4.classpath" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist}" manifestproperty="manifest.file.reference.debug-dist" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-1}" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" manifestproperty="manifest.file.reference.cglib-nodep-2.1_3.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" manifestproperty="manifest.file.reference.dom4j-1.6.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jdom-1.0.jar}" manifestproperty="manifest.file.reference.jdom-1.0.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jettison-1.0-RC2.jar}" manifestproperty="manifest.file.reference.jettison-1.0-RC2.jar" todir="${dist.ear.dir}"/>
@@ -377,7 +377,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xstream-1.3.jar}" manifestproperty="manifest.file.reference.xstream-1.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" manifestproperty="manifest.file.reference.xstream-benchmark-1.3.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.junit_4.classpath} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} "/>
+            <attribute name="Class-Path" value="${manifest.libs.junit_4.classpath} ${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">

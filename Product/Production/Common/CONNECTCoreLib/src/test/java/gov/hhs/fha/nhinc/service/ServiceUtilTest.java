@@ -1,17 +1,14 @@
 package gov.hhs.fha.nhinc.service;
 
 //import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
-import org.junit.Ignore;
-
 //import java.net.MalformedURLException;
 //import org.apache.commons.logging.Log;
-//import org.jmock.Mockery;
-//import org.jmock.integration.junit4.JMock;
-//import org.jmock.integration.junit4.JUnit4Mockery;
-//import org.jmock.lib.legacy.ClassImposteriser;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-//import org.junit.runner.RunWith;
+import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 //import javax.xml.ws.Service;
 //import org.jmock.Expectations;
@@ -20,22 +17,22 @@ import static org.junit.Assert.*;
  *
  * @author Neil Webb
  */
-//@RunWith(JMock.class)
-@Ignore
+@RunWith(JMock.class)
 public class ServiceUtilTest
 {
+    Mockery context = new JUnit4Mockery()
+    {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+
     @Test
     public void fakeTest()
     {
         assertTrue("Fake", true);
     }
 }
-//    Mockery context = new JUnit4Mockery()
-//    {
-//        {
-//            setImposteriser(ClassImposteriser.INSTANCE);
-//        }
-//    };
 //
 //    final Log mockLog = context.mock(Log.class);
 //    final Service mockService = context.mock(Service.class);

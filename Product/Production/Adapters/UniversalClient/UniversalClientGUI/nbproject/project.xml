@@ -13,6 +13,14 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.debug-dist}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-1}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -26,10 +34,6 @@
                 </library>
                 <library>
                     <file>${file.reference.webui-jsf-suntheme.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincCommonLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
@@ -74,10 +78,6 @@
                 </library>
                 <library>
                     <file>${file.reference.webui-jsf.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>

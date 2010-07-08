@@ -16,9 +16,8 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so. Below is a sample..-->
-		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 		<pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
-		<pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 		<pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
 
 	</path>
@@ -26,10 +25,6 @@
 	<!-- Add project dependencies here, these projects will be built first... -->
 	<path id="build.project.dependencies">
 		<filelist dir="${root.project.directory.path}">
-			<!--<file name="${project.CONNECTCoreLib.build.file}" />
-			<file name="${project.NhincCommonTypesLib.build.file}" />
-			<file name="${project.NhincCommonLib.build.file}" />
-			<file name="${project.GatewayInternalComponentProxy.build.file}" />-->
 		</filelist>
 	</path>
 

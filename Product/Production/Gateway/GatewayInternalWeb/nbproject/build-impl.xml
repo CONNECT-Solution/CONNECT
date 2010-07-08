@@ -526,22 +526,22 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonDAO.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincGatewayDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayDAO.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-1}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-2}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-2" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-3}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-3" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-4}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-4" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincCommonDAO.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.debug-dist-2} ${manifest.file.reference.debug-dist-3} ${manifest.file.reference.debug-dist-4} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincCommonDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincGatewayDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.debug-dist}" todir="${build.web.dir}/WEB-INF/classes"/>
+        <copyfiles files="${file.reference.debug-dist-1}" todir="${build.web.dir}/WEB-INF/classes"/>
+        <copyfiles files="${file.reference.debug-dist-2}" todir="${build.web.dir}/WEB-INF/classes"/>
+        <copyfiles files="${file.reference.debug-dist-3}" todir="${build.web.dir}/WEB-INF/classes"/>
+        <copyfiles files="${file.reference.debug-dist-4}" todir="${build.web.dir}/WEB-INF/classes"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

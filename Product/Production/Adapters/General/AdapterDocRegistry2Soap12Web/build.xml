@@ -16,8 +16,8 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so...-->
-		<pathelement path="${project.NhincCommonLib.build.classes.dir}" />
-    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />    
+	    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />    
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 	</path>
 
 	<!-- Add project dependencies here, these projects will be built first... -->
@@ -26,10 +26,10 @@
 		</filelist>
 	</path>
 
-  <path id="war.libs">
+	<path id="war.libs">
 		<filelist dir="${root.project.directory.path}">
-      <file name="${project.NhincCommonLib.dist.file}" />
-      <file name="${project.NhincCommonTypesLib.dist.file}" />
+			<file name="${project.NhincCommonTypesLib.dist.file}" />
+			<file name="${project.CONNECTCoreLib.dist.file}" />
 		</filelist>
 	</path>
 </project>

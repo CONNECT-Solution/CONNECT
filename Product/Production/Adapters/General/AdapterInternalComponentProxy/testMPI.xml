@@ -1,184 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<java version="1.6.0_20" class="java.beans.XMLDecoder"> 
+<java version="1.6.0_16" class="java.beans.XMLDecoder"> 
  <object class="gov.hhs.fha.nhinc.mpilib.Patients"> 
   <void method="add"> 
    <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
+    <void property="names"> 
      <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>MRN-123</string> 
+      <object class="gov.hhs.fha.nhinc.mpilib.PersonName"> 
+       <void property="firstName"> 
+        <string>FirstName</string> 
        </void> 
-       <void property="organizationId"> 
-        <string>GeneralHospital-OID</string> 
+       <void property="lastName"> 
+        <string>LastName</string> 
        </void> 
-      </object> 
-     </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>ADAM</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>ADAMS</string> 
-     </void> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="add"> 
-   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
-     <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>MRN-124</string> 
+       <void property="middleName"> 
+        <string>MiddleName</string> 
        </void> 
-       <void property="organizationId"> 
-        <string>GeneralHospital-OID</string> 
+       <void property="suffix"> 
+        <string>Suffix</string> 
        </void> 
-      </object> 
-     </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>BIGS</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>BUSTER</string> 
-     </void> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="add"> 
-   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
-     <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>MRN-134</string> 
-       </void> 
-       <void property="organizationId"> 
-        <string>GeneralHospital-OID</string> 
-       </void> 
-      </object> 
-     </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>CHAPLAN</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>CHARLIE</string> 
-     </void> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="add"> 
-   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
-     <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>MRN-135</string> 
-       </void> 
-       <void property="organizationId"> 
-        <string>GeneralHospital-OID</string> 
-       </void> 
-      </object> 
-     </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>DARKO</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>DONNIE</string> 
-     </void> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="add"> 
-   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
-     <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>MRN-200</string> 
-       </void> 
-       <void property="organizationId"> 
-        <string>GeneralHospital-OID</string> 
+       <void property="title"> 
+        <string>Title</string> 
        </void> 
       </object> 
      </void> 
      <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>e123</string> 
+      <object class="gov.hhs.fha.nhinc.mpilib.PersonName"> 
+       <void property="firstName"> 
+        <string>FirstName2</string> 
        </void> 
-       <void property="organizationId"> 
-        <string>Healthcare-r-us-OID</string> 
+       <void property="lastName"> 
+        <string>LastName2</string> 
        </void> 
-      </object> 
-     </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>EGG</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>EASTER</string> 
-     </void> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="add"> 
-   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
-     <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>b7</string> 
+       <void property="middleName"> 
+        <string>MiddleName2</string> 
        </void> 
-       <void property="organizationId"> 
-        <string>Healthcare-r-us-OID</string> 
+       <void property="suffix"> 
+        <string>Suffix2</string> 
+       </void> 
+       <void property="title"> 
+        <string>Title2</string> 
        </void> 
       </object> 
      </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>BUNNY</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>EASTER</string> 
-     </void> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="add"> 
-   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
-    <void property="identifiers"> 
-     <void method="add"> 
-      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
-       <void property="id"> 
-        <string>MRN-224</string> 
-       </void> 
-       <void property="organizationId"> 
-        <string>Healthcare-r-us-OID</string> 
-       </void> 
-      </object> 
-     </void> 
-    </void> 
-    <void property="name"> 
-     <void property="firstName"> 
-      <string>BROWN</string> 
-     </void> 
-     <void property="lastName"> 
-      <string>CHARLE</string> 
-     </void> 
-    </void> 
-    <void property="optedIn"> 
-     <boolean>false</boolean> 
     </void> 
    </object> 
   </void> 

@@ -338,22 +338,22 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
+        <copyfiles files="${file.reference.debug-dist}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-1}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.nux.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xom.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
+        <copyfiles files="${file.reference.debug-dist}" manifestproperty="manifest.file.reference.debug-dist" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.debug-dist-1}" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.nux.jar}" manifestproperty="manifest.file.reference.nux.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xom.jar}" manifestproperty="manifest.file.reference.xom.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.nux.jar} ${manifest.file.reference.xom.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincCommonLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.nux.jar} ${manifest.file.reference.xom.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">

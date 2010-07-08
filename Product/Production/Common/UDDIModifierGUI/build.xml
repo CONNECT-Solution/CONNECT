@@ -16,7 +16,7 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so...-->
-        <pathelement path="${project.NhincCommonLib.build.classes.dir}" />
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
     
 	</path>
 
@@ -24,7 +24,7 @@
 	<path id="build.project.dependencies">
 		<filelist dir="${root.project.directory.path}">
 		</filelist>
-        	<file name="${project.NhincCommonLib.build.file}" />
+        	<file name="${project.CONNECTCoreLib.build.file}" />
 	</path>
 
 </project>

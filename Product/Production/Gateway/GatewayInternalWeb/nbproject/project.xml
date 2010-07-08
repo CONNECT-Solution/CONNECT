@@ -12,12 +12,24 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonDAO.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.debug-dist-1}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-2}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-3}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-4}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
@@ -60,18 +72,6 @@
                 </library>
                 <library>
                     <file>${file.reference.mysql-connector-java-5.1.8-bin.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincGatewayDAO.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincCommonLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>

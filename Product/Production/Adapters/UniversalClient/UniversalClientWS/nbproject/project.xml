@@ -13,6 +13,14 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.debug-dist}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-1}</file>
+                    <path-in-war>WEB-INF/classes</path-in-war>
+                </library>
+                <library>
                     <file>${file.reference.db4o-7.4.106.13438-java5.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -22,14 +30,6 @@
                 </library>
                 <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincCommonLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

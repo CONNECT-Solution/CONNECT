@@ -264,6 +264,14 @@
 		<servlet-name>AdapterSubjectDiscovery</servlet-name>
 		<url-pattern>/AdapterProxyService/AdapterSubjectDiscovery</url-pattern>
 	</servlet-mapping>
+    <servlet>
+        <servlet-name>EntityPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscovery</servlet-name>
+        <url-pattern>/EntityPatientDiscovery</url-pattern>
+    </servlet-mapping>
 	<servlet>
 		<servlet-name>EntityPatientDiscoverySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoverySecured</servlet-class>

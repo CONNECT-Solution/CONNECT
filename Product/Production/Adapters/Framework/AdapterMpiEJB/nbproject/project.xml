@@ -12,11 +12,11 @@
             <name>AdapterMpiEJB</name>
             <minimum-ant-version>1.6</minimum-ant-version>
             <included-library>libs.junit_4.classpath</included-library>
+            <included-library>file.reference.debug-dist</included-library>
+            <included-library>file.reference.debug-dist-1</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
-            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
-            <included-library>file.reference.NhincCommonLib.jar</included-library>
             <included-library>file.reference.dom4j-1.6.1.jar</included-library>
             <included-library>file.reference.jdom-1.0.jar</included-library>
             <included-library>file.reference.jettison-1.0-RC2.jar</included-library>

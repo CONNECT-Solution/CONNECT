@@ -129,7 +129,7 @@
 <threshold branchcount="120" branchrate="0.016666666666666666" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.transform.subdisc.HL7ArrayTransforms" linecount="179" linerate="0.0223463687150838" linesexecuted="0.04"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.subdisc.HL7Constants" linecount="1" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.5" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.transform.subdisc.HL7CustodianTransforms" linecount="20" linerate="0.126" linesexecuted="2.52"/>
-<threshold branchcount="40" branchrate="0.45" branchsexecuted="0.18" class="gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper" linecount="145" linerate="0.12206896551724138" linesexecuted="17.7"/>
+<threshold branchcount="62" branchrate="0.2867741935483871" branchsexecuted="17.78" class="gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper" linecount="220" linerate="0.3531818181818182" linesexecuted="77.7"/>
 <threshold branchcount="108" branchrate="0.2222222222222222" branchsexecuted="0.24" class="gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors" linecount="207" linerate="0.28019323671497587" linesexecuted="0.5800000000000001"/>
 <threshold branchcount="122" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms" linecount="269" linerate="0.137546468401487" linesexecuted="0.37"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201302Transforms" linecount="69" linerate="0.5797101449275363" linesexecuted="0.4"/>

@@ -10,9 +10,9 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>FileTransferAdapterEJB</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <included-library>file.reference.debug-dist</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
-            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>

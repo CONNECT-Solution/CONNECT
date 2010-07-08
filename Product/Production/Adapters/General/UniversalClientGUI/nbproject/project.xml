@@ -9,6 +9,12 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.debug-dist-1}</file>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist}</file>
+                </library>
+                <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>
                 </library>
                 <library>
@@ -113,15 +119,6 @@
                 <library>
                     <file>${file.reference.openssoclientsdk.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist-1}</file>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist}</file>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist-8}</file>
                 </library>
                 <library>
                     <file>${file.reference.debug-dist-2}</file>

@@ -10,12 +10,12 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>DocumentAssemblyManagerEJB</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <included-library>file.reference.debug-dist</included-library>
+            <included-library>file.reference.debug-dist-1</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
-            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>file.reference.TemplateManager.jar</included-library>
             <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <included-library>file.reference.nux.jar</included-library>
-            <included-library>file.reference.NhincCommonLib.jar</included-library>
             <included-library>file.reference.xom.jar</included-library>
             <included-library>file.reference.toplink-essentials-agent.jar</included-library>
             <included-library>file.reference.toplink-essentials.jar</included-library>
