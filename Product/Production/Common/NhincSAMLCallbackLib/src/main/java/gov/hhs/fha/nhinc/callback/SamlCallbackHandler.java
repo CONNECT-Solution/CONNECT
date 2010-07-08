@@ -25,8 +25,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-//import javax.mail.internet.AddressException;
-//import javax.mail.internet.InternetAddress;
 import javax.security.auth.x500.X500Principal;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -508,7 +506,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeForUse
+     * UserRole, and PurposeOfUse
      * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of all Attribute statements
@@ -624,11 +622,11 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         try {
-            // Add the Purpose For Use Attribute
+            // Add the PurposeOfUse Attribute
             List attributeValues4 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
-            final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeForUse");
+            final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeOfUse");
             elemPFUAttr.appendChild(purpose);
 
             purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
