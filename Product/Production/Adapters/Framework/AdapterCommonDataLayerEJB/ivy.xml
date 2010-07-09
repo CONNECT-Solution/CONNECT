@@ -36,8 +36,8 @@
     -->
 
     <!-- Project dependencies -->
-    <dependency name="NhincCommonLib" rev="latest.integration">
-            <exclude module="NhincCommonLib"/>
+    <dependency name="CONNECTCoreLib" rev="latest.integration">
+            <exclude module="CONNECTCoreLib"/>
      </dependency>
 
 

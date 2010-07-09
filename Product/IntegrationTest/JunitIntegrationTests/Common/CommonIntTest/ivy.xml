@@ -33,17 +33,11 @@
   <dependencies>
     <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
          then org=groupId, name=artifactId, rev=version -->
-    <dependency name="NhincCommonLib" rev="latest.integration">
-            <exclude module="NhincCommonLib"/>
+    <dependency name="CONNECTCoreLib" rev="latest.integration">
+            <exclude module="CONNECTCoreLib"/>
      </dependency>
     <dependency name="NhincCommonDAO" rev="latest.integration">
             <exclude module="NhincCommonDAO"/>
-    </dependency>
-    <dependency name="NhincCommonDAO" rev="latest.integration">
-            <exclude module="NhincCommonDAO"/>
-    </dependency>
-    <dependency name="NhincCommonLib" rev="latest.integration">
-            <exclude module="NhincCommonLib"/>
     </dependency>
     <dependency name="NhincCommonTypesLib" rev="latest.integration">
             <exclude module="NhincCommonTypesLib"/>

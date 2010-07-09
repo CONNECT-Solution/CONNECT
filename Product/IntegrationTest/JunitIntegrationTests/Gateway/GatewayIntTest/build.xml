@@ -28,9 +28,6 @@
   <!-- Add project dependencies here, these projects will be built first... -->
     <path id="build.project.dependencies">
         <filelist dir="${root.project.directory.path}">
-          <!--  <file name="${project.NhincCommonLib.build.file}" />
-            <file name="${project.NhincCommonTypesLib.build.file}" />
-            <file name="${project.NhincGatewayDAO.build.file}" /> -->
         </filelist>
     </path>
 

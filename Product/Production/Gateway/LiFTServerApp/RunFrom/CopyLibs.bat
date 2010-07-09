@@ -2,7 +2,7 @@ copy C:\projects\NHINC\Current\Product\Production\Gateway\LiFTServerApp\dist\deb
 copy C:\projects\NHINC\Current\Product\Production\Gateway\GatewayInternalComponentProxy\dist\debug\GatewayInternalComponentProxy.jar .
 copy C:\projects\NHINC\Current\Product\Production\Gateway\NhincGatewayDAO\dist\debug\NhincGatewayDAO.jar .
 copy C:\projects\NHINC\Current\ThirdParty\log4j\commons-logging-1.1.1.jar .
-copy C:\projects\NHINC\Current\Product\Production\Common\NhincCommonLib\dist\debug\NhincCommonLib.jar .
+copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCoreLib\dist\debug\CONNECTCoreLib.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\NhincCommonTypesLib\dist\debug\NhincCommonTypesLib.jar .
 copy C:\projects\NHINC\Current\ThirdParty\log4j\log4j-1.2.15.jar .
 copy C:\projects\NHINC\Current\ThirdParty\HibernateLibraries\antlr-2.7.6.jar .

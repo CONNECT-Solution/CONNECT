@@ -36,8 +36,8 @@
     <dependency name="AdapterInternalComponentProxy" rev="latest.integration">
             <exclude module="AdapterInternalComponentProxy"/>
      </dependency>
-    <dependency name="NhincCommonLib" rev="latest.integration">
-            <exclude module="NhincCommonLib"/>
+    <dependency name="CONNECTCoreLib" rev="latest.integration">
+            <exclude module="CONNECTCoreLib"/>
      </dependency>
 
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />

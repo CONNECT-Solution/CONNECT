@@ -8,7 +8,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Adapters/General/AdapterInternalComponentProxy/dist/debug/AdapterInternalComponentProxy.jar"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Adapters/General/DocumentRepository/dist/debug/DocumentRepository.jar"/>
-	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/NhincCommonLib/dist/debug/NhincCommonLib.jar"/>
+	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/CONNECTCoreLib/dist/debug/CONNECTCoreLib.jar"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/NhincCommonTypesLib/dist/debug/NhincCommonTypesLib.jar"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Adapters/GenericFileTransfer/FTAConfigManager/dist/debug/FTAConfigManager.jar"/>
 	<classpathentry kind="output" path="bin/main"/>
