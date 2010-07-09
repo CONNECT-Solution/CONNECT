@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:hiemsubscriptionrepositoryutil"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:hiemsubscriptionrepositoryutil"
+    elementFormDefault="qualified">
+<!--    xmlns:wsa="http://www.w3.org/2005/08/addressing"> -->
+<!--    <xsd:import schemaLocation="../../../schemas/www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/> -->
+    <xsd:complexType name="GetSubscriptionCountRequestType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:element name="GetSubscriptionCountRequest" type="tns:GetSubscriptionCountRequestType"></xsd:element>
+    <xsd:complexType name="GetSubscriptionCountResponseType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionCount" type="xsd:int"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSubscriptionCountResponse" type="tns:GetSubscriptionCountResponseType"></xsd:element>
+    <xsd:complexType name="EmptySubscriptionRepositoryRequestType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:element name="EmptySubscriptionRepositoryRequest" type="tns:EmptySubscriptionRepositoryRequestType"></xsd:element>
+    <xsd:complexType name="EmptySubscriptionRepositoryResponseType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:element name="EmptySubscriptionRepositoryResponse" type="tns:EmptySubscriptionRepositoryResponseType"></xsd:element>
+<!--
+    <xsd:complexType name="GetSubscriptionItemRequestType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionReference" type="wsa:EndpointReferenceType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSubscriptionItemRequest" type="tns:GetSubscriptionItemRequestType"></xsd:element>
+    <xsd:complexType name="GetSubscriptionItemResponseType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionItem" type="tns:SubscriptionItemType" minOccurs="0"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSubscriptionItemResponse" type="tns:GetSubscriptionItemResponseType"></xsd:element>
+    <xsd:complexType name="SubscriptionItemType">
+        <xsd:sequence>
+            <xsd:element name="AssigningAuthority" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="PatientId" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="ParentSubscriptionReference" type="wsa:EndpointReferenceType" minOccurs="0"></xsd:element>
+            <xsd:element name="Targets" type="xsd:anyType" minOccurs="0"></xsd:element>
+            <xsd:element name="CreationDate" type="xsd:string"></xsd:element>
+            <xsd:element name="Producer" type="xsd:string"></xsd:element>
+            <xsd:element name="Consumer" type="xsd:string"></xsd:element>
+            <xsd:element name="RootTopic" type="xsd:anyType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionItem" type="tns:SubscriptionItemType"></xsd:element>
+-->
+</xsd:schema>

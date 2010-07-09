@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:hl7="urn:hl7-org:v3" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+   name="AdapterSubjectDiscovery" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery">
+    <wsdl:documentation>
+     WSDL for Adapter interface of Subject Discovery
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified" 
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="PIXConsumer_PRPA_IN201301UVRequestMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201301UVRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201301UVRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201301UVResponseMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201301UVResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201302UVRequestMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201302UVRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201302UVRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201302UVResponseMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201302UVResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+<!--    <wsdl:message name="PIXConsumer_PRPA_IN201303UVRequestMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201303UVRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201303UVRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201303UVResponseMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201303UVResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>-->
+    <wsdl:message name="PIXConsumer_PRPA_IN201304UVRequestMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201304UVRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201304UVRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201304UVResponseMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201304UVResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201309UVRequestMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201309UVRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201309UVRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201309UVResponseMessage">
+        <wsdl:part name="PIXConsumer_PRPA_IN201309UVResponse" 
+               element="hl7:PIXConsumer_PRPA_IN201309UVResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="AdapterSubjectDiscoveryPortType">
+        <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201301UVRequest" 
+                  message="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" />
+            <wsdl:output name="PIXConsumer_PRPA_IN201301UVResponse" 
+                   message="tns:PIXConsumer_PRPA_IN201301UVResponseMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201302UVRequest" 
+                  message="tns:PIXConsumer_PRPA_IN201302UVRequestMessage"/>
+            <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse"  
+                   message="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"/>
+        </wsdl:operation>
+<!--        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" />
+            <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"/>
+        </wsdl:operation>-->
+        <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" />
+            <wsdl:output name="PIXConsumer_PRPA_IN201304UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201304UVResponseMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201309UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" />
+            <wsdl:output name="PIXConsumer_PRPA_IN201309UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201309UVResponseMessage" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AdapterSubjectDiscoveryBindingSoap" 
+                type="tns:AdapterSubjectDiscoveryPortType">
+        <soap:binding style="document" 
+                     transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201301UVRequest" >
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201301UVResponse" >
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201302UVRequest" >
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse" >
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+ <!--       <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest" >
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse" >
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>-->
+        <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest" >
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201304UVResponse" >
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+            <soap:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201309UVRequest" >
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201309UVResponse" >
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="AdapterSubjectDiscovery">
+        <wsdl:port name="AdapterSubjectDiscoveryPortSoap" 
+               binding="tns:AdapterSubjectDiscoveryBindingSoap">
+            <soap:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterSubjectDiscovery"/>
+        </wsdl:port>
+    </wsdl:service>
+    <plnk:partnerLinkType name="AdapterSubjectDiscovery">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+        <plnk:role name="AdapterSubjectDiscoveryPortTypeRole" 
+               portType="tns:AdapterSubjectDiscoveryPortType"/>
+    </plnk:partnerLinkType>
+</wsdl:definitions>

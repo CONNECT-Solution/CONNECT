@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaggregator" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:aggregator="urn:gov:hhs:fha:nhinc:gateway:aggregator" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:auditmsg="http://nhinc.services.com/schema/auditmessage" name="NhincComponentAggregator" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaggregator">
+	<types>
+		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaggregator">
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:aggregator" schemaLocation="../schemas/nhinc/gateway/Aggregator.xsd"/>
+			<xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../schemas/ihe/auditmessage.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="StartTransactionDocQueryRequestMessage">
+		<part name="StartTransactionDocQueryRequest" element="aggregator:StartTransactionDocQueryRequest"/>
+	</message>
+	<message name="StartTransactionDocQueryResponseMessage">
+		<part name="StartTransactionDocQueryResponse" element="aggregator:StartTransactionDocQueryResponse"/>
+	</message>
+	<message name="SetResponseMsgDocQueryRequestMessage">
+		<part name="SetResponseMsgDocQueryRequest" element="aggregator:SetResponseMsgDocQueryRequest"/>
+	</message>
+	<message name="SetResponseMsgDocQueryResponseMessage">
+		<part name="SetResponseMsgDocQueryResponse" element="aggregator:SetResponseMsgDocQueryResponse"/>
+	</message>
+	<message name="GetAggResultsDocQueryRequestMessage">
+		<part name="GetAggResultsDocQueryRequest" element="aggregator:GetAggResultsDocQueryRequest"/>
+	</message>
+	<message name="GetAggResultsDocQueryResponseMessage">
+		<part name="GetAggResultsDocQueryResponse" element="aggregator:GetAggResultsDocQueryResponse"/>
+	</message>
+	<message name="StartTransactionDocRetrieveRequestMessage">
+		<part name="StartTransactionDocRetrieveRequest" element="aggregator:StartTransactionDocRetrieveRequest"/>
+	</message>
+	<message name="StartTransactionDocRetrieveResponseMessage">
+		<part name="StartTransactionDocRetrieveResponse" element="aggregator:StartTransactionDocRetrieveResponse"/>
+	</message>
+	<message name="SetResponseMsgDocRetrieveRequestMessage">
+		<part name="SetResponseMsgDocRetrieveRequest" element="aggregator:SetResponseMsgDocRetrieveRequest"/>
+	</message>
+	<message name="SetResponseMsgDocRetrieveResponseMessage">
+		<part name="SetResponseMsgDocRetrieveResponse" element="aggregator:SetResponseMsgDocRetrieveResponse"/>
+	</message>
+	<message name="GetAggResultsDocRetrieveRequestMessage">
+		<part name="GetAggResultsDocRetrieveRequest" element="aggregator:GetAggResultsDocRetrieveRequest"/>
+	</message>
+	<message name="GetAggResultsDocRetrieveResponseMessage">
+		<part name="GetAggResultsDocRetrieveResponse" element="aggregator:GetAggResultsDocRetrieveResponse"/>
+	</message>
+	<message name="GetAggResultsAuditQueryRequestMessage">
+		<part name="GetAggResultsAuditQueryRequest" element="aggregator:FindAuditEventsResponseAggregation"/>
+	</message>
+	<message name="GetAggResultsAuditQueryResponseMessage">
+		<part name="GetAggResultsAuditQueryResponse" element="auditmsg:FindAuditEventsResponse"/>
+	</message>
+	<portType name="NhincComponentAggregatorPortType">
+		<operation name="StartTransactionDocQuery">
+			<input name="StartTransactionDocQueryRequest" message="tns:StartTransactionDocQueryRequestMessage"/>
+			<output name="StartTransactionDocQueryResponse" message="tns:StartTransactionDocQueryResponseMessage"/>
+		</operation>
+		<operation name="SetResponseMsgDocQuery">
+			<input name="SetResponseMsgDocQueryRequest" message="tns:SetResponseMsgDocQueryRequestMessage"/>
+			<output name="SetResponseMsgDocQueryResponse" message="tns:SetResponseMsgDocQueryResponseMessage"/>
+		</operation>
+		<operation name="GetAggResultsDocQuery">
+			<input name="GetAggResultsDocQueryRequest" message="tns:GetAggResultsDocQueryRequestMessage"/>
+			<output name="GetAggResultsDocQueryResponse" message="tns:GetAggResultsDocQueryResponseMessage"/>
+		</operation>
+		<operation name="StartTransactionDocRetrieve">
+			<input name="StartTransactionDocRetrieveRequest" message="tns:StartTransactionDocRetrieveRequestMessage"/>
+			<output name="StartTransactionDocRetrieveResponse" message="tns:StartTransactionDocRetrieveResponseMessage"/>
+		</operation>
+		<operation name="SetResponseMsgDocRetrieve">
+			<input name="SetResponseMsgDocRetrieveRequest" message="tns:SetResponseMsgDocRetrieveRequestMessage"/>
+			<output name="SetResponseMsgDocRetrieveResponse" message="tns:SetResponseMsgDocRetrieveResponseMessage"/>
+		</operation>
+		<operation name="GetAggResultsDocRetrieve">
+			<input name="GetAggResultsDocRetrieveRequest" message="tns:GetAggResultsDocRetrieveRequestMessage"/>
+			<output name="GetAggResultsDocRetrieveResponse" message="tns:GetAggResultsDocRetrieveResponseMessage"/>
+		</operation>
+		<operation name="GetAggResultsAuditQuery">
+			<input name="GetAggResultsAuditQueryRequest" message="tns:GetAggResultsAuditQueryRequestMessage"/>
+			<output name="GetAggResultsAuditQueryResponse" message="tns:GetAggResultsAuditQueryResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="NhincComponentAggregatorBindingSoap" type="tns:NhincComponentAggregatorPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="StartTransactionDocQuery">
+			<soap:operation soapAction="urn:StartTransactionDocQuery"/>
+			<input name="StartTransactionDocQueryRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="StartTransactionDocQueryResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetResponseMsgDocQuery">
+			<soap:operation soapAction="urn:SetResponseMsgDocQuery"/>
+			<input name="SetResponseMsgDocQueryRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="SetResponseMsgDocQueryResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAggResultsDocQuery">
+			<soap:operation soapAction="urn:GetAggResultsDocQuery"/>
+			<input name="GetAggResultsDocQueryRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="GetAggResultsDocQueryResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="StartTransactionDocRetrieve">
+			<soap:operation soapAction="urn:StartTransactionDocRetrieve"/>
+			<input name="StartTransactionDocRetrieveRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="StartTransactionDocRetrieveResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetResponseMsgDocRetrieve">
+			<soap:operation soapAction="urn:SetResponseMsgDocRetrieve"/>
+			<input name="SetResponseMsgDocRetrieveRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="SetResponseMsgDocRetrieveResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAggResultsDocRetrieve">
+			<soap:operation soapAction="urn:GetAggResultsDocRetrieve"/>
+			<input name="GetAggResultsDocRetrieveRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="GetAggResultsDocRetrieveResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAggResultsAuditQuery">
+			<soap:operation soapAction="urn:GetAggResultsAuditQuery"/>
+			<input name="GetAggResultsAuditQueryRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="GetAggResultsAuditQueryResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="NhincComponentAggregator">
+		<port name="NhincComponentAggregatorPort" binding="tns:NhincComponentAggregatorBindingSoap">
+			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentAggregator"/>
+		</port>
+	</service>
+	<plnk:partnerLinkType name="NhincComponentAggregator">
+		<!-- A partner link type is automatically generated when a new port 
+             type is added. Partner link types are used by BPEL processes. In 
+             a BPEL process, a partner link represents the interaction between 
+             the BPEL process and a partner service. Each partner link is 
+             associated with a partner link type.  A partner link type 
+             characterizes the conversational relationship between two services. 
+             The partner link type can have one or two roles.-->
+		<plnk:role name="NhincComponentAggregatorPortTypeRole" portType="tns:NhincComponentAggregatorPortType"/>
+	</plnk:partnerLinkType>
+</definitions>

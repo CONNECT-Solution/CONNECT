@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:pdte="urn:gov:hhs:fha:nhinc:common:policyenginedte" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:nccommadapt="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="NhincComponentInternalPolicyEngineFacade" targetNamespace="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade">
+	<types>
+		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade">
+			<xsd:import schemaLocation="../schemas/nhinc/common/PolicyEngineDte.xsd" namespace="urn:gov:hhs:fha:nhinc:common:policyenginedte"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CheckPolicySubjectAddedRequestMessage">
+		<part name="CheckPolicySubjectAddedRequest" element="pdte:CheckPolicySubjectAddedRequest"/>
+	</message>
+	<message name="CheckPolicyResponseMessage">
+		<part name="CheckPolicyResponse" element="nccommadapt:CheckPolicyResponse"/>
+	</message>
+	<message name="CheckPolicySubjectRevisedRequestMessage">
+		<part name="CheckPolicySubjectRevisedRequest" element="pdte:CheckPolicySubjectRevisedRequest"/>
+	</message>
+	<message name="CheckPolicySubjectReidentificationRequestMessage">
+		<part name="CheckPolicySubjectReidentificationRequest" element="pdte:CheckPolicySubjectReidentificationRequest"/>
+	</message>
+	<message name="CheckPolicyAdhocQueryRequestMessage">
+		<part name="CheckPolicyAdhocQueryRequest" element="pdte:CheckPolicyAdhocQueryRequest"/>
+	</message>
+	<message name="CheckPolicyDocRetrieveRequestMessage">
+		<part name="CheckPolicyDocRetrieveRequest" element="pdte:CheckPolicyDocRetrieveRequest"/>
+	</message>
+	<message name="CheckPolicyFindAuditEventsRequestMessage">
+		<part name="CheckPolicyFindAuditEventsRequest" element="pdte:CheckPolicyFindAuditEventsRequest"/>
+	</message>
+	<message name="CheckPolicySubscribeRequestMessage">
+		<part name="CheckPolicySubscribeRequest" element="pdte:CheckPolicySubscribeRequest"/>
+	</message>
+	<message name="CheckPolicyUnsubscribeRequestMessage">
+		<part name="CheckPolicyUnsubscribeRequest" element="pdte:CheckPolicyUnsubscribeRequest"/>
+	</message>
+	<message name="CheckPolicyNotifyRequestMessage">
+		<part name="CheckPolicyNotifyRequest" element="pdte:CheckPolicyNotifyRequest"/>
+	</message>
+	<portType name="NhincComponentInternalPolicyEngineFacadePortType">
+		<operation name="CheckPolicySubjectAdded">
+			<input name="CheckPolicySubjectAddedRequest" message="tns:CheckPolicySubjectAddedRequestMessage"/>
+			<output name="CheckPolicySubjectAddedResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicySubjectRevised">
+			<input name="CheckPolicySubjectRevisedRequest" message="tns:CheckPolicySubjectRevisedRequestMessage"/>
+			<output name="CheckPolicySubjectRevisedResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<!--       <operation name="CheckPolicySubjectRevoked">
+            <input name="CheckPolicySubjectRevokedRequest" message="tns:CheckPolicySubjectRevokedRequestMessage"/>
+            <output name="CheckPolicySubjectRevokedResponse" message="tns:CheckPolicyResponseMessage"/>
+        </operation>-->
+		<operation name="CheckPolicySubjectReidentification">
+			<input name="CheckPolicySubjectReidentificationRequest" message="tns:CheckPolicySubjectReidentificationRequestMessage"/>
+			<output name="CheckPolicySubjectReidentificationResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicyAdhocQuery">
+			<input name="CheckPolicyAdhocQueryRequest" message="tns:CheckPolicyAdhocQueryRequestMessage"/>
+			<output name="CheckPolicyAdhocQueryResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicyDocRetrieve">
+			<input name="CheckPolicyDocRetrieveRequest" message="tns:CheckPolicyDocRetrieveRequestMessage"/>
+			<output name="CheckPolicyDocRetrieveResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicyFindAuditEvents">
+			<input name="CheckPolicyFindAuditEventsRequest" message="tns:CheckPolicyFindAuditEventsRequestMessage"/>
+			<output name="CheckPolicyFindAuditEventsResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicySubscribe">
+			<input name="CheckPolicySubscribeRequest" message="tns:CheckPolicySubscribeRequestMessage"/>
+			<output name="CheckPolicySubscribeResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicyUnsubscribe">
+			<input name="CheckPolicyUnsubscribeRequest" message="tns:CheckPolicyUnsubscribeRequestMessage"/>
+			<output name="CheckPolicyUnsubscribeResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+		<operation name="CheckPolicyNotify">
+			<input name="CheckPolicyNotifyRequest" message="tns:CheckPolicyNotifyRequestMessage"/>
+			<output name="CheckPolicyNotifyResponse" message="tns:CheckPolicyResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="NhincComponentInternalPolicyEngineFacadePortTypeBinding" type="tns:NhincComponentInternalPolicyEngineFacadePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="CheckPolicySubjectAdded">
+			<soap:operation soapAction="urn:CheckPolicySubjectAdded"/>
+			<input name="CheckPolicySubjectAddedRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicySubjectAddedResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicySubjectRevised">
+			<soap:operation soapAction="urn:CheckPolicySubjectRevised"/>
+			<input name="CheckPolicySubjectRevisedRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicySubjectRevisedResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<!--     <operation name="CheckPolicySubjectRevoked">
+            <soap:operation soapAction="urn:CheckPolicySubjectRevoked"/>
+            <input name="CheckPolicySubjectRevokedRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="CheckPolicySubjectRevokedResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>-->
+		<operation name="CheckPolicySubjectReidentification">
+			<soap:operation soapAction="urn:CheckPolicySubjectReidentification"/>
+			<input name="CheckPolicySubjectReidentificationRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicySubjectReidentificationResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicyAdhocQuery">
+			<soap:operation soapAction="urn:CheckPolicyAdhocQuery"/>
+			<input name="CheckPolicyAdhocQueryRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicyAdhocQueryResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicyDocRetrieve">
+			<soap:operation soapAction="urn:CheckPolicyDocRetrieve"/>
+			<input name="CheckPolicyDocRetrieveRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicyDocRetrieveResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicyFindAuditEvents">
+			<soap:operation soapAction="urn:CheckPolicyFindAuditEvents"/>
+			<input name="CheckPolicyFindAuditEventsRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicyFindAuditEventsResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicySubscribe">
+			<soap:operation soapAction="urn:CheckPolicySubscribe"/>
+			<input name="CheckPolicySubscribeRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicySubscribeResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicyUnsubscribe">
+			<soap:operation soapAction="urn:CheckPolicyUnsubscribe"/>
+			<input name="CheckPolicyUnsubscribeRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicyUnsubscribeResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CheckPolicyNotify">
+			<soap:operation soapAction="urn:CheckPolicyNotify"/>
+			<input name="CheckPolicyNotifyRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="CheckPolicyNotifyResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="NhincComponentInternalPolicyEngineFacadeService">
+		<port name="NhincComponentInternalPolicyEngineFacadePort" binding="tns:NhincComponentInternalPolicyEngineFacadePortTypeBinding">
+			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/PolicyEngineFacadeService"/>
+		</port>
+	</service>
+	<!--   <message name="CheckPolicySubjectRevokedRequestMessage">
+        <part name="CheckPolicySubjectRevokedRequest" element="pdte:CheckPolicySubjectRevokedRequest"/>
+    </message>-->
+	<plnk:partnerLinkType name="NhincComponentInternalPolicyEngineFacade">
+		<!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+		<plnk:role name="NhincComponentInternalPolicyEngineFacadePortTypeRole" portType="tns:NhincComponentInternalPolicyEngineFacadePortType"/>
+	</plnk:partnerLinkType>
+</definitions>
