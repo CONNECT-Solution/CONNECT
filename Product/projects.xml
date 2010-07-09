@@ -71,8 +71,8 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-        <name>GatewayWeb</name>
-        <directory>/Production/Gateway/GatewayWeb</directory>
+        <name>CONNECTGatewayWeb</name>
+        <directory>/Production/Gateway/CONNECTGatewayWeb</directory>
         <dist.type>war</dist.type>
     </project>    
     <project>
@@ -80,11 +80,6 @@
         <directory>/Production/Adapters/General/AdapterWeb</directory>
         <dist.type>war</dist.type>
     </project>    
-    <project>
-        <name>GatewayInternalWeb</name>
-        <directory>/Production/Gateway/GatewayInternalWeb</directory>
-        <dist.type>war</dist.type>
-    </project>
     <project>
         <name>NhinInterfaceTestWeb</name>
         <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
