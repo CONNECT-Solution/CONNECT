@@ -353,9 +353,10 @@ public class HL7Parser201306 {
         if (patient.getAddresses().size() > 0 ) {
             for(Address add : patient.getAddresses())
             {
-               ADExplicit address =  HL7DataTransformHelper.CreateADExplicit(add.getStreet1(),
-                       add.getStreet2(), add.getCity(), add.getState(), add.getZip());
-               person.getAddr().add(address);
+               //ADExplicit address =  HL7DataTransformHelper.CreateADExplicit(add.getStreet1(),
+               //        add.getStreet2(), add.getCity(), add.getState(), add.getZip());
+
+               person.getAddr().add(createAddress(add));
             }
            
         }
@@ -390,6 +391,58 @@ public class HL7Parser201306 {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         TELExplicit result = (TELExplicit) (factory.createTELExplicit());
         result.setValue(number);
+
+        return result;
+
+    }
+    private static ADExplicit createAddress (Address add)
+    {
+        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+        ADExplicit result =  (ADExplicit) (factory.createADExplicit());
+        List addrlist = result.getContent();
+
+        if(add != null)
+        {
+            if (add.getStreet1() != null &&
+                   add.getStreet1().length() > 0) {
+                AdxpExplicitStreetAddressLine street = new AdxpExplicitStreetAddressLine();
+                street.setContent(add.getStreet1());
+
+                addrlist.add(factory.createADExplicitStreetAddressLine(street));
+            }
+
+            if (add.getStreet2() != null &&
+                   add.getStreet2().length() > 0) {
+                AdxpExplicitStreetAddressLine street = new AdxpExplicitStreetAddressLine();
+                street.setContent(add.getStreet2());
+
+                addrlist.add(factory.createADExplicitStreetAddressLine(street));
+            }
+            if(add.getCity() != null && add.getCity().length() > 0)
+            {
+                AdxpExplicitCity city = new AdxpExplicitCity();
+                city.setContent(add.getCity());
+
+                addrlist.add(factory.createADExplicitCity(city));
+            }
+            if (add.getState() != null &&
+                    add.getState().length() > 0) {
+                AdxpExplicitState state = new AdxpExplicitState();
+                state.setContent(add.getState());
+
+                addrlist.add(factory.createADExplicitState(state));
+            }
+            if (add.getZip() != null &&
+                    add.getZip().length() > 0) {
+                AdxpExplicitPostalCode zip = new AdxpExplicitPostalCode();
+                zip.setContent(add.getZip());
+
+                addrlist.add(factory.createADExplicitPostalCode(zip));
+            }
+        }
+
+
+
 
         return result;
 
