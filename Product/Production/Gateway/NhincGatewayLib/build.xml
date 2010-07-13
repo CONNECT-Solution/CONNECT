@@ -18,7 +18,6 @@
         <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
         <pathelement path="${project.AdapterServiceProxy.build.classes.dir}" />
-        <pathelement path="${project.NhincGatewayDAO.build.classes.dir}" />
         <pathelement path="${project.NhinServiceProxy.build.classes.dir}" />
     
     </path>

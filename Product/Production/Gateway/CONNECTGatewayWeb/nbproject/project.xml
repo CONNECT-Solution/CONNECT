@@ -121,10 +121,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincGatewayDAO.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.NhincGatewayLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>

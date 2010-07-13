@@ -16,11 +16,6 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>NhincGatewayDAO</name>
-		<directory>/Production/Gateway/NhincGatewayDAO</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
 		<name>AdapterServiceProxy</name>
 		<directory>/Production/Gateway/AdapterServiceProxy</directory>
 		<dist.type>jar</dist.type>
