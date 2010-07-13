@@ -6,6 +6,11 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
+		<name>NhincSAMLCallbackLib</name>
+		<directory>/Production/Common/NhincSAMLCallbackLib</directory>
+		<dist.type>jar</dist.type>
+	</project>
+	<project>
 		<name>NhincCommonDAO</name>
 		<directory>/Production/Common/NhincCommonDAO</directory>
 		<dist.type>jar</dist.type>
@@ -13,11 +18,6 @@
 	<project>
 		<name>CONNECTCoreLib</name>
 		<directory>/Production/Common/CONNECTCoreLib</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>NhincSAMLCallbackLib</name>
-		<directory>/Production/Common/NhincSAMLCallbackLib</directory>
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
@@ -50,21 +50,6 @@
 		<directory>/Production/Adapters/General/EntityServiceProxy</directory>
 		<dist.type>jar</dist.type>
 	</project>
-	<project>
-		<name>DocumentRepository</name>
-		<directory>/Production/Adapters/General/DocumentRepository</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>AdapterInternalComponentProxy</name>
-		<directory>/Production/Adapters/General/AdapterInternalComponentProxy</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-        <name>CommonServiceProxy</name>
-        <directory>/Production/Common/CommonServiceProxy</directory>
-        <dist.type>jar</dist.type>
-    </project>
     <project>
         <name>NhincCommonWeb</name>
         <directory>/Production/Common/NhincCommonWeb</directory>

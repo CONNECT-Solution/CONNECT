@@ -33,9 +33,6 @@
   <dependencies>
     <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
          then org=groupId, name=artifactId, rev=version -->
-    <dependency name="AdapterInternalComponentProxy" rev="latest.integration">
-            <exclude module="AdapterInternalComponentProxy"/>
-     </dependency>
     <dependency name="CONNECTCoreLib" rev="latest.integration">
             <exclude module="CONNECTCoreLib"/>
      </dependency>

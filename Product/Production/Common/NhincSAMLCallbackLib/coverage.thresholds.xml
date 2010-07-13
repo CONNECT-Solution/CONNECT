@@ -7,4 +7,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.SamlCallbackHandler$1" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler" linecount="52" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.SamlConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
 </thresholds>

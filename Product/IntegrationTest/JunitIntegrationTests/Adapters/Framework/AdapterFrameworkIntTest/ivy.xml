@@ -33,36 +33,33 @@
   <dependencies>
     <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
          then org=groupId, name=artifactId, rev=version-->
-    <dependency name="CONNECTCoreLib" rev="latest.integration">
-            <exclude module="CONNECTCoreLib"/>
-     </dependency>
-    <dependency name="NhincCommonTypesLib" rev="latest.integration">
-            <exclude module="NhincCommonTypesLib"/>
-     </dependency>
-    <dependency name="AdapterCommonDataLayerEJB" rev="latest.integration">
-            <exclude module="AdapterCommonDataLayerEJB"/>
-     </dependency>
-     <dependency name="DocumentAssemblyManagerEJB" rev="latest.integration">
-            <exclude module="DocumentAssemblyManagerEJB"/>
-     </dependency>
-     <dependency name="AdapterDocumentRepositoryEJB" rev="latest.integration">
-            <exclude module="AdapterDocumentRepositoryEJB"/>
-     </dependency>
-     <dependency name="NhincCommonWeb" rev="latest.integration">
-            <exclude module="NhincCommonWeb"/>
-     </dependency>
-     <dependency name="AdapterDocumentRepository" rev="latest.integration">
-            <exclude module="AdapterDocumentRepository"/>
-     </dependency>
-     <dependency name="TemplateManager" rev="latest.integration">
-            <exclude module="TemplateManager"/>
-     </dependency>
-     <dependency name="AdapterInternalComponentProxy" rev="latest.integration">
-            <exclude module="AdapterInternalComponentProxy"/>
-     </dependency>
-     <dependency name="AdapterMpiEJB" rev="latest.integration">
-            <exclude module="AdapterMpiEJB"/>
-     </dependency>
+	<dependency name="AdapterDocumentRepository" rev="latest.integration">
+		<exclude module="AdapterDocumentRepository"/>
+	</dependency>
+	<dependency name="CONNECTCoreLib" rev="latest.integration">
+		<exclude module="CONNECTCoreLib"/>
+	</dependency>
+	<dependency name="NhincCommonTypesLib" rev="latest.integration">
+		<exclude module="NhincCommonTypesLib"/>
+	</dependency>
+	<dependency name="AdapterCommonDataLayerEJB" rev="latest.integration">
+		<exclude module="AdapterCommonDataLayerEJB"/>
+	</dependency>
+	<dependency name="DocumentAssemblyManagerEJB" rev="latest.integration">
+		<exclude module="DocumentAssemblyManagerEJB"/>
+	</dependency>
+	<dependency name="AdapterDocumentRepositoryEJB" rev="latest.integration">
+		<exclude module="AdapterDocumentRepositoryEJB"/>
+	</dependency>
+	<dependency name="NhincCommonWeb" rev="latest.integration">
+		<exclude module="NhincCommonWeb"/>
+	</dependency>
+	<dependency name="TemplateManager" rev="latest.integration">
+		<exclude module="TemplateManager"/>
+	</dependency>
+	<dependency name="AdapterMpiEJB" rev="latest.integration">
+		<exclude module="AdapterMpiEJB"/>
+	</dependency>
 
   </dependencies>
 

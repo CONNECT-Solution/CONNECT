@@ -62,7 +62,7 @@ public class XACMLSerializer
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext oJaxbContext = oHandler.getJAXBContext("oasis.names.tc.xacml._2_0.policy.schema.os");
             Marshaller oMarshaller = oJaxbContext.createMarshaller();
-
+//System.out.println("###### Marshaller class: " + oMarshaller.getClass().getName());
             StringWriter swXML = new StringWriter();
 
             oasis.names.tc.xacml._2_0.policy.schema.os.ObjectFactory oXACMLObjectFactory = new oasis.names.tc.xacml._2_0.policy.schema.os.ObjectFactory();

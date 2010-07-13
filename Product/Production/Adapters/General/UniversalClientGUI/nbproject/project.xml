@@ -15,6 +15,9 @@
                     <file>${file.reference.debug-dist}</file>
                 </library>
                 <library>
+                    <file>${file.reference.debug-dist-2}</file>
+                </library>
+                <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>
                 </library>
                 <library>
@@ -121,16 +124,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.debug-dist-2}</file>
-                </library>
-                <library>
                     <file>${file.reference.debug-dist-6}</file>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist-3}</file>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist-4}</file>
                 </library>
                 <library>
                     <file>${file.reference.debug-dist-5}</file>

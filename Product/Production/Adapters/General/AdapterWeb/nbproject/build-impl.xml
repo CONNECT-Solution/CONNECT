@@ -528,26 +528,20 @@ exists or setup the property manually. For example like this:
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.debug-dist}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.debug-dist-1}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.EntityServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.EntityServiceProxy.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.EntityServiceProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.EntityServiceProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${file.reference.debug-dist}" todir="${build.web.dir}/WEB-INF/classes"/>
         <copyfiles files="${file.reference.debug-dist-1}" todir="${build.web.dir}/WEB-INF/classes"/>
-        <copyfiles files="${file.reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.EntityServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>

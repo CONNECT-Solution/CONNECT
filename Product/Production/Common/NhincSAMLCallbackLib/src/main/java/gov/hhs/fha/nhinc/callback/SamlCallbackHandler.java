@@ -18,7 +18,6 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import com.sun.xml.wss.impl.callback.*;
 import com.sun.xml.wss.saml.*;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -189,9 +188,9 @@ public class SamlCallbackHandler implements CallbackHandler {
 
             // name id of the subject - user name
             String uname = "defUser";
-            if (tokenVals.containsKey(NhincConstants.USER_NAME_PROP) &&
-                    tokenVals.get(NhincConstants.USER_NAME_PROP) != null) {
-                uname = tokenVals.get(NhincConstants.USER_NAME_PROP).toString();
+            if (tokenVals.containsKey(SamlConstants.USER_NAME_PROP) &&
+                    tokenVals.get(SamlConstants.USER_NAME_PROP) != null) {
+                uname = tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
             }
             NameID nmId = factory.createNameID(uname, null, X509_NAME_ID);
             Subject subj = factory.createSubject(nmId, null);
@@ -228,12 +227,12 @@ public class SamlCallbackHandler implements CallbackHandler {
             // name id of the issuer - For now just use default
             NameID issueId = null;
 
-            if (tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
-                    tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_PROP)) {
-               String format = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
+                    tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_PROP)) {
+               String format = tokenVals.get(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
                if (VALID_NAME_LIST.contains(format.trim())) {
                    log.debug("Setting Assertion Issuer format to: " + format);
-                   String issuer = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_PROP).toString();
+                   String issuer = tokenVals.get(SamlConstants.EVIDENCE_ISSUER_PROP).toString();
                    log.debug("Setting Assertion Issuer to: " + issuer);
                    issueId = factory.createNameID(issuer, null, format);
                }
@@ -319,15 +318,15 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         String identifier;
         if (assId != PRIMARY_NAME ||
-                !tokenVals.containsKey(NhincConstants.USER_NAME_PROP) ||
-                tokenVals.get(NhincConstants.USER_NAME_PROP) == null) {
+                !tokenVals.containsKey(SamlConstants.USER_NAME_PROP) ||
+                tokenVals.get(SamlConstants.USER_NAME_PROP) == null) {
             identifier = "CN=" + defCN + "," + "OU=" + defOU + "," +
                     "O=" + defO + "," + "L=" + defL + "," +
                     "ST=" + defST + "," + "C=" + defC;
             nmId = factory.createNameID(identifier, null, X509_NAME_ID);
             log.debug("Create default X509 name: " + identifier);
         } else {
-            String x509Name = "UID=" + tokenVals.get(NhincConstants.USER_NAME_PROP).toString();
+            String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
             try {
                 X500Principal prin = new X500Principal(x509Name);
                 nmId = factory.createNameID(x509Name, null, X509_NAME_ID);
@@ -335,8 +334,8 @@ public class SamlCallbackHandler implements CallbackHandler {
             } catch (IllegalArgumentException iae) {
                 /* Could also test if email form if we wanted to support that */
                 log.warn("Set format as Unspecified. Invalid X509 format: " +
-                        tokenVals.get(NhincConstants.USER_NAME_PROP) + " " + iae.getMessage());
-                nmId = factory.createNameID(tokenVals.get(NhincConstants.USER_NAME_PROP).toString(), null, UNSPECIFIED_NAME_ID);
+                        tokenVals.get(SamlConstants.USER_NAME_PROP) + " " + iae.getMessage());
+                nmId = factory.createNameID(tokenVals.get(SamlConstants.USER_NAME_PROP).toString(), null, UNSPECIFIED_NAME_ID);
             }
         }
 
@@ -379,12 +378,12 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Create Subject Locality
         SubjectLocality subjLoc = null;
-        if (tokenVals.containsKey(NhincConstants.SUBJECT_LOCALITY_ADDR_PROP) &&
-                tokenVals.get(NhincConstants.SUBJECT_LOCALITY_ADDR_PROP) != null &&
-                tokenVals.containsKey(NhincConstants.SUBJECT_LOCALITY_DNS_PROP) &&
-                tokenVals.get(NhincConstants.SUBJECT_LOCALITY_DNS_PROP) != null) {
-            String inetAddr = tokenVals.get(NhincConstants.SUBJECT_LOCALITY_ADDR_PROP).toString();
-            String dnsName = tokenVals.get(NhincConstants.SUBJECT_LOCALITY_DNS_PROP).toString();
+        if (tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP) &&
+                tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP) != null &&
+                tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_DNS_PROP) &&
+                tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP) != null) {
+            String inetAddr = tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP).toString();
+            String dnsName = tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP).toString();
             log.debug("Create Subject Locality as " + inetAddr + " in domain: " + dnsName);
             subjLoc = factory.createSubjectLocality(inetAddr, dnsName);
         } else {
@@ -394,9 +393,9 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         AuthnContext authnContext = null;
-        if (tokenVals.containsKey(NhincConstants.AUTHN_CONTEXT_CLASS_PROP) &&
-                tokenVals.get(NhincConstants.AUTHN_CONTEXT_CLASS_PROP) != null) {
-            String cntxCls = tokenVals.get(NhincConstants.AUTHN_CONTEXT_CLASS_PROP).toString();
+        if (tokenVals.containsKey(SamlConstants.AUTHN_CONTEXT_CLASS_PROP) &&
+                tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP) != null) {
+            String cntxCls = tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP).toString();
             if (VALID_AUTHN_CNTX_CLS_LIST.contains(cntxCls.trim())) {
                 log.debug("Create Authentication Context Class as: " + cntxCls);
                 authnContext = factory.createAuthnContext(cntxCls, null);
@@ -412,9 +411,9 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         GregorianCalendar issueInstant = calendarFactory();
-        if (tokenVals.containsKey(NhincConstants.AUTHN_INSTANT_PROP) &&
-                tokenVals.get(NhincConstants.AUTHN_INSTANT_PROP) != null) {
-            String authnInstant = tokenVals.get(NhincConstants.AUTHN_INSTANT_PROP).toString();
+        if (tokenVals.containsKey(SamlConstants.AUTHN_INSTANT_PROP) &&
+                tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP) != null) {
+            String authnInstant = tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP).toString();
             try {
                 //times must be in UTC format as specified by the XML Schema type (dateTime)
                 DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
@@ -433,9 +432,9 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         String sessionIndex = AUTHN_SESSION_INDEX;
-        if (tokenVals.containsKey(NhincConstants.AUTHN_SESSION_INDEX_PROP) &&
-                tokenVals.get(NhincConstants.AUTHN_SESSION_INDEX_PROP) != null) {
-            sessionIndex = tokenVals.get(NhincConstants.AUTHN_SESSION_INDEX_PROP).toString();
+        if (tokenVals.containsKey(SamlConstants.AUTHN_SESSION_INDEX_PROP) &&
+                tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP) != null) {
+            sessionIndex = tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP).toString();
             log.debug("Setting Authentication session index to: " + sessionIndex);
         } else {
             log.debug("Defaulting Authentication session index to: " + sessionIndex);
@@ -452,9 +451,9 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Create resource for Authentication Decision Statement
         String resource = null;
-        if (tokenVals.containsKey(NhincConstants.RESOURCE_PROP) &&
-                tokenVals.get(NhincConstants.RESOURCE_PROP) != null) {
-            resource = tokenVals.get(NhincConstants.RESOURCE_PROP).toString();
+        if (tokenVals.containsKey(SamlConstants.RESOURCE_PROP) &&
+                tokenVals.get(SamlConstants.RESOURCE_PROP) != null) {
+            resource = tokenVals.get(SamlConstants.RESOURCE_PROP).toString();
             log.debug("Setting Authentication Decision Resource to: " + resource);
         } else {
             log.debug("Default Authentication Decision Resource is: " + resource);
@@ -462,9 +461,9 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Options are Permit, Deny and Indeterminate
         String decision = AUTHZ_DECISION_PERMIT;
-        if (tokenVals.containsKey(NhincConstants.AUTHZ_DECISION_PROP) &&
-                tokenVals.get(NhincConstants.AUTHZ_DECISION_PROP) != null) {
-            String requestedDecision = tokenVals.get(NhincConstants.AUTHZ_DECISION_PROP).toString().trim();
+        if (tokenVals.containsKey(SamlConstants.AUTHZ_DECISION_PROP) &&
+                tokenVals.get(SamlConstants.AUTHZ_DECISION_PROP) != null) {
+            String requestedDecision = tokenVals.get(SamlConstants.AUTHZ_DECISION_PROP).toString().trim();
             if (VALID_AUTHZ_DECISION_LIST.contains(requestedDecision)) {
                 log.debug("Setting Authentication Decision to: " + requestedDecision);
                 decision = requestedDecision;
@@ -521,17 +520,17 @@ public class SamlCallbackHandler implements CallbackHandler {
         // Set the User Name Attribute
         List attributeValues1 = new ArrayList();
         StringBuffer nameConstruct = new StringBuffer();
-        if (tokenVals.containsKey(NhincConstants.USER_FIRST_PROP) &&
-                tokenVals.get(NhincConstants.USER_FIRST_PROP) != null) {
-            nameConstruct.append(tokenVals.get(NhincConstants.USER_FIRST_PROP).toString() + " ");
+        if (tokenVals.containsKey(SamlConstants.USER_FIRST_PROP) &&
+                tokenVals.get(SamlConstants.USER_FIRST_PROP) != null) {
+            nameConstruct.append(tokenVals.get(SamlConstants.USER_FIRST_PROP).toString() + " ");
         }
-        if (tokenVals.containsKey(NhincConstants.USER_MIDDLE_PROP) &&
-                tokenVals.get(NhincConstants.USER_MIDDLE_PROP) != null) {
-            nameConstruct.append(tokenVals.get(NhincConstants.USER_MIDDLE_PROP).toString() + " ");
+        if (tokenVals.containsKey(SamlConstants.USER_MIDDLE_PROP) &&
+                tokenVals.get(SamlConstants.USER_MIDDLE_PROP) != null) {
+            nameConstruct.append(tokenVals.get(SamlConstants.USER_MIDDLE_PROP).toString() + " ");
         }
-        if (tokenVals.containsKey(NhincConstants.USER_LAST_PROP) &&
-                tokenVals.get(NhincConstants.USER_LAST_PROP) != null) {
-            nameConstruct.append(tokenVals.get(NhincConstants.USER_LAST_PROP).toString() + " ");
+        if (tokenVals.containsKey(SamlConstants.USER_LAST_PROP) &&
+                tokenVals.get(SamlConstants.USER_LAST_PROP) != null) {
+            nameConstruct.append(tokenVals.get(SamlConstants.USER_LAST_PROP).toString() + " ");
         }
         if (nameConstruct.length() > 0) {
             if (nameConstruct.charAt(nameConstruct.length() - 1) == ' ') {
@@ -539,40 +538,40 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
             log.debug("UserName: " + nameConstruct.toString());
             attributeValues1.add(nameConstruct.toString());
-            attributes.add(factory.createAttribute(NhincConstants.USERNAME_ATTR, attributeValues1));
+            attributes.add(factory.createAttribute(SamlConstants.USERNAME_ATTR, attributeValues1));
         } else {
             log.warn("No information provided to fill in user name attribute");
         }
 
         // Set the User Organization Attribute
         List attributeValues2 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.USER_ORG_PROP) &&
-                tokenVals.get(NhincConstants.USER_ORG_PROP) != null) {
-            log.debug("UserOrg: " + tokenVals.get(NhincConstants.USER_ORG_PROP).toString());
-            attributeValues2.add(tokenVals.get(NhincConstants.USER_ORG_PROP).toString());
-            attributes.add(factory.createAttribute(NhincConstants.USER_ORG_ATTR, attributeValues2));
+        if (tokenVals.containsKey(SamlConstants.USER_ORG_PROP) &&
+                tokenVals.get(SamlConstants.USER_ORG_PROP) != null) {
+            log.debug("UserOrg: " + tokenVals.get(SamlConstants.USER_ORG_PROP).toString());
+            attributeValues2.add(tokenVals.get(SamlConstants.USER_ORG_PROP).toString());
+            attributes.add(factory.createAttribute(SamlConstants.USER_ORG_ATTR, attributeValues2));
         } else {
             log.warn("No information provided to fill in user organization attribute");
         }
 
         // Set the User Organization ID Attribute
         List attributeValues5 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.USER_ORG_ID_PROP) &&
-                tokenVals.get(NhincConstants.USER_ORG_ID_PROP) != null) {
-            log.debug("UserOrgID: " + tokenVals.get(NhincConstants.USER_ORG_ID_PROP).toString());
-            attributeValues5.add(tokenVals.get(NhincConstants.USER_ORG_ID_PROP).toString());
-            attributes.add(factory.createAttribute(NhincConstants.USER_ORG_ID_ATTR, attributeValues5));
+        if (tokenVals.containsKey(SamlConstants.USER_ORG_ID_PROP) &&
+                tokenVals.get(SamlConstants.USER_ORG_ID_PROP) != null) {
+            log.debug("UserOrgID: " + tokenVals.get(SamlConstants.USER_ORG_ID_PROP).toString());
+            attributeValues5.add(tokenVals.get(SamlConstants.USER_ORG_ID_PROP).toString());
+            attributes.add(factory.createAttribute(SamlConstants.USER_ORG_ID_ATTR, attributeValues5));
         } else {
             log.warn("No information provided to fill in user organization ID attribute");
         }
 
         // Set the Home Community ID Attribute
         List attributeValues6 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.HOME_COM_PROP) &&
-                tokenVals.get(NhincConstants.HOME_COM_PROP) != null) {
-            log.debug("HomeCommunityID: " + tokenVals.get(NhincConstants.HOME_COM_PROP).toString());
-            attributeValues6.add(tokenVals.get(NhincConstants.HOME_COM_PROP).toString());
-            attributes.add(factory.createAttribute(NhincConstants.HOME_COM_ID_ATTR, attributeValues6));
+        if (tokenVals.containsKey(SamlConstants.HOME_COM_PROP) &&
+                tokenVals.get(SamlConstants.HOME_COM_PROP) != null) {
+            log.debug("HomeCommunityID: " + tokenVals.get(SamlConstants.HOME_COM_PROP).toString());
+            attributeValues6.add(tokenVals.get(SamlConstants.HOME_COM_PROP).toString());
+            attributes.add(factory.createAttribute(SamlConstants.HOME_COM_ID_ATTR, attributeValues6));
         } else {
             log.warn("No information provided to fill in home community ID attribute");
         }
@@ -587,36 +586,36 @@ public class SamlCallbackHandler implements CallbackHandler {
 
             userRole.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
 
-            if (tokenVals.containsKey(NhincConstants.USER_CODE_PROP) &&
-                    tokenVals.get(NhincConstants.USER_CODE_PROP) != null) {
-                log.debug("User Role Code: " + tokenVals.get(NhincConstants.USER_CODE_PROP));
-                userRole.setAttribute(NhincConstants.CE_CODE_ID, tokenVals.get(NhincConstants.USER_CODE_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.USER_CODE_PROP) &&
+                    tokenVals.get(SamlConstants.USER_CODE_PROP) != null) {
+                log.debug("User Role Code: " + tokenVals.get(SamlConstants.USER_CODE_PROP));
+                userRole.setAttribute(SamlConstants.CE_CODE_ID, tokenVals.get(SamlConstants.USER_CODE_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code attribute");
             }
-            if (tokenVals.containsKey(NhincConstants.USER_SYST_PROP) &&
-                    tokenVals.get(NhincConstants.USER_SYST_PROP) != null) {
-                log.debug("User Role Code System: " + tokenVals.get(NhincConstants.USER_SYST_PROP).toString());
-                userRole.setAttribute(NhincConstants.CE_CODESYS_ID, tokenVals.get(NhincConstants.USER_SYST_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.USER_SYST_PROP) &&
+                    tokenVals.get(SamlConstants.USER_SYST_PROP) != null) {
+                log.debug("User Role Code System: " + tokenVals.get(SamlConstants.USER_SYST_PROP).toString());
+                userRole.setAttribute(SamlConstants.CE_CODESYS_ID, tokenVals.get(SamlConstants.USER_SYST_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code system attribute");
             }
-            if (tokenVals.containsKey(NhincConstants.USER_SYST_NAME_PROP) &&
-                    tokenVals.get(NhincConstants.USER_SYST_NAME_PROP) != null) {
-                log.debug("User Role Code System Name: " + tokenVals.get(NhincConstants.USER_SYST_NAME_PROP).toString());
-                userRole.setAttribute(NhincConstants.CE_CODESYSNAME_ID, tokenVals.get(NhincConstants.USER_SYST_NAME_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.USER_SYST_NAME_PROP) &&
+                    tokenVals.get(SamlConstants.USER_SYST_NAME_PROP) != null) {
+                log.debug("User Role Code System Name: " + tokenVals.get(SamlConstants.USER_SYST_NAME_PROP).toString());
+                userRole.setAttribute(SamlConstants.CE_CODESYSNAME_ID, tokenVals.get(SamlConstants.USER_SYST_NAME_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code system name attribute");
             }
-            if (tokenVals.containsKey(NhincConstants.USER_DISPLAY_PROP) &&
-                    tokenVals.get(NhincConstants.USER_DISPLAY_PROP) != null) {
-                log.debug("User Role Display: " + tokenVals.get(NhincConstants.USER_DISPLAY_PROP).toString());
-                userRole.setAttribute(NhincConstants.CE_DISPLAYNAME_ID, tokenVals.get(NhincConstants.USER_DISPLAY_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.USER_DISPLAY_PROP) &&
+                    tokenVals.get(SamlConstants.USER_DISPLAY_PROP) != null) {
+                log.debug("User Role Display: " + tokenVals.get(SamlConstants.USER_DISPLAY_PROP).toString());
+                userRole.setAttribute(SamlConstants.CE_DISPLAYNAME_ID, tokenVals.get(SamlConstants.USER_DISPLAY_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role display attribute");
             }
             attributeValues3.add(elemURAttr);
-            attributes.add(factory.createAttribute(NhincConstants.USER_ROLE_ATTR, attributeValues3));
+            attributes.add(factory.createAttribute(SamlConstants.USER_ROLE_ATTR, attributeValues3));
         } catch (ParserConfigurationException ex) {
             log.debug("Unable to create an XML Document to set Attributes" + ex.getMessage());
         }
@@ -631,28 +630,28 @@ public class SamlCallbackHandler implements CallbackHandler {
 
             purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
 
-            if (tokenVals.containsKey(NhincConstants.PURPOSE_CODE_PROP) &&
-                    tokenVals.get(NhincConstants.PURPOSE_CODE_PROP) != null) {
-                log.debug("Purpose Code: " + tokenVals.get(NhincConstants.PURPOSE_CODE_PROP).toString());
-                purpose.setAttribute(NhincConstants.CE_CODE_ID, tokenVals.get(NhincConstants.PURPOSE_CODE_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_CODE_PROP) &&
+                    tokenVals.get(SamlConstants.PURPOSE_CODE_PROP) != null) {
+                log.debug("Purpose Code: " + tokenVals.get(SamlConstants.PURPOSE_CODE_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_CODE_ID, tokenVals.get(SamlConstants.PURPOSE_CODE_PROP).toString());
             }
-            if (tokenVals.containsKey(NhincConstants.PURPOSE_SYST_PROP) &&
-                    tokenVals.get(NhincConstants.PURPOSE_SYST_PROP) != null) {
-                log.debug("Purpose Code System: " + tokenVals.get(NhincConstants.PURPOSE_SYST_PROP).toString());
-                purpose.setAttribute(NhincConstants.CE_CODESYS_ID, tokenVals.get(NhincConstants.PURPOSE_SYST_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_PROP) &&
+                    tokenVals.get(SamlConstants.PURPOSE_SYST_PROP) != null) {
+                log.debug("Purpose Code System: " + tokenVals.get(SamlConstants.PURPOSE_SYST_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_CODESYS_ID, tokenVals.get(SamlConstants.PURPOSE_SYST_PROP).toString());
             }
-            if (tokenVals.containsKey(NhincConstants.PURPOSE_SYST_NAME_PROP) &&
-                    tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP) != null) {
-                log.debug("Purpose Code System Name: " + tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP).toString());
-                purpose.setAttribute(NhincConstants.CE_CODESYSNAME_ID, tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_NAME_PROP) &&
+                    tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP) != null) {
+                log.debug("Purpose Code System Name: " + tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_CODESYSNAME_ID, tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
             }
-            if (tokenVals.containsKey(NhincConstants.PURPOSE_DISPLAY_PROP) &&
-                    tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP) != null) {
-                log.debug("Purpose Display: " + tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP).toString());
-                purpose.setAttribute(NhincConstants.CE_DISPLAYNAME_ID, tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP).toString());
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_DISPLAY_PROP) &&
+                    tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP) != null) {
+                log.debug("Purpose Display: " + tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_DISPLAYNAME_ID, tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP).toString());
             }
             attributeValues4.add(elemPFUAttr);
-            attributes.add(factory.createAttribute(NhincConstants.PURPOSE_ROLE_ATTR, attributeValues4));
+            attributes.add(factory.createAttribute(SamlConstants.PURPOSE_ROLE_ATTR, attributeValues4));
 
             if (!attributes.isEmpty()) {
                 statements.add(factory.createAttributeStatement(attributes));
@@ -663,11 +662,11 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the Patient ID Attribute
         List attributeValues7 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.PATIENT_ID_PROP) &&
-                tokenVals.get(NhincConstants.PATIENT_ID_PROP) != null) {
-            log.debug("PatientID: " + tokenVals.get(NhincConstants.PATIENT_ID_PROP).toString());
-            attributeValues7.add(tokenVals.get(NhincConstants.PATIENT_ID_PROP).toString());
-            attributes.add(factory.createAttribute(NhincConstants.PATIENT_ID_ATTR, attributeValues7));
+        if (tokenVals.containsKey(SamlConstants.PATIENT_ID_PROP) &&
+                tokenVals.get(SamlConstants.PATIENT_ID_PROP) != null) {
+            log.debug("PatientID: " + tokenVals.get(SamlConstants.PATIENT_ID_PROP).toString());
+            attributeValues7.add(tokenVals.get(SamlConstants.PATIENT_ID_PROP).toString());
+            attributes.add(factory.createAttribute(SamlConstants.PATIENT_ID_ATTR, attributeValues7));
         } else {
             log.warn("No information provided to fill in patient ID attribute");
         }
@@ -691,9 +690,9 @@ public class SamlCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
 
         String evAssertVersion = ASSERTION_VERSION_2_0;
-        if ((tokenVals.containsKey(NhincConstants.EVIDENCE_VERSION_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_VERSION_PROP) != null)) {
-            String requestedVersion = tokenVals.get(NhincConstants.EVIDENCE_VERSION_PROP).toString();
+        if ((tokenVals.containsKey(SamlConstants.EVIDENCE_VERSION_PROP) &&
+                tokenVals.get(SamlConstants.EVIDENCE_VERSION_PROP) != null)) {
+            String requestedVersion = tokenVals.get(SamlConstants.EVIDENCE_VERSION_PROP).toString();
             if (VALID_ASSERTION_VERSION_LIST.contains(requestedVersion.trim())) {
                 log.debug("Setting Evidence Assertion Version to: " + requestedVersion);
                 evAssertVersion = requestedVersion;
@@ -711,18 +710,18 @@ public class SamlCallbackHandler implements CallbackHandler {
         List evAsserts = new ArrayList();
         try {
             String evAssertionID = String.valueOf(UUID.randomUUID());
-            if (tokenVals.containsKey(NhincConstants.EVIDENCE_ID_PROP) &&
-                    tokenVals.get(NhincConstants.EVIDENCE_ID_PROP) != null) {
-                evAssertionID = tokenVals.get(NhincConstants.EVIDENCE_ID_PROP).toString();
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ID_PROP) &&
+                    tokenVals.get(SamlConstants.EVIDENCE_ID_PROP) != null) {
+                evAssertionID = tokenVals.get(SamlConstants.EVIDENCE_ID_PROP).toString();
                 log.debug("Setting Evidence assertion id to: " + evAssertionID);
             } else {
                 log.debug("Defaulting Evidence assertion id to: " + evAssertionID);
             }
 
             GregorianCalendar issueInstant = calendarFactory();
-            if (tokenVals.containsKey(NhincConstants.EVIDENCE_INSTANT_PROP) &&
-                    tokenVals.get(NhincConstants.EVIDENCE_INSTANT_PROP) != null) {
-                String authnInstant = tokenVals.get(NhincConstants.EVIDENCE_INSTANT_PROP).toString();
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_INSTANT_PROP) &&
+                    tokenVals.get(SamlConstants.EVIDENCE_INSTANT_PROP) != null) {
+                String authnInstant = tokenVals.get(SamlConstants.EVIDENCE_INSTANT_PROP).toString();
                 try {
                     //times must be in UTC format as specified by the XML Schema type (dateTime)
                     DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
@@ -741,15 +740,15 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
 
             NameID evIssuerId = null;
-            if (tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
-                    tokenVals.get(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP) != null &&
-                    tokenVals.containsKey(NhincConstants.EVIDENCE_ISSUER_PROP) &&
-                    tokenVals.get(NhincConstants.EVIDENCE_ISSUER_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
+                    tokenVals.get(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP) != null &&
+                    tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_PROP) &&
+                    tokenVals.get(SamlConstants.EVIDENCE_ISSUER_PROP) != null) {
 
-                String format = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
+                String format = tokenVals.get(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
                 if (VALID_NAME_LIST.contains(format.trim())) {
                     log.debug("Setting Evidence Issuer format to: " + format);
-                    String issuer = tokenVals.get(NhincConstants.EVIDENCE_ISSUER_PROP).toString();
+                    String issuer = tokenVals.get(SamlConstants.EVIDENCE_ISSUER_PROP).toString();
                     log.debug("Setting Evidence Issuer to: " + issuer);
                     evIssuerId = factory.createNameID(issuer, null, format);
                 } else {
@@ -764,17 +763,17 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
 
             GregorianCalendar beginValidTime = calendarFactory();
-            if ((tokenVals.containsKey(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) &&
-                    tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) != null)) {
-                beginValidTime = createCal(tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
+            if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) &&
+                    tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) != null)) {
+                beginValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotBefore condition to: current time");
             }
 
             GregorianCalendar endValidTime = calendarFactory();
-            if ((tokenVals.containsKey(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) &&
-                    tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) != null)) {
-                endValidTime = createCal(tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
+            if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) &&
+                    tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) != null)) {
+                endValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotAfter condition to: current time");
             }
@@ -850,10 +849,10 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the Access Consent
         List attributeValues1 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP) != null) {
-            log.debug("Setting Evidence Access Consent to: " + tokenVals.get(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
-            attributeValues1.add(tokenVals.get(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
+        if (tokenVals.containsKey(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) &&
+                tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) != null) {
+            log.debug("Setting Evidence Access Consent to: " + tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
+            attributeValues1.add(tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
         } else {
             log.debug("No Access Consent found for Evidence");
         }
@@ -862,10 +861,10 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
-            log.debug("Setting Evidence Instance Access Consent to: " + tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
-            attributeValues2.add(tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
+        if (tokenVals.containsKey(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
+                tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
+            log.debug("Setting Evidence Instance Access Consent to: " + tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
+            attributeValues2.add(tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
         } else {
             log.debug("No Instance Access Consent found for Evidence");
         }

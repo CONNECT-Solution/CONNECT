@@ -24,18 +24,10 @@
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.DocumentRepository.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>
                 </library>
                 <library>
                     <file>${file.reference.spring.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.CommonServiceProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
@@ -47,10 +39,6 @@
                 </library>
                 <library>
                     <file>${file.reference.bsh-core-2.0b4.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.AdapterInternalComponentProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.cglib-2.1_3-src.jar}</file>

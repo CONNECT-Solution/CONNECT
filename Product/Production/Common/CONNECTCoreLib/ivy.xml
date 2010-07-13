@@ -38,26 +38,44 @@
     <!-- Project dependencies -->
 
     <!-- compile time jars -->
+    <dependency org="com.thoughtworks.xstream" 					name="xstream-distribution"	rev="1.3.1" 				conf="compile->default"		transitive="false" />
+    <dependency org="org.springframework"						name="spring"				rev="2.5.6"					conf="compile->default"		transitive="false" />		
+    <dependency org="log4j"										name="log4j"				rev="1.2.15"				conf="compile->default"		transitive="false" />
+    <dependency org="org.hibernate"								name="hibernate"			rev="3.2.5.ga"				conf="compile->default"		transitive="false" />
+    <dependency org="c3p0"										name="c3p0"					rev="0.9.1.2"				conf="compile->default"		transitive="false" />
+	<dependency org="commons-logging"							name="commons-logging"		rev="1.1.1"					conf="compile->default"		transitive="false" />
+    <dependency org="mysql"										name="mysql-connector-java"	rev="5.1.10"				conf="compile->default"		transitive="false" />
+    <dependency org="OpenSSO"									name="openssoclientsdk"		rev="1.0"					conf="compile->default"		transitive="false" />
 
     <!-- runtime jars -->
-    <dependency org="com.thoughtworks.xstream"                name="xstream"              rev="1.3.1"               conf="runtime->default" transitive="false" />
-    <dependency org="javax"                                   name="javaee-api"           rev="6.0"                 conf="runtime->default" transitive="false" />
-    <dependency org="log4j"                                   name="log4j"                rev="1.2.15"              conf="runtime->default" transitive="false" />
-    <dependency org="org.springframework"                     name="spring"               rev="2.5.6"               conf="runtime->default" transitive="false" />
-    <dependency org="org.bluestemsoftware.open.maven.tparty"  name="xerces-impl"          rev="2.9.0"               conf="runtime->default"/>
-    <dependency org="xerces"                                  name="xerces"               rev="2.4.0"               conf="runtime->default" transitive="false" />
-	<dependency org="Xerces"                                  name="xercesImpl"           rev="1.0"/>
-    <dependency org="com.sun.org.apache.xml.internal"         name="resolver"             rev="20050927"            conf="runtime->default"/>
-    <dependency org="xalan"                                   name="serializer"           rev="2.7.1"               conf="runtime->default"/>
-    <dependency org="com.sun.xml.ws"                          name="webservices-rt"       rev="2.1-SNAPSHOT"/>
-    <dependency org="com.thoughtworks.xstream"                name="xstream-distribution" rev="1.3.1"/>
+    <dependency org="commons-logging"							name="commons-logging"		rev="1.1.1"					conf="runtime->default"		transitive="false" />
+    <dependency org="log4j"										name="log4j"				rev="1.2.15"				conf="runtime->default"		transitive="false" />
+    <dependency org="com.sun.xml.ws"							name="webservices-rt"		rev="2.1-SNAPSHOT"			conf="runtime->default"		transitive="false" />
+    <dependency org="com.thoughtworks.xstream"					name="xstream"				rev="1.3.1"					conf="runtime->default"		transitive="false" />
+    <dependency org="com.thoughtworks.xstream"					name="xstream-distribution"	rev="1.3.1"					conf="runtime->default"		transitive="false" /> 
+    <dependency org="com.sun.org.apache.xml.internal"			name="resolver"				rev="20050927"				conf="runtime->default"		transitive="false" />
+    <dependency org="xalan"										name="serializer"			rev="2.7.1"					conf="runtime->default"		transitive="false" />
+    <dependency org="org.bluestemsoftware.open.maven.tparty"	name="xerces-impl"			rev="2.9.0"					conf="runtime->default"		transitive="false" />
+    <dependency org="xerces"									name="xerces"				rev="2.4.0"					conf="runtime->default"		transitive="false" />
+    <dependency org="javax"										name="javaee-api"			rev="6.0"					conf="runtime->default"		transitive="false" />
+    <dependency org="org.springframework"						name="spring"				rev="2.5.6"					conf="runtime->default"		transitive="false" />
+    <dependency org="HibernateLibraries"						name="jta"					rev="1.0" />
+    <!-- 
+	<dependency org="Xerces"									name="xercesImpl"			rev="1.0"/>
+    
+    <dependency org="com.sun.xml.ws"							name="webservices-rt"		rev="2.1-SNAPSHOT"/>
+    <dependency org="com.thoughtworks.xstream"					name="xstream-distribution"	rev="1.3.1"/> 
+    <dependency org="com.sun.org.apache.xml.internal"			name="resolver"				rev="20050927"				conf="runtime->default"/>
+    <dependency org="xalan"										name="serializer"			rev="2.7.1"					conf="runtime->default"/>
+    <dependency org="org.bluestemsoftware.open.maven.tparty"	name="xerces-impl"			rev="2.9.0"					conf="runtime->default"/>
+    
+    -->
 
     <!-- jars for test only -->
-    <dependency org="org.jmock"                               name="jmock"                rev="2.5.1"               conf="test->default" />
-    <dependency org="junit"                                   name="junit"                rev="4.7"                 conf="test->default" />
-	<dependency org="org.jmock"                               name="jmock-junit4"         rev="2.5.1"               conf="test->default" />
-    <dependency org="org.jmock"                               name="jmock-legacy"         rev="2.5.1"               conf="test->default" />
-    <dependency org="commons-logging"                         name="commons-logging"      rev="1.1.1"               conf="runtime->default" transitive="false" />
+    <dependency org="org.jmock"									name="jmock"				rev="2.5.1"					conf="test->default" />
+    <dependency org="junit"										name="junit"				rev="4.7"					conf="test->default" />
+	<dependency org="org.jmock"									name="jmock-junit4"			rev="2.5.1"					conf="test->default" />
+    <dependency org="org.jmock"									name="jmock-legacy"			rev="2.5.1"					conf="test->default" />
 
     <!-- global excludes -->
 

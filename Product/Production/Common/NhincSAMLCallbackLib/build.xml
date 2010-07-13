@@ -15,7 +15,6 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so...-->
-		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 
 	</path>
 

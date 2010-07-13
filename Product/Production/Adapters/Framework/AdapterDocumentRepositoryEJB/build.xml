@@ -16,9 +16,9 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so...-->
+		<pathelement path="${project.AdapterDocumentRepository.build.classes.dir}" />
 		<pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-		<pathelement path="${project.AdapterDocumentRepository.build.classes.dir}" />
 
 	</path>
 
