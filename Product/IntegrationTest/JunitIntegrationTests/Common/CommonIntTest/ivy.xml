@@ -36,9 +36,6 @@
     <dependency name="CONNECTCoreLib" rev="latest.integration">
             <exclude module="CONNECTCoreLib"/>
      </dependency>
-    <dependency name="NhincCommonDAO" rev="latest.integration">
-            <exclude module="NhincCommonDAO"/>
-    </dependency>
     <dependency name="NhincCommonTypesLib" rev="latest.integration">
             <exclude module="NhincCommonTypesLib"/>
     </dependency>

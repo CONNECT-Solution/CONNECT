@@ -16,9 +16,6 @@
                     <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonDAO.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.debug-dist}</file>
                     <path-in-war>WEB-INF/classes</path-in-war>
                 </library>

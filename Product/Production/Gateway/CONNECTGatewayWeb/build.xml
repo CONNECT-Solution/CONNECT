@@ -21,7 +21,6 @@
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 		<pathelement path="${project.AdapterServiceProxy.build.classes.dir}" />
 		<pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
-		<pathelement path="${project.NhincCommonDAO.build.classes.dir}" />
 		<pathelement path="${project.NhincGatewayDAO.build.classes.dir}" />
 		<pathelement path="${project.NhincGatewayLib.build.classes.dir}" />
 		<pathelement path="${project.NhinServiceProxy.build.classes.dir}" />
@@ -40,7 +39,6 @@
 			<file name="${project.CONNECTCoreLib.dist.file}" />
 			<file name="${project.AdapterServiceProxy.dist.file}" />
 			<file name="${project.GatewayInternalComponentProxy.dist.file}" />
-			<file name="${project.NhincCommonDAO.dist.file}" />
 			<file name="${project.NhincGatewayDAO.dist.file}" />
 			<file name="${project.NhincGatewayLib.dist.file}" />
 			<file name="${project.NhinServiceProxy.dist.file}" />

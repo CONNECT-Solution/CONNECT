@@ -19,7 +19,6 @@
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 		<pathelement path="${project.EntityServiceProxy.build.classes.dir}" />    
 		<pathelement path="${project.NhinServiceProxy.build.classes.dir}" />
-		<pathelement path="${project.NhincCommonDAO.build.classes.dir}" />
 		<pathelement path="${project.NhincSAMLCallbackLib.build.classes.dir}" />    
     
 	</path>
@@ -36,7 +35,6 @@
 			<file name="${project.CONNECTCoreLib.dist.file}" />
 			<file name="${project.EntityServiceProxy.dist.file}" />
 			<file name="${project.NhinServiceProxy.dist.file}" />
-			<file name="${project.NhincCommonDAO.dist.file}" />
 			<file name="${project.NhincSAMLCallbackLib.dist.file}" />
 		</filelist>
 		<fileset refid="classpath.runtime" /> 

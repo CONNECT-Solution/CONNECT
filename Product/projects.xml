@@ -11,11 +11,6 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>NhincCommonDAO</name>
-		<directory>/Production/Common/NhincCommonDAO</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
 		<name>CONNECTCoreLib</name>
 		<directory>/Production/Common/CONNECTCoreLib</directory>
 		<dist.type>jar</dist.type>

@@ -527,7 +527,6 @@ exists or setup the property manually. For example like this:
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.debug-dist-1}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.debug-dist-2}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.debug-dist-2" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.bsh-core-2.0b4.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.bsh-core-2.0b4.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-2.1_3-src.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.cglib-2.1_3-src.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar-1}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.cglib-nodep-2.1_3.jar-1" todir="${dist.ear.dir}"/>
@@ -541,12 +540,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.objenesis-1.0.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.objenesis-1.0.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist-1} ${manifest.file.reference.debug-dist-2} ${manifest.file.reference.bsh-core-2.0b4.jar} ${manifest.file.reference.cglib-2.1_3-src.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar-1} ${manifest.file.reference.hamcrest-core-1.1.jar} ${manifest.file.reference.hamcrest-library-1.1.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit3-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.jmock-script-2.5.1.jar} ${manifest.file.reference.objenesis-1.0.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist-1} ${manifest.file.reference.bsh-core-2.0b4.jar} ${manifest.file.reference.cglib-2.1_3-src.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar-1} ${manifest.file.reference.hamcrest-core-1.1.jar} ${manifest.file.reference.hamcrest-library-1.1.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit3-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.jmock-script-2.5.1.jar} ${manifest.file.reference.objenesis-1.0.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${file.reference.debug-dist-1}" todir="${build.web.dir}/WEB-INF/classes"/>
-        <copyfiles files="${file.reference.debug-dist-2}" todir="${build.web.dir}/WEB-INF/classes"/>
         <copyfiles files="${file.reference.bsh-core-2.0b4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.cglib-2.1_3-src.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar-1}" todir="${build.web.dir}/WEB-INF/lib"/>

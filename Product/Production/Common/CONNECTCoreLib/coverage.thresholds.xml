@@ -237,4 +237,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.service.DocumentServiceException" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="106" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil" linecount="217" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.repository.util.XmlUtil" linecount="13" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="56" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO" linecount="120" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil" linecount="15" linerate="0.0" linesexecuted="0"/>
 </thresholds>

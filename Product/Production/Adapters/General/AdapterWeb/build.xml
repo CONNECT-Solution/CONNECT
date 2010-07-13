@@ -36,7 +36,6 @@
             <file name="${project.GatewayInternalComponentProxy.dist.file}" />
             <file name="${project.NhinServiceProxy.dist.file}" />
             <file name="${project.EntityServiceProxy.dist.file}" />
-            <file name="${project.NhincCommonDAO.dist.file}" />
         </filelist>
 	 	<fileset refid="classpath.runtime" /> 
     </path>
