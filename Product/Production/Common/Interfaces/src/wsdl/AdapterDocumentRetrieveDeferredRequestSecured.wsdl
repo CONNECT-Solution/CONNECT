@@ -18,6 +18,7 @@
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"
    xmlns:dr="http://www.hhs.gov/healthit/nhin">
     <documentation>Adapter Document Retrieve Request Secured</documentation>
@@ -29,11 +30,13 @@
                         schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonDocumentRetrieve.xsd"/>
         </xsd:schema>
     </types>
     <message name="CrossGatewayRetrieveRequestMessage">
         <part name="body"
-              element="ihe:RetrieveDocumentSetRequest"/>
+              element="nccommondr:RespondingGateway_CrossGatewayRetrieveSecuredRequest"/>
     </message>
     <message name="CrossGatewayRetrieveAcknowledgementMessage">
         <part name="body"

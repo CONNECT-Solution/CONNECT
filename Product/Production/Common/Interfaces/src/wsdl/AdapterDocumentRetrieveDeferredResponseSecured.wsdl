@@ -18,6 +18,7 @@
    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
+   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured">
     <documentation>Adapter Document Retrieve Deferred Response Secured</documentation>
@@ -29,12 +30,14 @@
                         schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonDocumentRetrieve.xsd"/>
         </xsd:schema>
     </types>
 
     <message name="CrossGatewayRetrieveResponse_Message">
         <part name="body"
-              element="ihe:RetrieveDocumentSetResponse"/>
+              element="nccommondr:RespondingGateway_CrossGatewayRetrieveSecuredResponse"/>
     </message>
     <message name="CrossGatewayRetrieveAcknowledgement_Message">
         <part name="body"
