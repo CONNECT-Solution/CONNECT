@@ -41,6 +41,9 @@
     <dependency name="NhincCommonTypesLib" rev="latest.integration">
             <exclude module="NhincCommonTypesLib"/>
     </dependency>
+    <dependency name="NhincCommonWeb" rev="latest.integration">
+            <exclude module="NhincCommonWeb"/>
+    </dependency>
 
     <!-- compile time jars -->
 

@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -58,6 +59,7 @@ public class AdhocQueryTest {
     }
 
     @Test
+    @Ignore
     public void MarksVersion() throws Exception {
         AdhocQueryResponse result = null;
 //            log.info("FX: FxDocumentRegistryHelper: buildAdhocQueryImpl");
