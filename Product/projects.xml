@@ -16,26 +16,6 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>AdapterServiceProxy</name>
-		<directory>/Production/Gateway/AdapterServiceProxy</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>NhinServiceProxy</name>
-		<directory>/Production/Gateway/NhinServiceProxy</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>NhincGatewayLib</name>
-		<directory>/Production/Gateway/NhincGatewayLib</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>GatewayInternalComponentProxy</name>
-		<directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
 		<name>EntityServiceProxy</name>
 		<directory>/Production/Adapters/General/EntityServiceProxy</directory>
 		<dist.type>jar</dist.type>

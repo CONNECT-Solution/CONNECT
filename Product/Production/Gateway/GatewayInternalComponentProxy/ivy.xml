@@ -34,9 +34,6 @@
     <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
                  then org=groupId, name=artifactId, rev=version
     -->
-        <dependency name="NhincGatewayLib" rev="latest.integration">
-            <exclude module="NhincGatewayLib"/>
-        </dependency>
 
     <!-- Project dependencies -->
 

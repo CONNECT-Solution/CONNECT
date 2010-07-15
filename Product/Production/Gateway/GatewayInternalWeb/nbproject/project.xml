@@ -20,10 +20,6 @@
                     <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.debug-dist-4}</file>
-                    <path-in-war>WEB-INF/classes</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                 </library>
                 <library>

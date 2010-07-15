@@ -126,9 +126,6 @@
                 <library>
                     <file>${file.reference.debug-dist-5}</file>
                 </library>
-                <library>
-                    <file>${file.reference.debug-dist-7}</file>
-                </library>
             </web-module-libraries>
             <web-module-additional-libraries>
                 <library>

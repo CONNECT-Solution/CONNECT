@@ -17,8 +17,6 @@
 		<!-- Add classes from other projects like so...-->
 		<pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />    
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-		<pathelement path="${project.NhinServiceProxy.build.classes.dir}" />    
-		<pathelement path="${project.GatewayInternalComponentProxy.build.classes.dir}" />
 		
 	</path>
 
@@ -33,8 +31,6 @@
 		<filelist dir="${root.project.directory.path}">
 			<file name="${project.NhincCommonTypesLib.dist.file}" />
 			<file name="${project.CONNECTCoreLib.dist.file}" />
-			<file name="${project.GatewayInternalComponentProxy.dist.file}" />
-			<file name="${project.NhinServiceProxy.dist.file}" />
 		</filelist>
 		<fileset refid="classpath.runtime" /> 
 	</path>

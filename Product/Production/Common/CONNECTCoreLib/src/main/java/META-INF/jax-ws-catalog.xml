@@ -33,8 +33,33 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl" uri="wsdl/AdapterPIP.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl" uri="wsdl/AdapterPolicyEngineOrchestrator.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentRedactionEngine.wsdl" uri="wsdl/AdapterComponentRedactionEngine.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" uri="wsdl/AdapterDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl" uri="wsdl/AdapterPatientDiscoverySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl" uri="wsdl/AdapterSubjectDiscoverySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" uri="wsdl/AdapterDocQuerySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl" uri="wsdl/AdapterNotificationConsumer.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl" uri="wsdl/AdapterSubscriptionManagement.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl" uri="wsdl/AdapterNotificationConsumerSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl" uri="wsdl/AdapterSubscriptionManagementSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl" uri="wsdl/AdapterXDRRequestSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl" uri="wsdl/AdapterXDRResponseSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl" uri="wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl" uri="wsdl/NhincComponentAuditRepository.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl" uri="wsdl/NhincComponentAuditRepositorySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl" uri="wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl" uri="wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" uri="wsdl/NhinAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" uri="wsdl/NhincDocQuery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" uri="wsdl/NhincDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" uri="wsdl/NhinPatientDiscovery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" uri="wsdl/NhinSubjectDiscovery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" uri="wsdl/NhincSubscription.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl" uri="wsdl/NhinXDRRequest.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl" uri="wsdl/NhinXDRResponse.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredRequest.wsdl" uri="wsdl/NhinXDRDeferredRequest.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredResponse.wsdl" uri="wsdl/NhinXDRDeferredResponse.wsdl"/>
 </catalog>
-
-
-
-

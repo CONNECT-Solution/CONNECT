@@ -30,10 +30,6 @@
                     <file>${file.reference.spring.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.openssoclientsdk.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -72,10 +68,6 @@
                 </library>
                 <library>
                     <file>${file.reference.junit-4.5.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhinServiceProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.EntityServiceProxy.jar}</file>
