@@ -39,9 +39,10 @@
 
     <!-- compile time jars -->
 
-    <dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="runtime->default" transitive="false" />    <dependency org="commons-collections" name="commons-collections"            rev="2.1.1"               conf="compile->default" transitive="false" />
+    <dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="runtime->default" transitive="false" />    
+    <dependency org="commons-collections" name="commons-collections"            rev="2.1.1"               conf="compile->default" transitive="false" />
     <dependency org="xerces" name="xerces" rev="2.4.0" conf="compile->default" transitive="false" />
-	<dependency org="Xerces" name="xercesImpl" rev="1.0"  conf="compile->default" transitive="false" />
+    <dependency org="org.bluestemsoftware.open.maven.tparty"  name="xerces-impl"          rev="2.9.0"               conf="runtime->default"/>
     <dependency org="javax"                                   name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
     <!-- runtime jars -->
     

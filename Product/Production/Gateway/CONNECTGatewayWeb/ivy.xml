@@ -45,10 +45,10 @@
     <dependency org="com.thoughtworks.xstream" name="xstream-distribution" rev="1.3.1"/>
     <dependency org="mysql" name="mysql-connector-java" rev="5.1.10"/>
     <dependency org="xerces" name="xerces" rev="2.4.0" conf="compile->default" transitive="false" />
-	<dependency org="Xerces" name="xercesImpl" rev="1.0"/>
     <dependency org="javax"                                   name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
-    <dependency org="com.sun.xml.ws" name="webservices-rt" rev="2.1-SNAPSHOT"/>
+    <dependency org="com.sun.xml.ws" name="webservices-rt" rev="1.5" conf="runtime->default" transitive="false" />
     <dependency org="org.hibernate"       name="hibernate"                      rev="3.2.5.ga"            conf="runtime->default" transitive="false" />
+    <dependency org="org.bluestemsoftware.open.maven.tparty"  name="xerces-impl"          rev="2.9.0"               conf="runtime->default"/>
     
     <!-- jars for test only -->
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />
