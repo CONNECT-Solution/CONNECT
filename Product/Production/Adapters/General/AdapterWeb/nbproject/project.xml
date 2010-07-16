@@ -69,10 +69,6 @@
                 <library>
                     <file>${file.reference.junit-4.5.jar}</file>
                 </library>
-                <library>
-                    <file>${file.reference.EntityServiceProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>

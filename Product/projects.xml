@@ -15,11 +15,6 @@
 		<directory>/Production/Common/CONNECTCoreLib</directory>
 		<dist.type>jar</dist.type>
 	</project>
-	<project>
-		<name>EntityServiceProxy</name>
-		<directory>/Production/Adapters/General/EntityServiceProxy</directory>
-		<dist.type>jar</dist.type>
-	</project>
     <project>
         <name>NhincCommonWeb</name>
         <directory>/Production/Common/NhincCommonWeb</directory>
