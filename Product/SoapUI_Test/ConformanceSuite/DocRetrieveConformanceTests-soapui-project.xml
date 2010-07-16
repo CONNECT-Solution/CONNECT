@@ -7458,19 +7458,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:18Z</con:value>
+          <con:value>2010-07-16T19:55:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:18Z</con:value>
+          <con:value>2010-07-16T20:05:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:18</con:value>
+          <con:value>07/16/2010 19:55:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -7789,10 +7789,10 @@ declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             </con:assertion>
             <con:assertion type="XPath Match" name="Code Context">
               <con:configuration>
-                <path>declare namespace ns3='urn:ihe:iti:xds-b:2007';
+                <path>declare namespace ns6='urn:ihe:iti:xds-b:2007';
 declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RetrieveDocumentSetResponse[1]/ns11:RegistryResponse[1]/ns11:RegistryErrorList[1]/ns11:RegistryError[1]/@codeContext</path>
-                <content>Document Unique ID in request 1.600049.00001  not found in this repository 2.16.840.1.113883.3.333.1</content>
+//ns6:RetrieveDocumentSetResponse[1]/ns11:RegistryResponse[1]/ns11:RegistryErrorList[1]/ns11:RegistryError[1]/@codeContext</path>
+                <content>Document Unique ID in request 1.600044.66667 not found in this repository 2.16.840.1.113883.3.333.1</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -7811,19 +7811,19 @@ declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:19Z</con:value>
+          <con:value>2010-07-16T19:55:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:19Z</con:value>
+          <con:value>2010-07-16T20:05:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:19</con:value>
+          <con:value>07/16/2010 19:55:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -8161,19 +8161,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:21Z</con:value>
+          <con:value>2010-07-16T19:55:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:21Z</con:value>
+          <con:value>2010-07-16T20:05:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:21</con:value>
+          <con:value>07/16/2010 19:55:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -8548,19 +8548,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:23Z</con:value>
+          <con:value>2010-07-16T19:56:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:23Z</con:value>
+          <con:value>2010-07-16T20:06:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:23</con:value>
+          <con:value>07/16/2010 19:56:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -8591,6 +8591,7 @@ context.testCase.setPropertyValue('CorrectedLocalHCID', correctedLocalHCID);</sc
           <con:request name="Document Retrieve">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#NhincProxyDocRetrieveEndpoint}</con:endpoint>
@@ -8881,7 +8882,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <path>declare namespace ns12='urn:ihe:iti:xds-b:2007';
 declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 //ns12:RetrieveDocumentSetResponse[1]/ns4:RegistryResponse[1]/ns4:RegistryErrorList[1]/ns4:RegistryError[1]/@codeContext</path>
-                <content>Document Unique ID in request 1.600039.00050 not found in this repository 2.16.840.1.113883.3.333.1</content>
+                <content>Document Unique ID in request 1.600031.11112 not found in this repository 2.16.840.1.113883.3.333.1</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -8900,19 +8901,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:24Z</con:value>
+          <con:value>2010-07-16T19:56:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:24Z</con:value>
+          <con:value>2010-07-16T20:06:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:24</con:value>
+          <con:value>07/16/2010 19:56:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -9253,19 +9254,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:25Z</con:value>
+          <con:value>2010-07-16T19:56:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:25Z</con:value>
+          <con:value>2010-07-16T20:06:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:25</con:value>
+          <con:value>07/16/2010 19:56:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -9925,7 +9926,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <path>declare namespace ns12='urn:ihe:iti:xds-b:2007';
 declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 //ns12:RetrieveDocumentSetResponse[1]/ns4:RegistryResponse[1]/ns4:RegistryErrorList[1]/ns4:RegistryError[1]/@codeContext</path>
-                <content>Document Unique ID in request 1.600039.00050 not found in this repository 2.16.840.1.113883.3.333.1</content>
+                <content>Document Unique ID in request 1.600002.33333 not found in this repository 2.16.840.1.113883.3.333.1</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -9943,7 +9944,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
               <con:configuration>
                 <path>declare namespace ns12='urn:ihe:iti:xds-b:2007';
 //ns12:RetrieveDocumentSetResponse[1]/ns12:DocumentResponse[1]/ns12:DocumentUniqueId[1]</path>
-                <content>${#Project#RDR-4.6.1}</content>
+                <content>${#Project#RDR-4.6.2}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -9962,19 +9963,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-13T21:20:26Z</con:value>
+          <con:value>2010-07-16T19:56:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-13T21:30:26Z</con:value>
+          <con:value>2010-07-16T20:06:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/13/2010 21:20:26</con:value>
+          <con:value>07/16/2010 19:56:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/12/2010 00:00:00</con:value>
+          <con:value>08/15/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -10078,19 +10079,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:property>
     <con:property>
       <con:name>RDI-1.1</con:name>
-      <con:value>1.0000000000.11111</con:value>
+      <con:value>1.600007.11111</con:value>
     </con:property>
     <con:property>
       <con:name>RDI-2.1</con:name>
-      <con:value>1.600049.00001</con:value>
+      <con:value>1.600044.66667</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-4.2</con:name>
-      <con:value>1.600039.00001</con:value>
+      <con:value>1.600031.22222</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-4.1</con:name>
-      <con:value>1.600039.00050</con:value>
+      <con:value>1.600031.11112</con:value>
     </con:property>
     <con:property>
       <con:name>InvalidDocRepoID</con:name>
@@ -10098,35 +10099,35 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:property>
     <con:property>
       <con:name>RDR-3.2.3</con:name>
-      <con:value>1.0000000000.33333</con:value>
+      <con:value>1.600004.33333</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-3.2.2</con:name>
-      <con:value>1.0000000000.22222</con:value>
+      <con:value>1.600004.22222</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-3.2.1</con:name>
-      <con:value>1.0000000000.11111</con:value>
+      <con:value>1.600004.11111</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-3.1</con:name>
-      <con:value>1.0000000000.11111</con:value>
+      <con:value>1.600002.11111</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-4.6.2</con:name>
-      <con:value>1.600039.00050</con:value>
+      <con:value>1.600002.22222</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-4.6.1</con:name>
-      <con:value>1.0000000000.11111</con:value>
+      <con:value>1.600002.33333</con:value>
     </con:property>
     <con:property>
       <con:name>IncorrectHCID</con:name>
-      <con:value>1234</con:value>
+      <con:value>11111</con:value>
     </con:property>
     <con:property>
       <con:name>RDR-4.5</con:name>
-      <con:value>1.0000000000.11111</con:value>
+      <con:value>1.600031.33333</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocRetrieveConformanceTests-soapui-project.properties')
