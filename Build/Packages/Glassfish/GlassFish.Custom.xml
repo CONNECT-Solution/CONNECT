@@ -30,7 +30,7 @@
       src="http://${Integration.Server.Host.Name}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Properties.Zip.File.Name}"
       verbose="true"/>
 
-    <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Properties.Zip.File.Path}"/>
+    <unzip todir="${GlassFish.Deploy.Directory.Path}\Dev" zipfile="${Release.Properties.Zip.File.Path}"/>
   </target>
 
   <target name="GlassFish.Redeploy.Release.Build.Integration">
@@ -41,7 +41,7 @@
   <target name="GlassFish.Redeploy.Release.Build.Staging">
     <call target="GlassFish.Redeploy.Release.Build.SetUp"/>
     <call target="GlassFish.Staging.Redeploy.Release.Build.SetUp"/>
-    <call target="GlassFish.Staging.Redeploy"/>
+    <call target="GlassFish.Redeploy"/>
   </target>
 
 </project>

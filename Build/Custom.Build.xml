@@ -63,8 +63,8 @@
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
 
     <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\" >
-        <include name="${Properties.Properties.Directory}\**" />
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
+        <include name="*\**" />
       </fileset>
     </zip>
 
@@ -78,8 +78,8 @@
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
 
     <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\" >
-        <include name="${Properties.Properties.Directory}\**" />
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
+        <include name="*\**" />
       </fileset>
     </zip>
 
@@ -93,8 +93,8 @@
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
 
     <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\" >
-        <include name="${Properties.Properties.Directory}\**" />
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
+        <include name="*\**" />
       </fileset>
     </zip>
 
@@ -108,8 +108,8 @@
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
 
     <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\" >
-        <include name="${Properties.Properties.Directory}\**" />
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
+        <include name="*\**" />
       </fileset>
     </zip>
 
