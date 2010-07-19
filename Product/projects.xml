@@ -16,8 +16,8 @@
 		<dist.type>jar</dist.type>
 	</project>
     <project>
-        <name>NhincCommonWeb</name>
-        <directory>/Production/Common/NhincCommonWeb</directory>
+        <name>CONNECTCommonWeb</name>
+        <directory>/Production/Common/CONNECTCommonWeb</directory>
         <dist.type>war</dist.type>
     </project>
     <project>
