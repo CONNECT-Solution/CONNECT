@@ -85,21 +85,12 @@
         <if>
           <exists path="${soapui.report.dir}/${soapui.project.name}/report.xml" />
           <then>
-            <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"/>
-          </then>
-        </if>
-
-        <if>
-          <exists path="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml" />
-          <then>
             <replace
-              file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}_TestSuite.xml"
+              file="${soapui.report.dir}/${soapui.project.name}/report.xml"
               value="">
               <replacefilter token="&lt;testsuites&gt;"/>
               <replacefilter token="&lt;/testsuites&gt;"/>
             </replace>
-            <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}TestSuite.xml"/>   
-            <delete file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>   
           </then>
         </if>
             	
@@ -168,7 +159,7 @@
         <junitreportplus reportfile="${soapui.report.dir}/SoapUITests.xml" testtype="soapui">
           <xmlreports>
             <fileset dir="${soapui.report.dir}">
-              <include name="**/TEST-*.xml" />
+              <include name="**/report.xml" />
             </fileset>
           </xmlreports>
         </junitreportplus>
