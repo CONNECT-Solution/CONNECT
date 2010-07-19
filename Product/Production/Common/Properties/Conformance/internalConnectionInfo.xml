@@ -268,12 +268,12 @@
 					<service>
 				<name>adapterxdsbdocrepositorysoap12</name>
 				<description>Adapter Document Retrieve Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsrepositoryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsrepositoryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocregistrysoap12</name>
 				<description>Adapter Document Query Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsregistryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsregistryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
@@ -832,12 +832,12 @@
 			<service>
 				<name>adapterxdsbdocrepositorysoap12</name>
 				<description>Adapter Document Retrieve Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsrepositoryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsrepositoryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocregistrysoap12</name>
 				<description>Adapter Document Query Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsregistryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsregistryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
@@ -1436,12 +1436,12 @@
 			<service>
 				<name>adapterxdsbdocrepositorysoap12</name>
 				<description>Adapter Document Retrieve Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsrepositoryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsrepositoryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocregistrysoap12</name>
 				<description>Adapter Document Query Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsregistryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsregistryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
@@ -1777,12 +1777,12 @@
 			<service>
 				<name>adapterxdsbdocrepositorysoap12</name>
 				<description>Adapter Document Retrieve Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsrepositoryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsrepositoryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocregistrysoap12</name>
 				<description>Adapter Document Query Soap12</description>
-				<endpointURL>http://localhost:9080/axis2/services/xdsregistryb</endpointURL>
+				<endpointURL>http://localhost:6080/axis2/services/xdsregistryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
