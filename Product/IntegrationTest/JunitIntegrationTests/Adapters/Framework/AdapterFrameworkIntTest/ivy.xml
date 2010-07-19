@@ -32,7 +32,8 @@
 
   <dependencies>
     <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
-         then org=groupId, name=artifactId, rev=version-->
+         then org=groupId, name=artifactId, rev=version
+-->
 	<dependency name="AdapterDocumentRepository" rev="latest.integration">
 		<exclude module="AdapterDocumentRepository"/>
 	</dependency>
@@ -51,8 +52,8 @@
 	<dependency name="AdapterDocumentRepositoryEJB" rev="latest.integration">
 		<exclude module="AdapterDocumentRepositoryEJB"/>
 	</dependency>
-	<dependency name="NhincCommonWeb" rev="latest.integration">
-		<exclude module="NhincCommonWeb"/>
+	<dependency name="CONNECTCommonWeb" rev="latest.integration">
+		<exclude module="CONNECTCommonWeb"/>
 	</dependency>
 	<dependency name="TemplateManager" rev="latest.integration">
 		<exclude module="TemplateManager"/>
