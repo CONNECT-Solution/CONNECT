@@ -13,6 +13,7 @@
     xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
     xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
     xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription"
+    xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
     targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
     elementFormDefault="qualified">
         
@@ -26,6 +27,7 @@
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../../../schemas/ebRS/rim.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" schemaLocation="../../../schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" schemaLocation="../../../schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
 	<!-- ====================================================================
          Document Query Schemas.
          ==================================================================== -->
@@ -201,4 +203,26 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
+	
+	
+	
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+		 <xsd:element ref="edxlde:EDXLDistribution"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
+
+	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+		 <xsd:element ref="edxlde:EDXLDistribution"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
 </xsd:schema>
+
+
