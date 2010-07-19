@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+						 xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+						 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+						 xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" 
+						 xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+						 xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+						 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
+                                                 xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+						 name="ConnectionManagerService" 
+						 targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+                        schemaLocation="../schemas/nhinc/common/ConnectionManagerInfo.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+                        schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <message name="GetAllCommunitiesRequestMessage">
+        <part name="GetAllCommunitiesRequest" 
+              element="conninfo:GetAllCommunitiesRequest"/>
+    </message>
+    <message name="GetAllCommunitiesResponseMessage">
+        <part name="HomeCommunities" 
+              element="nccommon:HomeCommunities"/>
+    </message>
+    <message name="GetAllBusinessEntitiesRequestMessage">
+        <part name="GetAllBusinessEntitiesRequest" 
+              element="conninfo:GetAllBusinessEntitiesRequest"/>
+    </message>
+    <message name="GetAllBusinessEntitiesResponseMessage">
+        <part name="BusinessEntities" 
+              element="conninfo:BusinessEntities"/>
+    </message>
+    <message name="GetBusinessEntityRequestMessage">
+        <part name="GetBusinessEntityRequest" 
+              element="conninfo:GetBusinessEntityRequest"/>
+    </message>
+    <message name="GetBusinessEntityResponseMessage">
+        <part name="BusinessEntity" 
+              element="conninfo:BusinessEntity"/>
+    </message>
+    <message name="GetConnectionInfoSetRequestMessage">
+        <part name="HomeCommunities" 
+              element="nccommon:HomeCommunities"/>
+    </message>
+    <message name="GetConnectionInfoSetResponseMessage">
+        <part name="ConnectionInfos" 
+              element="conninfo:ConnectionInfos"/>
+    </message>
+    <message name="GetConnectionInfoEndpointSetRequestMessage">
+        <part name="GetConnectionInfoEndpointSetRequest" 
+              element="conninfo:GetConnectionInfoEndpointSetRequest"/>
+    </message>
+    <message name="GetConnectionInfoEndpointSetResponseMessage">
+        <part name="ConnectionInfoEndpoints" 
+              element="conninfo:ConnectionInfoEndpoints"/>
+    </message>
+    <message name="GetBusinessEntitySetRequestMessage">
+        <part name="GetBusinessEntitySetRequest" 
+              element="conninfo:GetBusinessEntitySetRequest"/>
+    </message>
+    <message name="GetBusinessEntitySetResponseMessage">
+        <part name="BusinessEntities" 
+              element="conninfo:BusinessEntities"/>
+    </message>
+    <message name="GetConnectionInfoSetByServiceNameRequestMessage">
+        <part name="GetConnectionInfoSetByServiceNameRequest" 
+              element="conninfo:HomeCommunitiesWithServiceName"/>
+    </message>
+    <message name="GetConnectionInfoSetByServiceNameResponseMessage">
+        <part name="ConnectionInfos" 
+              element="conninfo:ConnectionInfos"/>
+    </message>
+    <message name="GetConnectionInfoEndpointSetByServiceNameRequestMessage">
+        <part name="GetConnectionInfoEndpointSetByServiceNameRequest" 
+              element="conninfo:GetConnectionInfoEndpointSetByServiceNameRequest"/>
+    </message>
+    <message name="GetConnectionInfoEndpointSetByServiceNameResponseMessage">
+        <part name="ConnectionInfoEndpoints" 
+              element="conninfo:ConnectionInfoEndpoints"/>
+    </message>
+    <message name="GetBusinessEntitySetByServiceNameRequestMessage">
+        <part name="GetBusinessEntitySetByServiceNameRequest" 
+              element="conninfo:GetBusinessEntitySetByServiceNameRequest"/>
+    </message>
+    <message name="GetBusinessEntitySetByServiceNameResponseMessage">
+        <part name="BusinessEntities" 
+              element="conninfo:BusinessEntities"/>
+    </message>
+    <message name="GetConnectionInfoByServiceNameRequestMessage">
+        <part name="HomeCommunityWithServiceName" 
+              element="conninfo:HomeCommunityWithServiceName"/>
+    </message>
+    <message name="GetConnectionInfoByServiceNameResponseMessage">
+        <part name="ConnectionInfo" 
+              element="conninfo:ConnectionInfo"/>
+    </message>
+    <message name="GetConnectionInfoEndpointByServiceNameRequestMessage">
+        <part name="GetConnectionInfoEndpointByServiceNameRequest" 
+              element="conninfo:GetConnectionInfoEndpointByServiceNameRequest"/>
+    </message>
+    <message name="GetConnectionInfoEndpointByServiceNameResponseMessage">
+        <part name="ConnectionInfoEndpoint" 
+              element="conninfo:ConnectionInfoEndpoint"/>
+    </message>
+    <message name="GetBusinessEntityByServiceNameRequestMessage">
+        <part name="GetBusinessEntityByServiceNameRequest" 
+              element="conninfo:GetBusinessEntityByServiceNameRequest"/>
+    </message>
+    <message name="GetBusinessEntityByServiceNameResponseMessage">
+        <part name="BusinessEntity" 
+              element="conninfo:BusinessEntity"/>
+    </message>
+    <message name="GetAllConnectionInfoSetByServiceNameRequestMessage">
+        <part name="GetAllConnectionInfoSetByServiceNameRequest" 
+              element="conninfo:GetAllConnectionInfoSetByServiceNameRequest"/>
+    </message>
+    <message name="GetAllConnectionInfoSetByServiceNameResponseMessage">
+        <part name="ConnectionInfos" 
+              element="conninfo:ConnectionInfos"/>
+    </message>
+    <message name="GetAllConnectionInfoEndpointSetByServiceNameRequestMessage">
+        <part name="GetAllConnectionInfoEndpointSetByServiceNameRequest" 
+              element="conninfo:GetAllConnectionInfoEndpointSetByServiceNameRequest"/>
+    </message>
+    <message name="GetAllConnectionInfoEndpointSetByServiceNameResponseMessage">
+        <part name="ConnectionInfoEndpoints" 
+              element="conninfo:ConnectionInfoEndpoints"/>
+    </message>
+    <message name="GetAllBusinessEntitySetByServiceNameRequestMessage">
+        <part name="GetAllBusinessEntitySetByServiceNameRequest" 
+              element="conninfo:GetAllBusinessEntitySetByServiceNameRequest"/>
+    </message>
+    <message name="GetAllBusinessEntitySetByServiceNameResponseMessage">
+        <part name="BusinessEntities" 
+              element="conninfo:BusinessEntities"/>
+    </message>
+    <message name="ForceRefreshUDDICacheRequestMessage">
+        <part name="ForceRefreshUDDICacheRequest" 
+              element="conninfo:ForceRefreshUDDICacheRequest"/>
+    </message>
+    <message name="ForceRefreshUDDICacheResponseMessage">
+        <part name="SuccessOrFail" 
+              element="conninfo:SuccessOrFail"/>
+    </message>
+    <message name="ForceRefreshInternalConnectCacheRequestMessage">
+        <part name="ForceRefreshInternalConnectCacheRequest" 
+              element="conninfo:ForceRefreshInternalConnectCacheRequest"/>
+    </message>
+    <message name="ForceRefreshInternalConnectCacheResponseMessage">
+        <part name="SuccessOrFail" 
+              element="conninfo:SuccessOrFail"/>
+    </message>
+    <message name="StoreAssigningAuthorityToHomeCommunityMappingRequestMessage">
+        <part name="StoreAssigningAuthorityToHomeCommunityMappingRequest" element="conninfo:StoreAssigningAuthorityToHomeCommunityRequest"/>
+    </message>
+    <message name="StoreAssigningAuthorityToHomeCommunityMappingResponseMessage">
+        <part name="ack" element="nccommon:Acknowledgement"/>
+    </message>
+    <message name="GetAssigningAuthoritiesByHomeCommunityRequestMessage">
+        <part name="GetAssigningAuthoritiesByHomeCommunityRequest" element="conninfo:GetAssigningAuthoritiesByHomeCommunityRequest"/>
+    </message>
+    <message name="GetHomeCommunityByAssigningAuthorityRequestMessage">
+        <part name="GetHomeCommunityByAssigningAuthorityRequest" element="conninfo:GetHomeCommunityByAssigningAuthorityRequest"/>
+    </message>
+    <message name="GetAssigningAuthoritiesByHomeCommunityResponseMessage">
+        <part name="GetAssigningAuthoritiesByHomeCommunityResponse" element="conninfo:GetAssigningAuthoritiesByHomeCommunityResponse"/>
+    </message>
+    <message name="GetHomeCommunityByAssigningAuthorityResponseMessage">
+        <part name="GetHomeCommunityByAssigningAuthorityResponse" element="conninfo:GetHomeCommunityByAssigningAuthorityResponse"/>
+    </message>
+    <message name="GetConnectionInfoEndpontFromNhinTargetRequestMessage">
+        <part name="GetConnectionInfoEndpontFromNhinTargetRequest" element="conninfo:GetConnectionInfoEndpontFromNhinTargetRequest"/>
+    </message>
+    <message name="GetConnectionInfoEndpontFromNhinTargetResponseMessage">
+        <part name="GetConnectionInfoEndpontFromNhinTargetResponse" element="nccommon:EPR"/>
+    </message>
+    <message name="GetUrlSetFromNhinTargetCommunitiesRequestMessage">
+        <part name="GetUrlSetFromNhinTargetCommunitiesRequest" element="conninfo:GetUrlSetByServiceName"/>
+    </message>
+    <message name="GetUrlSetFromNhinTargetCommunitiesResponseMessage">
+        <part name="GetUrlSetFromNhinTargetCommunitiesResponse" element="nccommon:UrlSet"/>
+    </message>
+    <portType name="NhincComponentConnectionManagerPortType">
+        <operation name="GetAllCommunities">
+            <input name="GetAllCommunitiesRequest"
+                   message="tns:GetAllCommunitiesRequestMessage"/>
+            <output name="GetAllCommunitiesResponse"
+                    message="tns:GetAllCommunitiesResponseMessage"/>
+        </operation>
+        <operation name="GetAllBusinessEntities">
+            <input name="GetAllBusinessEntitiesRequest"
+                   message="tns:GetAllBusinessEntitiesRequestMessage"/>
+            <output name="GetAllBusinessEntitiesResponse"
+                    message="tns:GetAllBusinessEntitiesResponseMessage"/>
+        </operation>
+        <operation name="GetBusinessEntity">
+            <input name="GetBusinessEntityRequest"
+                   message="tns:GetBusinessEntityRequestMessage"/>
+            <output name="GetBusinessEntityResponse"
+                    message="tns:GetBusinessEntityResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoSet">
+            <input name="GetConnectionInfoSetRequest"
+                   message="tns:GetConnectionInfoSetRequestMessage"/>
+            <output name="GetConnectionInfoSetResponse"
+                    message="tns:GetConnectionInfoSetResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoEndpointSet">
+            <input name="GetConnectionInfoEndpointSetRequest"
+                   message="tns:GetConnectionInfoEndpointSetRequestMessage"/>
+            <output name="GetConnectionInfoEndpointSetResponse"
+                    message="tns:GetConnectionInfoEndpointSetResponseMessage"/>
+        </operation>
+        <operation name="GetBusinessEntitySet">
+            <input name="GetBusinessEntitySetRequest"
+                   message="tns:GetBusinessEntitySetRequestMessage"/>
+            <output name="GetBusinessEntitySetResponse"
+                    message="tns:GetBusinessEntitySetResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoSetByServiceName">
+            <input name="GetConnectionInfoSetByServiceNameRequest"
+                   message="tns:GetConnectionInfoSetByServiceNameRequestMessage"/>
+            <output name="GetConnectionInfoSetByServiceNameResponse"
+                    message="tns:GetConnectionInfoSetByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoEndpointSetByServiceName">
+            <input name="GetConnectionInfoEndpointSetByServiceNameRequest"
+                   message="tns:GetConnectionInfoEndpointSetByServiceNameRequestMessage"/>
+            <output name="GetConnectionInfoEndpointSetByServiceNameResponse"
+                    message="tns:GetConnectionInfoEndpointSetByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetBusinessEntitySetByServiceName">
+            <input name="GetBusinessEntitySetByServiceNameRequest"
+                   message="tns:GetBusinessEntitySetByServiceNameRequestMessage"/>
+            <output name="GetBusinessEntitySetByServiceNameResponse"
+                    message="tns:GetBusinessEntitySetByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoByServiceName">
+            <input name="GetConnectionInfoByServiceNameRequest"
+                   message="tns:GetConnectionInfoByServiceNameRequestMessage"/>
+            <output name="GetConnectionInfoByServiceNameResponse"
+                    message="tns:GetConnectionInfoByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoEndpointByServiceName">
+            <input name="GetConnectionInfoEndpointByServiceNameRequest"
+                   message="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+            <output name="GetConnectionInfoEndpointByServiceNameResponse"
+                    message="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetBusinessEntityByServiceName">
+            <input name="GetBusinessEntityByServiceNameRequest"
+                   message="tns:GetBusinessEntityByServiceNameRequestMessage"/>
+            <output name="GetBusinessEntityByServiceNameResponse"
+                    message="tns:GetBusinessEntityByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetAllConnectionInfoSetByServiceName">
+            <input name="GetAllConnectionInfoSetByServiceNameRequest"
+                   message="tns:GetAllConnectionInfoSetByServiceNameRequestMessage"/>
+            <output name="GetAllConnectionInfoSetByServiceNameResponse"
+                    message="tns:GetAllConnectionInfoSetByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetAllConnectionInfoEndpointSetByServiceName">
+            <input name="GetAllConnectionInfoEndpointSetByServiceNameRequest"
+                   message="tns:GetAllConnectionInfoEndpointSetByServiceNameRequestMessage"/>
+            <output name="GetAllConnectionInfoEndpointSetByServiceNameResponse"
+                    message="tns:GetAllConnectionInfoEndpointSetByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="GetAllBusinessEntitySetByServiceName">
+            <input name="GetAllBusinessEntitySetByServiceNameRequest"
+                   message="tns:GetAllBusinessEntitySetByServiceNameRequestMessage"/>
+            <output name="GetAllBusinessEntitySetByServiceNameResponse"
+                    message="tns:GetAllBusinessEntitySetByServiceNameResponseMessage"/>
+        </operation>
+        <operation name="ForceRefreshUDDICache">
+            <input name="ForceRefreshUDDICacheRequest"
+                   message="tns:ForceRefreshUDDICacheRequestMessage"/>
+            <output name="ForceRefreshUDDICacheResponse"
+                    message="tns:ForceRefreshUDDICacheResponseMessage"/>
+        </operation>
+        <operation name="ForceRefreshInternalConnectCache">
+            <input name="ForceRefreshInternalConnectCacheRequest"
+                   message="tns:ForceRefreshInternalConnectCacheRequestMessage"/>
+            <output name="ForceRefreshInternalConnectCacheResponse"
+                    message="tns:ForceRefreshInternalConnectCacheResponseMessage"/>
+        </operation>
+        <operation name="StoreAssigningAuthorityToHomeCommunityMapping">
+            <input name="StoreAssigningAuthorityToHomeCommunityMappingRequest"
+            message="tns:StoreAssigningAuthorityToHomeCommunityMappingRequestMessage"/>
+            <output name="StoreAssigningAuthorityToHomeCommunityMappingResponse"
+            message="tns:StoreAssigningAuthorityToHomeCommunityMappingResponseMessage"/>
+        </operation>
+        <operation name="GetAssigningAuthoritiesByHomeCommunity">
+            <input name="GetAssigningAuthoritiesByHomeCommunityRequest" message="tns:GetAssigningAuthoritiesByHomeCommunityRequestMessage"/>
+            <output name="GetAssigningAuthoritiesByHomeCommunityResponse" message="tns:GetAssigningAuthoritiesByHomeCommunityResponseMessage"/>
+        </operation>
+        <operation name="GetHomeCommunityByAssigningAuthority">
+            <input name="GetHomeCommunityByAssigningAuthorityRequest" message="tns:GetHomeCommunityByAssigningAuthorityRequestMessage"/>
+            <output name="GetHomeCommunityByAssigningAuthorityResponse" message="tns:GetHomeCommunityByAssigningAuthorityResponseMessage"/>
+        </operation>
+        <operation name="GetConnectionInfoEndpontFromNhinTarget">
+            <input name="GetConnectionInfoEndpontFromNhinTargetRequest" message="tns:GetConnectionInfoEndpontFromNhinTargetRequestMessage"/>
+            <output name="GetConnectionInfoEndpontFromNhinTargetResponse" message="tns:GetConnectionInfoEndpontFromNhinTargetResponseMessage"/>
+        </operation>
+        <operation name="GetUrlSetFromNhinTargetCommunities">
+            <input name="GetUrlSetFromNhinTargetCommunitiesRequest" message="tns:GetUrlSetFromNhinTargetCommunitiesRequestMessage"/>
+            <output name="GetUrlSetFromNhinTargetCommunitiesResponse" message="tns:GetUrlSetFromNhinTargetCommunitiesResponseMessage"/>
+        </operation>
+    </portType>
+    <binding name="NhincComponentConnectionManagerBindingSoap"
+             type="tns:NhincComponentConnectionManagerPortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="StoreAssigningAuthorityToHomeCommunityMapping">
+            <soap:operation soapAction="urn:StoreAssigningAuthorityToHomeCommunityMapping"/>
+            <input name="StoreAssigningAuthorityToHomeCommunityMappingRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="StoreAssigningAuthorityToHomeCommunityMappingResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetAllCommunities">
+            <soap:operation soapAction="urn:GetAllCommunities"/>
+            <input name="GetAllCommunitiesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetAllCommunitiesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetAllBusinessEntities">
+            <soap:operation soapAction="urn:GetAllBusinessEntities"/>
+            <input name="GetAllBusinessEntitiesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetAllBusinessEntitiesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetBusinessEntity">
+            <soap:operation soapAction="urn:GetBusinessEntity"/>
+            <input name="GetBusinessEntityRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetBusinessEntityResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoSet">
+            <soap:operation soapAction="urn:GetConnectionInfoSet"/>
+            <input name="GetConnectionInfoSetRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoSetResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoEndpointSet">
+            <soap:operation soapAction="urn:GetConnectionInfoEndpointSet"/>
+            <input name="GetConnectionInfoEndpointSetRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoEndpointSetResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetBusinessEntitySet">
+            <soap:operation soapAction="urn:GetBusinessEntitySet"/>
+            <input name="GetBusinessEntitySetRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetBusinessEntitySetResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoSetByServiceName">
+            <soap:operation soapAction="urn:GetConnectionInfoSetByServiceName"/>
+            <input name="GetConnectionInfoSetByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoSetByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoEndpointSetByServiceName">
+            <soap:operation soapAction="urn:GetConnectionInfoEndpointSetByServiceName"/>
+            <input name="GetConnectionInfoEndpointSetByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoEndpointSetByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetBusinessEntitySetByServiceName">
+            <soap:operation soapAction="urn:GetBusinessEntitySetByServiceName"/>
+            <input name="GetBusinessEntitySetByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetBusinessEntitySetByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoByServiceName">
+            <soap:operation soapAction="urn:GetConnectionInfoByServiceName"/>
+            <input name="GetConnectionInfoByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoEndpointByServiceName">
+            <soap:operation soapAction="urn:GetConnectionInfoEndpointByServiceName"/>
+            <input name="GetConnectionInfoEndpointByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoEndpointByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetBusinessEntityByServiceName">
+            <soap:operation soapAction="urn:GetBusinessEntityByServiceName"/>
+            <input name="GetBusinessEntityByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetBusinessEntityByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetAllConnectionInfoSetByServiceName">
+            <soap:operation soapAction="urn:GetAllConnectionInfoSetByServiceName"/>
+            <input name="GetAllConnectionInfoSetByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetAllConnectionInfoSetByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetAllConnectionInfoEndpointSetByServiceName">
+            <soap:operation soapAction="urn:GetAllConnectionInfoEndpointSetByServiceName"/>
+            <input name="GetAllConnectionInfoEndpointSetByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetAllConnectionInfoEndpointSetByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetAllBusinessEntitySetByServiceName">
+            <soap:operation soapAction="urn:GetAllBusinessEntitySetByServiceName"/>
+            <input name="GetAllBusinessEntitySetByServiceNameRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetAllBusinessEntitySetByServiceNameResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ForceRefreshUDDICache">
+            <soap:operation soapAction="urn:ForceRefreshUDDICache"/>
+            <input name="ForceRefreshUDDICacheRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ForceRefreshUDDICacheResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ForceRefreshInternalConnectCache">
+            <soap:operation soapAction="urn:ForceRefreshInternalConnectCache"/>
+            <input name="ForceRefreshInternalConnectCacheRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ForceRefreshInternalConnectCacheResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetAssigningAuthoritiesByHomeCommunity">
+            <soap:operation soapAction="urn:GetAssigningAuthoritiesByHomeCommunity"/>
+            <input name="GetAssigningAuthoritiesByHomeCommunityRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetAssigningAuthoritiesByHomeCommunityResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetHomeCommunityByAssigningAuthority">
+            <soap:operation soapAction="urn:GetHomeCommunityByAssigningAuthority"/>
+            <input name="GetHomeCommunityByAssigningAuthorityRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetHomeCommunityByAssigningAuthorityResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetConnectionInfoEndpontFromNhinTarget">
+            <soap:operation soapAction="GetConnectionInfoEndpontFromNhinTarget"/>
+            <input name="GetConnectionInfoEndpontFromNhinTargetRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetConnectionInfoEndpontFromNhinTargetResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetUrlSetFromNhinTargetCommunities">
+            <soap:operation soapAction="GetUrlSetFromNhinTargetCommunities"/>
+            <input name="GetUrlSetFromNhinTargetCommunitiesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetUrlSetFromNhinTargetCommunitiesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="NhincComponentConnectionManager">
+        <port name="NhincComponentConnectionManagerPortSoap"
+              binding="tns:NhincComponentConnectionManagerBindingSoap">
+            <soap:address
+              location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="NhincComponentConnectionManager">
+		<!-- A partner link type is automatically generated when a new port
+             type is added. Partner link types are used by BPEL processes.
+             In a BPEL process, a partner link represents the interaction
+             between the BPEL process and a partner service. Each partner
+             link is associated with a partner link type.  A partner link
+             type characterizes the conversational relationship between
+             two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NhincComponentConnectionManagerPortTypeRole"
+                   portType="tns:NhincComponentConnectionManagerPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
+
+
+
+
