@@ -1,10 +1,7 @@
 cd \projects\NHINC\Current\Product\Production\Gateway\LiFTClientApp\RunFrom
 copy C:\projects\NHINC\Current\Product\Production\Gateway\LiFTClientApp\dist\debug\LiFTClientApp.jar .
-copy C:\projects\NHINC\Current\Product\Production\Gateway\AdapterServiceProxy\dist\debug\AdapterServiceProxy.jar .
-copy C:\projects\NHINC\Current\Product\Production\Gateway\GatewayInternalComponentProxy\dist\debug\GatewayInternalComponentProxy.jar .
-copy C:\projects\NHINC\Current\Product\Production\Gateway\NhincGatewayDAO\dist\debug\NhincGatewayDAO.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCoreLib\dist\debug\CONNECTCoreLib.jar .
-copy C:\projects\NHINC\Current\Product\Production\Common\NhincCommonTypesLib\dist\debug\NhincCommonTypesLib.jar .
+copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCommonTypesLib\dist\debug\CONNECTCommonTypesLib.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequest.wsdl
 copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestError.wsdl
 copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestSecured.wsdl

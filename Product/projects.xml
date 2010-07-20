@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
 	<project>
-		<name>NhincCommonTypesLib</name>
-		<directory>/Production/Common/NhincCommonTypesLib</directory>
+		<name>CONNECTCommonTypesLib</name>
+		<directory>/Production/Common/CONNECTCommonTypesLib</directory>
 		<dist.type>jar</dist.type>
 	</project>
 	<project>

@@ -38,8 +38,8 @@
     <dependency name="CONNECTCoreLib" rev="latest.integration">
             <exclude module="CONNECTCoreLib"/>
      </dependency>
-    <dependency name="NhincCommonTypesLib" rev="latest.integration">
-            <exclude module="NhincCommonTypesLib"/>
+    <dependency name="CONNECTCommonTypesLib" rev="latest.integration">
+            <exclude module="CONNECTCommonTypesLib"/>
     </dependency>
     <dependency name="CONNECTCommonWeb" rev="latest.integration">
             <exclude module="CONNECTCommonWeb"/>

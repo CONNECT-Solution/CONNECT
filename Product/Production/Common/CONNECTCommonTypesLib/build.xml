@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." default="package.create" name="NhincCommonTypesLib">
+<project basedir="." default="package.create" name="CONNECTCommonTypesLib">
 
   <property name="dist.type" value="jar" />
   <property name="coverage.isneeded" value="false" />

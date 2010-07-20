@@ -13,13 +13,10 @@
             <minimum-ant-version>1.6</minimum-ant-version>
             <web-module-libraries>
                 <library>
-                    <file>${file.reference.debug-dist-3}</file>
+                    <file>${file.reference.debug-dist-1}</file>
                 </library>
                 <library>
                     <file>${file.reference.debug-dist}</file>
-                </library>
-                <library>
-                    <file>${file.reference.debug-dist-4}</file>
                 </library>
                 <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>

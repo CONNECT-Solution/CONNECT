@@ -20,7 +20,7 @@
 <ivy-module version="1.0">
     <info 
         organisation="gov.hhs.fha"
-        module="NhincCommonTypesLib"
+        module="CONNECTCommonTypesLib"
         status="integration">
 	</info>
 

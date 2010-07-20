@@ -14,7 +14,6 @@
             <web-module-libraries>
                 <library>
                     <file>${file.reference.debug-dist-1}</file>
-                    <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.debug-dist}</file>

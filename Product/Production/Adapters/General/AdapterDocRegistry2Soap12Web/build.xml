@@ -16,7 +16,7 @@
 		<fileset refid="classpath.runtime" />
 
 		<!-- Add classes from other projects like so...-->
-	    <pathelement path="${project.NhincCommonTypesLib.build.classes.dir}" />    
+	    <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />    
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 	</path>
 
@@ -28,7 +28,7 @@
 
 	<path id="war.libs">
 		<filelist dir="${root.project.directory.path}">
-			<file name="${project.NhincCommonTypesLib.dist.file}" />
+			<file name="${project.CONNECTCommonTypesLib.dist.file}" />
 			<file name="${project.CONNECTCoreLib.dist.file}" />
 		</filelist>
 	</path>

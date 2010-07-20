@@ -7,7 +7,7 @@
 	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?ivyXmlPath=ivy.xml&amp;confs=*"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/CONNECTCoreLib/dist/debug/CONNECTCoreLib.jar"/>
-	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/NhincCommonTypesLib/dist/debug/NhincCommonTypesLib.jar"/>
+	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/CONNECTCommonTypesLib/dist/debug/CONNECTCommonTypesLib.jar"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Adapters/Framework/AdapterCommonDataLayerEJB/dist/debug/AdapterCommonDataLayerEJB.jar"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Adapters/Framework/DocumentAssemblyManagerEJB/dist/debug/DocumentAssemblyManagerEJB.jar"/>
 	<classpathentry kind="var" path="NHINC_SOURCE_DIR/Common/NhincCommonWeb/dist/debug/NhincCommonWeb.war"/>
