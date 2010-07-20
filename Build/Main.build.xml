@@ -381,7 +381,7 @@
         <call target="TargetProcess.CreateReport" />
         <call target="TargetProcess.Get.Release.Report"  failonerror="False"/>
 
-        <call target="GlassFish.Redeploy.Release.Build.Integration" />
+        <call target="GlassFish.Redeploy.Release.Build.Staging" />
 
         <property name="SoapUI.Tests.HaveFailed" value="False"/>
         <trycatch>
