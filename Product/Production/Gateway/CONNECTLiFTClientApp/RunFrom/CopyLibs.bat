@@ -1,5 +1,5 @@
-cd \projects\NHINC\Current\Product\Production\Gateway\LiFTClientApp\RunFrom
-copy C:\projects\NHINC\Current\Product\Production\Gateway\LiFTClientApp\dist\debug\LiFTClientApp.jar .
+cd \projects\NHINC\Current\Product\Production\Gateway\CONNECTLiFTClientApp\RunFrom
+copy C:\projects\NHINC\Current\Product\Production\Gateway\CONNECTLiFTClientApp\dist\debug\CONNECTLiFTClientApp.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCoreLib\dist\debug\CONNECTCoreLib.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCommonTypesLib\dist\debug\CONNECTCommonTypesLib.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequest.wsdl

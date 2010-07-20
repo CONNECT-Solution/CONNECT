@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." default="package.create" name="LiFTClientApp">
+<project basedir="." default="package.create" name="CONNECTLiFTClientApp">
 
 	<property name="dist.type" value="jar" />
 	<property name="webtest.hasTests" value="false" />

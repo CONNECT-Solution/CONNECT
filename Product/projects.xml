@@ -31,8 +31,8 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-        <name>LiFTClientApp</name>
-        <directory>/Production/Gateway/LiFTClientApp</directory>
+        <name>CONNECTLiFTClientApp</name>
+        <directory>/Production/Gateway/CONNECTLiFTClientApp</directory>
         <dist.type>jar</dist.type>
     </project> 
 	<project>

@@ -1,7 +1,7 @@
 <ivy-module version="1.0">
   <info
       organisation="gov.hhs.fha"
-      module="LiFTClientApp"
+      module="CONNECTLiFTClientApp"
       status="integration">
   </info>
 
