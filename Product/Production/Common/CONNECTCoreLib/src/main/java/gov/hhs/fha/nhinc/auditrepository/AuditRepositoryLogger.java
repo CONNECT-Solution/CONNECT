@@ -54,6 +54,7 @@ import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.audit.AdminDistTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
@@ -960,6 +961,27 @@ public class AuditRepositoryLogger {
         getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
+    /**
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Response
+     *
+     * @param message The Patient Discovery Response message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logEntityAdminDist(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            AdminDistTransforms auditTransformer = new AdminDistTransforms();
+            auditMsg = auditTransformer.transformEntitySendAlertToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+        log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+
+        return auditMsg;
+    }
+
     protected Log getLogger(){
         return log;
     }

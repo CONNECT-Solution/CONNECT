@@ -40,6 +40,8 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_PRQ = "PRQ"; //Patient Discovery Request - EventID from spec: EV(110112, DCM, "Query")
     public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; //Patient Discovery Response - EventID from spec: EV(110112, DCM, "Query")
     public static final String EVENT_ID_CODE_SYS_NAME_XDR = "XDR";
+    public static final String EVENT_ID_CODE_SYS_NAME_T63 = "T63";
+    public static final String EVENT_ID_DISPLAY_NAME_ADMIN_DIST = "Administrative Distribution";
     public static final String EVENT_ID_DISPLAY_NAME_XDR = "XDR";
     public static final String EVENT_ID_DISPLAY_NAME_XDR_PROXY = "XDRProxy";
     public static final String EVENT_ID_DISPLAY_NAME_XDR_ENTITY = "XDREntity";
