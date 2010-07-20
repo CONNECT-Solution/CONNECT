@@ -118,6 +118,21 @@
 
     <call target="Publish.Link" />
 
+    <property name="Properties.Properties.Directory" value="Conformance"/>
+    <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
+    <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
+
+    <zip zipfile="${Properties.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
+        <include name="*\**" />
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+
   </target>
 
   <target name="Build.PublishZip.ESCs.Installers">
