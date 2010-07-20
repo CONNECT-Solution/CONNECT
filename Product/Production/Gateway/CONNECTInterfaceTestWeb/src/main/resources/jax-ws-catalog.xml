@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl"
+            uri="wsdl/AdapterMpiSecured/AdapterMpiSecured.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl"
+            uri="wsdl/AuditQuery/NhinAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl"
+            uri="wsdl/DocQuery/NhinDocQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl"
+            uri="wsdl/DocRetrieve/NhinDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl"
+            uri="wsdl/HiemNotify/NhinSubscription.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl"
+            uri="wsdl/NhinPatientDiscovery/NhinPatientDiscovery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl"
+            uri="wsdl/SubjectDiscovery/NhinSubjectDiscovery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl"
+            uri="wsdl/HiemSubscription/NhinSubscription.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl"
+            uri="wsdl/HiemUnsubscribe/NhinSubscription.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl"
+            uri="wsdl/NhinXDRRequest/NhinXDRRequest.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl"
+            uri="wsdl/NhinXDRResponse/NhinXDRResponse.wsdl"/>
+</catalog>
