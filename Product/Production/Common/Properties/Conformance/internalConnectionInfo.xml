@@ -1857,7 +1857,7 @@
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
-		<homeCommunityId>2.16.840.1.113883.3.333</homeCommunityId>
+		<homeCommunityId>2.16.840.1.113883.3.333</homeCommunityId> 
 		<name>DoD</name>
 		<description>DoD Description</description>
 		<states>
