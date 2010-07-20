@@ -31,8 +31,8 @@
         <dist.type>war</dist.type>
     </project>    
     <project>
-        <name>NhinInterfaceTestWeb</name>
-        <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
+        <name>CONNECTInterfaceTestWeb</name>
+        <directory>/Production/Gateway/CONNECTInterfaceTestWeb</directory>
         <dist.type>war</dist.type>
     </project>
     <project>
