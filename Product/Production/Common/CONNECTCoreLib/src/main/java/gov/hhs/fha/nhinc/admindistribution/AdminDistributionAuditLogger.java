@@ -13,9 +13,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 
 /**
  *
@@ -44,4 +46,18 @@ public class AdminDistributionAuditLogger {
 
         return ack;
     }
+    public AcknowledgementType auditNhincAdminDist(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target, String direction)
+    {
+        AcknowledgementType ack = null;
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+
+        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion,target, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+        return ack;
+    }
+ 
 }

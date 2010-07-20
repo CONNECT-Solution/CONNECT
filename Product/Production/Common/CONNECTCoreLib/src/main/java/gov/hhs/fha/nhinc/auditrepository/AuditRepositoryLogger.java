@@ -47,6 +47,7 @@ import gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.UnsubscribeResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType;
@@ -73,6 +74,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
@@ -976,6 +978,18 @@ public class AuditRepositoryLogger {
         if (isServiceEnabled()) {
             AdminDistTransforms auditTransformer = new AdminDistTransforms();
             auditMsg = auditTransformer.transformEntitySendAlertToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+        log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+
+        return auditMsg;
+    }
+    public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, NhinTargetSystemType target, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            AdminDistTransforms auditTransformer = new AdminDistTransforms();
+            auditMsg = auditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
         log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
 

@@ -18,7 +18,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 /**
  *
  * @author dunnek
@@ -63,10 +63,33 @@ public class EntityAdminDistributionImpl {
 
         
     }
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion, NhinTargetCommunitiesType target)
+    {
+        RespondingGatewaySendAlertMessageType unsecured = new RespondingGatewaySendAlertMessageType();
+
+        unsecured.setAssertion(assertion);
+        unsecured.setEDXLDistribution(message.getEDXLDistribution());
+        unsecured.setNhinTargetCommunities(message.getNhinTargetCommunities());
+
+        this.sendAlertMessage(unsecured, assertion, target);
+
+    }
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
+    {
+        RespondingGatewaySendAlertMessageType unsecured = new RespondingGatewaySendAlertMessageType();
+
+        unsecured.setAssertion(assertion);
+        unsecured.setEDXLDistribution(body);
+        unsecured.setNhinTargetCommunities(target);
+
+        this.sendAlertMessage(unsecured, assertion, target);
+
+    }
     private void logEntityAdminDist(RespondingGatewaySendAlertMessageType request, AssertionType assertion) {
         // Audit the XDR Request Message sent on the Nhin Interface
         AcknowledgementType ack = new AdminDistributionAuditLogger().auditEntityAdminDist(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
+
     protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
         CMUrlInfos urlInfoList = null;
 
