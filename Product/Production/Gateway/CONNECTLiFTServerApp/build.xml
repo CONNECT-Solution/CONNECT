@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="package.create" name="CONNECTLiFTServerApp">
+
+	<property name="dist.type" value="jar" />
+	<property name="webtest.hasTests" value="false" />
+	<property name="unittest.hasTests" value="true" />
+
+	<property name="deploy.isDeployable" value="true"/>
+	<property name="deploy.type" value="executable" />
+
+	<!-- Please make sure that this goes up to the correct directory -->
+	<import file="../../../build/build.targets.xml" />
+
+	<path id="build.classpath">
+		<fileset refid="classpath.compile" />
+		<fileset refid="classpath.runtime" />
+
+		<!-- Add classes from other projects like so. Below is a sample..-->
+		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+
+	</path>
+
+	<!-- Add project dependencies here, these projects will be built first... -->
+	<path id="build.project.dependencies">
+		<filelist dir="${root.project.directory.path}">
+		</filelist>
+	</path>
+
+</project>
+

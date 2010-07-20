@@ -36,8 +36,8 @@
         <dist.type>jar</dist.type>
     </project> 
 	<project>
-        <name>LiFTServerApp</name>
-        <directory>/Production/Gateway/LiFTServerApp</directory>
+        <name>CONNECTLiFTServerApp</name>
+        <directory>/Production/Gateway/CONNECTLiFTServerApp</directory>
         <dist.type>jar</dist.type>
     </project>
     <project>
