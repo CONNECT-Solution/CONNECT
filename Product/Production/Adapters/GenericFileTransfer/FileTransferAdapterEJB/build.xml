@@ -19,7 +19,6 @@
 		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 		<pathelement path="${project.FTAConfigManager.build.classes.dir}" />
-		<pathelement path="${project.NhincSAMLCallbackLib.build.classes.dir}" />
 
 	</path>
 

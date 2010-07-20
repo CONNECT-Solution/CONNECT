@@ -97,9 +97,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="FTAService">
-      <implementation-class>gov.hhs.fha.nhinc.fta.FTAService</implementation-class>
-    </service>
   </services>
   <clients>
     <client name="EntityNotificationConsumer">

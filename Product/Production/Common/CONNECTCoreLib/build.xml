@@ -17,7 +17,6 @@
 
 		<!-- Add classes from other projects like so...-->
 		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-		<pathelement path="${project.NhincSAMLCallbackLib.build.classes.dir}" />
 
 	</path>
 

@@ -17,7 +17,6 @@
 		<!-- Add classes from other projects like so...-->
 		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />    
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-		<pathelement path="${project.NhincSAMLCallbackLib.build.classes.dir}" />    
     
 	</path>
 
@@ -31,7 +30,6 @@
 		<filelist dir="${root.project.directory.path}">
 			<file name="${project.CONNECTCommonTypesLib.dist.file}" />
 			<file name="${project.CONNECTCoreLib.dist.file}" />
-			<file name="${project.NhincSAMLCallbackLib.dist.file}" />
 		</filelist>
 		<fileset refid="classpath.runtime" /> 
 	</path>

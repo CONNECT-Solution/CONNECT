@@ -498,4 +498,12 @@
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker" linecount="19" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionImpl" linecount="28" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.75" branchsexecuted="0.09" class="gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper" linecount="34" linerate="0.8529411764705882" linesexecuted="0.29"/>
+<threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler" linecount="66" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="214" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.SamlCallbackHandler" linecount="527" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.SamlCallbackHandler$1" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.SamlConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler" linecount="52" linerate="0.0" linesexecuted="0"/>
 </thresholds>

@@ -340,7 +340,6 @@ exists or setup the property manually. For example like this:
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.debug-dist}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.debug-dist-1}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.debug-dist-2}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.FTAConfigManager.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-collections-2.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
@@ -351,7 +350,6 @@ exists or setup the property manually. For example like this:
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.debug-dist}" manifestproperty="manifest.file.reference.debug-dist" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.debug-dist-1}" manifestproperty="manifest.file.reference.debug-dist-1" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.debug-dist-2}" manifestproperty="manifest.file.reference.debug-dist-2" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.FTAConfigManager.jar}" manifestproperty="manifest.file.reference.FTAConfigManager.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-collections-2.1.1.jar}" manifestproperty="manifest.file.reference.commons-collections-2.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
@@ -359,7 +357,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" manifestproperty="manifest.file.reference.xml-apis.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.debug-dist-2} ${manifest.file.reference.FTAConfigManager.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.debug-dist} ${manifest.file.reference.debug-dist-1} ${manifest.file.reference.FTAConfigManager.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">

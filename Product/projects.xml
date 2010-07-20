@@ -6,11 +6,6 @@
 		<dist.type>jar</dist.type>
 	</project>
 	<project>
-		<name>NhincSAMLCallbackLib</name>
-		<directory>/Production/Common/NhincSAMLCallbackLib</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
 		<name>CONNECTCoreLib</name>
 		<directory>/Production/Common/CONNECTCoreLib</directory>
 		<dist.type>jar</dist.type>

@@ -13,7 +13,6 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library>file.reference.debug-dist</included-library>
             <included-library>file.reference.debug-dist-1</included-library>
-            <included-library>file.reference.debug-dist-2</included-library>
             <included-library>file.reference.FTAConfigManager.jar</included-library>
             <included-library>file.reference.commons-collections-2.1.1.jar</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
