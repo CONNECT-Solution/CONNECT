@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 
+
+		OASIS takes no position regarding the validity or scope of any 
+		intellectual property or other rights that might be claimed to 
+		pertain to the implementation or use of the technology described 
+		in this document or the extent to which any license under such 
+		rights might or might not be available; neither does it represent 
+		that it has made any effort to identify any such rights. 
+		Information on OASIS's procedures with respect to rights in 
+		OASIS specifications can be found at the OASIS website. Copies 
+		of claims of rights made available for publication and any 
+		assurances of licenses to be made available, or the result of 
+		an attempt made to obtain a general license or permission for 
+		the use of such proprietary rights by implementors or users 
+		of this specification, can be obtained from the OASIS Executive 
+		Director.
+		
+		OASIS invites any interested party to bring to its attention 
+		any copyrights, patents or patent applications, or other 
+		proprietary rights which may cover technology that may be 
+		required to implement this specification. Please address the 
+		information to the OASIS Executive Director.
+		
+		Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
+		
+		This document and translations of it may be copied and furnished 
+		to others, and derivative works that comment on or otherwise 
+		explain it or assist in its implementation may be prepared, 
+		copied, published and distributed, in whole or in part, without 
+		restriction of any kind, provided that the above copyright notice 
+		and this paragraph are included on all such copies and derivative 
+		works. However, this document itself may not be modified in any 
+		way, such as by removing the copyright notice or references to 
+		OASIS, except as needed for the purpose of developing OASIS 
+		specifications, in which case the procedures for copyrights 
+		defined in the OASIS Intellectual Property Rights document must 
+		be followed, or as required to translate it into languages other 
+		than English. 
+	
+		The limited permissions granted above are perpetual and will not 
+		be revoked by OASIS or its successors or assigns. 
+		
+		This document and the information contained herein is provided 
+		on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS 
+		OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE 
+		USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR 
+		ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A 
+		PARTICULAR PURPOSE.
+	
+	-->
+<wsdl:definitions 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+   name="NhincProxyNotificationConsumerSecured" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   	xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+   	xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+   	xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   	xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   	xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"    >
+       
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" 
+                  schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="NotifyRequestSecuredMessage">
+        <wsdl:part name="NotifyRequestSecured" element="nccommonproxy:NotifyRequestSecured"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="NhincProxyNotificationConsumerSecuredPortType">
+        <wsdl:operation name="Notify">
+            <wsdl:input name="NotifyRequestSecured" message="tns:NotifyRequestSecuredMessage" />
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="NhincProxyNotificationConsumerSecureBindingSoap12" 
+                type="tns:NhincProxyNotificationConsumerSecuredPortType">
+        <soap:binding style="document" 
+                  transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#NhincProxyNotificationConsumerSecuredPortType_SoapPolicy"/>                   
+        <wsdl:operation name="Notify">
+            <soap:operation soapAction="urn:Notify"/>
+            <wsdl:input name="NotifyRequestSecured">
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#Notify_Binding_Soap_Input_Policy"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="NhincProxyNotificationConsumerSecured">
+        <wsdl:port name="NhincProxyNotificationConsumerPortSoap12" 
+               binding="tns:NhincProxyNotificationConsumerSecureBindingSoap12">
+            <soap:address 
+         location=
+            "https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyNotificationConsumer"/>
+        </wsdl:port>
+    </wsdl:service>
+    
+    <plnk:partnerLinkType name="NhincProxyNotificationConsumer">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+        <plnk:role name="NhincProxyNotificationConsumerSecuredPortTypeRole" 
+               portType="tns:NhincProxyNotificationConsumerSecuredPortType"/>
+    </plnk:partnerLinkType>
+    
+  <wsp:Policy wsu:Id="NhincProxyNotificationConsumerSecuredPortType_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+                
+                <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>    
+    <wsp:Policy wsu:Id="Notify_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="Notify_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>    
+    
+</wsdl:definitions>

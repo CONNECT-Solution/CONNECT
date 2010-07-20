@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>DocumentRegistryService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.document.DocumentRegistryService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocumentRegistryService</servlet-name>
+        <url-pattern>/DocumentRegistry_Service</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DocumentRepositoryService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.document.DocumentRepositoryService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocumentRepositoryService</servlet-name>
+        <url-pattern>/DocumentRepository_Service</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterDocQuerySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQuerySecured</servlet-name>
+        <url-pattern>/AdapterDocQuerySecured</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterDocRetrieveSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveSecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docprovideandregister.AdapterDocProvideAndRegisterservice</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
+        <url-pattern>/AdapterDocProvideAndRegisterservice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterAuthenticationService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterAuthenticationService</servlet-name>
+        <url-pattern>/AdapterAuthentication</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterPolicyEngineSecured</servlet-name>
+        <servlet-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPolicyEngineSecured</servlet-name>
+        <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestrator</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
+        <url-pattern>/AdapterPolicyEngineOrchestrator</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterPolicyEngineTransform</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransform</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPolicyEngineTransform</servlet-name>
+        <url-pattern>/AdapterPolicyEngineTransform</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterPEPService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpepservice.AdapterPEPService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPEPService</servlet-name>
+        <url-pattern>/AdapterPEP</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPIPService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpipservice.AdapterPIPService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPIPService</servlet-name>
+        <url-pattern>/AdapterPIP</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterSecuredAuditLogQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterSecuredAuditLogQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterSecuredAuditLogQuery</servlet-name>
+        <url-pattern>/AdapterAuditLogQuerySaml</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterReidentification</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.reidentification.AdapterReidentification</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterReidentification</servlet-name>
+        <url-pattern>/AdapterReidentification</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterMpiSecured</servlet-name>
+        <url-pattern>/AdapterMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterMpi</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterMpi</servlet-name>
+        <url-pattern>/AdapterMpiService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentMpi</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpi</servlet-name>
+        <url-pattern>/AdapterComponentMpiService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MpiManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MpiManager</servlet-name>
+        <url-pattern>/AdapterMpiManagerService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterPatientDiscoveryAsyncReqSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncReqSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoverySecuredAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncResp</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncRespSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.AdapterPatientDiscoverySecuredAsyncReqError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryAsyncReqErrorSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
+        <url-pattern>/AdapterSubjectDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityAuditQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityAuditQuery</servlet-name>
+        <url-pattern>/EntityAuditQuery</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProxyAuditQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyAuditQuery</servlet-name>
+        <url-pattern>/NhincProxyAuditQuery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityDocQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocQuery</servlet-name>
+        <url-pattern>/EntityDocQuery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyDocQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyDocQuery</servlet-name>
+        <url-pattern>/NhincProxyDocQuery</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EntityDocRetrieve</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieve</servlet-name>
+        <url-pattern>/EntityDocRetrieve</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyDocRetrieve</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyDocRetrieve</servlet-name>
+        <url-pattern>/NhincProxyDocRetrieve</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EntityNotifyService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityNotifyService</servlet-name>
+        <url-pattern>/EntityNotificationConsumer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntitySubscribeService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntitySubscribeService</servlet-name>
+        <url-pattern>/EntityNotificationProducer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityUnsubscribeService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityUnsubscribeService</servlet-name>
+        <url-pattern>/EntitySubscriptionManager</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProxyHiemNotify</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemNotify</servlet-name>
+        <url-pattern>/NhincProxyNotificationConsumer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProxyHiemSubscribe</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemSubscribe</servlet-name>
+        <url-pattern>/NhincProxyNotificationProducer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProxyHiemUnsubscribe</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemUnsubscribe</servlet-name>
+        <url-pattern>/NhincProxySubscriptionManager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryAsyncReqQueue</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.queue.EntityPatientDiscoveryAsyncReqQueue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryAsyncReqQueue</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryAsyncReqQueue</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.EntityPatientDiscoveryAsyncReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryAsyncReq</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
+        <url-pattern>/NhincProxyPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncReq</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoveryAsyncReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncReq</servlet-name>
+        <url-pattern>/NhincProxyPatientDiscoveryAsyncReq</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/NhincProxyPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntitySubjectDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.subdisc.entity.EntitySubjectDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntitySubjectDiscovery</servlet-name>
+        <url-pattern>/EntitySubjectDiscovery</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NhincProxySubjectDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.subdisc.proxy.NhincProxySubjectDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxySubjectDiscovery</servlet-name>
+        <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientCorrelationService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientCorrelationService</servlet-name>
+        <url-pattern>/PatientCorrelationService</url-pattern>
+    </servlet-mapping>
+
+       
+
+    <servlet>
+        <servlet-name>NhincProxyXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyXDRRequest</servlet-name>
+        <url-pattern>/EntityProxyService/NhincProxyXDRRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyXDRResponse</servlet-name>
+        <url-pattern>/EntityProxyService/NhincProxyXDRResponse</url-pattern>
+    </servlet-mapping>
+
+    <!-- Start: XDR Request and Response services-->
+    <servlet>
+        <servlet-name>AdapterXDRRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRRequestSecured</servlet-name>
+        <url-pattern>/AdapterXDRRequestSecured_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRResponseSecured</servlet-name>
+        <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentXDRResponse</servlet-name>
+        <url-pattern>/AdapterComponentXDRResponse_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
+        <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentXDRRequest</servlet-name>
+        <url-pattern>/AdapterComponentXDRRequest_Service</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityXDRRequest</servlet-name>
+        <url-pattern>/EntityProxyService/EntityXDRRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityEDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityEDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityEDRResponse</servlet-name>
+        <url-pattern>/EntityProxyService/EntityXDRResponse</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentRedactionEngine</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEngine</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentRedactionEngine</servlet-name>
+        <url-pattern>/AdapterComponentRedactionService</url-pattern>
+    </servlet-mapping>
+
+    <!-- End: XDR Request and Response services-->
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
+            <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveSecured</web-resource-name>
+            <url-pattern>/AdapterDocRetrieveSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQuerySecured</web-resource-name>
+            <url-pattern>/AdapterDocQuerySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterSecuredAuditLogQuery</web-resource-name>
+            <url-pattern>/AdapterAuditLogQuerySaml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterMpiSecured</web-resource-name>
+            <url-pattern>/AdapterMpiSecuredService</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterComponentMpiSecured</web-resource-name>
+            <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoverySecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncReqSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncReqSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncRespSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncRespSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncReqQueueSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPatientDiscoveryAsyncReqErrorSecured</web-resource-name>
+            <url-pattern>/AdapterPatientDiscoveryAsyncReqErrorSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterSubjectDiscoverySecured</web-resource-name>
+            <url-pattern>/AdapterSubjectDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <!-- Start: XDR Request and Response services-->
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRRequestSecured</web-resource-name>
+            <url-pattern>/AdapterXDRRequestSecured_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRResponseSecured</web-resource-name>
+            <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRSecuredRequestError</web-resource-name>
+            <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
+        </web-resource-collection>
+        <!-- End: XDR Request and Response services-->
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

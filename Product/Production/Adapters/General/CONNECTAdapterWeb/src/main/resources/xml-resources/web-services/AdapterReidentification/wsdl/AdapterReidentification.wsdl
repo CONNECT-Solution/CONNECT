@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterReidentification" 
+    targetNamespace="urn:gov:hhs:fha:nhinc:adapterreidentification"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterreidentification" 
+    xmlns:hl7="urn:hl7-org:v3" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    >
+    <wsdl:documentation>
+       WSDL for Adapter Reidentification
+    </wsdl:documentation>
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapterreidentification">
+            <xsd:import namespace="urn:hl7-org:v3" 
+            schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="GetRealIdentifierRequestMessage">
+        <part name="GetRealIdentifierRequest" element="hl7:PIXConsumer_PRPA_IN201309UVRequest"/>
+    </message>
+    <message name="GetRealIdentifierResponseMessage">
+        <part name="GetRealIdentifierResponse" element="hl7:PIXConsumer_PRPA_IN201310UVRequest"/>
+    </message>
+    <portType name="AdapterReidentificationPortType">
+        <operation name="GetRealIdentifier">
+            <input name="GetRealIdentifierRequest" message="tns:GetRealIdentifierRequestMessage"/>
+            <output name="GetRealIdentifierResponse" message="tns:GetRealIdentifierResponseMessage"/>
+        </operation>
+    </portType>
+    <binding name="AdapterReidentificationBindingSoap" 
+    type="tns:AdapterReidentificationPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="GetRealIdentifier">
+            <soap:operation soapAction="urn:GetRealIdentifier"/>
+            <input name="GetRealIdentifierRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetRealIdentifierResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    
+    <service name="AdapterReidentification">
+        <port name="AdapterReidentificationBindingSoap" 
+        binding="tns:AdapterReidentificationBindingSoap">
+            <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/AdapterReidentification"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="AdapterReidentification">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="AdapterReidentificationPortTypeRole" 
+        portType="tns:AdapterReidentificationPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
