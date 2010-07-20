@@ -21,8 +21,8 @@
         <dist.type>war</dist.type>
     </project>    
     <project>
-        <name>AdapterWeb</name>
-        <directory>/Production/Adapters/General/AdapterWeb</directory>
+        <name>CONNECTAdapterWeb</name>
+        <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
     </project>    
     <project>
