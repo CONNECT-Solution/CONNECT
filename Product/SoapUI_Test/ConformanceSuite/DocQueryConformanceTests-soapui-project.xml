@@ -7116,6 +7116,68 @@ This document and the information contained herein is provided on an "AS IS" bas
   <con:testSuite name="DocQueryConformanceTestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create PC and AA mapping data" searchProperties="true" id="0b90a40a-4337-4322-addf-15e272234c84">
+      <con:settings/>
+      <con:testStep type="groovy" name="Add PC data">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
+  
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, ['1','1.1','N600007','2.16.840.1.113883.3.333','N600007'])
+  sql.executeUpdate(insertSql, ['2','1.1','N600002','2.16.840.1.113883.3.333','N600002'])
+  sql.executeUpdate(insertSql, ['3','1.1','N600031','2.16.840.1.113883.3.333','N600031'])
+  sql.executeUpdate(insertSql, ['4','1.1','N600004','2.16.840.1.113883.3.333','N600004'])
+  sql.executeUpdate(insertSql, ['5','1.1','N600023','2.16.840.1.113883.3.333','N600023'])
+  sql.executeUpdate(insertSql, ['6','1.1','N600038','2.16.840.1.113883.3.333','N600038'])
+  sql.executeUpdate(insertSql, ['7','1.1','N600045','2.16.840.1.113883.3.333','N600045'])
+  sql.executeUpdate(insertSql, ['8','1.1','N600029','2.16.840.1.113883.3.333','N600029'])
+  sql.executeUpdate(insertSql, ['9','1.1','N600028','2.16.840.1.113883.3.333','N600028'])
+  sql.executeUpdate(insertSql, ['10','1.1','N600011','2.16.840.1.113883.3.333','N600011'])
+  sql.executeUpdate(insertSql, ['11','1.1','N999999','2.16.840.1.113883.3.333','N999999'])
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Add AA mapping data">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
+
+  def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?, ?)"
+  sql.executeUpdate(insertSql, ['1','1.1','1.1'])
+  sql.executeUpdate(insertSql, ['2','2.2','2.2'])
+  sql.executeUpdate(insertSql, ['3','2.16.840.1.113883.3.333','2.16.840.1.113883.3.333'])
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-07-20T15:21:58Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-07-20T15:31:58Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>07/20/2010 15:21:58</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>08/19/2010 00:00:00</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="QDI-1.1 - Find by PatientId (single doc)" searchProperties="true" id="29908192-8b9e-407b-9612-aaef42f5385b">
       <con:settings/>
       <con:testStep type="groovy" name="update config">
@@ -7442,19 +7504,19 @@ assert docCount.toInteger() == 3;</scriptText>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:44:22Z</con:value>
+          <con:value>2010-07-20T15:21:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:54:22Z</con:value>
+          <con:value>2010-07-20T15:31:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:44:22</con:value>
+          <con:value>07/20/2010 15:21:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7830,19 +7892,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:44:33Z</con:value>
+          <con:value>2010-07-20T15:22:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:54:33Z</con:value>
+          <con:value>2010-07-20T15:32:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:44:33</con:value>
+          <con:value>07/20/2010 15:22:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8213,19 +8275,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:44:44Z</con:value>
+          <con:value>2010-07-20T15:22:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:54:44Z</con:value>
+          <con:value>2010-07-20T15:32:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:44:44</con:value>
+          <con:value>07/20/2010 15:22:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8576,19 +8638,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:44:54Z</con:value>
+          <con:value>2010-07-20T15:22:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:54:54Z</con:value>
+          <con:value>2010-07-20T15:32:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:44:54</con:value>
+          <con:value>07/20/2010 15:22:25</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8984,19 +9046,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:04Z</con:value>
+          <con:value>2010-07-20T15:22:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:04Z</con:value>
+          <con:value>2010-07-20T15:32:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:04</con:value>
+          <con:value>07/20/2010 15:22:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9352,19 +9414,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:12Z</con:value>
+          <con:value>2010-07-20T15:22:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:12Z</con:value>
+          <con:value>2010-07-20T15:32:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:12</con:value>
+          <con:value>07/20/2010 15:22:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9720,19 +9782,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:20Z</con:value>
+          <con:value>2010-07-20T15:23:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:20Z</con:value>
+          <con:value>2010-07-20T15:33:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:20</con:value>
+          <con:value>07/20/2010 15:23:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10088,19 +10150,19 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:30Z</con:value>
+          <con:value>2010-07-20T15:23:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:30Z</con:value>
+          <con:value>2010-07-20T15:33:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:30</con:value>
+          <con:value>07/20/2010 15:23:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10431,19 +10493,19 @@ assert docCount.toInteger() == 3;</scriptText>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:37Z</con:value>
+          <con:value>2010-07-20T15:23:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:37Z</con:value>
+          <con:value>2010-07-20T15:33:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:37</con:value>
+          <con:value>07/20/2010 15:23:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10774,19 +10836,19 @@ assert docCount.toInteger() == 3;</scriptText>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:47Z</con:value>
+          <con:value>2010-07-20T15:23:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:47Z</con:value>
+          <con:value>2010-07-20T15:33:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:47</con:value>
+          <con:value>07/20/2010 15:23:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11142,19 +11204,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:45:57Z</con:value>
+          <con:value>2010-07-20T15:23:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:55:57Z</con:value>
+          <con:value>2010-07-20T15:33:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:45:57</con:value>
+          <con:value>07/20/2010 15:23:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11490,19 +11552,19 @@ assert docCount.toInteger() == 0;</scriptText>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:46:07Z</con:value>
+          <con:value>2010-07-20T15:23:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:56:07Z</con:value>
+          <con:value>2010-07-20T15:33:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:46:07</con:value>
+          <con:value>07/20/2010 15:23:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11873,19 +11935,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:46:13Z</con:value>
+          <con:value>2010-07-20T15:23:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:56:13Z</con:value>
+          <con:value>2010-07-20T15:33:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:46:13</con:value>
+          <con:value>07/20/2010 15:23:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12226,19 +12288,19 @@ assert docCount.toInteger() == 0;</scriptText>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:46:20Z</con:value>
+          <con:value>2010-07-20T15:24:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:56:20Z</con:value>
+          <con:value>2010-07-20T15:34:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:46:20</con:value>
+          <con:value>07/20/2010 15:24:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12589,19 +12651,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:46:30Z</con:value>
+          <con:value>2010-07-20T15:24:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:56:30Z</con:value>
+          <con:value>2010-07-20T15:34:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:46:30</con:value>
+          <con:value>07/20/2010 15:24:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12957,19 +13019,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:46:38Z</con:value>
+          <con:value>2010-07-20T15:24:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:56:38Z</con:value>
+          <con:value>2010-07-20T15:34:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:46:38</con:value>
+          <con:value>07/20/2010 15:24:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13305,19 +13367,19 @@ assert docCount.toInteger() == 3;</scriptText>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:51:22Z</con:value>
+          <con:value>2010-07-20T15:24:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T20:01:22Z</con:value>
+          <con:value>2010-07-20T15:34:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:51:22</con:value>
+          <con:value>07/20/2010 15:24:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13673,19 +13735,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:46:55Z</con:value>
+          <con:value>2010-07-20T15:24:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:56:55Z</con:value>
+          <con:value>2010-07-20T15:34:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:46:55</con:value>
+          <con:value>07/20/2010 15:24:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14041,19 +14103,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:47:03Z</con:value>
+          <con:value>2010-07-20T15:24:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:57:03Z</con:value>
+          <con:value>2010-07-20T15:34:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:47:03</con:value>
+          <con:value>07/20/2010 15:24:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14394,19 +14456,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:47:09Z</con:value>
+          <con:value>2010-07-20T15:24:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:57:09Z</con:value>
+          <con:value>2010-07-20T15:34:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:47:09</con:value>
+          <con:value>07/20/2010 15:24:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14822,19 +14884,19 @@ declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:47:20Z</con:value>
+          <con:value>2010-07-20T15:25:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:57:20Z</con:value>
+          <con:value>2010-07-20T15:35:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:47:20</con:value>
+          <con:value>07/20/2010 15:25:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15588,19 +15650,19 @@ declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:47:27Z</con:value>
+          <con:value>2010-07-20T15:25:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:57:27Z</con:value>
+          <con:value>2010-07-20T15:35:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:47:27</con:value>
+          <con:value>07/20/2010 15:25:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15980,19 +16042,19 @@ declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:47:34Z</con:value>
+          <con:value>2010-07-20T15:25:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:57:34Z</con:value>
+          <con:value>2010-07-20T15:35:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:47:34</con:value>
+          <con:value>07/20/2010 15:25:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID1</con:name>
@@ -16398,19 +16460,19 @@ declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-07-19T19:47:44Z</con:value>
+          <con:value>2010-07-20T15:25:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-07-19T19:57:44Z</con:value>
+          <con:value>2010-07-20T15:35:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>07/19/2010 19:47:44</con:value>
+          <con:value>07/20/2010 15:25:25</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>08/18/2010 00:00:00</con:value>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16754,6 +16816,48 @@ assert docCount.toInteger() == 0;</scriptText>
         <con:property>
           <con:name>expireDate</con:name>
           <con:value>08/18/2010 00:00:00</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Delete PC and AA mapping data" searchProperties="true" id="60088869-18e4-4f9b-a2f9-1e59bf79591f">
+      <con:settings/>
+      <con:testStep type="groovy" name="Delete PC data">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete AA mapping data">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-07-20T15:25:33Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-07-20T15:35:33Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>07/20/2010 15:25:33</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>08/19/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17114,6 +17218,38 @@ assert docCount.toInteger() == 0;</scriptText>
     <con:property>
       <con:name>HealthcareTypeScheme-QDR-5.5</con:name>
       <con:value>2.16.840.1.113883.5.11</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingDB</con:name>
+      <con:value>assigningauthoritydb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationDB</con:name>
+      <con:value>patientcorrelationdb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingTable</con:name>
+      <con:value>aa_to_home_community_mapping</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationTable</con:name>
+      <con:value>correlatedidentifiers</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryConformanceTests-soapui-project.properties')
