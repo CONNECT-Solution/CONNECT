@@ -56,6 +56,21 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredRequest" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredRequestType"/>
+        <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveResponseType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+                        <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayRetrieveResponse" type="tns:RespondingGateway_CrossGatewayRetrieveResponseType"/>
+        <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredResponseType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredResponse" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredResponseType"/>
 	<!-- ====================================================================
          Audit Log Schemas.
          ==================================================================== -->

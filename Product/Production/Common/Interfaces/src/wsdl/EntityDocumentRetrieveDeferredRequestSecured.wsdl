@@ -17,7 +17,7 @@
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
-   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
+   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntityDocRetrieveDeferredRequestSecured"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured">
     <documentation>Entity Document Retrieve Deferred Request Secured</documentation>
@@ -29,8 +29,8 @@
                         schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
-                        schemaLocation="../schemas/nhinc/common/NhincCommonDocumentRetrieve.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
         </xsd:schema>
     </types>
     <message name="CrossGatewayRetrieveRequestMessage">

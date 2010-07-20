@@ -36,6 +36,12 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayRetrieveRequest" type="tns:RespondingGateway_CrossGatewayRetrieveRequestType"/>
+        <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredRequest" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredRequestType"/>
 	<xsd:complexType name="RespondingGateway_CrossGatewayRetrieveResponseType">
 		<xsd:sequence>
 			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
@@ -43,6 +49,12 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayRetrieveResponse" type="tns:RespondingGateway_CrossGatewayRetrieveResponseType"/>
+        <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredResponseType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredResponse" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredResponseType"/>
 	<!-- ====================================================================
          Document ProvideAndRegister Schemas.
          ==================================================================== -->

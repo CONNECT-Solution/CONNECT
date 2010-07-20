@@ -12,7 +12,7 @@
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
-   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
+   xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    name="NhincProxyDocRetrieveDeferredResponse"
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve">
     <documentation>Nhinc Proxy document retrieve deferred response</documentation>
@@ -20,15 +20,15 @@
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
                         schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommondocumentretrieve"
-                        schemaLocation="../schemas/nhinc/common/NhincCommonDocumentRetrieve.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
         </xsd:schema>
     </types>
     <message name="CrossGatewayRetrieveResponseMessage">
         <part name="CrossGatewayRetrieveResponse"
-              element="nccommondr:RespondingGateway_CrossGatewayRetrieveResponse"/>
+              element="nccommonproxy:RespondingGateway_CrossGatewayRetrieveResponse"/>
     </message>
     <message name="CrossGatewayRetrieveAcknowledgementMessage">
         <part name="CrossGatewayRetrieveAcknowledgement"
