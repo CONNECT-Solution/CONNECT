@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
@@ -38,6 +38,23 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQuerySecuredRequest" type="tns:RespondingGateway_CrossGatewayQuerySecuredRequestType"/>
+	
+	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType">
+		<xsd:sequence>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="NhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType"/>
+	
+	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="query:AdhocQueryResponse"/>			
+			<xsd:element name="NhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayQueryResponseSecured" type="tns:RespondingGateway_CrossGatewayQueryResponseSecuredType"/>	
 	<!-- ====================================================================
          Document Retrieve Schemas.
          ==================================================================== -->
@@ -49,6 +66,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayRetrieveRequest" type="tns:RespondingGateway_CrossGatewayRetrieveRequestType"/>
+			
 	<xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredRequestType">
 		<xsd:sequence>
 			<xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
