@@ -10,7 +10,7 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.common.connectionmanager.model">
-  <class name="AssigningAuthorityToHomeCommunityMapping" table="assigningauthoritytohomecommunitymapping">
+  <class name="AssigningAuthorityToHomeCommunityMapping" table="aa_to_home_community_mapping">
     <id name="id" column="id" type="long">
         <generator class="increment"/>
     </id>

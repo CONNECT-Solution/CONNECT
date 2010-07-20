@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project name="NhincCommonTypesLib" default="build" basedir=".">
   <description>Builds, tests, and runs the project NhincCommonTypesLib.</description>
   <import file="nbproject/build-impl.xml"/>
@@ -112,11 +112,13 @@
       </path>
       <sequential>
         <antcall target="processWsdl">
-          <param name="wsdl.file" value="@{file}" />
+          <param name="wsdl.file.path" value="@{file}" />
         </antcall>
       </sequential>
     </for>
 
+    <call target="copy.util.src"/>
+    
     <echo message="Compiling Generated Code..." />
     <echo message="---------------------------" />
     <javac srcdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries"/>
@@ -131,15 +133,18 @@
 
   <!-- Common wsimport target -->
   <target name="processWsdl">
-    <echo message="Performing wsimport for: ${wsdl.file}" />
-    <propertyregex property="wsdlfile"
-              input="${wsdl.file}"
-              regexp="([^\/\\]+\.\w+)$"
-              select="\1"
-              casesensitive="false" />
-
+    <echo message="Performing wsimport for: ${wsdl.file.path}" />
+    <basename property="wsdl.file" file="${wsdl.file.path}" />
     <wsimportConnect xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
-                  destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file}" verbose="true"
-                  wsdlLocation="META-INF/wsdl/${wsdlfile}" xnocompile="true" />
+                  destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file.path}" verbose="true"
+                  wsdlLocation="${wsdl.file}" xnocompile="true" />
+  </target>
+
+  <target name="copy.util.src">
+    <copy todir="${build.generated.dir}/wsimport/client">
+      <fileset dir="src/main/java">
+        <include name="**/*.java"/>
+      </fileset>
+    </copy>
   </target>
 </project>

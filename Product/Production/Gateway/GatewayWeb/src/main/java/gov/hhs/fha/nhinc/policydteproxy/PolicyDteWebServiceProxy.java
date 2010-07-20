@@ -24,6 +24,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,8 +39,56 @@ public class PolicyDteWebServiceProxy implements IPolicyDteProxy {
 
     public CheckPolicyRequestType transformSubjectAddedToCheckPolicy(SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
+        CheckPolicyRequestType policyReq = null;
+			
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformSubjectAddedToCheckPolicy(transformSubjectAddedToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-        CheckPolicyRequestType policyReq = port.transformSubjectAddedToCheckPolicy(transformSubjectAddedToCheckPolicyRequest);
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformSubjectAddedToCheckPolicy(transformSubjectAddedToCheckPolicyRequest);
+        }
+
         
         return policyReq;
     }
@@ -47,80 +96,553 @@ public class PolicyDteWebServiceProxy implements IPolicyDteProxy {
     public CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
 
-        CheckPolicyRequestType policyReq = port.transformSubjectRevisedToCheckPolicy(transformSubjectRevisedToCheckPolicyRequest);
+        CheckPolicyRequestType policyReq = null;
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformSubjectRevisedToCheckPolicy(transformSubjectRevisedToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformSubjectRevisedToCheckPolicy(transformSubjectRevisedToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
+        CheckPolicyRequestType policyReq = null;
+				
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-        CheckPolicyRequestType policyReq = port.transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
-        
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
+        }
+		        
         return policyReq;
     }
 
     public CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
 
-        CheckPolicyRequestType policyReq = port.transformAdhocQueryResultToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
+        CheckPolicyRequestType policyReq = null;
+				
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformAdhocQueryResultToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformAdhocQueryResultToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
 
-        CheckPolicyRequestType policyReq = port.transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
+        CheckPolicyRequestType policyReq = null;
+				
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
+        CheckPolicyRequestType policyReq = null;
+        int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformDocRetrieveResultToCheckPolicy(transformDocRetrieveResultToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-        CheckPolicyRequestType policyReq = port.transformDocRetrieveResultToCheckPolicy(transformDocRetrieveResultToCheckPolicyRequest);
-        
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformDocRetrieveResultToCheckPolicy(transformDocRetrieveResultToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
+        CheckPolicyRequestType policyReq = null;
+			
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-        CheckPolicyRequestType policyReq = port.transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
 
+        } else {
+            policyReq = port.transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformSubjectReidentificationToCheckPolicy(SubjectReidentificationEventType transformSubjectReidentificationToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
 
-        CheckPolicyRequestType policyReq = port.transformSubjectReidentificationToCheckPolicy(transformSubjectReidentificationToCheckPolicyRequest);
+        CheckPolicyRequestType policyReq = null;
+			
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformSubjectReidentificationToCheckPolicy(transformSubjectReidentificationToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformSubjectReidentificationToCheckPolicy(transformSubjectReidentificationToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformSubscribeToCheckPolicy(SubscribeEventType transformSubscribeToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
+		
+        CheckPolicyRequestType policyReq = null;
+				
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-        CheckPolicyRequestType policyReq = port.transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
 
+        } else {
+            policyReq = port.transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformUnsubscribeToCheckPolicy(UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
+        CheckPolicyRequestType policyReq = null;
+				
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-        CheckPolicyRequestType policyReq = port.transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
 
+        } else {
+            policyReq = port.transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
+        }
+		
         return policyReq;
     }
 
     public CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType transformNotifyToCheckPolicyRequest) {
         NhincInternalComponentPolicyEngineTransformPortType port = getPort();
 
-        CheckPolicyRequestType policyReq = port.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
-        
+        CheckPolicyRequestType policyReq = null;
+			
+        int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    policyReq = port.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NhincComponentInternalPolicyEngineTransformService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call NhincComponentInternalPolicyEngineTransformService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            policyReq = port.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
+        }
         return policyReq;
     }
 
@@ -150,8 +672,7 @@ public class PolicyDteWebServiceProxy implements IPolicyDteProxy {
         }
 
         if (NullChecker.isNotNullish(url)) {
-            log.info("Setting endpoint address to Audit Log Service to " + url);
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         } else {
             log.error("Error: URL is null");
             port = null;

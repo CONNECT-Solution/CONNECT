@@ -34,7 +34,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         Session sess = null;
         String assigningAuthId = "";
         if (homeCommunityId != null && !homeCommunityId.equals("")) {
-            String sql = "select assigningauthorityid from assigningauthoritytohomecommunitymapping where homecommunityid = '" + homeCommunityId +"'";
+            String sql = "select assigningauthorityid from aa_to_home_community_mapping where homecommunityid = '" + homeCommunityId +"'";
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();                
@@ -76,7 +76,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         Session sess = null;
         List<String> listOfAAs = null;
         if (homeCommunityId != null && !homeCommunityId.equals("")) {
-            //String sql = "select assigningauthorityid from assigningauthoritytohomecommunitymapping where homecommunityid = '" + homeCommunityId +"'";
+            //String sql = "select assigningauthorityid from aa_to_home_community_mapping where homecommunityid = '" + homeCommunityId +"'";
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();                
@@ -124,7 +124,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         String homeCommunity = "";
         if (assigningAuthority != null && !assigningAuthority.equals("")) {
             Session sess = null;
-            String sql = "select homecommunityid from assigningauthoritytohomecommunitymapping where assigningauthorityid = '" + assigningAuthority + "'";
+            String sql = "select homecommunityid from aa_to_home_community_mapping where assigningauthorityid = '" + assigningAuthority + "'";
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();
@@ -167,7 +167,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         Transaction trans = null;
         Session sess = null;
         if (homeCommunityId != null && !homeCommunityId.equals("") && assigningAuthority != null && !assigningAuthority.equals("")) {
-            String sql = "select * from assigningauthoritytohomecommunitymapping where assigningauthorityid='" + assigningAuthority + "' and homecommunityid='" + homeCommunityId + "'";
+            String sql = "select * from aa_to_home_community_mapping where assigningauthorityid='" + assigningAuthority + "' and homecommunityid='" + homeCommunityId + "'";
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();

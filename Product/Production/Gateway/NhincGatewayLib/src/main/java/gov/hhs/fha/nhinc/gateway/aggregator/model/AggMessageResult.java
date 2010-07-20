@@ -17,7 +17,7 @@ public class AggMessageResult
     private Date messageOutTime;
     private Date responseReceivedTime;
     private String responseMessageType;
-    private String responseMessage;
+    private byte[] responseMessageAsBytes;
     private AggTransaction aggTransaction;
     
     /**
@@ -38,7 +38,7 @@ public class AggMessageResult
         messageOutTime = null;
         responseReceivedTime = null;
         responseMessageType = "";
-        responseMessage = "";
+        responseMessageAsBytes = new byte[0];
         aggTransaction = null;
     }
 
@@ -119,7 +119,7 @@ public class AggMessageResult
      */
     public String getResponseMessage()
     {
-        return responseMessage;
+        return new String(responseMessageAsBytes);
     }
 
     /**
@@ -131,8 +131,26 @@ public class AggMessageResult
      */
     public void setResponseMessage(String responseMessage)
     {
-        this.responseMessage = responseMessage;
+        this.responseMessageAsBytes = responseMessage.getBytes();
     }
+
+    /**
+     * Gets the response message to be aggregated.
+     *
+     * @return  A byte array containing the XML message to be aggregated.
+     */
+    public byte[]  getResponseMessageAsBytes() {
+        return responseMessageAsBytes;
+    }
+
+    /**
+     * Sets the response message to be aggregated.
+     *
+     * @param responseMessage  A byte array containing the response message to be aggregated.
+     */
+     public void  setResponseMessageAsBytes(byte[]  responseMessage) {
+         this.responseMessageAsBytes = responseMessage;
+     }
 
     /**
      * Returns the type of the response message.  This is the textual name of the

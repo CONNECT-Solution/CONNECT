@@ -13,6 +13,9 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.List;
+import org.hl7.v3.MCCIMT000100UV01Receiver;
 
 /**
  *
@@ -75,7 +78,6 @@ public class HL7Extractors {
 
         return subject;
     }
-    
 
     public static PRPAIN201310UV02MFMIMT700711UV01Subject1 ExtractSubjectFromMessage(org.hl7.v3.PRPAIN201310UV02 message) {
         //assume one subject for now
@@ -84,7 +86,7 @@ public class HL7Extractors {
             log.info("message is null - no patient");
             return null;
         }
-        
+
         PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = message.getControlActProcess();
         if (controlActProcess == null) {
             log.info("controlActProcess is null - no patient");
@@ -170,7 +172,7 @@ public class HL7Extractors {
         log.info("done with ExtractPatient");
         return patient;
     }
-  
+
     public static PRPAMT201304UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201310UV02 message) {
         PRPAMT201304UV02Patient patient = null;
         log.info("in ExtractPatient");
@@ -179,7 +181,7 @@ public class HL7Extractors {
         if (subject == null) {
             return null;
         }
-        
+
         PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationevent = subject.getRegistrationEvent();
         if (registrationevent == null) {
             log.info("registrationevent is null - no patient");
@@ -378,31 +380,41 @@ public class HL7Extractors {
         return patientPerson;
     }
 
-    public static String ExtractHL7ReceiverOID (org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV)
-    {
+    public static String ExtractHL7ReceiverOID(org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV) {
         String sReceiverOID = null;
 
-        List<MCCIMT000100UV01Receiver> olMCCIMT000100UV01Receiver = oPRPAIN201305UV.getReceiver();
-        MCCIMT000100UV01Receiver oMCCIMT000100UV01Receiver = olMCCIMT000100UV01Receiver.get(0);
-        MCCIMT000100UV01Device oDevice = oMCCIMT000100UV01Receiver.getDevice();
-        List<II> olII = oDevice.getId();
-        II oII = olII.get(0);
-        sReceiverOID = oII.getRoot();
-        
+        if (oPRPAIN201305UV != null &&
+                NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver()) &&
+                oPRPAIN201305UV.getReceiver().get(0) != null &&
+                oPRPAIN201305UV.getReceiver().get(0).getDevice() != null &&
+                oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            sReceiverOID = oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
+
         return sReceiverOID;
     }
 
-    public static String ExtractHL7SenderOID (org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV)
-    {
+    public static String ExtractHL7SenderOID(org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV) {
         String sSenderOID = null;
 
-        MCCIMT000100UV01Sender oMCCIMT000100UV01Sender = oPRPAIN201305UV.getSender();
-        MCCIMT000100UV01Device oDevice = oMCCIMT000100UV01Sender.getDevice();
-        List<II> olII = oDevice.getId();
-        II oII = olII.get(0);
-        sSenderOID = oII.getRoot();
+        if (oPRPAIN201305UV != null &&
+                oPRPAIN201305UV.getSender().getDevice() != null &&
+                oPRPAIN201305UV.getSender().getDevice().getAsAgent() != null &&
+                oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue() != null &&
+                oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            sSenderOID = oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
 
         return sSenderOID;
     }
-
 }

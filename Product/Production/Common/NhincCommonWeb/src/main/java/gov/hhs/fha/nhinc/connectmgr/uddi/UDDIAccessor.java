@@ -5,12 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.xml.bind.JAXBElement;
 
-import javax.xml.ws.BindingProvider;
 
 import org.uddi.api_v3.BusinessList;
-import org.uddi.api_v3.BusinessInfos;
 import org.uddi.api_v3.BusinessInfo;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.ServiceInfo;
@@ -44,6 +41,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplates;
 import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
+import java.util.StringTokenizer;
 
 /**
  * This class is used to retrieve the connection information from the UDDI server.
@@ -52,7 +50,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
  */
 public class UDDIAccessor {
 
-    private static Log log = LogFactory.getLog(UDDIAccessor.class);
+    private Log log = null;
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_INQUIRY_ENDPOINT_URL = "UDDIInquiryEndpointURL";
     private static String UDDI_BUSINESSES_TO_IGNORE = "UDDIBusinessesToIgnore";
@@ -69,6 +67,14 @@ public class UDDIAccessor {
     //------------------------------------------------------------------------------------
     private HashSet<String> m_hBusinessToIgnore = new HashSet<String>();
     private boolean m_bPropsLoaded = false;         // True if the props have been loaded.
+
+    public UDDIAccessor() {
+        log = createLogger();
+    }
+
+    protected Log createLogger() {
+        return LogFactory.getLog(getClass());
+    }
 
     /**
      * This method loads information from the gateway.properties file that are
@@ -126,7 +132,7 @@ public class UDDIAccessor {
 
             // Need to load in the correct UDDI endpoint URL address.
             //--------------------------------------------------------
-            ((BindingProvider) oPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_sUDDIInquiryEndpointURL);
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) oPort, m_sUDDIInquiryEndpointURL);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve the UDDI Inquiry Web Service port.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -311,7 +317,7 @@ public class UDDIAccessor {
      * @param sBusinessKey The business key to look for.
      * @return The item from the list that matches the business key.
      */
-    private CMBusinessEntity findSpecificBusiness(List<CMBusinessEntity> oaEntities, String sBusinessKey) {
+    protected CMBusinessEntity findSpecificBusiness(List<CMBusinessEntity> oaEntities, String sBusinessKey) {
         CMBusinessEntity oEntity = null;
 
         if ((oaEntities != null) &&
@@ -367,7 +373,7 @@ public class UDDIAccessor {
      * @param sDesiredKey The key to look for.
      * @return The values associated with that key.
      */
-    private List<String> findAndGetValueFromKeyedReference(List<KeyedReference> oaKeys, String sDesiredKey) {
+    protected List<String> findAndGetValueFromKeyedReference(List<KeyedReference> oaKeys, String sDesiredKey) {
         List<String> oValues = new ArrayList<String>();
 
         if ((oaKeys != null) &&
@@ -444,7 +450,55 @@ public class UDDIAccessor {
             }   // for (CMBusinessEntity oEntity : oEntities.getBusinessEntity())
 
             UDDIInquiryPortType oPort = getUDDIInquiryWebService();
-            oResult = oPort.getBusinessDetail(oSearchParams);
+			
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    oResult = oPort.getBusinessDetail(oSearchParams); 
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on UDDIInquiryWebService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on UDDIInquiryWebService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call UDDIInquiryWebService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call UDDIInquiryWebService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            oResult = oPort.getBusinessDetail(oSearchParams); 
+        }
+		
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -560,7 +614,55 @@ public class UDDIAccessor {
             }   // for (CMBusinessEntity oEntity : oEntities.getBusinessEntity())
 
             UDDIInquiryPortType oPort = getUDDIInquiryWebService();
+            		
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    oResult = oPort.getServiceDetail(oSearchParams);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on UDDIInquiryWebService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on UDDIInquiryWebService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call UDDIInquiryWebService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call UDDIInquiryWebService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
             oResult = oPort.getServiceDetail(oSearchParams);
+        }
+		
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_serviceDetail method.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -612,26 +714,6 @@ public class UDDIAccessor {
                             }
                         }   // if ((oUDDIService.getDescription() != null) && ...
 
-                        // Uniform Service Name 
-                        //----------------------------------------
-                        if ((oUDDIService.getCategoryBag() != null) &&
-                                (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
-                                (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
-                            // Uniform Service Name
-                            //---------------------
-                            List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag().getKeyedReference(),
-                                    UNIFORM_SERVICE_NAME_KEY);
-                            if (oServiceNames != null && oServiceNames.size() == 1) {
-                                for (String sValue : oServiceNames) {
-                                    if ((sValue != null) && (sValue.length() > 0)) {
-                                        oService.setUniformServiceName(sValue);
-                                    }
-                                }
-                            } else {
-                                log.debug("A single Normal Service value is NOT detected for UDDI Service " + oUDDIService.getBusinessKey() + " - " + oUDDIService.getServiceKey());
-                            }
-                        }   // if ((oUDDIService.getCategoryBag() != null) &&  ...
-
                         // Binding Template Information
                         //-----------------------------
                         if ((oUDDIService.getBindingTemplates() != null) &&
@@ -681,6 +763,14 @@ public class UDDIAccessor {
                             }
                         }
 
+                        // Uniform Service Name
+                        //
+                        // Multiple Uniform Service Names will result in the
+                        // creation of oService copies so this should be the last
+                        // population to be performed.
+                        //----------------------------------------
+                        populateUniformServiceNameAndReplicateService(oUDDIService, oEntities, oService);
+
                     }   // if (oService != null)
                 }   // if ((oUDDIService.getServiceKey() != null) &&  ...
             }   // for (BusinessService oUDDIService : oResult.getBusinessService())
@@ -689,18 +779,69 @@ public class UDDIAccessor {
     }
 
     /**
+     * This method is used to populate the Business Service with the retrieved
+     * uniform service information. If there is a single service name, the
+     * service passed in will be populated with that name.  If there are
+     * multiple aliases for a service name, a copy of the service will be
+     * created and it will be populated with the alias and then added to the
+     * Business Entity structure.
+     *
+     * @param oUDDIService The information on the service as retrieved from the 
+     *                     UDDI registry.
+     * @param oEntities The complete list of business entities against which the
+     *                  desired entity is found.  If multiple uniform service
+     *                  names are detected a new service will be added to this
+     *                  entity.
+     * @param oService  The business service which is updated with the uniform
+     *                  service name.  If multiples are detected a copy of this
+     *                  service will be made to form a new one.
+     */
+    public void populateUniformServiceNameAndReplicateService(BusinessService oUDDIService, CMBusinessEntities oEntities, CMBusinessService oService) {
+        if ((oUDDIService.getCategoryBag() != null) &&
+                (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
+                (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
+
+            // Uniform Service Name
+            //---------------------
+            List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag().getKeyedReference(),
+                    UNIFORM_SERVICE_NAME_KEY);
+
+            if (oServiceNames != null && oServiceNames.size() > 0) {
+
+                // The existance of more than one service name will create multiple services for the entity
+                int serviceCount = 0;
+                for (String sValue : oServiceNames) {
+                    if ((sValue != null) && (sValue.length() > 0)) {
+                        if (serviceCount == 0) {
+                            oService.setUniformServiceName(sValue);
+                        } else {
+                            CMBusinessService oServiceCopy = oService.createCopy();
+                            oServiceCopy.setUniformServiceName(sValue);
+                            CMBusinessEntity oEntity = findSpecificBusiness(oEntities.getBusinessEntity(),
+                                    oUDDIService.getBusinessKey());
+                            oEntity.getBusinessServices().getBusinessService().add(oServiceCopy);
+                        }
+                        serviceCount++;
+                    }
+                }
+            } else {
+                log.debug("A Normal Service value is NOT detected for UDDI Service " + oUDDIService.getBusinessKey() + " - " + oUDDIService.getServiceKey());
+            }
+        }   // if ((oUDDIService.getCategoryBag() != null) &&  ...
+    }
+
+    /**
      * This method is used to retrieve the data from the UDDI server.  The
      * data is returned in the form of CMBusinessEntities.
-     * 
+     *
      * @return The Business Entities that were retrieved from the UDDI server.
-     * 
+     *
      */
     public CMBusinessEntities retrieveFromUDDIServer()
             throws UDDIAccessorException {
         CMBusinessEntities oEntities = new CMBusinessEntities();
 
         loadProperties();
-
 
         // If we are failing to load the properties or if we do not
         // have the endpoint URL - there is nothing to do...
@@ -721,7 +862,6 @@ public class UDDIAccessor {
             retrieveDetailedBusinessInfoFromUDDI(oEntities);
             retrieveDetailedServiceInfoFromUDDI(oEntities);
         }
-
 
         return oEntities;
     }
@@ -746,12 +886,11 @@ public class UDDIAccessor {
                 String sXML = CMUDDIConnectionInfoXML.serialize(oUDDIConnectionInfo);
                 System.out.println(sXML);
             }
+
         } catch (Exception e) {
             System.out.println("An unexpected exception occurred: " + e.getMessage());
             e.printStackTrace();
         }
-
-
 
         System.out.println("");
         System.out.println("We are done.");

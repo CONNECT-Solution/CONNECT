@@ -234,6 +234,9 @@ public class NhincConstants {
     public static final String NHINC_PROXY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxypatientdiscoverysecured";
     public static final String ENTITY_PATIENT_DISCOVERY_SERVICE_NAME = "entitypatientdiscovery";
 
+    // Patient Discovery Error Constants
+    public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";
+
     // XDR Constants
     public static final String ENTITY_XDR_SECURED_SERVICE_NAME = "entityxdrsecured";
     public static final String NHINC_PROXY_XDR_SERVICE_NAME = "nhincproxyxdr";

@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201305;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201306;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
@@ -66,12 +67,12 @@ public class PatientChecker {
 
             if ((sEndpointURL != null) &&
                 (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, sEndpointURL);
             }
             else {
                 // Just a way to cover ourselves for the time being...  - assume port 8080
                 //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/CommonDataLayerService/AdapterCommonDataLayer");
+				gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, "http://localhost:8080/CommonDataLayerService/AdapterCommonDataLayer");
 
                 log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_COMMON_DATA_LAYER_SERVICE + " and " +
                          "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
@@ -86,8 +87,55 @@ public class PatientChecker {
             log.info("perform patient lookup via common data layer service");
             request = new org.hl7.v3.FindPatientsPRPAIN201305UV02RequestType();
             request.setQuery(patientMessage);
-            findPatientsResponse = port.findPatients(request);
+            
+        int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    findPatientsResponse = port.findPatients(request);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on PatientChecker call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on PatientChecker call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call PatientChecker Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call PatientChecker Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            findPatientsResponse = port.findPatients(request);
+        }
+		
             if (findPatientsResponse != null) {
 
                 if ((findPatientsResponse.getSubject() == null) || 

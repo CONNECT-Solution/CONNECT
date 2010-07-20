@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import ihe.iti.xdr._2007.AcknowledgementType;
 import java.util.Map;
+import java.util.StringTokenizer;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 
@@ -20,7 +21,7 @@ import org.apache.commons.logging.Log;
  */
 public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
 {
-    private static org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(AdapterXDRRequestWebServiceProxy.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdapterXDRRequestWebServiceProxy.class);
 
     private static AdapterXDRRequestSecuredService securedAdapterService = null;
 
@@ -44,8 +45,54 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
             AdapterXDRRequestSecuredPortType port = getAdapterXDRRequestSecuredPort(adapterXDRRequestSecuredEndPointURL);
 
             setRequestContext(assertion, adapterXDRRequestSecuredEndPointURL, port);
+           
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    response = port.provideAndRegisterDocumentSetBRequest(body);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on AdapterXDRRequestSecuredService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on AdapterXDRRequestSecuredService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call AdapterXDRRequestSecuredService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call AdapterXDRRequestSecuredService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
             response = port.provideAndRegisterDocumentSetBRequest(body);
+        }
 
         } else {
             getLogger().error("The URL for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME + " is null");
@@ -56,7 +103,6 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
         getLogger().debug("Existing provideAndRegisterDocumentSetBRequest");
 
         return response;
-
     }
 
     protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, AdapterXDRRequestSecuredPortType port)
@@ -78,7 +124,7 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME);
 
         } catch (ConnectionManagerException ex) {
-            logger.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME, ex);
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME, ex);
         }
 
         return url;
@@ -91,15 +137,12 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
      */
     protected AdapterXDRRequestSecuredPortType getAdapterXDRRequestSecuredPort(String url) {
         AdapterXDRRequestSecuredPortType port = getAdapterXDRRequestSecuredService().getAdapterXDRRequestSecuredPortSoap12();
-
-        logger.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 
     protected Log getLogger(){
-        return logger;
+        return log;
     }
 
     /**

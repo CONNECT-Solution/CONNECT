@@ -261,7 +261,9 @@ public class HL7Parser201305 {
         Patient mpiPatient = new Patient();
 
         if (params != null) {
-            mpiPatient.setName(ExtractPersonName(params));
+
+            //mpiPatient.setName(ExtractPersonName(params));
+            mpiPatient.getNames().add(ExtractPersonName(params));
             mpiPatient.setGender(ExtractGender(params));
 
             String birthdateString = ExtractBirthdate(params);

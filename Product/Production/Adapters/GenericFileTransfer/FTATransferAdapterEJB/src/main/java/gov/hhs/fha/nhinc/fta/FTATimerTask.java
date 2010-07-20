@@ -124,9 +124,7 @@ public class FTATimerTask  {
 
            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
            //String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
-           log.info("EntitySubscriptionURL :"+endpointURL);
-           ((BindingProvider)port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
+		   gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, endpointURL);
 
             // TODO initialize WS operation arguments here
             gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType();
@@ -176,9 +174,7 @@ public class FTATimerTask  {
 
            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
            //String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
-           log.info("EntitySubscriptionURL :"+endpointURL);
-           ((BindingProvider)port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, endpointURL);
 
             // TODO initialize WS operation arguments here
             NotificationMessageHolderType messageHolder = new NotificationMessageHolderType();

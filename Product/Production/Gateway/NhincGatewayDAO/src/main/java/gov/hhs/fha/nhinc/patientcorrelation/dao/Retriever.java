@@ -171,6 +171,21 @@ public class Retriever {
 
         resultSet = retrievePatientCorrelation(correlatedIdentifers);
 
+        /*
+         * AEGIS.net, Inc. (c) 2010 - Interop Test Platform
+         * If empty resultSet, attempt retrieve again with reversed ids
+         */
+        if (resultSet != null && resultSet.size() == 0) {
+            CorrelatedIdentifiers criteria = new CorrelatedIdentifiers();
+            criteria.setPatientId(correlatedIdentifers.getCorrelatedPatientId());
+            criteria.setPatientAssigningAuthorityId(correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
+            criteria.setCorrelatedPatientId(correlatedIdentifers.getPatientId());
+            criteria.setCorrelatedPatientAssigningAuthorityId(correlatedIdentifers.getPatientAssigningAuthorityId());
+
+            resultSet = retrievePatientCorrelation(criteria);
+        }
+        /* AEGIS.net, Inc. (c) 2010 - Interop Test Platform */
+
         if(resultSet != null)
         {
             if(resultSet.size() == 1)
@@ -192,7 +207,7 @@ public class Retriever {
         SessionFactory fact = null;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
-        List<CorrelatedIdentifiers> modifiedResult = null;
+//        List<CorrelatedIdentifiers> modifiedResult = null;
 
         try {
             fact = HibernateUtil.getSessionFactory();

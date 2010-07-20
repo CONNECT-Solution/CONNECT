@@ -3,6 +3,8 @@ package gov.hhs.fha.nhinc.gateway.aggregator.persistence;
 import java.io.Serializable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.properties.HibernateAccessor;
+
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -26,7 +28,7 @@ public class HibernateUtil
         try
         {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure(HIBERNATE_CONFIG).buildSessionFactory();
+            sessionFactory = new Configuration().configure(HibernateAccessor.getHibernateFile(HIBERNATE_CONFIG)).buildSessionFactory();
         } catch (Throwable ex)
         {
             // Make sure you log the exception, as it might be swallowed

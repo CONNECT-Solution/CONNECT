@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.entitysubjectdiscoverysecured.EntitySubjectDiscoverySec
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.util.Map;
+import java.util.StringTokenizer;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,9 +44,7 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
                     (endpointURL.length() <= 0)) {
                 endpointURL = ENTITY_SUBJECT_DISCOVERY_SERVICE_URL;
             }
-            log.info("Setting endpoint address to Entity Subject Discovery Service to " + endpointURL);
-            ((BindingProvider) entitySecuredPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) entitySecuredPort, endpointURL);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map samlMap = tokenCreator.CreateRequestContext(assertIn, endpointURL, NhincConstants.SUBJECT_DISCOVERY_ACTION);
 
@@ -70,8 +69,55 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
             PIXConsumerPRPAIN201301UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201301UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
             securedReq.setPRPAIN201301UV02(request.getPRPAIN201301UV02());
-            response = entitySecuredPort.pixConsumerPRPAIN201301UV(securedReq);
+            
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    response = entitySecuredPort.pixConsumerPRPAIN201301UV(securedReq);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            response = entitySecuredPort.pixConsumerPRPAIN201301UV(securedReq);
+        }
+		
         } catch (Exception ex) {
             String message = "Error occurred calling EntitySubjectDiscoveryWebServiceProxy.pixConsumerPRPAIN201301UV.  Error: " +
                     ex.getMessage();
@@ -89,8 +135,55 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
             PIXConsumerPRPAIN201302UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201302UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
             securedReq.setPRPAIN201302UV02(request.getPRPAIN201302UV02());
-            response = entitySecuredPort.pixConsumerPRPAIN201302UV(securedReq);
+            			
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    response = entitySecuredPort.pixConsumerPRPAIN201302UV(securedReq);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            response = entitySecuredPort.pixConsumerPRPAIN201302UV(securedReq);
+        }
+		
         } catch (Exception ex) {
             String message = "Error occurred calling EntitySubjectDiscoveryWebServiceProxy.pixConsumerPRPAIN201302UV.  Error: " +
                     ex.getMessage();
@@ -108,7 +201,54 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
             PIXConsumerPRPAIN201304UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201304UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
             securedReq.setPRPAIN201304UV02(request.getPRPAIN201304UV02());
+            
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    response = entitySecuredPort.pixConsumerPRPAIN201304UV(securedReq);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
             response = entitySecuredPort.pixConsumerPRPAIN201304UV(securedReq);
+        }
 
         } catch (Exception ex) {
             String message = "Error occurred calling EntitySubjectDiscoveryWebServiceProxy.pixConsumerPRPAIN201304UV.  Error: " +
@@ -127,8 +267,54 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
             PIXConsumerPRPAIN201309UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201309UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
             securedReq.setPRPAIN201309UV02(request.getPRPAIN201309UV02());
-            response = entitySecuredPort.pixConsumerPRPAIN201309UV(securedReq);
+			int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+			int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+			String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+			javax.xml.ws.WebServiceException catchExp = null;
+			if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+				int i = 1;
+				while (i <= retryCount) {
+					try {
+						response = entitySecuredPort.pixConsumerPRPAIN201309UV(securedReq);
+						break;
+					} catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on EntitySubjectDiscoverySecured call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
+            if (i > retryCount) {
+                log.error("Unable to call EntitySubjectDiscoverySecured Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            response = entitySecuredPort.pixConsumerPRPAIN201309UV(securedReq);
+        }
+		
         } catch (Exception ex) {
             String message = "Error occurred calling EntitySubjectDiscoveryWebServiceProxy.pixConsumerPRPAIN201309UV.  Error: " +
                     ex.getMessage();

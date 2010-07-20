@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
@@ -10,7 +10,7 @@
  * a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
  * or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
- * 
+ *
  * When distributing the software, include this License Header Notice in each
  * file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
  * Sun designates this particular file as subject to the "Classpath" exception
@@ -19,9 +19,9 @@
  * Header, with the fields enclosed by brackets [] replaced by your own
  * identifying information: "Portions Copyrighted [year]
  * [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or
  * only the GPL Version 2, indicate your decision by adding "[Contributor]
  * elects to include this software in this distribution under the [CDDL or GPL
@@ -65,6 +65,8 @@ import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.BadCommandLineException;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 //import com.sun.tools.ws.wscompile.JavaCompilerHelper;
+import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServiceGeneratorConnect;
+
 
 import org.xml.sax.SAXParseException;
 
@@ -176,7 +178,7 @@ public class WsimportToolConnect {
         };
 
 				boolean bConnectTiming = false;
-				
+
         for (String arg : args) {
             if (arg.equals("-version")) {
                 listener.message(ToolVersion.VERSION.BUILD_VERSION);
@@ -245,7 +247,7 @@ public class WsimportToolConnect {
                 //generated code
                 if( !options.quiet )
                     listener.message(WscompileMessages.WSIMPORT_GENERATING_CODE());
-                
+
                 TJavaGeneratorExtension[] genExtn = ServiceFinder.find(TJavaGeneratorExtension.class).toArray();
                 CustomExceptionGenerator.generate(wsdlModel,  options, receiver);
             		if (bConnectTiming) {
@@ -260,11 +262,11 @@ public class WsimportToolConnect {
                 }
 
             		if (bConnectTiming) {
-                	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:Before ServiceGenerator.generate():");
+                	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:Before ServiceGeneratorConnect.generate():");
                 }
-                ServiceGenerator.generate(wsdlModel, options, receiver);
+                ServiceGeneratorConnect.generate(wsdlModel, options, receiver);
             		if (bConnectTiming) {
-                	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:After ServiceGenerator.generate():");
+                	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:After ServiceGeneratorConnect.generate():");
                 }
 
                 CodeWriter cw = new WSCodeWriter(options.sourceDir, options);
@@ -274,7 +276,7 @@ public class WsimportToolConnect {
             		if (bConnectTiming) {
                 	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:Before Removing packages:");
                 }
-                
+
                 // Remove all of the packages that we do not want to have generated...
                 //---------------------------------------------------------------------
                 String sPackageToKeep = options.defaultPackage;
@@ -381,12 +383,12 @@ public class WsimportToolConnect {
             for (int i = 0; i < sourceFiles.size(); ++i) {
                 args[baseIndex + i] = sourceFiles.get(i);
             }
-            
+
             listener.message(WscompileMessages.WSIMPORT_COMPILING_CODE());
             if(options.verbose){
                 StringBuffer argstr = new StringBuffer();
                 for(String arg:args){
-                    argstr.append(arg).append(" ");                    
+                    argstr.append(arg).append(" ");
                 }
                 listener.message("javac "+ argstr.toString());
             }

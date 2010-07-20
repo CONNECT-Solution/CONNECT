@@ -22,6 +22,7 @@ import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.util.Map;
+import java.util.StringTokenizer;
 import javax.xml.ws.BindingProvider;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
@@ -85,7 +86,54 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             if(checkPolicy(subscribe, assertion))
             {
                 auditInputMessage(subscribe, assertion);
-                response = port.subscribe(subscribe);
+                int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    response = port.subscribe(subscribe);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on NotificationProducerService call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on NotificationProducerService call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call NotificationProducerService Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call NotificationProducerService Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            response = port.subscribe(subscribe);
+        }
+		
                 auditResponseMessage(response, assertion);
             }
             else
@@ -188,8 +236,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private NotificationProducer getPort(String url) {
         NotificationProducer port = nhinService.getNotificationProducerPort();
 
-        log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }

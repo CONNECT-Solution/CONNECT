@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="tests" xmlns="http://www.agilex.com/schemas/soapUICustom.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="tests">
+    <xs:complexType>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="test">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="testProperties" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="property" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="name" type="xs:string" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="deleteOnExit" type="xs:boolean"/>
+                  <xs:attribute name="filename" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="testcase" type="xs:string" use="required" />
+            <xs:attribute name="numberOfIteration" type="xs:int" use="required" />
+            <xs:attribute name="numberOfThreads" type="xs:int" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

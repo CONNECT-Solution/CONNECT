@@ -263,8 +263,9 @@ public class HL7Parser {
 
                 String nameString = "";
                 EnExplicitFamily lastname = new EnExplicitFamily();
-                EnExplicitGiven firstname = new EnExplicitGiven();
-
+                EnExplicitGiven firstname = null;
+                EnExplicitGiven middlename = null;
+                
                 while (iterSerialObjects.hasNext()) {
                     log.info("in iterSerialObjects.hasNext() loop");
 
@@ -287,10 +288,18 @@ public class HL7Parser {
 
                         if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                             lastname = (EnExplicitFamily) oJAXBElement.getValue();
-                            log.info("found lastname element; content=" + lastname.getContent());
+                            log.info("found lastname element content=" + lastname.getContent());
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
-                            firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                            log.info("found firstname element; content=" + firstname.getContent());
+                            if(firstname==null)
+                            {
+                                firstname = (EnExplicitGiven) oJAXBElement.getValue();
+                                log.info("found firstname element content=" + firstname.getContent());
+                            }
+                            else
+                            {
+                                middlename = (EnExplicitGiven) oJAXBElement.getValue();
+                                log.info("found middlename element content=" + middlename.getContent());
+                            }
                         } else {
                             //log.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
                         }
@@ -302,22 +311,27 @@ public class HL7Parser {
                 // If text string in patient name, then set in name
                 // else set in element.
                 boolean namefound = false;
-                if (lastname.getContent() != null) {
+                if (lastname !=null && lastname.getContent() != null) {
                     personname.setLastName(lastname.getContent());
                     log.info("FamilyName : " + personname.getLastName());
                     namefound = true;
                 }
 
-                if (firstname.getContent() != null) {
+                if (firstname != null && firstname.getContent() != null) {
                     personname.setFirstName(firstname.getContent());
                     log.info("GivenName : " + personname.getFirstName());
                     namefound = true;
                 }
 
+                if (middlename != null && middlename.getContent() != null) {
+                    personname.setMiddleName(middlename.getContent());
+                    log.info("MiddleName : " + personname.getMiddleName());
+                    namefound = true;
+                }
+                
                 if (!namefound && !nameString.trim().contentEquals("")) {
                     log.info("setting name by nameString " + nameString);
                     personname.setLastName(nameString);
-
                 }
             } else {
                 log.info("message does not contain a subject name");

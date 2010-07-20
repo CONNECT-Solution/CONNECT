@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import java.util.StringTokenizer;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -49,8 +50,56 @@ public class AdapterMpiQuery {
        java.util.Map requestContext;
        requestContext = tokenCreator.CreateRequestContext(assertion, url,  NhincConstants.ADAPTER_MPI_ACTION);
        ((BindingProvider) port).getRequestContext().putAll(requestContext);
-       
-       return port.findCandidates(findCandidatesRequest);
+	   PRPAIN201306UV02 result = null;
+	      
+       	int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    result = port.findCandidates(findCandidatesRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on adaptercomponentmpiservice call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on adaptercomponentmpiservice call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call adaptercomponentmpiservice Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call adaptercomponentmpiservice Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            result = port.findCandidates(findCandidatesRequest);
+        }
+       return result;
 
    }
    public static PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest) {
@@ -85,12 +134,12 @@ public class AdapterMpiQuery {
        if ((sEndpointURL != null) &&
            (sEndpointURL.length() > 0)) {
            log.debug("calling " + sEndpointURL);
-           ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+		   gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) mpiPort, sEndpointURL);
        }
        else {
            // Just a way to cover ourselves for the time being...  - assume port 8080
            //-------------------------------------------------------------------------
-           ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/NhinConnect/AdapterComponentMpiService");
+		   gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) mpiPort, "http://localhost:8080/NhinConnect/AdapterComponentMpiService");
 
            log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ADAPTER_COMPONENT_MPI_SERVICE + " and " +
                     "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
@@ -98,7 +147,54 @@ public class AdapterMpiQuery {
        }
        
        if (findCandidatesRequest != null) {
-           queryResponse = mpiPort.findCandidates(findCandidatesRequest);
+	      
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+	int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    queryResponse = mpiPort.findCandidates(findCandidatesRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on adaptercomponentmpiservice call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on adaptercomponentmpiservice call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call adaptercomponentmpiservice Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
+
+            if (i > retryCount) {
+                log.error("Unable to call adaptercomponentmpiservice Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            queryResponse = mpiPort.findCandidates(findCandidatesRequest);
+        }
        }
        else {
            queryResponse = null;
@@ -112,8 +208,7 @@ public class AdapterMpiQuery {
            AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
            AdapterComponentMpiSecuredPortType port = mpiSecuredService.getAdapterComponentMpiSecuredPort();
 
-           log.info("Setting endpoint address to MPI Component Secured Service to " + url);
-           ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+           gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
            return port;
        }

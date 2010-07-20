@@ -47,6 +47,7 @@
     <dependency org="log4j"               name="log4j"                          rev="1.2.15"              conf="compile->default" transitive="false" />	
     <dependency org="mysql" name="mysql-connector-java" rev="5.1.10"/>
 
+
     
     <!-- jars for test only -->
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />

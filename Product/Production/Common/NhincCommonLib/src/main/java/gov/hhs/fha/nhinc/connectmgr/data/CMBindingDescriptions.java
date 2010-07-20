@@ -67,5 +67,14 @@ public class CMBindingDescriptions
         return descriptionList;
     }
     
-    
+    /**
+     * Creates a deep copy of this object.
+     *
+     * @return A copy of this CMBindingDescriptions object
+     */
+    public CMBindingDescriptions createCopy() {
+        CMBindingDescriptions descriptionCopy = new CMBindingDescriptions();
+        descriptionCopy.getDescription().addAll(descriptionList);
+        return descriptionCopy;
+    }
 }

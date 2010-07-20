@@ -18,9 +18,7 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.ws.BindingProvider;
+import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
@@ -55,9 +53,56 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
             adapterUnsubscribeRequest.setAssertion(assertion);
 
             log.debug("invoking unsubscribe port");
-            UnsubscribeResponse response = port.unsubscribe(adapterUnsubscribeRequest);
+            UnsubscribeResponse response = null;
+			
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    response = port.unsubscribe(adapterUnsubscribeRequest);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on AdapterSubscriptionManager call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on AdapterSubscriptionManager call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call AdapterSubscriptionManager Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-            log.debug("building response");
+            if (i > retryCount) {
+                log.error("Unable to call AdapterSubscriptionManager Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            response = port.unsubscribe(adapterUnsubscribeRequest);
+        }
+		    log.debug("building response");
             WsntUnsubscribeResponseMarshaller unsubscribeResponseMarshaller = new WsntUnsubscribeResponseMarshaller();
             responseElement = unsubscribeResponseMarshaller.marshal(response);
         } else {
@@ -78,10 +123,7 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
 
     private AdapterSubscriptionManagerPortType getPort(String url) {
         AdapterSubscriptionManagerPortType port = service.getAdapterSubscriptionManagerPortSoap11();
-
-        log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
         return port;
     }
 

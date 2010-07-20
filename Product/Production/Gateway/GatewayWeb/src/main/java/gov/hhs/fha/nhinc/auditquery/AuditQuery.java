@@ -15,7 +15,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  * @author Neil Webb
  */
 @WebService(serviceName = "findAuditEvents", portName = "AuditLogQuery", endpointInterface = "com.nhin.services.AuditLogQuery", targetNamespace = "http://services.nhin.com", wsdlLocation = "WEB-INF/wsdl/AuditQuery/NhinAuditLogQuery.wsdl")
-@BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class AuditQuery
 {
     @Resource

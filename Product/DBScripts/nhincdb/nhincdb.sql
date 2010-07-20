@@ -28,7 +28,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON aggregator.* to nhincuser;
 -- begin assigning authority
 CREATE DATABASE assigningauthoritydb;
 
-CREATE TABLE assigningauthoritydb.assigningauthoritytohomecommunitymapping (
+CREATE TABLE assigningauthoritydb.aa_to_home_community_mapping (
   id int(10) unsigned NOT NULL auto_increment,
   assigningauthorityid varchar(45) NOT NULL,
   homecommunityid varchar(45) NOT NULL,
@@ -44,7 +44,7 @@ CREATE DATABASE auditrepo;
 CREATE TABLE auditrepo.auditrepository
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	timestamp DATETIME,
+	audit_timestamp DATETIME,
 	eventId BIGINT NOT NULL,
 	userId VARCHAR(100),
 	participationTypeCode SMALLINT,
@@ -103,7 +103,7 @@ CREATE TABLE docrepository.document (
   PracticeSetting varchar(64) default NULL,
   PracticeSettingScheme varchar(64) default NULL,
   PracticeSettingDisplayName varchar(64) default NULL,
-  Size int(11) default NULL,
+  DocumentSize int(11) default NULL,
   SourcePatientId varchar(128) default NULL COMMENT 'Format of HL7 2.x CX',
   Pid3 varchar(128) default NULL,
   Pid5 varchar(128) default NULL,

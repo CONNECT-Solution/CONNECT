@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="soapui-project-conf.xsd">
+  <test name="DocQuery-ThreeResults(1tx50r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1</property>
+      <property name="DocQuery.PatientId">D123401</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
+    </testProperties>
+  </test>
+  <test name="DocRetrieve-SingleRequestsForMultipleDocuments(1tx50r)" testcase="Nhin.DocRetrieve.SingleRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
+      <property name="DocRetrieve.RepositoryId">1</property>
+      <property name="DocRetrieve.DocumentId-1">1.123409.44444</property>
+      <property name="DocRetrieve.DocumentId-2">1.123407.11111</property>
+      <property name="DocRetrieve.DocumentId-3">1.123407.22222</property>
+      <property name="DocRetrieve.DocumentId-4">1.123407.33333</property>
+      <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
+    </testProperties>
+  </test>
+</tests>

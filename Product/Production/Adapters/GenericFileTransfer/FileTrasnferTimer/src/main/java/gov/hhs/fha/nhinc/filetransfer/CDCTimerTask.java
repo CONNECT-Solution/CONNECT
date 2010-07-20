@@ -133,9 +133,7 @@ public class CDCTimerTask {
             EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap11();
             //Create End point Dynamically
             String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
-            log.info("EntityNotificationConsumerURL :" + endpointURL);
-            ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
+			gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port,endpointURL);
             NotifyRequestType notifyRequest = new NotifyRequestType();
 
             //build Set Assertion

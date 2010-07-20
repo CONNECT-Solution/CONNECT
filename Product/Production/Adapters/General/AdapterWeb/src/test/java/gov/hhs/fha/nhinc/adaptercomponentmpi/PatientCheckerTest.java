@@ -60,7 +60,7 @@ public class PatientCheckerTest {
         Identifier patId = new Identifier();
         patId.setId("1234");
         patId.setOrganizationId("2.16.840.1.113883.3.200");
-        Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "M", "March 1, 1956", patId);
+        Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "", "M", "March 1, 1956", patId);
         
         PRPAIN201306UV02 expResult = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
         

@@ -16,6 +16,8 @@ public class PersonName implements java.io.Serializable {
     private String lastName = "";
     private String firstName = "";
     private String middleName = "";
+    private String title = "";
+    private String suffix = "";
     
     public PersonName() {
         log.debug("PersonName Initialized");
@@ -63,5 +65,28 @@ public class PersonName implements java.io.Serializable {
 
     public void setFirstName(String FirstName) {
         this.firstName = FirstName;
+    }
+    public void setTitle(String value)
+    {
+        this.title = value;
+    }
+    public String getTitle()
+    {
+        return title;
+    }
+    public void setSuffix(String value)
+    {
+        this.suffix = value;
+    }
+    public String getSuffix()
+    {
+        return suffix;
+    }
+    public String toString()
+    {
+        String result = "";
+        result = lastName + ", " + firstName;
+
+        return result;
     }
 }

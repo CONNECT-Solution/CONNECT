@@ -46,6 +46,7 @@
     <dependency org="Nux"                 name="nux"                 rev="1.0" conf="compile->default" transitive="false" />
     <dependency org="Nux"                 name="xom"                 rev="1.0" conf="compile->default" transitive="false" />
     <dependency org="mysql"               name="mysql-connector-java" rev="5.1.10" conf="compile->default" transitive="false" />
+
     
     <!-- runtime jars -->
     <!-- jars for test only -->

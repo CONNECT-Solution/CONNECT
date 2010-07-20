@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="AdapterDocRegistry2Soap12Web" default="default" basedir=".">
+    <description>Builds, tests, and runs the project AdapterDocRegistry2Soap12Web.</description>
+    <import file="../../../../build.lib.xml" />
+
+    <property name="deploy.type" value="war" />
+    <property name="deploy.isDeployable" value="true"/>
+
+    <import file="nbproject/build-impl.xml"/>
+
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist" />
+    <target name="build-test" depends="dist, test" />
+    <target name="wsimport-service-AdapterDocRegistry2Soap12Service" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRegistry2Soap12Service"/>
+        
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRegistry2Soap12Service">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRegistry2Soap12Service">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRegistry2Soap12Service/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRegistry2Soap12Service/schemas/"/>
+        </copy>
+    </target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+        </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+        </target>
+</project>

@@ -6,7 +6,7 @@
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
-  
+
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
 
@@ -53,25 +53,25 @@
     </fileset>
   </path>
 
-  <taskdef name="WsImportConnect" 
-      classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect" 
-      classpath="${ant.thirdparty.lib.dir}/agilex-ant-tasks.jar" 
-      />
+  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect"/>
 
-  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-    <classpath>
-      <fileset dir="${codeline.directory.path}/ThirdParty/JAXWS2.1">
-        <include name="${ant.thirdparty.lib.dir}/jaxb-xjc.jar"/>
-      </fileset>
-    </classpath>
-  </taskdef>
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
 
   <target name="-compile.source">
-    <echo message="compile.source for ${project.name}" />
+    <echo message="compile.source for ${project.name}" level="info"/>
 
     <call target="generate.proxies.xjc"/>
-    <call target="generate.proxies.wsdl"/> 
+    <call target="generate.proxies.wsdl"/>
+    <call target="copy.util.src"/>
     <javac srcdir="${build.dir}/generated/client" destdir="${build.classes.dir}"/>
+  </target>
+
+  <target name="copy.util.src">
+    <copy todir="${build.dir}/generated/client">
+      <fileset dir="src/main/java">
+        <include name="**/*.java"/>
+      </fileset>
+    </copy>
   </target>
 
   <target name="generate.proxies.xjc">
@@ -91,7 +91,7 @@
             <patternset refid="schema.list"/>
           </schema>
         </xjc>
-		<echo file="${build.dir.root}/compilexjc.flag" append="false"/>
+        <echo file="${build.dir.root}/compilexjc.flag" append="false"/>
       </sequential>
     </outofdate>
   </target>
@@ -107,6 +107,8 @@
         <for param="wsdl.file.path">
           <path refid="wsdl.list"/>
           <sequential>
+            <var name="wsdl.file" unset="true"/>
+            <basename property="wsdl.file" file="@{wsdl.file.path}" />
             <WsImportConnect 
                 xendorsed="true" 
                 sourcedestdir="${build.dir}/generated/client" 
@@ -114,12 +116,12 @@
                 destdir="${build.classes.dir}" 
                 wsdl="@{wsdl.file.path}" 
                 verbose="true"
-                wsdlLocation="file:@{wsdl.file.path}" 
+                wsdlLocation="${wsdl.file}"
                 xnocompile="true">
             </WsImportConnect>			
           </sequential>
         </for>  
-		<echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
+        <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
       </sequential>
     </outofdate>
   </target>

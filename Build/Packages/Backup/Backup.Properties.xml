@@ -10,7 +10,7 @@
     <include name="${Common.Directory.Artifact.Name}\**\*"/>
   </fileset>
 
-  <property name="Backup.BackupRepositoryDirectory" value="\\192.168.101.102\Public\${ProjectName}\Build Archive\${ProjectCodeLineName}"/>
+  <property name="Backup.BackupRepositoryDirectory" value="\\cibackup.connectopensource.org\Public\${ProjectName}\Build Archive\${ProjectCodeLineName}"/>
   <property name="Backup.CCNetServerDirectory" value="${Backup.BackupRepositoryDirectory}\server"/>
   <property name="Backup.ArtifactsDirectory" value="${Backup.BackupRepositoryDirectory}\Artifacts"/>
   

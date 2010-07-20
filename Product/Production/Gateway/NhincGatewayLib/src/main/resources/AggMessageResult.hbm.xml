@@ -16,6 +16,6 @@
   	<property name="messageOutTime" column="MessageOutTime" type="timestamp" not-null="false" />
   	<property name="responseReceivedTime" column="ResponseReceivedTime" type="timestamp" not-null="false" />
   	<property name="responseMessageType" column="ResponseMessageType" type="string" length="100" not-null="false" />
-  	<property name="responseMessage" column="responseMessage" type="string" not-null="false" />
+  	<property name="responseMessageAsBytes" column="responseMessage" type="binary" not-null="false" />
   </class>
 </hibernate-mapping>

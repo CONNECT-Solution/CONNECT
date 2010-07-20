@@ -272,24 +272,22 @@
   <target name="Test" depends="SetUps" >
     <trycatch>
       <try>
-        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
+        <description>Begin Main Build</description>
 
+        <description>Begin Pre Build Actions</description>
+        <call target="SourceModificationReport.ConsolidateReports" />
         <call target="TargetProcess.Get.Release.Report"/>
+        <description>End Pre Build Actions</description>
+
+        <description>Begin Clean Up Actions</description>
+        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
+        <description>End Clean Up Actions</description>
+
+        <description>Begin Varification Actions</description>
         <call target="SoapUI.RunTests"/>
-      </try>
-      <finally>
-        <call target="TearDowns" />
-      </finally>
-    </trycatch>
-  </target>
+        <description>End Varification Actions</description>
 
-  <target name="PerformanceTest" depends="SetUps" >
-    <trycatch>
-      <try>
-        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
-
-        <call target="TargetProcess.Get.Release.Report"/>
-        <call target="SoapUI.Performance.Test.Run"/>
+        <description>End Main Build</description>
       </try>
       <finally>
         <call target="TearDowns" />

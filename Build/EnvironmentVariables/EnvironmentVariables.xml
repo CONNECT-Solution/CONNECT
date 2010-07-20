@@ -58,7 +58,8 @@
     <variable name="IDE_HOME" value="${IDE.Home}"/>
     <variable name="NHINC_PROPERTIES_DIR" value="%AS_HOME%\domains\domain1\config\nhin"/>
     <variable name="NHINC_THIRDPARTY_DIR" value="${Common.Directory.ThirdParty.Path}"/>
-	<variable name="NHINC_SOURCE_DIR" value="${Common.Directory.CodeLine.Path}"/>
+    <variable name="NHINC_SOURCE_DIR" value="${Common.Directory.CodeLine.Path}"/>
+    <variable name="SOAPUI_HOME" value="${ProgramFiles.Default.Path}\eviware\soapUI-Pro-3.0.1"/>
   </environment>
 
 </project>

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.xdr.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
@@ -17,9 +12,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
-import javax.xml.ws.BindingProvider;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import java.util.StringTokenizer;
 
 
 /**
@@ -50,11 +43,56 @@ public class AdapterComponentXDRSecuredImpl {
         
         unsecured.setAssertion(assertion);
         unsecured.setProvideAndRegisterDocumentSetRequest(body);
+				
+		int retryCount = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryAttempts();
+		int retryDelay = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getRetryDelay();
+        String exceptionText = gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().getExceptionText();
+        javax.xml.ws.WebServiceException catchExp = null;
+        if (retryCount > 0 && retryDelay > 0 && exceptionText != null && !exceptionText.equalsIgnoreCase("")) {
+            int i = 1;
+            while (i <= retryCount) {
+                try {
+                    result = port.provideAndRegisterDocumentSetb(unsecured);
+                    break;
+                } catch (javax.xml.ws.WebServiceException e) {
+                    catchExp = e;
+                    int flag = 0;
+                    StringTokenizer st = new StringTokenizer(exceptionText, ",");
+                    while (st.hasMoreTokens()) {
+                        if (e.getMessage().contains(st.nextToken())) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1) {
+                        log.warn("Exception calling ... web service: " + e.getMessage());
+                        System.out.println("retrying the connection for attempt [ " + i + " ] after [ " + retryDelay + " ] seconds");
+                        log.info("retrying attempt [ " + i + " ] the connection after [ " + retryDelay + " ] seconds");
+                        i++;
+                        try {
+                            Thread.sleep(retryDelay);
+                        } catch (InterruptedException iEx) {
+                            log.error("Thread Got Interrupted while waiting on provideAndRegisterDocumentSetb call :" + iEx);
+                        } catch (IllegalArgumentException iaEx) {
+                            log.error("Thread Got Interrupted while waiting on provideAndRegisterDocumentSetb call :" + iaEx);
+                        }
+                        retryDelay = retryDelay + retryDelay; //This is a requirement from Customer
+                    } else {
+                        log.error("Unable to call provideAndRegisterDocumentSetb Webservice due to  : " + e);
+                        throw e;
+                    }
+                }
+            }
 
-         result = port.provideAndRegisterDocumentSetb(unsecured);
+            if (i > retryCount) {
+                log.error("Unable to call provideAndRegisterDocumentSetb Webservice due to  : " + catchExp);
+                throw catchExp;
+            }
+
+        } else {
+            result = port.provideAndRegisterDocumentSetb(unsecured);
+        }
         log.debug("end provideAndRegisterDocumentSetb()");
-
-        return result;
+		return result;
     }
 
     protected Log createLogger()
@@ -83,8 +121,7 @@ public class AdapterComponentXDRSecuredImpl {
 
         AdapterXDRPortType port = service.getAdapterXDRPort();
 
-        log.info("Setting endpoint address to Adapter XDR Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
 
         return port;
     }
