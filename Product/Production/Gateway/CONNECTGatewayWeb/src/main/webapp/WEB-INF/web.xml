@@ -474,8 +474,18 @@
         <url-pattern>/GatewayService/GatewayLiftManager</url-pattern>
     </servlet-mapping>
 
+
+
+
+
+
     <!-- End: XDR Request and Response services-->
 	<security-constraint>
+
+		<web-resource-collection>
+			<web-resource-name>EntityAdministrativeDistributionSecured</web-resource-name>
+			<url-pattern>/EntityService/AdministrativeDistributionSecured</url-pattern>
+		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
 			<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
