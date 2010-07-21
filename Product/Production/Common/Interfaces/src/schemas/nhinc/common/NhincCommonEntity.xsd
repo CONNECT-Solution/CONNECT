@@ -258,7 +258,6 @@
 
 	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
 		<xsd:sequence>
-			<xsd:element name="assertion" type="nccommon:AssertionType"/>
 			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
 		 <xsd:element ref="edxlde:EDXLDistribution"/>
 		</xsd:sequence>
