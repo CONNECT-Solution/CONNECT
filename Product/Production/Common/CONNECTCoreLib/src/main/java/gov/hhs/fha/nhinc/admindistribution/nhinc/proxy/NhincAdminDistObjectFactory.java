@@ -27,7 +27,7 @@ public class NhincAdminDistObjectFactory {
      *
      * @return AdapterAuditQueryProxy instance
      */
-    public NhincAdminDistProxy getAdapterAuditQueryProxy() {
+    public NhincAdminDistProxy getNhincAdminDistProxy() {
         NhincAdminDistProxy result = null;
         if (context != null) {
             result = (NhincAdminDistProxy) context.getBean(BEAN_NAME_AUDIT_REPOSITORY);

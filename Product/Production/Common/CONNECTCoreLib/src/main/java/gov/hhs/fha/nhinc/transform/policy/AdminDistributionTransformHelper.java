@@ -35,7 +35,30 @@ public class AdminDistributionTransformHelper {
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    
+    public CheckPolicyRequestType transformNhinAlertToCheckPolicy(EDXLDistribution message, AssertionType assertion)
+    {
+        CheckPolicyRequestType result = new CheckPolicyRequestType();
+
+         RequestType request = new RequestType();
+
+        if(assertion == null)
+        {
+            log.error("Missing Assertion");
+            return result;
+        }
+        if(message == null)
+        {
+            log.error("Missing message");
+            return result;
+        }
+        log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding assertion data");
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, assertion);
+
+        request.setAction(ActionHelper.actionFactory(ActionInValue));
+        
+        return result;
+    }
     public CheckPolicyRequestType transformEntityAlertToCheckPolicy(RespondingGatewaySendAlertMessageType message, String target) {
 
         CheckPolicyRequestType result = new CheckPolicyRequestType();

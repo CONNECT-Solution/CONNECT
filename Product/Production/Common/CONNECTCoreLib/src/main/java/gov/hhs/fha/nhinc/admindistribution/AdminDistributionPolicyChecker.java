@@ -4,6 +4,7 @@
  */
 
 package gov.hhs.fha.nhinc.admindistribution;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
@@ -14,6 +15,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  *
@@ -38,6 +40,17 @@ public class AdminDistributionPolicyChecker {
         policyHelper = new gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper();
 
         CheckPolicyRequestType checkPolicyRequest = policyHelper.transformEntityAlertToCheckPolicy(request, target);
+
+        return invokePolicyEngine(checkPolicyRequest);
+    }
+    public boolean checkIncomingPolicy (EDXLDistribution request, AssertionType assertion) {
+        log.debug("checking the policy engine for the new request to a target community");
+
+        gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper policyHelper;
+
+        policyHelper = new gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper();
+
+        CheckPolicyRequestType checkPolicyRequest = policyHelper.transformNhinAlertToCheckPolicy(request, assertion);
 
         return invokePolicyEngine(checkPolicyRequest);
     }

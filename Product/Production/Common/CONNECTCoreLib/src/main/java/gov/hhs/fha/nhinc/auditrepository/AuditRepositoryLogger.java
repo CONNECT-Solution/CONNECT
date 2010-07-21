@@ -984,6 +984,10 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, NhinTargetSystemType target, String direction) {
+
+        return logNhincAdminDist(message, assertion, direction);
+    }
+    public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, String direction) {
         log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
 
@@ -995,7 +999,6 @@ public class AuditRepositoryLogger {
 
         return auditMsg;
     }
-
     protected Log getLogger(){
         return log;
     }

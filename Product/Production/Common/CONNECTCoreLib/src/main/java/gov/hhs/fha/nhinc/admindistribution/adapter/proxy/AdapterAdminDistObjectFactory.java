@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
+package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -13,10 +13,10 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author dunnek
  */
-public class NhinAdminDistObjectFactory {
+public class AdapterAdminDistObjectFactory {
    private Log log = null;
 
-    public NhinAdminDistObjectFactory()
+    public AdapterAdminDistObjectFactory()
     {
         log = createLogger();
         log.debug("created logger");
@@ -25,8 +25,8 @@ public class NhinAdminDistObjectFactory {
     {
         return LogFactory.getLog(getClass());
     }
-    private static final String CONFIG_FILE_NAME = "NhinAdminDistProxyConfig.xml";
-    private static final String BEAN_NAME_NHIN_ADMIN_DIST = "nhinadmindist";
+    private static final String CONFIG_FILE_NAME = "AdapterAdminDistProxyConfig.xml";
+    private static final String BEAN_NAME_ADAPTER_ADMIN_DIST = "adapteradmindist";
     private static ApplicationContext context = null;
 
     static {
@@ -39,14 +39,14 @@ public class NhinAdminDistObjectFactory {
      *
      * @return AdapterAuditQueryProxy instance
      */
-    public NhinAdminDistProxy getNhinAdminDistProxy() {
+    public AdapterAdminDistProxy getNhinAdminDistProxy() {
         log.debug("Begin getNhinAdminDistProxy()");
-        
-        NhinAdminDistProxy result = null;
+
+        AdapterAdminDistProxy result = null;
 
         if (context != null) {
             log.debug("Getting bean");
-            result = (NhinAdminDistProxy) context.getBean(BEAN_NAME_NHIN_ADMIN_DIST);
+            result = (AdapterAdminDistProxy) context.getBean(BEAN_NAME_ADAPTER_ADMIN_DIST);
         }
 
         return result;

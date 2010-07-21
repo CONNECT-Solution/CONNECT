@@ -19,6 +19,10 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistProxy;
+import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 /**
  *
  * @author dunnek
@@ -48,12 +52,14 @@ public class EntityAdminDistributionImpl {
 
             for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
                 //create a new request to send out to each target community
-               
+               log.debug("Target: " + urlInfo.getHcid());
                 //check the policy for the outgoing request to the target community
                 boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
 
                 if (bIsPolicyOk) {
-                    sendToNhinProxy(message, assertion, urlInfo.getUrl());
+                    NhinTargetSystemType targetSystem =buildTargetSystem(urlInfo);
+
+                    sendToNhinProxy(message, assertion, targetSystem);
 
                 } //if (bIsPolicyOk)
                 else {
@@ -62,6 +68,18 @@ public class EntityAdminDistributionImpl {
             }
 
         
+    }
+    private NhinTargetSystemType buildTargetSystem(CMUrlInfo urlInfo)
+    {
+        log.debug("Begin buildTargetSystem");
+        NhinTargetSystemType result = new NhinTargetSystemType();
+        HomeCommunityType hc = new HomeCommunityType();
+
+        hc.setHomeCommunityId(urlInfo.getHcid());
+        result.setHomeCommunity(hc);
+        result.setUrl(urlInfo.getUrl());
+
+        return result;
     }
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion, NhinTargetCommunitiesType target)
     {
@@ -108,7 +126,16 @@ public class EntityAdminDistributionImpl {
         return new AdminDistributionPolicyChecker().checkOutgoingPolicy(request, hcid);
         
     }
-    protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion, String url) {
+    protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,NhinTargetSystemType target)
+    {
+        log.debug("begin sendToNhinProxy");
+        NhincAdminDistProxy nhincAdminDist = getNhincAdminDist();
+
+        nhincAdminDist.sendAlertMessage(newRequest.getEDXLDistribution(), assertion, target);
+    }
+    protected NhincAdminDistProxy getNhincAdminDist()
+    {
+        return new NhincAdminDistObjectFactory().getNhincAdminDistProxy();
     }
 
 }

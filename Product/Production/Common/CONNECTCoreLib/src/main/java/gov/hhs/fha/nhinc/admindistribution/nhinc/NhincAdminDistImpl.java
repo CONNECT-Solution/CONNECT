@@ -48,7 +48,7 @@ public class NhincAdminDistImpl {
     }
     protected NhinAdminDistProxy getNhinProxy()
     {
-        return new NhinAdminDistObjectFactory().getAdapterAuditQueryProxy();
+        return new NhinAdminDistObjectFactory().getNhinAdminDistProxy();
     }
 
 }

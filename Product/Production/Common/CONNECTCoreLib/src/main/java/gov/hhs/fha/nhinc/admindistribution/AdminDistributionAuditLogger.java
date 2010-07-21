@@ -59,5 +59,18 @@ public class AdminDistributionAuditLogger {
         }
         return ack;
     }
+    public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction)
+    {
+        AcknowledgementType ack = null;
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+
+        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion,direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+        return ack;
+    }
  
 }
