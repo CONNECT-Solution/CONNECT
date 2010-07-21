@@ -204,4 +204,5 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.UniqueIdHelper" linecount="10" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistribution" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistributionSecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution" linecount="5" linerate="0.0" linesexecuted="0"/>
 </thresholds>
