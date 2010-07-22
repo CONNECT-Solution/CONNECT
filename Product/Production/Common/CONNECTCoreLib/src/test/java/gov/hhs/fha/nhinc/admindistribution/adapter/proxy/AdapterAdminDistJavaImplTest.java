@@ -49,7 +49,7 @@ public class AdapterAdminDistJavaImplTest {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
 
-        final EDXLDistribution body = null;
+        final EDXLDistribution body = new EDXLDistribution();
 
 
         AdapterAdminDistJavaImpl instance = new AdapterAdminDistJavaImpl()
