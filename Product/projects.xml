@@ -21,6 +21,16 @@
         <dist.type>war</dist.type>
     </project>    
     <project>
+        <name>CONNECTNhinServicesWeb</name>
+        <directory>/Production/Gateway/CONNECTNhinServicesWeb</directory>
+        <dist.type>war</dist.type>
+    </project>    
+    <project>
+        <name>CONNECTMsgProxyWeb</name>
+        <directory>/Production/Gateway/CONNECTMsgProxyWeb</directory>
+        <dist.type>war</dist.type>
+    </project>    
+    <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
