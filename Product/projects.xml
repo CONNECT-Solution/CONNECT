@@ -81,8 +81,8 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-        <name>UDDIModifierGUI</name>
-        <directory>/Production/Common/UDDIModifierGUI</directory>
+        <name>CONNECTUDDIModifierGUI</name>
+        <directory>/Production/Common/CONNECTUDDIModifierGUI</directory>
         <dist.type>war</dist.type>
     </project>
     <project>
