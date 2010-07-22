@@ -514,4 +514,5 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistObjectFactory" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistImpl" linecount="17" linerate="0.0" linesexecuted="0"/>
+
 </thresholds>
