@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+﻿<?xml version="1.0" encoding="UTF-8"?> 
 <definitions 
  xmlns="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
@@ -31,7 +31,7 @@
     <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"/>
-    <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
+    <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/> 
+    <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
-
 </definitions>
