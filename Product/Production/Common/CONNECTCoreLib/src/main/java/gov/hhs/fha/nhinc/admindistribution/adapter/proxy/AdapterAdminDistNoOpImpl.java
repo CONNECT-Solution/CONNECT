@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author dunnek
  */
-public class AdapterAdminDistNoOpImpl {
+public class AdapterAdminDistNoOpImpl implements AdapterAdminDistProxy {
      private Log log = null;
 
     public AdapterAdminDistNoOpImpl()

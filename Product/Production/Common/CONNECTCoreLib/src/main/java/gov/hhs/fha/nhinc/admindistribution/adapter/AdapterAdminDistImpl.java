@@ -3,19 +3,18 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
+package gov.hhs.fha.nhinc.admindistribution.adapter;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl;
 /**
  *
  * @author dunnek
  */
-public class AdapterAdminDistJavaImpl implements AdapterAdminDistProxy{
-     private Log log = null;
+public class AdapterAdminDistImpl {
+    private Log log = null;
 
-    public AdapterAdminDistJavaImpl()
+    public AdapterAdminDistImpl()
     {
         log = createLogger();
     }
@@ -26,10 +25,12 @@ public class AdapterAdminDistJavaImpl implements AdapterAdminDistProxy{
     public void sendAlertMessage(EDXLDistribution body)
     {
         log.debug("Begin sendAlertMessage");
-        getAdapterImplementation().sendAlertMessage(body);
-    }
-    protected AdapterAdminDistImpl getAdapterImplementation()
-    {
-        return new gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl();
+
+        log.info("Recieved Alert Message");
+        log.info(body.getCombinedConfidentiality());
+        log.info("Time Sent: " + body.getDateTimeSent());
+        log.info("Sender Id: " + body.getSenderID());
+        log.info("Keyword: " + body.getKeyword().toString());
+
     }
 }

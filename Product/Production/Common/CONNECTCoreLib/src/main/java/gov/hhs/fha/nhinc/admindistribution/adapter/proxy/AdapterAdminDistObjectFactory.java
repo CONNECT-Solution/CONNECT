@@ -39,8 +39,8 @@ public class AdapterAdminDistObjectFactory {
      *
      * @return AdapterAuditQueryProxy instance
      */
-    public AdapterAdminDistProxy getNhinAdminDistProxy() {
-        log.debug("Begin getNhinAdminDistProxy()");
+    public AdapterAdminDistProxy getAdapterAdminDistProxy() {
+        log.debug("Begin getAdapterAdminDistProxy()");
 
         AdapterAdminDistProxy result = null;
 

@@ -6,6 +6,7 @@
 package gov.hhs.fha.nhinc.admindistribution.nhin;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -56,6 +57,12 @@ public class NhinAdminDistImpl {
     protected void sendToAgency(EDXLDistribution body)
     {
         log.debug("begin send to agency");
+        getAdminFactory().getAdapterAdminDistProxy().sendAlertMessage(body);
+
+    }
+    protected AdapterAdminDistObjectFactory getAdminFactory()
+    {
+        return new AdapterAdminDistObjectFactory();
     }
     protected AdminDistributionAuditLogger getLogger()
     {

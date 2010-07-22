@@ -60,6 +60,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
     public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
+    public static final String ADMIN_DIST_ACTION = "administrativedistribution";
     public static final String ADAPTER_XDR_ACTION = "adapterXDRSecured";
     public static final String ADAPTER_XDRREQUEST_SECURED_ACTION = "adapterXDRRequestSecured";
     public static final String ADAPTER_XDRRESPONSE_SECURED_ACTION = "adapterXDRResponseSecured";
@@ -306,6 +307,15 @@ public class NhincConstants {
 
     public static final String XDR_ACK_STATUS_MSG = "urn:nhin:DocumentSubmission:async:ResponseAccepted";
 
+    //Administrative Distribution Constants
+    public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "nhinadmindist";
+    public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";
+    public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
+    public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
+    public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
+    public static final String NHINC_ADMIN_DIST_SERVICE_NAME = "nhincadmindist";
+    public static final String NHINC_ADMIN_DIST_SECURED_SERVICE_NAME = "nhincadmindistsecured";
+    
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";

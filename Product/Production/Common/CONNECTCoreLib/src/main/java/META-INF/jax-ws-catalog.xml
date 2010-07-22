@@ -144,4 +144,6 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl" uri="wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscovery.wsdl" uri="wsdl/EntityPatientDiscovery.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl" uri="wsdl/EntityPatientDiscoverySecured.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAdminDist.wsdl" uri="wsdl/NhinAdminDist.wsdl"/>
 </catalog>
+
