@@ -32,5 +32,6 @@
     <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"/>
     <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
-    <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
+    <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
+
 </definitions>
