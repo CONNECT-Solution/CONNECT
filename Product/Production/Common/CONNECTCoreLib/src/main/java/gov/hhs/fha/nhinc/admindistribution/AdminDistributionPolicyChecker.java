@@ -57,6 +57,7 @@ public class AdminDistributionPolicyChecker {
     protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
         boolean policyIsValid = false;
 
+        log.debug("start invokePolicyEngine");
          /* invoke check policy */
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();

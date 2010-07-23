@@ -49,10 +49,13 @@ public class NhinAdminDistImpl {
             log.debug("ack: " + ack.getMessage());
         }
 
+
         if(checkPolicy(body, assertion))
         {
             sendToAgency(body);
         }
+
+        log.info("End sendAlert");
     }
     protected void sendToAgency(EDXLDistribution body)
     {
@@ -68,11 +71,20 @@ public class NhinAdminDistImpl {
     {
         return new AdminDistributionAuditLogger();
     }
-    protected boolean checkPolicy(EDXLDistribution body, AssertionType assertion) {
-        if (body != null) {
-            
-        }
-        return new AdminDistributionPolicyChecker().checkIncomingPolicy(body, assertion);
+    protected boolean checkPolicy(EDXLDistribution body, AssertionType assertion) 
+    {
+        boolean result = false;
 
+        log.debug("begin checkPolicy");
+        if (body != null) {
+            result =  new AdminDistributionPolicyChecker().checkIncomingPolicy(body, assertion);
+        }
+        else
+        {
+            log.warn("EDXLDistribution was null");
+        }
+
+        log.debug("End Check Policy");
+        return result;
     }
 }
