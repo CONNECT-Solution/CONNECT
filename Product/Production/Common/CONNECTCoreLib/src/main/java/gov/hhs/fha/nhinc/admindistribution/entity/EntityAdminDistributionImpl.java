@@ -46,7 +46,7 @@ public class EntityAdminDistributionImpl {
         CMUrlInfos urlInfoList = getEndpoints(target);
 
         if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
-            log.warn("No targets were found for the Patient Discovery Request");
+            log.warn("No targets were found for the Admin Distribution Request");
 
         }
 
