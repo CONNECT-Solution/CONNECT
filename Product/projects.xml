@@ -76,8 +76,8 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-        <name>UniversalClientGUI</name>
-        <directory>/Production/Adapters/General/UniversalClientGUI</directory>
+        <name>CONNECTUniversalClientGUI</name>
+        <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
     </project>
     <project>
