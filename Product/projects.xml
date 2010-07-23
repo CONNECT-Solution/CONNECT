@@ -71,8 +71,8 @@
         <dist.type>jar</dist.type>
     </project>
     <project>
-        <name>ConsumerPreferencesProfileGUI</name>
-        <directory>/Production/Adapters/General/ConsumerPreferencesProfileGUI</directory>
+        <name>CONNECTConsumerPreferencesProfileGUI</name>
+        <directory>/Production/Adapters/General/CONNECTConsumerPreferencesProfileGUI</directory>
         <dist.type>war</dist.type>
     </project>
     <project>
