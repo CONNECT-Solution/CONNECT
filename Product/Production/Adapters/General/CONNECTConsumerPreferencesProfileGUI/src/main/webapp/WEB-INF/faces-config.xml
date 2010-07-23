@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="1.2" 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>login_required</from-outcome>
+            <to-view-id>/UserLogin.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>login_success</from-outcome>
+            <to-view-id>/SearchPatient.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>UserLogin</managed-bean-name>
+        <managed-bean-class>consumerpreferencesprofilegui.UserLogin</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>UserSession</managed-bean-name>
+        <managed-bean-class>gov.hhs.fha.nhinc.adapter.cppgui.UserSession</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>SearchPatient</managed-bean-name>
+        <managed-bean-class>consumerpreferencesprofilegui.SearchPatient</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+</faces-config>

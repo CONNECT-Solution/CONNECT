@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<thresholds>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants" linecount="1" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.ConsumerPreferencesSearchCriteria" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.PatientSearchCriteria" linecount="16" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.UserSession" linecount="28" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="50" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.AdapterPIPFacade" linecount="85" linerate="0" linesexecuted="0"/>
+<threshold branchcount="40" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade" linecount="49" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO" linecount="31" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO" linecount="26" linerate="0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO" linecount="22" linerate="0.0" linesexecuted="0"/>
+</thresholds>
