@@ -60,7 +60,8 @@ layer of abstraction
   </target>
 
   <target name="just.deploy" description="Deploy the project, does not call dependent targets...">
-    <call target="deploy.to.development" if="${deploy.isDeployable}"/>
+    <property name="just.deploy" value="true"/>
+    <call target="deploy.to.production" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="undeploy">

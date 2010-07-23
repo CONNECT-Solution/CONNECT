@@ -63,10 +63,17 @@
 
   <target name="deploy.to.production">
     <runtarget target="deploy.glassfish.stop.server"/>
-    <runtarget target="deploy.nhinc.configuration.to.glassfish"/>
-    <runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
-    <runtarget target="deploy.shared.libs.to.glassfish"/>
+    <if>
+      <not>
+        <isset property="just.deploy" />
+      </not>
+      <then>
+        <runtarget target="deploy.nhinc.configuration.to.glassfish"/>
+        <runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
+      </then>
+    </if>
 
+    <runtarget target="deploy.shared.libs.to.glassfish"/>
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
     <runtarget target="deploy.ejbs.to.glassfish"/>
