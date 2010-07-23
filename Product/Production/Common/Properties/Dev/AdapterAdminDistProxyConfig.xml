@@ -4,5 +4,5 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<!-- Default implementation -->
-     <bean id="nhinadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistSecuredWebServiceImpl"/> 
+     <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistJavaImpl"/> 
 </beans>

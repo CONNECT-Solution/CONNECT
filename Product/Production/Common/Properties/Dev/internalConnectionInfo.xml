@@ -1222,6 +1222,11 @@
 				<description>Patient Correlation Facade DTE Service</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+			</service>				
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -1761,6 +1766,11 @@
 				<description>Patient Correlation Facade DTE Service</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+			</service>				
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>

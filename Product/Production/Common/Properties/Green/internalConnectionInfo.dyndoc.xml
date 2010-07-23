@@ -399,7 +399,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
-                
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+			</service>		                
       </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -794,7 +798,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
-            
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+			</service>		            
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -1171,6 +1179,11 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+			</service>					
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
