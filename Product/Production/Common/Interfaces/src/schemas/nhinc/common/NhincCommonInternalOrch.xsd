@@ -33,6 +33,16 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType" />
+    
+    <xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType" >
+        <xsd:sequence>
+            <xsd:element ref="query:AdhocQueryResponse" />
+            <xsd:element name="assertion" type="nccommon:AssertionType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType" />
+    
+        
 
     <!-- ====================================================================
          Document Retrieve Schemas.

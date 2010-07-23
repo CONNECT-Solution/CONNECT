@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified">
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
@@ -19,6 +19,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType"/>
+	
 	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType">
 		<xsd:sequence>
 			<xsd:element ref="query:AdhocQueryResponse"/>

@@ -19,6 +19,7 @@
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
+   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    name="AdapterDocQueryDeferredRequestSecured" 
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredRequestSecured">
   <documentation>Adapter Document Query</documentation>
@@ -29,13 +30,15 @@
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
       <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                schemaLocation="../schemas/nhin/QueryDocument.xsd"/>                        
+                schemaLocation="../schemas/nhin/QueryDocument.xsd"/>      
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                  schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>                                  
     </xsd:schema>
   </types>
   
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
     <part name="body"
-          element="query:AdhocQueryRequest"/>
+          element="nccommonadapter:RespondingGateway_CrossGatewayQueryRequest"/>
   </message>
   <message name="RespondingGateway_CrossGatewayQueryResponseMessage">
     <part name="body"

@@ -44,7 +44,7 @@
 		<xsd:sequence>
 			<xsd:element ref="query:AdhocQueryResponse"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="NhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType"/>
@@ -52,7 +52,7 @@
 	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseSecuredType">
 		<xsd:sequence>
 			<xsd:element ref="query:AdhocQueryResponse"/>			
-			<xsd:element name="NhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQueryResponseSecured" type="tns:RespondingGateway_CrossGatewayQueryResponseSecuredType"/>	
@@ -258,8 +258,8 @@
 
 	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
 		<xsd:sequence>
-			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
-		 <xsd:element ref="edxlde:EDXLDistribution"/>
+			<xsd:element ref="edxlde:EDXLDistribution"/>
+			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>		 
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>

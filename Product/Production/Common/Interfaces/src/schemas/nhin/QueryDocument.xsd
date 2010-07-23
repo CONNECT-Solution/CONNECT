@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="http://www.hhs.gov/healthit/nhin"
             xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
@@ -12,4 +12,11 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="DocQueryAcknowledgement" type="tns:DocQueryAcknowledgementType"/>
+
+	<xsd:complexType name="DocQueryAcknowledgementsType">
+		<xsd:sequence>
+			<xsd:element name="DocQueryAcknowledgement" type="tns:DocQueryAcknowledgementType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="DocQueryAcknowledgements" type="tns:DocQueryAcknowledgementsType"/>
 </xsd:schema>

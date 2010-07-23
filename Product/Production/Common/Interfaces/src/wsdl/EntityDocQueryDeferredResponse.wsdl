@@ -23,11 +23,11 @@
   
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
     <part name="RespondingGateway_CrossGatewayQueryRequest" 
-          element="nccommonentity:RespondingGateway_CrossGatewayQueryRequest"/>
+          element="nccommonentity:RespondingGateway_CrossGatewayQueryResponse"/>
   </message>
-  <message name="RespondingGateway_CrossGatewayQueryResponseMessage">
+  <message name="AcknowledgementMessage">
     <part name="RespondingGateway_CrossGatewayQueryResponse" 
-          element="query:AdhocQueryResponse"/>
+          element="dq:DocQueryAcknowledgement"/>
   </message>
   
   <portType name="EntityDocQueryPortType">
@@ -35,7 +35,7 @@
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
       <output name="RespondingGateway_CrossGatewayQueryResponse"
-              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" />
+              message="tns:AcknowledgementMessage" />
     </operation>
   </portType>
   

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
   Entity Document Query WSDL
   -->
@@ -33,17 +33,17 @@
     <part name="RespondingGateway_CrossGatewayQueryRequest" 
           element="nccommonentity:RespondingGateway_CrossGatewayQuerySecuredRequest"/>
   </message>
-  <message name="AcknowledgementMessage">
+  <message name="AcknowledgementsMessage">
     <part name="RespondingGateway_CrossGatewayQueryResponse" 
-          element="dq:DocQueryAcknowledgement"/>
+          element="dq:DocQueryAcknowledgements"/>
   </message>
   
   <portType name="EntityDocQuerySecuredPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
-      <output name="AcknowledgementMessage"
-              message="tns:AcknowledgementMessage" />
+      <output name="AcknowledgementsMessage"
+              message="tns:AcknowledgementsMessage" />
     </operation>
   </portType>
   
@@ -56,7 +56,7 @@
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#Entity_DocQueryDeferred_Binding_Soap_Input_Policy"/>
       </input>
-      <output name="AcknowledgementMessage">
+      <output name="AcknowledgementsMessage">
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#Entity_DocQueryDeferred_Binding_Soap_Input_Policy"/>
       </output>
