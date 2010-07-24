@@ -5,7 +5,53 @@
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
             <name>CONNECTMsgProxyWeb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
-            <web-module-libraries/>
+            <web-module-libraries>
+                <library>
+                    <file>${file.reference.debug-dist}</file>
+                </library>
+                <library>
+                    <file>${file.reference.debug-dist-1}</file>
+                </library>
+                <library>
+                    <file>${file.reference.commons-logging-1.1.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.log4j-1.2.15.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.bsh-core-2.0b4.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.cglib-2.1_3-src.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.cglib-nodep-2.1_3.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.hamcrest-core-1.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.hamcrest-library-1.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-junit3-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-junit4-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-legacy-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-script-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.objenesis-1.0.jar}</file>
+                </library>
+            </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.java.dir"/>

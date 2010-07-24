@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<servlet>
-		<servlet-name>DocQuery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docquery.DocQuery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DocQuery</servlet-name>
-		<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>EntityDocQuerySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured</servlet-class>
 	</servlet>
@@ -493,10 +485,6 @@
 		<web-resource-collection>
 			<web-resource-name>EntityAdministrativeDistributionSecured</web-resource-name>
 			<url-pattern>/EntityService/AdministrativeDistributionSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>DocQuery</web-resource-name>
-			<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntityDocQuerySecured</web-resource-name>
