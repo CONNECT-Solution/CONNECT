@@ -433,13 +433,26 @@
         <servlet-name>GatewayLiftManager</servlet-name>
         <url-pattern>/GatewayService/GatewayLiftManager</url-pattern>
     </servlet-mapping>
-
-
-
-
-
-
     <!-- End: XDR Request and Response services-->
+	<!-- BEGIN: Document Retrieve Deferred Services -->
+    <servlet>
+        <servlet-name>EntityDocRetrieveDeferredRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieveDeferredRequest</servlet-name>
+        <url-pattern>/EntityService/EntityDocRetrieveDeferredRequest</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocRetrieveDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieveDeferredRequestSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <!-- BEGIN: Document Retrieve Deferred Services -->
+	
 	<security-constraint>
 
 		<web-resource-collection>
@@ -588,6 +601,12 @@
             <web-resource-name>PatientCorrelationServiceSecured</web-resource-name>
             <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
         </web-resource-collection>
+		<!-- BEGIN Document Retrieve Deferred Service -->
+        <web-resource-collection>
+            <web-resource-name>EntityDocRetrieveDeferredRequestSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
+        </web-resource-collection>
+        <!-- END Document Retrieve Deferred Service -->
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
