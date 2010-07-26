@@ -3,6 +3,6 @@
 
   <property name="Klocwork.Tables.Directory.Path" value="C:\Klocwork\nhin"/>
   <property name="Klocwork.Build.Specification" value="nhin_kwinject.out"/>
-  <property name="Klocwork.Project.Name" value="NHIN"/>
+  <property name="Klocwork.Project.Name" value="CONNECT31"/>
   
 </project>

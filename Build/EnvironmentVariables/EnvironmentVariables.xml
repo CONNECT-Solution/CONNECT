@@ -53,7 +53,7 @@
     <variable name="JAVA_HOME" value="${Java.Home}" />
     <variable name="ANT_HOME" value="${Ant.Home}" />
     <variable name="ANT_OPTS" value='-Xmx872m -XX:MaxPermSize=640m "-Dcom.sun.aas.instanceName=server" "-Dlibs.CopyLibs.classpath=${NetBeans.Property.Libs.CopyLibs.Classpath}" "-Dj2ee.platform.classpath=${NetBeans.Property.J2ee.Platform.Classpath}"'/>
-    <variable name="PATH" path="${Java.Home}\bin;${Java.Home};${Ant.Bin};${Common.EnvironmentVariables.Path};${ProgramFiles.Current.Processor.Type.Path}\Subversion\bin;${GlassFish.Home.Directory.Path}\bin;${Common.Directory.ThirdParty.Path}\OpenSSO\ssoAdminTools\opensso\bin;${environment::get-variable('ProgramFiles')}\Klocwork\Klocwork 8.2 Server\bin;" />
+    <variable name="PATH" path="${Java.Home}\bin;${Java.Home};${Ant.Bin};${Common.EnvironmentVariables.Path};${ProgramFiles.Current.Processor.Type.Path}\Subversion\bin;${GlassFish.Home.Directory.Path}\bin;${Common.Directory.ThirdParty.Path}\OpenSSO\ssoAdminTools\opensso\bin;${environment::get-variable('ProgramFiles')}\Klocwork\Klocwork 9.1 Server\bin;" />
     <variable name="JAVAEXE" value="${Java.Exe}"/>
     <variable name="CORBERTURA_BIN" value="${Corbertura.Bin}"/>
     <variable name="AS_HOME" value="${GlassFish.Home.Directory.Path}"/>
