@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -70,7 +71,7 @@ public class AdapterAdminDistJavaImplTest {
             }
         });
 
-        instance.sendAlertMessage(body);
+        instance.sendAlertMessage(body, new AssertionType());
         context.assertIsSatisfied();
     }
 }
