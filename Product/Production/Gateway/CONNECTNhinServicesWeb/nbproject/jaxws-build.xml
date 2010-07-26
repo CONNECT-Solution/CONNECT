@@ -33,5 +33,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/DocQuery"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery"/>
+    <target name="wsimport-service-DocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocRetrieve">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocRetrieve" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve"/>
 </project>

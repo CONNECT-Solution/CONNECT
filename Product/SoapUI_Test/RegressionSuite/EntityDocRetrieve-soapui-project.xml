@@ -3513,11 +3513,11 @@ context.testCase.setPropertyValue('CorrectedRemoteHCID2', "urn:oid:${context.fin
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docRetrieveURL2 = "https://" + Host3 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL2 = "https://" + Host3 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "RetrieveDocument", docRetrieveURL1, context, log)
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "RetrieveDocument", docRetrieveURL2, context, log)
@@ -3829,7 +3829,7 @@ context.testCase.setPropertyValue('CorrectedRemoteHCID2', "urn:oid:${context.fin
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );

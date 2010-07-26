@@ -33,7 +33,7 @@ public class DocRetrieveClient
     {
         return new NhincProxyDocRetrieve();
     }
-    
+
     public String retrieveDocument(String url, String homeCommunityId, String repositoryId, String documentId)
     {
         log.info("Attempting document retrieve for id (" + documentId + ") using URL: " + url);
@@ -94,7 +94,7 @@ public class DocRetrieveClient
         // Assertion
         AssertionType assertion = new AssertionCreator().createAssertion();
         request.setAssertion(assertion);
-        
+
         // Target System
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setUrl(url);
@@ -116,7 +116,7 @@ public class DocRetrieveClient
     {
         try
         {
-            String url = "https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+            String url = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
             String homeCommunityId = "2.2";
             String repositoryId = "1";
             String documentId = "19MBFile";

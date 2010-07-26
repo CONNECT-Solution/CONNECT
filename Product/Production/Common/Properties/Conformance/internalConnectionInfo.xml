@@ -16,6 +16,11 @@
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
 			</service>
+			<service>
+				<name>RetrieveDocument</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterxdrsecured</name>
@@ -61,11 +66,6 @@
 				<name>PatientDiscoveryAsyncResp</name>
 				<description>patientdiscoveryasyncresp</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
-			</service>
-			<service>
-				<name>RetrieveDocument</name>
-				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>
@@ -637,6 +637,11 @@
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
 			</service>
+			<service>
+				<name>RetrieveDocument</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterpxdrsecured</name>
@@ -682,11 +687,6 @@
 				<name>PatientDiscoveryAsyncResp</name>
 				<description>patientdiscoveryasyncresp</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
-			</service>
-			<service>
-				<name>RetrieveDocument</name>
-				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>
@@ -1259,6 +1259,11 @@
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
 			</service>
+			<service>
+				<name>RetrieveDocument</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
 			
 			<service>
 				<name>serviceXDR</name>
@@ -1294,11 +1299,6 @@
 				<name>PatientDiscoveryAsyncResp</name>
 				<description>patientdiscoveryasyncresp</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
-			</service>
-			<service>
-				<name>RetrieveDocument</name>
-				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>
@@ -1898,6 +1898,11 @@
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
 			</service>
+			<service>
+				<name>RetrieveDocument</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterpxdrsecured</name>
@@ -1943,11 +1948,6 @@
 				<name>PatientDiscoveryAsyncResp</name>
 				<description>patientdiscoveryasyncresp</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
-			</service>
-			<service>
-				<name>RetrieveDocument</name>
-				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>

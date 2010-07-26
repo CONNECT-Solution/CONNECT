@@ -8,10 +8,22 @@
 		<servlet-name>DocQuery</servlet-name>
 		<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>DocRetrieve</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DocRetrieve</servlet-name>
+		<url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
+	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
 			<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>DocRetrieve</web-resource-name>
+			<url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>

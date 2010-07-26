@@ -8,17 +8,29 @@
         <state><name>US-VA</name></state>
       </states>
         <services>            
-             <service>
+			<!-- NHIN Interfaces -->
+			<service>
+				<name>QueryForDocument</name>
+				<description>documentquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+			<service>
+				<name>RetrieveDocument</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
+			
+            <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
             </service>                
-             <service>
+            <service>
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
             </service>                 
-             <service>
+            <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
@@ -42,16 +54,6 @@
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
-            </service>
-            <service>
-                <name>QueryForDocument</name>
-                <description>documentquery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
-            </service>
-            <service>
-                <name>RetrieveDocument</name>
-                <description>documentretrieve</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
