@@ -1,0 +1,31 @@
+<EntityConfig xmlns="urn:sun:fm:SAML:2.0:entityconfig"
+    xmlns:fm="urn:sun:fm:SAML:2.0:entityconfig"
+    hosted="1"
+    entityID="ConnectOpenSSOPepEntity">
+
+   <XACMLAuthzDecisionQueryConfig metaAlias="/openssoPep">
+        <Attribute name="signingCertAlias">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="encryptionCertAlias">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="basicAuthOn">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="basicAuthUser">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="basicAuthPassword">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="wantXACMLAuthzDecisionResponseSigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="wantAssertionEncrypted">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="cotlist">
+        </Attribute>
+  </XACMLAuthzDecisionQueryConfig>
+</EntityConfig>

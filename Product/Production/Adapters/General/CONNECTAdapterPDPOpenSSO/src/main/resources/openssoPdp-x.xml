@@ -1,0 +1,28 @@
+<EntityConfig xmlns="urn:sun:fm:SAML:2.0:entityconfig"
+    xmlns:fm="urn:sun:fm:SAML:2.0:entityconfig"
+    hosted="1"
+    entityID="ConnectOpenSSOPdpEntity">
+
+    <XACMLPDPConfig metaAlias="/openssoPdp">
+        <Attribute name="signingCertAlias">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="encryptionCertAlias">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="basicAuthOn">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="basicAuthUser">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="basicAuthPassword">
+            <Value></Value>
+        </Attribute>
+        <Attribute name="wantXACMLAuthzDecisionQuerySigned">
+            <Value>false</Value>
+        </Attribute>
+        <Attribute name="cotlist">
+        </Attribute>
+   </XACMLPDPConfig>
+</EntityConfig>
