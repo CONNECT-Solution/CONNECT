@@ -2,7 +2,7 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<servlet>
 		<servlet-name>DocQuery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docquery.DocQuery</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docquery.nhin.DocQuery</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DocQuery</servlet-name>
@@ -10,7 +10,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>DocRetrieve</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DocRetrieve</servlet-name>

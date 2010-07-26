@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docquery;
+package gov.hhs.fha.nhinc.docquery.nhin;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

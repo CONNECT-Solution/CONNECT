@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docquery;
+package gov.hhs.fha.nhinc.docquery.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;

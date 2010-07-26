@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve;
+package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

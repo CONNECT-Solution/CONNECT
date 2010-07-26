@@ -2,7 +2,7 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="DocQuery">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.DocQuery</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docquery.nhin.DocQuery</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinDocQuery.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Query_Service</service-name>
@@ -26,7 +26,7 @@
       </wsimport-options>
     </service>
     <service name="DocRetrieve">
-      <implementation-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>NhinDocRetrieve.wsdl</local-wsdl-file>
       <service-name>RespondingGateway_Retrieve_Service</service-name>
