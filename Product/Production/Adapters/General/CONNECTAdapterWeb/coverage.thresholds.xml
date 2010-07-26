@@ -145,4 +145,6 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequestImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponseImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistribution" linecount="3" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistributionSecured" linecount="5" linerate="0.0" linesexecuted="0"/>
 </thresholds>

@@ -1441,6 +1441,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterAdministrativeDistributionSecured">
+      <implementation-class>gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistributionSecured</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDistSecured.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterAdminDistSecured.wsdl</local-wsdl-file>
+      <service-name>Adapter_AdministrativeDistributionSecured</service-name>
+      <port-name>Adapter_AdministrativeDistributionSecured_PortType</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapteradmindistribution</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterAdministrativeDistribution">
+      <implementation-class>gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistribution</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDist.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterAdminDist.wsdl</local-wsdl-file>
+      <service-name>Adapter_AdministrativeDistribution</service-name>
+      <port-name>Adapter_AdministrativeDistribution_PortType</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapteradmindistribution</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients>
     <client name="EntityAuditLogQuerySecured">
