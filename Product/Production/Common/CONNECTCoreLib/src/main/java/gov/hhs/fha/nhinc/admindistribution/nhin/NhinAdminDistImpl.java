@@ -52,15 +52,15 @@ public class NhinAdminDistImpl {
 
         if(checkPolicy(body, assertion))
         {
-            sendToAgency(body);
+            sendToAgency(body, assertion);
         }
 
         log.info("End sendAlert");
     }
-    protected void sendToAgency(EDXLDistribution body)
+    protected void sendToAgency(EDXLDistribution body, AssertionType assertion)
     {
         log.debug("begin send to agency");
-        getAdminFactory().getAdapterAdminDistProxy().sendAlertMessage(body);
+        getAdminFactory().getAdapterAdminDistProxy().sendAlertMessage(body, assertion);
 
     }
     protected AdapterAdminDistObjectFactory getAdminFactory()

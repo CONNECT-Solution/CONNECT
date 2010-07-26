@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
  *
@@ -13,6 +13,6 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  */
 public interface AdapterAdminDistProxy {
 
-    public void sendAlertMessage(EDXLDistribution body);
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion);
 
 }
