@@ -1,5 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" 
+xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified">
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
 	<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
@@ -9,6 +11,7 @@
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" schemaLocation="../common/SubscriptionB2OverrideForCdc.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" schemaLocation="../common/SubscriptionB2OverrideForDocuments.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:os" schemaLocation="../../oasis/xacml/access_control-xacml-2.0-context-schema-os.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
 	<!-- ====================================================================
          Document Query Schemas.
          ==================================================================== -->
@@ -877,6 +880,23 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="AdapterDocumentRetrieveDeferredRequestErrorSecured" type="tns:AdapterDocumentRetrieveDeferredRequestErrorSecuredType"/>
+	
+	
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+		<xsd:sequence>
+                <xsd:element ref="edxlde:EDXLDistribution"/>
+		<xsd:element name="assertion" type="nccommon:AssertionType"/>					
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
+
+	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="edxlde:EDXLDistribution"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
+
         <!-- ====================================================================
          Continue adding from here for new Schemas
          ==================================================================== -->
