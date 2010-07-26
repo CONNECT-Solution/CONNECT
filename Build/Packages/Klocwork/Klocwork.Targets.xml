@@ -5,7 +5,7 @@
 
     <ant
       antbat="kwant.exe"
-      target="build-test"
+      target="package.create"
       buildfile="${Ant.Build.File.Path}"
       logfile="${Ant.Log.Directory.Path}\kwant_log.xml">
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
