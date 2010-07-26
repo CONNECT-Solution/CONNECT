@@ -101,7 +101,7 @@
     </trycatch>
   </target>
 
-  <target name="Klocwork">
+  <target name="Klocwork" depends="SetUps">
     <trycatch>
       <try>
         <description>Begin Main Build</description>
