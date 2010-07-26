@@ -184,31 +184,7 @@
 		<servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>
 		<url-pattern>/GatewayInternalService/HiemSubscriptionRepositoryUtil</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>HiemNotify</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiemnotify.HiemNotify</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HiemNotify</servlet-name>
-		<url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>HiemSubscription</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiemsubscription.HiemSubscription</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HiemSubscription</servlet-name>
-		<url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>HiemUnsubscribe</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiemunsubscribe.HiemUnsubscribe</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HiemUnsubscribe</servlet-name>
-		<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
-	</servlet-mapping>
-        <servlet>
+    <servlet>
 		<servlet-name>AdapterAsyncReqPatientDiscovery</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterAsyncReqPatientDiscovery</servlet-class>
 	</servlet>
@@ -529,18 +505,6 @@
 		<web-resource-collection>
 			<web-resource-name>EntityUnsubscribeSecuredService</web-resource-name>
 			<url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>HiemNotify</web-resource-name>
-			<url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>HiemSubscription</web-resource-name>
-			<url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>HiemUnsubscribe</web-resource-name>
-			<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntityPatientDiscoverySecured</web-resource-name>

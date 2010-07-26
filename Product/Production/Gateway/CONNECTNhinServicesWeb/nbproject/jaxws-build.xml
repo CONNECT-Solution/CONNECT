@@ -52,5 +52,62 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve"/>
+    <target name="wsimport-service-HiemSubscription" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemSubscription" destdir="${build.generated.dir}/jax-wsCache/service/HiemSubscription" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemSubscription">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-HiemSubscription" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
+    </target>
+    <target name="wsimport-service-HiemNotify" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemNotify"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemNotify" destdir="${build.generated.dir}/jax-wsCache/service/HiemNotify" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/NhinSubscription.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemNotify"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemNotify">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemNotify">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemNotify/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-HiemNotify" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/HiemNotify"/>
+    </target>
+    <target name="wsimport-service-HiemUnsubscribe" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe" destdir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/NhinSubscription.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/HiemUnsubscribe">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/HiemUnsubscribe/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-HiemUnsubscribe" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe"/>
 </project>

@@ -11172,7 +11172,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
-               <wsa:Address>https://localhost:8181/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify</wsa:Address>
+               <wsa:Address>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</wsa:Address>
             </wsnt:ConsumerReference>
             <wsnt:Filter>
                <wsnt:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple" xmlns:nhin="urn:nhin">nhinc:FTASelfTest</wsnt:TopicExpression>

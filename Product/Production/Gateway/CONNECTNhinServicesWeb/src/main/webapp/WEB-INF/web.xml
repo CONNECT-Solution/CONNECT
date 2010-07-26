@@ -16,6 +16,30 @@
 		<servlet-name>DocRetrieve</servlet-name>
 		<url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>HiemNotify</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotify</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HiemNotify</servlet-name>
+		<url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>HiemSubscription</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.hiem.nhin.subscription.HiemSubscription</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HiemSubscription</servlet-name>
+		<url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>HiemUnsubscribe</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribe</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HiemUnsubscribe</servlet-name>
+		<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
+	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
@@ -24,6 +48,18 @@
 		<web-resource-collection>
 			<web-resource-name>DocRetrieve</web-resource-name>
 			<url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>HiemNotify</web-resource-name>
+			<url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>HiemSubscription</web-resource-name>
+			<url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>HiemUnsubscribe</web-resource-name>
+			<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>

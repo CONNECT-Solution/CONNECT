@@ -18,7 +18,7 @@ public class SubscriptionStorageItemServiceTest
     static final String SUBSCRIBE_XML = "subscribe xml";
     static final String SUBSCRIPTION_REFERENCE_XML =
 "<b:SubscriptionReference xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:b=\"http://docs.oasis-open.org/wsn/b-2\">" +
-"  <wsa:Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
+"  <wsa:Address>https://158.147.185.174:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
 "  <wsa:ReferenceParameters>" +
 "	 <nhin:SubscriptionId xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\">" + SUBSCRIPTION_ID + "</nhin:SubscriptionId>" +
 "  </wsa:ReferenceParameters>" +
@@ -119,7 +119,7 @@ public class SubscriptionStorageItemServiceTest
             // Retrieve by subscriptionReference
 //            String subRefXml =
 //"<b:SubscriptionReference xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:b=\"http://docs.oasis-open.org/wsn/b-2\">" +
-//"  <wsa:Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
+//"  <wsa:Address>https://158.147.185.174:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
 //"  <wsa:ReferenceParameters>" +
 //"	 <nhin:SubscriptionId xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\">" + SUBSCRIPTION_ID + "</nhin:SubscriptionId>" +
 //"  </wsa:ReferenceParameters>" +
@@ -157,7 +157,7 @@ public class SubscriptionStorageItemServiceTest
         {
             String subRefXml =
 "<b:SubscriptionReference xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:b=\"http://docs.oasis-open.org/wsn/b-2\">" +
-"  <wsa:Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
+"  <wsa:Address>https://158.147.185.174:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
 "  <wsa:ReferenceParameters>" +
 "	 <nhin:SubscriptionId xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\">50b564b2:11ff766dd39:-7fb5</nhin:SubscriptionId>" +
 "  </wsa:ReferenceParameters>" +
@@ -183,7 +183,7 @@ public class SubscriptionStorageItemServiceTest
         {
             String subRefXml =
 "<SubscriptionReference>" +
-"  <Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</Address>" +
+"  <Address>https://158.147.185.174:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</Address>" +
 "  <ReferenceParameters>" +
 "	 <SubscriptionId>50b564b2:11ff766dd39:-7fb5</SubscriptionId>" +
 "  </ReferenceParameters>" +

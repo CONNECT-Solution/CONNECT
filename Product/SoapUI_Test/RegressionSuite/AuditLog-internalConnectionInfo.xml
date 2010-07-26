@@ -19,6 +19,21 @@
 				<description>documentretrieve</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
+			</service>
+			<service>
+				<name>notificationconsumer</name>
+				<description>HIEM Notify</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
+			</service>
+			<service>
+				<name>subscriptionmanager</name>
+				<description>HIEM Unsubscribe</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+			</service>
 			
             <service>
                 <name>adapterxdrsecured</name>
@@ -59,21 +74,6 @@
                 <name>auditquery</name>
                 <description>auditquery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
-            </service>
-            <service>
-                <name>notificationproducer</name>
-                <description>notificationproducer</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
-            </service>
-            <service>
-                <name>notificationconsumer</name>
-                <description>HIEM Notify</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
-            </service>
-            <service>
-                <name>subscriptionmanager</name>
-                <description>HIEM Unsubscribe</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
