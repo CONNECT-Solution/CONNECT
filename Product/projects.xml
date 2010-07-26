@@ -66,8 +66,8 @@
         <dist.type>jar</dist.type>
     </project>
     <project>
-        <name>AdapterPDPOpenSSO</name>
-        <directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
+        <name>CONNECTAdapterPDPOpenSSO</name>
+        <directory>/Production/Adapters/General/CONNECTAdapterPDPOpenSSO</directory>
         <dist.type>jar</dist.type>
     </project>
     <project>
