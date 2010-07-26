@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.patientdiscovery;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

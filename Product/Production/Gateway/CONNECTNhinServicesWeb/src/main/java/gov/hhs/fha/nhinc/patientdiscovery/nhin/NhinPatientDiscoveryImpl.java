@@ -1,15 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package gov.hhs.fha.nhinc.patientdiscovery;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -38,7 +35,7 @@ public class NhinPatientDiscoveryImpl {
 
         // Audit the responding 201306 Message
         ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        
+
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         return response;
@@ -88,7 +85,7 @@ public class NhinPatientDiscoveryImpl {
 
     /**
      * Checks to see if the query should  be handled internally or passed through to an adapter.
-     * 
+     *
      * @return Returns true if the patientDiscoveryPassthrough property of the gateway.properties file is true.
      */
     protected boolean isInPassThroughMode() {

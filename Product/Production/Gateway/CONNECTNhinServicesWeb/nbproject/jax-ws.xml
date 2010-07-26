@@ -121,6 +121,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinPatientDiscovery">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
+      <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
+      <service-name>RespondingGateway_Service</service-name>
+      <port-name>RespondingGateway_Port_Soap</port-name>
+      <package-name>ihe.iti.xcpd._2009</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

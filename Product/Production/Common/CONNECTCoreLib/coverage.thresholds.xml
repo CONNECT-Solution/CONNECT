@@ -521,4 +521,10 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.DocQueryAuditLog" linecount="51" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog" linecount="40" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.dte.WebServiceContextHelper" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="22" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils" linecount="22" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="200" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor" linecount="125" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="50" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor" linecount="39" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender" linecount="38" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger" linecount="52" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="54" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker" linecount="42" linerate="0.0" linesexecuted="0"/>
 </thresholds>

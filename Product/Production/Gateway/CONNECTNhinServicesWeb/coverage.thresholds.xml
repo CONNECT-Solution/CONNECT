@@ -18,4 +18,6 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribe" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribeImpl" linecount="112" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryImpl" linecount="27" linerate="0.0" linesexecuted="0"/>
 </thresholds>

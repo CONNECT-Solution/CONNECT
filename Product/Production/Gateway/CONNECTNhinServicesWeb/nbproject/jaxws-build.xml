@@ -109,5 +109,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe"/>
+    <target name="wsimport-service-NhinPatientDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinPatientDiscovery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe, wsimport-service-NhinPatientDiscovery"/>
 </project>
