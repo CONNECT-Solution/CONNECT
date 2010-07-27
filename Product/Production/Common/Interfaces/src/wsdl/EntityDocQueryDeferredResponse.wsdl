@@ -1,20 +1,20 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Entity Document Retrieve Deferred Response
+  Entity Document Query Deferred Response
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquery"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
-   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+   xmlns:nccommondq="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntityDocQueryDeferredResponse"
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquery">
-    <documentation>Entity document retrieve deferred response</documentation>
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse">
+    <documentation>Entity Document Query Deferred Response</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
@@ -25,8 +25,8 @@
                         schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
         </xsd:schema>
     </types>
-    <message name="CrossGatewayQueryResponseMessage">
-        <part name="CrossGatewayQueryResponse"
+    <message name="CrossGatewayDocQueryDefferedResponseMessage">
+        <part name="CrossGatewayDocQueryDefferedResponse"
               element="nccommondq:RespondingGateway_CrossGatewayQueryResponse"/>
     </message>
     <message name="CrossGatewayQueryAcknowledgementMessage">
@@ -36,10 +36,10 @@
 
     <portType name="EntityDocQueryDeferredResponsePortType">
         <operation name="CrossGatewayQueryResponse">
-            <input name="CrossGatewayQueryResponseMessage"
-                   message="tns:CrossGatewayQueryResponseMessage" />
-            <output name="CrossGatewayQueryAcknowledgement"
-                    message="tns:CrossGatewayQueryAcknowledgement"/>
+            <input name="CrossGatewayDocQueryDefferedResponseMessage"
+                   message="tns:CrossGatewayDocQueryDefferedResponseMessage" />
+            <output name="CrossGatewayQueryAcknowledgementMessage"
+                    message="tns:CrossGatewayQueryAcknowledgementMessage"/>
         </operation>
     </portType>
 
@@ -49,10 +49,10 @@
         <wsp:PolicyReference URI="#EntityDocQueryPolicy"/>
         <operation name="CrossGatewayQueryResponse">
             <soap:operation soapAction="urn:CrossGatewayQueryResponse"/>
-            <input name="CrossGatewayQueryResponseMessage">
+            <input name="CrossGatewayDocQueryDefferedResponseMessage">
                 <soap:body use="literal"/>
             </input>
-            <output name="CrossGatewayQueryAcknowledgement">
+            <output name="CrossGatewayQueryAcknowledgementMessage">
                 <soap:body use="literal"/>
             </output>
         </operation>

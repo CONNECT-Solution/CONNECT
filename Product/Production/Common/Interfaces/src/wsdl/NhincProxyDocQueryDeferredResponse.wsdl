@@ -1,39 +1,38 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Entity Document Query WSDL
+  Nhinc Proxy Document Query Deferred Response WSDL
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
-   xmlns:dq="http://www.hhs.gov/healthit/nhin"  
-   name="NhincProxyDocQueryDeferredResponse" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured">
-  <documentation>Entity Document Query</documentation>
+   xmlns:dq="http://www.hhs.gov/healthit/nhin"
+   name="NhincProxyDocQueryDeferredResponse"
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse">
+  <documentation>Nhinc Proxy Document Query Deferred Response</documentation>
   <types>
     <xsd:schema>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
                         schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
-            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>                          
+      <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
-  
+
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
-    <part name="RespondingGateway_CrossGatewayQueryRequest" 
+    <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonproxy:RespondingGateway_CrossGatewayQueryResponse"/>
   </message>
   <message name="AcknowledgementMessage">
-    <part name="Acknowledgment" 
+    <part name="Acknowledgment"
           element="dq:DocQueryAcknowledgement"/>
   </message>
-  
-  <portType name="NhincProxyDocQueryDeferredPortType">
+
+  <portType name="NhincProxyDocQueryDeferredResponsePortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
@@ -41,8 +40,8 @@
               message="tns:AcknowledgementMessage" />
     </operation>
   </portType>
-  
-  <binding name="NhincProxyDocQueryDeferredBindingSoap" type="tns:NhincProxyDocQueryDeferredPortType">
+
+  <binding name="NhincProxyDocQueryDeferredResponseBindingSoap" type="tns:NhincProxyDocQueryDeferredResponsePortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
       <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
@@ -54,24 +53,12 @@
       </output>
     </operation>
   </binding>
-  
-  <service name="NhincProxyDocQueryDeferred">
-    <port name="NhincProxyDocQueryDeferredPortSoap" 
-          binding="tns:NhincProxyDocQueryDeferredBindingSoap">
-      <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQueryDeferred" />
+
+  <service name="NhincProxyDocQueryDeferredResponse">
+    <port name="NhincProxyDocQueryDeferredResponsePortSoap"
+          binding="tns:NhincProxyDocQueryDeferredResponseBindingSoap">
+      <soap:address
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredResponse" />
     </port>
   </service>
-  
-  <plnk:partnerLinkType name="NhincProxyDocQueryDeferred">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="NhincProxyDocQueryDeferredPortTypeRole" 
-               portType="tns:NhincProxyDocQueryDeferredPortType"/>
-  </plnk:partnerLinkType>
-  
 </definitions>

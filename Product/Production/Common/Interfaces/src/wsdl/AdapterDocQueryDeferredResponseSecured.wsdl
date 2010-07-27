@@ -1,13 +1,12 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Adapter Document Query WSDL
+  Adapter Document Query Deferred Response Secured WSDL
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    xmlns:wsaws="http://www.w3.org/2005/08/addressing"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -20,31 +19,29 @@
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-   name="AdapterDocQueryDeferredResponseSecured" 
+   name="AdapterDocQueryDeferredResponseSecured"
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured">
-  <documentation>Adapter Document Query</documentation>
+  <documentation>Adapter Document Query Deferred Response Secured</documentation>
   <types>
     <xsd:schema>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
       <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                schemaLocation="../schemas/nhin/QueryDocument.xsd"/>           
+                schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-                 schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>                             
+                 schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
     </xsd:schema>
   </types>
-  
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
-    <part name="body"
-          element="RespondingGateway_CrossGatewayQueryResponse"/>
+    <part name="RespondingGateway_CrossGatewayQueryRequest"
+          element="nccommonadapter:RespondingGateway_CrossGatewayQueryRequest"/>
   </message>
   <message name="RespondingGateway_CrossGatewayQueryResponseMessage">
-    <part name="body"
+    <part name="RespondingGateway_CrossGatewayQueryResponse"
           element="dq:DocQueryAcknowledgement"/>
   </message>
-  
   <portType name="AdapterDocQueryDeferredResponseSecuredPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
@@ -55,7 +52,6 @@
               wsaw:Action="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured:RespondingGateway_CrossGatewayQueryResponseMessage"/>
     </operation>
   </portType>
-  
   <binding name="AdapterDocQueryDeferredResponseSecuredBindingSoap" type="tns:AdapterDocQueryDeferredResponseSecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
@@ -71,13 +67,11 @@
       </output>
     </operation>
   </binding>
-  
   <service name="AdapterDocQueryDeferredResponseSecured">
     <port name="AdapterDocQueryDeferredResponseSecuredPortSoap" binding="tns:AdapterDocQueryDeferredResponseSecuredBindingSoap">
       <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocQueryDeferredResponseSecured" />
     </port>
   </service>
-
   <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -134,25 +128,13 @@
   <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_Soap_Input_Policy">
     <wsp:ExactlyOne>
       <wsp:All>
-            </wsp:All>
+      </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_Soap_Output_Policy">
     <wsp:ExactlyOne>
       <wsp:All>
-            </wsp:All>
+      </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-
-  <plnk:partnerLinkType name="AdapterDocQueryDeferredResponseSecured">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="AdapterDocQueryDeferredResponseSecuredPortTypeRole" 
-               portType="tns:AdapterDocQueryDeferredResponseSecuredPortType"/>
-  </plnk:partnerLinkType>
-  
 </definitions>

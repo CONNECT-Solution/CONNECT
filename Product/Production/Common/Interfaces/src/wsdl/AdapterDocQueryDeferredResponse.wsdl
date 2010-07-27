@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Adapter Document Query WSDL
+  Adapter Document Query Deferred Response WSDL
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:AdapterDocQueryDeferredResponse"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredresponse"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
@@ -15,37 +15,34 @@
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
    name="AdapterDocQueryDeferredResponse" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:AdapterDocQueryDeferredResponse">
-  <documentation>Adapter Document Query</documentation>
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredresponse">
+  <documentation>Adapter Document Query Deferred Response</documentation>
   <types>
     <xsd:schema>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
                   schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
       <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>                  
+                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
-  
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
-    <part name="RespondingGateway_CrossGatewayQueryRequest" 
+    <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonadapter:RespondingGateway_CrossGatewayQueryRequest"/>
   </message>
   <message name="RespondingGateway_CrossGatewayQueryResponseMessage">
-    <part name="RespondingGateway_CrossGatewayQueryResponse" 
+    <part name="RespondingGateway_CrossGatewayQueryResponse"
           element="dq:DocQueryAcknowledgement"/>
   </message>
-  
   <portType name="AdapterDocQueryDeferredResponsePortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
-             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
+            message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
       <output name="RespondingGateway_CrossGatewayQueryResponse"
-              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" />
+            message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" />
     </operation>
   </portType>
-  
   <binding name="AdapterDocQueryDeferredResponseBindingSoap" type="tns:AdapterDocQueryDeferredResponsePortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -58,22 +55,10 @@
       </output>
     </operation>
   </binding>
-  
   <service name="AdapterDocQueryDeferredResponse">
     <port name="AdapterDocQueryDeferredResponsePortSoap"  binding="tns:AdapterDocQueryDeferredResponseBindingSoap">
-      <soap:address 
+      <soap:address
          location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQueryDeferredResponse" />
     </port>
   </service>
-  <plnk:partnerLinkType name="AdapterDocQueryDeferredResponse">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="AdapterDocQueryDeferredResponsePortTypeRole" 
-               portType="tns:AdapterDocQueryDeferredResponsePortType"/>
-  </plnk:partnerLinkType>
-  
 </definitions>
