@@ -22,7 +22,7 @@
     </dependency>
 
     <!-- compile time jars -->
-
+    <dependency org="org.hibernate" name="hibernate" rev="3.2.5.ga" conf="compile->default" transitive="false" />
     <!-- runtime jars -->
 
     <!-- jars for test only -->
