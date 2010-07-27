@@ -297,14 +297,6 @@
 		<url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>SubjectDiscovery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SubjectDiscovery</servlet-name>
-		<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>NhincProxyXDRSecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</servlet-class>
 	</servlet>
@@ -530,10 +522,6 @@
 		<web-resource-collection>
 			<web-resource-name>NhincSubjectDiscoverySecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>SubjectDiscovery</web-resource-name>
-			<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyXDRSecured</web-resource-name>

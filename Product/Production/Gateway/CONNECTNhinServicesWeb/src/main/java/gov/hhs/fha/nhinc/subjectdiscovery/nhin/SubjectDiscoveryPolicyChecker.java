@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.subjectdiscovery;
+package gov.hhs.fha.nhinc.subjectdiscovery.nhin;
 
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedMessageType;

@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.subjectdiscovery;
+package gov.hhs.fha.nhinc.subjectdiscovery.nhin;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
@@ -94,7 +90,7 @@ public class SubjectDiscoveryAckCreater {
             ack = HL7AckTransforms.createAckMessage(null, msgId, ackMsgText, senderOID, receiverOID);
         }
         return ack;
-    }      
+    }
 
     public PRPAIN201310UV02 createFault201310(PIXConsumerPRPAIN201309UVRequestType request, String ackMsgText) {
         PRPAIN201310UV02 result = new PRPAIN201310UV02();

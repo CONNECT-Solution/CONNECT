@@ -36,12 +36,12 @@
 				<description>patientdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
+			</service>
 
-            <service>
-                <name>subjectdiscovery</name>
-                <description>subjectdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-            </service>
             <service>
                 <name>auditquery</name>
                 <description>auditquery</description>
@@ -406,12 +406,12 @@
 				<description>patientdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
+			</service>
 
-            <service>
-                <name>subjectdiscovery</name>
-                <description>subjectdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-            </service>
             <service>
                 <name>auditquery</name>
                 <description>auditquery</description>

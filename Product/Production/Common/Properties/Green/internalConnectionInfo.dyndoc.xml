@@ -36,6 +36,11 @@
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
 			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
+			</service>
 			
             <service>
                 <name>adapterxdrsecured</name>
@@ -57,11 +62,6 @@
                 <description>NHIN XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
             </service>          
-            <service>
-                <name>subjectdiscovery</name>
-                <description>subjectdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-            </service>
             <service>
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
@@ -447,6 +447,11 @@
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
 			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
+			</service>
 			
             <service>
                 <name>adapterxdrsecured</name>
@@ -468,11 +473,6 @@
                 <description>NHIN XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
             </service>          
-            <service>
-                <name>subjectdiscovery</name>
-                <description>subjectdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-            </service>
             <service>
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
@@ -848,6 +848,11 @@
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
 			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
+			</service>
 			
             <service>
                 <name>adapterxdrsecured</name>
@@ -869,11 +874,6 @@
                 <description>NHIN XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
             </service>          
-			<service>
-				<name>subjectdiscovery</name>
-				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-			</service>
 			<service>
 				<name>PatientDiscovery</name>
 				<description>patientdiscovery</description>

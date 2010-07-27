@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.subjectdiscovery;
+package gov.hhs.fha.nhinc.subjectdiscovery.nhin;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.ws.WebServiceContext;
@@ -13,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLogger;
 
 /**
  *
@@ -105,7 +102,7 @@ public class SubjectDiscoveryImpl {
 
         log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201302UV");
         return ackMsg;
-    }       
+    }
 
     public MCCIIN000002UV01 pixConsumerPRPAIN201304UV(PRPAIN201304UV02 message, WebServiceContext context) {
         //TODO implement this method

@@ -64,6 +64,14 @@
 		<servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
 		<url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>SubjectDiscovery</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SubjectDiscovery</servlet-name>
+		<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
+	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
@@ -96,6 +104,10 @@
         <web-resource-collection>
 			<web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
 			<url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>SubjectDiscovery</web-resource-name>
+			<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>

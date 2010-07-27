@@ -24,4 +24,12 @@
 <threshold branchcount="30" branchrate="0.26666666666666666" branchsexecuted="0.08" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReqImpl" linecount="61" linerate="0.3114754098360656" linesexecuted="0.19"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="40" branchrate="0.2" branchsexecuted="0.08" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncRespImpl" linecount="109" linerate="0.1743119266055046" linesexecuted="0.19"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="208" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201301Processor" linecount="116" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="164" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201302Processor" linecount="89" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201309Processor" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="82" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryAckCreater" linecount="37" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryAdapterSender" linecount="16" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryImpl" linecount="92" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="22" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryPolicyChecker" linecount="54" linerate="0.0" linesexecuted="0"/>
 </thresholds>
