@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Entity Document Query WSDL
+  Entity Document Query Deferred Request Secured WSDL
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquerysecured"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequestsecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-	 xmlns:dq="http://www.hhs.gov/healthit/nhin"   
+	 xmlns:dq="http://www.hhs.gov/healthit/nhin"
   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
-   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"	 
-   name="EntityDocQueryDeferredRequestSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquery">
-  <documentation>Entity Document Query</documentation>
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   name="EntityDocQueryDeferredRequestSecured"
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequestsecured">
+  <documentation>Entity Document Query Deferred Request Secured</documentation>
   <types>
     <xsd:schema>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
                   schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
-            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>                  
+      <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
-  
+
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
-    <part name="RespondingGateway_CrossGatewayQueryRequest" 
+    <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonentity:RespondingGateway_CrossGatewayQuerySecuredRequest"/>
   </message>
   <message name="AcknowledgementsMessage">
-    <part name="RespondingGateway_CrossGatewayQueryResponse" 
+    <part name="RespondingGateway_CrossGatewayQueryResponse"
           element="dq:DocQueryAcknowledgements"/>
   </message>
-  
-  <portType name="EntityDocQuerySecuredPortType">
+
+  <portType name="EntityDocQueryDeferredRequestSecuredPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
@@ -46,8 +45,8 @@
               message="tns:AcknowledgementsMessage" />
     </operation>
   </portType>
-  
-  <binding name="EntityDocQuerySecuredBindingSoap" type="tns:EntityDocQuerySecuredPortType">
+
+  <binding name="EntityDocQueryDeferredRequestSecuredBindingSoap" type="tns:EntityDocQueryDeferredRequestSecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#Entity_AdminDist_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -62,84 +61,75 @@
       </output>
     </operation>
   </binding>
-  
-  <service name="EntityDocQuery">
-    <port name="EntityDocQueryPortSoap" 
-          binding="tns:EntityDocQueryBindingSoap">
-      <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredResponse" />
+
+  <service name="EntityDocQueryDeferredRequestSecured">
+    <port name="EntityDocQueryDeferredRequestSecuredPortSoap"
+          binding="tns:EntityDocQueryDeferredRequestSecuredBindingSoap">
+      <soap:address
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequestSecured" />
     </port>
   </service>
-	<wsp:Policy wsu:Id="Entity_DocQueryDeferred_SoapPolicy">
-		<wsp:ExactlyOne>
-			<wsp:All>
-				<wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
-				<sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-				<sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-				<sp:TransportBinding>
-					<wsp:Policy>
-						<sp:TransportToken>
-							<wsp:Policy>
-								<sp:HttpsToken>
-									<wsp:Policy>
-										<sp:RequireClientCertificate/>
-									</wsp:Policy>
-								</sp:HttpsToken>
-							</wsp:Policy>
-						</sp:TransportToken>
-						<sp:Layout>
-							<wsp:Policy>
-								<sp:Strict/>
-							</wsp:Policy>
-						</sp:Layout>
-						<sp:IncludeTimestamp/>
-						<sp:AlgorithmSuite>
-							<wsp:Policy>
-								<sp:Basic128/>
-							</wsp:Policy>
-						</sp:AlgorithmSuite>
-					</wsp:Policy>
-				</sp:TransportBinding>
-				<sp:EndorsingSupportingTokens>
-					<wsp:Policy>
-						<sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-							<wsp:Policy>
-								<sp:WssSamlV20Token11/>
-							</wsp:Policy>
-						</sp:SamlToken>
-					</wsp:Policy>
-				</sp:EndorsingSupportingTokens>
-				<sp:Wss11>
-					<wsp:Policy>
-						<sp:MustSupportRefKeyIdentifier/>
-						<sp:MustSupportRefIssuerSerial/>
-						<sp:RequireSignatureConfirmation/>
-					</wsp:Policy>
-				</sp:Wss11>
-			</wsp:All>
-		</wsp:ExactlyOne>
-	</wsp:Policy>
-	<wsp:Policy wsu:Id="Entity_DocQueryDeferred_Binding_Soap_Input_Policy">
-		<wsp:ExactlyOne>
-			<wsp:All>
-            </wsp:All>
-		</wsp:ExactlyOne>
-	</wsp:Policy>
-	<wsp:Policy wsu:Id="Entity_DocQueryDeferred_Binding_Soap_Output_Policy">
-		<wsp:ExactlyOne>
-			<wsp:All>
-            </wsp:All>
-		</wsp:ExactlyOne>
-	</wsp:Policy>  
-  <plnk:partnerLinkType name="EntityDocQuery">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="EntityDocQueryPortTypeRole" 
-               portType="tns:EntityDocQueryPortType"/>
-  </plnk:partnerLinkType>
-  
+  <wsp:Policy wsu:Id="Entity_DocQueryDeferred_SoapPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+        <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+        <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+        <sp:TransportBinding>
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:RequireClientCertificate/>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict/>
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens>
+          <wsp:Policy>
+            <sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssSamlV20Token11/>
+              </wsp:Policy>
+            </sp:SamlToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11>
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier/>
+            <sp:MustSupportRefIssuerSerial/>
+            <sp:RequireSignatureConfirmation/>
+          </wsp:Policy>
+        </sp:Wss11>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="Entity_DocQueryDeferred_Binding_Soap_Input_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="Entity_DocQueryDeferred_Binding_Soap_Output_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+
 </definitions>
+

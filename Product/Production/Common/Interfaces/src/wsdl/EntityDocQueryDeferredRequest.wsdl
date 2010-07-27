@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  Entity Document Query WSDL
+  Entity Document Query Deferred Request WSDL
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/" 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquery"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-	 xmlns:dq="http://www.hhs.gov/healthit/nhin"   
-	 
-   name="EntityDocQueryDeferredRequest" 
+	 xmlns:dq="http://www.hhs.gov/healthit/nhin"
+
+   name="EntityDocQueryDeferredRequest"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest">
-  <documentation>Entity Document Query</documentation>
+  <documentation>Entity Document Query Deferred Request</documentation>
   <types>
     <xsd:schema>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
                   schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>                  
+                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
-  
+
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
-    <part name="RespondingGateway_CrossGatewayQueryRequest" 
+    <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonentity:RespondingGateway_CrossGatewayQueryRequest"/>
   </message>
   <message name="AcknowledgementsMessage">
-    <part name="RespondingGateway_CrossGatewayQueryResponse" 
+    <part name="RespondingGateway_CrossGatewayQueryResponse"
           element="dq:DocQueryAcknowledgements"/>
   </message>
-  
-  <portType name="EntityDocQueryPortType">
+
+  <portType name="EntityDocQueryDeferredRequestPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
@@ -42,8 +41,8 @@
               message="tns:AcknowledgementsMessage" />
     </operation>
   </portType>
-  
-  <binding name="EntityDocQueryBindingSoap" type="tns:EntityDocQueryPortType">
+
+  <binding name="EntityDocQueryDeferredRequestBindingSoap" type="tns:EntityDocQueryDeferredRequestPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
       <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
@@ -55,24 +54,14 @@
       </output>
     </operation>
   </binding>
-  
-  <service name="EntityDocQuery">
-    <port name="EntityDocQueryPortSoap" 
-          binding="tns:EntityDocQueryBindingSoap">
-      <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredResponse" />
+
+  <service name="EntityDocQueryDeferredRequest">
+    <port name="EntityDocQueryDeferredRequestPortSoap"
+          binding="tns:EntityDocQueryDeferredRequestBindingSoap">
+      <soap:address
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequest" />
     </port>
   </service>
-  
-  <plnk:partnerLinkType name="EntityDocQuery">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="EntityDocQueryPortTypeRole" 
-               portType="tns:EntityDocQueryPortType"/>
-  </plnk:partnerLinkType>
-  
+
 </definitions>
+
