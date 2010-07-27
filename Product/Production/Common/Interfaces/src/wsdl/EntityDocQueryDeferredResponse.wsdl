@@ -25,8 +25,8 @@
                         schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
         </xsd:schema>
     </types>
-    <message name="CrossGatewayDocQueryDefferedResponseMessage">
-        <part name="CrossGatewayDocQueryDefferedResponse"
+    <message name="CrossGatewayDocQueryDeferredResponseMessage">
+        <part name="CrossGatewayDocQueryDeferredResponse"
               element="nccommondq:RespondingGateway_CrossGatewayQueryResponse"/>
     </message>
     <message name="CrossGatewayQueryAcknowledgementMessage">
@@ -36,8 +36,8 @@
 
     <portType name="EntityDocQueryDeferredResponsePortType">
         <operation name="CrossGatewayQueryResponse">
-            <input name="CrossGatewayDocQueryDefferedResponseMessage"
-                   message="tns:CrossGatewayDocQueryDefferedResponseMessage" />
+            <input name="CrossGatewayDocQueryDeferredResponseMessage"
+                   message="tns:CrossGatewayDocQueryDeferredResponseMessage" />
             <output name="CrossGatewayQueryAcknowledgementMessage"
                     message="tns:CrossGatewayQueryAcknowledgementMessage"/>
         </operation>
@@ -49,7 +49,7 @@
         <wsp:PolicyReference URI="#EntityDocQueryPolicy"/>
         <operation name="CrossGatewayQueryResponse">
             <soap:operation soapAction="urn:CrossGatewayQueryResponse"/>
-            <input name="CrossGatewayDocQueryDefferedResponseMessage">
+            <input name="CrossGatewayDocQueryDeferredResponseMessage">
                 <soap:body use="literal"/>
             </input>
             <output name="CrossGatewayQueryAcknowledgementMessage">

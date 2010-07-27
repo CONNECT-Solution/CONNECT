@@ -4,7 +4,7 @@
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
-   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerydefferedrequestsecured"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -16,60 +16,57 @@
    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    name="NhincProxyDocQueryDeferredRequestSecured"
-   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydefferedrequestsecured">
-    <documentation>Nhinc Proxy Document Query Deferred Request Secured</documentation>
-    <types>
-        <xsd:schema>
-            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured">
+  <documentation>Nhinc Proxy Document Query Deferred Request Secured</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
                         schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
                         schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
-            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+      <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
-        </xsd:schema>
-    </types>
-    <message name="CrossGatewayQueryRequestMessage">
-        <part name="CrossGatewayQueryRequest"
-              element="nccommonproxy:RespondingGateway_CrossGatewayQueryRequestSecured"/>
-    </message>
-    <message name="CrossGatewayQueryAcknowledgementMessage">
-        <part name="CrossGatewayQueryAcknowledgement"
+    </xsd:schema>
+  </types>
+  <message name="CrossGatewayQueryRequestMessage">
+    <part name="CrossGatewayQueryRequest"
+              element="nccommonproxy:RespondingGateway_CrossGatewayQuerySecuredRequest"/>
+  </message>
+  <message name="CrossGatewayQueryAcknowledgementMessage">
+    <part name="CrossGatewayQueryAcknowledgement"
               element="dq:DocQueryAcknowledgement"/>
-    </message>
-
-    <portType name="NhincProxyDocQueryDefferedRequestSecuredPortType">
-        <operation name="CrossGatewayQueryRequest">
-            <input name="CrossGatewayQueryRequest"
+  </message>
+  <portType name="NhincProxyDocQueryDeferredRequestSecuredPortType">
+    <operation name="CrossGatewayQueryRequest">
+      <input name="CrossGatewayQueryRequest"
                    message="tns:CrossGatewayQueryRequestMessage" />
-            <output name="CrossGatewayQueryAcknowledgement"
+      <output name="CrossGatewayQueryAcknowledgement"
                     message="tns:CrossGatewayQueryAcknowledgementMessage"/>
-        </operation>
-    </portType>
-
-    <binding name="NhincProxyDocQueryDeferredRequestSecuredBindingSoap"
-             type="tns:NhincProxyDocQueryDefferedRequestSecuredPortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
-        <operation name="CrossGatewayQueryRequest">
-            <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
-            <input name="CrossGatewayQueryRequest">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Input_Policy"/>
-            </input>
-            <output name="CrossGatewayQueryAcknowledgement">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Output_Policy"/>
-            </output>
-        </operation>
-    </binding>
-
-    <service name="NhincProxyDocQueryDeferredRequest">
-        <port name="NhincProxyDocQueryDeferredRequestPortSoap"
+    </operation>
+  </portType>
+  <binding name="NhincProxyDocQueryDeferredRequestSecuredBindingSoap"
+             type="tns:NhincProxyDocQueryDeferredRequestSecuredPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
+    <operation name="CrossGatewayQueryRequest">
+      <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
+      <input name="CrossGatewayQueryRequest">
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Input_Policy"/>
+      </input>
+      <output name="CrossGatewayQueryAcknowledgement">
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Output_Policy"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="NhincProxyDocQueryDeferredRequest">
+    <port name="NhincProxyDocQueryDeferredRequestPortSoap"
           binding="tns:NhincProxyDocQueryDeferredRequestSecuredBindingSoap">
-            <soap:address
+      <soap:address
                location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredRequestSecured"/>
-        </port>
-    </service>
+    </port>
+  </service>
   <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -139,4 +136,3 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
 </definitions>
-
