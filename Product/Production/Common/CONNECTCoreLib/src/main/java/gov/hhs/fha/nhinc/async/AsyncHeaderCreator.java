@@ -50,21 +50,33 @@ public class AsyncHeaderCreator {
      *                  the port definition section of the corresponding wsdl
      * @param messageId The UUID uniquely identifying the message used to set
      *                  the MessageID header
+     * @param relatesToIds A optional listing of ids specifying messages this
+     *                     one relates to.  This listing may be null or empty if
+     *                     no such relationships exist.
      * @return A listing of the WS-Addressing headers
      */
-    public List<Header> createOutboundHeaders(String url, String action, String messageId) {
+    public List<Header> createOutboundHeaders(String url, String action,
+            String messageId, List<String> relatesToIds) {
 
         List<Header> headers = new ArrayList<Header>();
 
+        //The To header is required
+        if (url == null) {
+            log.warn("Provided endpoint URL is null");
+        }
         QName qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_TO);
         Header toHdr = Headers.create(qname, url);
         headers.add(toHdr);
 
+        //The Action header is required
+        if (action == null) {
+            log.warn("Provided endpoint URL is null");
+        }
         qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_ACTION);
         Header actionHdr = Headers.create(qname, action);
         headers.add(actionHdr);
 
-        //The ReplyTo header contains the Address element
+        //The optional ReplyTo header contains the Address element
         final Document document;
         try {
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
@@ -78,10 +90,21 @@ public class AsyncHeaderCreator {
             log.error("ReplyTo header element can not be created: " + ex.getMessage());
         }
 
-        qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID);
-        Header msgIdHdr = Headers.create(qname, messageId);
-        headers.add(msgIdHdr);
+        //The messageID header is an optional element
+        if (messageId != null) {
+            qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID);
+            Header msgIdHdr = Headers.create(qname, messageId);
+            headers.add(msgIdHdr);
+        }
 
+        //The RelatesTo header is an optional but potentially repeating element
+        if (relatesToIds != null && !relatesToIds.isEmpty()) {
+            qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.HEADER_RELATESTO);
+            for (String id : relatesToIds) {
+                Header relatesIdHdr = Headers.create(qname, id);
+                headers.add(relatesIdHdr);
+            }
+        }
         return headers;
     }
 }

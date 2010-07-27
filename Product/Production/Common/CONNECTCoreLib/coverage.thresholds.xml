@@ -518,7 +518,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistJavaImpl" linecount="9" linerate="0.004444444444444449" linesexecuted="0.040000000000000036"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistUnsecuredWebServiceImpl" linecount="42" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.async.AsyncHeaderCreator" linecount="28" linerate="0.9285714285714286" linesexecuted="0.26"/>
+<threshold branchcount="14" branchrate="0.6864285714285714" branchsexecuted="9.61" class="gov.hhs.fha.nhinc.async.AsyncHeaderCreator" linecount="39" linerate="0.23230769230769233" linesexecuted="9.06"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.DocQueryAuditLog" linecount="51" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog" linecount="40" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.dte.WebServiceContextHelper" linecount="24" linerate="0.0" linesexecuted="0"/>
