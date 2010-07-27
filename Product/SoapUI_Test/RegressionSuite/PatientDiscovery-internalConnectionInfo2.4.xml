@@ -77,7 +77,7 @@
             <service>
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>QueryForDocument</name>
@@ -549,7 +549,7 @@
             <service>
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>QueryForDocument</name>
@@ -1001,7 +1001,7 @@
 	            <service>
 	                <name>PatientDiscovery</name>
 	                <description>patientdiscovery</description>
-	                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
+	                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 	            </service>
 	            <service>
 	                <name>QueryForDocument</name>
