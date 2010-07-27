@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.patientdiscovery.async.response;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
@@ -76,7 +72,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
             // Perform a policy check
             if (checkPolicy(body, assertion)) {
 
-                
+
 
                 // Obtain the response mode in order to determine how the message is to be processed
                 int respModeType = getResponseMode();
@@ -260,7 +256,7 @@ public class NhinPatientDiscoveryAsyncRespImpl {
 
         // Determine the time to query on
         Date expirationValue = calculateExpirationValue(value, units);
-        
+
         // Query the database for all records older then the calculated time
         List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByTime(expirationValue);
 

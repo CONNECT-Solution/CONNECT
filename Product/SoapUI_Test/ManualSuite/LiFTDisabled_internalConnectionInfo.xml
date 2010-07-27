@@ -46,6 +46,16 @@
 				<description>patientdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>PatientDiscoveryAsyncReq</name>
+				<description>patientdiscoveryasyncreq</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+			</service>
+			<service>
+				<name>PatientDiscoveryAsyncResp</name>
+				<description>patientdiscoveryasyncresp</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterxdrsecured</name>
@@ -71,16 +81,6 @@
 				<name>entityxdrsecured</name>
 				<description>Entity XDR Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-			</service>
-			<service>
-				<name>PatientDiscoveryAsyncReq</name>
-				<description>patientdiscoveryasyncreq</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
-			</service>
-			<service>
-				<name>PatientDiscoveryAsyncResp</name>
-				<description>patientdiscoveryasyncresp</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>
@@ -652,6 +652,16 @@
 				<description>patientdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>PatientDiscoveryAsyncReq</name>
+				<description>patientdiscoveryasyncreq</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+			</service>
+			<service>
+				<name>PatientDiscoveryAsyncResp</name>
+				<description>patientdiscoveryasyncresp</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterpxdrsecured</name>
@@ -682,16 +692,6 @@
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-			</service>
-			<service>
-				<name>PatientDiscoveryAsyncReq</name>
-				<description>patientdiscoveryasyncreq</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
-			</service>
-			<service>
-				<name>PatientDiscoveryAsyncResp</name>
-				<description>patientdiscoveryasyncresp</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>
@@ -1263,6 +1263,16 @@
 				<description>patientdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>PatientDiscoveryAsyncReq</name>
+				<description>patientdiscoveryasyncreq</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+			</service>
+			<service>
+				<name>PatientDiscoveryAsyncResp</name>
+				<description>patientdiscoveryasyncresp</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+			</service>
 			
 			<service>
 				<name>serviceXDR</name>
@@ -1283,16 +1293,6 @@
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
-			</service>
-			<service>
-				<name>PatientDiscoveryAsyncReq</name>
-				<description>patientdiscoveryasyncreq</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
-			</service>
-			<service>
-				<name>PatientDiscoveryAsyncResp</name>
-				<description>patientdiscoveryasyncresp</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>auditquery</name>

@@ -1,9 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package gov.hhs.fha.nhinc.patientdiscovery.async.response;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;

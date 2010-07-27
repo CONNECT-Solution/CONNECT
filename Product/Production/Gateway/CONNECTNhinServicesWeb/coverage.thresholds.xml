@@ -20,4 +20,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryImpl" linecount="27" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="30" branchrate="0.26666666666666666" branchsexecuted="0.08" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReqImpl" linecount="61" linerate="0.3114754098360656" linesexecuted="0.19"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="40" branchrate="0.2" branchsexecuted="0.08" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncRespImpl" linecount="109" linerate="0.1743119266055046" linesexecuted="0.19"/>
 </thresholds>

@@ -296,22 +296,6 @@
 		<servlet-name>NhincSubjectDiscoverySecured</servlet-name>
 		<url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
 	</servlet-mapping>
-    <servlet>
-		<servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.async.request.NhinPatientDiscoveryAsyncReq</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-		<url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
-	</servlet-mapping>
-        <servlet>
-		<servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.async.response.NhinPatientDiscoveryAsyncResp</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-		<url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>SubjectDiscovery</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</servlet-class>
@@ -546,14 +530,6 @@
 		<web-resource-collection>
 			<web-resource-name>NhincSubjectDiscoverySecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
-		</web-resource-collection>
-        <web-resource-collection>
-			<web-resource-name>NhinPatientDiscoveryAsyncReq</web-resource-name>
-			<url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
-		</web-resource-collection>
-                <web-resource-collection>
-			<web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
-			<url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>SubjectDiscovery</web-resource-name>

@@ -145,6 +145,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinPatientDiscoveryAsyncReq">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>NhinPatientDiscoveryDeferredRequest.wsdl</local-wsdl-file>
+      <service-name>RespondingGatewayDeferredRequest_Service</service-name>
+      <port-name>RespondingGatewayDeferredRequest_Port</port-name>
+      <package-name>ihe.iti.xcpd._2009</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhinPatientDiscoveryAsyncResp">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhinPatientDiscoveryDeferredResponse.wsdl</local-wsdl-file>
+      <service-name>RespondingGatewayDeferredResp_Service</service-name>
+      <port-name>RespondingGatewayDeferredResponse_Port</port-name>
+      <package-name>ihe.iti.xcpd._2009</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.patientdiscovery.async.request;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;

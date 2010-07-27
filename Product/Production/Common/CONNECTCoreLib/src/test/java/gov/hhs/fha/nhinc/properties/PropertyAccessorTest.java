@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertEquals;
  * Date: Jun 1, 2010
  * Time: 2:57:51 PM
  */
+@Ignore
 public class PropertyAccessorTest {
     private static String m_sPropertiesDir = "";
 
