@@ -1609,6 +1609,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityDocQueryDeferredReq">
+      <implementation-class>gov.hhs.fha.nhinc.docquerydeferred.entity.request.EntityDocQueryDeferredReq</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocQueryDeferredRequest.wsdl</local-wsdl-file>
+      <service-name>EntityDocQueryDeferredRequest</service-name>
+      <port-name>EntityDocQueryDeferredRequestPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocquerydeferredrequest</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocQueryDeferredReqSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquerydeferred.entity.request.EntityDocQueryDeferredReqSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequestSecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocQueryDeferredRequestSecured.wsdl</local-wsdl-file>
+      <service-name>EntityDocQueryDeferredRequestSecured</service-name>
+      <port-name>EntityDocQueryDeferredRequestSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocquerydeferredrequestsecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>
