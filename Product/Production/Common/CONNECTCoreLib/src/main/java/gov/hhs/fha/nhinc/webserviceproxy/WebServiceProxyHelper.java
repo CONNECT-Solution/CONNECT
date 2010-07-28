@@ -43,7 +43,7 @@ public class WebServiceProxyHelper {
 
         int timeout = 0;
         if (NullChecker.isNotNullish(configValue)) {
-            new Integer(configValue);
+            timeout = new Integer(configValue);
         }
         return timeout;
     }
