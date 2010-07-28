@@ -81,6 +81,7 @@
     <string value="CCNet.inttest1.xml"/>
     <string value="CCNet.inttest2.xml"/>
     <string value="CCNet.inttest3.xml"/>
+    <string value="CCNet.build-kw.xml"/>    
     <string value="CCNet.ConnectGreen31.xml"/>
     <string value="CCNet.ConnectOrange31.xml"/>
     <string value="CCNet.ConnectRed31.xml"/>

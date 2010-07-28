@@ -19,7 +19,7 @@
         </groups>
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="&Integration2.Server.Remoting.Url;"
+               serverUri="&Integration3.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
             <exclusionFilters>
               <activities>

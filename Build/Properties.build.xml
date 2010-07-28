@@ -40,6 +40,13 @@
         </Directory>
       </Dashboard>
     </CCNet>
+    <Integration2>
+      <Server>
+        <Remoting>
+          <Url>&Integration2.Server.Remoting.Url;</Url>
+        </Remoting>
+      </Server>
+    </Integration2>
   </propertystructure>
 
   <propertystructure>
