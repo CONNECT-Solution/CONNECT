@@ -6,7 +6,7 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocumentrepository.proxy.AdapterDocumentRepositoryWebServiceProxy" linecount="21" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageHandler" linecount="41" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdCreator" linecount="11" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="9" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor" linecount="19" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.CMEprUtil" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManager" linecount="1" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="484" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache" linecount="508" linerate="0.0" linesexecuted="0"/>
@@ -528,7 +528,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender" linecount="38" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger" linecount="52" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="54" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker" linecount="42" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper" linecount="13" linerate="0.9230769230769231" linesexecuted="0.12"/>
+<threshold branchcount="6" branchrate="0.16666666666666666" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper" linecount="24" linerate="0.5" linesexecuted="0.12"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.response.PassThruMode" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory" linecount="38" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams" linecount="1" linerate="0.0" linesexecuted="0"/>

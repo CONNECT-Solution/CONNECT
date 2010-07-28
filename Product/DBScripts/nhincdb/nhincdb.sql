@@ -1,4 +1,4 @@
--- create application user
+﻿-- create application user
 CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 
 -- begin aggregator creation
@@ -215,3 +215,17 @@ CREATE TABLE asyncmsgs.asyncmsgrepo (
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON asyncmsgs.* to nhincuser;
 -- end asyncmsgs
+
+-- begin logging
+CREATE DATABASE logging;
+
+CREATE TABLE logging.log (
+	dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	context varchar(100) DEFAULT NULL,
+	logLevel varchar(10) DEFAULT NULL,
+	class varchar(500) DEFAULT NULL,
+	message longtext
+);
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON logging.* to nhincuser;
+-- end logging

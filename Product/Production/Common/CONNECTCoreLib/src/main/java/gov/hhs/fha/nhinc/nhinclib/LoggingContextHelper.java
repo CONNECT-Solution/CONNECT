@@ -56,9 +56,20 @@ public class LoggingContextHelper {
      */
     protected String generateLoggingContextId(WebServiceContext webServiceContext) {
 
-        return AsyncMessageIdExtractor.GetAsyncMessageId(webServiceContext) 
-                + "." + AsyncMessageIdExtractor.GetAsyncRelatesTo(webServiceContext)
-                + "." + UUID.randomUUID().toString();
+        StringBuffer buffer = new StringBuffer();
+        String messageId = AsyncMessageIdExtractor.GetAsyncMessageId(webServiceContext);
+        String relatesToId = AsyncMessageIdExtractor.GetAsyncRelatesTo(webServiceContext);
+        if (messageId != null) {
+            buffer.append(messageId);
+        }
+        buffer.append(".");
+        if (relatesToId != null) {
+            buffer.append(relatesToId);
+        }
+        buffer.append(".");
+        buffer.append(UUID.randomUUID().toString());
+        log.info("Setting contextId: " + buffer.toString());
+        return buffer.toString();
     }
 
     /**
