@@ -42,12 +42,7 @@ public class DocRetrieveDeferredAuditLogger {
      * @return AuditRepositoryProxy
      */
     protected AuditRepositoryProxy getAuditProxy() {
-        if (debugEnabled) {
-            log.debug("Inside: DocRetrieveAuditLog.logDocRetrieve(...) - Creating AuditRepositoryProxyObjectFactory object.");
-        }
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy;
+        return new AuditRepositoryProxyObjectFactory().getAuditRepositoryProxy();
     }
 
     /**
