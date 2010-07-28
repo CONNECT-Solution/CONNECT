@@ -28,7 +28,15 @@
   <property name="deployment.restore.configuration" value="false"/>
   <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc"/>
   <property name="deployment.interfaces.dir" value="${deployment.dir}/Interfaces"/>
-  <property name="deployment.domain.template.file.path" value="${script.root.directory}/GlassFish/templates/connect/domain.selfsigned.xml.template"/>
+  
+  <condition property="deployment.domain.template.file.path" value="${script.root.directory}/GlassFish/templates/connect/domain.selfsigned.xml.template">
+    <os arch="x86"/>
+  </condition>
+  
+  <condition property="deployment.domain.template.file.path" value="${script.root.directory}/GlassFish/templates/connect/domain.64bit.xml.template">
+    <os arch="amd64"/>
+  </condition>
+  
   <property name="deployment.environment.configuration.dir.name" value="Dev"/>
     
   <property name="deployment.glassfish.admin.port" value="4848"/>

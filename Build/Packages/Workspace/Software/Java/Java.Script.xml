@@ -3,7 +3,14 @@
 
   <property name="Java.Install.FriendlyName" value="Java SE6 Update 16"/>
   <property name="Java.Install.Path" value="${Java.Home}"/>
-  <property name="Java.Installer.File.Name" value="jdk-6u16-windows-i586.exe"/>
+  <switch value="${Processor.Type}">
+    <case break="True" value="32">
+      <property name="Java.Installer.File.Name" value="jdk-6u16-windows-i586.exe"/>
+    </case>
+    <case break="True" value="64">
+      <property name="Java.Installer.File.Name" value="jdk-6u16-windows-x64.exe"/>
+    </case>
+  </switch>  
   <property name="Java.Installer.File.Path" value="C:\Temp\${Java.Installer.File.Name}"/>
   <property name="Java.Installer.Download.URL" value="${Workspace.Ftp.Url}${Java.Installer.File.Name}"/>
 
