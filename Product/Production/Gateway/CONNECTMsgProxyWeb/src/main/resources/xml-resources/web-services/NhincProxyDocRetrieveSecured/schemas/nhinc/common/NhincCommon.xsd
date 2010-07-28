@@ -45,6 +45,7 @@
 			<xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
 			<xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
 			<xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
+                        <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -258,5 +259,13 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="UrlSet" type="tns:UrlSetType"/>
+    <xsd:complexType name="UrlInfoType">
+        <xsd:sequence>
+            <xsd:element name="url" type="xsd:string"></xsd:element>
+            <xsd:element name="id" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UrlInfo" type="tns:UrlInfoType"></xsd:element>
 </xsd:schema>
+
 

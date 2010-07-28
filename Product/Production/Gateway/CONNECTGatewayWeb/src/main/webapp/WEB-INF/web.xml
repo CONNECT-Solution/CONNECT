@@ -33,14 +33,6 @@
 		<url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>AdapterPolicyEngine</servlet-name>
 		<servlet-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</servlet-class>
 	</servlet>
@@ -409,10 +401,6 @@
 		<web-resource-collection>
 			<web-resource-name>EntityDocRetrieveSecured</web-resource-name>
 			<url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntityAuditLogQuery</web-resource-name>

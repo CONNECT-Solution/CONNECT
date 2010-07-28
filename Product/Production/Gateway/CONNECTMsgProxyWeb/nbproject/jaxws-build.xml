@@ -33,5 +33,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocquerysecured"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyDocQuerySecured"/>
+    <target name="wsimport-service-NhincProxyDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/NhincProxyDocRetrieveSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/NhincProxyDocRetrieveSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocRetrieveSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievesecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyDocQuerySecured, wsimport-service-NhincProxyDocRetrieveSecured"/>
 </project>

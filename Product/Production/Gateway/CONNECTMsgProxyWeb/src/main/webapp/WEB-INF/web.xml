@@ -8,10 +8,22 @@
 		<servlet-name>NhincProxyDocQuerySecured</servlet-name>
 		<url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
+		<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
+	</servlet-mapping>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
+			<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>

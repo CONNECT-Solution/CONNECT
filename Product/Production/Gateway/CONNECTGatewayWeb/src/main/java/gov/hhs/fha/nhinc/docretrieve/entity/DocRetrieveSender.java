@@ -2,7 +2,10 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecuredImpl;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
+import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxy;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocRetrieveAggregator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
@@ -35,8 +38,6 @@ public class DocRetrieveSender
         log.debug("Begin DocRetrieveSender.run");
         try
         {
-            NhincProxyDocRetrieveSecuredImpl docRetrieveProxy = new NhincProxyDocRetrieveSecuredImpl();
-
             // Collect identifying attributes
             DocumentRequest docRequest = null;
             String documentUniqueId = null;
@@ -65,7 +66,21 @@ public class DocRetrieveSender
             // Call NHIN proxy
             RetrieveDocumentSetResponseType nhinResponse = null;
             try{
-                nhinResponse = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request, assertion);
+                // Audit request message
+                DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
+                auditLog.auditDocRetrieveRequest(request.getRetrieveDocumentSetRequest(), assertion);
+
+                log.debug("Creating NHIN doc retrieve proxy");
+                NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
+                NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
+
+                RespondingGatewayCrossGatewayRetrieveRequestType requestMsg = new RespondingGatewayCrossGatewayRetrieveRequestType();
+                requestMsg.setAssertion(assertion);
+                requestMsg.setNhinTargetSystem(request.getNhinTargetSystem());
+                requestMsg.setRetrieveDocumentSetRequest(request.getRetrieveDocumentSetRequest());
+
+                log.debug("Calling doc retrieve proxy");
+                nhinResponse = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(requestMsg);
             }catch(Throwable t){
                 nhinResponse = new RetrieveDocumentSetResponseType();
                 RegistryErrorList regErrList = new RegistryErrorList();
