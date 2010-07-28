@@ -5,6 +5,8 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
+    <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerysecured"/>
     <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
@@ -32,8 +34,4 @@
     <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/> 
     <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
-<!--
-    <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-    <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
--->
 </definitions>

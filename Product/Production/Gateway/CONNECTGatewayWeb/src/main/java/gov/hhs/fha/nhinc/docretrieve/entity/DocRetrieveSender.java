@@ -12,6 +12,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
@@ -82,15 +83,18 @@ public class DocRetrieveSender
                 log.debug("Calling doc retrieve proxy");
                 nhinResponse = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(requestMsg);
             }catch(Throwable t){
+                log.error("Error sending doc retrieve message...");
                 nhinResponse = new RetrieveDocumentSetResponseType();
+                RegistryResponseType registryResponse = new RegistryResponseType();
+                nhinResponse.setRegistryResponse(registryResponse);
                 RegistryErrorList regErrList = new RegistryErrorList();
                 RegistryError regErr = new RegistryError();
                 regErrList.getRegistryError().add(regErr);
                 regErr.setCodeContext("Fault encountered processing internal document retrieve for community "+homeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
                 regErr.setSeverity("Error");
-                nhinResponse.getRegistryResponse().setRegistryErrorList(regErrList);
-                nhinResponse.getRegistryResponse().setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                registryResponse.setRegistryErrorList(regErrList);
+                registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
                 log.error("Fault encountered processing internal document retrieve for community "+homeCommunityId);
             }
             

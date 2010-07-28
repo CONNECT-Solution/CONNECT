@@ -33,7 +33,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog" linecount="40" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveImpl" linecount="113" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.DocRetrieveSender" linecount="66" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.DocRetrieveSender" linecount="69" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecuredImpl" linecount="104" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
