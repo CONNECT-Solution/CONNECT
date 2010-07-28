@@ -72,7 +72,7 @@
         <runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
       </then>
     </if>
-    <runtarget target="delete.common.jars"/>
+
     <runtarget target="deploy.shared.libs.to.glassfish"/>
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
@@ -304,7 +304,7 @@
   </target>
 
   <target name="deploy.shared.lib.to.glassfish">
-    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/domains/${deployment.glassfish.domain.name}/lib" overwrite="true" />
+    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" overwrite="true" />
   </target>
 
   <target name="undeploy.shared.lib.from.glassfish">
@@ -479,25 +479,6 @@
     </xmltask>   
   </target>
 
-  <target name="delete.common.jars">
-    <if>
-      <exists path="${glassfish.home}/lib/CONNECTCommonTypesLib.jar"/>
-      <then>
-        <delete>
-          <fileset dir="${glassfish.home}/lib" includes="CONNECT*.jar"/>
-        </delete>
-      </then>
-    </if>
-    <if>
-      <exists path="${glassfish.home}/lib/NhincCommonTypesLib.jar"/>
-      <then>
-        <delete>
-          <fileset dir="${glassfish.home}/lib" includes="Nhinc*.jar"/>
-        </delete>
-      </then>
-    </if>    
-  </target>
-  
   <target name="recreate.glassfish.domain">
     <runtarget target="-backup.glassfish.domain.configuration"/>
     <runtarget target="-backup.glassfish.domain.certificates"/>
