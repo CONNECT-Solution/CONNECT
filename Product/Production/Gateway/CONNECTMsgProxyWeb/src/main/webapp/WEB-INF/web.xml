@@ -40,6 +40,24 @@
 		<servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
 		<url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
 	</servlet-mapping>
+	<!-- Begin Nhinc proxy Document retrieve deferred services-->
+	<servlet>
+		<servlet-name>NhincProxyDocRetrieveDeferredReq</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhincproxy.request.NhincProxyDocRetrieveDeferredReq</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincProxyDocRetrieveDeferredReq</servlet-name>
+		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequest</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhincproxy.request.NhincProxyDocRetrieveDeferredReqSecured</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
+		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
+	</servlet-mapping>
+	<!-- End Nhinc proxy Document retrieve deferred services-->
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
@@ -61,6 +79,12 @@
 			<web-resource-name>ProxyHiemUnsubscribeSecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
 		</web-resource-collection>
+		<!-- Begin Nhinc proxy Document retrieve deferred services-->
+		<web-resource-collection>
+			<web-resource-name>NhincProxyDocRetrieveDeferredReqSecured</web-resource-name>
+			<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
+		</web-resource-collection>
+		<!-- End Nhinc proxy Document retrieve deferred services-->	
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>

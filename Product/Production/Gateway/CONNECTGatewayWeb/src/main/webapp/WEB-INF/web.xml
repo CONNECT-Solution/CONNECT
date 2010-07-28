@@ -347,19 +347,19 @@
     <!-- End: XDR Request and Response services-->
 	<!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
-        <servlet-name>EntityDocRetrieveDeferredRequest</servlet-name>
+        <servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReq</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredRequest</servlet-name>
+        <servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveDeferredRequest</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>EntityDocRetrieveDeferredRequestSecured</servlet-name>
+        <servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredRequestSecured</servlet-name>
+        <servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
     </servlet-mapping>
     <!-- BEGIN: Document Retrieve Deferred Services -->
@@ -470,7 +470,7 @@
         </web-resource-collection>
 		<!-- BEGIN Document Retrieve Deferred Service -->
         <web-resource-collection>
-            <web-resource-name>EntityDocRetrieveDeferredRequestSecured</web-resource-name>
+            <web-resource-name>EntityDocRetrieveDeferredReqSecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
         </web-resource-collection>
         <!-- END Document Retrieve Deferred Service -->
