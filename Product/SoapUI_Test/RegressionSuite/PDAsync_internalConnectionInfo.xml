@@ -72,6 +72,14 @@
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			
+			<!-- NHINC Proxy Interfaces -->
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQuerySecured</endpointURL>
+			</service>
+
+
             <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
@@ -424,11 +432,6 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
-                <name>nhincproxydocquerysecured</name>
-                <description>NHINC Proxy Document Query Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocQuerySecured</endpointURL>
-            </service>
-            <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAuthentication</endpointURL>
@@ -629,6 +632,14 @@
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			
+			<!-- NHINC Proxy Interfaces -->
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQuerySecured</endpointURL>
+			</service>
+
+
             <service>
                 <name>adapterpxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
@@ -879,11 +890,6 @@
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxydocquerysecured</name>
-                <description>NHINC Proxy Document Query Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauthentication</name>
@@ -1186,6 +1192,14 @@
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			
+			<!-- NHINC Proxy Interfaces -->
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQuerySecured</endpointURL>
+			</service>
+
+
             <service>
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
@@ -1428,11 +1442,6 @@
 				<endpointURL>http://localhost:8080/AdapterService/NhincProxyDocQuery</endpointURL>
 			</service>
 			<service>
-				<name>nhincproxydocquerysecured</name>
-				<description>NHINC Proxy Document Query Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocQuerySecured</endpointURL>
-			</service>
-			<service>
 				<name>adapterauthentication</name>
 				<description>adapterauthentication</description>
 				<endpointURL>http://localhost:8080/AdapterService/AdapterAuthentication</endpointURL>
@@ -1603,6 +1612,14 @@
         <name>NISTXDS</name>
         <description>NIST XDS Repository</description>
         <services>
+			<!-- NHINC Proxy Interfaces -->
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQuerySecured</endpointURL>
+			</service>
+
+
             <service>
                 <name>adapterxdsbdocrepositorysoap12</name>
                 <description>Adapter Document Retrieve Soap12</description>
@@ -1637,11 +1654,6 @@
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxydocquerysecured</name>
-                <description>NHINC Proxy Document Query</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>

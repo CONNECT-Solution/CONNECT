@@ -2,17 +2,21 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
-import gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecuredImpl;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
@@ -68,10 +72,6 @@ public class DocQuerySender {
         return sHomeCommunity;
     }
 
-    protected NhincProxyDocQuerySecuredImpl createNhincProxyDocQuerySecuredImpl() {
-        return new NhincProxyDocQuerySecuredImpl();
-    }
-
     protected HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId) {
         HomeCommunityType targetCommunity = null;
         if ((sAssigningAuthorityId != null) && (sAssigningAuthorityId.equals(sLocalAssigningAuthorityId))) {
@@ -98,7 +98,6 @@ public class DocQuerySender {
     }
 
     public void sendMessage() {
-        NhincProxyDocQuerySecuredImpl nhincDocQueryProxy = createNhincProxyDocQuerySecuredImpl();
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType docQuery = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType();
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         String assigningAuthority = oSubjectId.getAssigningAuthorityIdentifier();
@@ -116,7 +115,21 @@ public class DocQuerySender {
         AdhocQueryResponse queryResults = null;
         if (isValidPolicy(adhocQueryRequest, oAssertion, targetCommunity)) {
             try {
-                queryResults = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery, oAssertion);
+                // Audit the Document Query Request Message sent on the Nhin Interface
+                DocQueryAuditLog auditLog = new DocQueryAuditLog();
+                AcknowledgementType ack = auditLog.audit(docQuery, oAssertion);
+                log.debug("Creating NhinDocQueryProxy");
+                NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
+                NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
+
+                RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
+
+                request.setAdhocQueryRequest(docQuery.getAdhocQueryRequest());
+                request.setAssertion(oAssertion);
+                request.setNhinTargetSystem(docQuery.getNhinTargetSystem());
+
+                log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
+                queryResults = proxy.respondingGatewayCrossGatewayQuery(request);
             } catch (Throwable t) {
                 queryResults = new AdhocQueryResponse();
                 RegistryErrorList regErrList = new RegistryErrorList();

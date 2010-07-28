@@ -9,14 +9,6 @@
 		<url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>NhincProxyDocQuerySecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyDocQuerySecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>AdapterDocQueryService</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</servlet-class>
 	</servlet>
@@ -413,10 +405,6 @@
 		<web-resource-collection>
 			<web-resource-name>EntityDocQuerySecured</web-resource-name>
 			<url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntityDocRetrieveSecured</web-resource-name>
