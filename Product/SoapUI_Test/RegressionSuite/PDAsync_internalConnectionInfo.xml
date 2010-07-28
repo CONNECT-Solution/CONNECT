@@ -83,6 +83,21 @@
 				<description>NHINC Proxy Document Retrieve Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxynotificationconsumersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubscriptionmanagersecured</name>
+				<description>NHINC Proxy Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
+			</service>
 
 
             <service>
@@ -397,24 +412,9 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationConsumerSecured</endpointURL>
             </service>
             <service>
-                <name>nhincproxynotificationconsumersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
-            </service>
-            <service>
                 <name>entitynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationProducerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxynotificationproducersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxysubscriptionmanagersecured</name>
-                <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitysubscriptionmanagersecured</name>
@@ -643,6 +643,21 @@
 				<description>NHINC Proxy Document Retrieve Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxynotificationconsumersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubscriptionmanagersecured</name>
+				<description>NHINC Proxy Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
+			</service>
 
 
             <service>
@@ -857,24 +872,9 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationConsumerSecured</endpointURL>
             </service>
             <service>
-                <name>nhincproxynotificationconsumersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
-            </service>
-            <service>
                 <name>entitynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationProducerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxynotificationproducersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxysubscriptionmanagersecured</name>
-                <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitysubscriptionmanagersecured</name>
@@ -1203,6 +1203,21 @@
 				<description>NHINC Proxy Document Retrieve Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxynotificationconsumersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubscriptionmanagersecured</name>
+				<description>NHINC Proxy Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
+			</service>
 
 
             <service>
@@ -1407,24 +1422,9 @@
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationConsumerSecured</endpointURL>
 			</service>
 			<service>
-				<name>nhincproxynotificationconsumersecured</name>
-				<description>NHINC Proxy Notify Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
-			</service>
-			<service>
 				<name>entitynotificationproducersecured</name>
 				<description>NHINC Proxy Notify Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationProducerSecured</endpointURL>
-			</service>
-			<service>
-				<name>nhincproxynotificationproducersecured</name>
-				<description>NHINC Proxy Notify Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
-			</service>
-			<service>
-				<name>nhincproxysubscriptionmanagersecured</name>
-				<description>NHINC Proxy Subscription Manager Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
 			</service>
 			<service>
 				<name>entitysubscriptionmanagersecured</name>

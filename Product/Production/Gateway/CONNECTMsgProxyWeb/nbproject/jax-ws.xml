@@ -49,6 +49,78 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="ProxyHiemNotifySecured">
+      <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyNotificationConsumerSecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyNotificationConsumerSecured</service-name>
+      <port-name>NhincProxyNotificationConsumerPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="ProxyHiemSubscribeSecured">
+      <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribeSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyNotificationProducerSecured</service-name>
+      <port-name>NhincProxyNotificationProducerPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="ProxyHiemUnsubscribeSecured">
+      <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribeSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxySubscriptionManagerSecured</service-name>
+      <port-name>NhincProxySubscriptionManagerSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

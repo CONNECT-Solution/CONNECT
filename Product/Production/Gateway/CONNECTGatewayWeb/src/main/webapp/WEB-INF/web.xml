@@ -97,30 +97,6 @@
 		<url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>ProxyHiemNotifySecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProxyHiemNotifySecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyNotificationConsumerSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>ProxyHiemSubscribeSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribeSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProxyHiemSubscribeSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyNotificationProducerSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribeSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>EntitySubscribeSecuredService</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeSecuredService</servlet-class>
 	</servlet>
@@ -413,18 +389,6 @@
 		<web-resource-collection>
 			<web-resource-name>EntityNotifySecured</web-resource-name>
 			<url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>ProxyHiemNotifySecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyNotificationConsumerSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>ProxyHiemSubscribeSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyNotificationProducerSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>ProxyHiemUnsubscribeSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntitySubscribeSecuredService</web-resource-name>
