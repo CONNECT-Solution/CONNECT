@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.auditquery;
+package gov.hhs.fha.nhinc.auditquery.nhin;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;

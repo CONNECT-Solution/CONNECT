@@ -536,4 +536,7 @@
 <threshold branchcount="106" branchrate="0.1792452830188679" branchsexecuted="0.19" class="gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode" linecount="126" linerate="0.1984126984126984" linesexecuted="0.25"/>
 <threshold branchcount="24" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLog" linecount="77" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLogger" linecount="50" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLog" linecount="50" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="36" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger" linecount="77" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker" linecount="52" linerate="0.0" linesexecuted="0"/>
 </thresholds>

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.xdr;
+package gov.hhs.fha.nhinc.docsubmission.nhin;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

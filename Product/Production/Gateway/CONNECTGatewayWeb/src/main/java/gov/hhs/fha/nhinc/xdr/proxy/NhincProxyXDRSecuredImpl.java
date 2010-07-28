@@ -13,7 +13,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 
 /**
  *

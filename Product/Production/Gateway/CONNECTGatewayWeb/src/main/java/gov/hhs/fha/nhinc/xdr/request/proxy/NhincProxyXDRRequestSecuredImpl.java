@@ -8,7 +8,7 @@ import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

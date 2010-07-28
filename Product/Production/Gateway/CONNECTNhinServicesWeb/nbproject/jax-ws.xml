@@ -217,6 +217,102 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinXDR">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDR</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDR.wsdl</local-wsdl-file>
+      <service-name>DocumentRepositoryXDR_Service</service-name>
+      <port-name>DocumentRepositoryXDR_Port_Soap</port-name>
+      <package-name>ihe.iti.xdr._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AuditQuery">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
+      <local-wsdl-file>NhinAuditLogQuery.wsdl</local-wsdl-file>
+      <service-name>findAuditEvents</service-name>
+      <port-name>AuditLogQuery</port-name>
+      <package-name>com.nhin.services</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhinXDRRequest">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequest</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDRDeferredRequest.wsdl</local-wsdl-file>
+      <service-name>XDRDeferredRequest_Service</service-name>
+      <port-name>XDRDeferredRequest_Port_Soap</port-name>
+      <package-name>ihe.iti.xdr._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhinXDRResponse">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinXDRResponse</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDRDeferredResponse.wsdl</local-wsdl-file>
+      <service-name>XDRDeferredResponse_Service</service-name>
+      <port-name>XDRDeferredResponse_Port_Soap</port-name>
+      <package-name>ihe.iti.xdr._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

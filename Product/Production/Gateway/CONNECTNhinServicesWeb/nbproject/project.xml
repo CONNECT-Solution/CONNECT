@@ -56,6 +56,9 @@
                 <library>
                     <file>${file.reference.objenesis-1.0.jar}</file>
                 </library>
+                <library>
+                    <file>${file.reference.hibernate3.jar}</file>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>

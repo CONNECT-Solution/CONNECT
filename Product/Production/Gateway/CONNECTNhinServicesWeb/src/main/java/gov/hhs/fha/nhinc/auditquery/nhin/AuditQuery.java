@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.auditquery;
+package gov.hhs.fha.nhinc.auditquery.nhin;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

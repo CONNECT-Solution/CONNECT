@@ -105,14 +105,6 @@
 		<url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>AuditQuery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AuditQuery</servlet-name>
-		<url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>EntityNotifySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifySecured</servlet-class>
 	</servlet>
@@ -336,23 +328,6 @@
 		<servlet-name>AdapterXDRRequestError</servlet-name>
 		<url-pattern>/AdapterService/AdapterXDRRequestError_Service</url-pattern>
 	</servlet-mapping>
-    <!-- Start: XDR Request and Response services-->
-    <servlet>
-        <servlet-name>NhinXDRRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinXDRRequest</servlet-name>
-        <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinXDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinXDRResponse</servlet-name>
-        <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>NhinAdministrativeDistribution</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution</servlet-class>
@@ -460,10 +435,6 @@
 			<url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
-			<web-resource-name>AuditQuery</web-resource-name>
-			<url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
 			<web-resource-name>EntityNotifySecured</web-resource-name>
 			<url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
 		</web-resource-collection>
@@ -540,14 +511,6 @@
 			<url-pattern>/EntityService/EntityXDRSecured</url-pattern>
 		</web-resource-collection>
         <!-- Start: XDR Request and Response services-->
-        <web-resource-collection>
-            <web-resource-name>NhinXDRRequest</web-resource-name>
-            <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinXDRResponse</web-resource-name>
-            <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
-        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityXDRRequestSecured</web-resource-name>
             <url-pattern>/EntityService/EntityXDRRequestSecured</url-pattern>

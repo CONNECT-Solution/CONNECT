@@ -56,6 +56,32 @@
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>serviceXDR</name>
+				<description>NHIN XDR</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+			</service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterxdrsecured</name>
@@ -68,11 +94,6 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
 			</service>
 			<service>
-				<name>serviceXDR</name>
-				<description>NHIN XDR</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-			</service>
-			<service>
 				<name>nhincproxyxdrsecured</name>
 				<description>NHINC PROXY XDR</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
@@ -81,11 +102,6 @@
 				<name>entityxdrsecured</name>
 				<description>Entity XDR Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-			</service>
-			<service>
-				<name>auditquery</name>
-				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelation</name>
@@ -529,17 +545,6 @@
 				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
 			</service>
 			<service>
-				<name>xdrrequest</name>
-				<description>NHIN XDR Request</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
-			</service>
-			<service>
 				<name>nhincliftmanager</name>
 				<description>NHIN Component Lift Manager</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
@@ -574,11 +579,6 @@
 				<name>adapterxdrresponse</name>
 				<description>Adapter Component XDR Response</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
-			</service>
-			<service>
-				<name>xdrresponse</name>
-				<description>NHIN XDR Response</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrresponsesecured</name>
@@ -677,6 +677,32 @@
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>serviceXDR</name>
+				<description>NHIN XDR</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+			</service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterpxdrsecured</name>
@@ -689,11 +715,6 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
 			</service>
 			<service>
-				<name>serviceXDR</name>
-				<description>NHIN XDR</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-			</service>
-			<service>
 				<name>nhincproxyxdrsecured</name>
 				<description>NHINC PROXY XDR</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
@@ -702,11 +723,6 @@
 				<name>entityxdrsecured</name>
 				<description>Entity XDR Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-			</service>
-			<service>
-				<name>auditquery</name>
-				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelation</name>
@@ -1100,17 +1116,6 @@
 				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
 			</service>
 			<service>
-				<name>xdrrequest</name>
-				<description>NHIN XDR Request</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
-			</service>
-			<service>
 				<name>nhincliftmanager</name>
 				<description>NHIN Component Lift Manager</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
@@ -1145,11 +1150,6 @@
 				<name>adapterxdrresponse</name>
 				<description>Adapter Component XDR Response</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
-			</service>
-			<service>
-				<name>xdrresponse</name>
-				<description>NHIN XDR Response</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrresponsesecured</name>
@@ -1299,12 +1299,33 @@
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
-			
 			<service>
 				<name>serviceXDR</name>
 				<description>NHIN XDR</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
 			</service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
+
 			<service>
 				<name>nhincproxyxdrsecured</name>
 				<description>NHINC PROXY XDR</description>
@@ -1314,11 +1335,6 @@
 				<name>entityxdrsecured</name>
 				<description>Entity XDR Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-			</service>
-			<service>
-				<name>auditquery</name>
-				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelation</name>
@@ -1702,17 +1718,6 @@
 				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
 			</service>
 			<service>
-				<name>xdrrequest</name>
-				<description>NHIN XDR Request</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
-			</service>
-			<service>
 				<name>nhincliftmanager</name>
 				<description>NHIN Component Lift Manager</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
@@ -1747,11 +1752,6 @@
 				<name>adapterxdrresponse</name>
 				<description>Adapter Component XDR Response</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
-			</service>
-			<service>
-				<name>xdrresponse</name>
-				<description>NHIN XDR Response</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrresponsesecured</name>
@@ -1938,6 +1938,32 @@
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>serviceXDR</name>
+				<description>NHIN XDR</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+			</service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+				<supportsLIFT>false</supportsLIFT>
+				<liftProtocols>
+					<liftProtocol>
+						<name>HTTPS</name>
+					</liftProtocol>
+				</liftProtocols>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
 			
 			<service>
 				<name>adapterpxdrsecured</name>
@@ -1950,11 +1976,6 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
 			</service>
 			<service>
-				<name>serviceXDR</name>
-				<description>NHIN XDR</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-			</service>
-			<service>
 				<name>nhincproxyxdrsecured</name>
 				<description>NHINC PROXY XDR</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
@@ -1963,11 +1984,6 @@
 				<name>entityxdrsecured</name>
 				<description>Entity XDR Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-			</service>
-			<service>
-				<name>auditquery</name>
-				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelation</name>
@@ -2361,17 +2377,6 @@
 				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
 			</service>
 			<service>
-				<name>xdrrequest</name>
-				<description>NHIN XDR Request</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
-			</service>
-			<service>
 				<name>nhincliftmanager</name>
 				<description>NHIN Component Lift Manager</description>
 				<endpointURL>http://localhost:8080/CONNECTGatewayInternal/GatewayService/GatewayLiftManager</endpointURL>
@@ -2406,11 +2411,6 @@
 				<name>adapterxdrresponse</name>
 				<description>Adapter Component XDR Response</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
-			</service>
-			<service>
-				<name>xdrresponse</name>
-				<description>NHIN XDR Response</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrresponsesecured</name>

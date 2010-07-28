@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package gov.hhs.fha.nhinc.docsubmission.nhin;
 
-package gov.hhs.fha.nhinc.xdr;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -40,7 +38,7 @@ public class NhinXDRImpl
     public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
     private static Log log = null;
     private static AdapterXDRSecuredService securedAdapterService = null;
-    
+
     public NhinXDRImpl()
     {
         log = createLogger();
@@ -74,7 +72,7 @@ public class NhinXDRImpl
          log.error("Failed Policy Check");
          result = createFailedPolicyCheckResponse();
      }
-     
+
 
      ack = auditLogger.auditNhinXDRResponse(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
@@ -85,14 +83,14 @@ public class NhinXDRImpl
     private RegistryResponseType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context)
     {
         log.debug("begin forwardToAgency()");
-        
+
         String url = "";
         RegistryResponseType response = null;
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-        
-        
+
+
         url = getUrl();
-                
+
         if (NullChecker.isNotNullish(url)) {
             AdapterXDRSecuredPortType port = getPort(url);
 
@@ -159,7 +157,7 @@ public class NhinXDRImpl
         policyError.setErrorCode(XDR_POLICY_ERROR);
         policyError.setCodeContext(XDR_POLICY_ERROR_CONTEXT);
         policyError.setSeverity("Error");
-        
+
         result.setStatus(XDR_RESPONSE_FAILURE);
         result.getRegistryErrorList().getRegistryError().add(policyError);
 

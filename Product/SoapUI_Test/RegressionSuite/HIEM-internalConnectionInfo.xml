@@ -44,6 +44,16 @@
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>serviceXDR</name>
+				<description>NHIN XDR</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
 			
             <service>
                 <name>adapterxdrsecured</name>
@@ -56,11 +66,6 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
             </service>                 
             <service>
-                <name>serviceXDR</name>
-                <description>NHIN XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-            </service>
-            <service>
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
@@ -69,11 +74,6 @@
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
-            </service>
-            <service>
-                <name>auditquery</name>
-                <description>auditquery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>

@@ -72,7 +72,39 @@
 		<servlet-name>SubjectDiscovery</servlet-name>
 		<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
 	</servlet-mapping>
-	<security-constraint>
+    <servlet>
+        <servlet-name>NhinXDR</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDR</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinXDR</servlet-name>
+        <url-pattern>/DocumentRepositoryXDR_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinXDRRequest</servlet-name>
+        <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinXDRResponse</servlet-name>
+        <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
+    </servlet-mapping>
+	<servlet>
+		<servlet-name>AuditQuery</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuditQuery</servlet-name>
+		<url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
+	</servlet-mapping>
+    <security-constraint>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
 			<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
@@ -108,6 +140,22 @@
 		<web-resource-collection>
 			<web-resource-name>SubjectDiscovery</web-resource-name>
 			<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
+		</web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinXDR</web-resource-name>
+            <url-pattern>/DocumentRepositoryXDR_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinXDRRequest</web-resource-name>
+            <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinXDRResponse</web-resource-name>
+            <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
+        </web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>AuditQuery</web-resource-name>
+			<url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>

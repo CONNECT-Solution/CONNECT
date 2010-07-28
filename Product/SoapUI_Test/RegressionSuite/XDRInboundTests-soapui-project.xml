@@ -22269,7 +22269,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-def AssertionValue='https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service';
+def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service';
 log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 

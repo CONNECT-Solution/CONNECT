@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response;
 
-package gov.hhs.fha.nhinc.xdr.async.response;
 import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
@@ -16,8 +12,8 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
-import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 

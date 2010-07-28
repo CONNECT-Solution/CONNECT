@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package gov.hhs.fha.nhinc.docsubmission;
 
-package gov.hhs.fha.nhinc.xdr;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -39,7 +35,7 @@ public class XDRPolicyChecker {
 
         XDREventType policyCheckReq = new XDREventType();
         XDRMessageType policyMsg = new XDRMessageType();
-    
+
         policyCheckReq.setDirection(direction);
 
         HomeCommunityType senderHC = new HomeCommunityType();
@@ -55,7 +51,7 @@ public class XDRPolicyChecker {
         policyMsg.setProvideAndRegisterDocumentSetRequest(message);
 
         policyCheckReq.setMessage(policyMsg);
-        
+
         return invokePolicyEngine(policyCheckReq);
     }
 
@@ -83,7 +79,7 @@ public class XDRPolicyChecker {
     }
 
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param senderHCID
@@ -99,7 +95,7 @@ public class XDRPolicyChecker {
         boolean isPolicyValid = false;
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        
+
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDRResponse(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
@@ -118,7 +114,7 @@ public class XDRPolicyChecker {
     }
 
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param senderHCID
@@ -145,7 +141,7 @@ public class XDRPolicyChecker {
         policyMsg.setRegistryResponse(message);
 
         policyCheckReq.setMessage(policyMsg);
-        
+
         return policyCheckReq;
     }
 }

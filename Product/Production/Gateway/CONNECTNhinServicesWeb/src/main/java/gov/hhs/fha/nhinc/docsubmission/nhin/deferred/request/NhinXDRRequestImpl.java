@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gov.hhs.fha.nhinc.xdr.async.request;
+package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request;
 
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
@@ -17,8 +13,8 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
-import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;

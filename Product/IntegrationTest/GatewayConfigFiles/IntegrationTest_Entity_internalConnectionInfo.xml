@@ -41,12 +41,12 @@
 				<description>subjectdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
 
-            <service>
-                <name>auditquery</name>
-                <description>auditquery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
-            </service>
             <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
@@ -452,6 +452,11 @@
 				<description>patientdiscovery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/findAuditEvents/AuditQuery</endpointURL>
+			</service>
 
 			<service>
 				<name>adaptersubdiscovery</name>
@@ -508,11 +513,6 @@
 				<description>Mock HIEM Unsubscribe</description>
 				<endpointURL>http://localhost:19080/mockNhincSubscriptionManager</endpointURL>
 			</service>
-            <service>
-                <name>auditquery</name>
-                <description>auditquery</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
-            </service>
             <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>

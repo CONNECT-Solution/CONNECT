@@ -294,7 +294,7 @@ public class GatewayLiftManagerProxyJavaImplIntegrationTest
 "	</samlAuthnStatement>" +
 "	<samlAuthzDecisionStatement>" +
 "		<decision>Permit</decision>" +
-"		<resource>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</resource>" +
+"		<resource>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</resource>" +
 "		<action>Execute</action>" +
 "		<evidence>" +
 "			<assertion>" +
@@ -372,7 +372,7 @@ public class GatewayLiftManagerProxyJavaImplIntegrationTest
         olRecord.add(oRecord);
         oDao.insertRecords(olRecord);
     }
-    
+
     /**
      * There must be one test - for this to pass - we cannot comment out all tests.
      */
@@ -383,7 +383,7 @@ public class GatewayLiftManagerProxyJavaImplIntegrationTest
 
 // This has been commented out because the completeLiftTransaction makes a web service
 // call to complete.  This cannot be done in a JUnit integration test.  So this basically
-// is mainly used for debugging purposes and cannot be run automated. 
+// is mainly used for debugging purposes and cannot be run automated.
 //    /**
 //     * Test the GatewayLiftManagerProxyJavaImpl.completeLiftTransaction method.
 //     */

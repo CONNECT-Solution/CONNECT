@@ -1,9 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package gov.hhs.fha.nhinc.xdr.async.request;
+package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
