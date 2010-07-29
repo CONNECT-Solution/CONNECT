@@ -240,6 +240,7 @@
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Checkstyle.xml"'/>
         </asyncexec>
 
+        <call target="Ant.Clean" />
         <call target="Ant.Package" />
 
         <description>End Compile Actions</description>
