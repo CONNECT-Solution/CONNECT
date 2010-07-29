@@ -73,6 +73,21 @@
 				<description>NHINC Proxy Subscription Manager Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxypatientdiscoverysecured</name>
+				<description>NHINC Proxy Patient Discovery Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubjectdiscoverysecured</name>
+				<description>NHINC Proxy Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubjectDiscoverySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyauditquerysecured</name>
+				<description>NHINC ProxyAudit Query Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
+			</service>
 
 
             <service>
@@ -322,11 +337,6 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
-                <name>nhincproxysubjectdiscoverysecured</name>
-                <description>NHINC Proxy Subject Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubjectDiscoverySecured</endpointURL>
-            </service>
-            <service>
                 <name>entitypatientdiscoverysecured</name>
                 <description>Entity Patient Discovery Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoverySecured</endpointURL>
@@ -335,11 +345,6 @@
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxypatientdiscoverysecured</name>
-                <description>NHINC Proxy Patient Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumer</name>
@@ -411,11 +416,6 @@
                 <description>NHINC Proxy Audit Query</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</endpointURL>
             </service>
-            <service>
-                <name>nhincproxyauditquerysecured</name>
-                <description>NHINC ProxyAudit Query Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
-            </service>
                 
       </services>
     </internalConnectionInfo>
@@ -486,6 +486,21 @@
 				<name>nhincproxysubscriptionmanagersecured</name>
 				<description>NHINC Proxy Subscription Manager Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxypatientdiscoverysecured</name>
+				<description>NHINC Proxy Patient Discovery Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubjectdiscoverysecured</name>
+				<description>NHINC Proxy Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxySubjectDiscoverySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyauditquerysecured</name>
+				<description>NHINC ProxyAudit Query Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
 			</service>
 
 
@@ -721,11 +736,6 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
-                <name>nhincproxysubjectdiscoverysecured</name>
-                <description>NHINC Proxy Subject Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubjectDiscoverySecured</endpointURL>
-            </service>
-            <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</endpointURL>
@@ -796,11 +806,6 @@
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</endpointURL>
             </service>
             <service>
-                <name>nhincproxyauditquerysecured</name>
-                <description>NHINC ProxyAudit Query Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
-            </service>
-            <service>
                 <name>entitypatientdiscoverysecured</name>
                 <description>Entity Patient Discovery Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoverySecured</endpointURL>
@@ -809,11 +814,6 @@
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxypatientdiscoverysecured</name>
-                <description>NHINC Proxy Patient Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.patientdiscovery.entity.async.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
@@ -14,11 +9,12 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxy;
+import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncRespImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import javax.xml.ws.WebServiceContext;
@@ -27,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 
@@ -47,8 +42,7 @@ public class EntityPatientDiscoverySecuredAsyncRespImpl {
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (request != null &&
                 unsecureRequest.getAssertion() != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+            unsecureRequest.getAssertion().setAsyncMessageId(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
         }
 
         // Audit the Patient Discovery Request Message sent on the Entity Interface
@@ -124,21 +118,24 @@ public class EntityPatientDiscoverySecuredAsyncRespImpl {
     }
 
     protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201306UV02RequestType request, CMUrlInfo urlInfo) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-        NhincProxyPatientDiscoverySecuredAsyncRespImpl proxy = new NhincProxyPatientDiscoverySecuredAsyncRespImpl();
+        MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
         oTargetSystemType.setUrl(urlInfo.getUrl());
 
-        //format request for nhincProxyPatientDiscoveryImpl call
-        ProxyPRPAIN201306UVProxyRequestType proxyReq = new ProxyPRPAIN201306UVProxyRequestType();
-        proxyReq.setPRPAIN201306UV02(request.getPRPAIN201306UV02());
-        proxyReq.setAssertion(request.getAssertion());
-        proxyReq.setNhinTargetSystem(oTargetSystemType);
+        // Audit the Patient Discovery Request Message sent on the Nhin Interface
+        PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
+        auditLog.auditNhin201306(request.getPRPAIN201306UV02(), request.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-        ack = proxy.proxyProcessPatientDiscoveryAsyncResp(proxyReq);
+        NhinPatientDiscoveryAsyncRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryAsyncRespProxyObjectFactory();
+        NhinPatientDiscoveryAsyncRespProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncRespProxy();
 
-        return ack;
+        resp = proxy.respondingGatewayPRPAIN201306UV02(request.getPRPAIN201306UV02(), request.getAssertion(), oTargetSystemType);
+
+        // Audit the Patient Discovery Response Message received on the Nhin Interface
+        auditLog.auditAck(resp, request.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
+        return resp;
     }
 
 }

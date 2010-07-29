@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.subjectdiscovery.entity;
 
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
@@ -26,15 +22,14 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationRequestType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationResponseType;
+import gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxy;
+import gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLog;
-import gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincProxySubjectDiscoveryImpl;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,6 +46,7 @@ import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVSecuredRequestType;
+import org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType;
 import org.hl7.v3.PRPAIN201310UV02;
 
 /**
@@ -68,7 +64,6 @@ public class EntitySubjectDiscoveryImpl {
         boolean isTargeted = false;
         List<NhinTargetCommunityType> targets = null;
         List<CMHomeCommunity> communities = new ArrayList<CMHomeCommunity>();
-        NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
 
         PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
         request.setAssertion(SamlTokenExtractor.GetAssertion(context));
@@ -157,7 +152,7 @@ public class EntitySubjectDiscoveryImpl {
                     proxyRequest.setNhinTargetSystem(nhinTarget);
                     log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- Call to nhinSubjectDiscovery");
                     log.debug("proxyRequest >>" + proxyRequest + "<<");
-                    response = nhinSubjectDiscovery.pixConsumerPRPAIN201301UV(proxyRequest);
+                    response = callPRPAIN201301UVProxy(proxyRequest);
                 }
             }
         }
@@ -172,11 +167,34 @@ public class EntitySubjectDiscoveryImpl {
         return response;
     }
 
+    private MCCIIN000002UV01 callPRPAIN201301UVProxy(PIXConsumerPRPAIN201301UVProxyRequestType request)
+    {
+        log.debug("Entering callPRPAIN201301UVProxy...");
+        MCCIIN000002UV01 response = new MCCIIN000002UV01();
+
+        // Audit the Subject Announce Request Message sent on the Nhin Interface
+        SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
+        auditLog.audit(request);
+
+        NhinSubjectDiscoveryProxyObjectFactory subjectDiscoveryFactory = new NhinSubjectDiscoveryProxyObjectFactory();
+        NhinSubjectDiscoveryProxy proxy = subjectDiscoveryFactory.getNhinSubjectDiscoveryProxy();
+
+        response = proxy.pixConsumerPRPAIN201301UV(request.getPRPAIN201301UV02(), request.getAssertion(), request.getNhinTargetSystem());
+
+        // Audit the Subject Added Response Message received on the Nhin Interface
+        PIXConsumerMCCIIN000002UV01RequestType auditMsg = new PIXConsumerMCCIIN000002UV01RequestType();
+        auditMsg.setMCCIIN000002UV01(response);
+        auditMsg.setAssertion(request.getAssertion());
+        auditLog.audit(auditMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
+        log.debug("Exiting callPRPAIN201301UVProxy...");
+        return response;
+    }
+
     public PIXConsumerPRPAIN201309UVResponseType pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVSecuredRequestType pixConsumerPRPAIN201309UVRequest, WebServiceContext context) {
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV -- Begin");
 
         PIXConsumerPRPAIN201309UVResponseType response = new PIXConsumerPRPAIN201309UVResponseType();
-        NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
         PRPAIN201310UV02 proxyResponse;
 
         PIXConsumerPRPAIN201309UVRequestType request = new PIXConsumerPRPAIN201309UVRequestType();
@@ -212,13 +230,37 @@ public class EntitySubjectDiscoveryImpl {
 
             log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV -- Call to nhinSubjectDiscovery");
             log.debug("proxyRequest >>" + proxyRequest + "<<");
-            response.setPRPAIN201310UV02(nhinSubjectDiscovery.pixConsumerPRPAIN201309UV(proxyRequest));
+            response.setPRPAIN201310UV02(callPRPAIN201309UVProxy(proxyRequest));
 
 
         /*      log proxy response
          */
         }
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV -- End");
+        return response;
+    }
+
+    private PRPAIN201310UV02 callPRPAIN201309UVProxy(PIXConsumerPRPAIN201309UVProxyRequestType request)
+    {
+        log.debug("Entering callPRPAIN201309UVProxy...");
+        org.hl7.v3.PRPAIN201310UV02 response = new org.hl7.v3.PRPAIN201310UV02();
+
+        // Audit the Subject Revoke Request Message sent on the Nhin Interface
+        SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
+        auditLog.audit(request);
+
+        NhinSubjectDiscoveryProxyObjectFactory subjectDiscoveryFactory = new NhinSubjectDiscoveryProxyObjectFactory();
+        NhinSubjectDiscoveryProxy proxy = subjectDiscoveryFactory.getNhinSubjectDiscoveryProxy();
+
+        response = proxy.pixConsumerPRPAIN201309UV(request.getPRPAIN201309UV02(), request.getAssertion(), request.getNhinTargetSystem());
+
+        // Audit the Subject Revoked Response Message received on the Nhin Interface
+        PIXConsumerPRPAIN201310UVRequestType auditMsg = new PIXConsumerPRPAIN201310UVRequestType();
+        auditMsg.setPRPAIN201310UV02(response);
+        auditMsg.setAssertion(request.getAssertion());
+        auditLog.audit(auditMsg);
+
+        log.debug("Exiting callPRPAIN201309UVProxy...");
         return response;
     }
 

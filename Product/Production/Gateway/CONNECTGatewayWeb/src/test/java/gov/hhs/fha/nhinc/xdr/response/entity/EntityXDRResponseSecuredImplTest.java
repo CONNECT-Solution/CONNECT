@@ -7,7 +7,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecuredImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -57,19 +56,14 @@ public class EntityXDRResponseSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRResponseSecuredImpl createNhinProxy() {
-                NhincProxyXDRResponseSecuredImpl mockProxy = new NhincProxyXDRResponseSecuredImpl() {
+            protected XDRAcknowledgementType callNhinXDRResponseProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType response = new XDRAcknowledgementType();
+                RegistryResponseType regResp = new RegistryResponseType();
+                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                response.setMessage(regResp);
 
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+                return response;
             }
 
             @Override

@@ -8,7 +8,6 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import gov.hhs.fha.nhinc.auditquery.EntityAuditLog;
 import gov.hhs.fha.nhinc.auditquery.EntityAuditQuery;
-import gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditLogQueryImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -21,6 +20,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.nhinauditquery.proxy.NhinAuditQueryProxy;
+import gov.hhs.fha.nhinc.nhinauditquery.proxy.NhinAuditQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -104,8 +105,11 @@ public class EntityAuditLogImpl {
 
             if (urlInfoList != null &&
                     NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
+
+                NhinAuditQueryProxyObjectFactory auditFactory = new NhinAuditQueryProxyObjectFactory();
+                NhinAuditQueryProxy proxy = auditFactory.getNhinAuditQueryProxy();
+
                 for (CMUrlInfo targetComm : urlInfoList.getUrlInfo()) {
-                    ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl();
 
                     gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType proxyReq = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
                     proxyReq.setAssertion(request.getAssertion());
@@ -116,7 +120,11 @@ public class EntityAuditLogImpl {
 
                     log.info("Sending Audit Query Request to community: " + targetComm.getHcid());
 
-                    FindAuditEventsResponseType proxyResp = proxyAuditQuery.findAuditEvents(proxyReq);
+                    // Audit the Audit Log Query Request Message sent on the Nhin Interface
+                    EntityAuditLog entityAuditLog = new EntityAuditLog();
+                    entityAuditLog.audit(proxyReq);
+
+                    FindAuditEventsResponseType proxyResp = proxy.auditQuery(proxyReq);
 
                     if (NullChecker.isNotNullish(proxyResp.getFindAuditEventsReturn())) {
                         for (AuditMessageType auditMsg : proxyResp.getFindAuditEventsReturn()) {

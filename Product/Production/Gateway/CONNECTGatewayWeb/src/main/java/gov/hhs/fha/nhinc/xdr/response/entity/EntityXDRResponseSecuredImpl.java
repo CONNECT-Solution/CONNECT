@@ -11,7 +11,8 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecuredImpl;
+import gov.hhs.fha.nhinc.xdr.async.response.proxy.NhinXDRResponseObjectFactory;
+import gov.hhs.fha.nhinc.xdr.async.response.proxy.NhinXDRResponseProxy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -72,10 +73,8 @@ public class EntityXDRResponseSecuredImpl {
                 proxyRequest.setRegistryResponse(provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse());
                 proxyRequest.setNhinTargetSystem(targetSystemType);
 
-                NhincProxyXDRResponseSecuredImpl proxy = createNhinProxy();
-
                 log.debug("Sending request from entity service to NHIN proxy service");
-                response = proxy.provideAndRegisterDocumentSetBResponse(proxyRequest, assertion);
+                response = callNhinXDRResponseProxy(proxyRequest, assertion);
             } else {
                 log.error("Policy check unsuccessful");
 
@@ -87,6 +86,28 @@ public class EntityXDRResponseSecuredImpl {
         logResponse(response, assertion);
 
         log.info("End provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
+        return response;
+    }
+
+    protected XDRAcknowledgementType callNhinXDRResponseProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, AssertionType assertion)
+    {
+        log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        response.setMessage(regResp);
+
+        auditLogger.auditNhinXDRResponseRequest(provideAndRegisterResponseRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+
+        NhinXDRResponseObjectFactory factory = new NhinXDRResponseObjectFactory();
+        NhinXDRResponseProxy proxy = factory.getNhinXDRResponseProxy();
+
+        log.debug("Calling NHIN Proxy");
+        response = proxy.provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest.getRegistryResponse(), assertion, provideAndRegisterResponseRequest.getNhinTargetSystem());
+
+        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
+
+        log.debug("End provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         return response;
     }
 
@@ -108,10 +129,6 @@ public class EntityXDRResponseSecuredImpl {
 
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    protected NhincProxyXDRResponseSecuredImpl createNhinProxy() {
-        return new NhincProxyXDRResponseSecuredImpl();
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {

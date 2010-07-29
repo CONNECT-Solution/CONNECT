@@ -3,13 +3,13 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecuredImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
@@ -52,7 +52,6 @@ public class EntityPatientDiscoveryProcessorTest
     final PatientDiscoveryAuditLogger mockAuditLogger = context.mock(PatientDiscoveryAuditLogger.class);
     final PatientDiscoveryPolicyChecker mockPolicyChecker = context.mock(PatientDiscoveryPolicyChecker.class);
     final PatientDiscovery201305Processor mockPatientDiscovery201305Processor = context.mock(PatientDiscovery201305Processor.class);
-    final NhincProxyPatientDiscoverySecuredImpl mockNhincProxyPatientDiscoverySecuredImpl = context.mock(NhincProxyPatientDiscoverySecuredImpl.class);
     final ResponseFactory mockResponseFactory = context.mock(ResponseFactory.class);
     final CMUrlInfos mockUrlInfos = context.mock(CMUrlInfos.class);
     final RespondingGatewayPRPAIN201305UV02RequestType mockRespondingGatewayPRPAIN201305UV02RequestType = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
@@ -195,43 +194,6 @@ public class EntityPatientDiscoveryProcessorTest
             System.out.println("Error running testGetPatientDiscovery201305Processor: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetPatientDiscovery201305Processor: " + t.getMessage());
-        }
-    }
-
-
-    @Test
-    public void testGetNhincProxyPatientDiscoverySecuredImpl()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected NhincProxyPatientDiscoverySecuredImpl getNhincProxyPatientDiscoverySecuredImpl()
-                {
-                    return mockNhincProxyPatientDiscoverySecuredImpl;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
-            NhincProxyPatientDiscoverySecuredImpl pdSecuredImpl = processor.getNhincProxyPatientDiscoverySecuredImpl();
-            assertNotNull("NhincProxyPatientDiscoverySecuredImpl was null", pdSecuredImpl);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetNhincProxyPatientDiscoverySecuredImpl: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetNhincProxyPatientDiscoverySecuredImpl: " + t.getMessage());
         }
     }
 
@@ -856,21 +818,21 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockResponse;
                 }
                 @Override
-                protected NhincProxyPatientDiscoverySecuredImpl getNhincProxyPatientDiscoverySecuredImpl()
-                {
-                    return mockNhincProxyPatientDiscoverySecuredImpl;
-                }
-                @Override
                 protected ResponseFactory getResponseFactory()
                 {
                     return mockResponseFactory;
                 }
+                @Override
+                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
+                {
+                    return mockPRPAIN201306UV02;
+                }
+
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockNhincProxyPatientDiscoverySecuredImpl).proxyPRPAIN201305UV(with(aNonNull(ProxyPRPAIN201305UVProxySecuredRequestType.class)), with(aNonNull(AssertionType.class)));
                     oneOf(mockResponseFactory).getResponseMode();
                 }
             });
@@ -914,6 +876,11 @@ public class EntityPatientDiscoveryProcessorTest
                 protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
                 {
                     return mockResponse;
+                }
+                @Override
+                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
+                {
+                    return mockPRPAIN201306UV02;
                 }
             };
             context.checking(new Expectations()
@@ -961,6 +928,11 @@ public class EntityPatientDiscoveryProcessorTest
                 protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
                 {
                     return mockResponse;
+                }
+                @Override
+                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
+                {
+                    return mockPRPAIN201306UV02;
                 }
             };
             context.checking(new Expectations()
@@ -1010,6 +982,11 @@ public class EntityPatientDiscoveryProcessorTest
                 protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
                 {
                     return mockResponse;
+                }
+                @Override
+                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
+                {
+                    return mockPRPAIN201306UV02;
                 }
             };
             context.checking(new Expectations()
@@ -1061,11 +1038,6 @@ public class EntityPatientDiscoveryProcessorTest
                     return mockResponse;
                 }
                 @Override
-                protected NhincProxyPatientDiscoverySecuredImpl getNhincProxyPatientDiscoverySecuredImpl()
-                {
-                    return mockNhincProxyPatientDiscoverySecuredImpl;
-                }
-                @Override
                 protected ResponseFactory getResponseFactory()
                 {
                     ResponseFactory respFactory = new ResponseFactory()
@@ -1091,12 +1063,16 @@ public class EntityPatientDiscoveryProcessorTest
                     };
                     return respFactory;
                 }
+                @Override
+                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
+                {
+                    return mockPRPAIN201306UV02;
+                }
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockNhincProxyPatientDiscoverySecuredImpl).proxyPRPAIN201305UV(with(aNonNull(ProxyPRPAIN201305UVProxySecuredRequestType.class)), with(aNonNull(AssertionType.class)));
                     oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(RuntimeException.class)));
                 }
             });

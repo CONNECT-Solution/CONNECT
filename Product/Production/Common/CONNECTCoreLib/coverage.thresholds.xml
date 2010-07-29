@@ -539,4 +539,5 @@
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLog" linecount="50" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="36" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger" linecount="77" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker" linecount="52" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.EntityAuditLog" linecount="24" linerate="0.0" linesexecuted="0"/>
 </thresholds>

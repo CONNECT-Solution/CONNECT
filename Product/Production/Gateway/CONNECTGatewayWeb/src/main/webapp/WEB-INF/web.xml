@@ -81,14 +81,6 @@
 		<url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>NhincAuditQueryProxy</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincAuditQueryProxy</servlet-name>
-		<url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>EntityNotifySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifySecured</servlet-class>
 	</servlet>
@@ -209,68 +201,12 @@
 		<url-pattern>/EntityService/EntityPatientDiscoveryAsyncRespSecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
-	</servlet-mapping>
-        <servlet>
-		<servlet-name>NhincProxyPatientDiscoverySecuredAsyncReq</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReq</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyPatientDiscoverySecuredAsyncReq</servlet-name>
-		<url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</url-pattern>
-	</servlet-mapping>
-        <servlet>
-		<servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
-		<url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>EntitySubjectDiscoverySecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntitySubjectDiscoverySecured</servlet-name>
 		<url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NhincSubjectDiscoverySecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincSubjectDiscoverySecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincSubjectDiscoverySecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NhincProxyXDRSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyXDRSecured</servlet-name>
-		<url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NhincProxyXDRRequestSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyXDRRequestSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyXDRRequestSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NhincProxyXDRResponseSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyXDRResponseSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyXDRResponseSecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>EntityXDRSecured</servlet-name>
@@ -399,10 +335,6 @@
 			<url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
-			<web-resource-name>NhincAuditQueryProxy</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
 			<web-resource-name>EntityNotifySecured</web-resource-name>
 			<url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
 		</web-resource-collection>
@@ -431,36 +363,8 @@
 			<url-pattern>/EntityService/EntityPatientDiscoveryAsyncRespSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
-			<web-resource-name>NhincProxyPatientDiscoverySecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
-		</web-resource-collection>
-                <web-resource-collection>
-			<web-resource-name>NhincProxyPatientDiscoverySecuredAsyncReq</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</url-pattern>
-		</web-resource-collection>
-                <web-resource-collection>
-			<web-resource-name>NhincProxyPatientDiscoverySecuredAsyncResp</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
 			<web-resource-name>EntitySubjectDiscoverySecured</web-resource-name>
 			<url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhincSubjectDiscoverySecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhincProxyXDRSecured</web-resource-name>
-			<url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhincProxyXDRRequestSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyXDRRequestSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhincProxyXDRResponseSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyXDRResponseSecured</url-pattern>
 		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>EntityXDRSecured</web-resource-name>

@@ -8,7 +8,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecuredImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -44,6 +43,7 @@ public class EntityXDRRequestSecuredImplTest {
         final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
         final AssertionType mockAssertion = context.mock(AssertionType.class);
         final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+        final XDRAcknowledgementType mockXDRAcknowledgementType = context.mock(XDRAcknowledgementType.class);
 
         EntityXDRRequestSecuredImpl sut = new EntityXDRRequestSecuredImpl() {
 
@@ -58,19 +58,14 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-                NhincProxyXDRRequestSecuredImpl mockProxy = new NhincProxyXDRRequestSecuredImpl() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+            protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regRespType = new RegistryResponseType();
+                ack.setMessage(regRespType);
+                regRespType.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regRespType);
+                return ack;
             }
 
             @Override
@@ -87,6 +82,7 @@ public class EntityXDRRequestSecuredImplTest {
             protected String extractMessageId(WebServiceContext context) {
                 return "uuid:1111111111.11111.111.11";
             }
+
         };
 
         context.checking(new Expectations() {
@@ -122,6 +118,7 @@ public class EntityXDRRequestSecuredImplTest {
         final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
         final AssertionType mockAssertion = context.mock(AssertionType.class);
         final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+        final XDRAcknowledgementType mockXDRAcknowledgementType = context.mock(XDRAcknowledgementType.class);
 
         EntityXDRRequestSecuredImpl sut = new EntityXDRRequestSecuredImpl() {
 
@@ -136,19 +133,14 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-                NhincProxyXDRRequestSecuredImpl mockProxy = new NhincProxyXDRRequestSecuredImpl() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+            protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regRespType = new RegistryResponseType();
+                ack.setMessage(regRespType);
+                regRespType.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regRespType);
+                return ack;
             }
 
             @Override
@@ -224,6 +216,7 @@ public class EntityXDRRequestSecuredImplTest {
         final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
         final AssertionType mockAssertion = context.mock(AssertionType.class);
         final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+        final XDRAcknowledgementType mockXDRAcknowledgementType = context.mock(XDRAcknowledgementType.class);
 
         EntityXDRRequestSecuredImpl sut = new EntityXDRRequestSecuredImpl() {
 
@@ -238,19 +231,14 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-                NhincProxyXDRRequestSecuredImpl mockProxy = new NhincProxyXDRRequestSecuredImpl() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+            protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regRespType = new RegistryResponseType();
+                ack.setMessage(regRespType);
+                regRespType.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regRespType);
+                return ack;
             }
 
             @Override
@@ -326,6 +314,7 @@ public class EntityXDRRequestSecuredImplTest {
         final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
         final AssertionType mockAssertion = context.mock(AssertionType.class);
         final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+        final XDRAcknowledgementType mockXDRAcknowledgementType = context.mock(XDRAcknowledgementType.class);
 
         EntityXDRRequestSecuredImpl sut = new EntityXDRRequestSecuredImpl() {
 
@@ -340,19 +329,14 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-                NhincProxyXDRRequestSecuredImpl mockProxy = new NhincProxyXDRRequestSecuredImpl() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+            protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regRespType = new RegistryResponseType();
+                ack.setMessage(regRespType);
+                regRespType.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regRespType);
+                return ack;
             }
 
             @Override
@@ -423,12 +407,13 @@ public class EntityXDRRequestSecuredImplTest {
         assertEquals("Response message incorrect", "Failed to copy file to the file server", ack.getMessage().getStatus());
     }
 
-     @Test
+    @Test
     public void testProvideAndRegisterDocumentSetBRequestLiftPayloadFailed() {
         final Log mockLogger = context.mock(Log.class);
         final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
         final AssertionType mockAssertion = context.mock(AssertionType.class);
         final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+        final XDRAcknowledgementType mockXDRAcknowledgementType = context.mock(XDRAcknowledgementType.class);
 
         EntityXDRRequestSecuredImpl sut = new EntityXDRRequestSecuredImpl() {
 
@@ -443,19 +428,14 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-                NhincProxyXDRRequestSecuredImpl mockProxy = new NhincProxyXDRRequestSecuredImpl() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+            protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regRespType = new RegistryResponseType();
+                ack.setMessage(regRespType);
+                regRespType.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regRespType);
+                return ack;
             }
 
             @Override
@@ -527,11 +507,12 @@ public class EntityXDRRequestSecuredImplTest {
     }
 
      @Test
-    public void testProvideAndRegisterDocumentSetBRequestLiftNotSupportedByTarget() {
+     public void testProvideAndRegisterDocumentSetBRequestLiftNotSupportedByTarget() {
         final Log mockLogger = context.mock(Log.class);
         final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
         final AssertionType mockAssertion = context.mock(AssertionType.class);
         final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+        final XDRAcknowledgementType mockXDRAcknowledgementType = context.mock(XDRAcknowledgementType.class);
 
         EntityXDRRequestSecuredImpl sut = new EntityXDRRequestSecuredImpl() {
 
@@ -546,19 +527,14 @@ public class EntityXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-                NhincProxyXDRRequestSecuredImpl mockProxy = new NhincProxyXDRRequestSecuredImpl() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return mockProxy;
+            protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+            {
+                XDRAcknowledgementType ack = new XDRAcknowledgementType();
+                RegistryResponseType regRespType = new RegistryResponseType();
+                ack.setMessage(regRespType);
+                regRespType.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                ack.setMessage(regRespType);
+                return ack;
             }
 
             @Override

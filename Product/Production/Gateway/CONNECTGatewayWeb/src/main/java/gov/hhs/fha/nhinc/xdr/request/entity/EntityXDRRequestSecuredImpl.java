@@ -17,12 +17,13 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecuredImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestObjectFactory;
+import gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestProxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,10 +118,8 @@ public class EntityXDRRequestSecuredImpl {
                     proxyRequest.setProvideAndRegisterDocumentSetRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
                     proxyRequest.setNhinTargetSystem(targetSystemType);
 
-                    NhincProxyXDRRequestSecuredImpl proxy = createNhinProxy();
-
                     log.debug("Sending request from entity service to NHIN proxy service");
-                    response = proxy.provideAndRegisterDocumentSetBRequest(proxyRequest, assertion);
+                    response = callNhinXDRRequestProxy(proxyRequest, assertion);
                 }
             } else {
                 errMsg = "Policy check unsuccessful";
@@ -136,13 +135,31 @@ public class EntityXDRRequestSecuredImpl {
         return response;
     }
 
-    private void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+    protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+    {
+        log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
+
+        auditLogger.auditXDR(provideAndRegisterRequestRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+
+        NhinXDRRequestObjectFactory factory = new NhinXDRRequestObjectFactory();
+        NhinXDRRequestProxy proxy = factory.getNhinXDRRequestProxy();
+
+        log.debug("Calling NHIN proxy");
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
+
+        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
+
+        log.debug("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
+        return response;
+    }
+
+    protected void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
         log.debug("Begin logRequest");
         auditLogger.auditEntityXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         log.debug("End logRequest");
     }
 
-    private void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
+    protected void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
         log.debug("Beging logResponse");
         auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
         log.debug("End logResponse");
@@ -233,10 +250,6 @@ public class EntityXDRRequestSecuredImpl {
 
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    protected NhincProxyXDRRequestSecuredImpl createNhinProxy() {
-        return new NhincProxyXDRRequestSecuredImpl();
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {

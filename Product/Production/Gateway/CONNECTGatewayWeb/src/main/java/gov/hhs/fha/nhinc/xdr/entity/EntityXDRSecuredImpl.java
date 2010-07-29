@@ -14,7 +14,8 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecuredImpl;
+import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxy;
+import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxyObjectFactory;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -119,8 +120,6 @@ public class EntityXDRSecuredImpl {
         log.debug("Entering EntityXDRSecuredImpl.getResponseFromTarget...");
         RegistryResponseType nhinResponse = new RegistryResponseType();
 
-        NhincProxyXDRSecuredImpl proxy = new NhincProxyXDRSecuredImpl();
-
         if (request != null &&
                 request.getNhinTargetCommunities() != null &&
                 NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity()) &&
@@ -136,7 +135,7 @@ public class EntityXDRSecuredImpl {
             proxySecuredRequestType.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
 
             try {
-                nhinResponse = proxy.provideAndRegisterDocumentSetB(proxySecuredRequestType, assertion);
+                nhinResponse = callNhinXDRProxy(proxySecuredRequestType, assertion);
             } catch (Throwable t) {
                 nhinResponse = new RegistryResponseType();
                 RegistryErrorList regErrList = new RegistryErrorList();
@@ -158,4 +157,26 @@ public class EntityXDRSecuredImpl {
         log.debug("Leaving EntityXDRSecuredImpl.getResponseFromTarget");
         return nhinResponse;
     }
+
+    private RegistryResponseType callNhinXDRProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion)
+    {
+        RegistryResponseType response = null;
+
+        //TODO: LogRequest
+        XDRAuditLogger auditLog = new XDRAuditLogger();
+        AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        log.debug("ack: " + ack.getMessage());
+
+        NhinXDRProxyObjectFactory factory = new NhinXDRProxyObjectFactory();
+        NhinXDRProxy proxy = factory.getNhinXDRProxy();
+
+        response = proxy.provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
+
+        ack = auditLog.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+
+        log.debug("ack: " + ack.getMessage());
+        //TODO: Log Response
+        return response;
+    }
+
 }
