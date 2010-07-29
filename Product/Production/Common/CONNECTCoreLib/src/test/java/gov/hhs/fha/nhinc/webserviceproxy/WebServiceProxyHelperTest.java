@@ -1225,7 +1225,7 @@ public class WebServiceProxyHelperTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(6).of(mockLog).debug(with(any(String.class)));
+                    exactly(3).of(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1235,6 +1235,31 @@ public class WebServiceProxyHelperTest
                 {
                     return mockLog;
                 }
+                
+                @Override
+                public int getRetryAttempts()
+                {
+                    return 3;
+                }
+
+                @Override
+                public int getRetryDelay()
+                {
+                    return 10;
+                }
+
+                @Override
+                public String getExceptionText()
+                {
+                    return "SocketTimeoutException";
+                }
+
+                @Override
+                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
+                {
+                    return new Integer(100);
+                }
+
             };
 
             Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
@@ -1261,7 +1286,7 @@ public class WebServiceProxyHelperTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(5).of(mockLog).debug(with(any(String.class)));
+                    exactly(2).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(IllegalArgumentException.class)));
                 }
             });
@@ -1272,6 +1297,24 @@ public class WebServiceProxyHelperTest
                 {
                     return mockLog;
                 }
+                @Override
+                public int getRetryAttempts()
+                {
+                    return 3;
+                }
+
+                @Override
+                public int getRetryDelay()
+                {
+                    return 10;
+                }
+
+                @Override
+                public String getExceptionText()
+                {
+                    return "SocketTimeoutException";
+                }
+
             };
 
             Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(100));

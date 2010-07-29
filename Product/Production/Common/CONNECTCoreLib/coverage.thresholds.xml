@@ -146,7 +146,7 @@
 <threshold branchcount="40" branchrate="0.006750000000000001" branchsexecuted="0.27" class="gov.hhs.fha.nhinc.util.format.DocumentClassCodeParser" linecount="48" linerate="0.00833333333333334" linesexecuted="0.40000000000000036"/>
 <threshold branchcount="34" branchrate="0.5" branchsexecuted="0.17" class="gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil" linecount="48" linerate="0.007499999999999997" linesexecuted="0.3599999999999999"/>
 <threshold branchcount="30" branchrate="0.00433333333333333" branchsexecuted="0.1299999999999999" class="gov.hhs.fha.nhinc.util.format.UTCDateUtil" linecount="40" linerate="0.008000000000000007" linesexecuted="0.3200000000000003"/>
-<threshold branchcount="70" branchrate="0.6571428571428571" branchsexecuted="0.46" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="182" linerate="0.8516483516483516" linesexecuted="1.55"/>
+<threshold branchcount="70" branchrate="0.6285714285714286" branchsexecuted="0.44" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="182" linerate="0.8186813186813187" linesexecuted="1.49"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xmlCommon.NamespaceContextMapperFromElement" linecount="7" linerate="0.00714285714285715" linesexecuted="0.050000000000000044"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xmlCommon.NamespaceContextMapperFromNode" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xmlCommon.SourceHelper" linecount="10" linerate="0.0" linesexecuted="0"/>
