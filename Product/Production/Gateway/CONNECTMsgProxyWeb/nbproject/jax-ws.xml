@@ -241,6 +241,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+	    <service name="NhincProxyDocRetrieveDeferredResp">
+      <implementation-class>gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredResp</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocumentRetrieveDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocumentRetrieveDeferredResponse.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocRetrieveResponse</service-name>
+      <port-name>NhincProxyDocRetrieveResponsePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocretrieve</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincProxyDocRetrieveDeferredRespSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocumentRetrieveDeferredResponseSecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocumentRetrieveDeferredResponseSecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocRetrieveResponseSecured</service-name>
+      <port-name>NhincProxyDocRetrieveResponseSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocretrievesecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

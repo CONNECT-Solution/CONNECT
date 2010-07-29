@@ -121,6 +121,22 @@
 		<servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
 		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
 	</servlet-mapping>
+        <servlet>
+		<servlet-name>NhincProxyDocRetrieveDeferredResp</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredResp</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincProxyDocRetrieveDeferredResp</servlet-name>
+		<url-pattern>/EntityService/NhincProxyDocRetrieveResponse</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NhincProxyDocRetrieveDeferredRespSecured</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespSecured</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincProxyDocRetrieveDeferredRespSecured</servlet-name>
+		<url-pattern>/EntityService/NhincProxyDocRetrieveResponseSecured</url-pattern>
+	</servlet-mapping>
 	<!-- End Nhinc proxy Document retrieve deferred services-->
 	<security-constraint>
 		<web-resource-collection>
@@ -179,6 +195,10 @@
 		<web-resource-collection>
 			<web-resource-name>NhincProxyDocRetrieveDeferredReqSecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
+		</web-resource-collection>
+                <web-resource-collection>
+			<web-resource-name>NhincProxyDocRetrieveDeferredRespSecured</web-resource-name>
+			<url-pattern>/EntityService/NhincProxyDocRetrieveResponseSecured</url-pattern>
 		</web-resource-collection>
 		<!-- End Nhinc proxy Document retrieve deferred services-->	
 		<user-data-constraint>
