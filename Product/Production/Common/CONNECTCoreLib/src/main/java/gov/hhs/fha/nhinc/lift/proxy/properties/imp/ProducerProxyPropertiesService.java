@@ -166,6 +166,10 @@ public class ProducerProxyPropertiesService implements
             String loc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTORE);
             String pass = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_TRUSTSTOREPASS);
             System.setProperty("javax.net.ssl.trustStore", loc);
+            // Set the Keystore type to PKCS11 in FIPS mode
+            if ("NONE".equalsIgnoreCase(loc)){
+                System.setProperty("javax.net.ssl.trustStoreType", "PKCS11");
+            }
             System.setProperty("javax.net.ssl.trustStorePassword", pass);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
@@ -178,6 +182,12 @@ public class ProducerProxyPropertiesService implements
             String loc = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTORE);
             String pass = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_KEYSTOREPASS);
             System.setProperty("javax.net.ssl.keyStore", loc);
+
+            // Set the Keystore type to PKCS11 in FIPS mode
+            if ("NONE".equalsIgnoreCase(loc)){
+                System.setProperty("javax.net.ssl.keyStoreType", "PKCS11");
+            }
+
             System.setProperty("javax.net.ssl.keyStorePassword", pass);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());

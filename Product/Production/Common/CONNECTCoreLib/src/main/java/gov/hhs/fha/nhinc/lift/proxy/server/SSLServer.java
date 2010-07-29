@@ -63,11 +63,16 @@ import java.io.FileInputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.security.KeyStore;
+import java.security.Provider;
+import java.security.Security;
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 public class SSLServer extends Server {
+    private static final String NONE = "NONE";
 
     private final SSLServerSocket server;
 
@@ -81,7 +86,6 @@ public class SSLServer extends Server {
      */
     public SSLServer(SocketAddress address, HandlerPrototype prototype) throws IOException {
         super(prototype);
-
         InetSocketAddress addr = (InetSocketAddress) address;
         ServerSocketFactory factory = getTLSServerSocketFactory();
         ServerSocket createdSocket = factory.createServerSocket(addr.getPort());
@@ -101,11 +105,28 @@ public class SSLServer extends Server {
             SSLContext ctx;
             KeyManagerFactory kmf;
             KeyStore ks;
+
+            boolean isPKCSKeyStore = false;
+            
+            // Check whether the keystore is set to NONE
+            if (NONE.equalsIgnoreCase(System.getProperty("javax.net.ssl.keyStore"))){
+                log.info("Set up SUNPKCS11 Provider");
+                isPKCSKeyStore = true;
+                setupProvider();
+            }
+
             char[] passphrase = System.getProperty("javax.net.ssl.keyStorePassword").toCharArray();
             ctx = SSLContext.getInstance("TLS");
             kmf = KeyManagerFactory.getInstance("SunX509");
-            ks = KeyStore.getInstance("JKS");
-            ks.load(new FileInputStream(System.getProperty("javax.net.ssl.keyStore")), passphrase);
+
+            if (isPKCSKeyStore){
+                ks = KeyStore.getInstance("PKCS11");
+                ks.load(null, passphrase);
+            }else{
+                ks = KeyStore.getInstance("JKS");
+                ks.load(new FileInputStream(System.getProperty("javax.net.ssl.keyStore")), passphrase);
+            }
+
             kmf.init(ks, passphrase);
             ctx.init(kmf.getKeyManagers(), null, null);
             ssf = ctx.getServerSocketFactory();
@@ -132,6 +153,19 @@ public class SSLServer extends Server {
         try {
             log.debug("Waiting for incoming connection.");
             socket = (SSLSocket) server.accept();
+
+            // Restrict ciphers only for FIPS
+            if (NONE.equalsIgnoreCase(System.getProperty("javax.net.ssl.keyStore"))){
+                String[] enabledCipherSuites = getEnabledCipherSuites();
+
+                if (enabledCipherSuites != null){
+                    socket.setEnabledCipherSuites(enabledCipherSuites);
+                }else{
+                    log.error("FIPS Mode: Cipher Suites are not available");
+                    throw new IOException("FIPS Mode: Cipher suites are not available");
+                }
+            }
+            
             log.debug("Accepted a new connection " + socket.getInetAddress()  + ": " + socket.getPort());
             /*
              * Spawn off and start a new Handler thread to process
@@ -152,5 +186,48 @@ public class SSLServer extends Server {
             log.error("Problem in setting up new connection: " + ex.getMessage());
             throw new IOException("Problem in setting up new connection: " + ex.getMessage());
         }
+    }
+
+    private void setupProvider(){
+
+        String configFile;
+
+        try {
+            configFile = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_SERVER_NSS_CONFIG);    
+        } catch (Exception e) {
+            log.error("Unable to read location of NSS config file", e);
+            throw new RuntimeException(e);
+        }
+
+
+        String providerName = "SunPKCS11-NSS";
+        // Check whether the provider exists
+
+        Provider sunpkcs11Provider = Security.getProvider(providerName);
+
+        if (sunpkcs11Provider == null){
+            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
+            Security.insertProviderAt(sunpkcs11Provider, 1);
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String[] getEnabledCipherSuites(){
+        
+        String cipherSuites = null;
+        
+        try {
+            // Retrieve
+            cipherSuites = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CIPHER_SUITES);
+            
+        } catch (Exception e) {
+            log.error("Unable to read Cipher Suites from gateway.properties file");
+            return null;
+        }
+        
+        return cipherSuites.split(",");
     }
 }
