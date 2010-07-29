@@ -43,7 +43,7 @@
 	<!-- Begin Nhinc proxy Document retrieve deferred services-->
 	<servlet>
 		<servlet-name>NhincProxyDocRetrieveDeferredReq</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhincproxy.request.NhincProxyDocRetrieveDeferredReq</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReq</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NhincProxyDocRetrieveDeferredReq</servlet-name>
@@ -51,7 +51,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhincproxy.request.NhincProxyDocRetrieveDeferredReqSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
