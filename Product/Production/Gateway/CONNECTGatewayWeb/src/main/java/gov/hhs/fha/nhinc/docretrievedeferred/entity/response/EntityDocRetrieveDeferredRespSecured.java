@@ -34,8 +34,7 @@ public class EntityDocRetrieveDeferredRespSecured {
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
             NhinTargetCommunitiesType nhinTargetCommunities = body.getNhinTargetCommunities();
             AssertionType assertion = extractAssertionInfo();
-            EntityDocRetrieveDeferredRespImpl impl = new EntityDocRetrieveDeferredRespImpl();
-            ack = impl.crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
+            ack = sendToCrossGatewayRetrieveResponseImpl(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
         }
         return ack;
     }
@@ -47,5 +46,18 @@ public class EntityDocRetrieveDeferredRespSecured {
     protected AssertionType extractAssertionInfo() {
         return SamlTokenExtractor.GetAssertion(context);
     }
+
+    /**
+     * This helper method makes call out to implementation to get the Retrieve response
+     * @param retrieveDocumentSetResponse
+     * @param assertion
+     * @param nhinTargetCommunities
+     * @return DocRetrieveAcknowledgementType
+     */
+    protected DocRetrieveAcknowledgementType sendToCrossGatewayRetrieveResponseImpl(RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetCommunitiesType nhinTargetCommunities) {
+        return new EntityDocRetrieveDeferredRespImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
+    }
+
+
 
 }

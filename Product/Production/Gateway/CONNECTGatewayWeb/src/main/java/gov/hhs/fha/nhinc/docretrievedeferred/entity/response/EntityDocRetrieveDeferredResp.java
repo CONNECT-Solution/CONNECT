@@ -28,10 +28,20 @@ public class EntityDocRetrieveDeferredResp {
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
             AssertionType assertion = crossGatewayRetrieveResponse.getAssertion();
             NhinTargetCommunitiesType nhinTargetCommunities = crossGatewayRetrieveResponse.getNhinTargetCommunities();
-            EntityDocRetrieveDeferredRespImpl impl = new EntityDocRetrieveDeferredRespImpl();
-            ack = impl.crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
+            ack = sendToCrossGatewayRetrieveResponseImpl(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
         }
         return ack;
+    }
+
+    /**
+     *
+     * @param retrieveDocumentSetResponse
+     * @param assertion
+     * @param nhinTargetCommunities
+     * @return DocRetrieveAcknowledgementType
+     */
+    protected DocRetrieveAcknowledgementType sendToCrossGatewayRetrieveResponseImpl(RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetCommunitiesType nhinTargetCommunities) {
+        return new EntityDocRetrieveDeferredRespImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
     }
 
 }
