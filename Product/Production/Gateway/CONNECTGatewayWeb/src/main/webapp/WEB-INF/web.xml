@@ -362,6 +362,22 @@
         <servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
     </servlet-mapping>
+	<servlet>
+        <servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.response.EntityDocRetrieveDeferredResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
+        <url-pattern>/EntityService/EntityDocRetrieveDeferredResponse</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.response.EntityDocRetrieveDeferredRespSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocRetrieveDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
     <!-- BEGIN: Document Retrieve Deferred Services -->
 	
 	<security-constraint>
@@ -472,6 +488,10 @@
         <web-resource-collection>
             <web-resource-name>EntityDocRetrieveDeferredReqSecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
+        </web-resource-collection>
+		<web-resource-collection>
+            <web-resource-name>EntityDocRetrieveDeferredRespSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocRetrieveDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <!-- END Document Retrieve Deferred Service -->
 		<user-data-constraint>
