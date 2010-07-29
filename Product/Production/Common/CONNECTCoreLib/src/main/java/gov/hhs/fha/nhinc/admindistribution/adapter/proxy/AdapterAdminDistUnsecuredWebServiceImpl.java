@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.BindingProvider;
 /**
  *
@@ -54,7 +55,8 @@ public class AdapterAdminDistUnsecuredWebServiceImpl implements AdapterAdminDist
             message.setEDXLDistribution(body);
             message.setAssertion(assertion);
 
-            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
 
 
             port.sendAlertMessage(message);

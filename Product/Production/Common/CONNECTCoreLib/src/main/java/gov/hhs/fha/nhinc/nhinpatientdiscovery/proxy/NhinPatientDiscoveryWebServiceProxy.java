@@ -46,7 +46,8 @@ public class NhinPatientDiscoveryWebServiceProxy implements NhinPatientDiscovery
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             log.info("jr: begin port init");
-            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
 
             response = port.respondingGatewayPRPAIN201305UV02(request);
 

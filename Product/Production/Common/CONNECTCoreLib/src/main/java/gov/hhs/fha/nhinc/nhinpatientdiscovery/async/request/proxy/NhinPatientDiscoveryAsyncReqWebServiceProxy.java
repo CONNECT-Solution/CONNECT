@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestService;
 import java.util.ArrayList;
@@ -55,7 +56,8 @@ public class NhinPatientDiscoveryAsyncReqWebServiceProxy implements NhinPatientD
             requestContext.putAll(msgIdCreator.CreateRequestContextForMessageId(assertion));
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
-						gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
             response = port.respondingGatewayDeferredPRPAIN201305UV02(body);
 
         } else {

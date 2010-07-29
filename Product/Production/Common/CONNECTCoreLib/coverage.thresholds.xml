@@ -146,7 +146,7 @@
 <threshold branchcount="40" branchrate="0.006750000000000001" branchsexecuted="0.27" class="gov.hhs.fha.nhinc.util.format.DocumentClassCodeParser" linecount="48" linerate="0.00833333333333334" linesexecuted="0.40000000000000036"/>
 <threshold branchcount="34" branchrate="0.5" branchsexecuted="0.17" class="gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil" linecount="48" linerate="0.007499999999999997" linesexecuted="0.3599999999999999"/>
 <threshold branchcount="30" branchrate="0.00433333333333333" branchsexecuted="0.1299999999999999" class="gov.hhs.fha.nhinc.util.format.UTCDateUtil" linecount="40" linerate="0.008000000000000007" linesexecuted="0.3200000000000003"/>
-<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="31" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="70" branchrate="0.6571428571428571" branchsexecuted="0.46" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="182" linerate="0.8516483516483516" linesexecuted="1.55"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xmlCommon.NamespaceContextMapperFromElement" linecount="7" linerate="0.00714285714285715" linesexecuted="0.050000000000000044"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xmlCommon.NamespaceContextMapperFromNode" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xmlCommon.SourceHelper" linecount="10" linerate="0.0" linesexecuted="0"/>
@@ -419,7 +419,7 @@
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinauditquery.proxy.NhinAuditQueryWebServiceProxy" linecount="39" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="18" branchrate="0.0033333333333333114" branchsexecuted="0.05999999999999961" class="gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryWebServiceProxy" linecount="53" linerate="0.0028301886792452564" linesexecuted="0.14999999999999858"/>
+<threshold branchcount="10" branchrate="-0.6340000000000001" branchsexecuted="-6.340000000000001" class="gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryWebServiceProxy" linecount="38" linerate="-0.3118421052631579" linesexecuted="-11.850000000000001"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveWebServiceProxy" linecount="33" linerate="0.0" linesexecuted="0"/>
@@ -431,14 +431,14 @@
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy" linecount="86" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeXmlWebServiceProxy" linecount="60" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxyObjectFactory" linecount="3" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeWebServiceProxy" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeWebServiceProxy" linecount="36" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.async.request.proxy.NhinPatientDiscoveryAsyncReqProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.async.request.proxy.NhinPatientDiscoveryAsyncReqWebServiceProxy" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.async.request.proxy.NhinPatientDiscoveryAsyncReqWebServiceProxy" linecount="36" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespWebServiceProxy" linecount="34" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryWebServiceProxy" linecount="30" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryWebServiceProxy" linecount="31" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryNoOpImpl" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxyObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryWebServiceProxy" linecount="53" linerate="0.0" linesexecuted="0"/>
@@ -508,7 +508,7 @@
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler" linecount="52" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistNoOpImpl" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistObjectFactory" linecount="15" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistSecuredWebServiceImpl" linecount="29" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistSecuredWebServiceImpl" linecount="30" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistImpl" linecount="13" linerate="0.007692307692307699" linesexecuted="0.10000000000000009"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl" linecount="9" linerate="0.0077777777777777845" linesexecuted="0.07000000000000006"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
@@ -517,7 +517,7 @@
 
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistJavaImpl" linecount="9" linerate="0.004444444444444449" linesexecuted="0.040000000000000036"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistUnsecuredWebServiceImpl" linecount="42" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistUnsecuredWebServiceImpl" linecount="43" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.6864285714285714" branchsexecuted="9.61" class="gov.hhs.fha.nhinc.async.AsyncHeaderCreator" linecount="39" linerate="0.23230769230769233" linesexecuted="9.06"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.DocQueryAuditLog" linecount="51" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog" linecount="40" linerate="0.0" linesexecuted="0"/>

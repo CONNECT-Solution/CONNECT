@@ -29,6 +29,7 @@ import org.oasis_open.docs.wsn.bw_2.SubscriptionManagerService;
 import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.api.message.Header;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,8 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
         if (NullChecker.isNotNullish(url)) {
             port = nhinService.getSubscriptionManagerPort();
 
-						gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.UNSUBSCRIBE_ACTION);

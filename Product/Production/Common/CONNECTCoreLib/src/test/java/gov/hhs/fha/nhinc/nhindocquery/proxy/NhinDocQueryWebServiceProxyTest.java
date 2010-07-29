@@ -84,128 +84,6 @@ public class NhinDocQueryWebServiceProxyTest
         }
     }
 
-    @Test
-    public void testSetEndpointAddressHappy()
-    {
-        try
-        {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void setEndpointAddress(RespondingGatewayQueryPortType port, String url)
-                {
-                    // Do nothing
-                }
-            };
-            RespondingGatewayQueryPortType port = mockPort;
-            String url = "url";
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressHappy test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressHappy test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetEndpointAddressNullPort()
-    {
-        try
-        {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).error("Port was null - not setting endpoint address.");
-                }
-            });
-            RespondingGatewayQueryPortType port = null;
-            String url = "url";
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressNullPort test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressNullPort test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetEndpointAddressNullURL()
-    {
-        try
-        {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).error("URL was null or empty - not setting endpoint address.");
-                }
-            });
-            RespondingGatewayQueryPortType port = mockPort;
-            String url = null;
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressNullURL test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressNullURL test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetEndpointAddressEmptyURL()
-    {
-        try
-        {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).error("URL was null or empty - not setting endpoint address.");
-                }
-            });
-            RespondingGatewayQueryPortType port = mockPort;
-            String url = "";
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressEmptyURL test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressEmptyURL test: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testGetPortNullService()
@@ -233,7 +111,7 @@ public class NhinDocQueryWebServiceProxyTest
                 }
             });
             String url = "url";
-            RespondingGatewayQueryPortType port = sut.getPort(url);
+            RespondingGatewayQueryPortType port = sut.getPort(url, "", null);
             assertNull("Port was not null", port);
         }
         catch(Throwable t)

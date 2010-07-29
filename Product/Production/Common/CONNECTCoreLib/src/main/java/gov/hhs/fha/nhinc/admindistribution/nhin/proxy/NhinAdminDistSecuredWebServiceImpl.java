@@ -16,6 +16,7 @@ import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDi
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 
@@ -46,7 +47,8 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
 
-            gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper.getInstance().initializePort((javax.xml.ws.BindingProvider) port, url);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
             
 
