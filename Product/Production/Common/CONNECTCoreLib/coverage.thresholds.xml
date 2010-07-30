@@ -491,12 +491,12 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistJavaImpl" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistNoOpImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistSecuredWebServiceImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistUnsecuredWebServiceImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistSecuredWebServiceImpl" linecount="44" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistUnsecuredWebServiceImpl" linecount="59" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="34" branchrate="0.006176470588235293" branchsexecuted="0.20999999999999996" class="gov.hhs.fha.nhinc.transform.audit.AdminDistTransforms" linecount="134" linerate="0.006119402985074629" linesexecuted="0.8200000000000003"/>
-<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger" linecount="22" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger" linecount="34" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker" linecount="24" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionImpl" linecount="54" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionImpl" linecount="55" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.205625" branchsexecuted="3.29" class="gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper" linecount="47" linerate="0.22744680851063828" linesexecuted="10.69"/>
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler" linecount="66" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" linecount="7" linerate="0.0" linesexecuted="0"/>
@@ -540,4 +540,6 @@
 <threshold branchcount="36" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger" linecount="77" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker" linecount="52" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.EntityAuditLog" linecount="24" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper" linecount="7" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistSecuredWebServiceImpl" linecount="63" linerate="0.0" linesexecuted="0"/>
 </thresholds>
