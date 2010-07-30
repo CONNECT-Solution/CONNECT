@@ -3,7 +3,7 @@ package gov.hhs.fha.nhinc.docquerydeferred.entity.request;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.healthit.nhin.DocQueryAcknowledgementsType;
+import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 
 /**
  * This is an Entity Secure service for Document Query Deferred Request message
@@ -18,7 +18,7 @@ public class EntityDocQueryDeferredReqSecured {
    * @param respondingGatewayCrossGatewayQueryRequest
    * @return DocQueryAcknowledgementsType
    */
-  public DocQueryAcknowledgementsType respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType respondingGatewayCrossGatewayQueryRequest) {
+  public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType respondingGatewayCrossGatewayQueryRequest) {
     return null;
   }
 }

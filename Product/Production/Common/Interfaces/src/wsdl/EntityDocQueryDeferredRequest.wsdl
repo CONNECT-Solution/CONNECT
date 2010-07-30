@@ -9,7 +9,6 @@
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
 	 xmlns:dq="http://www.hhs.gov/healthit/nhin"
-
    name="EntityDocQueryDeferredRequest"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest">
   <documentation>Entity Document Query Deferred Request</documentation>
@@ -19,29 +18,26 @@
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
                   schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
-            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
+      <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+                  schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
-
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
     <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonentity:RespondingGateway_CrossGatewayQueryRequest"/>
   </message>
-  <message name="AcknowledgementsMessage">
+  <message name="AcknowledgementMessage">
     <part name="RespondingGateway_CrossGatewayQueryResponse"
-          element="dq:DocQueryAcknowledgements"/>
+          element="dq:DocQueryAcknowledgement"/>
   </message>
-
   <portType name="EntityDocQueryDeferredRequestPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
-      <output name="AcknowledgementsMessage"
-              message="tns:AcknowledgementsMessage" />
+      <output name="AcknowledgementMessage"
+              message="tns:AcknowledgementMessage" />
     </operation>
   </portType>
-
   <binding name="EntityDocQueryDeferredRequestBindingSoap" type="tns:EntityDocQueryDeferredRequestPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -49,12 +45,11 @@
       <input name="RespondingGateway_CrossGatewayQueryRequest">
         <soap:body use="literal"/>
       </input>
-      <output name="AcknowledgementsMessage">
+      <output name="AcknowledgementMessage">
         <soap:body use="literal"/>
       </output>
     </operation>
   </binding>
-
   <service name="EntityDocQueryDeferredRequest">
     <port name="EntityDocQueryDeferredRequestPortSoap"
           binding="tns:EntityDocQueryDeferredRequestBindingSoap">
@@ -62,6 +57,4 @@
          location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequest" />
     </port>
   </service>
-
 </definitions>
-

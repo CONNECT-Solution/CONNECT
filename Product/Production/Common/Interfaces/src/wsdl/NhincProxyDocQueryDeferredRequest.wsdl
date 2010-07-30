@@ -14,56 +14,56 @@
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    name="NhincProxyDocQueryDeferredRequest"
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest">
-    <documentation>Nhinc Proxy Document Query Deferred Request</documentation>
-    <types>
-        <xsd:schema>
-            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+  <documentation>Nhinc Proxy Document Query Deferred Request</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
                         schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
                         schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
-            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+      <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
                         schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
-        </xsd:schema>
-    </types>
-    <message name="CrossGatewayQueryRequestMessage">
-        <part name="CrossGatewayQueryRequest"
+    </xsd:schema>
+  </types>
+  <message name="CrossGatewayQueryRequestMessage">
+    <part name="CrossGatewayQueryRequest"
               element="nccommonproxy:RespondingGateway_CrossGatewayQueryRequest"/>
-    </message>
-    <message name="CrossGatewayQueryAcknowledgementMessage">
-        <part name="CrossGatewayQueryAcknowledgement"
+  </message>
+  <message name="CrossGatewayQueryAcknowledgementMessage">
+    <part name="CrossGatewayQueryAcknowledgement"
               element="dq:DocQueryAcknowledgement"/>
-    </message>
+  </message>
 
-    <portType name="NhincProxyDocQueryDeferredRequestPortType">
-        <operation name="CrossGatewayQueryRequest">
-            <input name="CrossGatewayQueryRequest"
+  <portType name="NhincProxyDocQueryDeferredRequestPortType">
+    <operation name="CrossGatewayQueryRequest">
+      <input name="CrossGatewayQueryRequest"
                    message="tns:CrossGatewayQueryRequestMessage" />
-            <output name="CrossGatewayQueryAcknowledgement"
+      <output name="CrossGatewayQueryAcknowledgement"
                     message="tns:CrossGatewayQueryAcknowledgementMessage"/>
-        </operation>
-    </portType>
+    </operation>
+  </portType>
 
-    <binding name="NhincProxyDocQueryDeferredRequestBindingSoap"
+  <binding name="NhincProxyDocQueryDeferredRequestBindingSoap"
              type="tns:NhincProxyDocQueryDeferredRequestPortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#NhincProxyDocQueryPolicy"/>
-        <operation name="CrossGatewayQueryRequest">
-            <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
-            <input name="CrossGatewayQueryRequest">
-                <soap:body use="literal"/>
-            </input>
-            <output name="CrossGatewayQueryAcknowledgement">
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-    </binding>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#NhincProxyDocQueryPolicy"/>
+    <operation name="CrossGatewayQueryRequest">
+      <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
+      <input name="CrossGatewayQueryRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CrossGatewayQueryAcknowledgement">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
 
-    <service name="NhincProxyDocQueryDeferredRequest">
-        <port name="NhincProxyDocQueryDeferredRequestPortSoap"
+  <service name="NhincProxyDocQueryDeferredRequest">
+    <port name="NhincProxyDocQueryDeferredRequestPortSoap"
           binding="tns:NhincProxyDocQueryDeferredRequestBindingSoap">
-            <soap:address
+      <soap:address
                location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredRequest"/>
-        </port>
-    </service>
+    </port>
+  </service>
 </definitions>
 

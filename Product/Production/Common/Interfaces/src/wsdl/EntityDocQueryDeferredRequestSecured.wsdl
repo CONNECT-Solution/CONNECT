@@ -31,16 +31,16 @@
     <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonentity:RespondingGateway_CrossGatewayQuerySecuredRequest"/>
   </message>
-  <message name="AcknowledgementsMessage">
+  <message name="AcknowledgementMessage">
     <part name="RespondingGateway_CrossGatewayQueryResponse"
-          element="dq:DocQueryAcknowledgements"/>
+          element="dq:DocQueryAcknowledgement"/>
   </message>
   <portType name="EntityDocQueryDeferredRequestSecuredPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
-      <output name="AcknowledgementsMessage"
-              message="tns:AcknowledgementsMessage" />
+      <output name="AcknowledgementMessage"
+              message="tns:AcknowledgementMessage" />
     </operation>
   </portType>
   <binding name="EntityDocQueryDeferredRequestSecuredBindingSoap" type="tns:EntityDocQueryDeferredRequestSecuredPortType">
@@ -52,7 +52,7 @@
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#Entity_DocQueryDeferred_Binding_Soap_Input_Policy"/>
       </input>
-      <output name="AcknowledgementsMessage">
+      <output name="AcknowledgementMessage">
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#Entity_DocQueryDeferred_Binding_Soap_Input_Policy"/>
       </output>
@@ -62,7 +62,7 @@
     <port name="EntityDocQueryDeferredRequestSecuredPortSoap"
           binding="tns:EntityDocQueryDeferredRequestSecuredBindingSoap">
       <soap:address
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequestSecured" />
+         location="http://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQueryDeferredRequestSecured" />
     </port>
   </service>
   <wsp:Policy wsu:Id="Entity_DocQueryDeferred_SoapPolicy">

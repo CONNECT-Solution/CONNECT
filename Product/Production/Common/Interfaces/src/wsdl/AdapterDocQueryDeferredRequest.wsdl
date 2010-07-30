@@ -23,7 +23,7 @@
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
                   schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
       <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                  schemaLocation="../schemas/nhin/QueryDocument.xsd"/>                  
+                  schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">

@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.docquerydeferred.entity.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.healthit.nhin.DocQueryAcknowledgementsType;
+import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
@@ -33,8 +33,8 @@ public class EntityDocQueryDeferredReqTest {
   public void testRespondingGatewayCrossGatewayQuery() {
     EntityDocQueryDeferredReq testSubject = new EntityDocQueryDeferredReq();
     RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
-    DocQueryAcknowledgementsType expResult = null;
-    DocQueryAcknowledgementsType result = testSubject.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest);
+    DocQueryAcknowledgementType expResult = null;
+    DocQueryAcknowledgementType result = testSubject.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest);
     assertEquals(expResult, result);
   }
 }

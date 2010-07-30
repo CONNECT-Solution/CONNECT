@@ -4,19 +4,12 @@
             xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
             xmlns:tns="http://www.hhs.gov/healthit/nhin"
             elementFormDefault="qualified">
-    <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
+  <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
 
-    <xsd:complexType name="DocQueryAcknowledgementType">
-        <xsd:sequence>
-            <xsd:element name="message" type="rs:RegistryResponseType" minOccurs="1"/>
-        </xsd:sequence>
-    </xsd:complexType>
-    <xsd:element name="DocQueryAcknowledgement" type="tns:DocQueryAcknowledgementType"/>
-
-	<xsd:complexType name="DocQueryAcknowledgementsType">
-		<xsd:sequence>
-			<xsd:element name="DocQueryAcknowledgement" type="tns:DocQueryAcknowledgementType" maxOccurs="unbounded"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="DocQueryAcknowledgements" type="tns:DocQueryAcknowledgementsType"/>
+  <xsd:complexType name="DocQueryAcknowledgementType">
+    <xsd:sequence>
+      <xsd:element name="message" type="rs:RegistryResponseType" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="DocQueryAcknowledgement" type="tns:DocQueryAcknowledgementType"/>
 </xsd:schema>

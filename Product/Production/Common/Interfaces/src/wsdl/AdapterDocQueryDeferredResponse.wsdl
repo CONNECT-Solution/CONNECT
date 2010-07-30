@@ -11,7 +11,6 @@
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
    name="AdapterDocQueryDeferredResponse" 
@@ -24,7 +23,7 @@
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
                   schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
       <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
+                  schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">

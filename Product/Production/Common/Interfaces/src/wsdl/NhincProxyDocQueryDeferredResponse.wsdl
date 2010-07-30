@@ -17,12 +17,11 @@
       <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
-                        schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+                  schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
       <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
-                        schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
+                  schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
     </xsd:schema>
   </types>
-
   <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
     <part name="RespondingGateway_CrossGatewayQueryRequest"
           element="nccommonproxy:RespondingGateway_CrossGatewayQueryResponse"/>
@@ -31,7 +30,6 @@
     <part name="Acknowledgment"
           element="dq:DocQueryAcknowledgement"/>
   </message>
-
   <portType name="NhincProxyDocQueryDeferredResponsePortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
@@ -40,7 +38,6 @@
               message="tns:AcknowledgementMessage" />
     </operation>
   </portType>
-
   <binding name="NhincProxyDocQueryDeferredResponseBindingSoap" type="tns:NhincProxyDocQueryDeferredResponsePortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -53,7 +50,6 @@
       </output>
     </operation>
   </binding>
-
   <service name="NhincProxyDocQueryDeferredResponse">
     <port name="NhincProxyDocQueryDeferredResponsePortSoap"
           binding="tns:NhincProxyDocQueryDeferredResponseBindingSoap">
