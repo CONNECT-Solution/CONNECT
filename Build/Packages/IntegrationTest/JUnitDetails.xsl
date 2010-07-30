@@ -63,35 +63,6 @@
         </xsl:for-each>
 
        </script>
-       <script type="text/javascript" language="JavaScript"><![CDATA[
-        function displayProperties (name) {
-          var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
-          var doc = win.document;
-          doc.open();
-          doc.write("<html><head><title>Properties of " + name + "</title>");
-          doc.write("<style>")
-          doc.write("body {font:normal 68% verdana,arial,helvetica; color:#000000; }");
-          doc.write("table tr td, table tr th { font-size: 68%; }");
-          doc.write("table.properties { border-collapse:collapse; border-left:solid 1 #cccccc; border-top:solid 1 #cccccc; padding:5px; }");
-          doc.write("table.properties th { text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#eeeeee; }");
-          doc.write("table.properties td { font:normal; text-align:left; border-right:solid 1 #cccccc; border-bottom:solid 1 #cccccc; background-color:#fffffff; }");
-          doc.write("h3 { margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica }");
-          doc.write("</style>");
-          doc.write("</head><body>");
-          doc.write("<h3>Properties of " + name + "</h3>");
-          doc.write("<div align=\"right\"><a href=\"javascript:window.close();\">Close</a></div>");
-          doc.write("<table class='properties'>");
-          doc.write("<tr><th>Name</th><th>Value</th></tr>");
-          for (prop in TestCases[name]) {
-            doc.write("<tr><th>" + prop + "</th><td>" + TestCases[name][prop] + "</td></tr>");
-          }
-          doc.write("</table>");
-          doc.write("</body></html>");
-          doc.close();
-          win.focus();
-        }
-      ]]>
-      </script>
             <a name="top"></a>
             <xsl:call-template name="pageHeader"/>
 
@@ -201,12 +172,6 @@
                 </xsl:if>
                 <xsl:apply-templates select="./testcase" mode="print.test"/>
             </table>
-            <div class="Properties">
-                <a>
-                    <xsl:attribute name="href">javascript:displayProperties('<xsl:value-of select="@package"/>.<xsl:value-of select="@name"/>');</xsl:attribute>
-                    Properties &#187;
-                </a>
-            </div>
             <p/>
 
             <a href="#top">Back to top</a>
@@ -260,31 +225,7 @@
         </table>
     </xsl:template>
 
-  <!--
-   Write properties into a JavaScript data structure.
-   This is based on the original idea by Erik Hatcher (ehatcher@apache.org)
-   -->
-  <xsl:template match="properties">
-    cur = TestCases['<xsl:value-of select="../@package"/>.<xsl:value-of select="../@name"/>'] = new Array();
-    <xsl:for-each select="property">
-    <xsl:sort select="@name"/>
-      <xsl:variable name="value">
-        <xsl:call-template name="escape-quotes">
-          <xsl:with-param name="string" select="@value"/>
-        </xsl:call-template>
-      </xsl:variable>
-      <xsl:choose>
-        <xsl:when test="substring(@value,string-length(@value)) = '\'">
-          cur['<xsl:value-of select="@name"/>'] = "<xsl:value-of select="$value"/>\";
-        </xsl:when>
-        <xsl:otherwise>
-          cur['<xsl:value-of select="@name"/>'] = "<xsl:value-of select="$value"/>";
-        </xsl:otherwise>
-      </xsl:choose>
-        
-  </xsl:for-each>
-  </xsl:template>
-  
+
   <xsl:template name="escape-quotes">
 		<xsl:param name="string"/>
 		<xsl:choose>
