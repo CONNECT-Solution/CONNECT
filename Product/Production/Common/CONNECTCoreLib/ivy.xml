@@ -39,6 +39,7 @@
     <dependency org="javax" name="javaee-api" rev="6.0" conf="runtime->default" transitive="false" />
     <dependency org="org.springframework" name="spring" rev="2.5.6" conf="runtime->default" transitive="false" />
     <dependency org="jta" name="jta" rev="1.0.1b" conf="runtime->default" transitive="false" />
+    <dependency org="xpp3" name="xpp3_min" rev="1.1.4c" conf="runtime->default" transitive="false" />
 
  <!-- jars for test only -->
     <dependency org="org.jmock" name="jmock" rev="2.5.1" conf="test->default" />
