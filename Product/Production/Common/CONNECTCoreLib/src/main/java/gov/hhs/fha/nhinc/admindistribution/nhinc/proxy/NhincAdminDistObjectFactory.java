@@ -14,7 +14,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class NhincAdminDistObjectFactory {
     private static final String CONFIG_FILE_NAME = "NhincAdminDistProxyConfig.xml";
-    private static final String BEAN_NAME_AUDIT_REPOSITORY = "nhincadmindist";
+    private static final String BEAN_NAME = "nhincadmindist";
     private static ApplicationContext context = null;
 
     static {
@@ -30,7 +30,7 @@ public class NhincAdminDistObjectFactory {
     public NhincAdminDistProxy getNhincAdminDistProxy() {
         NhincAdminDistProxy result = null;
         if (context != null) {
-            result = (NhincAdminDistProxy) context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
+            result = (NhincAdminDistProxy) context.getBean(BEAN_NAME);
         }
         return result;
     }

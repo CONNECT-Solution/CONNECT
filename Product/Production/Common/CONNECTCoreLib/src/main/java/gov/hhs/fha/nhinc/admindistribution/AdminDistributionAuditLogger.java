@@ -24,9 +24,20 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
  * @author dunnek
  */
 public class AdminDistributionAuditLogger {
+    private Log log = null;
 
+    public AdminDistributionAuditLogger()
+    {
+        log = createLogger();
+    }
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
     private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion)
     {
+        log.debug("begin audit()");
+
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
         AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
         return proxy.auditLog(auditLogMsg, assertion);
@@ -34,6 +45,7 @@ public class AdminDistributionAuditLogger {
 
 
     public AcknowledgementType auditEntityAdminDist (RespondingGatewaySendAlertMessageType request, AssertionType assertion, String direction) {
+        log.debug("begin auditEntityAdminDist()");
         AcknowledgementType ack = new AcknowledgementType ();
 
         // Set up the audit logging request message
@@ -48,8 +60,11 @@ public class AdminDistributionAuditLogger {
     }
     public AcknowledgementType auditNhincAdminDist(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target, String direction)
     {
+        log.debug("begin auditNhincAdminDist()");
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+
 
 
         LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion,target, direction);
@@ -57,18 +72,29 @@ public class AdminDistributionAuditLogger {
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
         }
+        else
+        {
+            log.warn("Ack was null");
+        }
         return ack;
     }
     public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction)
     {
+        log.debug("begin auditNhinAdminDist()");
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
-
+        log.debug("body == null = " + body == null);
+        log.debug("assertion == null = " + assertion == null);
+        
         LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion,direction);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
+        }
+        else
+        {
+            log.warn("Ack was null");
         }
         return ack;
     }

@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistProxy;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistObjectFactory;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistSecuredWebServiceImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 /**
@@ -39,7 +40,7 @@ public class NhincAdminDistImpl {
             log.debug("ack: " + ack.getMessage());
         }
 
-        getNhinProxy().sendAlertMessage(body, assertion, target);
+        getNhinProxy().sendAlertMessage(body, assertion, target);        
 
     }
     protected AdminDistributionAuditLogger getLogger()

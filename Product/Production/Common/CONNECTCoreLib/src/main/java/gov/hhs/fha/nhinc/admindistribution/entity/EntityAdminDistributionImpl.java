@@ -106,6 +106,8 @@ public class EntityAdminDistributionImpl {
     private void logEntityAdminDist(RespondingGatewaySendAlertMessageType request, AssertionType assertion) {
         // Audit the XDR Request Message sent on the Nhin Interface
         AcknowledgementType ack = new AdminDistributionAuditLogger().auditEntityAdminDist(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+
+        log.debug("End logEntityAdminDist()");
     }
 
     protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
