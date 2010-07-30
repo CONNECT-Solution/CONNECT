@@ -138,6 +138,25 @@
 		<url-pattern>/EntityService/NhincProxyDocRetrieveResponseSecured</url-pattern>
 	</servlet-mapping>
 	<!-- End Nhinc proxy Document retrieve deferred services-->
+
+	<servlet>
+		<servlet-name>NhincAdminDistSecured</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.admindist.nhinc.NhincAdminDistSecured</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincAdminDistSecured</servlet-name>
+		<url-pattern>/EntityService/NhincProxyAdminDistSecured</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NhincAdminDist</servlet-name>
+		<servlet-class>gov.hhs.fha.nhinc.admindist.nhinc.NhincAdminDist</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NhincAdminDist</servlet-name>
+		<url-pattern>/EntityService/NhincProxyAdminDist</url-pattern>
+	</servlet-mapping>
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
@@ -199,6 +218,11 @@
                 <web-resource-collection>
 			<web-resource-name>NhincProxyDocRetrieveDeferredRespSecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxyDocRetrieveResponseSecured</url-pattern>
+		</web-resource-collection>
+
+                <web-resource-collection>
+			<web-resource-name>NhincAdminDistSecured</web-resource-name>
+			<url-pattern>/EntityService/NhincProxyAdminDistSecured</url-pattern>
 		</web-resource-collection>
 		<!-- End Nhinc proxy Document retrieve deferred services-->	
 		<user-data-constraint>
