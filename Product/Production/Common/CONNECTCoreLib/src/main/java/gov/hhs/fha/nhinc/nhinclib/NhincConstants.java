@@ -228,6 +228,8 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME = "adapterdocretrievedeferred";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME = "adapterdocretrievedeferredsecured";
 
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
@@ -319,7 +321,7 @@ public class NhincConstants {
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
     public static final String NHINC_ADMIN_DIST_SERVICE_NAME = "nhincadmindist";
     public static final String NHINC_ADMIN_DIST_SECURED_SERVICE_NAME = "nhincadmindistsecured";
-    
+
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
