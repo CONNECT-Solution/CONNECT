@@ -361,6 +361,18 @@ public class NhincConstants {
     public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_PROCESSING = "PROCESSING";
     public static final String LIFT_GATEWAY_MESSAGE_DB_TYPE_DOC_SUB = "DEFERRED_DOCUMENT_SUBMISSION";
 
+    /* -- Begin Document Retrieve deferred Service Name -- */
+    public static final String DOCRETRIEVE_DEFERRED_ACTION = "docretrievedeferred";
+    public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "entitydocretrievedeferredrequest";
+    public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "entitydocretrievedeferredrequestsecured";
+    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "nhincproxydocretrievedeferredrequest";
+    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "nhincproxydocretrievedeferredrequestsecured";
+    public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "entitydocretrievedeferredresponse";
+    public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "entitydocretrievedeferredresponsesecured";
+    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "nhincproxydocretrievedeferredresponse";
+    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "nhincproxydocretrieveresponsesecured";
+    /* -- End Document Retrieve deferred Service Name -- */
+    
     private NhincConstants() {
     }
 }
