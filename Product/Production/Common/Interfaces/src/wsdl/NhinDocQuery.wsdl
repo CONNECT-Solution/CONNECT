@@ -9,24 +9,23 @@
    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
-   xmlns:wsaws="http://www.w3.org/2005/08/addressing" 
-   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
-   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
-   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
-   xmlns:sc="http://schemas.sun.com/2006/03/wss/server" 
-   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-   name="XCA_RespondingGateway" 
+   name="XCA_RespondingGateway"
    targetNamespace="urn:ihe:iti:xds-b:2007">
   <documentation>NHIN Responding Gateway Query</documentation>
   <types>
     <xsd:schema xmlns:ns20="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
                   schemaLocation="../schemas/ebRS/rs.xsd"/>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
-      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" 
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
     </xsd:schema>
   </types>
@@ -40,9 +39,9 @@
   </message>
   <portType name="RespondingGateway_Query_PortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
-      <input message="ihe:CrossGatewayQuery_Message" 
+      <input message="ihe:CrossGatewayQuery_Message"
              wsaw:Action="urn:ihe:iti:2007:CrossGatewayQuery"/>
-      <output message="ihe:CrossGatewayQueryResponse_Message" 
+      <output message="ihe:CrossGatewayQueryResponse_Message"
               wsaw:Action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/>
     </operation>
   </portType>
@@ -62,140 +61,140 @@
     </operation>
   </binding>
   <service name="RespondingGateway_Query_Service">
-    <port name="RespondingGateway_Query_Port_Soap" 
+    <port name="RespondingGateway_Query_Port_Soap"
           binding="ihe:RespondingGateway_Query_Binding_Soap">
       <soap12:address location="https://localhost:${HttpsDefaultPort}/RespondingGateway_Query_Service"/>
     </port>
   </service>
   <!-- Define action property on each receiving message -->
   <vprop:property name="action" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:action" 
+  <vprop:propertyAlias propertyName="ihe:action"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>action</vprop:query>
   </vprop:propertyAlias>
   <!-- Define resource property on each receiving message -->
   <vprop:property name="resource" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:resource" 
+  <vprop:propertyAlias propertyName="ihe:resource"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>resource</vprop:query>
   </vprop:propertyAlias>
   <!-- Define purposeForUseRoleCode property on each receiving message -->
   <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:purposeForUseRoleCode" 
+  <vprop:propertyAlias propertyName="ihe:purposeForUseRoleCode"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>purposeForUseRoleCode</vprop:query>
   </vprop:propertyAlias>
   <!-- Define purposeForUseCodeSystem property on each receiving message -->
   <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:purposeForUseCodeSystem" 
+  <vprop:propertyAlias propertyName="ihe:purposeForUseCodeSystem"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>purposeForUseCodeSystem</vprop:query>
   </vprop:propertyAlias>
   <!-- Define purposeForUseCodeSystemName property on each receiving message -->
   <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:purposeForUseCodeSystemName" 
+  <vprop:propertyAlias propertyName="ihe:purposeForUseCodeSystemName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>purposeForUseCodeSystemName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define purposeForUseDisplayName property on each receiving message -->
   <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:purposeForUseDisplayName" 
+  <vprop:propertyAlias propertyName="ihe:purposeForUseDisplayName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>purposeForUseDisplayName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userFirstName property on each receiving message -->
   <vprop:property name="userFirstName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userFirstName" 
+  <vprop:propertyAlias propertyName="ihe:userFirstName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userFirstName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userMiddleName property on each receiving message -->
   <vprop:property name="userMiddleName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userMiddleName" 
+  <vprop:propertyAlias propertyName="ihe:userMiddleName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userMiddleName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userLastName property on each receiving message -->
   <vprop:property name="userLastName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userLastName" 
+  <vprop:propertyAlias propertyName="ihe:userLastName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userLastName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userName property on each receiving message -->
   <vprop:property name="userName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userName" 
+  <vprop:propertyAlias propertyName="ihe:userName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userOrganization property on each receiving message -->
   <vprop:property name="userOrganization" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userOrganization" 
+  <vprop:propertyAlias propertyName="ihe:userOrganization"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userOrganization</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userRoleCode property on each receiving message -->
   <vprop:property name="userRoleCode" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userRoleCode" 
+  <vprop:propertyAlias propertyName="ihe:userRoleCode"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userRoleCode</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userRoleCodeSystem property on each receiving message -->
   <vprop:property name="userRoleCodeSystem" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userRoleCodeSystem" 
+  <vprop:propertyAlias propertyName="ihe:userRoleCodeSystem"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userRoleCodeSystem</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userRoleCodeSystemName property on each receiving message -->
   <vprop:property name="userRoleCodeSystemName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userRoleCodeSystemName" 
+  <vprop:propertyAlias propertyName="ihe:userRoleCodeSystemName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userRoleCodeSystemName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userRoleCodeDisplayName property on each receiving message -->
   <vprop:property name="userRoleCodeDisplayName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:userRoleCodeDisplayName" 
+  <vprop:propertyAlias propertyName="ihe:userRoleCodeDisplayName"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>userRoleCodeDisplayName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define expirationDate property on each receiving message -->
   <vprop:property name="expirationDate" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:expirationDate" 
+  <vprop:propertyAlias propertyName="ihe:expirationDate"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>expirationDate</vprop:query>
   </vprop:propertyAlias>
   <!-- Define signDate property on each receiving message -->
   <vprop:property name="signDate" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:signDate" 
+  <vprop:propertyAlias propertyName="ihe:signDate"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>signDate</vprop:query>
   </vprop:propertyAlias>
   <!-- Define contentReference property on each receiving message -->
   <vprop:property name="contentReference" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="ihe:contentReference" 
+  <vprop:propertyAlias propertyName="ihe:contentReference"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>contentReference</vprop:query>
   </vprop:propertyAlias>
   <!-- Define content property on each receiving message -->
   <vprop:property name="content" type="xsd:base64Binary"/>
-  <vprop:propertyAlias propertyName="ihe:content" 
+  <vprop:propertyAlias propertyName="ihe:content"
      messageType="ihe:CrossGatewayQuery_Message" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>content</vprop:query>
@@ -203,11 +202,11 @@
   <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
     <wsp:ExactlyOne>
       <wsp:All>
-        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
-        <sc:KeyStore wspp:visibility="private" 
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
+        <!-- <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/> -->
+        <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
                      callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-        <sc:TrustStore wspp:visibility="private" 
+        <sc:TrustStore wspp:visibility="private"
                        callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
         <sp:TransportBinding>
           <wsp:Policy>
@@ -235,7 +234,7 @@
         </sp:TransportBinding>
         <sp:EndorsingSupportingTokens>
           <wsp:Policy>
-            <sp:SamlToken 
+            <sp:SamlToken
                 sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
               <wsp:Policy>
                 <sp:WssSamlV20Token11/>
@@ -266,3 +265,4 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
 </definitions>
+

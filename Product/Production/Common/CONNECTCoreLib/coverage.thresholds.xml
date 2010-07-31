@@ -528,7 +528,7 @@
 <threshold branchcount="40" branchrate="0.675" branchsexecuted="0.27" class="gov.hhs.fha.nhinc.util.format.DocumentClassCodeParser" linecount="48" linerate="0.8333333333333334" linesexecuted="0.4"/>
 <threshold branchcount="34" branchrate="0.6764705882352942" branchsexecuted="0.23" class="gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil" linecount="48" linerate="0.9583333333333334" linesexecuted="0.46"/>
 <threshold branchcount="30" branchrate="0.4666666666666667" branchsexecuted="0.14" class="gov.hhs.fha.nhinc.util.format.UTCDateUtil" linecount="40" linerate="0.825" linesexecuted="0.33"/>
-<threshold branchcount="70" branchrate="0.6285714285714286" branchsexecuted="0.44" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="182" linerate="0.8186813186813187" linesexecuted="1.49"/>
+<threshold branchcount="72" branchrate="0.028333333333333335" branchsexecuted="2.04" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" linecount="198" linerate="0.07217171717171718" linesexecuted="14.290000000000001"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestNoOpImpl" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.125" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestWebServiceProxy" linecount="43" linerate="0.3488372093023256" linesexecuted="0.15"/>

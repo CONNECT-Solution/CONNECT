@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.nhindocquery.proxy;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
@@ -25,6 +26,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_Query_Service";
     private static final String PORT_LOCAL_PART = "RespondingGateway_Query_Port_Soap";
     private static final String WSDL_FILE = "NhinDocQuery.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -126,8 +128,9 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
         if (service != null)
         {
             log.debug("Obtained service - creating port.");
+
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayQueryPortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, assertion);
+            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, WS_ADDRESSING_ACTION, assertion);
         }
         else
         {

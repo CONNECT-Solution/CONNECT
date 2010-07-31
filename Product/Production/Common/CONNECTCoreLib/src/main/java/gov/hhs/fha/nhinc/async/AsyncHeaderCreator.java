@@ -66,6 +66,7 @@ public class AsyncHeaderCreator {
         }
         QName qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_TO);
         Header toHdr = Headers.create(qname, url);
+        log.debug("Set WS-Addressing <To> " + url);
         headers.add(toHdr);
 
         //The Action header is required
@@ -74,6 +75,7 @@ public class AsyncHeaderCreator {
         }
         qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_ACTION);
         Header actionHdr = Headers.create(qname, action);
+        log.debug("Set WS-Addressing <Action> " + action);
         headers.add(actionHdr);
 
         //The optional ReplyTo header contains the Address element
@@ -94,6 +96,7 @@ public class AsyncHeaderCreator {
         if (messageId != null) {
             qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID);
             Header msgIdHdr = Headers.create(qname, messageId);
+            log.debug("Set WS-Addressing <MessageID> " + messageId);
             headers.add(msgIdHdr);
         }
 
@@ -102,6 +105,7 @@ public class AsyncHeaderCreator {
             qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.HEADER_RELATESTO);
             for (String id : relatesToIds) {
                 Header relatesIdHdr = Headers.create(qname, id);
+                log.debug("Set WS-Addressing <RelatesTo> " + id);
                 headers.add(relatesIdHdr);
             }
         }
