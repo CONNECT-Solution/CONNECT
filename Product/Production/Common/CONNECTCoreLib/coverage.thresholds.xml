@@ -84,7 +84,7 @@
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler" linecount="52" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="56" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO" linecount="120" linerate="0.016666666666666666" linesexecuted="0.02"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping" linecount="12" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor" linecount="24" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.CMEprUtil" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.ConnectionManager" linecount="1" linerate="0.0" linesexecuted="0"/>
@@ -544,4 +544,5 @@
 <threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtfHelper" linecount="9" linerate="0.3333333333333333" linesexecuted="0.03"/>
 <threshold branchcount="28" branchrate="0.17857142857142858" branchsexecuted="0.05" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtility" linecount="80" linerate="0.3" linesexecuted="0.24"/>
 <threshold branchcount="6" branchrate="0.5" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.xmlCommon.XpathHelper" linecount="28" linerate="0.6785714285714286" linesexecuted="0.19"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistSecuredWebServiceImpl" linecount="63" linerate="0.0" linesexecuted="0"/>
 </thresholds>
