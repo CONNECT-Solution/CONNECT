@@ -18,7 +18,7 @@ import javax.xml.ws.WebServiceContext;
  * Date: Jul 26, 2010
  * Time: 11:42:45 AM
  */
-@WebService(serviceName = "RespondingGatewayDeferredRequest_Retrieve_Service", portName = "RespondingGatewayDeferredRequest_Retrieve_Port_Soap", endpointInterface = "ihe/iti/xds_b/_2007/RespondingGatewayDeferredRequestRetrievePortType", targetNamespace = "urn:ihe:iti:xds_b:_2007", wsdlLocation = "WEB-INF/wsdl/NhinDocRetrieveDeferredReq/NhinDocRetrieveDeferredReq.wsdl")
+@WebService(serviceName = "RespondingGatewayDeferredRequest_Retrieve_Service", portName = "RespondingGatewayDeferredRequest_Retrieve_Port_Soap", endpointInterface = "gov.hhs.fha.nhinc.nhindocretrievedeferredrequest.RespondingGatewayDeferredRequestRetrievePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhindocretrievedeferredrequest", wsdlLocation = "WEB-INF/wsdl/NhinDocRetrieveDeferredReq/NhinDocRetrieveDeferredReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhinDocRetrieveDeferredReq {
 
