@@ -1,11 +1,9 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.nhin.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.NhinDocRetrieveDeferredReqImpl;
+import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqWebServiceImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
-import org.apache.log4j.Logger;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -34,6 +32,6 @@ public class NhinDocRetrieveDeferredReq {
 
     protected DocRetrieveAcknowledgementType  getResponse(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
 
-        return     new NhinDocRetrieveDeferredReqImpl().sendToRespondingGateway(body, SamlTokenExtractor.GetAssertion(context));
+        return     new NhinDocRetrieveDeferredReqWebServiceImpl().sendToRespondingGateway(body, SamlTokenExtractor.GetAssertion(context));
     }
 }

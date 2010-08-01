@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.nhin.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.NhinDocRetrieveDeferredReqImpl;
+import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqWebServiceImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.jmock.Expectations;
@@ -18,10 +18,10 @@ import static org.junit.Assert.assertNotNull;
  * Date: Jul 29, 2010
  * Time: 3:21:08 PM
  */
-public class NhinDocRetrieveDeferredReqImplTest {
+public class NhinDocRetrieveDeferredReqWebServiceImplTest {
     private Mockery context;
 
-    public NhinDocRetrieveDeferredReqImplTest() {
+    public NhinDocRetrieveDeferredReqWebServiceImplTest() {
     }
 
     @BeforeClass
@@ -50,7 +50,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          // Define mock objects
          //
-         final NhinDocRetrieveDeferredReqImpl mockNhinDocRetrieveDeferredReqImpl;
+         final NhinDocRetrieveDeferredReqWebServiceImpl mockNhinDocRetrieveDeferredReqWebServiceImpl;
          final RespondingGatewayCrossGatewayRetrieveSecuredRequestType mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType;
          final AssertionType mockAssertionType;
          final DocRetrieveAcknowledgementType mockAck;
@@ -58,7 +58,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          // Define the class to be tested and it's inputs and outputs.
          //
-         NhinDocRetrieveDeferredReqImpl                                     retrieveRequest;
+         NhinDocRetrieveDeferredReqWebServiceImpl retrieveRequest;
          RespondingGatewayCrossGatewayRetrieveSecuredRequestType            req;
          RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
          DocRetrieveAcknowledgementType                                     ack;
@@ -66,7 +66,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          // Instantiate the mock objects.
          //
-         mockNhinDocRetrieveDeferredReqImpl = context.mock(NhinDocRetrieveDeferredReqImpl.class);
+         mockNhinDocRetrieveDeferredReqWebServiceImpl = context.mock(NhinDocRetrieveDeferredReqWebServiceImpl.class);
          mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType = context.mock(RespondingGatewayCrossGatewayRetrieveSecuredRequestType.class);
          mockAssertionType = context.mock(AssertionType.class);
          mockAck = context.mock(DocRetrieveAcknowledgementType.class);
@@ -76,7 +76,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          context.checking(new Expectations() {
              {
-                 allowing(mockNhinDocRetrieveDeferredReqImpl).sendToRespondingGateway(mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType,
+                 allowing(mockNhinDocRetrieveDeferredReqWebServiceImpl).sendToRespondingGateway(mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType,
                                                                             mockAssertionType);
                  will(returnValue(mockAck));
              }
@@ -85,7 +85,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          // Instantiate the object to be tested and it's inputs.
          //
-         retrieveRequest = new NhinDocRetrieveDeferredReqImpl();
+         retrieveRequest = new NhinDocRetrieveDeferredReqWebServiceImpl();
          retrieveDocumentSetRequestType = new RetrieveDocumentSetRequestType();
          req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
          req.setRetrieveDocumentSetRequest(retrieveDocumentSetRequestType);

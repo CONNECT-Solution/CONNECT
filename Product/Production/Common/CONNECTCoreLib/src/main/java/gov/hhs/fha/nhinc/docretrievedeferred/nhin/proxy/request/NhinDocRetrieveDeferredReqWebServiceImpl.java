@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin;
+package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
@@ -14,11 +14,11 @@ import org.apache.commons.logging.LogFactory;
  * Date: Jul 26, 2010
  * Time: 11:46:39 AM
  */
-public class NhinDocRetrieveDeferredReqImpl implements NhinDocRetrieveDeferredReqProxy {
+public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieveDeferredReqProxy {
 
     private Log log = null;
 
-    public NhinDocRetrieveDeferredReqImpl()
+    public NhinDocRetrieveDeferredReqWebServiceImpl()
     {
         log = LogFactory.getLog(getClass());
     }

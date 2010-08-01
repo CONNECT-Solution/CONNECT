@@ -34,12 +34,12 @@ public class NhinDocRetrieveDeferredRespObjectFactory {
       *
       * @return AdapterAuditQueryProxy instance
       */
-     public AdapterDocRetrieveDeferredRespProxy getDocumentDeferredResponseProxy() {
+     public NhinDocRetrieveDeferredRespProxy getDocumentDeferredResponseProxy() {
 
-         AdapterDocRetrieveDeferredRespProxy result = null;
+         NhinDocRetrieveDeferredRespProxy result = null;
 
          if (context != null) {
-             result = (AdapterDocRetrieveDeferredRespProxy) context.getBean(BEAN_NAME_NHIN_DOC_RETRIEVE_DEFERRED_RESPONSE);
+             result = (NhinDocRetrieveDeferredRespProxy) context.getBean(BEAN_NAME_NHIN_DOC_RETRIEVE_DEFERRED_RESPONSE);
          }
          else {
              log.error("Could not get context "+ BEAN_NAME_NHIN_DOC_RETRIEVE_DEFERRED_RESPONSE + " from config file " +

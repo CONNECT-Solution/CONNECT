@@ -30,7 +30,7 @@ public class NhinDocRetrieveDeferredRespWebServiceImpl implements NhinDocRetriev
 
         if(checkPolicy(body, assertion))
         {
-            response = objectFactory.getDocumentDeferredResponseProxy().receiveFromAdapter(body, assertion);
+            response = objectFactory.getDocumentDeferredResponseProxy().sendToRespondingGateway(body, assertion);
         }
         else {
             //

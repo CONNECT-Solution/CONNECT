@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;

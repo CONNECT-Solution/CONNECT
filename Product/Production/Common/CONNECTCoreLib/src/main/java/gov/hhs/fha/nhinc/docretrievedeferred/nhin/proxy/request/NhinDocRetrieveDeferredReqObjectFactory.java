@@ -1,6 +1,5 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request;
 
-import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
