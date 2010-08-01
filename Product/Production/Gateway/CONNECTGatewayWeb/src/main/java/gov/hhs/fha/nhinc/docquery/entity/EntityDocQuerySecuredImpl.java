@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +35,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryResponseType;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
+import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
 import java.util.HashMap;
 
 /**
@@ -97,10 +99,25 @@ public class EntityDocQuerySecuredImpl {
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
-        // Collect assertion
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        AdhocQueryResponse response = null;
+        LoggingContextHelper loggingContextHelper = new LoggingContextHelper();
+        try {
+            loggingContextHelper.setContext(context);
 
-        return respondingGatewayCrossGatewayQuery(request, assertion);
+            // Collect assertion
+            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+            // Extract the message id value from the WS-Addressing Header and
+            // place it in the Assertion Class
+            if (assertion != null) {
+                assertion.setAsyncMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+            }
+            response = respondingGatewayCrossGatewayQuery(request, assertion);
+
+        } finally {
+            loggingContextHelper.clearContext();
+        }
+        return response;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType request, AssertionType assertion) {
