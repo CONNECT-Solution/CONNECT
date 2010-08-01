@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <thresholds>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.DocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.DocQueryAuditLog" linecount="54" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.DocQueryImpl" linecount="88" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveImpl" linecount="113" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery" linecount="20" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.nhin.AuditQueryImpl" linecount="76" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.nhin.DocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.nhin.DocQueryImpl" linecount="88" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieveImpl" linecount="113" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq" linecount="4" linerate="0.75" linesexecuted="0.03"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.response.NhinDocRetrieveDeferredResp" linecount="4" linerate="0.75" linesexecuted="0.03"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDR" linecount="3" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDRImpl" linecount="67" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequest" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="52" branchrate="0.1346153846153846" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequestImpl" linecount="155" linerate="0.16129032258064516" linesexecuted="0.25"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinXDRResponse" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinXDRResponseImpl" linecount="46" linerate="0.45652173913043476" linesexecuted="0.21"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotify" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotifyImpl" linecount="65" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.nhin.notify.NotifyHeaderHandler" linecount="7" linerate="0.0" linesexecuted="0"/>
@@ -32,12 +37,4 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryAdapterSender" linecount="16" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryImpl" linecount="92" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="22" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryPolicyChecker" linecount="54" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery" linecount="20" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.nhin.AuditQueryImpl" linecount="76" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDR" linecount="3" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDRImpl" linecount="67" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequest" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="52" branchrate="0.1346153846153846" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequestImpl" linecount="155" linerate="0.16129032258064516" linesexecuted="0.25"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinXDRResponse" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinXDRResponseImpl" linecount="46" linerate="0.45652173913043476" linesexecuted="0.21"/>
 </thresholds>
