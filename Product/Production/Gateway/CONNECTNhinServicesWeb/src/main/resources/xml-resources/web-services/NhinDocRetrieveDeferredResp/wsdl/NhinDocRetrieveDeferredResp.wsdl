@@ -22,15 +22,15 @@
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
-                  schemaLocation="../schemas/ebRS/rs.xsd"/>
+                  schemaLocation="../../../../../../../../CONNECTGatewayWeb/src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ebRS/rs.xsd"/>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007"
-                  schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+                  schemaLocation="../../../../../../../../CONNECTGatewayWeb/src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
             <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-                  schemaLocation="../schemas/ebRS/query.xsd"/>
+                  schemaLocation="../../../../../../../../CONNECTGatewayWeb/src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ebRS/query.xsd"/>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
-                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+                  schemaLocation="../../../../../../../../CONNECTGatewayWeb/src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/nhinc/gateway/SamlTokenData.xsd"/>
             <xsd:import namespace="http://www.hhs.gov/healthit/NHIN"
-                schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+                schemaLocation="../../../../../../../../CONNECTGatewayWeb/src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/nhin/RetrieveDocument.xsd"/>
         </xsd:schema>
     </types>
     <message name="CrossGatewayRetrieveResponse_Message">
