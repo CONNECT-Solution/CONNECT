@@ -1,9 +1,7 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin;
+package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespProxy;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,29 +9,27 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Created by
  * User: ralph
- * Date: Jul 28, 2010
- * Time: 11:50:51 AM
+ * Date: Jul 31, 2010
+ * Time: 11:16:36 PM
  */
-public class NhinDocRetrieveDeferredRespImpl implements NhinDocRetrieveDeferredRespProxy {
+public class NhinDocRetrieveDeferredRespWebServiceImpl implements NhinDocRetrieveDeferredRespProxy {
 
     private Log log = null;
 
-    public NhinDocRetrieveDeferredRespImpl()
+    public NhinDocRetrieveDeferredRespWebServiceImpl()
     {
         log = LogFactory.getLog(getClass());
     }
 
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, AssertionType assertion)
     {
-        NhinDocRetrieveDeferredRespObjectFactory objectFactory;
+        NhinDocRetrieveDeferredRespObjectFactory objectFactory = new NhinDocRetrieveDeferredRespObjectFactory();
         DocRetrieveAcknowledgementType           response = new DocRetrieveAcknowledgementType();
 
         logRequest(body, assertion);
 
         if(checkPolicy(body, assertion))
         {
-            objectFactory = new NhinDocRetrieveDeferredRespObjectFactory();
-
             response = objectFactory.getDocumentDeferredResponseProxy().receiveFromAdapter(body, assertion);
         }
         else {

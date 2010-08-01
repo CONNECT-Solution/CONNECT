@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response;
 
 import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;

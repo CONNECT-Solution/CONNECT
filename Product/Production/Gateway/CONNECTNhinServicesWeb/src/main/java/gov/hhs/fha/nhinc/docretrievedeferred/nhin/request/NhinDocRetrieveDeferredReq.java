@@ -34,6 +34,6 @@ public class NhinDocRetrieveDeferredReq {
 
     protected DocRetrieveAcknowledgementType  getResponse(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
 
-        return     new NhinDocRetrieveDeferredReqImpl().sendToAdapter(body, SamlTokenExtractor.GetAssertion(context));
+        return     new NhinDocRetrieveDeferredReqImpl().sendToRespondingGateway(body, SamlTokenExtractor.GetAssertion(context));
     }
 }

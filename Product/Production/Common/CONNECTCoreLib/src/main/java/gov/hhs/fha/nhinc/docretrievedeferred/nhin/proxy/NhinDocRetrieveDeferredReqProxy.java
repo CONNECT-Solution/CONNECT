@@ -2,6 +2,8 @@ package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
@@ -12,5 +14,5 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  */
 public interface NhinDocRetrieveDeferredReqProxy {
 
-    public void  sendToAdapter(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType  target);
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion);
 }

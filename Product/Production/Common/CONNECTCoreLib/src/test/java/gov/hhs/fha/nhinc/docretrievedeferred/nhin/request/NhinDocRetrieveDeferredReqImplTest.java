@@ -76,7 +76,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          context.checking(new Expectations() {
              {
-                 allowing(mockNhinDocRetrieveDeferredReqImpl).sendToAdapter(mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType,
+                 allowing(mockNhinDocRetrieveDeferredReqImpl).sendToRespondingGateway(mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType,
                                                                             mockAssertionType);
                  will(returnValue(mockAck));
              }
@@ -94,7 +94,7 @@ public class NhinDocRetrieveDeferredReqImplTest {
          //
          // Run the test.
          //
-         ack = retrieveRequest.sendToAdapter(req, assertion);
+         ack = retrieveRequest.sendToRespondingGateway(req, assertion);
 
          //
          // Check the results.
