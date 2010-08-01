@@ -2,8 +2,8 @@ package gov.hhs.fha.nhinc.docretrievedeferred.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.NhinDocRetrieveDeferredReqObjectFactory;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.NhinDocRetrieveDeferredReqProxy;
+import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqObjectFactory;
+import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqProxy;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
