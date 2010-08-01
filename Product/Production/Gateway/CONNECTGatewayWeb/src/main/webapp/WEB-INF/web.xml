@@ -314,23 +314,6 @@
         <servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveDeferredResponseSecured</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
-        <url-pattern>/EntityService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhin.response.NhinDocRetrieveDeferredResp</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
-        <url-pattern>/EntityService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
-    </servlet-mapping>
-    <!-- BEGIN: Document Retrieve Deferred Services -->
 
 	<security-constraint>
 
@@ -404,16 +387,6 @@
             <web-resource-name>PatientCorrelationServiceSecured</web-resource-name>
             <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
         </web-resource-collection>
-		<!-- BEGIN Document Retrieve Deferred Service -->
-        <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredReq</web-resource-name>
-            <url-pattern>/EntityService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
-        </web-resource-collection>
-		<web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredResp</web-resource-name>
-            <url-pattern>/EntityService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
-        </web-resource-collection>
-        <!-- END Document Retrieve Deferred Service -->
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
