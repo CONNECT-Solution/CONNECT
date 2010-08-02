@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.entity.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
 
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;

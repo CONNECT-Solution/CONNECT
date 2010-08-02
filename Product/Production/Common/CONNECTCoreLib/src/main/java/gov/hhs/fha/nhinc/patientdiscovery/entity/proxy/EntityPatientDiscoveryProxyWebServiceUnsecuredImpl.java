@@ -1,13 +1,12 @@
-package gov.hhs.fha.nhinc.entity.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecured;
-import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
+import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscovery;
+import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
@@ -20,12 +19,12 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  *
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityPatientDiscoveryProxy
+public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy
 {
     private Log log = null;
-    private static EntityPatientDiscoverySecured patientDiscoverySecuredService = null;
+    private static EntityPatientDiscovery patientDiscoveryService = null;
 
-    public EntityPatientDiscoveryProxyWebServiceSecuredImpl()
+    public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
     }
@@ -43,7 +42,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
     protected String getEndpointURL()
     {
         String endpointURL = null;
-        String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
+        String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME;
         try
         {
             endpointURL = invokeConnectionManager(serviceName);
@@ -57,28 +56,28 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
         return endpointURL;
     }
 
-    protected EntityPatientDiscoverySecured getEntityPatientDiscoverySecured()
+    protected EntityPatientDiscovery getEntityPatientDiscovery()
     {
-        if(patientDiscoverySecuredService == null)
+        if(patientDiscoveryService == null)
         {
-            patientDiscoverySecuredService = new EntityPatientDiscoverySecured();
+            patientDiscoveryService = new EntityPatientDiscovery();
         }
-        return patientDiscoverySecuredService;
+        return patientDiscoveryService;
     }
 
-    protected EntityPatientDiscoverySecuredPortType getEntityPatientDiscoverySecuredPortType(AssertionType assertion)
+    protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
     {
-        EntityPatientDiscoverySecuredPortType port = null;
+        EntityPatientDiscoveryPortType port = null;
 
         String endpointURL = getEndpointURL();
 
         if((endpointURL != null) && (!endpointURL.isEmpty()))
         {
-            EntityPatientDiscoverySecured service = getEntityPatientDiscoverySecured();
+            EntityPatientDiscovery service = getEntityPatientDiscovery();
             if(service != null)
             {
-                port = service.getEntityPatientDiscoverySecuredPortSoap();
-                configurePort(port, endpointURL, assertion);
+                port = service.getEntityPatientDiscoveryPortSoap();
+                configurePort(port, endpointURL);
             }
             else
             {
@@ -93,7 +92,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
         return port;
     }
 
-    protected void configurePort(EntityPatientDiscoverySecuredPortType port, String endpointURL, AssertionType assertion)
+    protected void configurePort(EntityPatientDiscoveryPortType port, String endpointURL)
     {
         log.debug("Begin configurePort");
         if(port == null)
@@ -104,18 +103,10 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
         {
             log.warn("configurePort - Endpoint URL was null.");
         }
-        else if(assertion == null)
-        {
-            log.warn("configurePort - Assertion was null");
-        }
         else
         {
             Map requestContext = ((BindingProvider) port).getRequestContext();
             requestContext.put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map samlMap = tokenCreator.CreateRequestContext(assertion, endpointURL, NhincConstants.SUBJECT_DISCOVERY_ACTION);
-            requestContext.putAll(samlMap);
         }
         log.debug("End configurePort");
     }
@@ -127,7 +118,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
 
         try
         {
-            EntityPatientDiscoverySecuredPortType port = getEntityPatientDiscoverySecuredPortType(assertion);
+            EntityPatientDiscoveryPortType port = getEntityPatientDiscoveryPortType();
 
             if(pdRequest == null)
             {
@@ -163,4 +154,5 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
         log.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
     }
+
 }

@@ -1,10 +1,10 @@
-package gov.hhs.fha.nhinc.entity.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscovery;
-import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecured;
+import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
+public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest
 {
     Mockery context = new JUnit4Mockery()
     {
@@ -35,15 +35,15 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     final PRPAIN201305UV02 mockPdRequest = context.mock(PRPAIN201305UV02.class);
     final AssertionType mockAssertion = context.mock(AssertionType.class);
     final NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);
-    final EntityPatientDiscovery mockEntityPatientDiscovery = context.mock(EntityPatientDiscovery.class);
-    final EntityPatientDiscoveryPortType mockPort = context.mock(EntityPatientDiscoveryPortType.class);
+    final EntityPatientDiscoverySecured mockEntityPatientDiscoverySecured = context.mock(EntityPatientDiscoverySecured.class);
+    final EntityPatientDiscoverySecuredPortType mockPort = context.mock(EntityPatientDiscoverySecuredPortType.class);
 
     @Test
     public void testCreateLogger()
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -67,7 +67,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -95,7 +95,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     @Test (expected= gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
     public void testInvokeConnectionManagerException() throws ConnectionManagerException
     {
-        EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+        EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
         {
             @Override
             protected Log createLogger()
@@ -124,7 +124,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -161,7 +161,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -198,7 +198,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -213,7 +213,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     oneOf(mockLog).warn("configurePort - Port was null.");
                 }
             });
-            webProxy.configurePort(null, "endpoint_url");
+            webProxy.configurePort(null, "endpoint_url", mockAssertion);
         }
         catch(Throwable t)
         {
@@ -228,7 +228,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -243,7 +243,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     oneOf(mockLog).warn("configurePort - Endpoint URL was null.");
                 }
             });
-            webProxy.configurePort(mockPort, null);
+            webProxy.configurePort(mockPort, null, mockAssertion);
         }
         catch(Throwable t)
         {
@@ -253,29 +253,42 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Test
-    public void testGetEntityPatientDiscoveryHappy()
+    public void testConfigurePortNullAssertion()
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockLog).warn("configurePort - Assertion was null");
+                }
+            });
+            webProxy.configurePort(mockPort, "endpoint_url", null);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testConfigurePortNullAssertion test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testConfigurePortNullAssertion test: " + t.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetEntityPatientDiscoverySecuredHappy()
+    {
+        try
+        {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -283,9 +296,9 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscovery getEntityPatientDiscovery()
+                protected EntityPatientDiscoverySecured getEntityPatientDiscoverySecured()
                 {
-                    return mockEntityPatientDiscovery;
+                    return mockEntityPatientDiscoverySecured;
                 }
             };
             context.checking(new Expectations()
@@ -295,7 +308,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            EntityPatientDiscovery service = webProxy.getEntityPatientDiscovery();
+            EntityPatientDiscoverySecured service = webProxy.getEntityPatientDiscoverySecured();
             assertNotNull("EntityPatientDiscoverySecured was null", service);
         }
         catch(Throwable t)
@@ -311,7 +324,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -319,9 +332,9 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscovery getEntityPatientDiscovery()
+                protected EntityPatientDiscoverySecured getEntityPatientDiscoverySecured()
                 {
-                    return mockEntityPatientDiscovery;
+                    return mockEntityPatientDiscoverySecured;
                 }
                 @Override
                 protected String getEndpointURL()
@@ -334,7 +347,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return "test_endpoint";
                 }
                 @Override
-                protected void configurePort(EntityPatientDiscoveryPortType port, String endpointURL)
+                protected void configurePort(EntityPatientDiscoverySecuredPortType port, String endpointURL, AssertionType assertion)
                 {
 
                 }
@@ -344,10 +357,10 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockEntityPatientDiscovery).getEntityPatientDiscoveryPortSoap();
+                    oneOf(mockEntityPatientDiscoverySecured).getEntityPatientDiscoverySecuredPortSoap();
                 }
             });
-            EntityPatientDiscoveryPortType port = webProxy.getEntityPatientDiscoveryPortType();
+            EntityPatientDiscoverySecuredPortType port = webProxy.getEntityPatientDiscoverySecuredPortType(mockAssertion);
             assertNotNull("EntityPatientDiscoverySecuredPortType was null", port);
         }
         catch(Throwable t)
@@ -363,7 +376,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -371,9 +384,9 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscovery getEntityPatientDiscovery()
+                protected EntityPatientDiscoverySecured getEntityPatientDiscoverySecured()
                 {
-                    return mockEntityPatientDiscovery;
+                    return mockEntityPatientDiscoverySecured;
                 }
                 @Override
                 protected String getEndpointURL()
@@ -394,7 +407,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     oneOf(mockLog).warn("Endpoint url was missing.");
                 }
             });
-            EntityPatientDiscoveryPortType port = webProxy.getEntityPatientDiscoveryPortType();
+            EntityPatientDiscoverySecuredPortType port = webProxy.getEntityPatientDiscoverySecuredPortType(mockAssertion);
             assertNull("AdapterComponentRedactionEnginePortType was not null", port);
         }
         catch(Throwable t)
@@ -410,7 +423,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -418,9 +431,9 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscovery getEntityPatientDiscovery()
+                protected EntityPatientDiscoverySecured getEntityPatientDiscoverySecured()
                 {
-                    return mockEntityPatientDiscovery;
+                    return mockEntityPatientDiscoverySecured;
                 }
                 @Override
                 protected String getEndpointURL()
@@ -441,7 +454,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     oneOf(mockLog).warn("Endpoint url was missing.");
                 }
             });
-            EntityPatientDiscoveryPortType port = webProxy.getEntityPatientDiscoveryPortType();
+            EntityPatientDiscoverySecuredPortType port = webProxy.getEntityPatientDiscoverySecuredPortType(mockAssertion);
             assertNull("AdapterComponentRedactionEnginePortType was not null", port);
         }
         catch(Throwable t)
@@ -457,7 +470,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -465,7 +478,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscovery getEntityPatientDiscovery()
+                protected EntityPatientDiscoverySecured getEntityPatientDiscoverySecured()
                 {
                     return null;
                 }
@@ -488,7 +501,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     oneOf(mockLog).warn("EntityPatientDiscoverySecured was null");
                 }
             });
-            EntityPatientDiscoveryPortType port = webProxy.getEntityPatientDiscoveryPortType();
+            EntityPatientDiscoverySecuredPortType port = webProxy.getEntityPatientDiscoverySecuredPortType(mockAssertion);
             assertNull("AdapterComponentRedactionEnginePortType was not null", port);
         }
         catch(Throwable t)
@@ -504,7 +517,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -512,7 +525,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
+                protected EntityPatientDiscoverySecuredPortType getEntityPatientDiscoverySecuredPortType(AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -540,7 +553,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -548,7 +561,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
+                protected EntityPatientDiscoverySecuredPortType getEntityPatientDiscoverySecuredPortType(AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -576,7 +589,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -584,7 +597,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
+                protected EntityPatientDiscoverySecuredPortType getEntityPatientDiscoverySecuredPortType(AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -612,7 +625,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -620,7 +633,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
+                protected EntityPatientDiscoverySecuredPortType getEntityPatientDiscoverySecuredPortType(AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -648,7 +661,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     {
         try
         {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -656,7 +669,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
+                protected EntityPatientDiscoverySecuredPortType getEntityPatientDiscoverySecuredPortType(AssertionType assertion)
                 {
                     return null;
                 }

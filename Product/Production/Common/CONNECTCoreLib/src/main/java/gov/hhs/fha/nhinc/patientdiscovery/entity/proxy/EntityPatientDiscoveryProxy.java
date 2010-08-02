@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.entity.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
