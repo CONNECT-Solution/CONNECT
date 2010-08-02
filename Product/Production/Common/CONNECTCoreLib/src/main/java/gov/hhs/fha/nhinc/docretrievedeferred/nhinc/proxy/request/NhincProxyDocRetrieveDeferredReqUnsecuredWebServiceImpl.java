@@ -7,6 +7,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxydocretrievedeferred.NhincProxyDocRetrieveDeferredRequest;
 import gov.hhs.fha.nhinc.nhincproxydocretrievedeferred.NhincProxyDocRetrieveDeferredRequestPortType;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
@@ -57,6 +58,8 @@ public class NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl implements 
             req.setAssertion(assertion);
             req.setNhinTargetSystem(target);
             req.setRetrieveDocumentSetRequest(request);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
             ack = port.crossGatewayRetrieveRequest(req);
         } catch (Exception e) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST);

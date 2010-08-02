@@ -157,12 +157,12 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqNoOpImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl" linecount="35" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl" linecount="29" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl" linecount="31" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespJavaImpl" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespNoOpImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespSecuredWebServiceImpl" linecount="38" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl" linecount="34" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl" linecount="36" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="18" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLog" linecount="50" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="36" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger" linecount="77" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker" linecount="52" linerate="0.0" linesexecuted="0"/>
@@ -570,4 +570,8 @@
 <threshold branchcount="14" branchrate="0.07142857142857142" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReqImpl" linecount="70" linerate="0.17142857142857143" linesexecuted="0.12"/>
 <threshold branchcount="58" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveDeferredTransforms" linecount="164" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.request.NhincProxyDocRetrieveDeferredReqImpl" linecount="40" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="30" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredPolicyChecker" linecount="43" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="26" branchrate="0.2692307692307692" branchsexecuted="0.07" class="gov.hhs.fha.nhinc.docretrievedeferred.entity.response.EntityDocRetrieveDeferredRespImpl" linecount="53" linerate="0.5849056603773585" linesexecuted="0.31"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespImpl" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="32" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.policy.DocRetrieveDeferredTransformHelper" linecount="62" linerate="0.0" linesexecuted="0"/>
 </thresholds>

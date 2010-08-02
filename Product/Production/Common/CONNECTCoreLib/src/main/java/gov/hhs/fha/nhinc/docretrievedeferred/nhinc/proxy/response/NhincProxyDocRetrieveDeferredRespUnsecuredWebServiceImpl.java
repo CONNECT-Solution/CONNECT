@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrieveResponse;
 import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrieveResponsePortType;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.apache.commons.logging.Log;
@@ -70,6 +71,8 @@ public class NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl implements
             resp.setAssertion(assertion);
             resp.setNhinTargetSystem(target);
             resp.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
+            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
             ack = port.crossGatewayRetrieveResponse(resp);
         }
         if(debugEnabled)
