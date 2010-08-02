@@ -57,6 +57,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.audit.AdminDistTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms;
+import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveDeferredTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
 import gov.hhs.fha.nhinc.transform.audit.NotifyTransforms;
@@ -1002,4 +1003,26 @@ public class AuditRepositoryLogger {
     protected Log getLogger(){
         return log;
     }
+
+    /**
+     * 
+     * @param message
+     * @param assertion
+     * @param direction
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logDocRetrieveAckResponse(RegistryResponseType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            DocumentRetrieveDeferredTransforms auditTransformer = new DocumentRetrieveDeferredTransforms();
+            auditMsg = auditTransformer.transformAckResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
+        return auditMsg;
+    }
+    
 }

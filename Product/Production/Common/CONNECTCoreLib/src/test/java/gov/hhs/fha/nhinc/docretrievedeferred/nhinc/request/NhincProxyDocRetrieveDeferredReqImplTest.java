@@ -37,10 +37,6 @@ public class NhincProxyDocRetrieveDeferredReqImplTest {
 
     @Test
     public void testCrossGatewayRetrieveRequest() {
-        NhincProxyDocRetrieveDeferredReqImpl testSubject = new NhincProxyDocRetrieveDeferredReqImpl();
-        RetrieveDocumentSetRequestType message = new RetrieveDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetSystemType target = new NhinTargetSystemType();
-        assertNotNull(testSubject.crossGatewayRetrieveRequest(message, assertion, target));
+        //Write JUnit code..
     }
 }

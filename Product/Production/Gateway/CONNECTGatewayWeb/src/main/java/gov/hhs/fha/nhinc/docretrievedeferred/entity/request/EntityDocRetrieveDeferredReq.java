@@ -22,11 +22,55 @@ public class EntityDocRetrieveDeferredReq {
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
-        ExtractEntityDocRetrieveDeferredRequestValues oExtract = new ExtractEntityDocRetrieveDeferredRequestValues();
-        RetrieveDocumentSetRequestType retrieveDocumentSetRequest = oExtract.extractRetrieveDocumentSetRequestType(crossGatewayRetrieveRequest);
-        AssertionType assertion = oExtract.extractAssertion(crossGatewayRetrieveRequest);
-        NhinTargetCommunitiesType nhinTargetCommunities = oExtract.extractNhinTargetCommunities(crossGatewayRetrieveRequest);
-        DocRetrieveAcknowledgementType ack = oExtract.getEntityDocRetrieveDeferredReqImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetCommunities);
+        RetrieveDocumentSetRequestType retrieveDocumentSetRequest = getDocRequest(crossGatewayRetrieveRequest);
+        AssertionType assertion = getAssertionInfo(crossGatewayRetrieveRequest);
+        NhinTargetCommunitiesType nhinTargetCommunities = getTargetCommunities(crossGatewayRetrieveRequest);
+        DocRetrieveAcknowledgementType ack = getAckFromImpl(retrieveDocumentSetRequest, assertion, nhinTargetCommunities);
         return ack;
     }
+
+    /**
+     * 
+     * @param oExtract
+     * @param retrieveDocumentSetRequest
+     * @param assertion
+     * @param nhinTargetCommunities
+     * @return DocRetrieveAcknowledgementType
+     */
+    protected DocRetrieveAcknowledgementType getAckFromImpl(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, AssertionType assertion, NhinTargetCommunitiesType nhinTargetCommunities) {
+        return new ExtractEntityDocRetrieveDeferredRequestValues().getEntityDocRetrieveDeferredReqImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetCommunities);
+    }
+
+    /**
+     * 
+     * @param oExtract
+     * @param crossGatewayRetrieveRequest
+     * @return AssertionType
+     */
+    protected AssertionType getAssertionInfo(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
+        return new ExtractEntityDocRetrieveDeferredRequestValues().extractAssertion(crossGatewayRetrieveRequest);
+    }
+
+    /**
+     * 
+     * @param oExtract
+     * @param crossGatewayRetrieveRequest
+     * @return RetrieveDocumentSetRequestType
+     */
+    protected RetrieveDocumentSetRequestType getDocRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
+        return new ExtractEntityDocRetrieveDeferredRequestValues().extractRetrieveDocumentSetRequestType(crossGatewayRetrieveRequest);
+    }
+
+    /**
+     * 
+     * @param oExtract
+     * @param crossGatewayRetrieveRequest
+     * @return NhinTargetCommunitiesType
+     */
+    protected NhinTargetCommunitiesType getTargetCommunities(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
+        return new ExtractEntityDocRetrieveDeferredRequestValues().extractNhinTargetCommunities(crossGatewayRetrieveRequest);
+    }
+
+    
+    
 }

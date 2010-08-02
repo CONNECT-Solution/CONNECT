@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.docretrievedeferred.entity.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -40,13 +39,9 @@ public class EntityDocRetrieveDeferredReqImplTest {
     public void tearDown() {
     }
 
-     @Test
-     public void testCrossGatewayRetrieveRequest() {
+    @Test
+    public void testCrossGatewayRetrieveRequest() {
         EntityDocRetrieveDeferredReqImpl testSubject = new EntityDocRetrieveDeferredReqImpl();
-        RetrieveDocumentSetRequestType message = new RetrieveDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
-        assertNotNull(testSubject.crossGatewayRetrieveRequest(message, assertion, target));
-     }
-
+        assertNull(testSubject.crossGatewayRetrieveRequest(null, null, null));
+    }
 }

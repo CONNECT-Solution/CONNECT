@@ -17,7 +17,6 @@ public class NhincConstants {
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     public static final String SPRING_CONFIG_FILE = "ComponentProxyConfig.xml";
-
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
@@ -85,7 +84,6 @@ public class NhincConstants {
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
     public static final String CE_DISPLAYNAME_ID = "displayName";
-
     // Async Property Constants
     public static final String ASYNC_MESSAGE_ID_PROP = "messageId";
     public static final String ASYNC_RELATES_TO_PROP = "relatesToId";
@@ -98,12 +96,9 @@ public class NhincConstants {
     public static final String ASYNC_DB_REC_EXP_VAL_UNITS_MIN = "minutes";
     public static final String ASYNC_DB_REC_EXP_VAL_UNITS_HOUR = "hours";
     public static final String ASYNC_DB_REC_EXP_VAL_UNITS_DAY = "days";
-
     public static final String NS_ADDRESSING_2005 = "http://www.w3.org/2005/08/addressing";
     public static final String HEADER_MESSAGEID = "MessageID";
     public static final String HEADER_RELATESTO = "RelatesTo";
-
-
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_REPO_SECURE_SERVICE_NAME = "auditrepositorysecured";
@@ -114,7 +109,6 @@ public class NhincConstants {
     public static final String ENTITY_AUDIT_QUERY_SECURED_SERVICE_NAME = "entityauditquerysecured";
     public static final String NHINC_PROXY_AUDIT_QUERY_SERVICE_NAME = "nhincproxyauditquery";
     public static final String NHINC_PROXY_AUDIT_QUERY_SECURED_SERVICE_NAME = "nhincproxyauditquerysecured";
-
     public static final String AUDIT_LOG_ADAPTER_SERVICE_MANAGER_NAME = "auditrepositorymanager";
     public static final String AUDIT_LOG_INBOUND_DIRECTION = "Inbound";
     public static final String AUDIT_LOG_OUTBOUND_DIRECTION = "Outbound";
@@ -124,7 +118,6 @@ public class NhincConstants {
     public static final String AUDIT_LOG_SERVICE_PROPERTY = "serviceAuditRepository";
     public static final String AUDIT_LOG_SERVICE_PASSTHRU_PROPERTY = "auditRepositoryPassthrough";
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
-
     // Policy Engine Constants
     public static final String POLICYENGINE_DTE_SERVICE_NAME = "policyenginedte";
     public static final String POLICYENGINE_SERVICE_NAME = "policyengineservice";
@@ -133,40 +126,32 @@ public class NhincConstants {
     public static final String POLICYENGINE_INBOUND_DIRECTION = "Inbound";
     public static final String POLICYENGINE_OUTBOUND_DIRECTION = "Outbound";
     public static final String POLICY_PERMIT = "Permit";
-
     // Redaction Engine Constants
     public static final String REDACTION_ENGINE_SERVICE_NAME = "adapterredactionengine";
-
     // HIEM - NHIN interface
     public static final String HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME = "subscriptionmanager";
     public static final String HIEM_SUBSCRIBE_SERVICE_NAME = "notificationproducer";
     public static final String HIEM_NOTIFY_SERVICE_NAME = "notificationconsumer";
-
     // HIEM - entity interface
     public static final String HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME = "entitynotificationproducer";
     public static final String HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME = "entitysubscriptionmanager";
     public static final String HIEM_NOTIFY_ENTITY_SERVICE_NAME = "entitynotificationconsumer";
-
     // HIEM - entity interface secured
     public static final String HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME_SECURED = "entitynotificationproducersecured";
     public static final String HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME_SECURED = "entitysubscriptionmanagersecured";
     public static final String HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED = "entitynotificationconsumersecured";
-
     // HIEM - proxy interface secured
     public static final String HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED = "nhincproxynotificationproducersecured";
     public static final String HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED = "nhincproxysubscriptionmanagersecured";
     public static final String HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED = "nhincproxynotificationconsumersecured";
-
     // HIEM - adapter interface
     public static final String HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME = "adapternotificationproducer";
     public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME = "adaptersubscriptionmanager";
     public static final String HIEM_NOTIFY_ADAPTER_SERVICE_NAME = "adapternotificationconsumer";
-
     // HIEM - adapter interface secured
     public static final String HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME = "adapternotificationproducersecured";
     public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME = "adaptersubscriptionmanagersecured";
     public static final String HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME = "adapternotificationconsumersecured";
-
     public static final String HIEM_SUBSCRIPTION_SERVICE_PROPERTY = "serviceSubscription";
     public static final String HIEM_SUBSCRIPTION_SERVICE_PASSTHRU_PROPERTY = "subscriptionPassthrough";
     public static final String HIEM_NOTIFY_SERVICE_PROPERTY = "serviceNotify";
@@ -175,14 +160,11 @@ public class NhincConstants {
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_SUBSCRIPTIONS = "createchildsubscription";
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_FORWARD = "forward";
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_DISABLED = "disabled";
-
     // MPI constants
     public static final String ADAPTER_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
     public static final String ADAPTER_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
     public static final String ADAPTER_MPI_PROXY_SERVICE_NAME = "mpi";
     public static final String ADAPTER_MPI_PROXY_SECURED_SERVICE_NAME = "mpisecured";
-
-
     // SOAP Headers
     public static final String HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE = "SoapMessage";
     public static final String HIEM_SUBSCRIBE_SOAP_HDR_ATTR_TAG = "subscribeSoapMessage";
@@ -196,10 +178,8 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_TO = "To";
     public static final String WS_SOAP_HEADER_REPLYTO = "ReplyTo";
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
-
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
-
     //Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";
@@ -215,7 +195,6 @@ public class NhincConstants {
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
     public static final String NHINC_PROXY_DOC_QUERY_SERVICE_NAME = "nhincproxydocquery";
     public static final String NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME = "nhincproxydocquerysecured";
-
     //Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
     public static final String ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME = "adapterdocretrievesecured";
@@ -230,11 +209,9 @@ public class NhincConstants {
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME = "adapterdocretrievedeferred";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME = "adapterdocretrievedeferredsecured";
-
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
-
     // Subject Discovery Constants
     public static final String NHINC_SUBJECT_DISCOVERY_SERVICE_NAME = "serviceSubjectDiscovery";
     public static final String SUBJECT_DISCOVERY_SERVICE_NAME = "subjectdiscovery";
@@ -247,7 +224,6 @@ public class NhincConstants {
     public static final String ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "entitysubjectdiscoverysecured";
     public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SERVICE_NAME = "nhincproxysubjectdiscovery";
     public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxysubjectdiscoverysecured";
-
     // Patient Discovery Constants
     public static final String NHINC_PATIENT_DISCOVERY_SERVICE_NAME = "servicePatientDiscovery";
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "servicePatientDiscoveryAsyncReq";
@@ -261,29 +237,28 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Patient Discovery";
     public static final String PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME = "adapterpatientdiscovery";
     public static final String ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "adapterpatientdiscoverysecured";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME="adapterpatientdiscoveryasyncreq";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME="adapterpatientdiscoverysecuredasyncreq";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME="adapterpatientdiscoveryasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME="adapterpatientdiscoverysecuredasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME="adapterpatientdiscoveryasyncreqerror";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME="adapterpatientdiscoverysecuredasyncreqerror";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME="adapterpatientdiscoveryasyncresp";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_RESP_SERVICE_NAME="adapterpatientdiscoverysecuredasyncresp";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME = "adapterpatientdiscoveryasyncreq";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoveryasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterpatientdiscoveryasyncreqerror";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqerror";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME = "adapterpatientdiscoveryasyncresp";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_RESP_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncresp";
     public static final String ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "entitypatientdiscoverysecured";
     public static final String NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME = "nhincproxypatientdiscovery";
     public static final String NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxypatientdiscoverysecured";
-    public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_REQ_SERVICE_NAME="nhincproxypatientdiscoveryasyncreq";
-    public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_REQ_SERVICE_NAME="nhincproxypatientdiscoverysecuredasyncreq";
-    public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_RESP_SERVICE_NAME="nhincproxypatientdiscoveryasyncresp";
-    public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_RESP_SERVICE_NAME="nhincproxypatientdiscoverysecuredasyncresp";
+    public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_REQ_SERVICE_NAME = "nhincproxypatientdiscoveryasyncreq";
+    public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_REQ_SERVICE_NAME = "nhincproxypatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_RESP_SERVICE_NAME = "nhincproxypatientdiscoveryasyncresp";
+    public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_RESP_SERVICE_NAME = "nhincproxypatientdiscoverysecuredasyncresp";
     public static final String ENTITY_PATIENT_DISCOVERY_SERVICE_NAME = "entitypatientdiscovery";
-    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME="entitypatientdiscoveryasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME="entitypatientdiscoverysecuredasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_SERVICE_NAME="entitypatientdiscoveryasyncreq";
-    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME="entitypatientdiscoverysecuredasyncreq";
-    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME="entitypatientdiscoveryasyncresp";
-    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME="entitypatientdiscoverysecuredasyncresp";
-
+    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoveryasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoveryasyncreq";
+    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoveryasyncresp";
+    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
     // XDR Constants
     public static final String ENTITY_XDR_SECURED_SERVICE_NAME = "entityxdrsecured";
     public static final String NHINC_PROXY_XDR_SERVICE_NAME = "nhincproxyxdr";
@@ -291,7 +266,6 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_SERVICE_NAME = "adapterxdr";
     public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
     public static final String NHINC_XDR_SERVICE_NAME = "serviceXDR";
-
     public static final String ENTITY_XDR_REQUEST_SERVICE_NAME = "entityxdrrequest";
     public static final String ENTITY_XDR_REQUEST_SECURED_SERVICE_NAME = "entityxdrrequestsecured";
     public static final String NHINC_PROXY_XDR_REQUEST_SERVICE_NAME = "nhincproxyxdrrequest";
@@ -300,7 +274,6 @@ public class NhincConstants {
     public static final String ADAPTER_COMPONENT_XDR_REQUEST_SERVICE_NAME = "adaptercomponentxdrrequest";
     public static final String ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME = "adapterxdrrequestsecured";
     public static final String NHINC_XDR_REQUEST_SERVICE_NAME = "xdrrequest";
-
     public static final String ENTITY_XDR_RESPONSE_SERVICE_NAME = "entityxdrresponse";
     public static final String ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME = "entityxdrresponsesecured";
     public static final String NHINC_PROXY_XDR_RESPONSE_SERVICE_NAME = "nhincproxyxdrresponse";
@@ -308,11 +281,9 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_RESPONSE_SERVICE_NAME = "adapterxdrresponse";
     public static final String ADAPTER_XDR_RESPONSE_SECURED_SERVICE_NAME = "adapterxdrresponsesecured";
     public static final String NHINC_XDR_RESPONSE_SERVICE_NAME = "xdrresponse";
-    public static final String ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME="adapterxdrsecuredasyncreqerror";
+    public static final String ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterxdrsecuredasyncreqerror";
     public static final String ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME = "adaptercomponentxdrresponse";
-
     public static final String XDR_ACK_STATUS_MSG = "urn:nhin:DocumentSubmission:async:ResponseAccepted";
-
     //Administrative Distribution Constants
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "nhinadmindist";
     public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";
@@ -321,7 +292,6 @@ public class NhincConstants {
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
     public static final String NHINC_ADMIN_DIST_SERVICE_NAME = "nhincadmindist";
     public static final String NHINC_ADMIN_DIST_SECURED_SERVICE_NAME = "nhincadmindistsecured";
-
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
@@ -329,10 +299,8 @@ public class NhincConstants {
     public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASYNCMSGS_REPOSITORY = "AsyncMsgs.hibernate.cfg.xml";
     public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
-
     //LiFT Constants
     public static final String LIFT_MANAGER_SERVICE_NAME = "nhincliftmanager";
-
     public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
     public static final String LIFT_TRANSPORT_SERVICE_SLOT_NAME = "transportService";
     public static final String LIFT_TRANSPORT_SERVICE_SLOT_VALUE = "LIFT";
@@ -351,10 +319,9 @@ public class NhincConstants {
     public static final String LIFT_FILESERVER_IP = "FileServerIP";
     public static final String LIFT_FILESERVER_PORT = "FileServerPort";
     public static final String LIFT_BASE_FILE_SERVER_DIR_PROP_NAME = "BaseOutboundDir";
-    public static final String LIFT_CIPHER_SUITES="CipherSuites";
-    public static final String LIFT_SERVER_NSS_CONFIG="LiftServerNSSConfig";
-    public static final String LIFT_CLIENT_NSS_CONFIG="LiftClientNSSConfig";
-
+    public static final String LIFT_CIPHER_SUITES = "CipherSuites";
+    public static final String LIFT_SERVER_NSS_CONFIG = "LiftServerNSSConfig";
+    public static final String LIFT_CLIENT_NSS_CONFIG = "LiftClientNSSConfig";
     public static final String LIFT_TRANSFER_DB_STATE_ENTERED = "ENTERED";
     public static final String LIFT_TRANSFER_DB_STATE_PROCESSING = "PROCESSING";
     public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_ENTERED = "ENTERED";
@@ -371,8 +338,11 @@ public class NhincConstants {
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "entitydocretrievedeferredresponsesecured";
     public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "nhincproxydocretrievedeferredresponse";
     public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "nhincproxydocretrieveresponsesecured";
+    public static final String NHIN_DOCRETRIEVE_DEFERRED_REQUEST = "nhindocretrievedeferredrequest";
+    public static final String NHIN_DOCRETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
+    public static final String DOCRETRIEVEDEFERRED_REQUEST_ACTION = "docretrievedeferredrequest";
+    public static final String DOCRETRIEVEDEFERRED_RESPONSE_ACTION = "docretrievedeferredresponse";
     /* -- End Document Retrieve deferred Service Name -- */
-    
     private NhincConstants() {
     }
 }
