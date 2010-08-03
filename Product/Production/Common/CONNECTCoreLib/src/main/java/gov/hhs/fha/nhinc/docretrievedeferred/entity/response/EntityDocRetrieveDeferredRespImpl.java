@@ -78,17 +78,7 @@ public class EntityDocRetrieveDeferredRespImpl {
             }
         } catch (Throwable t) {
             log.error("Error sending doc retrieve deferred message...");
-            nhinResponse = new DocRetrieveAcknowledgementType();
-            RegistryResponseType registryResponse = new RegistryResponseType();
-            nhinResponse.setMessage(registryResponse);
-            RegistryErrorList regErrList = new RegistryErrorList();
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
-            regErr.setErrorCode("XDSRegistryNotAvailable");
-            regErr.setSeverity("Error");
-            registryResponse.setRegistryErrorList(regErrList);
-            registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            nhinResponse = buildRegistryErrorAck(homeCommunityId, "Policy Check Failed on Doc retrieve deferred response for community ");
             log.error("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
         }
         if (null != nhinResponse) {
@@ -101,6 +91,26 @@ public class EntityDocRetrieveDeferredRespImpl {
         return nhinResponse;
     }
 
+    /**
+     *
+     * @return DocRetrieveAcknowledgementType
+     */
+    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error)
+    {
+        DocRetrieveAcknowledgementType nhinResponse = new DocRetrieveAcknowledgementType();
+        RegistryResponseType registryResponse = new RegistryResponseType();
+            nhinResponse.setMessage(registryResponse);
+            RegistryErrorList regErrList = new RegistryErrorList();
+            RegistryError regErr = new RegistryError();
+            regErrList.getRegistryError().add(regErr);
+            regErr.setCodeContext(error +" " + homeCommunityId);
+            regErr.setErrorCode("XDSRegistryNotAvailable");
+            regErr.setSeverity("Error");
+            registryResponse.setRegistryErrorList(regErrList);
+            registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        return nhinResponse;
+    }
+    
     /**
      *
      * @param target

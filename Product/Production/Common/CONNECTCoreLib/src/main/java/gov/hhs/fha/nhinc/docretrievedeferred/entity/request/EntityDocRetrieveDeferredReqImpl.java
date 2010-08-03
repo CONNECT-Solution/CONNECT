@@ -81,21 +81,14 @@ public class EntityDocRetrieveDeferredReqImpl {
 //                    requestMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
                     log.debug("Calling doc retrieve proxy");
                     nhinResponse = docRetrieveProxy.sendToRespondingGateway(nhinDocRetrieveMsg, assertion);
+                } else
+                {
+                    nhinResponse = buildRegistryErrorAck(homeCommunityId, "Policy Check Failed on Doc retrieve deferred request for community ");
                 }
             }
         } catch (Throwable t) {
             log.error("Error sending doc retrieve deferred message...");
-            nhinResponse = new DocRetrieveAcknowledgementType();
-            RegistryResponseType registryResponse = new RegistryResponseType();
-            nhinResponse.setMessage(registryResponse);
-            RegistryErrorList regErrList = new RegistryErrorList();
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
-            regErr.setErrorCode("XDSRegistryNotAvailable");
-            regErr.setSeverity("Error");
-            registryResponse.setRegistryErrorList(regErrList);
-            registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            nhinResponse = buildRegistryErrorAck(homeCommunityId, "Fault encountered processing internal document retrieve deferred for community ");
             log.error("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
         }
         if (null != nhinResponse) {
@@ -103,6 +96,26 @@ public class EntityDocRetrieveDeferredReqImpl {
             auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, homeCommunityId);
         }
         log.debug("End EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
+        return nhinResponse;
+    }
+
+    /**
+     * 
+     * @return DocRetrieveAcknowledgementType
+     */
+    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error)
+    {
+        DocRetrieveAcknowledgementType nhinResponse = new DocRetrieveAcknowledgementType();
+        RegistryResponseType registryResponse = new RegistryResponseType();
+            nhinResponse.setMessage(registryResponse);
+            RegistryErrorList regErrList = new RegistryErrorList();
+            RegistryError regErr = new RegistryError();
+            regErrList.getRegistryError().add(regErr);
+            regErr.setCodeContext(error +" " + homeCommunityId);
+            regErr.setErrorCode("XDSRegistryNotAvailable");
+            regErr.setSeverity("Error");
+            registryResponse.setRegistryErrorList(regErrList);
+            registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         return nhinResponse;
     }
 
