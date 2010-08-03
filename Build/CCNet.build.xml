@@ -109,6 +109,15 @@
           <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/SoapUI_Test/**/*.*</pattern>
         </pathFilter>
         <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest-Backup</pattern>
+        </pathFilter>        
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest-Backup/*.*</pattern>
+        </pathFilter>        
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest-Backup/**/*.*</pattern>
+        </pathFilter>        
+        <pathFilter>
           <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
         </pathFilter>
         <pathFilter>
