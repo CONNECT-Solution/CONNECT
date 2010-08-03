@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -32,29 +32,30 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * the appropriate interface and then used in the application code. See the
  * getNhinPatientDisocoveryProxy() method in this class.
  *
- * @author Jon Hoppesch
+ * @author Les Westberg
  */
-public class NhinPatientDiscoveryProxyObjectFactory {
-private static final String CONFIG_FILE_NAME = "NhinPatientDiscoveryProxyConfig.xml";
+public class NhinPatientDiscoveryProxyObjectFactory extends ComponentProxyObjectFactory
+{
+    private static final String CONFIG_FILE_NAME = "NhinPatientDiscoveryProxyConfig.xml";
     private static final String BEAN_NAME_PATIENT_DISCOVERY = "nhinpatientdiscovery";
-    private static ApplicationContext context = null;
 
-    static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+    /**
+     * Returns the name of the config file.
+     *
+     * @return The name of the config file.
+     */
+    protected String getConfigFileName()
+    {
+        return CONFIG_FILE_NAME;
     }
 
     /**
-     * Retrieve a nhin patient discovery implementation using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "nhinpatientdiscovery."
+     * Return an instance of the NhinPatientDiscoveryProxy class.
      *
-     * @return NhinPatientDiscoveryProxy instance
+     * @return An instance of the NhinPatientDiscoveryProxy class.
      */
-    public NhinPatientDiscoveryProxy getNhinPatientDiscoveryProxy() {
-        NhinPatientDiscoveryProxy nhinPatientDiscovery = null;
-        if (context != null) {
-            nhinPatientDiscovery = (NhinPatientDiscoveryProxy) context.getBean(BEAN_NAME_PATIENT_DISCOVERY);
-        }
-        return nhinPatientDiscovery;
+    public NhinPatientDiscoveryProxy getNhinPatientDiscoveryProxy()
+    {
+        return getBean(BEAN_NAME_PATIENT_DISCOVERY, NhinPatientDiscoveryProxy.class);
     }
 }
