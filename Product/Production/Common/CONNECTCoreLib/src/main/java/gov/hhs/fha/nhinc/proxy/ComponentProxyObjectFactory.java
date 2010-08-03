@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
+import java.net.URI;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
@@ -170,20 +171,21 @@ public abstract class ComponentProxyObjectFactory
         long lastModified = 0L;
         try
         {
-            File configFile = new File(filePath);
+            String tmpFilePath = filePath.replace('\\', '/');
+            URI fileURI = new URI(tmpFilePath);
+            File configFile = new File(fileURI);
             if(configFile.exists())
             {
                 lastModified = configFile.lastModified();
             }
             else
             {
-                System.out.println(filePath + " does not exist.");
+                log.error(filePath + " does not exist.");
             }
         }
         catch(Throwable t)
         {
-            System.out.println("Error getting last modified: " + t.getMessage());
-            t.printStackTrace();
+            log.error("Error getting last modified: " + t.getMessage(), t);
         }
         return lastModified;
     }
