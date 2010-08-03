@@ -26,7 +26,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_Query_Service";
     private static final String PORT_LOCAL_PART = "RespondingGateway_Query_Port_Soap";
     private static final String WSDL_FILE = "NhinDocQuery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
+    
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -57,6 +57,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request)
     {
         String url = null;
+        String wsAddressingAction = "urn:ihe:iti:2007:CrossGatewayQuery";
         AdhocQueryResponse response = new AdhocQueryResponse();
 
         try
@@ -70,7 +71,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
                 if (NullChecker.isNotNullish(url))
                 {
                     AssertionType assertIn = request.getAssertion();
-                    RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, assertIn);
+                    RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, wsAddressingAction, assertIn);
                     response = (AdhocQueryResponse) oProxyHelper.invokePort(port, RespondingGatewayQueryPortType.class, "respondingGatewayCrossGatewayQuery", request.getAdhocQueryRequest());
                 }
                 else
@@ -121,7 +122,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayQueryPortType getPort(String url, String serviceAction, AssertionType assertion)
+    protected RespondingGatewayQueryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
     {
         RespondingGatewayQueryPortType port = null;
         Service service = getService();
@@ -130,7 +131,7 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayQueryPortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, WS_ADDRESSING_ACTION, assertion);
+            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
         {

@@ -28,9 +28,6 @@ public class NhincProxyDocQuerySecuredImpl {
         AdhocQueryResponse response = null;
         LoggingContextHelper loggingContextHelper = new LoggingContextHelper();
         try {
-            log.debug("Setting LoggingContext");
-            loggingContextHelper.setContext(context);
-
             // Collect assertion
             AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
@@ -39,11 +36,13 @@ public class NhincProxyDocQuerySecuredImpl {
             if (assertion != null) {
                 assertion.setAsyncMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             }
+
+            loggingContextHelper.setContext(context);
+
             response = respondingGatewayCrossGatewayQuery(body, assertion);
 
         } finally {
             loggingContextHelper.clearContext();
-            log.debug("Clearing LoggingContext");
         }
         return response;
     }

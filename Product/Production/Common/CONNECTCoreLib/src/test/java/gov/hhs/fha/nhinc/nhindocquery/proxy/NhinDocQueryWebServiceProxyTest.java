@@ -111,7 +111,7 @@ public class NhinDocQueryWebServiceProxyTest
                 }
             });
             String url = "url";
-            RespondingGatewayQueryPortType port = sut.getPort(url, "", null);
+            RespondingGatewayQueryPortType port = sut.getPort(url, "", null, null);
             assertNull("Port was not null", port);
         }
         catch(Throwable t)

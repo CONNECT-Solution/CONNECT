@@ -102,7 +102,6 @@ public class EntityDocQuerySecuredImpl {
         AdhocQueryResponse response = null;
         LoggingContextHelper loggingContextHelper = new LoggingContextHelper();
         try {
-            loggingContextHelper.setContext(context);
 
             // Collect assertion
             AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
@@ -112,6 +111,8 @@ public class EntityDocQuerySecuredImpl {
             if (assertion != null) {
                 assertion.setAsyncMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             }
+
+            loggingContextHelper.setContext(context);
             response = respondingGatewayCrossGatewayQuery(request, assertion);
 
         } finally {
