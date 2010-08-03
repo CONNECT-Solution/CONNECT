@@ -1,10 +1,8 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response;
 
-import gov.hhs.fha.nhinc.adapterdocretrievedeferredreq.AdapterDocRetrieveDeferredRequestPortType;
-import gov.hhs.fha.nhinc.adapterdocretrievedeferredreqsecured.AdapterDocRetrieveDeferredRequestSecuredPortType;
+import gov.hhs.fha.nhinc.adapterdocretrievedeferredrespsecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -23,65 +21,55 @@ import java.util.Map;
 /**
  * Created by
  * User: ralph
- * Date: Jul 26, 2010
- * Time: 2:37:22 PM
+ * Date: Jul 28, 2010
+ * Time: 1:53:02 PM
  */
-public class AdapterDocRetrieveDeferredReqWebServiceImpl implements AdapterDocRetrieveDeferredReqProxy {
+public class AdapterDocRetrieveDeferredRespSecuredWebServiceImpl implements AdapterDocRetrieveDeferredRespProxy {
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredRequest";
-    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredRequestPortSoap";
-    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredReq.wsdl";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredResponseSecured";
+    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredResponseSecuredPortSoap";
+    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredRespSecured.wsdl";
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredReqWebServiceImpl() {
+    public AdapterDocRetrieveDeferredRespSecuredWebServiceImpl() {
         log = LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body,
-                                                        AssertionType assertion) {
-        RespondingGatewayCrossGatewayRetrieveRequestType        unsecureBody = new RespondingGatewayCrossGatewayRetrieveRequestType();
-
-        unsecureBody.setAssertion(assertion);
-        unsecureBody.setRetrieveDocumentSetRequest(body.getRetrieveDocumentSetRequest());
-
-        return sendToAdapter(unsecureBody, assertion);
-    }
-
-    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveRequestType body, AssertionType assertion) {
+    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, AssertionType assertion) {
         String url = null;
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
 
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME);
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " +
-                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME + " for local home community");
+                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
 
         if (NullChecker.isNotNullish(url)) {
-            AdapterDocRetrieveDeferredRequestPortType port = getPort(url);
+            AdapterDocRetrieveDeferredResponseSecuredPortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.AUDIT_REPO_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-            result = port.crossGatewayRetrieveRequest(body);
+            result = port.crossGatewayRetrieveResponse(body);
         }
 
         return result;
     }
 
-    protected AdapterDocRetrieveDeferredRequestPortType getPort(String url) {
+    protected AdapterDocRetrieveDeferredResponseSecuredPortType getPort(String url) {
 
-        AdapterDocRetrieveDeferredRequestPortType port = null;
+        AdapterDocRetrieveDeferredResponseSecuredPortType port = null;
         Service service = getService();
         if(service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredResponseSecuredPortType.class);
             setEndpointAddress(port, url);
         }
         else
@@ -109,7 +97,7 @@ public class AdapterDocRetrieveDeferredReqWebServiceImpl implements AdapterDocRe
     }
 
 
-    protected void setEndpointAddress(AdapterDocRetrieveDeferredRequestPortType port, String url)
+    protected void setEndpointAddress(AdapterDocRetrieveDeferredResponseSecuredPortType port, String url)
     {
         if(port == null)
         {
@@ -121,7 +109,7 @@ public class AdapterDocRetrieveDeferredReqWebServiceImpl implements AdapterDocRe
         }
         else
         {
-            log.info("Setting endpoint address to Document Retrieve Request Secure Service to " + url);
+            log.info("Setting endpoint address to Document Retrieve Response Secure Service to " + url);
             ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
     }

@@ -1,11 +1,12 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.error;
 
 import gov.hhs.fha.nhinc.adapterdocretrievedeferredreq.AdapterDocRetrieveDeferredRequestPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -23,31 +24,31 @@ import java.util.Map;
  * Created by
  * User: ralph
  * Date: Jul 26, 2010
- * Time: 11:46:39 AM
+ * Time: 2:37:22 PM
  */
-public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieveDeferredReqProxy {
+public class AdapterDocRetrieveDeferredReqErrorWebServiceImpl implements AdapterDocRetrieveDeferredReqProxy {
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhindocretrievedeferredrequest";
-    private static final String SERVICE_LOCAL_PART = "RespondingGatewayDeferredRequest_Retrieve_Service";
-    private static final String PORT_LOCAL_PART = "RespondingGatewayDeferredRequest_Retrieve_Port_Soap";
-    private static final String WSDL_FILE = "NhinDocRetrieveDeferredReq.wsdl";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredRequestErrorService";
+    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveRequestErrorPortSoap";
+    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredReqError.wsdl";
     private Log log = null;
 
-    public NhinDocRetrieveDeferredReqWebServiceImpl() {
+    public AdapterDocRetrieveDeferredReqErrorWebServiceImpl() {
         log = LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType proxyBody, AssertionType assertion) {
-
-        RespondingGatewayCrossGatewayRetrieveRequestType unsecureBody = new RespondingGatewayCrossGatewayRetrieveRequestType();
+    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body,
+                                                        AssertionType assertion) {
+        RespondingGatewayCrossGatewayRetrieveRequestType        unsecureBody = new RespondingGatewayCrossGatewayRetrieveRequestType();
 
         unsecureBody.setAssertion(assertion);
-        unsecureBody.setRetrieveDocumentSetRequest(proxyBody.getRetrieveDocumentSetRequest());
+        unsecureBody.setRetrieveDocumentSetRequest(body.getRetrieveDocumentSetRequest());
 
-        return sendToRespondingGateway(unsecureBody, assertion);
+        return sendToAdapter(unsecureBody, assertion);
     }
 
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveRequestType body, AssertionType assertion) {
+    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveRequestType body, AssertionType assertion) {
         String url = null;
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
 
@@ -121,26 +122,8 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
         else
         {
             log.info("Setting endpoint address to Document Retrieve Request Secure Service to " + url);
-            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
-    }
-
-
-    protected boolean checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
-    {
-        boolean result = false;
-
-        // Call Sai's policy check class and return the result.
-
-        return result;
-    }
-
-    protected void logRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
-    {
-
-        // Call Sai's logging class using NhincConstants.AUDIT_LOG_INBOUND_DIRECTION.
-
-        return;
     }
 
 }

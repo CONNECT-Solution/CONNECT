@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespSecuredWebServiceImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.jmock.Expectations;
@@ -76,7 +77,7 @@ public class AdapterDocRetrieveDeferredRespSecuredWebServiceImplTest {
          //
          context.checking(new Expectations() {
              {
-                 allowing(mockAdapterDocRetrieveDeferredRespSecuredWebServiceImpl).receiveFromAdapter(mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType,
+                 allowing(mockAdapterDocRetrieveDeferredRespSecuredWebServiceImpl).sendToAdapter(mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType,
                                                                              mockAssertionType);
                  will(returnValue(mockAck));
              }
@@ -94,7 +95,7 @@ public class AdapterDocRetrieveDeferredRespSecuredWebServiceImplTest {
          //
          // Run the test.
          //
-         ack = docRetrieve.receiveFromAdapter(req, assertionType);
+         ack = docRetrieve.sendToAdapter(req, assertionType);
 
          //
          // Check the results.

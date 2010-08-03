@@ -1,5 +1,6 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response;
 
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,17 +10,17 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 /**
  * Created by
  * User: ralph
- * Date: Jul 28, 2010
- * Time: 12:00:19 PM
+ * Date: Aug 2, 2010
+ * Time: 3:02:25 PM
  */
-public class NhinDocRetrieveDeferredRespObjectFactory {
+public class AdapterDocRetrieveDeferredRespObjectFactory {
     private Log log = null;
 
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
-    private static final String BEAN_NAME_NHIN_DOC_RETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
+    private static final String BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE = "adapterdocretrievedeferredresponse";
     private static ApplicationContext context = null;
 
-     public NhinDocRetrieveDeferredRespObjectFactory()
+     public AdapterDocRetrieveDeferredRespObjectFactory()
      {
          log = LogFactory.getLog(getClass());
 
@@ -29,23 +30,22 @@ public class NhinDocRetrieveDeferredRespObjectFactory {
      /**
       * Retrieve an adapter audit query implementation using the IOC framework.
       * This method retrieves the object from the framework that has an
-      * identifier of "nhindocretrievedeferredresponse."
+      * identifier of "nhindocretrievedeferredrequest."
       *
       * @return AdapterAuditQueryProxy instance
       */
-     public NhinDocRetrieveDeferredRespProxy getDocumentDeferredResponseProxy() {
+     public AdapterDocRetrieveDeferredRespProxy getDocumentDeferredRequestProxy() {
 
-         NhinDocRetrieveDeferredRespProxy result = null;
+         AdapterDocRetrieveDeferredRespProxy result = null;
 
          if (context != null) {
-             result = (NhinDocRetrieveDeferredRespProxy) context.getBean(BEAN_NAME_NHIN_DOC_RETRIEVE_DEFERRED_RESPONSE);
+             result = (AdapterDocRetrieveDeferredRespProxy) context.getBean(BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE);
          }
          else {
-             log.error("Could not get context "+ BEAN_NAME_NHIN_DOC_RETRIEVE_DEFERRED_RESPONSE + " from config file " +
+             log.error("Could not get context "+ BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE + " from config file " +
                      PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
          }
 
          return result;
      }
-
 }

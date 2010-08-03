@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
@@ -12,5 +12,5 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
  */
 public interface AdapterDocRetrieveDeferredRespProxy {
 
-    public DocRetrieveAcknowledgementType receiveFromAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, AssertionType assertion);
+    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, AssertionType assertion);
 }

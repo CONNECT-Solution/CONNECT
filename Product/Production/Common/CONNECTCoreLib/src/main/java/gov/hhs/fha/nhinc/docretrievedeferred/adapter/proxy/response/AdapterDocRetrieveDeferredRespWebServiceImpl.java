@@ -1,7 +1,6 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response;
 
 import gov.hhs.fha.nhinc.adapterdocretrievedeferredresp.AdapterDocRetrieveDeferredResponsePortType;
-import gov.hhs.fha.nhinc.adapterdocretrievedeferredrespsecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
@@ -9,7 +8,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.service.ServiceUtil;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import org.apache.commons.logging.Log;
@@ -18,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-import java.util.Map;
 
 /**
  * Created by
@@ -38,7 +35,7 @@ public class AdapterDocRetrieveDeferredRespWebServiceImpl implements AdapterDocR
         log = LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType receiveFromAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
+    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
                                                              AssertionType assertion) {
         RespondingGatewayCrossGatewayRetrieveResponseType       unsecureBody = new RespondingGatewayCrossGatewayRetrieveResponseType();
 

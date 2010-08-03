@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredAuditLogger;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqObjectFactory;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
@@ -34,10 +35,11 @@ public class NhinDocRetrieveDeferredReqImpl {
     private static Log log = LogFactory.getLog(NhinDocRetrieveDeferredReqImpl.class);
 
     DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
-        NhinDocRetrieveDeferredReqObjectFactory  objectFactory;
+        AdapterDocRetrieveDeferredReqObjectFactory  objectFactory;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         NhinTargetSystemType        targetSystem;
         RetrieveDocumentSetRequestType nhinRequest;
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType       bodyToSend;
 
         nhinRequest = body.getRetrieveDocumentSetRequest();
         targetSystem = body.getNhinTargetSystem();
@@ -45,12 +47,15 @@ public class NhinDocRetrieveDeferredReqImpl {
         DocRetrieveAcknowledgementType response = null;
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        objectFactory = new NhinDocRetrieveDeferredReqObjectFactory();
+        objectFactory = new AdapterDocRetrieveDeferredReqObjectFactory();
 
         auditLog.auditDocRetrieveDeferredRequest(nhinRequest, assertion);
 
+        bodyToSend = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
+        bodyToSend.setRetrieveDocumentSetRequest(nhinRequest);
+
         if(isPolicyValid(nhinRequest, assertion, targetSystem.getHomeCommunity())) {
-            response = objectFactory.getDocumentDeferredRequestProxy().sendToRespondingGateway(body, assertion);
+            response = objectFactory.getDocumentDeferredRequestProxy().sendToAdapter(bodyToSend, assertion);
         }
         else {
             //

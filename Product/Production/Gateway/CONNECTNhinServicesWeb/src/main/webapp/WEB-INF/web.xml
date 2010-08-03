@@ -111,7 +111,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
-        <url-pattern>/EntityService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
+        <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
@@ -119,7 +119,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
-        <url-pattern>/EntityService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
+        <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
     </servlet-mapping>
     <!-- END: Document Retrieve Deferred Services -->
     <security-constraint>

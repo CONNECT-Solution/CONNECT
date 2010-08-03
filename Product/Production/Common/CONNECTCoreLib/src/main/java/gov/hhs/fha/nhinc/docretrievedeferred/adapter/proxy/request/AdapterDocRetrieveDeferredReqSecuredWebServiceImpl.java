@@ -1,8 +1,8 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request;
 
-import gov.hhs.fha.nhinc.adapterdocretrievedeferredrespsecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
+import gov.hhs.fha.nhinc.adapterdocretrievedeferredreqsecured.AdapterDocRetrieveDeferredRequestSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -21,22 +21,22 @@ import java.util.Map;
 /**
  * Created by
  * User: ralph
- * Date: Jul 28, 2010
- * Time: 1:53:02 PM
+ * Date: Jul 26, 2010
+ * Time: 2:37:22 PM
  */
-public class AdapterDocRetrieveDeferredRespSecuredWebServiceImpl implements AdapterDocRetrieveDeferredRespProxy {
+public class AdapterDocRetrieveDeferredReqSecuredWebServiceImpl implements AdapterDocRetrieveDeferredReqProxy {
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredResponseSecured";
-    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredResponseSecuredPortSoap";
-    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredRespSecured.wsdl";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredRequestSecured";
+    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredRequestSecuredPortSoap";
+    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredReqSecured.wsdl";
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredRespSecuredWebServiceImpl() {
+    public AdapterDocRetrieveDeferredReqSecuredWebServiceImpl() {
         log = LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType receiveFromAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, AssertionType assertion) {
+    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion) {
         String url = null;
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
 
@@ -49,27 +49,27 @@ public class AdapterDocRetrieveDeferredRespSecuredWebServiceImpl implements Adap
         }
 
         if (NullChecker.isNotNullish(url)) {
-            AdapterDocRetrieveDeferredResponseSecuredPortType port = getPort(url);
+            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.AUDIT_REPO_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-            result = port.crossGatewayRetrieveResponse(body);
+            result = port.crossGatewayRetrieveRequest(body);
         }
 
         return result;
     }
 
-    protected AdapterDocRetrieveDeferredResponseSecuredPortType getPort(String url) {
+    protected AdapterDocRetrieveDeferredRequestSecuredPortType getPort(String url) {
 
-        AdapterDocRetrieveDeferredResponseSecuredPortType port = null;
+        AdapterDocRetrieveDeferredRequestSecuredPortType port = null;
         Service service = getService();
         if(service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredResponseSecuredPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestSecuredPortType.class);
             setEndpointAddress(port, url);
         }
         else
@@ -97,7 +97,7 @@ public class AdapterDocRetrieveDeferredRespSecuredWebServiceImpl implements Adap
     }
 
 
-    protected void setEndpointAddress(AdapterDocRetrieveDeferredResponseSecuredPortType port, String url)
+    protected void setEndpointAddress(AdapterDocRetrieveDeferredRequestSecuredPortType port, String url)
     {
         if(port == null)
         {
@@ -109,7 +109,7 @@ public class AdapterDocRetrieveDeferredRespSecuredWebServiceImpl implements Adap
         }
         else
         {
-            log.info("Setting endpoint address to Document Retrieve Response Secure Service to " + url);
+            log.info("Setting endpoint address to Document Retrieve Request Secure Service to " + url);
             ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
     }

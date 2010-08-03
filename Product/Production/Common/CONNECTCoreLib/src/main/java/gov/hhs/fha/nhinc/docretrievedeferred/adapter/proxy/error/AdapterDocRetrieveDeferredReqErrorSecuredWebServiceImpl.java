@@ -1,15 +1,15 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.error;
 
 import gov.hhs.fha.nhinc.adapterdocretrievedeferredreqsecured.AdapterDocRetrieveDeferredRequestSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.service.ServiceUtil;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,15 +25,15 @@ import java.util.Map;
  * Date: Jul 26, 2010
  * Time: 2:37:22 PM
  */
-public class AdapterDocRetrieveDeferredReqSecuredWebServiceImpl implements AdapterDocRetrieveDeferredReqProxy {
+public class AdapterDocRetrieveDeferredReqErrorSecuredWebServiceImpl implements AdapterDocRetrieveDeferredReqProxy {
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredRequestSecured";
-    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredRequestSecuredPortSoap";
-    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredReqSecured.wsdl";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredRequestErrorSecuredService";
+    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredRequestErrorSecuredPortSoap";
+    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredReqErrorSecured.wsdl";
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredReqSecuredWebServiceImpl() {
+    public AdapterDocRetrieveDeferredReqErrorSecuredWebServiceImpl() {
         log = LogFactory.getLog(getClass());
     }
 
@@ -111,7 +111,7 @@ public class AdapterDocRetrieveDeferredReqSecuredWebServiceImpl implements Adapt
         else
         {
             log.info("Setting endpoint address to Document Retrieve Request Secure Service to " + url);
-            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
     }
 

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
@@ -9,17 +9,17 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 /**
  * Created by
  * User: ralph
- * Date: Aug 2, 2010
- * Time: 3:02:25 PM
+ * Date: Jul 26, 2010
+ * Time: 1:28:35 PM
  */
-public class AdapterDocRetrieveDeferredRespObjectFactory {
+public class AdapterDocRetrieveDeferredReqObjectFactory {
     private Log log = null;
 
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
-    private static final String BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE = "adapterdocretrievedeferredresponse";
+    private static final String BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST = "adapterdocretrievedeferredrequest";
     private static ApplicationContext context = null;
 
-     public AdapterDocRetrieveDeferredRespObjectFactory()
+     public AdapterDocRetrieveDeferredReqObjectFactory()
      {
          log = LogFactory.getLog(getClass());
 
@@ -38,10 +38,10 @@ public class AdapterDocRetrieveDeferredRespObjectFactory {
          AdapterDocRetrieveDeferredReqProxy result = null;
 
          if (context != null) {
-             result = (AdapterDocRetrieveDeferredReqProxy) context.getBean(BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE);
+             result = (AdapterDocRetrieveDeferredReqProxy) context.getBean(BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST);
          }
          else {
-             log.error("Could not get context "+ BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE + " from config file " +
+             log.error("Could not get context "+ BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST + " from config file " +
                      PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
          }
 

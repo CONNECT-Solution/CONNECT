@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
@@ -19,11 +19,11 @@ public class AdapterDocRetrieveDeferredRespNoOpImpl implements AdapterDocRetriev
          log = LogFactory.getLog(getClass());
      }
 
-     public DocRetrieveAcknowledgementType receiveFromAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
+     public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
                                     AssertionType assertion) {
          DocRetrieveAcknowledgementType     response = new DocRetrieveAcknowledgementType();
 
-         log.info("AdapterDocRetrieveDeferredRespNoOpImpl.receiveFromAdapter() - NO OP called");
+         log.info("AdapterDocRetrieveDeferredRespNoOpImpl.sendToAdapter() - NO OP called");
 
          return response;
      }

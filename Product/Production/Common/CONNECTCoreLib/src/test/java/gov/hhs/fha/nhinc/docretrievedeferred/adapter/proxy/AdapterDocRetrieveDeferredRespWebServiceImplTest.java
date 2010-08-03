@@ -2,6 +2,8 @@ package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespWebServiceImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.jmock.Expectations;
@@ -50,7 +52,7 @@ public class AdapterDocRetrieveDeferredRespWebServiceImplTest {
          // Define mock objects
          //
          final AdapterDocRetrieveDeferredRespWebServiceImpl         mockAdapterDocRetrieveDeferredRespWebServiceImpl;
-         final RespondingGatewayCrossGatewayRetrieveResponseType    mockRespondingGatewayCrossGatewayRetrieveResponseType;
+         final RespondingGatewayCrossGatewayRetrieveSecuredResponseType mSecuredockRespondingGatewayCrossGatewayRetrieveResponseType;
          final AssertionType                                        mockAssertionType;
          final DocRetrieveAcknowledgementType                       mockAck;
 
@@ -58,7 +60,7 @@ public class AdapterDocRetrieveDeferredRespWebServiceImplTest {
          // Define the class to be tested and it's inputs and outputs.
          //
          AdapterDocRetrieveDeferredRespWebServiceImpl                       docRetrieve;
-         RespondingGatewayCrossGatewayRetrieveResponseType                  req;
+         RespondingGatewayCrossGatewayRetrieveSecuredResponseType                  req;
          AssertionType                                                      assertionType;
          RetrieveDocumentSetResponseType                                    retrieveDocumentSetResponseType;
          DocRetrieveAcknowledgementType                                     ack;
@@ -67,7 +69,7 @@ public class AdapterDocRetrieveDeferredRespWebServiceImplTest {
          // Instantiate the mock objects.
          //
          mockAdapterDocRetrieveDeferredRespWebServiceImpl = context.mock(AdapterDocRetrieveDeferredRespWebServiceImpl.class);
-         mockRespondingGatewayCrossGatewayRetrieveResponseType = context.mock(RespondingGatewayCrossGatewayRetrieveResponseType.class);
+         mSecuredockRespondingGatewayCrossGatewayRetrieveResponseType = context.mock(RespondingGatewayCrossGatewayRetrieveSecuredResponseType.class);
          mockAssertionType = context.mock(AssertionType.class);
          mockAck = context.mock(DocRetrieveAcknowledgementType.class);
 
@@ -76,7 +78,7 @@ public class AdapterDocRetrieveDeferredRespWebServiceImplTest {
          //
          context.checking(new Expectations() {
              {
-                 allowing(mockAdapterDocRetrieveDeferredRespWebServiceImpl).receiveFromAdapter(mockRespondingGatewayCrossGatewayRetrieveResponseType,
+                 allowing(mockAdapterDocRetrieveDeferredRespWebServiceImpl).sendToAdapter(mSecuredockRespondingGatewayCrossGatewayRetrieveResponseType,
                                                                              mockAssertionType);
                  will(returnValue(mockAck));
              }
@@ -88,13 +90,13 @@ public class AdapterDocRetrieveDeferredRespWebServiceImplTest {
          docRetrieve = new AdapterDocRetrieveDeferredRespWebServiceImpl();
          assertionType = new AssertionType();
          retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
-         req = new RespondingGatewayCrossGatewayRetrieveResponseType();
+         req = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
          req.setRetrieveDocumentSetResponse(retrieveDocumentSetResponseType);
 
          //
          // Run the test.
          //
-         ack = docRetrieve.receiveFromAdapter(req, assertionType);
+         ack = docRetrieve.sendToAdapter(req, assertionType);
 
          //
          // Check the results.

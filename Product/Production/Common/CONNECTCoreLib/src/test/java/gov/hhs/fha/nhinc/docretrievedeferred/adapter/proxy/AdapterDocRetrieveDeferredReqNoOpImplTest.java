@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqNoOpImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.jmock.Expectations;
@@ -57,7 +58,7 @@ public class AdapterDocRetrieveDeferredReqNoOpImplTest {
          //
          // Define the class to be tested and it's inputs and outputs.
          //
-         AdapterDocRetrieveDeferredReqNoOpImpl                              retrieveRequest;
+         AdapterDocRetrieveDeferredReqNoOpImpl retrieveRequest;
          RespondingGatewayCrossGatewayRetrieveSecuredRequestType            req;
          AssertionType                                                      assertionType;
          RetrieveDocumentSetRequestType                                     retrieveDocumentSetRequestType;
