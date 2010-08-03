@@ -286,7 +286,7 @@
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
-        <trigger type="scheduleTrigger" time="12:30" buildCondition="IfModificationExists" />
+        <trigger type="scheduleTrigger" time="00:30" buildCondition="IfModificationExists" />
         <projectFilters>
           &ScriptsBuilding;
           &DevBuilding;
