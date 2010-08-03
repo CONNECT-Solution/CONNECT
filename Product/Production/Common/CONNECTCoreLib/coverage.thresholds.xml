@@ -575,4 +575,6 @@
 <threshold branchcount="28" branchrate="0.17857142857142858" branchsexecuted="0.05" class="gov.hhs.fha.nhinc.xmlCommon.XmlUtility" linecount="80" linerate="0.3" linesexecuted="0.24"/>
 <threshold branchcount="6" branchrate="0.5" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.xmlCommon.XpathHelper" linecount="28" linerate="0.6785714285714286" linesexecuted="0.19"/>
 <threshold branchcount="24" branchrate="0.75" branchsexecuted="0.18" class="gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredAuditLogger" linecount="68" linerate="0.5147058823529411" linesexecuted="0.35"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyObjectFactory" linecount="3" linerate="0.6666666666666666" linesexecuted="0.02"/>
+<threshold branchcount="8" branchrate="0.75" branchsexecuted="0.06" class="gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory" linecount="45" linerate="0.5777777777777777" linesexecuted="0.25999999999999995"/>
 </thresholds>

@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy .EntityPatientDiscoveryNoOpImpl"/> -->
+    <!-- <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyNoOpImpl"/> -->
 	
 	<!-- Web-service implementation secured -->
-    <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy .EntityPatientDiscoveryWebServiceSecuredImpl"/> 
+    <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceSecuredImpl"/> 
 	
 	<!-- Web-service implementation unsecured -->
-    <!-- <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy .EntityPatientDiscoveryWebServiceUnsecuredImpl"/> -->
+    <!-- <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl"/> -->
 </beans>
