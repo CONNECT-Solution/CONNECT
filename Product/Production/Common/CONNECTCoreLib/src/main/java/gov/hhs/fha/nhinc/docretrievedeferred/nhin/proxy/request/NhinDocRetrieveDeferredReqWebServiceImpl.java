@@ -1,7 +1,8 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterDocRetrieveDeferredReqObjectFactory;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqObjectFactory;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqProxy;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -18,23 +19,24 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
 
     private Log log = null;
 
-    public NhinDocRetrieveDeferredReqWebServiceImpl()
-    {
+    public NhinDocRetrieveDeferredReqWebServiceImpl() {
         log = LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
-    {
-        NhinDocRetrieveDeferredReqObjectFactory objectFactory;
-        DocRetrieveAcknowledgementType          response = new DocRetrieveAcknowledgementType();
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType proxyBody, AssertionType assertion) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType    adapterBody;
+        AdapterDocRetrieveDeferredReqObjectFactory objectFactory;
+        DocRetrieveAcknowledgementType                                                                         response = new DocRetrieveAcknowledgementType();
 
-        logRequest(body, assertion);
+        adapterBody = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
+        adapterBody.setRetrieveDocumentSetRequest(adapterBody.getRetrieveDocumentSetRequest());
 
-        if(checkPolicy(body, assertion))
-        {
-            objectFactory = new NhinDocRetrieveDeferredReqObjectFactory();
+        logRequest(adapterBody, assertion);
 
-            response = objectFactory.getDocumentDeferredRequestProxy().sendToRespondingGateway(body, assertion);
+        if(checkPolicy(adapterBody, assertion)) {
+            objectFactory = new AdapterDocRetrieveDeferredReqObjectFactory();
+
+            response = objectFactory.getDocumentDeferredRequestProxy().sendToAdapter(adapterBody, assertion);
         }
         else {
             //
@@ -49,7 +51,7 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
         return response;
     }
 
-    protected boolean checkPolicy(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
+    protected boolean checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
     {
         boolean result = false;
 
@@ -58,7 +60,7 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
         return result;
     }
 
-    protected void logRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
+    protected void logRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
     {
 
         // Call Sai's logging class using NhincConstants.AUDIT_LOG_INBOUND_DIRECTION.

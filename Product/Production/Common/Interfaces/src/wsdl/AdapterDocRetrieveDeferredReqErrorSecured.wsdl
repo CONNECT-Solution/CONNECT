@@ -4,7 +4,7 @@
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    name="AdapterDocRetrieveDeferredRequestSecured"
-   targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecurederror"
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -18,7 +18,7 @@
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
-   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievesecurederror"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
     <documentation>Adapter Document Retrieve Request Secured Error</documentation>
@@ -43,7 +43,7 @@
               element="dr:DocRetrieveAcknowledgement"/>
     </message>
 
-    <portType name="AdapterDocRetrieveDeferredRequestSecuredErrorPortType">
+    <portType name="AdapterDocRetrieveDeferredRequestErrorSecuredPortType">
         <operation name="CrossGatewayRetrieveRequestError">
             <input name="CrossGatewayRetrieveRequestErrorMessage"
                    message="tns:CrossGatewayRetrieveRequestErrorMessage" />
@@ -52,8 +52,8 @@
         </operation>
     </portType>
 
-    <binding name="AdapterDocRetrieveDeferredRequestSecuredErrorBindingSoap"
-             type="tns:AdapterDocRetrieveDeferredRequestSecuredErrorPortType">
+    <binding name="AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap"
+             type="tns:AdapterDocRetrieveDeferredRequestErrorSecuredPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="CrossGatewayRetrieveRequestError">
@@ -69,11 +69,11 @@
         </operation>
     </binding>
 
-    <service name="AdapterDocRetrieveDeferredRequestSecuredErrorService">
-        <port name="AdapterDocRetrieveDeferredRequestSecuredErrorPortSoap"
-          binding="tns:AdapterDocRetrieveDeferredRequestSecuredErrorBindingSoap">
+    <service name="AdapterDocRetrieveDeferredRequestErrorSecuredService">
+        <port name="AdapterDocRetrieveDeferredRequestErrorSecuredPortSoap"
+          binding="tns:AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap">
             <soap:address
-               location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequestSecuredError"/>
+               location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequestErrorSecured"/>
         </port>
     </service>
   <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">

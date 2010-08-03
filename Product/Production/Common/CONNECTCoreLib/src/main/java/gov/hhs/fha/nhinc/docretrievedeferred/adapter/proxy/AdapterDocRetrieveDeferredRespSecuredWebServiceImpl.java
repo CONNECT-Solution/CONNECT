@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adapterdocretrievesecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
+import gov.hhs.fha.nhinc.adapterdocretrievedeferredrespsecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class AdapterDocRetrieveDeferredRespSecuredWebServiceImpl implements AdapterDocRetrieveDeferredRespProxy {
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievesecured";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured";
     private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredResponseSecured";
     private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredResponseSecuredPortSoap";
     private static final String WSDL_FILE = "AdapterDocRetrieveDeferredRespSecured.wsdl";

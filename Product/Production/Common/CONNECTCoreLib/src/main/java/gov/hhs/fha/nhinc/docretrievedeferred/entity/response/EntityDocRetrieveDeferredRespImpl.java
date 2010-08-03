@@ -3,7 +3,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.entity.response;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
@@ -34,7 +34,7 @@ public class EntityDocRetrieveDeferredRespImpl {
     }
 
     /**
-     * 
+     *
      * @return Log
      */
     protected Log createLogger() {
@@ -102,7 +102,7 @@ public class EntityDocRetrieveDeferredRespImpl {
     }
 
     /**
-     * 
+     *
      * @param target
      * @return String
      */

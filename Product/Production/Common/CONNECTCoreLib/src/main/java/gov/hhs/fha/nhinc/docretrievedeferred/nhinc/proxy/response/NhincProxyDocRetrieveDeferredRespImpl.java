@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespProxy;
@@ -53,7 +53,7 @@ public class NhincProxyDocRetrieveDeferredRespImpl {
         // Audit request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         auditLog.auditDocRetrieveDeferredResponse (retrieveDocumentSetResponse, assertion);
-        
+
         try
         {
         if (debugEnabled) {

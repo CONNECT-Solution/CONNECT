@@ -77,10 +77,10 @@ public class EntityDocRetrieveDeferredReqImpl {
                     log.debug("Creating NHIN doc retrieve proxy");
                     NhinDocRetrieveDeferredReqObjectFactory objFactory = new NhinDocRetrieveDeferredReqObjectFactory();
                     NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getDocumentDeferredRequestProxy();
-                    gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType requestMsg = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-                    requestMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
+//                    gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType requestMsg = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
+//                    requestMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
                     log.debug("Calling doc retrieve proxy");
-                    nhinResponse = docRetrieveProxy.sendToRespondingGateway(requestMsg, assertion);
+                    nhinResponse = docRetrieveProxy.sendToRespondingGateway(nhinDocRetrieveMsg, assertion);
                 }
             }
         } catch (Throwable t) {
@@ -107,7 +107,7 @@ public class EntityDocRetrieveDeferredReqImpl {
     }
 
     /**
-     * 
+     *
      * @param homeCommunityId
      * @return NhinTargetSystemType
      */
@@ -146,5 +146,5 @@ public class EntityDocRetrieveDeferredReqImpl {
         }
         return isValid;
     }
-    
+
 }

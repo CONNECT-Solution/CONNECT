@@ -1,10 +1,9 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveDeferredResponsePortType;
-import gov.hhs.fha.nhinc.adapterdocretrievesecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
+import gov.hhs.fha.nhinc.adapterdocretrievedeferredresp.AdapterDocRetrieveDeferredResponsePortType;
+import gov.hhs.fha.nhinc.adapterdocretrievedeferredrespsecured.AdapterDocRetrieveDeferredResponseSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -29,7 +28,7 @@ import java.util.Map;
  */
 public class AdapterDocRetrieveDeferredRespWebServiceImpl implements AdapterDocRetrieveDeferredRespProxy {
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrieve";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq";
     private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredResponse";
     private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredResponsePortSoap";
     private static final String WSDL_FILE = "AdapterDocRetrieveDeferredResp.wsdl";
@@ -48,7 +47,7 @@ public class AdapterDocRetrieveDeferredRespWebServiceImpl implements AdapterDocR
 
         return receiveFromAdapter(unsecureBody, assertion);
     }
-    
+
     protected DocRetrieveAcknowledgementType receiveFromAdapter(RespondingGatewayCrossGatewayRetrieveResponseType body, AssertionType assertion) {
         String url = null;
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();

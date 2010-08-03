@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
