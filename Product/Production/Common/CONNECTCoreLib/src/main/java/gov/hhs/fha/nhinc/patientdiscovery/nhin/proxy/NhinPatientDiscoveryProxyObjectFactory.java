@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
@@ -25,7 +25,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * "getBean(String beanId)" method is called on the application context passing
  * in the beanId that is specified in the config file. Considering the default
  * correlation definition in the config file for this component:
- * <bean id="nhinpatientdiscovery" class="gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryNoOpImpl"/>
+ * <bean id="nhinpatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryNoOpImpl"/>
  * the bean id is "nhinpatientdiscovery" and an object of this type can be retrieved from
  * the application context by calling the getBean method like:
  * context.getBean("nhinpatientdiscovery");. This returns an object that can be casted to

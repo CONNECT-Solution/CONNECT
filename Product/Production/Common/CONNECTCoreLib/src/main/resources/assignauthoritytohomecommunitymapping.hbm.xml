@@ -1,7 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
-	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
     Document   : CorrelatedIdentifers.hbm.xml
     Created on : January 27, 2009, 3:57 PM
@@ -11,10 +9,10 @@
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.common.connectionmanager.model">
   <class name="AssigningAuthorityToHomeCommunityMapping" table="aa_to_home_community_mapping">
-    <id name="id" column="id" type="long">
-        <generator class="increment"/>
+    <id column="id" name="id" type="long">
+      <generator class="increment"/>
     </id>
-    <property name="assigningAuthorityId" column="assigningauthorityid" type="string" length="45" not-null="true" />
-    <property name="homeCommunityId" column="homecommunityid" type="string" length="45" not-null="true" />
+    <property column="assigningauthorityid" length="45" name="assigningAuthorityId" not-null="true" type="string"/>
+    <property column="homecommunityid" length="45" name="homeCommunityId" not-null="true" type="string"/>
   </class>
 </hibernate-mapping>
