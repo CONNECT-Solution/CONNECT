@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.nhin.request;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqWebServiceImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -32,7 +33,7 @@ public class NhinDocRetrieveDeferredReq {
     }
 
     protected DocRetrieveAcknowledgementType  getResponse(RetrieveDocumentSetRequestType body) {
-
-        return     new NhinDocRetrieveDeferredReqImpl().sendToRespondingGateway(body, context);
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        return     new NhinDocRetrieveDeferredReqImpl().sendToRespondingGateway(body, assertion);
     }
 }

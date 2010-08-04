@@ -48,9 +48,8 @@ public class NhinDocRetrieveDeferredReqImpl {
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, WebServiceContext context) {
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         DocRetrieveAcknowledgementType response = null;
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         auditLog.auditDocRetrieveDeferredRequest(body, assertion);
 
