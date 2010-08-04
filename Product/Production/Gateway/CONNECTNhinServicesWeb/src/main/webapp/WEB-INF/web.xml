@@ -178,11 +178,11 @@
         <!-- BEGIN Document Retrieve Deferred Service -->
         <web-resource-collection>
             <web-resource-name>NhinDocRetrieveDeferredReq</web-resource-name>
-            <url-pattern>/EntityService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
+            <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>NhinDocRetrieveDeferredResp</web-resource-name>
-            <url-pattern>/EntityService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
+            <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
         </web-resource-collection>
         <!-- END Document Retrieve Deferred Service -->
 		<user-data-constraint>

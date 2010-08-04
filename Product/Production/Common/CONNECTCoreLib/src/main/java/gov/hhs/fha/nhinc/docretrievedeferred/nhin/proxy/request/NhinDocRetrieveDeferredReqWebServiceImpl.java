@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.nhindocretrievedeferredrequest.RespondingGatewayDeferredRequestRetrievePortType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.service.ServiceUtil;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -52,35 +53,35 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
 
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME);
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " +
-                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME + " for local home community");
+                    NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + " for local home community");
             log.error(ex.getMessage());
         }
 
         if (NullChecker.isNotNullish(url)) {
-            AdapterDocRetrieveDeferredRequestPortType port = getPort(url);
+            RespondingGatewayDeferredRequestRetrievePortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.AUDIT_REPO_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOCRETRIEVEDEFERRED_REQUEST_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-            result = port.crossGatewayRetrieveRequest(body);
+            result = port.respondingGatewayDeferredRequestCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest());
         }
 
         return result;
     }
 
-    protected AdapterDocRetrieveDeferredRequestPortType getPort(String url) {
+    protected RespondingGatewayDeferredRequestRetrievePortType getPort(String url) {
 
-        AdapterDocRetrieveDeferredRequestPortType port = null;
+        RespondingGatewayDeferredRequestRetrievePortType port = null;
         Service service = getService();
         if(service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayDeferredRequestRetrievePortType.class);
             setEndpointAddress(port, url);
         }
         else
@@ -108,7 +109,7 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
     }
 
 
-    protected void setEndpointAddress(AdapterDocRetrieveDeferredRequestPortType port, String url)
+    protected void setEndpointAddress(RespondingGatewayDeferredRequestRetrievePortType port, String url)
     {
         if(port == null)
         {

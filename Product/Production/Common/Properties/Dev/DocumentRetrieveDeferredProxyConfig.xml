@@ -39,9 +39,9 @@
     <!-- <bean id="nhincproxydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response.NhincProxyDocRetrieveDeferredRespSecuredWebServiceImpl"/>-->
 
 	<!-- Default facade implementation -->
-     <bean id="nhindocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqNoOpImpl"/>
+    <!-- <bean id="nhindocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqNoOpImpl"/>-->
 	<!-- Web-service Secured implementation -->
-    <!--  <bean id="nhindocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqWebServiceImpl"/>-->
+      <bean id="nhindocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqWebServiceImpl"/>
 
 	 <!-- Default facade implementation -->
      <bean id="nhindocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespNoOpImpl"/>

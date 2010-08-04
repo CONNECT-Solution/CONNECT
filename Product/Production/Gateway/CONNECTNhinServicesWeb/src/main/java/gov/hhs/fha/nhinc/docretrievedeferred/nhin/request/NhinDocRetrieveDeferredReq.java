@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveD
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -22,7 +23,7 @@ public class NhinDocRetrieveDeferredReq {
 
     @Resource
     private WebServiceContext context;
-    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequest_CrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
+    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
         DocRetrieveAcknowledgementType      response;
 
         response = getResponse(body);
@@ -30,7 +31,7 @@ public class NhinDocRetrieveDeferredReq {
         return response;
     }
 
-    protected DocRetrieveAcknowledgementType  getResponse(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
+    protected DocRetrieveAcknowledgementType  getResponse(RetrieveDocumentSetRequestType body) {
 
         return     new NhinDocRetrieveDeferredReqImpl().sendToRespondingGateway(body, context);
     }

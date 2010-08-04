@@ -58,7 +58,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.5" branchsexecuted="0.06" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryImpl" linecount="43" linerate="0.3488372093023256" linesexecuted="0.15"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveImpl" linecount="25" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveImpl" linecount="25" linerate="0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveImpl" linecount="25" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.error.AdapterDocRetrieveDeferredReqError" linecount="2" linerate="0.0" linesexecuted="0"/>

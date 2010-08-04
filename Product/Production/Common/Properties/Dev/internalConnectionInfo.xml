@@ -185,6 +185,16 @@
 				<description>Entity Doc Retrieve Deferred Response Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
+			<service>
+				<name>nhindocretrievedeferredrequest</name>
+				<description>NHIN Doc Retrieve Deferred Request Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>nhindocretrievedeferredresponse</name>
+				<description>NHIN Doc Retrieve Deferred Response Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</endpointURL>
+			</service>
 			<!-- End Doc Retrieve deferred service end points -->
 			<!-- Other Gateway Interfaces -->
 			

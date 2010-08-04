@@ -207,8 +207,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME = "adapterdocretrievedeferred";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME = "adapterdocretrievedeferredsecured";
+    
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
@@ -333,6 +332,8 @@ public class NhincConstants {
 
     /* -- Begin Document Retrieve deferred Service Name -- */
     public static final String DOCRETRIEVE_DEFERRED_ACTION = "docretrievedeferred";
+    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_KEY = "serviceDocumentRetrieveDeferredReq";
+    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredReqPassthrough";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "entitydocretrievedeferredrequest";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "entitydocretrievedeferredrequestsecured";
     public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "nhincproxydocretrievedeferredrequest";
@@ -345,6 +346,8 @@ public class NhincConstants {
     public static final String NHIN_DOCRETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
     public static final String DOCRETRIEVEDEFERRED_REQUEST_ACTION = "docretrievedeferredrequest";
     public static final String DOCRETRIEVEDEFERRED_RESPONSE_ACTION = "docretrievedeferredresponse";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME = "adapterdocretrievedeferred";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME = "adapterdocretrievedeferredsecured";
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {
     }

@@ -34,4 +34,5 @@
     <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/> 
     <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
+	<import location="NhinDocRetrieveDeferredReq.xml" namespace="urn:gov:hhs:fha:nhinc:nhindocretrievedeferredrequest"/>
 </definitions>

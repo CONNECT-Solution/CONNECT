@@ -6,7 +6,7 @@
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.nhin.DocQueryImpl" linecount="88" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieveImpl" linecount="113" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq" linecount="4" linerate="0.75" linesexecuted="0.03"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReqImpl" linecount="29" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.response.NhinDocRetrieveDeferredResp" linecount="4" linerate="0.75" linesexecuted="0.03"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.response.NhinDocRetrieveDeferredRespImpl" linecount="13" linerate="0.0" linesexecuted="0"/>
