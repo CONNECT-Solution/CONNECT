@@ -5,4 +5,8 @@
 	
 	<!-- Default implementation -->
      <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl"/> 
+     
+     <!--
+		 <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistNoOpImpl"/> 
+-->
 </beans>
