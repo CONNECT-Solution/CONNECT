@@ -1294,7 +1294,7 @@
 			<service>
 				<name>nhinadmindist</name>
 				<description>Administrative Distribution Service</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
 			</service>
 			<!-- Begin Doc Retrieve deferred service end points -->
 			<service>
@@ -1885,7 +1885,7 @@
 			<service>
 				<name>nhinadmindist</name>
 				<description>Administrative Distribution Service</description>
-				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinAdminDist</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
 			</service>
 			<!-- Begin Doc Retrieve deferred service end points -->
 			<service>
