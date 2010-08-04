@@ -58,7 +58,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.5" branchsexecuted="0.06" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryImpl" linecount="43" linerate="0.3488372093023256" linesexecuted="0.15"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveImpl" linecount="22" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveImpl" linecount="25" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveImpl" linecount="25" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.error.AdapterDocRetrieveDeferredReqError" linecount="2" linerate="0.0" linesexecuted="0"/>
@@ -75,7 +75,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.response.AdapterDocRetrieveDeferredRespSecuredImpl" linecount="13" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="232" branchrate="0.22413793103448276" branchsexecuted="0.52" class="gov.hhs.fha.nhinc.document.DocumentRegistryHelper" linecount="454" linerate="0.3788546255506608" linesexecuted="1.72"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRegistryService" linecount="6" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="160" branchrate="0.4125" branchsexecuted="0.66" class="gov.hhs.fha.nhinc.document.DocumentRepositoryHelper" linecount="432" linerate="0.6712962962962963" linesexecuted="2.9"/>
+<threshold branchcount="160" branchrate="0.4125" branchsexecuted="0.66" class="gov.hhs.fha.nhinc.document.DocumentRepositoryHelper" linecount="453" linerate="0.0434878587196468" linesexecuted="19.7"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRepositoryService" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.genericheaderhandler.SoapHeaderHandler" linecount="11" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService" linecount="4" linerate="0.0" linesexecuted="0"/>

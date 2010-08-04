@@ -8,7 +8,9 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
 /**
  *
@@ -47,6 +49,13 @@ public class EntityDocRetrieveImpl
         }
 
         log.debug("End EntityDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+
+        if (result != null &&
+                NullChecker.isNotNullish(result.getDocumentResponse())) {
+            for (DocumentResponse response : result.getDocumentResponse()) {
+                log.debug("Found File of Size: " + response.getDocument().length);
+            }
+        }
         return result;
     }
     
