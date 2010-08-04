@@ -37,7 +37,6 @@
         <description>End Pre Build Actions</description>
 
         <description>Begin Clean Up Actions</description>
-        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
 
@@ -112,7 +111,6 @@
         <description>End Pre Build Actions</description>
 
         <description>Begin Clean Up Actions</description>
-        <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
 
@@ -287,7 +285,6 @@
   <target name="Validation.Test" depends="SetUps">
     <trycatch>
       <try>
-        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
 
         <call target="SourceModificationReport.ConsolidateReports" />
@@ -337,7 +334,6 @@
   <target name="Regression.Test" depends="SetUps">
     <trycatch>
       <try>
-        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
 
         <call target="SourceModificationReport.ConsolidateReports" />
@@ -372,7 +368,6 @@
   <target name="Conformance.Test" depends="SetUps">
     <trycatch>
       <try>
-        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
 
         <call target="SourceModificationReport.ConsolidateReports" />
@@ -407,7 +402,6 @@
   <target name="Performance.Test" depends="SetUps">
     <trycatch>
       <try>
-        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
 
         <call target="SourceModificationReport.ConsolidateReports" />
