@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
