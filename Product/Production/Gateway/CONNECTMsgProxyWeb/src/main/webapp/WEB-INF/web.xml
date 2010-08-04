@@ -145,7 +145,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NhincAdminDistSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyAdminDistSecured</url-pattern>
+		<url-pattern>/MsgProxy/NhincProxyAdminDistSecured</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -154,7 +154,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NhincAdminDist</servlet-name>
-		<url-pattern>/EntityService/NhincProxyAdminDist</url-pattern>
+		<url-pattern>/MsgProxy/NhincProxyAdminDist</url-pattern>
 	</servlet-mapping>
 
 	<security-constraint>
@@ -222,7 +222,7 @@
 
                 <web-resource-collection>
 			<web-resource-name>NhincAdminDistSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyAdminDistSecured</url-pattern>
+			<url-pattern>/MsgProxy/NhincProxyAdminDistSecured</url-pattern>
 		</web-resource-collection>
 		<!-- End Nhinc proxy Document retrieve deferred services-->	
 		<user-data-constraint>
