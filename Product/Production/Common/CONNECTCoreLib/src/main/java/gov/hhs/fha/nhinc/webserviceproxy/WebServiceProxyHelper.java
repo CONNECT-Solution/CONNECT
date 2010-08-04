@@ -50,7 +50,7 @@ public class WebServiceProxyHelper
     public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
     public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
     public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
-    private Log log = LogFactory.getLog(WebServiceProxyHelper.class);
+    private Log log = null;
 
     /**
      * Force users to get an instance of this class from the getIntance method.

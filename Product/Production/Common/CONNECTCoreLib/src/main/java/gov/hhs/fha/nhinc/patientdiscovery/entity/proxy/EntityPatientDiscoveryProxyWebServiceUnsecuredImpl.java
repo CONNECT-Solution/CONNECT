@@ -4,11 +4,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscovery;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -22,16 +22,27 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy
 {
     private Log log = null;
-    private static EntityPatientDiscovery patientDiscoveryService = null;
+    private static Service cachedService = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitypatientdiscovery";
+    private static final String SERVICE_LOCAL_PART = "EntityPatientDiscovery";
+    private static final String PORT_LOCAL_PART = "EntityPatientDiscoveryPortSoap";
+    private static final String WSDL_FILE = "EntityPatientDiscovery.wsdl";
+    private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
+        oProxyHelper = createWebServiceProxyHelper();
     }
 
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());
+    }
+
+    protected WebServiceProxyHelper createWebServiceProxyHelper()
+    {
+        return new WebServiceProxyHelper();
     }
 
     protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
@@ -56,59 +67,49 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
         return endpointURL;
     }
 
-    protected EntityPatientDiscovery getEntityPatientDiscovery()
-    {
-        if(patientDiscoveryService == null)
-        {
-            patientDiscoveryService = new EntityPatientDiscovery();
-        }
-        return patientDiscoveryService;
-    }
-
-    protected EntityPatientDiscoveryPortType getEntityPatientDiscoveryPortType()
+    /**
+     * This method retrieves and initializes the port.
+     *
+     * @param url The URL for the web service.
+     * @return The port object for the web service.
+     */
+    protected EntityPatientDiscoveryPortType getPort(String url)
     {
         EntityPatientDiscoveryPortType port = null;
-
-        String endpointURL = getEndpointURL();
-
-        if((endpointURL != null) && (!endpointURL.isEmpty()))
+        Service service = getService();
+        if (service != null)
         {
-            EntityPatientDiscovery service = getEntityPatientDiscovery();
-            if(service != null)
-            {
-                port = service.getEntityPatientDiscoveryPortSoap();
-                configurePort(port, endpointURL);
-            }
-            else
-            {
-                log.warn("EntityPatientDiscoverySecured was null");
-            }
+            log.debug("Obtained service - creating port.");
+
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityPatientDiscoveryPortType.class);
+            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
         }
         else
         {
-            log.warn("Endpoint url was missing.");
+            log.error("Unable to obtain serivce - no port created.");
         }
-
         return port;
     }
 
-    protected void configurePort(EntityPatientDiscoveryPortType port, String endpointURL)
+    /**
+     * Retrieve the service class for this web service.
+     *
+     * @return The service class for this web service.
+     */
+    protected Service getService()
     {
-        log.debug("Begin configurePort");
-        if(port == null)
+        if (cachedService == null)
         {
-            log.warn("configurePort - Port was null.");
+            try
+            {
+                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            }
+            catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
         }
-        else if (endpointURL == null)
-        {
-            log.warn("configurePort - Endpoint URL was null.");
-        }
-        else
-        {
-            Map requestContext = ((BindingProvider) port).getRequestContext();
-            requestContext.put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-        }
-        log.debug("End configurePort");
+        return cachedService;
     }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest, AssertionType assertion, NhinTargetCommunitiesType targetCommunities)
@@ -118,7 +119,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
 
         try
         {
-            EntityPatientDiscoveryPortType port = getEntityPatientDiscoveryPortType();
+            String url = getEndpointURL();
+            EntityPatientDiscoveryPortType port = getPort(url);
 
             if(pdRequest == null)
             {
@@ -143,7 +145,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targetCommunities);
 
-                response = port.respondingGatewayPRPAIN201305UV02(request);
+                response = (RespondingGatewayPRPAIN201306UV02ResponseType)oProxyHelper.invokePort(port, EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
             }
         }
         catch (Exception ex)
