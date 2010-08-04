@@ -225,14 +225,6 @@
 		<url-pattern>/AdapterService/AdapterXDRRequestError_Service</url-pattern>
 	</servlet-mapping>
     <servlet>
-        <servlet-name>NhinAdministrativeDistribution</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinAdministrativeDistribution</servlet-name>
-        <url-pattern>/NhinService/NhinAdminDist</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>EntityXDRRequestSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</servlet-class>
     </servlet>
