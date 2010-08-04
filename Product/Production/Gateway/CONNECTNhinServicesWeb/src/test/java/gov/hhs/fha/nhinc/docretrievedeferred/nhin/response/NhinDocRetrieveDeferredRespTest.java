@@ -73,7 +73,7 @@ public class NhinDocRetrieveDeferredRespTest {
          //
          context.checking(new Expectations() {
              {
-                 allowing(mockNhinDocRetrieveDeferredResp).respondingGatewayDeferredRequest_CrossGatewayRetrieve(mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType);
+                 allowing(mockNhinDocRetrieveDeferredResp).respondingGatewayDeferredRequestCrossGatewayRetrieve(mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType);
                  will(returnValue(mockAck));
              }
          });
@@ -97,7 +97,7 @@ public class NhinDocRetrieveDeferredRespTest {
          //
          // Run the test.
          //
-         ack = testSubject.respondingGatewayDeferredRequest_CrossGatewayRetrieve(req);
+         ack = testSubject.respondingGatewayDeferredRequestCrossGatewayRetrieve(req);
 
          //
          // Check the results.

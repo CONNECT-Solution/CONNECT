@@ -26,7 +26,7 @@ public class NhinDocRetrieveDeferredResp {
 
     @Resource
     private WebServiceContext context;
-    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequest_CrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
+    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
         DocRetrieveAcknowledgementType      response;
 
         response = getResponse(body);
