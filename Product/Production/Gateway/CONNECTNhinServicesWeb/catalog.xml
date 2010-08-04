@@ -98,7 +98,11 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-services/NhinXDRResponse/schemas/ebRS/rim.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-services/NhinXDRResponse/schemas/ebRS/lcm.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-services/NhinXDRResponse/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAdminDist.wsdl" uri="src/main/resources/xml-resources/web-services/NhinAdministrativeDistribution/wsdl/NhinAdminDist.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/edxl-de.xsd" uri="src/main/resources/xml-resources/web-services/NhinAdministrativeDistribution/schemas/ebRS/edxl-de.xsd"/>
 </catalog>
+
+
 
 
 

@@ -261,5 +261,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe, wsimport-service-NhinPatientDiscovery, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-SubjectDiscovery, wsimport-service-NhinXDR, wsimport-service-AuditQuery, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse"/>
+    <target name="wsimport-service-NhinAdministrativeDistribution" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution" destdir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinAdministrativeDistribution/wsdl/NhinAdminDist.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinAdministrativeDistribution/wsdl/NhinAdminDist.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinAdministrativeDistribution">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinAdministrativeDistribution/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinAdministrativeDistribution" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinadmindistribution"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe, wsimport-service-NhinPatientDiscovery, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-SubjectDiscovery, wsimport-service-NhinXDR, wsimport-service-AuditQuery, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse, wsimport-service-NhinAdministrativeDistribution"/>
 </project>

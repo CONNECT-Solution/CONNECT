@@ -122,7 +122,19 @@
         <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
     </servlet-mapping>
     <!-- END: Document Retrieve Deferred Services -->
+    <servlet>
+        <servlet-name>NhinAdministrativeDistribution</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinAdministrativeDistribution</servlet-name>
+        <url-pattern>/NhinService/NhinAdminDist</url-pattern>
+    </servlet-mapping>
     <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>NhinAdministrativeDistribution</web-resource-name>
+			<url-pattern>/NhinService/NhinAdminDist</url-pattern>
+		</web-resource-collection>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
 			<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>

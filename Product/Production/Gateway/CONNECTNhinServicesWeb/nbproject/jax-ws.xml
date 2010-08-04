@@ -313,6 +313,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinAdministrativeDistribution">
+      <implementation-class>gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAdminDist.wsdl</wsdl-url>
+      <local-wsdl-file>NhinAdminDist.wsdl</local-wsdl-file>
+      <service-name>RespondingGateway_AdministrativeDistribution</service-name>
+      <port-name>RespondingGateway_AdministrativeDistribution_PortType</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinadmindistribution</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>
