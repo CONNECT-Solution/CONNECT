@@ -328,6 +328,9 @@ public class NhincConstants {
     public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_PROCESSING = "PROCESSING";
     public static final String LIFT_GATEWAY_MESSAGE_DB_TYPE_DOC_SUB = "DEFERRED_DOCUMENT_SUBMISSION";
 
+    public static final String AGGREGATOR_LARGE_RESP_DIR_PROP = "aggregatorLargeResponseDir";
+    public static final String AGGREGATOR_LARGE_RESP_SIZE_PROP = "aggregatorMaxDbResponseSize";
+
     /* -- Begin Document Retrieve deferred Service Name -- */
     public static final String DOCRETRIEVE_DEFERRED_ACTION = "docretrievedeferred";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "entitydocretrievedeferredrequest";
