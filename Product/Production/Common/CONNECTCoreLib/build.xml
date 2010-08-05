@@ -17,12 +17,12 @@
 
 		<!-- Add classes from other projects like so...-->
 		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-
 	</path>
 
 	<!-- Add project dependencies here, these projects will be built first... -->
 	<path id="build.project.dependencies">
 		<filelist dir="${root.project.directory.path}">
+      <file name="${project.CONNECTCommonTypesLib.build.file}" />
 		</filelist>
 	</path>
 

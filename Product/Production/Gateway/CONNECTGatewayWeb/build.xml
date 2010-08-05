@@ -24,7 +24,6 @@
   <!-- Add project dependencies here, these projects will be built first... -->
   <path id="build.project.dependencies">
     <filelist dir="${root.project.directory.path}">
-      <file name="${project.CONNECTCommonTypesLib.build.file}" />
       <file name="${project.CONNECTCoreLib.build.file}" />
     </filelist>
   </path>
