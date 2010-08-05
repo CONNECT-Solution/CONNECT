@@ -5,8 +5,10 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
 
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistService;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -45,6 +47,9 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
+        final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
+        final NhincAdminDistService mockService = context.mock(NhincAdminDistService.class);
+        
         EDXLDistribution body = null;
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
@@ -57,12 +62,25 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
             protected Log createLogger() {
                 return mockLogger;
             }
+            @Override
+            protected AdminDistributionHelper getHelper() {
+                return mockHelper;
+            }
+            @Override
+            protected NhincAdminDistService getWebService()
+            {
+                return mockService;
+            }
         };
         context.checking(new Expectations() {
 
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                allowing(mockService).getNhincAdminDistPortType();
+                allowing(mockHelper).getLocalCommunityId();
+                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)));
+
                 will(returnValue(null));
             }
         });
@@ -77,7 +95,7 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
         }
 
         context.assertIsSatisfied();
-        assertNotNull(unsupported);
+
     }
 
 }

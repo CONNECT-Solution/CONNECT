@@ -106,47 +106,19 @@ public class EntityAdminDistUnsecuredWebServiceImpl {
         }
         return cachedService;
     }
-
-    private String getUrl(String targetHCID) {
-        String url = null;
-
-        if (targetHCID != null) {
-            try {
-                AdminDistributionHelper helper = new AdminDistributionHelper();
-
-                NhinTargetSystemType ts = helper.createNhinTargetSystemType(targetHCID);
-                                
-                url = proxyHelper.getUrlFromTargetSystem(ts, NhincConstants.ENTITY_ADMIN_DIST_SERVICE_NAME);
-            } catch (Exception ex) {
-                log.error("Error: Failed to retrieve url for service: " + NhincConstants.ENTITY_ADMIN_DIST_SERVICE_NAME);
-                log.error(ex.getMessage());
-            }
-        } else {
-            log.error("Target system passed into the proxy is null");
-        }
-
-        return url;
-    }
-    private String getLocalCommunityId()
+    protected AdminDistributionHelper getHelper()
     {
-        PropertyAccessor props = new PropertyAccessor();
-        String result = "";
-        try
-        {
-            result = props.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        }
-        catch(Exception ex)
-        {
-            log.error("Unable to retrieve local home community id from Gateway.properties");
-            log.error(ex);
-        }
-        return result;
+        return new AdminDistributionHelper();
     }
+  
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
     {
         log.debug("begin sendAlert()");
-        String hcid = getLocalCommunityId();
-        String url = getUrl(hcid);
+
+        AdminDistributionHelper helper = getHelper();
+        String hcid = helper.getLocalCommunityId();
+        String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SERVICE_NAME);
+        
         if (NullChecker.isNotNullish(url))
         {
             AdministrativeDistributionPortType port = getPort(url);

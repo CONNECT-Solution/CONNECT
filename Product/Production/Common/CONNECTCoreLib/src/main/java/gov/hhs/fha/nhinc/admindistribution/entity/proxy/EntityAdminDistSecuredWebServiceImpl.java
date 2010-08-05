@@ -4,6 +4,7 @@
  */
 
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -90,11 +91,19 @@ public class EntityAdminDistSecuredWebServiceImpl {
         }
         return result;
     }
+    protected AdminDistributionHelper getHelper()
+    {
+        return new AdminDistributionHelper();
+    }
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
     {
         log.debug("begin sendAlert()");
-        String hcid = getLocalCommunityId();
-        String url = getUrl(hcid);
+       
+        
+        AdminDistributionHelper helper = new AdminDistributionHelper();
+        String hcid = helper.getLocalCommunityId();
+        String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);
+
         if (NullChecker.isNotNullish(url))
         {
             AdministrativeDistributionSecuredPortType port = getPort(url);

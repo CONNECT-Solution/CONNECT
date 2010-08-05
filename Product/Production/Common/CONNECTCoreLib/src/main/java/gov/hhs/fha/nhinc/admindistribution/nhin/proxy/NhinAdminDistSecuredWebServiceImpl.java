@@ -4,6 +4,7 @@
  */
 
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -35,11 +36,16 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
     {
         return LogFactory.getLog(getClass());
     }
+    protected AdminDistributionHelper getHelper()
+    {
+        return new AdminDistributionHelper();
+    }
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target)
     {
         String url = null;
-
-        url = getUrl(target);
+        AdminDistributionHelper helper = getHelper();
+        url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        
         if (NullChecker.isNotNullish(url))
         {
             RespondingGatewayAdministrativeDistributionPortType port = getPort(url);
@@ -65,22 +71,5 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
 
         return port;
     }
-    private String getUrl(NhinTargetSystemType target) {
-        String url = null;
 
-        if (target != null) {
-            try {
-
-                url = ConnectionManagerCache.getEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(),  NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
-                
-            } catch (ConnectionManagerException ex) {
-                log.error("Error: Failed to retrieve url for service: " + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
-                log.error(ex.getMessage());
-            }
-        } else {
-            log.error("Target system passed into the proxy is null");
-        }
-
-        return url;
-    }
 }

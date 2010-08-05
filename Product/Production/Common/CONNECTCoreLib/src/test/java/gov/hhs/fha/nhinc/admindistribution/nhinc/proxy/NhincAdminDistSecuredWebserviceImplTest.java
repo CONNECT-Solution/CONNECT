@@ -5,8 +5,10 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
 
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredService;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -45,9 +47,12 @@ public class NhincAdminDistSecuredWebserviceImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
+        final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
+        final NhincAdminDistSecuredService mockService = context.mock(NhincAdminDistSecuredService.class);
+        
         EDXLDistribution body = null;
         AssertionType assertion = null;
-        NhinTargetSystemType target = null;
+        final NhinTargetSystemType target = null;
         Exception unsupported = null;
 
         NhincAdminDistSecuredWebserviceImpl instance = new NhincAdminDistSecuredWebserviceImpl()
@@ -57,12 +62,24 @@ public class NhincAdminDistSecuredWebserviceImplTest {
             protected Log createLogger() {
                 return mockLogger;
             }
+            @Override
+            protected AdminDistributionHelper getHelper() {
+                return mockHelper;
+            }
+            @Override
+            protected NhincAdminDistSecuredService getWebService()
+            {
+                return mockService;
+            }
         };
         context.checking(new Expectations() {
 
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                allowing(mockService).getNhincAdminDistSecuredPortType();
+                allowing(mockHelper).getLocalCommunityId();
+                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
             }
         });
@@ -77,7 +94,7 @@ public class NhincAdminDistSecuredWebserviceImplTest {
         }
         
         context.assertIsSatisfied();
-        assertNotNull(unsupported);
+
     }
 
 }
