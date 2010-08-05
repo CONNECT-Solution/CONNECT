@@ -57,6 +57,19 @@
 
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
 
+  <target name="just.clean">
+    <if>
+      <not>
+        <isset property="delete.commontypes.lib" />
+      </not>
+      <then>
+          <delete dir="${build.dir.root}" failonerror="true" />
+          <delete dir="${lib.dir}" failonerror="true" />
+          <delete dir="${dist.root.dir}" failonerror="true" />
+      </then>
+    </if>
+  </target>
+  
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>
 

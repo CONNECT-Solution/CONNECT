@@ -497,7 +497,97 @@
       </then>
     </if>    
   </target>
-  
+
+  <target name="-verify.win.sw" if="windows">
+    <if>
+      <available file="${env.AS_HOME}/bin/asadmin.bat" type="file"/>
+      <then/>
+      <else>
+        <fail message="AS_HOME environment variable is not set. 
+        	Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
+      </else>
+    </if>    
+  </target>
+
+  <target name="-verify.nonwin.sw" if="unix">
+    <if>
+      <available file="${env.AS_HOME}/bin/asadmin.sh" type="file"/>
+      <then/>
+      <else>
+        <fail message="AS_HOME environment variable is not set. 
+	          Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
+      </else>
+    </if>    
+  </target>
+
+  <target name="verify.pre.req.software" depends="-deploy.setup.init,-verify.nonwin.sw, -verify.win.sw">
+    <if>
+      <available file="${env.JAVA_HOME}/bin/java.exe" type="file"/>
+      <then/>
+      <else>
+        <fail message="JAVA_HOME environment variable is not set. 
+        	Please create JAVA_HOME environment variable pointing to JRE1.6.0.16"/>
+      </else>
+    </if>
+    <if>
+      <available file="${env.AS_HOME}/lib/webservices-rt_l10n.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="Metro is not installed.
+        	Please install Metro and try again."/>
+      </else>
+    </if>
+    <if>
+      <available file="${env.AS_HOME}/lib/c3p0-0.9.1.2.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="C3PO Jar file are missing. Please copy $NHINC_THIRDPARTY_DIR\C3PO\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>
+    <if>
+      <available file="${env.AS_HOME}/lib/log4j-1.2.15.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="log4j Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\log4j\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>    
+    <if>
+      <available file="${env.AS_HOME}/lib/hibernate3.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="Hibernate Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\HibernateLibraries\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>   
+    <if>
+      <available file="${env.AS_HOME}/lib/mysql-connector-java-5.1.8-bin.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="MYSQLDB Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\MYSQLDB\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>   
+    <if>
+      <available file="${env.AS_HOME}/lib/xstream-1.3.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="XStream Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\XStream\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>  
+    <if>
+      <available file="${env.AS_HOME}/lib/spring.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="SpringFramework Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\SpringFramework\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>  
+    <if>
+      <available file="${env.AS_HOME}/lib/xercesImpl.jar" type="file"/>
+      <then/>
+      <else>
+        <fail message="Xerces Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\Xerces\*.jar to AS_HOME\lib\."/>
+      </else>
+    </if>  
+  </target>
+
   <target name="recreate.glassfish.domain">
     <runtarget target="-backup.glassfish.domain.configuration"/>
     <runtarget target="-backup.glassfish.domain.certificates"/>
