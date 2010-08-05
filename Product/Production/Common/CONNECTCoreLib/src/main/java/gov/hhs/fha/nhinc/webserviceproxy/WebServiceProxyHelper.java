@@ -312,10 +312,10 @@ public class WebServiceProxyHelper
     protected String getMessageId(AssertionType assertion)
     {
         if ((assertion != null) &&
-            (assertion.getAsyncMessageId() != null) &&
-            (assertion.getAsyncMessageId().trim().length() > 0))
+            (assertion.getMessageId() != null) &&
+            (assertion.getMessageId().trim().length() > 0))
         {
-            return assertion.getAsyncMessageId();
+            return assertion.getMessageId();
         }
         else
         {
@@ -324,7 +324,7 @@ public class WebServiceProxyHelper
             log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + sUuid);
             if (assertion != null)
             {
-                assertion.setAsyncMessageId(sUuid);
+                assertion.setMessageId(sUuid);
             }
             return sUuid;
         }
@@ -340,8 +340,7 @@ public class WebServiceProxyHelper
     protected List<String> getRelatesTo(AssertionType assertion)
     {
         List<String> allRelatesTo = new ArrayList();
-        //TODO - Need this to be defined in AssertionType
-        //allRelatesTo.addAll(assertion.getRelatesToList());
+        allRelatesTo.addAll(assertion.getRelatesToList());
         return allRelatesTo;
     }
 

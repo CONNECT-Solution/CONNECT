@@ -24,7 +24,7 @@ public class AdapterPatientDiscoveryAsyncRespImpl {
         if (request != null &&
                 request.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            request.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+            request.getAssertion().setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
         }
 
         AdapterPatientDiscoveryAsyncRespProxyObjectFactory adapterPatDiscAsyncRespFactory = new AdapterPatientDiscoveryAsyncRespProxyObjectFactory();

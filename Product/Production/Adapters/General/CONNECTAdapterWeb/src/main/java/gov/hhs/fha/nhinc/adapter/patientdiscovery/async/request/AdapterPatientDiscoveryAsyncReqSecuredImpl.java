@@ -29,7 +29,7 @@ public class AdapterPatientDiscoveryAsyncReqSecuredImpl {
         if (request != null &&
                 unsecureRequest.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            unsecureRequest.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         ack = processPatientDiscoveryAsyncReq(unsecureRequest);

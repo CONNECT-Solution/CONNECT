@@ -32,7 +32,7 @@ public class NhincProxyPatientDiscoverySecuredAsyncRespImpl {
         if (request != null &&
                 unsecureRequest.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+            unsecureRequest.getAssertion().setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
         }
 
         MCCIIN000002UV01 ack = proxyProcessPatientDiscoveryAsyncResp(unsecureRequest);

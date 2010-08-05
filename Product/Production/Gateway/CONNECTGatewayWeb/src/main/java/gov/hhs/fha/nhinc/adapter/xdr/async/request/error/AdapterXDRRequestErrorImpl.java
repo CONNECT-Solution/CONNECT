@@ -33,7 +33,7 @@ public class AdapterXDRRequestErrorImpl {
         if (body != null &&
                 body.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            body.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            body.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         log.error("Received an error from the Gateway.  Message: " + body.getErrorMsg());

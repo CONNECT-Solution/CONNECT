@@ -51,7 +51,7 @@ public class AdapterXDRRequestImpl {
         if (body != null &&
                 body.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            body.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+            body.getAssertion().setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
         }
 
         RegistryResponseType registryResponse = callAdapterComponentXDR(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion());

@@ -1990,7 +1990,7 @@ public class WebServiceProxyHelperTest
         {
 
             @Override
-            public String getAsyncMessageId()
+            public String getMessageId()
             {
                 return "Test_Message_Id";
             }
@@ -2049,7 +2049,7 @@ public class WebServiceProxyHelperTest
             }
         };
         AssertionType oAssertion = new AssertionType();
-        oAssertion.setAsyncMessageId(null);
+        oAssertion.setMessageId(null);
         String messageId = oHelper.getMessageId(oAssertion);
         assertNotNull("messageId", messageId);
         assertTrue("messageId was empty", messageId.length() > 0);
@@ -2078,7 +2078,7 @@ public class WebServiceProxyHelperTest
             }
         };
         AssertionType oAssertion = new AssertionType();
-        oAssertion.setAsyncMessageId("");
+        oAssertion.setMessageId("");
         String messageId = oHelper.getMessageId(oAssertion);
         assertNotNull("messageId", messageId);
         assertTrue("messageId was empty", messageId.length() > 0);

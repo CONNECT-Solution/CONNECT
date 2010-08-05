@@ -22,7 +22,7 @@ public class EntityEDRResponseImpl
         if (request != null &&
                 request.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            request.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+            request.getAssertion().setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
         }
 
         EntityXDRAsyncRespProxyObjectFactory entityXDRAsyncRespFactory = new EntityXDRAsyncRespProxyObjectFactory();

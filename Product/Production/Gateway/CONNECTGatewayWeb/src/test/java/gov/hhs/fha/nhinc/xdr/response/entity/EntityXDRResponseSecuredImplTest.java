@@ -88,7 +88,7 @@ public class EntityXDRResponseSecuredImplTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).warn(with(any(String.class)));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDRResponseRequest(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));

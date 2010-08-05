@@ -32,7 +32,7 @@ public class AdapterXDRRequestImpl {
         if (body != null &&
                 body.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            body.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            body.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();

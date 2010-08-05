@@ -90,7 +90,7 @@ public class EntityXDRRequestSecuredImplTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -184,7 +184,7 @@ public class EntityXDRRequestSecuredImplTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -282,7 +282,7 @@ public class EntityXDRRequestSecuredImplTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -381,7 +381,7 @@ public class EntityXDRRequestSecuredImplTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with("Failed to copy file to the file server"));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -480,7 +480,7 @@ public class EntityXDRRequestSecuredImplTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with("Failed to generate LiFT Payload"));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
@@ -579,7 +579,7 @@ public class EntityXDRRequestSecuredImplTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with("Target does not support LiFT, but a LiFT transfer was specified"));
-                oneOf(mockAssertion).setAsyncMessageId(with(any(String.class)));
+                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));

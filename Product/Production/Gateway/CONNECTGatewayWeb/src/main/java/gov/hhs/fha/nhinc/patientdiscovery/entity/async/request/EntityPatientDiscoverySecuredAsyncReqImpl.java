@@ -55,7 +55,7 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (request != null &&
                 unsecureRequest.getAssertion() != null) {
-            unsecureRequest.getAssertion().setAsyncMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+            unsecureRequest.getAssertion().setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
         // Audit the Patient Discovery Request Message sent on the Entity Interface
@@ -157,7 +157,7 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
 
         // Replace with message id from the assertion class
-        rec.setMessageId(request.getAssertion().getAsyncMessageId());
+        rec.setMessageId(request.getAssertion().getMessageId());
         rec.setCreationTime(new Date());
         rec.setServiceName(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         rec.setMsgData(createBlob(request));

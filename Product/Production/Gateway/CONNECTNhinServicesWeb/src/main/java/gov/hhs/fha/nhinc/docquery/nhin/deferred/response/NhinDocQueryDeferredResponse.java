@@ -30,7 +30,7 @@ public class NhinDocQueryDeferredResponse {
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+            assertion.setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
         }
 
         return new NhinDocQueryDeferredResponseImpl().respondingGatewayCrossGatewayQuery(body, assertion);

@@ -46,7 +46,7 @@ public class AdapterXDRResponseSecuredImpl {
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         XDRAcknowledgementType ack = callAdapterComponentXDR(body, assertion);

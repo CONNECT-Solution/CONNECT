@@ -22,7 +22,7 @@ public class NhincProxyXDRRequestImpl
         if (request != null &&
                 request.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            request.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            request.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         PassthruXDRAsyncReqProxyObjectFactory passthruXDRAsyncReqFactory = new PassthruXDRAsyncReqProxyObjectFactory();

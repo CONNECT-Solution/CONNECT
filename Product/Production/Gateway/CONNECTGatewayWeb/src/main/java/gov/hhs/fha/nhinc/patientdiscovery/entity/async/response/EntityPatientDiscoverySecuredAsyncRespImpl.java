@@ -42,7 +42,7 @@ public class EntityPatientDiscoverySecuredAsyncRespImpl {
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (request != null &&
                 unsecureRequest.getAssertion() != null) {
-            unsecureRequest.getAssertion().setAsyncMessageId(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            unsecureRequest.getAssertion().setMessageId(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
         }
 
         // Audit the Patient Discovery Request Message sent on the Entity Interface

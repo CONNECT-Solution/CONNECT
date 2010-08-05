@@ -45,7 +45,7 @@ public class EntityPatientDiscoverySecuredAsyncReqQueueImpl {
         if (unsecureRequest != null &&
                 unsecureRequest.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            unsecureRequest.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            unsecureRequest.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         // Audit the incoming Nhin 201305 Message

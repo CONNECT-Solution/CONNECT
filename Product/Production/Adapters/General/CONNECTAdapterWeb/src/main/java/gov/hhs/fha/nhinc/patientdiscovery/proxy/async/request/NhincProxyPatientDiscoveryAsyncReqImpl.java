@@ -24,7 +24,7 @@ public class NhincProxyPatientDiscoveryAsyncReqImpl {
         if (request != null &&
                 request.getAssertion() != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            request.getAssertion().setAsyncMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            request.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         PassthruPatientDiscoveryAsyncReqProxyObjectFactory passthruPatDiscAsyncReqFactory = new PassthruPatientDiscoveryAsyncReqProxyObjectFactory();
