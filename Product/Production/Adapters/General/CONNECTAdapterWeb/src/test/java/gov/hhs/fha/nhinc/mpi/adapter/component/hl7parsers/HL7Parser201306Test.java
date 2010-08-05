@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers;
+package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.adaptercomponentmpi.TestHelper;
+import gov.hhs.fha.nhinc.mpi.adapter.component.TestHelper;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.mpilib.*;
 import java.io.Serializable;

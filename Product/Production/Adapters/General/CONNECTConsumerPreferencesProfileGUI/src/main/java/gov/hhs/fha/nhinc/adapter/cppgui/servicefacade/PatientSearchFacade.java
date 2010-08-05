@@ -7,8 +7,8 @@ package gov.hhs.fha.nhinc.adapter.cppgui.servicefacade;
 import gov.hhs.fha.nhinc.adapter.cppgui.PatientSearchCriteria;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
-import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.mpilib.Identifier;
 import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
@@ -40,7 +40,7 @@ public class PatientSearchFacade {
 
         PRPAIN201305UV02 searchRequest = createPRPAMT201301UVPatient(patientSearchCriteria);
 
-        AdapterMpiProxy mpiProxy = getAdapterMpiProxy();
+        AdapterComponentMpiProxy mpiProxy = getAdapterComponentMpiProxy();
 
         PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchRequest);
 
@@ -70,9 +70,9 @@ public class PatientSearchFacade {
      * 
      * @return
      */
-    private AdapterMpiProxy getAdapterMpiProxy() {
-        AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
-        AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
+    private AdapterComponentMpiProxy getAdapterComponentMpiProxy() {
+        AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
+        AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
         return mpiProxy;
     }
 

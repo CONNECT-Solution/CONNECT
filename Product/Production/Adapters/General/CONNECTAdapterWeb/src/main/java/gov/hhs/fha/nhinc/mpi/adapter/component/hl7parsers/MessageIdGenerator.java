@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers;
+package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 /**
  *

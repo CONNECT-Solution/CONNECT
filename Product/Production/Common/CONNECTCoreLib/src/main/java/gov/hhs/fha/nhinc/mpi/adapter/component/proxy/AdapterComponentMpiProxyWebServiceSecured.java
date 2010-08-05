@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.mpi.proxy;
+package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiService;
@@ -24,9 +24,9 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
  *
  * @author jhoppesc
  */
-public class AdapterMpiWebServiceProxySecured implements AdapterMpiProxy {
+public class AdapterComponentMpiProxyWebServiceSecured implements AdapterComponentMpiProxy {
 
-    private static Log log = LogFactory.getLog(AdapterMpiWebServiceProxySecured.class);
+    private static Log log = LogFactory.getLog(AdapterComponentMpiProxyWebServiceSecured.class);
     static AdapterComponentMpiService mpiService = new AdapterComponentMpiService();
     static AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
 

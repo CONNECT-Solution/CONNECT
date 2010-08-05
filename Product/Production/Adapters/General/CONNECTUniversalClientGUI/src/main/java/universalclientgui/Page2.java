@@ -18,8 +18,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
-import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
-import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -448,8 +448,8 @@ public class Page2 extends AbstractPageBean {
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(firstName, lastName, null, null, null), patId);
                 PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
 
-                AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
-                AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
+                AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
+                AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
                 PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchPat);
 
                 List<PRPAMT201310UV02Patient> mpiPatResultList = new ArrayList<PRPAMT201310UV02Patient>();

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.mpi.proxy;
+package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiService;
@@ -22,9 +22,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  *
  * @author jhoppesc
  */
-public class AdapterMpiWebServiceProxy implements AdapterMpiProxy {
+public class AdapterComponentMpiProxyWebServiceUnsecured implements AdapterComponentMpiProxy {
 
-    private static Log log = LogFactory.getLog(AdapterMpiWebServiceProxy.class);
+    private static Log log = LogFactory.getLog(AdapterComponentMpiProxyWebServiceUnsecured.class);
     static AdapterComponentMpiService mpiService = new AdapterComponentMpiService();
     static AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
     

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.mpi.proxy;
+package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
@@ -33,9 +33,9 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Jon Hoppesch
  */
-public class AdapterMpiProxyObjectFactory {
+public class AdapterComponentMpiProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "AdapterMpiProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdapterComponentMpiProxyConfig.xml";
     private static final String BEAN_NAME_MPI = "mpi";
     private static ApplicationContext context = null;
 
@@ -51,10 +51,10 @@ public class AdapterMpiProxyObjectFactory {
      *
      * @return AdapterMpiProxy instance
      */
-    public AdapterMpiProxy getAdapterMpiProxy() {
-        AdapterMpiProxy mpi = null;
+    public AdapterComponentMpiProxy getAdapterComponentMpiProxy() {
+        AdapterComponentMpiProxy mpi = null;
         if (context != null) {
-            mpi = (AdapterMpiProxy) context.getBean(BEAN_NAME_MPI);
+            mpi = (AdapterComponentMpiProxy) context.getBean(BEAN_NAME_MPI);
         }
         return mpi;
     }

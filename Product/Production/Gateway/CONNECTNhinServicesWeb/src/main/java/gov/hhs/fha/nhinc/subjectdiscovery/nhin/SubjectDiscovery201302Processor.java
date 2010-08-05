@@ -4,8 +4,8 @@ import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeComm
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType;
-import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
-import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
@@ -169,8 +169,8 @@ public class SubjectDiscovery201302Processor {
                 query = HL7PRPA201305Transforms.createPRPA201305(patient201301, oid, oid, null);
 
                 // Query the MPI to see if the patient is found
-                AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
-                AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
+                AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
+                AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
 
                 log.debug("Calling Secured MPI");
                 queryResults = mpiProxy.findCandidates(query, request.getAssertion());

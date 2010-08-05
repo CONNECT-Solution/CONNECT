@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.adaptercomponentmpi;
+package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.mpilib.*;
-import gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201306;
+import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201306;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;

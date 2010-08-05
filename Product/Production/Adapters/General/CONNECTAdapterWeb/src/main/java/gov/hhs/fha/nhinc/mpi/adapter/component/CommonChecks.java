@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.adaptercomponentmpi;
+package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.mpilib.Patients;
 

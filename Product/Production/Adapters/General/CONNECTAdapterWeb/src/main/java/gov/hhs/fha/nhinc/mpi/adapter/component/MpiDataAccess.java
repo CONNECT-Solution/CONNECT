@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.adaptercomponentmpi;
+package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201305;
+import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201305;
 import gov.hhs.fha.nhinc.mpilib.*;
 import org.hl7.v3.*;
 

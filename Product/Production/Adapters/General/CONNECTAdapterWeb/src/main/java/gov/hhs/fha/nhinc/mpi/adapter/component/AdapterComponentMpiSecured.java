@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.adaptercomponentmpi;
+package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
