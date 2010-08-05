@@ -677,6 +677,16 @@
 				<description>Patient Correlation Facade DTE Service</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
+			<service>
+				<name>nhindocquerydeferredrequest</name>
+				<description>NHIN Doc Query Deferred Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhindocquerydeferredresponse</name>
+				<description>NHIN Doc Query Deferred Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -1337,6 +1347,16 @@
 				<description>Entity Doc Retrieve Deferred Response Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
+			<service>
+				<name>nhindocquerydeferredrequest</name>
+				<description>NHIN Doc Query Deferred Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhindocquerydeferredresponse</name>
+				<description>NHIN Doc Query Deferred Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
+			</service>
 			<!-- End Doc Retrieve deferred service end points -->			
 		</services>
 	</internalConnectionInfo>
@@ -1928,7 +1948,17 @@
 				<description>Entity Doc Retrieve Deferred Response Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
-			<!-- End Doc Retrieve deferred service end points -->			
+			<!-- End Doc Retrieve deferred service end points -->	
+			<service>
+				<name>nhindocquerydeferredrequest</name>
+				<description>NHIN Doc Query Deferred Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhindocquerydeferredresponse</name>
+				<description>NHIN Doc Query Deferred Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
+			</service>		
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
