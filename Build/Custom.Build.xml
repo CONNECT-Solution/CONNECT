@@ -8,6 +8,7 @@
     <call target="Build.PublishZip.SoapUI.Validation.Tests"/>
     <call target="Build.PublishZip.Release.Properties"/>
     <call target="Build.PublishZip.FTAManualTest"/>
+    <call target="Build.PublishZip.AdapterPEPWS"/>
   </target>
 
   <target name="Build.PublishZip.Release.Installer">
@@ -213,6 +214,24 @@
 
   </target>
 
+  <target name="Build.PublishZip.AdapterPEPWS">
+    <property name="AdapterPEPWS.Zip.FileName" value="${ProjectFullName}_OpenSSO_AdapterPEPWS_Test_${CCNetLabel}.zip"/>
+    <property name="AdapterPEPWS.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${AdapterPEPWS.Zip.FileName}"/>
+
+    <zip zipfile="${AdapterPEPWS.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Product.Path}\SoapUI_Test\ManualSuite\OpenSSO" prefix="OpenSSOAdapterPEPWSTest" failonempty="true">
+        <include name="*.*"/>
+        <exclude name="build.xml"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${AdapterPEPWS.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+
+  </target>
+  
   <target name="Common.FindBuild">
     <strings id="builds"/>
 
