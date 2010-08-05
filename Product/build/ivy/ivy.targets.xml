@@ -22,7 +22,7 @@ ivy.clean-cache - will delete the cache.
 	<target name="ivy.clean">
 		<delete dir="${lib.dir}" failonerror="true" />
 	</target>
-
+  
 	<target name="ivy.re-resolve" description="--> retreive dependencies with ivy">
 		<ivy:retrieve sync="true" pattern="${lib.dir}/[conf]/[artifact].[ext]" />
 		<mkdir dir="${lib.dir}/compile"/>
@@ -60,4 +60,7 @@ ivy.clean-cache - will delete the cache.
 		<ivy:cleancache />
 	</target>
 
+  <target name="ivy.clean.project.cache">
+		<delete dir="${ivy.project.cache.dir}" />
+	</target>
 </project>

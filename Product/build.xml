@@ -25,10 +25,10 @@
   </target>
 
   <target name="clean" description="Clean all projects: run ant help for more info...">
+    <call target="ivy.clean.project.cache" />
     <call target="junit.clean" />
     <call target="coverage.clean" />
     <call target="checkstyle.clean" />
-    <delete dir="${ivy.cache.dir}\gov.hhs.fha" />
     <var name="do-to-target" value="just.clean" />
     <antcall target="do-to-projects" />
   </target>

@@ -3,6 +3,7 @@
 
   <property name="ivy.settings.dir" value="${root.project.directory.path}" />
   <property name="ivy.cache.dir" value="${ivy.settings.dir}/../ivy-cache" />
+  <property name="ivy.project.cache.dir" value="${ivy.settings.dir}/../ivy-project-cache" />
 
   <property name="lib.dir" location="${project.dir}/lib" />
 
