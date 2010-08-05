@@ -254,7 +254,7 @@ public class EntityDocQuerySecuredImpl {
             AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
             auditMsg.setAdhocQueryResponse(response);
             auditMsg.setAssertion(assertion);
-            auditLog.auditResponse(auditMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         }
     }
 

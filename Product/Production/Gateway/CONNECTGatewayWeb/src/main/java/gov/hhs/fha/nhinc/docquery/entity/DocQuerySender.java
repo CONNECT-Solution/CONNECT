@@ -117,7 +117,7 @@ public class DocQuerySender {
             try {
                 // Audit the Document Query Request Message sent on the Nhin Interface
                 DocQueryAuditLog auditLog = new DocQueryAuditLog();
-                AcknowledgementType ack = auditLog.audit(docQuery, oAssertion);
+                AcknowledgementType ack = auditLog.auditDQRequest(adhocQueryRequest, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                 log.debug("Creating NhinDocQueryProxy");
                 NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
                 NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
