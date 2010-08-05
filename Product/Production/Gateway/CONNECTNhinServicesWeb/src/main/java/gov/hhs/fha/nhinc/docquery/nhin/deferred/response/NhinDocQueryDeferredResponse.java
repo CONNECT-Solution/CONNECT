@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.annotation.Resource;
@@ -26,7 +27,13 @@ public class NhinDocQueryDeferredResponse {
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse body) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        return new gov.hhs.healthit.nhin.DocQueryAcknowledgementType();
+        // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
+            assertion.setAsyncMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+        }
+
+        return new NhinDocQueryDeferredResponseImpl().respondingGatewayCrossGatewayQuery(body, assertion);
     }
 
 }
