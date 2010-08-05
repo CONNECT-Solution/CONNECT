@@ -20,7 +20,7 @@ public class AdapterDocRetrieveDeferredReqSecured {
     @Resource
     private WebServiceContext context;
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
         return new AdapterDocRetrieveDeferredReqSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
 

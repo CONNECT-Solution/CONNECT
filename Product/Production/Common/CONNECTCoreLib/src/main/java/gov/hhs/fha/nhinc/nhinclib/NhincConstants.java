@@ -214,7 +214,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
-    
+
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
@@ -353,8 +353,12 @@ public class NhincConstants {
     public static final String NHIN_DOCRETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
     public static final String DOCRETRIEVEDEFERRED_REQUEST_ACTION = "docretrievedeferredrequest";
     public static final String DOCRETRIEVEDEFERRED_RESPONSE_ACTION = "docretrievedeferredresponse";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME = "adapterdocretrievedeferred";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME = "adapterdocretrievedeferredsecured";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME = "adapterdocretrievedeferredrequest";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME = "adapterdocretrievedeferredrequestsecured";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME = "adapterdocretrievedeferredrequesterror";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SECURED_SERVICE_NAME = "adapterdocretrievedeferredrequesterrorsecured";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {
     }

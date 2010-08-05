@@ -44,25 +44,25 @@
       <bean id="nhindocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqWebServiceImpl"/>
 
 	 <!-- Default facade implementation -->
-     <bean id="nhindocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespNoOpImpl"/>
-	<!-- Web-service Secured implementation -->
-    <!--  <bean id="nhindocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespWebServiceImpl"/>-->
+     <!-- <bean id="nhindocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespNoOpImpl"/> -->
+	 <!-- Web-service Secured implementation -->
+     <bean id="nhindocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespWebServiceImpl"/>
 
 	 <!-- Default facade implementation -->
-    <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespNoOpImpl"/>
-	<!-- Default java implementation -->
-    <!-- <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterDocRetrieveDeferredRespJavaImpl"/> -->
-	<!-- Web-service Secured implementation -->
-    <!--  <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterocRetrieveDeferredRespSecuredWebServiceImpl"/>-->
-	<!-- Web-service UnSecured implementation -->
-    <!--  <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespWebServiceImpl"/>-->
+     <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespNoOpImpl"/>
+	 <!-- Default java implementation -->
+     <!-- <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterDocRetrieveDeferredRespJavaImpl"/> -->
+	 <!-- Web-service Secured implementation -->
+     <!--  <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterocRetrieveDeferredRespSecuredWebServiceImpl"/>-->
+	 <!-- Web-service UnSecured implementation -->
+     <!--  <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespWebServiceImpl"/>-->
 
 	 <!-- Default facade implementation -->
-    <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqNoOpImpl"/> 
+    <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqNoOpImpl"/> -->
 	<!-- Default java implementation -->
-    <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterDocRetrieveDeferredReqJavaImpl"/> -->
+    <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqJavaImpl"/> -->
 	<!-- Web-service Secured implementation -->
-    <!--  <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.AdapterocRetrieveDeferredReqSecuredWebServiceImpl"/>-->
+    <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqSecuredWebServiceImpl"/>
 	<!-- Web-service UnSecured implementation -->
-    <!--  <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqWebServiceImpl"/>-->
+    <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrievedeferred.adapter.proxy.request.AdapterDocRetrieveDeferredReqWebServiceImpl"/> -->
 </beans>

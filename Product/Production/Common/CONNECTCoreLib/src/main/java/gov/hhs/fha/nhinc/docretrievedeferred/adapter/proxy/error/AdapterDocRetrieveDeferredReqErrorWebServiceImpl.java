@@ -53,10 +53,10 @@ public class AdapterDocRetrieveDeferredReqErrorWebServiceImpl implements Adapter
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
 
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME);
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " +
-                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SERVICE_NAME + " for local home community");
+                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
 

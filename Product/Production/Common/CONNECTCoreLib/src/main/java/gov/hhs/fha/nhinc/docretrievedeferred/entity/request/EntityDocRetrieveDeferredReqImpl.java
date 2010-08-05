@@ -100,7 +100,7 @@ public class EntityDocRetrieveDeferredReqImpl {
     }
 
     /**
-     * 
+     *
      * @return DocRetrieveAcknowledgementType
      */
     private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error)

@@ -41,10 +41,10 @@ public class AdapterDocRetrieveDeferredReqSecuredWebServiceImpl implements Adapt
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
 
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME);
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " +
-                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_SECURED_SERVICE_NAME + " for local home community");
+                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
         }
 
@@ -52,7 +52,7 @@ public class AdapterDocRetrieveDeferredReqSecuredWebServiceImpl implements Adapt
             AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.AUDIT_REPO_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOCRETRIEVEDEFERRED_REQUEST_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 

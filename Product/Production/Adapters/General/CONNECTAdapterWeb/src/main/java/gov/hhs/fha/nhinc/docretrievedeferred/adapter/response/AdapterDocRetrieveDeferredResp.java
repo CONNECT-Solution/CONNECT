@@ -22,7 +22,7 @@ public class AdapterDocRetrieveDeferredResp {
     @Resource
     private WebServiceContext context;
 
-    public DocRetrieveAcknowledgementType CrossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType body) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType body) {
         return new AdapterDocRetrieveDeferredRespImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
 
