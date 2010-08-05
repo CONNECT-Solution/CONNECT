@@ -14,6 +14,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,7 +41,7 @@ public class DocQueryAuditLog {
         auditReqMsg.setAssertion(assertion);
         auditReqMsg.setAdhocQueryRequest(auditMsg.getAdhocQueryRequest());
 
-        AcknowledgementType ack = logDocQuery(auditReqMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = logDocQueryRequest(auditReqMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         log.debug("Exiting DocQueryAuditLog.audit (entity)...");
         return ack;
@@ -52,18 +54,39 @@ public class DocQueryAuditLog {
      * @param assertion Assertion received
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    public AcknowledgementType audit(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType auditMsg, AssertionType assertion) {
-        log.debug("Entering DocQueryAuditLog.audit (NHIN Proxy)...");
+    public AcknowledgementType auditDQRequest(AdhocQueryRequest msg, AssertionType assertion, String direction, String _interface) {
+        log.debug("Entering DocQueryAuditLog.auditDQRequest()...");
 
-        AdhocQueryMessageType auditReqMsg = new AdhocQueryMessageType();
-        auditReqMsg.setAssertion(assertion);
-        auditReqMsg.setAdhocQueryRequest(auditMsg.getAdhocQueryRequest());
+        AdhocQueryMessageType auditMsg = new AdhocQueryMessageType();
+        auditMsg.setAssertion(assertion);
+        auditMsg.setAdhocQueryRequest(msg);
 
-        AcknowledgementType ack = logDocQuery(auditReqMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = logDocQueryRequest(auditMsg, direction, _interface);
 
-        log.debug("Exiting DocQueryAuditLog.audit (NHIN Proxy)...");
+        log.debug("Exiting DocQueryAuditLog.auditDQRequest()...");
         return ack;
     }
+
+    /**
+     * This method will log Audit Query Requests received on the NHIN Proxy Interface
+     *
+     * @param auditMsg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received
+     * @return An acknowledgement of whether or not the message was successfully logged.
+     */
+    public AcknowledgementType auditDQResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface) {
+        log.debug("Entering DocQueryAuditLog.auditDQResponse()...");
+
+        AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
+        auditMsg.setAssertion(assertion);
+        auditMsg.setAdhocQueryResponse(msg);
+
+        AcknowledgementType ack = logDocQueryResponse(auditMsg, direction, _interface);
+
+        log.debug("Exiting DocQueryAuditLog.auditDQResponse()...");
+        return ack;
+    }
+
 
     /**
      * This method will log Document Query Requests sent on the Nhin Interface
@@ -79,7 +102,7 @@ public class DocQueryAuditLog {
         auditReqMsg.setAssertion(auditMsg.getAssertion());
         auditReqMsg.setAdhocQueryRequest(auditMsg.getAdhocQueryRequest());
 
-        AcknowledgementType ack = logDocQuery(auditReqMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        AcknowledgementType ack = logDocQueryRequest(auditReqMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         log.debug("Exiting DocQueryAuditLog.audit (proxy)...");
         return ack;
@@ -93,20 +116,16 @@ public class DocQueryAuditLog {
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    private AcknowledgementType logDocQuery(AdhocQueryMessageType message, String direction, String _interface) {
+    private AcknowledgementType logDocQueryRequest(AdhocQueryMessageType message, String direction, String _interface) {
         log.debug("Entering DocQueryAuditLog.logDocQuery(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - Creating AuditRepositoryProxyObjectFactory object.");
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - calling AuditRepositoryProxyObjectFactory.getAuditRepositoryProxy(...)");
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - calling AuditRepositoryProxy.auditLog(...)");
             ack = proxy.auditLog(auditLogMsg, message.getAssertion());
-            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - returned from calling AuditRepositoryProxy.auditLog(...)");
         }
         log.debug("Exiting DocQueryAuditLog.logDocQuery(...)...");
         return ack;
@@ -120,21 +139,16 @@ public class DocQueryAuditLog {
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    public AcknowledgementType auditResponse(AdhocQueryResponseMessageType message, String direction, String _interface) {
+    public AcknowledgementType logDocQueryResponse(AdhocQueryResponseMessageType message, String direction, String _interface) {
         log.debug("Entering DocQueryAuditLog.auditResponse(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - Creating AuditRepositoryProxyObjectFactory object.");
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - calling AuditRepositoryProxyObjectFactory.getAuditRepositoryProxy(...)");
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - calling AuditRepositoryProxy.auditLog(...)");
             ack = proxy.auditLog(auditLogMsg, message.getAssertion());
-            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - returned from calling AuditRepositoryProxy.auditLog(...)");
-
         }
 
         log.debug("Exiting DocQueryAuditLog.auditResponse(...)...");
