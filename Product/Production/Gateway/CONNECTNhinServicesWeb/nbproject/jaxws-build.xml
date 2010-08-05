@@ -280,5 +280,43 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinadmindistribution"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinAdministrativeDistribution"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe, wsimport-service-NhinPatientDiscovery, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-SubjectDiscovery, wsimport-service-NhinXDR, wsimport-service-AuditQuery, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse, wsimport-service-NhinAdministrativeDistribution"/>
+    <target name="wsimport-service-NhinDocQueryDeferredRequest" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredRequest"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredRequest" destdir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredRequest" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinDocQueryDeferredRequest/wsdl/NhinDocQueryDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinDocQueryDeferredRequest/wsdl/NhinDocQueryDeferredRequest.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredRequest"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredRequest">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinDocQueryDeferredRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinDocQueryDeferredRequest/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinDocQueryDeferredRequest" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredRequest"/>
+    </target>
+    <target name="wsimport-service-NhinDocQueryDeferredResponse" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredResponse"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredResponse" destdir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredResponse" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinDocQueryDeferredResponse/wsdl/NhinDocQueryDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinDocQueryDeferredResponse/wsdl/NhinDocQueryDeferredResponse.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredResponse"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredResponse">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinDocQueryDeferredResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinDocQueryDeferredResponse/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinDocQueryDeferredResponse" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinDocQueryDeferredResponse"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemSubscription, wsimport-service-HiemNotify, wsimport-service-HiemUnsubscribe, wsimport-service-NhinPatientDiscovery, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-SubjectDiscovery, wsimport-service-NhinXDR, wsimport-service-AuditQuery, wsimport-service-NhinXDRRequest, wsimport-service-NhinXDRResponse, wsimport-service-NhinAdministrativeDistribution, wsimport-service-NhinDocQueryDeferredRequest, wsimport-service-NhinDocQueryDeferredResponse"/>
 </project>

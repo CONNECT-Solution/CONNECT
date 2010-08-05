@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	<servlet>
-		<servlet-name>DocQuery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docquery.nhin.DocQuery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DocQuery</servlet-name>
-		<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>DocRetrieve</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DocRetrieve</servlet-name>
-		<url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>HiemNotify</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotify</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HiemNotify</servlet-name>
-		<url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>HiemSubscription</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiem.nhin.subscription.HiemSubscription</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HiemSubscription</servlet-name>
-		<url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>HiemUnsubscribe</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribe</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HiemUnsubscribe</servlet-name>
-		<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NhinPatientDiscovery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhinPatientDiscovery</servlet-name>
-		<url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
-	</servlet-mapping>
     <servlet>
-		<servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-		<url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
-	</servlet-mapping>
+        <servlet-name>DocQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.DocQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocQuery</servlet-name>
+        <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
+    </servlet-mapping>
     <servlet>
-		<servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-		<url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>SubjectDiscovery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SubjectDiscovery</servlet-name>
-		<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
-	</servlet-mapping>
+        <servlet-name>DocRetrieve</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocRetrieve</servlet-name>
+        <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>HiemNotify</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemNotify</servlet-name>
+        <url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>HiemSubscription</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.subscription.HiemSubscription</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemSubscription</servlet-name>
+        <url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>HiemUnsubscribe</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemUnsubscribe</servlet-name>
+        <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinPatientDiscovery</servlet-name>
+        <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
+        <url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SubjectDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubjectDiscovery</servlet-name>
+        <url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>NhinXDR</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDR</servlet-class>
@@ -96,14 +96,14 @@
         <servlet-name>NhinXDRResponse</servlet-name>
         <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
     </servlet-mapping>
-	<servlet>
-		<servlet-name>AuditQuery</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AuditQuery</servlet-name>
-		<url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
-	</servlet-mapping>
+    <servlet>
+        <servlet-name>AuditQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuditQuery</servlet-name>
+        <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
+    </servlet-mapping>
     <!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
         <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
@@ -121,6 +121,22 @@
         <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
         <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.deferred.request.NhinDocQueryDeferredRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
+        <url-pattern>/NhinService/DocQueryDeferredRequestService</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.deferred.response.NhinDocQueryDeferredResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
+        <url-pattern>/NhinService/DocQueryDeferredResponseService</url-pattern>
+    </servlet-mapping>
     <!-- END: Document Retrieve Deferred Services -->
     <servlet>
         <servlet-name>NhinAdministrativeDistribution</servlet-name>
@@ -131,46 +147,47 @@
         <url-pattern>/NhinService/NhinAdminDist</url-pattern>
     </servlet-mapping>
     <security-constraint>
-		<web-resource-collection>
-			<web-resource-name>NhinAdministrativeDistribution</web-resource-name>
-			<url-pattern>/NhinService/NhinAdminDist</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>DocQuery</web-resource-name>
-			<url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>DocRetrieve</web-resource-name>
-			<url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>HiemNotify</web-resource-name>
-			<url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>HiemSubscription</web-resource-name>
-			<url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>HiemUnsubscribe</web-resource-name>
-			<url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>NhinPatientDiscovery</web-resource-name>
-			<url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
-		</web-resource-collection>
         <web-resource-collection>
-			<web-resource-name>NhinPatientDiscoveryAsyncReq</web-resource-name>
-			<url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
-		</web-resource-collection>
+            <web-resource-name>NhinAdministrativeDistribution</web-resource-name>
+            <url-pattern>/NhinService/NhinAdminDist</url-pattern>
+        </web-resource-collection>
+		
         <web-resource-collection>
-			<web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
-			<url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>SubjectDiscovery</web-resource-name>
-			<url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
-		</web-resource-collection>
+            <web-resource-name>DocQuery</web-resource-name>
+            <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>DocRetrieve</web-resource-name>
+            <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>HiemNotify</web-resource-name>
+            <url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>HiemSubscription</web-resource-name>
+            <url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>HiemUnsubscribe</web-resource-name>
+            <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinPatientDiscovery</web-resource-name>
+            <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinPatientDiscoveryAsyncReq</web-resource-name>
+            <url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
+            <url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>SubjectDiscovery</web-resource-name>
+            <url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
+        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>NhinXDR</web-resource-name>
             <url-pattern>/DocumentRepositoryXDR_Service</url-pattern>
@@ -183,10 +200,10 @@
             <web-resource-name>NhinXDRResponse</web-resource-name>
             <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
         </web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>AuditQuery</web-resource-name>
-			<url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
-		</web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AuditQuery</web-resource-name>
+            <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
+        </web-resource-collection>
         <!-- BEGIN Document Retrieve Deferred Service -->
         <web-resource-collection>
             <web-resource-name>NhinDocRetrieveDeferredReq</web-resource-name>
@@ -196,15 +213,23 @@
             <web-resource-name>NhinDocRetrieveDeferredResp</web-resource-name>
             <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinDocQueryDeferredRequest</web-resource-name>
+            <url-pattern>/NhinService/DocQueryDeferredRequestService</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinDocQueryDeferredResponse</web-resource-name>
+            <url-pattern>/NhinService/DocQueryDeferredResponseService</url-pattern>
+        </web-resource-collection>
         <!-- END Document Retrieve Deferred Service -->
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
-	<login-config>
-		<auth-method>CLIENT-CERT</auth-method>
-		<realm-name>certificate</realm-name>
-	</login-config>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
     <session-config>
         <session-timeout>
             30
@@ -212,5 +237,5 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-        </welcome-file-list>
-    </web-app>
+    </welcome-file-list>
+</web-app>
