@@ -54,8 +54,11 @@ public class AdminDistributionTransformHelper {
         log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, assertion);
-
+        
         request.setAction(ActionHelper.actionFactory(ActionInValue));
+
+        result.setAssertion(assertion);
+        result.setRequest(request);
         
         return result;
     }

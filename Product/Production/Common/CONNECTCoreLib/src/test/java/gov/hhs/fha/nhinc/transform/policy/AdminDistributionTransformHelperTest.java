@@ -207,4 +207,121 @@ public class AdminDistributionTransformHelperTest {
         context.assertIsSatisfied();
     }
 
+    @Test
+    public void transformNhinAlertToCheckPolicy_Valid() {
+        final Log mockLogger = context.mock(Log.class);
+        final AssertionType assertion = new AssertionType();
+
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+            @Override
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
+            {
+                return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                will(returnValue(with(any(CheckPolicyRequestType.class))));
+            }
+        });
+
+        RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
+        message.setAssertion(new AssertionType());
+        message.setEDXLDistribution(new EDXLDistribution());
+
+        String target = "121";
+
+        CheckPolicyRequestType result  =  instance.transformNhinAlertToCheckPolicy(new EDXLDistribution(), assertion);
+        context.assertIsSatisfied();
+
+        assertNotNull(result);
+        assertNotNull(result.getAssertion());
+        assertNotNull(result.getRequest());
+        assertNotNull(result.getRequest().getAction());
+        assertEquals(assertion, result.getAssertion());
+
+        assertEquals(1, result.getRequest().getAction().getAttribute().size());
+    }
+
+   @Test
+    public void transformNhinAlertToCheckPolicy_NoBody() {
+        final Log mockLogger = context.mock(Log.class);
+        final AssertionType assertion = new AssertionType();
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+            @Override
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
+            {
+                return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                exactly(1).of(mockLogger).error(with(any(String.class)));
+                will(returnValue(with(any(CheckPolicyRequestType.class))));
+            }
+        });
+
+
+        String target = "121";
+
+        CheckPolicyRequestType result  =  instance.transformNhinAlertToCheckPolicy(null, assertion);
+        
+        context.assertIsSatisfied();
+        assertNotNull(result);
+        assertNull(result.getRequest());
+        
+    }
+   @Test
+    public void transformNhinAlertToCheckPolicy_NoAssertion() {
+        final Log mockLogger = context.mock(Log.class);
+        final AssertionType assertion = new AssertionType();
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+            @Override
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
+            {
+                return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                exactly(1).of(mockLogger).error(with(any(String.class)));
+                will(returnValue(with(any(CheckPolicyRequestType.class))));
+            }
+        });
+
+
+        String target = "121";
+
+        CheckPolicyRequestType result  =  instance.transformNhinAlertToCheckPolicy(new EDXLDistribution(), null);
+
+        context.assertIsSatisfied();
+        assertNotNull(result);
+        assertNull(result.getRequest());
+
+    }
+
 }
