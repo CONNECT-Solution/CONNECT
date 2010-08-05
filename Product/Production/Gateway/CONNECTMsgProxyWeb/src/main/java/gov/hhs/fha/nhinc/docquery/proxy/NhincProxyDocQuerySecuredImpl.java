@@ -53,7 +53,7 @@ public class NhincProxyDocQuerySecuredImpl {
 
         // Audit the Document Query Request Message sent on the Nhin Interface
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLog.audit(body, assertion);
+        AcknowledgementType ack = auditLog.auditDQRequest(body.getAdhocQueryRequest(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         try {
             log.debug("Creating NhinDocQueryProxy");
@@ -84,7 +84,7 @@ public class NhincProxyDocQuerySecuredImpl {
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
         auditMsg.setAdhocQueryResponse(response);
         auditMsg.setAssertion(assertion);
-        ack = auditLog.auditResponse(auditMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         log.debug("Leaving NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
