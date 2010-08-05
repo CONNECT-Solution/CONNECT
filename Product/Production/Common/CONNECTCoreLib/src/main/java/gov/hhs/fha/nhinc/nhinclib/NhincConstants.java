@@ -180,6 +180,7 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
+    
     //Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";
@@ -195,6 +196,12 @@ public class NhincConstants {
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
     public static final String NHINC_PROXY_DOC_QUERY_SERVICE_NAME = "nhincproxydocquery";
     public static final String NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME = "nhincproxydocquerysecured";
+    
+    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "serviceDocumentQueryDeferredReq";
+    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredReqPassthrough";
+    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "serviceDocumentQueryDeferredResp";
+    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredRespPassthrough";
+
     //Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
     public static final String ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME = "adapterdocretrievesecured";
