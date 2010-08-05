@@ -14,6 +14,9 @@
  -->
 
  <!-- Project dependencies -->
+  <dependency name="CONNECTCommonTypesLib" rev="latest.integration">
+    <exclude module="CONNECTCommonTypesLib"/>
+  </dependency>
 
  <!-- compile time jars -->
     <dependency org="com.thoughtworks.xstream" name="xstream-distribution" rev="1.3.1" conf="compile->default" transitive="false" />

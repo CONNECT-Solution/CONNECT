@@ -14,9 +14,6 @@
  -->
 
     <!-- Project dependencies -->
-    <dependency name="CONNECTCommonTypesLib" rev="latest.integration">
-      <exclude module="CONNECTCommonTypesLib"/>
-    </dependency>
     <dependency name="CONNECTCoreLib" rev="latest.integration">
       <exclude module="CONNECTCoreLib"/>
     </dependency>
