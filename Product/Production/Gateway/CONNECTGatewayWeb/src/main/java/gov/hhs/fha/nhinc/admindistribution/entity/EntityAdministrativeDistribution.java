@@ -18,7 +18,10 @@ public class EntityAdministrativeDistribution {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
         //TODO implement this method
-        new EntityAdminDistributionImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+        getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
-
+    protected EntityAdminDistributionOrchImpl getEntityImpl()
+    {
+        return new EntityAdminDistributionOrchImpl();
+    }
 }

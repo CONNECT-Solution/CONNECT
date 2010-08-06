@@ -28,10 +28,14 @@ public class EntityAdministrativeDistributionSecured {
         AssertionType assertion = extractAssertion(context);
 
         //TODO implement this method
-        new EntityAdminDistributionImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
+        getEntityImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
     protected AssertionType extractAssertion(WebServiceContext context)
     {
         return SamlTokenExtractor.GetAssertion(context);
+    }
+    protected EntityAdminDistributionOrchImpl getEntityImpl()
+    {
+        return new EntityAdminDistributionOrchImpl();
     }
 }
