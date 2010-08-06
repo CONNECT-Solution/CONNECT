@@ -202,8 +202,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.SenderReceiverHelperMCCIMT000200UV01" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.SenderReceiverHelperMCCIMT000300UV01" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.UniqueIdHelper" linecount="10" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistribution" linecount="3" linerate="-0.7999999999999999" linesexecuted="-2.4"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistributionSecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistribution" linecount="4" linerate="-0.39999999999999997" linesexecuted="-1.5999999999999999"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistributionSecured" linecount="6" linerate="0.13333333333333333" linesexecuted="0.8"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq" linecount="4" linerate="0.75" linesexecuted="0.03"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.response.NhinDocRetrieveDeferredResp" linecount="4" linerate="0.75" linesexecuted="0.03"/>
