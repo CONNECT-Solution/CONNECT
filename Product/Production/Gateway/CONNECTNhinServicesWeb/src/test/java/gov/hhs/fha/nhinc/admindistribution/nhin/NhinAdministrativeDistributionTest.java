@@ -52,7 +52,7 @@ public class NhinAdministrativeDistributionTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final EDXLDistribution body = new EDXLDistribution();
-        final NhinAdminDistImpl mockImpl = context.mock(NhinAdminDistImpl.class);
+        final NhinAdminDistOrchImpl mockImpl = context.mock(NhinAdminDistOrchImpl.class);
         final AssertionType assertion = new AssertionType();
 
         body.setSenderID("test");
@@ -64,7 +64,7 @@ public class NhinAdministrativeDistributionTest {
             {
                 return  assertion;
             }
-            protected NhinAdminDistImpl getNhinImpl()
+            protected NhinAdminDistOrchImpl getNhinImpl()
             {
                 return mockImpl;
             }
