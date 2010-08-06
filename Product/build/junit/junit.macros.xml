@@ -47,7 +47,6 @@
           <do/>
         </sequential>
       </outofdate>
-      <echo file="${unittest.report.dir}/test.flag" append="false"/>
     </sequential>
   </macrodef>
 
@@ -73,7 +72,7 @@
       <property name="cp" refid="@{classpathrefid}"/>
 
       <var unset="true" name="unittest.failure"/>
-      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once" >
+      <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once" maxmemory="512m">
         <sysproperty key="basedir" value="${junit.basedir}" />
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
 
@@ -90,7 +89,8 @@
       <if>
         <isset property="unittest.failure"/>
         <then>
-          <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/unit-test-reports/unittest.check.failure"/>
+          <mkdir dir="${root.project.directory.path}/@{testtype}-test-reports"/>
+          <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/@{testtype}-test-reports/unittest.check.failure"/>
           <echo file="${reportdir}/test.flag" append="false" message="failed"/>
           <if>
             <isfalse value="@{genreport}" />
