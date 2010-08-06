@@ -9,9 +9,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docretrievedeferred.DocRetrieveDeferredAuditLogger;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqObjectFactory;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.request.NhinDocRetrieveDeferredReqProxy;
+import gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqObjectFactory;
+import gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.request.NhincProxyDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
@@ -57,7 +61,7 @@ public class EntityDocRetrieveDeferredReqImpl {
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
         log.debug("Begin EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
-        DocRetrieveAcknowledgementType nhinResponse = null;
+        DocRetrieveAcknowledgementType nhincResponse = null;
         String homeCommunityId = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         try {
@@ -71,51 +75,58 @@ public class EntityDocRetrieveDeferredReqImpl {
                 nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
                 nhinDocRequest.getDocumentRequest().add(docRequest);
                 nhinDocRetrieveMsg.setNhinTargetSystem(buildHomeCommunity(docRequest.getHomeCommunityId()));
-                if (isPolicyValid(nhinDocRequest, assertion, nhinDocRetrieveMsg.getNhinTargetSystem().getHomeCommunity())) {
-                    // Call NHIN proxy
-                    auditLog.auditDocRetrieveDeferredRequest(message, assertion);
-                    log.debug("Creating NHIN doc retrieve proxy");
-                    NhinDocRetrieveDeferredReqObjectFactory objFactory = new NhinDocRetrieveDeferredReqObjectFactory();
-                    NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getDocumentDeferredRequestProxy();
-//                    gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType requestMsg = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-//                    requestMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
-                    log.debug("Calling doc retrieve proxy");
-                    nhinResponse = docRetrieveProxy.sendToRespondingGateway(nhinDocRetrieveMsg, assertion);
-                } else
-                {
-                    nhinResponse = buildRegistryErrorAck(homeCommunityId, "Policy Check Failed on Doc retrieve deferred request for community ");
+                CMUrlInfos urlInfoList = getEndpoints(target);
+                NhinTargetSystemType oTargetSystem = null;
+                //loop through the communities and send request if results were not null
+                if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
+                    log.warn("No targets were found for the Document retrieve deferred service Request");
+                } else {
+                    nhincResponse = new DocRetrieveAcknowledgementType();
+                    for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                        if (isPolicyValid(nhinDocRequest, assertion, urlInfo.getHcid())) {
+                            // Call NHIN proxy
+                            oTargetSystem = new NhinTargetSystemType();
+                            oTargetSystem.setUrl(urlInfo.getUrl());
+                            log.debug("Creating NHIN doc retrieve proxy");
+                            NhincProxyDocRetrieveDeferredReqObjectFactory objFactory = new NhincProxyDocRetrieveDeferredReqObjectFactory();
+                            NhincProxyDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
+                            log.debug("Calling doc retrieve proxy");
+                            nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion, oTargetSystem);
+                        } else {
+                            nhincResponse = buildRegistryErrorAck(homeCommunityId, "Policy Check Failed on Doc retrieve deferred request for community ");
+                        }
+                    }
                 }
             }
         } catch (Throwable t) {
             log.error("Error sending doc retrieve deferred message...");
-            nhinResponse = buildRegistryErrorAck(homeCommunityId, "Fault encountered processing internal document retrieve deferred for community ");
+            nhincResponse = buildRegistryErrorAck(homeCommunityId, "Fault encountered processing internal document retrieve deferred for community ");
             log.error("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
         }
-        if (null != nhinResponse) {
+        if (null != nhincResponse) {
             // Audit log - response
-            auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, homeCommunityId);
+            auditLog.auditDocRetrieveDeferredAckResponse(nhincResponse.getMessage(), assertion, homeCommunityId);
         }
         log.debug("End EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
-        return nhinResponse;
+        return nhincResponse;
     }
 
     /**
      *
      * @return DocRetrieveAcknowledgementType
      */
-    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error)
-    {
+    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error) {
         DocRetrieveAcknowledgementType nhinResponse = new DocRetrieveAcknowledgementType();
         RegistryResponseType registryResponse = new RegistryResponseType();
-            nhinResponse.setMessage(registryResponse);
-            RegistryErrorList regErrList = new RegistryErrorList();
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext(error +" " + homeCommunityId);
-            regErr.setErrorCode("XDSRegistryNotAvailable");
-            regErr.setSeverity("Error");
-            registryResponse.setRegistryErrorList(regErrList);
-            registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        nhinResponse.setMessage(registryResponse);
+        RegistryErrorList regErrList = new RegistryErrorList();
+        RegistryError regErr = new RegistryError();
+        regErrList.getRegistryError().add(regErr);
+        regErr.setCodeContext(error + " " + homeCommunityId);
+        regErr.setErrorCode("XDSRegistryNotAvailable");
+        regErr.setSeverity("Error");
+        registryResponse.setRegistryErrorList(regErrList);
+        registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         return nhinResponse;
     }
 
@@ -138,7 +149,7 @@ public class EntityDocRetrieveDeferredReqImpl {
      * @param assertion
      * @return boolean
      */
-    private boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion, HomeCommunityType targetCommunity) {
+    private boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion, String hcId) {
         boolean isValid = false;
         DocRetrieveEventType checkPolicy = new DocRetrieveEventType();
         DocRetrieveMessageType checkPolicyMessage = new DocRetrieveMessageType();
@@ -147,7 +158,9 @@ public class EntityDocRetrieveDeferredReqImpl {
         checkPolicy.setMessage(checkPolicyMessage);
         checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-        checkPolicy.setReceivingHomeCommunity(targetCommunity);
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+        homeCommunity.setHomeCommunityId(hcId);
+        checkPolicy.setReceivingHomeCommunity(homeCommunity);
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyDocRetrieve(checkPolicy);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
@@ -160,4 +173,20 @@ public class EntityDocRetrieveDeferredReqImpl {
         return isValid;
     }
 
+    /**
+     * 
+     * @param targetCommunities
+     * @return CMUrlInfos
+     */
+    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
+        CMUrlInfos urlInfoList = null;
+
+        try {
+            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            log.error("Failed to obtain target URLs", ex);
+        }
+
+        return urlInfoList;
+    }
 }
