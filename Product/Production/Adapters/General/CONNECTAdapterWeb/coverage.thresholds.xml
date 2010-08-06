@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<thresholds>
+<thresholds> 
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscoverySecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscoverySecuredImpl" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterPatientDiscoveryAsyncReqSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
@@ -45,8 +45,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransform" linecount="37" linerate="0.16216216216216217" linesexecuted="0.06"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransformException" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="260" branchrate="0.10384615384615385" branchsexecuted="0.27" class="gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransformHelper" linecount="209" linerate="0.1674641148325359" linesexecuted="0.35"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistribution" linecount="3" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistributionSecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistribution" linecount="4" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistributionSecured" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditQueryImpl" linecount="22" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
