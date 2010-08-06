@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="RedactionTests-java" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="RedactionTests-java" resourceRoot="" soapui-version="3.5" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -11556,7 +11556,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:description/>
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Copy Spring Config and Restart GF" searchProperties="true" id="6fb70444-f456-4c4c-8fd8-5229900cbb12">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Copy Spring Config and Restart GF" searchProperties="true" id="6fb70444-f456-4c4c-8fd8-5229900cbb12" disabled="true">
       <con:settings/>
       <con:testStep type="groovy" name="Copy Spring Config File">
         <con:settings/>
@@ -19887,7 +19887,7 @@ sql.execute("delete from " + table + " where " + col + "='" + val + "'")
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Copy Spring Config back and Restart GF" searchProperties="true" id="e7759e2d-e427-4ee6-8ec7-4c44c901b373">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Copy Spring Config back and Restart GF" searchProperties="true" id="e7759e2d-e427-4ee6-8ec7-4c44c901b373" disabled="true">
       <con:settings/>
       <con:testStep type="groovy" name="Copy Spring Config File">
         <con:settings/>
