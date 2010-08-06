@@ -4,8 +4,8 @@
  */
 
 package gov.hhs.fha.nhinc.admindistribution.entity;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType ;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,6 +22,9 @@ import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+
 /**
  *
  * @author dunnek
@@ -48,7 +51,7 @@ public class EntityAdministrativeDistributionTest {
     @Test
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
-        final RespondingGatewaySendAlertMessageType body = null;
+        final RespondingGatewaySendAlertMessageType body = new RespondingGatewaySendAlertMessageType() ;
 
 
         final EntityAdminDistributionOrchImpl mockImpl = context.mock(EntityAdminDistributionOrchImpl.class);
@@ -68,10 +71,11 @@ public class EntityAdministrativeDistributionTest {
         context.checking(new Expectations() {
 
           {
-                allowing(mockImpl).sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+                allowing(mockImpl).sendAlertMessage(with(any(RespondingGatewaySendAlertMessageType.class)),with(any(AssertionType.class)),with(any(NhinTargetCommunitiesType.class)));
                 will(returnValue(null));
           }
         });
+        
 
         instance.sendAlertMessage(body);
         context.assertIsSatisfied();

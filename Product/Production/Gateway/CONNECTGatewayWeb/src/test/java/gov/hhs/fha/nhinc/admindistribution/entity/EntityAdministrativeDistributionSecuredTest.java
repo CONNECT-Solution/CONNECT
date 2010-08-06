@@ -71,7 +71,7 @@ public class EntityAdministrativeDistributionSecuredTest {
         context.checking(new Expectations() {
 
           {
-                allowing(mockImpl).sendAlertMessage(body, assertion, targets);
+                allowing(mockImpl).sendAlertMessage(with(any(RespondingGatewaySendAlertMessageSecuredType.class)),with(any(AssertionType.class)),with(any(NhinTargetCommunitiesType.class)));
                 will(returnValue(null));
           }
         });
