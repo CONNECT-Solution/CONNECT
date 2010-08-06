@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.entity.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
@@ -21,7 +22,7 @@ public class EntityDocRetrieveDeferredRespSecured {
 
     @Resource
     WebServiceContext context;
-    
+
     /**
      * Webservice operation for Entity Document Retrieve deferred Secured service
      * @param body
@@ -29,11 +30,14 @@ public class EntityDocRetrieveDeferredRespSecured {
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
         DocRetrieveAcknowledgementType ack = null;
-        if(null != body)
-        {
+        if (null != body) {
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
             NhinTargetCommunitiesType nhinTargetCommunities = body.getNhinTargetCommunities();
             AssertionType assertion = extractAssertionInfo();
+            if (null != assertion) {
+                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            }
             ack = sendToCrossGatewayRetrieveResponseImpl(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
         }
         return ack;
@@ -57,7 +61,4 @@ public class EntityDocRetrieveDeferredRespSecured {
     protected DocRetrieveAcknowledgementType sendToCrossGatewayRetrieveResponseImpl(RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetCommunitiesType nhinTargetCommunities) {
         return new EntityDocRetrieveDeferredRespImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetCommunities);
     }
-
-
-
 }

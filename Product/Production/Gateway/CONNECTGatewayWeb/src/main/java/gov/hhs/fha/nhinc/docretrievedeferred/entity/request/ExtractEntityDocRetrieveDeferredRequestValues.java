@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.entity.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
@@ -96,6 +97,9 @@ public class ExtractEntityDocRetrieveDeferredRequestValues {
         AssertionType assertion = null;
         if (context != null) {
             assertion = getSamlTokenExtractor(context);
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+            assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+        
         }
         return assertion;
     }

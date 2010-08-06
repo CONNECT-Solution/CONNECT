@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.nhinc.proxy.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
@@ -33,6 +34,10 @@ public class NhincProxyDocRetrieveDeferredRespSecured {
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
             NhinTargetSystemType nhinTargetSystem = body.getNhinTargetSystem();
             AssertionType assertion = extractAssertionInfo();
+            if (null != assertion) {
+                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            }
             ack = sendToNhincProxyImpl(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
         }
         return ack;

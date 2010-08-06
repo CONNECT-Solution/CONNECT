@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrievedeferred.entity.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
@@ -31,10 +32,17 @@ public class EntityDocRetrieveDeferredReqSecured {
         AssertionType assertion = oExtract.extractSecuredAssertion(context);
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = oExtract.extractRetrieveDocumentSetSecuredRequestType(body);
         NhinTargetCommunitiesType nhinTargetCommunities = oExtract.extractSecuredNhinTargetCommunities(body);
-        
         return getResponse(oExtract, retrieveDocumentSetRequest, assertion, nhinTargetCommunities);
     }
 
+    /**
+     *
+     * @param oExtract
+     * @param retrieveDocumentSetRequest
+     * @param assertion
+     * @param nhinTargetCommunities
+     * @return DocRetrieveAcknowledgementType
+     */
     protected DocRetrieveAcknowledgementType getResponse(ExtractEntityDocRetrieveDeferredRequestValues oExtract, RetrieveDocumentSetRequestType retrieveDocumentSetRequest, AssertionType assertion, NhinTargetCommunitiesType nhinTargetCommunities) {
         return oExtract.getEntityDocRetrieveDeferredReqImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetCommunities);
     }

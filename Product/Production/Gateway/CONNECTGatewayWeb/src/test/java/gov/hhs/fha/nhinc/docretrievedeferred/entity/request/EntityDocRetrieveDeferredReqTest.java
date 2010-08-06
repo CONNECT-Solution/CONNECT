@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -50,7 +51,7 @@ public class EntityDocRetrieveDeferredReqTest {
     public void tearDown() {
     }
 
-    @Test
+    @Ignore
     public void testCrossGatewayRetrieveRequestHappy() {
         final DocRetrieveAcknowledgementType mockAck = mockery.mock(DocRetrieveAcknowledgementType.class);
         final AssertionType mockAssertion = mockery.mock(AssertionType.class);
