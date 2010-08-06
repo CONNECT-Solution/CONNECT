@@ -3,7 +3,7 @@
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.nhin.AuditQuery" linecount="20" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.nhin.AuditQueryImpl" linecount="76" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.nhin.DocQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="12" branchrate="-0.26666666666666666" branchsexecuted="-3.2" class="gov.hhs.fha.nhinc.docquery.nhin.DocQueryImpl" linecount="74" linerate="-0.15135135135135133" linesexecuted="-11.2"/>
+<threshold branchcount="6" branchrate="-1.3333333333333333" branchsexecuted="-8" class="gov.hhs.fha.nhinc.docquery.nhin.DocQueryImpl" linecount="60" linerate="-0.3733333333333333" linesexecuted="-22.4"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieveImpl" linecount="113" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq" linecount="5" linerate="0.0" linesexecuted="0"/>

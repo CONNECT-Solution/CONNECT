@@ -1,30 +1,19 @@
 package gov.hhs.fha.nhinc.docquery.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -123,31 +112,7 @@ public class DocQueryImpl
      * @return Returns true if the security policy permits the query; false if denied.
      */
     private boolean checkPolicy(RespondingGatewayCrossGatewayQueryRequestType message) {
-        boolean policyIsValid = false;
-
-        //convert the request message to an object recognized by the policy engine
-        AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType();
-        request.setAssertion(message.getAssertion());
-        request.setAdhocQueryRequest(message.getAdhocQueryRequest());
-        policyCheckReq.setMessage(request);
-
-        //call the policy engine to check the permission on the request
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(policyCheckReq);
-        policyReq.setAssertion(message.getAssertion());
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
-
-        //check the policy engine's response, return true if response = permit
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
-        {
-            policyIsValid = true;
-        }
+        boolean policyIsValid = new DocQueryPolicyChecker().checkIncomingPolicy(message.getAdhocQueryRequest(), message.getAssertion());
 
         return policyIsValid;
     }

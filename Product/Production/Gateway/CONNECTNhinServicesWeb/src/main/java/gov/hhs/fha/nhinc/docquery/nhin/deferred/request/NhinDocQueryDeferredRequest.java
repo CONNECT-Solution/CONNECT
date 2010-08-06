@@ -33,7 +33,7 @@ public class NhinDocQueryDeferredRequest {
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
-        return new NhinDocQueryDeferredRequestImpl().respondingGatewayCrossGatewayQuery(body, assertion);
+        return new NhinDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);
     }
 
 }
