@@ -104,7 +104,8 @@ public class AdminDistributionTransformHelper {
         assertHelp.appendAssertionDataToRequest(request, message.getAssertion());
 
         request.setAction(ActionHelper.actionFactory(ActionOutValue));
-
+        result.setAssertion(message.getAssertion());
+        result.setRequest(request);
         return result;
 
     }
