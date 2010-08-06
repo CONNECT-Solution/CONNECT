@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.docquery.nhin.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -20,8 +21,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author jhoppesc
  */
-public class NhinDocQueryDeferredRequestImpl {
-    private static Log log = LogFactory.getLog(NhinDocQueryDeferredRequestImpl.class);
+public class NhinDocQueryDeferredRequestOrchImpl {
+    private static Log log = LogFactory.getLog(NhinDocQueryDeferredRequestOrchImpl.class);
 
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         String ackMsg = null;
@@ -37,6 +38,15 @@ public class NhinDocQueryDeferredRequestImpl {
             // Check if in Pass-Through Mode
             if (!(isInPassThroughMode())) {
 
+                // Perform the inbound policy check
+                if (isPolicyValid(msg, assertion)) {
+                    respAck = sendToAgency(msg, assertion);
+                }
+                else {
+                    ackMsg = "Policy Check Failed for incoming Document Query Deferred Request";
+                    log.error(ackMsg);
+                    respAck = sendToAgencyError(msg, assertion, ackMsg);
+                }
             }
             else {
                 // Send the deferred request to the Adapter Interface
@@ -75,6 +85,12 @@ public class NhinDocQueryDeferredRequestImpl {
             log.error(ex.getMessage());
         }
         return passThroughModeEnabled;
+    }
+
+    private boolean isPolicyValid (AdhocQueryRequest message, AssertionType assertion) {
+        boolean policyIsValid = new DocQueryPolicyChecker().checkIncomingPolicy(message, assertion);
+
+        return policyIsValid;
     }
 
     private DocQueryAcknowledgementType sendToAgencyError(AdhocQueryRequest request, AssertionType assertion, String errMsg) {

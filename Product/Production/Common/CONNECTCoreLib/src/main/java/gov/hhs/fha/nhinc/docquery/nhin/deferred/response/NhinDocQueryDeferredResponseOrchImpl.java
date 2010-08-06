@@ -20,8 +20,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author jhoppesc
  */
-public class NhinDocQueryDeferredResponseImpl {
-    private static Log log = LogFactory.getLog(NhinDocQueryDeferredResponseImpl.class);
+public class NhinDocQueryDeferredResponseOrchImpl {
+    private static Log log = LogFactory.getLog(NhinDocQueryDeferredResponseOrchImpl.class);
 
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
