@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.admindist.adapter;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -23,7 +23,10 @@ public class AdapterAdministrativeDistribution {
     private WebServiceContext context;
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) {
-        new AdapterAdminDistImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion());
+        getImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion());
     }
-
+    protected AdapterAdminDistOrchImpl getImpl()
+    {
+        return new AdapterAdminDistOrchImpl();
+    }
 }
