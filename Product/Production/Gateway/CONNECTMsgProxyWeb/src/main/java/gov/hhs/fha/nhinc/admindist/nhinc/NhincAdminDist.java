@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindist.nhinc;
 
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.annotation.Resource;
@@ -22,7 +22,10 @@ import javax.xml.ws.WebServiceContext;
 public class NhincAdminDist {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType body) {
-            new NhincAdminDistImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion(), body.getNhinTargetSystem());
+            getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion(), body.getNhinTargetSystem());
     }
-
+    public NhincAdminDistOrchImpl getNhincImpl()
+    {
+        return new NhincAdminDistOrchImpl();
+    }
 }

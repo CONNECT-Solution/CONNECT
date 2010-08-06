@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindist.nhinc;
 
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.annotation.Resource;
@@ -25,10 +25,14 @@ public class NhincAdminDistSecured {
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        new NhincAdminDistImpl().sendAlertMessage(body.getEDXLDistribution(),assertion, body.getNhinTargetSystem());
+        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),assertion, body.getNhinTargetSystem());
     }
     protected AssertionType extractAssertion(WebServiceContext context)
     {
         return SamlTokenExtractor.GetAssertion(context);
+    }
+    public NhincAdminDistOrchImpl getNhincImpl()
+    {
+        return new NhincAdminDistOrchImpl();
     }
 }
