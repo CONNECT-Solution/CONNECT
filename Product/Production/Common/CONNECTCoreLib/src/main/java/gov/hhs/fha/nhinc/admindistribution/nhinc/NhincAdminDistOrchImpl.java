@@ -19,10 +19,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  *
  * @author dunnek
  */
-public class NhincAdminDistImpl {
+public class NhincAdminDistOrchImpl {
    private Log log = null;
 
-    public NhincAdminDistImpl()
+    public NhincAdminDistOrchImpl()
     {
         log = createLogger();
     }

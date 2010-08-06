@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
 /**
  *
  * @author dunnek
@@ -31,8 +31,8 @@ public class NhincAdminDistJavaImpl implements NhincAdminDistProxy{
         this.getNhincAdminDistImpl().sendAlertMessage(body, assertion, target);
 
     }
-    protected NhincAdminDistImpl getNhincAdminDistImpl()
+    protected NhincAdminDistOrchImpl getNhincAdminDistImpl()
     {
-        return new NhincAdminDistImpl();
+        return new NhincAdminDistOrchImpl();
     }
 }

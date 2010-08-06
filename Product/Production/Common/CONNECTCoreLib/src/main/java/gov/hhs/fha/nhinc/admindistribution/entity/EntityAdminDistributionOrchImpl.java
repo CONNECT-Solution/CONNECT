@@ -28,10 +28,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
  *
  * @author dunnek
  */
-public class EntityAdminDistributionImpl {
+public class EntityAdminDistributionOrchImpl {
     private Log log = null;
 
-    public EntityAdminDistributionImpl()
+    public EntityAdminDistributionOrchImpl()
     {
         log = createLogger();
     }

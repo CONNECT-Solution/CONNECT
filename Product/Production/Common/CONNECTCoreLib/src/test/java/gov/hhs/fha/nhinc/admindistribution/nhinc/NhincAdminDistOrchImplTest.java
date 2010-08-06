@@ -28,10 +28,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
  *
  * @author dunnek
  */
-public class NhincAdminDistImplTest {
+public class NhincAdminDistOrchImplTest {
 
     private Mockery context;
-    public NhincAdminDistImplTest() {
+    public NhincAdminDistOrchImplTest() {
     }
 
     @Before
@@ -57,7 +57,7 @@ public class NhincAdminDistImplTest {
         final NhinTargetSystemType target = null;
         Exception unsupported = null;
 
-        NhincAdminDistImpl instance = new NhincAdminDistImpl()
+        NhincAdminDistOrchImpl instance = new NhincAdminDistOrchImpl()
         {
 
             @Override

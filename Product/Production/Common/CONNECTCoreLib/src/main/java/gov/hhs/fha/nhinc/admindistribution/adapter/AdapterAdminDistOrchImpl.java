@@ -12,10 +12,10 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author dunnek
  */
-public class AdapterAdminDistImpl {
+public class AdapterAdminDistOrchImpl {
     private Log log = null;
 
-    public AdapterAdminDistImpl()
+    public AdapterAdminDistOrchImpl()
     {
         log = createLogger();
     }

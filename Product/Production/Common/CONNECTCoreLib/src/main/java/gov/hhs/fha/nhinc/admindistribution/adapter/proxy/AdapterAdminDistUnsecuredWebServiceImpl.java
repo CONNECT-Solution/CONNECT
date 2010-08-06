@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistribution;

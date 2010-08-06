@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
@@ -30,8 +30,8 @@ public class AdapterAdminDistJavaImpl implements AdapterAdminDistProxy{
         log.debug("Begin sendAlertMessage");
         getAdapterImplementation().sendAlertMessage(body, assertion);
     }
-    protected AdapterAdminDistImpl getAdapterImplementation()
+    protected AdapterAdminDistOrchImpl getAdapterImplementation()
     {
-        return new gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistImpl();
+        return new gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl();
     }
 }

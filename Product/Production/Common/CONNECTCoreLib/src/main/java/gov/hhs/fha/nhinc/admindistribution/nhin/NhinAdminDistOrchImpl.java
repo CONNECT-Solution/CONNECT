@@ -29,10 +29,10 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
  *
  * @author dunnek
  */
-public class NhinAdminDistImpl {
+public class NhinAdminDistOrchImpl {
     private Log log = null;
 
-    public NhinAdminDistImpl()
+    public NhinAdminDistOrchImpl()
     {
         log = createLogger();
     }

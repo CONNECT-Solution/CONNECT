@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistImpl;
+import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
@@ -48,7 +48,7 @@ public class NhincAdminDistJavaImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        final NhincAdminDistImpl mockImpl = context.mock(NhincAdminDistImpl.class);
+        final NhincAdminDistOrchImpl mockImpl = context.mock(NhincAdminDistOrchImpl.class);
         final EDXLDistribution body = null;
         final AssertionType assertion = null;
         final NhinTargetSystemType target = null;
@@ -61,7 +61,7 @@ public class NhincAdminDistJavaImplTest {
                 return mockLogger;
             }
             @Override
-            protected NhincAdminDistImpl getNhincAdminDistImpl()
+            protected NhincAdminDistOrchImpl getNhincAdminDistImpl()
             {
                 return mockImpl;
             }
