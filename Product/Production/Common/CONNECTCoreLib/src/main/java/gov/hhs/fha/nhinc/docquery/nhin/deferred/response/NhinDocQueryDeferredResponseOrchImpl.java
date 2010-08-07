@@ -27,8 +27,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
 
         // Audit the incoming NHIN Message
-        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         // Check if the service is enabled
         if (isServiceEnabled()) {
@@ -76,7 +75,24 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
     private DocQueryAcknowledgementType sendToAgency(AdhocQueryResponse request, AssertionType assertion) {
         log.debug("Sending Response to Adapter Interface");
+
+        // Audit the Adapter Response Message
+        AcknowledgementType ack = auditResponse(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         return new DocQueryAcknowledgementType();
+    }
+
+    private AcknowledgementType auditResponse (AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface) {
+        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
+        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface);
+
+        return ack;
+    }
+
+    private AcknowledgementType auditAck (DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface) {
+        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
+        AcknowledgementType ack = new AcknowledgementType(); //= auditLogger.auditDQResponse(msg, assertion, direction, _interface);
+
+        return ack;
     }
 
 }
