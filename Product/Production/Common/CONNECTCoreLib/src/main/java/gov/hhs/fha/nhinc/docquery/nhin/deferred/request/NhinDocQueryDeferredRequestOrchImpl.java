@@ -9,6 +9,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
+import gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -107,7 +109,12 @@ public class NhinDocQueryDeferredRequestOrchImpl {
         // Audit the Adapter Request
         AcknowledgementType ack = auditRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
-        return new DocQueryAcknowledgementType();
+        AdapterDocQueryDeferredRequestProxyObjectFactory factory = new AdapterDocQueryDeferredRequestProxyObjectFactory();
+        AdapterDocQueryDeferredRequestProxy proxy = factory.getAdapterDocQueryDeferredRequestProxy();
+
+        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
+
+        return ackResp;
     }
 
     private AcknowledgementType auditRequest (AdhocQueryRequest msg, AssertionType assertion, String direction, String _interface) {

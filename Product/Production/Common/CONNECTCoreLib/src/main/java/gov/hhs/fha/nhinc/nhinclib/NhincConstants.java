@@ -202,6 +202,15 @@ public class NhincConstants {
     public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "serviceDocumentQueryDeferredResp";
     public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredRespPassthrough";
 
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterDocQueryDeferredRequest";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterDocQueryDeferredRequestSecured";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adapterDocQueryDeferredResponse";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "adapterDocQueryDeferredResponseSecured";
+    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterComponentDocQueryDeferredRequest";
+    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterComponentDocQueryDeferredRequestSecured";
+    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adapterComponentDocQueryDeferredResponse";
+    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "adapterComponentDocQueryDeferredResponseSecured";
+
     //Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
     public static final String ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME = "adapterdocretrievesecured";
