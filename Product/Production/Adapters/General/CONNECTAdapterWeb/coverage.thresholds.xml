@@ -162,4 +162,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.PersonNameParser$nameorder" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="94" branchrate="0.5" branchsexecuted="0.47" class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201305" linecount="137" linerate="0.7737226277372263" linesexecuted="1.06"/>
 <threshold branchcount="122" branchrate="0.36065573770491804" branchsexecuted="0.44" class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201306" linecount="298" linerate="0.8322147651006712" linesexecuted="2.48"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestSecured" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseSecured" linecount="6" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
 </thresholds>

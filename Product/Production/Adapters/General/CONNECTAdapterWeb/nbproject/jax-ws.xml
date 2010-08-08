@@ -1489,6 +1489,102 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterDocQueryDeferredRequestUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQueryDeferredRequest.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQueryDeferredRequest</service-name>
+      <port-name>AdapterDocQueryDeferredRequestPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquerydeferredrequest</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterDocQueryDeferredRequestSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestSecured.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQueryDeferredRequestSecured.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQueryDeferredRequestSecured</service-name>
+      <port-name>AdapterDocQueryDeferredRequestSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterDocQueryDeferredResponseUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQueryDeferredResponse.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQueryDeferredResponse</service-name>
+      <port-name>AdapterDocQueryDeferredResponsePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquerydeferredresponse</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterDocQueryDeferredResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredResponseSecured.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQueryDeferredResponseSecured.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQueryDeferredResponseSecured</service-name>
+      <port-name>AdapterDocQueryDeferredResponseSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquerydeferredresponsesecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients>
     <client name="EntityAuditLogQuerySecured">
