@@ -10,6 +10,7 @@
     xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
     xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
     xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription"
+    xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
     targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
     elementFormDefault="qualified">
 
@@ -20,6 +21,7 @@
 	<xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../../ihe/auditmessage.xsd"/>
 	<xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription" schemaLocation="../common/Subscription.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
 	<!-- ====================================================================
          Document Query Schemas.
          ==================================================================== -->
@@ -197,4 +199,21 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
+	
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+		 <xsd:element ref="edxlde:EDXLDistribution"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
+
+	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="edxlde:EDXLDistribution"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>		 
+		</xsd:sequence>
+	</xsd:complexType>	
+	<xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
 </xsd:schema>

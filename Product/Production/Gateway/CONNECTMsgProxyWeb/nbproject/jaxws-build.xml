@@ -14,44 +14,6 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-service-NhincProxyDocRetrieveDeferredReq" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReq/wsdl/NhincProxyDocumentRetrieveDeferredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReq/wsdl/NhincProxyDocumentRetrieveDeferredRequest.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredReq">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReq/wsdl/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredReq" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievedeferred"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq"/>
-    </target>
-    <target name="wsimport-service-NhincProxyDocRetrieveDeferredReqSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReqSecured/wsdl/NhincProxyDocumentRetrieveDeferredRequestSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReqSecured/wsdl/NhincProxyDocumentRetrieveDeferredRequestSecured.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredReqSecured">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReqSecured/wsdl/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredReqSecured" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievedeferredsecured"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured"/>
-    </target>
     <target name="wsimport-service-NhincProxyPatientDiscoverySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscoverySecured/wsdl/NhincProxyPatientDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -204,44 +166,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxyauditlogquerysecured"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy"/>
     </target>
-    <target name="wsimport-service-NhincProxyDocRetrieveDeferredResp" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredResp/wsdl/NhincProxyDocumentRetrieveDeferredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredResp/wsdl/NhincProxyDocumentRetrieveDeferredResponse.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredResp">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredResp/wsdl/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredResp" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrieve"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp"/>
-    </target>
-    <target name="wsimport-service-NhincProxyDocRetrieveDeferredRespSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredRespSecured/wsdl/NhincProxyDocumentRetrieveDeferredResponseSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredRespSecured/wsdl/NhincProxyDocumentRetrieveDeferredResponseSecured.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredRespSecured">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredRespSecured/wsdl/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredRespSecured" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievesecured"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured"/>
-    </target>
     <target name="wsimport-service-NhincAdminDistSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincAdminDistSecured"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincAdminDistSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincAdminDistSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincAdminDistSecured/wsdl/NhincAdminDistSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -280,5 +204,81 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincadmindistribution"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyAdminDist"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyDocRetrieveDeferredReq, wsimport-service-NhincProxyDocRetrieveDeferredReqSecured, wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncReq, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncResp, wsimport-service-NhincSubjectDiscoverySecured, wsimport-service-NhincProxyXDRSecured, wsimport-service-NhincProxyXDRRequestSecured, wsimport-service-NhincProxyXDRResponseSecured, wsimport-service-NhincAuditQueryProxy, wsimport-service-NhincProxyDocRetrieveDeferredResp, wsimport-service-NhincProxyDocRetrieveDeferredRespSecured, wsimport-service-NhincAdminDistSecured, wsimport-service-NhincProxyAdminDist"/>
+    <target name="wsimport-service-NhincProxyDocRetrieveDeferredReq" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReq/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReq/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredReq">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReq/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredReq" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievedeferredrequest"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReq"/>
+    </target>
+    <target name="wsimport-service-NhincProxyDocRetrieveDeferredReqSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReqSecured/wsdl/NhincProxyDocRetrieveDeferredReqSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReqSecured/wsdl/NhincProxyDocRetrieveDeferredReqSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredReqSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredReqSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredReqSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievedeferredsecuredrequest"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredReqSecured"/>
+    </target>
+    <target name="wsimport-service-NhincProxyDocRetrieveDeferredResp" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredResp/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredResp/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredResp">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredResp/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredResp" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrieveresponse"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredResp"/>
+    </target>
+    <target name="wsimport-service-NhincProxyDocRetrieveDeferredRespSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredRespSecured/wsdl/NhincProxyDocRetrieveDeferredRespSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredRespSecured/wsdl/NhincProxyDocRetrieveDeferredRespSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveDeferredRespSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveDeferredRespSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocRetrieveDeferredRespSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrievesecuredresponse"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveDeferredRespSecured"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncReq, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncResp, wsimport-service-NhincSubjectDiscoverySecured, wsimport-service-NhincProxyXDRSecured, wsimport-service-NhincProxyXDRRequestSecured, wsimport-service-NhincProxyXDRResponseSecured, wsimport-service-NhincAuditQueryProxy, wsimport-service-NhincAdminDistSecured, wsimport-service-NhincProxyAdminDist, wsimport-service-NhincProxyDocRetrieveDeferredReq, wsimport-service-NhincProxyDocRetrieveDeferredReqSecured, wsimport-service-NhincProxyDocRetrieveDeferredResp, wsimport-service-NhincProxyDocRetrieveDeferredRespSecured"/>
 </project>

@@ -4,9 +4,7 @@
  */
 package gov.hhs.fha.nhinc.docretrievedeferred.entity.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

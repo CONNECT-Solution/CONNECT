@@ -361,7 +361,7 @@ public class NhincConstants {
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "entitydocretrievedeferredresponse";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "entitydocretrievedeferredresponsesecured";
     public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "nhincproxydocretrievedeferredresponse";
-    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "nhincproxydocretrieveresponsesecured";
+    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "nhincproxydocretrievedeferredresponsesecured";
     public static final String NHIN_DOCRETRIEVE_DEFERRED_REQUEST = "nhindocretrievedeferredrequest";
     public static final String NHIN_DOCRETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
     public static final String DOCRETRIEVEDEFERRED_REQUEST_ACTION = "docretrievedeferredrequest";

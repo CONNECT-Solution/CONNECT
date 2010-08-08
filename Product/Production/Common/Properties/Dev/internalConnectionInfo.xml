@@ -156,14 +156,14 @@
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
-				<name>nhincproxydocretrieveresponsesecured</name>
+				<name>nhincproxydocretrievedeferredresponsesecured</name>
 				<description>Nhinc proxy Doc Retrieve Deferred Response Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponseSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxydocretrievedeferredresponse</name>
 				<description>Nhinc proxy Doc Retrieve Deferred Response</description>
-				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
 			</service>
 			<service>
 				<name>entitydocretrievedeferredrequest</name>
@@ -480,9 +480,6 @@
 				<description>NHINC ProxyAudit Query Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
 			</service>
-
-
-
 			<service>
 				<name>nhincproxysubjectdiscovery</name>
 				<description>NHINC Proxy Subject Discovery</description>
@@ -1348,14 +1345,14 @@
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
-				<name>nhincproxydocretrieveresponsesecured</name>
+				<name>nhincproxydocretrievedeferredresponsesecured</name>
 				<description>Nhinc proxy Doc Retrieve Deferred Response Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponseSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxydocretrievedeferredresponse</name>
 				<description>Nhinc proxy Doc Retrieve Deferred Response</description>
-				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
 			</service>
 			<service>
 				<name>entitydocretrievedeferredrequest</name>
@@ -1969,14 +1966,14 @@
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
-				<name>nhincproxydocretrieveresponsesecured</name>
+				<name>nhincproxydocretrievedeferredresponsesecured</name>
 				<description>Nhinc proxy Doc Retrieve Deferred Response Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponseSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxydocretrievedeferredresponse</name>
 				<description>Nhinc proxy Doc Retrieve Deferred Response</description>
-				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
 			</service>
 			<service>
 				<name>entitydocretrievedeferredrequest</name>

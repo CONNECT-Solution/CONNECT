@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.entity.proxy.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request.EntityDocRetrieveDeferredReqNoOpImpl;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.junit.After;
 import org.junit.AfterClass;
