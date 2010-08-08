@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.admindistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -98,5 +99,25 @@ public class AdminDistributionHelper {
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
+    }
+
+    public boolean isInPassThroughMode()
+    {
+        return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
+    }
+    public boolean isServiceEnabled()
+    {
+        return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_ENABLED);
+    }
+    public boolean readBooleanGatewayProperty(String propertyName)
+    {
+        boolean result = false;
+        try {
+            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + propertyName + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+        return result;
     }
 }
