@@ -86,6 +86,35 @@ public class WebServiceProxyHelper
     }
 
     /**
+     * This is a helper class for unit testing purposes only.  It allows me to
+     * mock out the connection manager call in the unit test.
+     *
+     * @param sHomeCommunityId The home community Id for the target system.
+     * @param sServiceName The name of the service to locate.
+     * @return The endpoint URL.
+     * @throws Exception An exception if one occurs.
+     */
+    protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+            throws ConnectionManagerException
+    {
+        return ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, sServiceName);
+    }
+
+    /**
+     * This is a helper class for unit testing purposes only.  It allows me to
+     * mock out the connection manager call in the unit test.  This
+     *
+     * @param sServiceName The name of the service to locate.
+     * @return The endpoint URL.
+     * @throws Exception An exception if one occurs.
+     */
+    protected String getLocalEndPointFromConnectionManager(String sServiceName)
+            throws ConnectionManagerException
+    {
+        return ConnectionManagerCache.getLocalEndpointURLByServiceName(sServiceName);
+    }
+
+    /**
      * This method retrieves the URl from the ConnectionMananager for the
      * given TargetSystem.
      *
@@ -127,6 +156,69 @@ public class WebServiceProxyHelper
 
         return sURL;
     }
+
+    /**
+     * This method retrieves the URl from the ConnectionMananager for the
+     * given home community ID.
+     *
+     * @param sHomeCommunityId The home community id needed to retrieve the endpoint URL.
+     * @param sServiceName The name of the service for which the endpoint URL is desired.
+     * @return The URL retrieved from the connection manager.
+     */
+    public String getUrlFromHomeCommunity(String sHomeCommunityId, String sServiceName)
+            throws IllegalArgumentException, ConnectionManagerException, Exception
+    {
+        String sURL = "";
+
+        if (NullChecker.isNotNullish(sHomeCommunityId))
+        {
+            try
+            {
+                log.info("Home Comm ID:" + sHomeCommunityId);
+                sURL = getEndPointFromConnectionManager(sHomeCommunityId, sServiceName);
+            }
+            catch (ConnectionManagerException e)
+            {
+                log.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(), e);
+                throw (e);
+            }
+        }
+        else
+        {
+            String sErrorMessage = "Home community passed into the WebServiceProxyHelper is null or empty";
+            log.error(sErrorMessage);
+            throw new IllegalArgumentException(sErrorMessage);
+        }
+
+        return sURL;
+    }
+
+    /**
+     * This method retrieves the URl from the ConnectionMananager for the
+     * given home community ID.
+     *
+     * @param sHomeCommunity The home community id needed to retrieve the endpoint URL.
+     * @param sServiceName The name of the service for which the endpoint URL is desired.
+     * @return The URL retrieved from the connection manager.
+     */
+    public String getUrlLocalHomeCommunity(String sServiceName)
+            throws IllegalArgumentException, ConnectionManagerException, Exception
+    {
+        String sURL = "";
+
+        try
+        {
+            sURL = getLocalEndPointFromConnectionManager(sServiceName);
+        }
+        catch (ConnectionManagerException e)
+        {
+            log.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(), e);
+            throw (e);
+        }
+
+        return sURL;
+    }
+
 
     /**
      * This method returns the given property from the gateway properties file.
@@ -375,19 +467,61 @@ public class WebServiceProxyHelper
 
     /**
      * This method initializes the port and sets various values that are required
-     * for processing - like timeout, URL, etc.
+     * for processing - like timeout, URL, etc.  This should not be used in any new code
+     * it was only placed here as a stop gap during refactor for old code.  After
+     * the refactor this should not be used at all.
      *
      * @param port The port to be initialized.
      * @param url The URL to be assigned to the port.
+     * @deprecated
      */
     public void initializePort(BindingProvider port, String url)
     {
-        initializePort(port, url, null, null, null);
+        initializePort(false, port, url, null, null, null);
+    }
+
+    /**
+     * This method initializes the port for an unsecure interface call
+     * and sets various values that are required for processing - like timeout,
+     * URL, etc.
+     *
+     * @param port The port to be initialized.
+     * @param url The URL of the web service to be assigned to the port.
+     * @param wsAddressingAction The WS-Addressing action associated with this
+     *        web service call.  If this is null, the construction of the
+     *        WS-Address header will depend on wsdl policy statements.
+     * @param assertion The assertion information.
+     */
+    public void initializeUnsecurePort(BindingProvider port, String url, String wsAddressingAction, AssertionType assertion)
+    {
+        initializePort(false, port, url, null, wsAddressingAction, assertion);
+    }
+
+    /**
+     * This method initializes the port for an secure interface call
+     * and sets various values that are required for processing - like timeout,
+     * URL, etc.
+     *
+     * @param port The port to be initialized.
+     * @param url The URL of the web service to be assigned to the port.
+     * @param serviceAction The action for the web service.
+     * @param wsAddressingAction The WS-Addressing action associated with this
+     *        web service call.  If this is null, the construction of the
+     *        WS-Address header will depend on wsdl policy statements.
+     * @param assertion The assertion information.
+     */
+    public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion)
+    {
+        initializePort(false, port, url, serviceAction, wsAddressingAction, assertion);
     }
 
     /**
      * This method initializes the port and sets various values that are required
      * for processing - like timeout, URL, etc.
+     *
+     * The use of this form should be deprecated.  It is here for backward compatibility only.
+     * Use the secure or unsecure version explicitly.
      *
      * @param port The port to be initialized.
      * @param url The URL to be assigned to the port.
@@ -408,13 +542,40 @@ public class WebServiceProxyHelper
      * @param port The port to be initialized.
      * @param url The URL of the web service to be assigned to the port.
      * @param serviceAction The action for the web service.
+     * @param wsAddressingAction The WS-Addressing action associated with this
+     *        web service call.  If this is null, the construction of the
+     *        WS-Address header will depend on wsdl policy statements.
+     * @param assertion The assertion information containing the SAML assertion
+     *        to be assigned to the message.
+     * @deprecated
+     */
+    public void initializePort(BindingProvider port, String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion)
+    {
+        boolean bIsSecure = true;
+        if (assertion == null)
+        {
+            bIsSecure = false;
+        }
+
+        initializePort(bIsSecure, port, url, serviceAction, wsAddressingAction, assertion);
+    }
+
+    /**
+     * This method initializes the port and sets various values that are required
+     * for processing - like timeout, URL, etc.
+     *
+     * @param isSecure If TRUE set this up as a secure call.
+     * @param port The port to be initialized.
+     * @param url The URL of the web service to be assigned to the port.
+     * @param serviceAction The action for the web service.
      * @param wsAddressingAction The WS-Addressing action associated with this 
      *        web service call.  If this is null, the construction of the
      *        WS-Address header will depend on wsdl policy statements.
      * @param assertion The assertion information containing the SAML assertion
      *        to be assigned to the message.
      */
-    public void initializePort(BindingProvider port, String url, String serviceAction,
+    private void initializePort(boolean isSecure, BindingProvider port, String url, String serviceAction,
             String wsAddressingAction, AssertionType assertion)
     {
         log.info("begin initializePort");
@@ -425,6 +586,14 @@ public class WebServiceProxyHelper
         if (NullChecker.isNullish(url))
         {
             throw new RuntimeException("Unable to initialize port (url null)");
+        }
+        if ((isSecure) && (assertion == null))
+        {
+            throw new RuntimeException("Unable to initialize secure port (assertion null)");
+        }
+        if ((isSecure) && (NullChecker.isNullish(serviceAction)))
+        {
+            throw new RuntimeException("Unable to initialize secure port (serviceAction null)");
         }
 
         Map requestContext = getRequestContextFromPort(port);
@@ -457,7 +626,7 @@ public class WebServiceProxyHelper
 
         // If we have been passed the assertion information, then create the SAML information for this...
         //------------------------------------------------------------------------------------------------
-        if ((assertion != null) && (NullChecker.isNotNullish(serviceAction)))
+        if (isSecure)
         {
             SamlTokenCreator oTokenCreator = getSamlTokenCreator();
             Map samlMap = createSamlRequestContext(oTokenCreator, assertion, url, serviceAction);

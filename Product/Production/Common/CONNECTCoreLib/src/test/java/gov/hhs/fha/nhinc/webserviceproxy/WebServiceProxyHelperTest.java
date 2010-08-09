@@ -791,9 +791,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).warn(with(any(String.class)));
-                    exactly(4).of(mockLog).info(with(any(String.class)));
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -846,6 +844,10 @@ public class WebServiceProxyHelperTest
             assertTrue("RequestContext Failed to have key: com.sun.xml.ws.request.timeout", oMap.containsKey("com.sun.xml.ws.request.timeout"));
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.request.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.request.timeout")).intValue());
         }
+        catch (RuntimeException e)
+        {
+            assertTrue("Incorrect exception: ", e.getMessage().contains("Unable to initialize secure port (serviceAction null)"));
+        }
         catch (Throwable t)
         {
             System.out.println("Error running testInitializePortWithAssertionEmptyServiceAction test: " + t.getMessage());
@@ -867,9 +869,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(1).of(mockLog).warn(with(any(String.class)));
-                    exactly(4).of(mockLog).info(with(any(String.class)));
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -921,6 +921,10 @@ public class WebServiceProxyHelperTest
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.connect.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.connect.timeout")).intValue());
             assertTrue("RequestContext Failed to have key: com.sun.xml.ws.request.timeout", oMap.containsKey("com.sun.xml.ws.request.timeout"));
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.request.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.request.timeout")).intValue());
+        }
+        catch (RuntimeException e)
+        {
+            assertTrue("Incorrect exception: ", e.getMessage().contains("Unable to initialize secure port (serviceAction null)"));
         }
         catch (Throwable t)
         {
@@ -1977,6 +1981,262 @@ public class WebServiceProxyHelperTest
             fail("Error running testGetUrlFromTargetSystemConnectionManagerException test: " + t.getMessage());
         }
     }
+
+    /**
+     * Test the getUrlFromHomeCommunity method happy path.
+     */
+    @Test
+    public void testGetUrlFromHomeCommunity()
+    {
+        try
+        {
+            context.checking(new Expectations()
+            {
+
+
+                {
+                    exactly(1).of(mockLog).info(with(any(String.class)));
+                }
+            });
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
+            {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+                {
+                    return "http://www.theurl.com";
+                }
+            };
+            String sHomeCommunityId = "1.1";
+            String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
+        }
+        catch (Throwable t)
+        {
+            System.out.println("Error running testGetUrlFromHomeCommunity test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlFromHomeCommunity test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test the getUrlFromHomeCommunity method null homeCommunityId.
+     */
+    @Test
+    public void testGetUrlFromHomeCommunityNullId()
+    {
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockLog).error(with(any(String.class)));
+                }
+            });
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
+            {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+                {
+                    return "http://www.theurl.com";
+                }
+            };
+            String sHomeCommunityId = null;
+            String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue("Invalid exception message: ", e.getMessage().contains("Home community passed into the WebServiceProxyHelper is null or empty"));
+        }
+        catch (Throwable t)
+        {
+            System.out.println("Error running testGetUrlFromHomeCommunityNullId test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlFromHomeCommunityNullId test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test the getUrlFromHomeCommunity method empty homeCommunityId.
+     */
+    @Test
+    public void testGetUrlFromHomeCommunityEmptyId()
+    {
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockLog).error(with(any(String.class)));
+                }
+            });
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
+            {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+                {
+                    return "http://www.theurl.com";
+                }
+            };
+            String sHomeCommunityId = "";
+            String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue("Invalid exception message: ", e.getMessage().contains("Home community passed into the WebServiceProxyHelper is null or empty"));
+        }
+        catch (Throwable t)
+        {
+            System.out.println("Error running testGetUrlFromHomeCommunityEmptyId test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlFromHomeCommunityEmptyId test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test the getUrlFromHomeCommunity method ConnectionManagerException.
+     */
+    @Test
+    public void testGetUrlFromHomeCommunityConnectionManagerException()
+    {
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockLog).info(with(any(String.class)));
+                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
+                }
+            });
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
+            {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+                    throws ConnectionManagerException
+                {
+                    throw new ConnectionManagerException("Call failed.");
+                }
+            };
+            String sHomeCommunityId = "1.1";
+            String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        }
+        catch (ConnectionManagerException e)
+        {
+            assertTrue("Invalid exception message: ", e.getMessage().contains("Call failed."));
+        }
+        catch (Throwable t)
+        {
+            System.out.println("Error running testGetUrlFromHomeCommunityConnectionManagerException test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlFromHomeCommunityConnectionManagerException test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test the getUrlLocalHomeCommunity method happy path.
+     */
+    @Test
+    public void testGetUrlLocalHomeCommunity()
+    {
+        try
+        {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
+            {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getLocalEndPointFromConnectionManager(String sServiceName)
+                {
+                    return "http://www.theurl.com";
+                }
+            };
+            String sURL = oHelper.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
+            assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
+        }
+        catch (Throwable t)
+        {
+            System.out.println("Error running testGetUrlLocalHomeCommunity test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlLocalHomeCommunity test: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Test the getUrlLocalHomeCommunity method ConnectionManagerException.
+     */
+    @Test
+    public void testGetUrlLocalHomeCommunityConnectionManagerException()
+    {
+        try
+        {
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
+                }
+            });
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
+            {
+
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getLocalEndPointFromConnectionManager(String sServiceName)
+                    throws ConnectionManagerException
+                {
+                    throw new ConnectionManagerException("Call failed.");
+                }
+            };
+            String sURL = oHelper.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
+        }
+        catch (ConnectionManagerException e)
+        {
+            assertTrue("Invalid exception message: ", e.getMessage().contains("Call failed."));
+        }
+        catch (Throwable t)
+        {
+            System.out.println("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: " + t.getMessage());
+        }
+    }
+
 
     /**
      * Tests the getMessageId method - Happy Path

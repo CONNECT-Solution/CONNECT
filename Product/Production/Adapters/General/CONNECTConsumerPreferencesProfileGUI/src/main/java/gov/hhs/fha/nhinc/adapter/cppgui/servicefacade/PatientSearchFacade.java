@@ -4,8 +4,10 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.servicefacade;
 
+import gov.hhs.fha.nhinc.adapter.cppgui.AssertionCreator;
 import gov.hhs.fha.nhinc.adapter.cppgui.PatientSearchCriteria;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
@@ -42,7 +44,9 @@ public class PatientSearchFacade {
 
         AdapterComponentMpiProxy mpiProxy = getAdapterComponentMpiProxy();
 
-        PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchRequest);
+        AssertionCreator oAssertCreator = new AssertionCreator();
+        AssertionType oAssertion = oAssertCreator.createAssertion();
+        PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchRequest, oAssertion);
 
         Patients mpiPatients = convertPRPAIN201306UVToPatients(patients);
 

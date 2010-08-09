@@ -450,7 +450,9 @@ public class Page2 extends AbstractPageBean {
 
                 AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
                 AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
-                PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchPat);
+                AssertionCreator assertionCreator = new AssertionCreator();
+                AssertionType oAssertion = assertionCreator.createAssertion();
+                PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchPat, oAssertion);
 
                 List<PRPAMT201310UV02Patient> mpiPatResultList = new ArrayList<PRPAMT201310UV02Patient>();
                 if (patients != null && patients.getControlActProcess() != null && patients.getControlActProcess().getSubject() != null) {

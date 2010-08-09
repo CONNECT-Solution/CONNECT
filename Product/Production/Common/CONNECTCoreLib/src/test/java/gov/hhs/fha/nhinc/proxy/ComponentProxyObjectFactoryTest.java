@@ -100,82 +100,6 @@ public class ComponentProxyObjectFactoryTest
     }
 
     @Test
-    public void testGetConfigLastModified()
-    {
-        try
-        {
-            ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
-            {
-
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-
-                @Override
-                protected long getConfigLastModified()
-                {
-                    return 5L;
-                }
-
-                @Override
-                protected String getConfigFileName()
-                {
-                    return "";
-                }
-
-            };
-            long lastModified = sut.getConfigLastModified();
-            assertEquals("Config last modified not equal", 5L, lastModified);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetConfigLastModified test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetConfigLastModified test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetConfigLastModified()
-    {
-        try
-        {
-            ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
-            {
-
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-
-                @Override
-                protected void setConfigLastModifed(long lastModified)
-                {
-                }
-
-                @Override
-                protected String getConfigFileName()
-                {
-                    return "";
-                }
-
-            };
-            sut.setConfigLastModifed(2L);
-            // Success if completes
-            assertTrue(true);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetConfigLastModified test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetConfigLastModified test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testCreateApplicationContext()
     {
         try
@@ -327,91 +251,18 @@ public class ComponentProxyObjectFactoryTest
     }
 
     @Test
-    public void testGetApplicaitonContext()
-    {
-        try
-        {
-            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-
-            ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
-            {
-
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-
-                @Override
-                protected ApplicationContext getApplicationContext()
-                {
-                    return mockContext;
-                }
-
-                @Override
-                protected String getConfigFileName()
-                {
-                    return "";
-                }
-
-            };
-            assertNotNull("ApplicationContext from getApplicaitonContext", sut.getApplicationContext());
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetApplicaitonContext test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetApplicaitonContext test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetApplicationContext()
-    {
-        try
-        {
-            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-
-            ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
-            {
-
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-
-                @Override
-                protected void setApplicationContext(ApplicationContext appContext)
-                {
-                }
-
-                @Override
-                protected String getConfigFileName()
-                {
-                    return "";
-                }
-
-            };
-            sut.setApplicationContext(mockContext);
-            // Success if completes
-            assertTrue(true);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetContextHappy test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetContextHappy test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetContextHappy()
     {
         try
         {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
 
+            context.checking(new Expectations()
+            {
+                {
+                    oneOf(mockLog).debug("ApplicationContext for: TestFile.xml was null - creating.");
+                }
+            });
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
             {
 
@@ -419,18 +270,6 @@ public class ComponentProxyObjectFactoryTest
                 protected Log createLogger()
                 {
                     return mockLog;
-                }
-
-                @Override
-                protected ApplicationContext getApplicationContext()
-                {
-                    return mockContext;
-                }
-
-                @Override
-                protected long getConfigLastModified()
-                {
-                    return 5L;
                 }
 
                 @Override
@@ -442,22 +281,23 @@ public class ComponentProxyObjectFactoryTest
                 @Override
                 protected String getPropertyFileURL()
                 {
-                    return "";
+                    return "/test/";
                 }
 
                 @Override
                 protected String getConfigFileName()
                 {
-                    return "";
+                    return "TestFile";
                 }
 
-            };
-            context.checking(new Expectations()
-            {
+                @Override
+                protected ApplicationContext createApplicationContext(String configFilePath)
                 {
-                    oneOf(mockLog).debug("ApplicationContext was not null.");
+                    return mockContext;
                 }
-            });
+
+
+            };
             assertNotNull("ApplicationContext from getContext", sut.getContext());
         }
         catch(Throwable t)
@@ -477,7 +317,6 @@ public class ComponentProxyObjectFactoryTest
 
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
             {
-
                 @Override
                 protected Log createLogger()
                 {
@@ -485,20 +324,8 @@ public class ComponentProxyObjectFactoryTest
                 }
 
                 @Override
-                protected ApplicationContext getApplicationContext()
-                {
-                    return mockContext;
-                }
-
-                @Override
                 protected void refreshConfigurationContext(ApplicationContext appContext)
                 {
-                }
-
-                @Override
-                protected long getConfigLastModified()
-                {
-                    return 5L;
                 }
 
                 @Override
@@ -510,60 +337,13 @@ public class ComponentProxyObjectFactoryTest
                 @Override
                 protected String getPropertyFileURL()
                 {
-                    return "";
+                    return "/test/";
                 }
 
                 @Override
                 protected String getConfigFileName()
                 {
-                    return "";
-                }
-
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).debug("ApplicationContext was not null.");
-                    oneOf(mockLog).debug("Refreshing the Spring application context.");
-                }
-            });
-            assertNotNull("ApplicationContext from getContext", sut.getContext());
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetContextRefresh test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetContextRefresh test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testGetContextCreate()
-    {
-        try
-        {
-            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-
-            ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory()
-            {
-                private ApplicationContext localContext = null;
-
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-
-                @Override
-                protected ApplicationContext getApplicationContext()
-                {
-                    return localContext;
-                }
-
-                @Override
-                protected void setApplicationContext(ApplicationContext appContext)
-                {
-                     localContext = appContext;
+                    return "TestFile";
                 }
 
                 @Override
@@ -573,42 +353,30 @@ public class ComponentProxyObjectFactoryTest
                 }
 
                 @Override
-                protected long getLastModified(String filePath)
+                protected LocalApplicationContextInfo getAppContextInfo(String sKey)
                 {
-                    return 6L;
+                    LocalApplicationContextInfo oInfo = new LocalApplicationContextInfo();
+                    oInfo.setApplicationContext(mockContext);
+                    oInfo.setConfigLastModified(5L);
+                    return oInfo;
                 }
 
-                @Override
-                protected void setConfigLastModifed(long lastModified)
-                {
-                }
-
-                @Override
-                protected String getPropertyFileURL()
-                {
-                    return "";
-                }
-
-                @Override
-                protected String getConfigFileName()
-                {
-                    return "";
-                }
 
             };
             context.checking(new Expectations()
             {
                 {
-                    oneOf(mockLog).debug("ApplicationContext was null - creating.");
+                    oneOf(mockLog).debug("ApplicationContext for: TestFile.xml was not null - checking to see if it is stale.");
+                    oneOf(mockLog).debug("Refreshing the Spring application context for: TestFile.xml");
                 }
             });
             assertNotNull("ApplicationContext from getContext", sut.getContext());
         }
         catch(Throwable t)
         {
-            System.out.println("Error running testGetContextCreate test: " + t.getMessage());
+            System.out.println("Error running testGetContextRefresh test: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testGetContextCreate test: " + t.getMessage());
+            fail("Error running testGetContextRefresh test: " + t.getMessage());
         }
     }
 

@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -33,29 +27,29 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Jon Hoppesch
  */
-public class AdapterComponentMpiProxyObjectFactory {
-
+public class AdapterComponentMpiProxyObjectFactory extends ComponentProxyObjectFactory
+{
     private static final String CONFIG_FILE_NAME = "AdapterComponentMpiProxyConfig.xml";
     private static final String BEAN_NAME_MPI = "mpi";
-    private static ApplicationContext context = null;
 
-
-    static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+    /**
+     * Returns the name of the config file.
+     *
+     * @return The name of the config file.
+     */
+    protected String getConfigFileName()
+    {
+        return CONFIG_FILE_NAME;
     }
 
     /**
-     * Retrieve an audit repository implementation using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "mpi."
+     * Return an instance of the AdapterComponentMpiProxy class.
      *
-     * @return AdapterMpiProxy instance
+     * @return An instance of the AdapterComponentMpiProxy class.
      */
-    public AdapterComponentMpiProxy getAdapterComponentMpiProxy() {
-        AdapterComponentMpiProxy mpi = null;
-        if (context != null) {
-            mpi = (AdapterComponentMpiProxy) context.getBean(BEAN_NAME_MPI);
-        }
-        return mpi;
+    public AdapterComponentMpiProxy getAdapterComponentMpiProxy()
+    {
+        return getBean(BEAN_NAME_MPI, AdapterComponentMpiProxy.class);
     }
+
 }

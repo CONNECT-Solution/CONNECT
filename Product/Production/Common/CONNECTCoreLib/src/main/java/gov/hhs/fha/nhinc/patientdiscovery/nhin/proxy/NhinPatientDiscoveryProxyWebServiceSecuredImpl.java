@@ -29,7 +29,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     private static final String PORT_LOCAL_PART = "RespondingGateway_Port_Soap";
     private static final String WSDL_FILE = "NhinPatientDiscovery.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery";
-    private static Log log = null;
+    private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**

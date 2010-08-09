@@ -3,12 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterMpiProxyNoOpImpll"/> -->
+    <!-- <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterMpiProxyNoOpImpl"/> -->
 	
 	<!-- Web-service MPI implementation Unsecured -->
-  <!--   <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceUnsecured"/> -->
+  <!--   <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceUnsecuredImpl"/> -->
   
   <!-- Web-service MPI implementation Secured -->
   
-    <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceSecured"/> 
+    <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceSecuredImpl"/> 
 </beans>

@@ -1,12 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
