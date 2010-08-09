@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredRespImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredRespOrchImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -21,6 +21,6 @@ public class EntityDocRetrieveDeferredRespJavaImpl implements EntityDocRetrieveD
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
-        return new EntityDocRetrieveDeferredRespImpl().crossGatewayRetrieveResponse(response, assertion, target);
+        return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(response, assertion, target);
     }
 }

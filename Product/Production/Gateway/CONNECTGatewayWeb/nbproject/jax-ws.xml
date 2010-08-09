@@ -1057,54 +1057,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="EntityDocRetrieveDeferredReq">
-      <implementation-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReq</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl</wsdl-url>
-      <local-wsdl-file>EntityDocumentRetrieveDeferredRequest.wsdl</local-wsdl-file>
-      <service-name>EntityDocRetrieveDeferredRequest</service-name>
-      <port-name>EntityDocRetrieveDeferredRequestPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.entitydocretrieve</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="EntityDocRetrieveDeferredReqSecured">
-      <implementation-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.request.EntityDocRetrieveDeferredReqSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequestSecured.wsdl</wsdl-url>
-      <local-wsdl-file>EntityDocumentRetrieveDeferredRequestSecured.wsdl</local-wsdl-file>
-      <service-name>EntityDocRetrieveDeferredRequestSecured</service-name>
-      <port-name>EntityDocRetrieveDeferredRequestSecuredPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.entitydocretrievesecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="EntityDocQueryDeferredReq">
       <implementation-class>gov.hhs.fha.nhinc.docquerydeferred.entity.request.EntityDocQueryDeferredReq</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl</wsdl-url>
@@ -1153,10 +1105,58 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityDocRetrieveDeferredReq">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReq</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReq.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocRetrieveDeferredReq.wsdl</local-wsdl-file>
+      <service-name>EntityDocRetrieveDeferredRequest</service-name>
+      <port-name>EntityDocRetrieveDeferredRequestPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocretrieve</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocRetrieveDeferredReqSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReqSecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocRetrieveDeferredReqSecured.wsdl</local-wsdl-file>
+      <service-name>EntityDocRetrieveDeferredRequestSecured</service-name>
+      <port-name>EntityDocRetrieveDeferredRequestSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocretrievesecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
     <service name="EntityDocRetrieveDeferredResp">
-      <implementation-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.response.EntityDocRetrieveDeferredResp</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredResponse.wsdl</wsdl-url>
-      <local-wsdl-file>EntityDocumentRetrieveDeferredResponse.wsdl</local-wsdl-file>
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredResp</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredResp.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocRetrieveDeferredResp.wsdl</local-wsdl-file>
       <service-name>EntityDocRetrieveDeferredResponse</service-name>
       <port-name>EntityDocRetrieveDeferredResponsePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitydocretrieve</package-name>
@@ -1178,9 +1178,9 @@
       </wsimport-options>
     </service>
     <service name="EntityDocRetrieveDeferredRespSecured">
-      <implementation-class>gov.hhs.fha.nhinc.docretrievedeferred.entity.response.EntityDocRetrieveDeferredRespSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredResponseSecured.wsdl</wsdl-url>
-      <local-wsdl-file>EntityDocumentRetrieveDeferredResponseSecured.wsdl</local-wsdl-file>
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredRespSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredRespSecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocRetrieveDeferredRespSecured.wsdl</local-wsdl-file>
       <service-name>EntityDocRetrieveDeferredResponseSecured</service-name>
       <port-name>EntityDocRetrieveDeferredResponseSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitydocretrievesecured</package-name>

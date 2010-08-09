@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docretrievedeferred.entity.proxy.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request.EntityDocRetrieveDeferredReqJavaImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -51,7 +51,7 @@ public class EntityDocRetrieveDeferredReqJavaImplTest {
     public void testCrossGatewayRetrieveRequestHappy()
     {
         final DocRetrieveAcknowledgementType mockAck = mockery.mock(DocRetrieveAcknowledgementType.class);
-        final EntityDocRetrieveDeferredReqImpl mockImpl = mockery.mock(EntityDocRetrieveDeferredReqImpl.class);
+        final EntityDocRetrieveDeferredReqOrchImpl mockImpl = mockery.mock(EntityDocRetrieveDeferredReqOrchImpl.class);
         EntityDocRetrieveDeferredReqJavaImpl testSubject = new EntityDocRetrieveDeferredReqJavaImpl()
         {
             @Override
@@ -77,7 +77,7 @@ public class EntityDocRetrieveDeferredReqJavaImplTest {
     @Test
     public void testCrossGatewayRetrieveRequestBad()
     {
-        final EntityDocRetrieveDeferredReqImpl mockImpl = mockery.mock(EntityDocRetrieveDeferredReqImpl.class);
+        final EntityDocRetrieveDeferredReqOrchImpl mockImpl = mockery.mock(EntityDocRetrieveDeferredReqOrchImpl.class);
         EntityDocRetrieveDeferredReqJavaImpl testSubject = new EntityDocRetrieveDeferredReqJavaImpl()
         {
             @Override

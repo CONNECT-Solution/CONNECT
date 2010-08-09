@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqOrchImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
@@ -20,15 +20,15 @@ public class EntityDocRetrieveDeferredReqJavaImpl implements EntityDocRetrieveDe
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
-        return getEntityDocRetrieveDeferredReqImpl().crossGatewayRetrieveRequest(message, assertion, target);
+        return getEntityDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(message, assertion, target);
     }
 
     /**
      * 
      * @return EntityDocRetrieveDeferredReqImpl
      */
-    protected EntityDocRetrieveDeferredReqImpl getEntityDocRetrieveDeferredReqImpl()
+    protected EntityDocRetrieveDeferredReqOrchImpl getEntityDocRetrieveDeferredReqOrchImpl()
     {
-        return new EntityDocRetrieveDeferredReqImpl();
+        return new EntityDocRetrieveDeferredReqOrchImpl();
     }
 }

@@ -1,15 +1,19 @@
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
 import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespProxy;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -20,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredRespImpl {
+public class EntityDocRetrieveDeferredRespOrchImpl {
 
     private Log log = null;
     private boolean debugEnabled = false;
@@ -28,7 +32,7 @@ public class EntityDocRetrieveDeferredRespImpl {
     /**
      * default constructor
      */
-    public EntityDocRetrieveDeferredRespImpl() {
+    public EntityDocRetrieveDeferredRespOrchImpl() {
         log = createLogger();
         debugEnabled = false;
     }
@@ -42,6 +46,64 @@ public class EntityDocRetrieveDeferredRespImpl {
     }
 
     /**
+     * 
+     * @param crossGatewayRetrieveResponse
+     * @param context
+     * @return DocRetrieveAcknowledgementType
+     */
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
+        if (debugEnabled) {
+            log.debug("-- Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse(..Unsecured..) --");
+        }
+        DocRetrieveAcknowledgementType ack = null;
+        if (null != crossGatewayRetrieveResponse) {
+            RetrieveDocumentSetResponseType response = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
+            AssertionType assertion = crossGatewayRetrieveResponse.getAssertion();
+            if (null != assertion) {
+                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            }
+            NhinTargetCommunitiesType target = crossGatewayRetrieveResponse.getNhinTargetCommunities();
+            ack = this.crossGatewayRetrieveResponse(response, assertion, target);
+        } else {
+            ack = buildRegistryErrorAck(" ", "Error processing Entity Response due to null response");
+        }
+        if (debugEnabled) {
+            log.debug("-- End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse(..Unsecured..) --");
+        }
+        return ack;
+    }
+
+    /**
+     * 
+     * @param body
+     * @param context
+     * @return DocRetrieveAcknowledgementType
+     */
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
+        if (debugEnabled) {
+            log.debug("-- Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse(..secured..) --");
+        }
+        DocRetrieveAcknowledgementType ack = null;
+        if (null != body) {
+            RetrieveDocumentSetResponseType response = body.getRetrieveDocumentSetResponse();
+            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+            if (null != assertion) {
+                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            }
+            NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
+            ack = this.crossGatewayRetrieveResponse(response, assertion, target);
+        } else {
+            ack = buildRegistryErrorAck(" ", "Error processing Entity Response due to null response");
+        }
+        if (debugEnabled) {
+            log.debug("-- End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse(..secured..) --");
+        }
+        return ack;
+    }
+
+    /**
      * Document Retrieve Deferred Response implementation method
      * @param response
      * @param assertion
@@ -50,7 +112,7 @@ public class EntityDocRetrieveDeferredRespImpl {
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
         if (debugEnabled) {
-            log.debug("Begin EntityDocRetrieveDeferredRespImpl.crossGatewayRetrieveResponse");
+            log.debug("Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
         }
         DocRetrieveAcknowledgementType nhinResponse = null;
         String homeCommunityId = null;
@@ -61,8 +123,8 @@ public class EntityDocRetrieveDeferredRespImpl {
                 DocRetrieveDeferredPolicyChecker policyCheck = new DocRetrieveDeferredPolicyChecker();
                 homeCommunityId = getHomeCommFromTarget(target);
                 if (debugEnabled) {
-                        log.debug("Calling Policy Engine");
-                    }
+                    log.debug("Calling Policy Engine");
+                }
                 if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
                     RespondingGatewayCrossGatewayRetrieveSecuredResponseType req = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
                     req.setRetrieveDocumentSetResponse(response);
@@ -86,7 +148,7 @@ public class EntityDocRetrieveDeferredRespImpl {
             auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, homeCommunityId);
         }
         if (debugEnabled) {
-            log.debug("End EntityDocRetrieveDeferredRespImpl.crossGatewayRetrieveResponse");
+            log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
         }
         return nhinResponse;
     }
@@ -95,22 +157,21 @@ public class EntityDocRetrieveDeferredRespImpl {
      *
      * @return DocRetrieveAcknowledgementType
      */
-    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error)
-    {
+    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error) {
         DocRetrieveAcknowledgementType nhinResponse = new DocRetrieveAcknowledgementType();
         RegistryResponseType registryResponse = new RegistryResponseType();
-            nhinResponse.setMessage(registryResponse);
-            RegistryErrorList regErrList = new RegistryErrorList();
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext(error +" " + homeCommunityId);
-            regErr.setErrorCode("XDSRegistryNotAvailable");
-            regErr.setSeverity("Error");
-            registryResponse.setRegistryErrorList(regErrList);
-            registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        nhinResponse.setMessage(registryResponse);
+        RegistryErrorList regErrList = new RegistryErrorList();
+        RegistryError regErr = new RegistryError();
+        regErrList.getRegistryError().add(regErr);
+        regErr.setCodeContext(error + " " + homeCommunityId);
+        regErr.setErrorCode("XDSRegistryNotAvailable");
+        regErr.setSeverity("Error");
+        registryResponse.setRegistryErrorList(regErrList);
+        registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         return nhinResponse;
     }
-    
+
     /**
      *
      * @param target

@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -20,9 +21,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -33,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  * Implementation class for Entity Document Retrieve Deferred request message
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredReqImpl {
+public class EntityDocRetrieveDeferredReqOrchImpl {
 
     private Log log = null;
     private boolean debugEnabled = false;
@@ -41,7 +44,7 @@ public class EntityDocRetrieveDeferredReqImpl {
     /**
      * Constructor
      */
-    public EntityDocRetrieveDeferredReqImpl() {
+    public EntityDocRetrieveDeferredReqOrchImpl() {
         log = createLogger();
         debugEnabled = log.isDebugEnabled();
     }
@@ -55,12 +58,72 @@ public class EntityDocRetrieveDeferredReqImpl {
     }
 
     /**
+     * 
+     * @param body
+     * @param context
+     * @return DocRetrieveAcknowledgementType
+     */
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
+        if (debugEnabled) {
+            log.debug("-- Begin EntityDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(..Secured..) --");
+        }
+        DocRetrieveAcknowledgementType ack = null;
+        if (null != body) {
+            RetrieveDocumentSetRequestType message = body.getRetrieveDocumentSetRequest();
+            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+            if (null != assertion) {
+                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            }
+            NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
+            ack = crossGatewayRetrieveRequest(message, assertion, target);
+        } else {
+            ack = buildRegistryErrorAck(" ", "Entity Request was null unable to process");
+        }
+        if (debugEnabled) {
+            log.debug("-- End EntityDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(..Secured..) --");
+        }
+        return ack;
+    }
+
+    /**
+     * 
+     * @param crossGatewayRetrieveRequest
+     * @param context
+     * @return DocRetrieveAcknowledgementType
+     */
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
+        if (debugEnabled) {
+            log.debug("-- Begin EntityDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(..UnSecured..) --");
+        }
+        DocRetrieveAcknowledgementType ack = null;
+        if (null != crossGatewayRetrieveRequest) {
+            RetrieveDocumentSetRequestType message = crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
+            AssertionType assertion = crossGatewayRetrieveRequest.getAssertion();
+            if (null != assertion) {
+                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            }
+            NhinTargetCommunitiesType target = crossGatewayRetrieveRequest.getNhinTargetCommunities();
+            ack = crossGatewayRetrieveRequest(message, assertion, target);
+        } else {
+            ack = buildRegistryErrorAck(" ", "Entity Request was null unable to process");
+        }
+        if (debugEnabled) {
+            log.debug("-- End EntityDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(..UnSecured..) --");
+        }
+        return ack;
+    }
+
+    /**
      * Entity Implementation method
      * @param crossGatewayRetrieveRequest
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
-        log.debug("Begin EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
+        if (debugEnabled) {
+            log.debug("Begin EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
+        }
         DocRetrieveAcknowledgementType nhincResponse = null;
         String homeCommunityId = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
@@ -107,7 +170,9 @@ public class EntityDocRetrieveDeferredReqImpl {
             // Audit log - response
             auditLog.auditDocRetrieveDeferredAckResponse(nhincResponse.getMessage(), assertion, homeCommunityId);
         }
-        log.debug("End EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
+        if (debugEnabled) {
+            log.debug("End EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
+        }
         return nhincResponse;
     }
 

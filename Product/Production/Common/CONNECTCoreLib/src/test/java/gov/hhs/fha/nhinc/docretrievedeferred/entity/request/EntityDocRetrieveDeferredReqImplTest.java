@@ -4,7 +4,7 @@
  */
 package gov.hhs.fha.nhinc.docretrievedeferred.entity.request;
 
-import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqOrchImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,7 +39,7 @@ public class EntityDocRetrieveDeferredReqImplTest {
 
     @Test
     public void testCrossGatewayRetrieveRequest() {
-        EntityDocRetrieveDeferredReqImpl testSubject = new EntityDocRetrieveDeferredReqImpl();
+        EntityDocRetrieveDeferredReqOrchImpl testSubject = new EntityDocRetrieveDeferredReqOrchImpl();
         assertNull(testSubject.crossGatewayRetrieveRequest(null, null, null));
     }
 }
