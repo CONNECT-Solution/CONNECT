@@ -55,6 +55,8 @@ public class EntityAdminDistributionOrchImpl {
                 log.warn("No targets were found for the Admin Distribution Request");
 
             }
+            else
+            {
 
                 for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
                     //create a new request to send out to each target community
@@ -72,6 +74,7 @@ public class EntityAdminDistributionOrchImpl {
                         log.error("The policy engine evaluated the request and denied the request.");
                     } //else policy enging did not return a permit response
                 }
+            }
         }
         else
         {
@@ -118,6 +121,10 @@ public class EntityAdminDistributionOrchImpl {
         // Audit the XDR Request Message sent on the Nhin Interface
         AcknowledgementType ack = new AdminDistributionAuditLogger().auditEntityAdminDist(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
+        if (ack != null)
+        {
+            log.debug("ack: " + ack.getMessage());
+        }
         log.debug("End logEntityAdminDist()");
     }
 

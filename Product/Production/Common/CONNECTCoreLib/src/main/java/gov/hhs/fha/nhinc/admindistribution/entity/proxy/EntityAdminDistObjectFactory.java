@@ -18,7 +18,7 @@ public class EntityAdminDistObjectFactory {
     private static ApplicationContext context = null;
 
     static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+        context = initializeContext();
     }
     /**
      * Retrieve an adapter audit query implementation using the IOC framework.
@@ -29,9 +29,14 @@ public class EntityAdminDistObjectFactory {
      */
     public EntityAdminDistProxy getAdapterAuditQueryProxy() {
         EntityAdminDistProxy result = null;
-        if (context != null) {
-            result = (EntityAdminDistProxy) context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
-        }
+
+        
+        result = (EntityAdminDistProxy) context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
+
         return result;
+    }
+    private static ApplicationContext initializeContext()
+    {
+        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 }

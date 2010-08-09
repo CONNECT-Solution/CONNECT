@@ -44,10 +44,8 @@ public class NhinAdminDistObjectFactory {
         
         NhinAdminDistProxy result = null;
 
-        if (context != null) {
-            log.debug("Getting bean");
-            result = (NhinAdminDistProxy) context.getBean(BEAN_NAME_NHIN_ADMIN_DIST);
-        }
+        log.debug("Getting bean");
+        result = (NhinAdminDistProxy) context.getBean(BEAN_NAME_NHIN_ADMIN_DIST);
 
         return result;
     }

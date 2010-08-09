@@ -43,12 +43,9 @@ public class AdapterAdminDistObjectFactory {
         log.debug("Begin getAdapterAdminDistProxy()");
 
         AdapterAdminDistProxy result = null;
-
-        if (context != null) {
-            log.debug("Getting bean");
-            result = (AdapterAdminDistProxy) context.getBean(BEAN_NAME_ADAPTER_ADMIN_DIST);
-        }
-
+        
+        log.debug("Getting bean");
+        result = (AdapterAdminDistProxy) context.getBean(BEAN_NAME_ADAPTER_ADMIN_DIST);
         return result;
     }
 }

@@ -45,11 +45,11 @@ public class AdminDistributionHelper {
     }
     public String getLocalCommunityId()
     {
-        PropertyAccessor props = new PropertyAccessor();
+
         String result = "";
         try
         {
-            result = props.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         }
         catch(Exception ex)
         {

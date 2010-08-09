@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistribution;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -70,10 +71,16 @@ public class AdapterAdminDistUnsecuredWebServiceImpl implements AdapterAdminDist
 
         return port;
     }
+    protected AdminDistributionHelper getHelper()
+    {
+        return new AdminDistributionHelper();
+    }
     protected String getUrl() {
         String url = null;
-        String target = getLocalCommunityId();
-        PropertyAccessor props = new PropertyAccessor();
+        AdminDistributionHelper helper = getHelper();
+
+
+        String target = helper.getLocalCommunityId();
 
         
         if (target != null) {

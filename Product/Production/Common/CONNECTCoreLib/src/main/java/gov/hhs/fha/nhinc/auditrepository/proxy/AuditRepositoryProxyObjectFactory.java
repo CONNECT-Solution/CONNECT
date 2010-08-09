@@ -41,7 +41,7 @@ public class AuditRepositoryProxyObjectFactory {
 
     static
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+        context = initializeContext();
     }
 
     /**
@@ -53,10 +53,14 @@ public class AuditRepositoryProxyObjectFactory {
      */
     public AuditRepositoryProxy getAuditRepositoryProxy() {
         AuditRepositoryProxy auditRepo = null;
-        if(context != null)
-        {
-            auditRepo = (AuditRepositoryProxy)context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
-        }
+        
+        auditRepo = (AuditRepositoryProxy)context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
+        
+
         return auditRepo;
+    }
+    private static ApplicationContext initializeContext()
+    {
+        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 }

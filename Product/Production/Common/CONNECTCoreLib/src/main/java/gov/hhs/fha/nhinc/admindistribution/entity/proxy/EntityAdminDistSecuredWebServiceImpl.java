@@ -76,21 +76,7 @@ public class EntityAdminDistSecuredWebServiceImpl {
 
         return url;
     }
-    private String getLocalCommunityId()
-    {
-        PropertyAccessor props = new PropertyAccessor();
-        String result = "";
-        try
-        {
-            result = props.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        }
-        catch(Exception ex)
-        {
-            log.error("Unable to retrieve local home community id from Gateway.properties");
-            log.error(ex);
-        }
-        return result;
-    }
+
     protected AdminDistributionHelper getHelper()
     {
         return new AdminDistributionHelper();

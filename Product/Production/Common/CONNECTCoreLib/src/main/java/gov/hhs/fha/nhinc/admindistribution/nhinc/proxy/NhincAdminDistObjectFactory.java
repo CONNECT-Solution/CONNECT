@@ -29,9 +29,8 @@ public class NhincAdminDistObjectFactory {
      */
     public NhincAdminDistProxy getNhincAdminDistProxy() {
         NhincAdminDistProxy result = null;
-        if (context != null) {
-            result = (NhincAdminDistProxy) context.getBean(BEAN_NAME);
-        }
+
+        result = (NhincAdminDistProxy) context.getBean(BEAN_NAME);
         return result;
     }
 }
