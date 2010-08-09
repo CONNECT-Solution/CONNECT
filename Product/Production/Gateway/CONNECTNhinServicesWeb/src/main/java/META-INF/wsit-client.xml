@@ -9,6 +9,9 @@
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>
     <import location="AdapterDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerysecured"/>
+    <import location="AdapterDocQueryDeferredRequestErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured"/>
+    <import location="AdapterDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured"/>
+    <import location="AdapterDocQueryDeferredRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured"/>
     <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
     <import location="AdapterPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>
