@@ -82,7 +82,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         AcknowledgementType ack = auditResponse(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         AdapterDocQueryDeferredResponseProxyObjectFactory factory = new AdapterDocQueryDeferredResponseProxyObjectFactory();
-        AdapterDocQueryDeferredResponseProxy proxy = factory.getAdapterDocQueryDeferredRequestProxy();
+        AdapterDocQueryDeferredResponseProxy proxy = factory.getAdapterDocQueryDeferredResponseProxy();
 
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
 

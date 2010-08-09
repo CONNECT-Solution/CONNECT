@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy;
+package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -14,11 +14,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
- * @author JHOPPESC
+ * @author jhoppesc
  */
-public class AdapterDocQueryDeferredRequestProxyNoOpImpl implements AdapterDocQueryDeferredRequestProxy {
+public class AdapterDocQueryDeferredRequestErrorProxyNoOpImpl implements AdapterDocQueryDeferredRequestErrorProxy {
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets, String errMsg) {
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG);

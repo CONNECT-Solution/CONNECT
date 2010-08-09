@@ -202,14 +202,17 @@ public class NhincConstants {
     public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "serviceDocumentQueryDeferredResp";
     public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredRespPassthrough";
 
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterDocQueryDeferredRequest";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterDocQueryDeferredRequestSecured";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adapterDocQueryDeferredResponse";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "adapterDocQueryDeferredResponseSecured";
-    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterComponentDocQueryDeferredRequest";
-    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterComponentDocQueryDeferredRequestSecured";
-    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adapterComponentDocQueryDeferredResponse";
-    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "adapterComponentDocQueryDeferredResponseSecured";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterdocquerydeferredrequest";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequestsecured";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adapterdocquerydeferredresponse";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "adapterdocquerydeferredresponsesecured";
+    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adaptercomponentdocquerydeferredrequest";
+    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adaptercomponentdocquerydeferredresponse";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME = "adapterdocquerydeferredrequesterror";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequesterrorsecured";
+
+    public static final String DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
+    public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
 
     //Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
@@ -298,7 +301,7 @@ public class NhincConstants {
     public static final String NHINC_XDR_RESPONSE_SERVICE_NAME = "xdrresponse";
     public static final String ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterxdrsecuredasyncreqerror";
     public static final String ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME = "adaptercomponentxdrresponse";
-    public static final String XDR_ACK_STATUS_MSG = "urn:nhin:DocumentSubmission:async:ResponseAccepted";
+    public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     //Administrative Distribution Constants
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "nhinadmindist";
     public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";

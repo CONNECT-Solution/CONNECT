@@ -5,11 +5,11 @@
 
 package gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy;
 
-import gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured.AdapterDocQueryDeferredRequestSecuredPortType;
 import gov.hhs.fha.nhinc.adapterdocquerydeferredresponsesecured.AdapterDocQueryDeferredResponseSecuredPortType;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -88,7 +88,7 @@ public class AdapterDocQueryDeferredResponseProxyWebServiceSecuredImpl implement
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryDeferredResponseSecuredPortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
         {
@@ -146,9 +146,8 @@ public class AdapterDocQueryDeferredResponseProxyWebServiceSecuredImpl implement
             }
             else
             {
-                RespondingGatewayCrossGatewayQueryResponseType request = new RespondingGatewayCrossGatewayQueryResponseType();
+                RespondingGatewayCrossGatewayQuerySecureResponseType request = new RespondingGatewayCrossGatewayQuerySecureResponseType();
                 request.setAdhocQueryResponse(msg);
-                request.setAssertion(assertion);
 
                 response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredResponseSecuredPortType.class, "respondingGatewayCrossGatewayQuery", msg);
             }

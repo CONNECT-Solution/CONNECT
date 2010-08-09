@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy;
+package gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -14,9 +14,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
- * @author JHOPPESC
+ * @author jhoppesc
  */
-public class AdapterDocQueryDeferredRequestProxyNoOpImpl implements AdapterDocQueryDeferredRequestProxy {
+public class AdapterComponentDocQueryDeferredRequestProxyNoOpImpl implements AdapterComponentDocQueryDeferredRequestProxy {
 
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();

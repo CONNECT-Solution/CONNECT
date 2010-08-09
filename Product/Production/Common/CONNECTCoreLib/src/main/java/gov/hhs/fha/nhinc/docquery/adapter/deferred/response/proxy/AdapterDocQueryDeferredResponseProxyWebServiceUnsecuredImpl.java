@@ -87,7 +87,7 @@ public class AdapterDocQueryDeferredResponseProxyWebServiceUnsecuredImpl impleme
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryDeferredResponsePortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else
         {

@@ -20,7 +20,7 @@ public class AdapterDocQueryDeferredResponseProxyObjectFactory extends Component
         return CONFIG_FILE_NAME;
     }
 
-    public AdapterDocQueryDeferredResponseProxy getAdapterDocQueryDeferredRequestProxy()
+    public AdapterDocQueryDeferredResponseProxy getAdapterDocQueryDeferredResponseProxy()
     {
         return getBean(BEAN_NAME, AdapterDocQueryDeferredResponseProxy.class);
    }

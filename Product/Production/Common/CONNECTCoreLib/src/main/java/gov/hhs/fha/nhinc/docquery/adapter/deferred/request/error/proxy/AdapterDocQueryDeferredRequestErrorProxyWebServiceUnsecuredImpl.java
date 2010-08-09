@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy;
+package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy;
 
-import gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured.AdapterDocQueryDeferredRequestSecuredPortType;
+import gov.hhs.fha.nhinc.adapterdocquerydeferredrequesterror.AdapterDocQueryDeferredRequestErrorPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentQueryDeferredRequestErrorType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -22,20 +22,19 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  *
- * @author JHOPPESC
+ * @author jhoppesc
  */
-public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements AdapterDocQueryDeferredRequestProxy {
-
+public class AdapterDocQueryDeferredRequestErrorProxyWebServiceUnsecuredImpl implements AdapterDocQueryDeferredRequestErrorProxy {
     private Log log = null;
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocQueryDeferredRequestSecured";
-    private static final String PORT_LOCAL_PART = "AdapterDocQueryDeferredRequestSecuredPortSoap";
-    private static final String WSDL_FILE = "AdapterDocQueryDeferredRequestSecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured:RespondingGateway_CrossGatewayQueryRequestMessage";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocQueryDeferredRequestError";
+    private static final String PORT_LOCAL_PART = "AdapterDocQueryDeferredRequestErrorPortSoap";
+    private static final String WSDL_FILE = "AdapterDocQueryDeferredRequestError.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror:RespondingGateway_CrossGatewayQueryRequestErrorMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl()
+    public AdapterDocQueryDeferredRequestErrorProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
@@ -59,7 +58,7 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
     protected String getEndpointURL()
     {
         String endpointURL = null;
-        String serviceName = NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME;
+        String serviceName = NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME;
         try
         {
             endpointURL = invokeConnectionManager(serviceName);
@@ -79,16 +78,16 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterDocQueryDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
+    protected AdapterDocQueryDeferredRequestErrorPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
     {
-        AdapterDocQueryDeferredRequestSecuredPortType port = null;
+        AdapterDocQueryDeferredRequestErrorPortType port = null;
         Service service = getService();
         if (service != null)
         {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryDeferredRequestSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryDeferredRequestErrorPortType.class);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else
         {
@@ -118,14 +117,14 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
         return cachedService;
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets, String errMsg) {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         DocQueryAcknowledgementType response = null;
 
         try
         {
             String url = getEndpointURL();
-            AdapterDocQueryDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            AdapterDocQueryDeferredRequestErrorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if(msg == null)
             {
@@ -145,10 +144,12 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
             }
             else
             {
-                RespondingGatewayCrossGatewayQuerySecureRequestType request = new RespondingGatewayCrossGatewayQuerySecureRequestType();
+                AdapterDocumentQueryDeferredRequestErrorType request = new AdapterDocumentQueryDeferredRequestErrorType();
                 request.setAdhocQueryRequest(msg);
+                request.setAssertion(assertion);
+                request.setErrorMsg(errMsg);
 
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestSecuredPortType.class, "respondingGatewayCrossGatewayQuery", msg);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestErrorPortType.class, "respondingGatewayCrossGatewayQuery", msg);
             }
         }
         catch (Exception ex)
@@ -159,4 +160,5 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
         log.debug("End respondingGatewayCrossGatewayQuery");
         return response;
     }
+
 }

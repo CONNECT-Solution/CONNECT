@@ -520,25 +520,6 @@ public class WebServiceProxyHelper
      * This method initializes the port and sets various values that are required
      * for processing - like timeout, URL, etc.
      *
-     * The use of this form should be deprecated.  It is here for backward compatibility only.
-     * Use the secure or unsecure version explicitly.
-     *
-     * @param port The port to be initialized.
-     * @param url The URL to be assigned to the port.
-     * @param wsAddressingAction The WS-Addressing action associated with this
-     *        web-service call.
-     * @param assertion The assertion information containing the SAML assertion
-     *        to be assigned to the message.
-     */
-    public void initializePort(BindingProvider port, String url, String wsAddressingAction, AssertionType assertion)
-    {
-        initializePort(port, url, null, wsAddressingAction, assertion);
-    }
-
-    /**
-     * This method initializes the port and sets various values that are required
-     * for processing - like timeout, URL, etc.
-     *
      * @param port The port to be initialized.
      * @param url The URL of the web service to be assigned to the port.
      * @param serviceAction The action for the web service.
