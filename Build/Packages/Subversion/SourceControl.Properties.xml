@@ -22,9 +22,10 @@
 	<property name="SourceControl.Update.Interactive" value="false" overwrite="false"/>
 
   <property name="TortoisePath" value="${ProgramFiles.Current.Processor.Type.Path}\TortoiseSVN\bin\TortoiseProc.exe"/>
-  <property name="SvnBinPath" value="${ProgramFiles.32.Path}\Subversion\bin"/>
-  <findprogram program="TortoiseSVN\bin\TortoiseProc.exe" returnpropertyname="TortoisePath" failonerror="False"/>
-  <findprogram program="Subversion\bin" returnpropertyname="SvnBinPath" failonerror="False" />
+  <property name="Svn.Exe.Path" value="${ProgramFiles.32.Path}\Subversion\bin\svn.exe"/>
+  <findprogram program="TortoiseSVN\bin\TortoiseProc.exe" returnpropertyname="TortoisePath"/>
+  <findprogram program="Subversion\bin\svn.exe" returnpropertyname="Svn.Exe.Path" />
+  <property name="SvnBinPath" value="${path::get-directory-name(Svn.Exe.Path)}"/>
   
 	<setenv name="PATH" value="${environment::get-variable('PATH')};${SvnBinPath}" unless="${string::contains(environment::get-variable('PATH'), SvnBinPath)}" />
 

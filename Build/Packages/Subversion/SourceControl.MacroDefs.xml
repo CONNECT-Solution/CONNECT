@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SourceControl.MacroDefs">
+
+  <macrodef name="svn.set.revision.number.by.ccnet.build.time">
+    <attributes>
+      <attribute name="svn" default="${Svn.Exe.Path}" type="string"/>
+      <attribute name="ccnetbuilddate" default="${CCNetBuildDate}" type="string"/>
+      <attribute name="ccnetbuildtime" default="${CCNetBuildTime}" type="string"/>
+      <attribute name="dir" default="${Common.Directory.CodeLine.Path}" type="string"/>
+    </attributes>
+    <sequential>
+        <exec
+          program="${svn}"
+          commandline="info -r {${ccnetbuilddate}T${ccnetbuildtime}}"
+          outputproperty="Svn.Info.Output"
+          workingdir="${dir}"
+        />
+    
+        <regex input="${Svn.Info.Output}" pattern="Last\s+Changed\s+Rev:\s+(?'rev'\d+)" options="Multiline" />
+
+        <property name="Svn.Revision" value="${rev}"/>
+
+        <echo message="Svn.Revision set to: ${Svn.Revision}"/>
+    </sequential>
+  </macrodef>
+</project>

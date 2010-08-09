@@ -17,7 +17,8 @@
 
   <loadtasks assembly="${SVN.Task}" />
 
-  <property name="SVN.Debug" value="false" overwrite="false" />
+  <property name="Svn.Revision" value="HEAD" overwrite="False"/>
+  <property name="SVN.Debug" value="true" overwrite="false" />
 
   <!--
 	The following properties should be specified in the calling script.
@@ -56,14 +57,14 @@
   <target name="SourceControl.CleanGetOf" >
     <trycatch>
       <try>
-        <exec program="svn" workingdir="${SourceControl.CleanGetOf}" verbose="${SVN.Debug}">
+        <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.CleanGetOf}" verbose="${SVN.Debug}">
           <arg line="cleanup" />
-          <arg line="${SourceControl.CleanGetOf}" />
+          <arg line='"${SourceControl.CleanGetOf}"' />
         </exec>
-        <exec program="svn" workingdir="${SourceControl.CleanGetOf}" verbose="${SVN.Debug}">
+        <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.CleanGetOf}" verbose="${SVN.Debug}">
           <arg line="revert" />
           <arg line="--recursive" />
-          <arg line="${SourceControl.CleanGetOf}" />
+          <arg line='"${SourceControl.CleanGetOf}"' />
         </exec>
         <svncleantree
           directory="${SourceControl.CleanGetOf}"
@@ -103,7 +104,7 @@
   <target name="Private.SourceControl.GetModifications">
     <trycatch>
       <try>
-        <exec program="svn" commandline="status -u" outputproperty="Svn.Status.Output" workingdir="${Common.Directory.Product.Path}"/>
+        <exec program="${Svn.Exe.Path}" commandline="status -u" outputproperty="Svn.Status.Output" workingdir="${Common.Directory.Product.Path}"/>
 
         <property name="SvnUpdates" value="NaN"/>
         <loglevel level="None">
@@ -146,6 +147,7 @@
               <arg line="/command:update" />
               <arg line='/path:"${SourceControl.GetOf}"' />
               <arg line='/notempfile' />
+              <arg line='/rev:${Svn.Revision}'/>
             </exec>
           </try>
           <catch property="exception">
@@ -166,6 +168,7 @@
               <arg line="/command:update" />
               <arg line='/path:"${SourceControl.GetOf}"' />
               <arg line='/notempfile' />
+              <arg line='/rev:${Svn.Revision}'/>
             </exec>
           </try>
           <catch property="exception">
@@ -192,6 +195,7 @@
         <arg line="/command:checkout" />
         <arg line='/url:"${Uri}"' />
         <arg line='/path:"${SourceControl.GetOf}"' />
+        <arg line='/rev:${Svn.Revision}'/>
       </exec>
     </if>
   </target>
@@ -201,18 +205,19 @@
       <try>
         <ifthenelse test="${svn::is-versioned(SourceControl.GetOf)}">
           <then>
-            <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
+            <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
               <arg line="cleanup" />
-              <arg line="${SourceControl.GetOf}" />
+              <arg line='"${SourceControl.GetOf}"' />
             </exec>
-            <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
+            <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
               <arg line="revert" />
               <arg line="--recursive" />
-              <arg line="${SourceControl.GetOf}" />
+              <arg line='"${SourceControl.GetOf}"' />
             </exec>
-            <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" outputproperty="Svn.Update.Output">
+            <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" outputproperty="Svn.Update.Output">
               <arg line="update" />
               <arg line="--non-interactive" />
+              <arg line="-r ${Svn.Revision}"/>
               <arg line='"${SourceControl.GetOf}"' />
             </exec>
 
@@ -258,19 +263,20 @@
       <try>
         <ifthenelse test="${svn::is-versioned(SourceControl.GetOf)}">
           <then>
-            <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
+            <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
               <arg line="cleanup" />
-              <arg line="${SourceControl.GetOf}" />
+              <arg line='"${SourceControl.GetOf}"' />
             </exec>
-            <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
+            <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}" >
               <arg line="revert" />
               <arg line="--recursive" />
-              <arg line="${SourceControl.GetOf}" />
+              <arg line='"${SourceControl.GetOf}"' />
             </exec>
-            <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}">
+            <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}">
               <arg line="update" />
               <arg line="--non-interactive" />
-              <arg line="${SourceControl.GetOf}" />
+              <arg line="-r ${Svn.Revision}"/>
+              <arg line='"${SourceControl.GetOf}"' />
             </exec>
           </then>
           <else>
@@ -291,10 +297,11 @@
       <property name="Uri" value="${string::replace(Uri, '\', '/')}"/>
 
       <mkdir dir="${SourceControl.GetOf}" unless="${directory::exists(SourceControl.GetOf)}"/>
-      <exec program="svn" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}">
+      <exec program="${Svn.Exe.Path}" workingdir="${SourceControl.GetOf}" verbose="${SVN.Debug}">
         <arg line="checkout" />
         <arg line='"${Uri}"'/>
         <arg line="--non-interactive" />
+        <arg line="-r ${Svn.Revision}"/>
         <arg line='"${SourceControl.GetOf}"'/>
       </exec>
     </if>
@@ -325,7 +332,7 @@
   <property name="SourceControl.CheckOut.File" value="${Private.Versioning.AssemblyInfoFile}"/>
   -->
   <target name="SourceControl.CheckOut" >
-    <exec program="svn" workingdir="${path::get-directory-name(SourceControl.CheckOut.File)}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${path::get-directory-name(SourceControl.CheckOut.File)}" verbose="${SVN.Debug}">
       <arg line="update" />
       <arg line="--non-interactive" />
       <arg line='"${path::get-file-name(SourceControl.CheckOut.File)}"' />
@@ -339,12 +346,12 @@
   <property name="SourceControl.CheckIn.File" value="${Private.Versioning.AssemblyInfoFile}"/>
   -->
   <target name="SourceControl.CheckIn" >
-    <exec program="svn" workingdir="${path::get-directory-name(SourceControl.CheckIn.File)}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${path::get-directory-name(SourceControl.CheckIn.File)}" verbose="${SVN.Debug}">
       <arg line="update" />
       <arg line="--non-interactive" />
       <arg line='"${path::get-file-name(SourceControl.CheckIn.File)}"' />
     </exec>
-    <exec program="svn" workingdir="${path::get-directory-name(SourceControl.CheckIn.File)}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${path::get-directory-name(SourceControl.CheckIn.File)}" verbose="${SVN.Debug}">
       <arg line="commit" />
       <arg line="--non-interactive" />
       <arg line="--username ${SVN.Username}" />
@@ -377,7 +384,7 @@
 
   <target name="SourceControl.Repository.Load">
     <mkdir dir="${Common.Directory.ProjectRoot.Path}\tags" unless="${directory::exists(Common.Directory.ProjectsRoot.Path + '\tags')}"/>
-    <exec program="svn" workingdir="${Common.Directory.ProjectsRoot.Path}" verbose="${SVN.Debug}" >
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.ProjectsRoot.Path}" verbose="${SVN.Debug}" >
       <arg line="import"/>
       <arg line='-m "Initial Load by CI Factory Installer"'/>
       <arg line="${ProjectName}"/>
@@ -390,18 +397,18 @@
 
     <svn-checkout uri="${SVN.URI.ProjectName}" recursive ="false" destination ="${Common.Directory.ProjectRoot.Path}" />
 
-    <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}" >
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}" >
       <arg line="add"/>
       <arg line="* --force" />
     </exec>
 
     <if test="${SVN.Credentials.SafeStorage}">
-      <exec program="svn" workingdir="${Common.Directory.Packages.Path}\Subversion" verbose="${SVN.Debug}" >
+      <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.Packages.Path}\Subversion" verbose="${SVN.Debug}" >
         <arg line="revert"/>
         <arg line="SourceControl.Credentials.xml" />
       </exec>
 
-      <exec program="svn" workingdir="${Common.Directory.Packages.Path}\Subversion" verbose="${SVN.Debug}" >
+      <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.Packages.Path}\Subversion" verbose="${SVN.Debug}" >
         <arg line="propset"/>
         <arg line="svn:ignore"/>
         <arg line="SourceControl.Credentials.xml" />
@@ -409,24 +416,25 @@
       </exec>
     </if>
 
-    <exec program="svn" workingdir="${CCNet.Server.Directory.Path}" verbose="${SVN.Debug}" >
+    <exec program="${Svn.Exe.Path}" workingdir="${CCNet.Server.Directory.Path}" verbose="${SVN.Debug}" >
       <arg line="revert"/>
       <arg line="*.state" />
     </exec>
 
-    <exec program="svn" workingdir="${CCNet.Server.Directory.Path}" verbose="${SVN.Debug}" >
+    <exec program="${Svn.Exe.Path}" workingdir="${CCNet.Server.Directory.Path}" verbose="${SVN.Debug}" >
       <arg line="propset"/>
       <arg line="svn:ignore"/>
       <arg line="*.state" />
       <arg line="."/>
     </exec>
 
-    <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
       <arg line="commit" />
       <arg line="--non-interactive" />
       <arg line="--username ${SVN.Username}" />
       <arg line="--password ${SVN.Password}" />
       <arg line='-m "Initial Load by CI Factory Installer"'/>
+      <arg line='"${Common.Directory.ProjectRoot.Path}"'/>
     </exec>
 
     <switch value="${environment::variable-exists('SVN_ASP_DOT_NET_HACK')}">
@@ -451,27 +459,40 @@
   <property name="SourceControl.CreateBranch.BranchName" value="${BranchName}"/>
   -->
   <target name="SourceControl.StartCreateBranch">
-    <svn-checkout uri="${SVN.URI.ProjectName}" recursive ="false" destination ="${Common.Directory.ProjectRoot.Path}" />
+    <exec 
+      program="${Svn.Exe.Path}" 
+      workingdir="${Common.Directory.ProjectsRoot.Path}" 
+      verbose="${SVN.Debug}"
+    >
+      <arg line="checkout" />
+      <arg line='"${SVN.URI.ProjectName}"'/>
+      <arg line="--non-interactive" />
+      <arg line="--trust-server-cert"/>
+      <arg line="--depth empty"/>
+      <arg line='"${Common.Directory.ProjectRoot.Path}"'/>
+    </exec>
 
-    <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
       <arg line="copy" />
+      <arg line="--non-interactive" />
+      <arg line="--trust-server-cert"/>
       <arg line="${SVN.URI.ProjectCodeLine}" />
-      <arg line="${SourceControl.CreateBranch.BranchName}" />
+      <arg line="${Common.Directory.ProjectRoot.Path}\${SourceControl.CreateBranch.BranchName}" />
     </exec>
 
     <property name="BranchSubversionPackageDirectory" value="${Common.Directory.ProjectRoot.Path}\${SourceControl.CreateBranch.BranchName}\${Common.Directory.Build.Name}\${Common.Directory.Packages.Name}\Subversion"/>
     <copy
-      unless="${file::exists(BranchSubversionPackageDirectory + '\SourceControl.Credentials.xml')}"
+      if="${file::exists(BranchSubversionPackageDirectory + '\SourceControl.Credentials.xml')}"
       file="${Common.Directory.Packages.Path}\Subversion\SourceControl.Credentials.xml"
       todir="${BranchSubversionPackageDirectory}"
       verbose="${SVN.Debug}"
     />
-    <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
       <arg line="commit" />
       <arg line="--non-interactive" />
-      <arg line="--username ${SVN.Username}" />
-      <arg line="--password ${SVN.Password}" />
+      <arg line="--trust-server-cert"/>
       <arg line='-m "Branch by CI Factory Installer"'/>
+      <arg line='"${Common.Directory.ProjectRoot.Path}"'/>
     </exec>
 
     <switch value="${environment::variable-exists('SVN_ASP_DOT_NET_HACK')}">
@@ -487,20 +508,20 @@
   </target>
 
   <target name="SourceControl.FinishCreateBranch">
-    <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}\${SourceControl.CreateBranch.BranchName}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.ProjectRoot.Path}\${SourceControl.CreateBranch.BranchName}" verbose="${SVN.Debug}">
       <arg line="commit" />
       <arg line="--non-interactive" />
-      <arg line="--username ${SVN.Username}" />
-      <arg line="--password ${SVN.Password}" />
+      <arg line="--trust-server-cert"/>
       <arg line='-m "Adjust Branch by CI Factory Installer"'/>
+      <arg line='"${Common.Directory.ProjectRoot.Path}\${SourceControl.CreateBranch.BranchName}"'/>
     </exec>
 
-    <exec program="svn" workingdir="${Common.Directory.CodeLine.Path}" verbose="${SVN.Debug}">
+    <exec program="${Svn.Exe.Path}" workingdir="${Common.Directory.CodeLine.Path}" verbose="${SVN.Debug}">
       <arg line="commit" />
       <arg line="--non-interactive" />
-      <arg line="--username ${SVN.Username}" />
-      <arg line="--password ${SVN.Password}" />
+      <arg line="--trust-server-cert"/>
       <arg line='-m "Support Branch by CI Factory Installer"'/>
+      <arg line='"${Common.Directory.CodeLine.Path}"'/>
     </exec>
   </target>
 
@@ -512,4 +533,5 @@
       <arg line='/logmsg:"${SourceControl.Example.Commit.Message}"'/>
     </exec>
   </target>
+
 </project>
