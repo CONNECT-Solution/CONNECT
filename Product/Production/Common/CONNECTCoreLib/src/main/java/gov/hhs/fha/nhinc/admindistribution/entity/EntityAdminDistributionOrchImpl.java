@@ -138,8 +138,7 @@ public class EntityAdminDistributionOrchImpl {
     }
     protected NhincAdminDistProxy getNhincAdminDist()
     {
-        return new NhincAdminDistJavaImpl();
-//        return new NhincAdminDistObjectFactory().getNhincAdminDistProxy();
+        return new NhincAdminDistObjectFactory().getNhincAdminDistProxy();
     }
 
 }
