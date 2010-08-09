@@ -5,7 +5,7 @@
   <property name="webtest.hasTests" value="false" />
   <property name="coverage.isneeded" value="true" />
   <property name="unittest.hasTests" value="true" />
-  <property name="deploy.isDeployable" value="true"/>
+  <property name="deploy.isDeployable" value="false"/>
   <property name="deploy.type" value="war" />
   <property name="copy.wsdl.to.webinf" value="true" />
 
