@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.entity;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -44,29 +45,38 @@ public class EntityAdminDistributionOrchImpl {
         logEntityAdminDist(message, assertion);
 
 
-        CMUrlInfos urlInfoList = getEndpoints(target);
+        if(this.isServiceEnabled())
+        {
 
-        if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
-            log.warn("No targets were found for the Admin Distribution Request");
 
-        }
+            CMUrlInfos urlInfoList = getEndpoints(target);
 
-            for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
-                //create a new request to send out to each target community
-               log.debug("Target: " + urlInfo.getHcid());
-                //check the policy for the outgoing request to the target community
-                boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
+            if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
+                log.warn("No targets were found for the Admin Distribution Request");
 
-                if (bIsPolicyOk) {
-                    NhinTargetSystemType targetSystem =buildTargetSystem(urlInfo);
-
-                    sendToNhinProxy(message, assertion, targetSystem);
-
-                } //if (bIsPolicyOk)
-                else {
-                    log.error("The policy engine evaluated the request and denied the request.");
-                } //else policy enging did not return a permit response
             }
+
+                for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                    //create a new request to send out to each target community
+                   log.debug("Target: " + urlInfo.getHcid());
+                    //check the policy for the outgoing request to the target community
+                    boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
+
+                    if (bIsPolicyOk) {
+                        NhinTargetSystemType targetSystem =buildTargetSystem(urlInfo);
+
+                        sendToNhinProxy(message, assertion, targetSystem);
+
+                    } //if (bIsPolicyOk)
+                    else {
+                        log.error("The policy engine evaluated the request and denied the request.");
+                    } //else policy enging did not return a permit response
+                }
+        }
+        else
+        {
+            log.warn("Service disabled");
+        }
 
         
     }
@@ -139,6 +149,10 @@ public class EntityAdminDistributionOrchImpl {
     protected NhincAdminDistProxy getNhincAdminDist()
     {
         return new NhincAdminDistObjectFactory().getNhincAdminDistProxy();
+    }
+    protected boolean isServiceEnabled()
+    {
+        return new AdminDistributionHelper().isServiceEnabled();
     }
 
 }

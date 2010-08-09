@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -63,7 +64,7 @@ public class NhinAdminDistOrchImpl {
         }
         else
         {
-            log.debug("Service is disabled");
+            log.warn("Service is disabled");
         }
 
 
@@ -76,8 +77,12 @@ public class NhinAdminDistOrchImpl {
     protected void sendToAgency(EDXLDistribution body, AssertionType assertion)
     {
         log.debug("begin send to agency");
-        getAdminFactory().getAdapterAdminDistProxy().sendAlertMessage(body, assertion);
+        this.getAdapterAdminDistProxy().sendAlertMessage(body, assertion);
 
+    }
+    protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+    {
+        return this.getAdminFactory().getAdapterAdminDistProxy();
     }
     protected AdapterAdminDistObjectFactory getAdminFactory()
     {
@@ -93,7 +98,7 @@ public class NhinAdminDistOrchImpl {
 
         log.debug("begin checkPolicy");
         if (body != null) {
-            result =  new AdminDistributionPolicyChecker().checkIncomingPolicy(body, assertion);
+            result =  this.getPolicyChecker().checkIncomingPolicy(body, assertion);
         }
         else
         {
@@ -102,6 +107,10 @@ public class NhinAdminDistOrchImpl {
 
         log.debug("End Check Policy");
         return result;
+    }
+    protected AdminDistributionPolicyChecker getPolicyChecker()
+    {
+        return new AdminDistributionPolicyChecker();
     }
     private void checkSleep()
     {
