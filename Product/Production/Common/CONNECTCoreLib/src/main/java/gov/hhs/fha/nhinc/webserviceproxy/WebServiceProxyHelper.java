@@ -513,7 +513,7 @@ public class WebServiceProxyHelper
     public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
             String wsAddressingAction, AssertionType assertion)
     {
-        initializePort(false, port, url, serviceAction, wsAddressingAction, assertion);
+        initializePort(true, port, url, serviceAction, wsAddressingAction, assertion);
     }
 
     /**
