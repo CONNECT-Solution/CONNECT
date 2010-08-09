@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.docquery.adapter.deferred.request;
+package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -17,13 +17,13 @@ import javax.xml.ws.WebServiceContext;
  *
  * @author jhoppesc
  */
-@WebService(serviceName = "AdapterDocQueryDeferredRequestSecured", portName = "AdapterDocQueryDeferredRequestSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured.AdapterDocQueryDeferredRequestSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured", wsdlLocation = "WEB-INF/wsdl/AdapterDocQueryDeferredRequestSecured/AdapterDocQueryDeferredRequestSecured.wsdl")
+@WebService(serviceName = "AdapterDocQueryDeferredRequestErrorSecured", portName = "AdapterDocQueryDeferredRequestErrorSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocquerydeferredrequesterrorsecured.AdapterDocQueryDeferredRequestErrorSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured", wsdlLocation = "WEB-INF/wsdl/AdapterDocQueryDeferredRequestErrorSecured/AdapterDocQueryDeferredRequestErrorSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocQueryDeferredRequestSecured {
+public class AdapterDocQueryDeferredRequestErrorSecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType body) {
+    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentQueryDeferredRequestErrorSecuredType body) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
@@ -32,7 +32,7 @@ public class AdapterDocQueryDeferredRequestSecured {
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
-        return new AdapterDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion);
+        return new AdapterDocQueryDeferredRequestErrorOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion, body.getErrorMsg());
     }
 
 }

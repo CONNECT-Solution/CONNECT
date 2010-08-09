@@ -13,7 +13,7 @@
 		</xsd:schema>
 	</types>
 	<message name="RespondingGateway_CrossGatewayQueryRequestMessage">
-		<part name="RespondingGateway_CrossGatewayQueryRequest" element="nccommonadapter:RespondingGateway_CrossGatewayQueryResponse"/>
+		<part name="RespondingGateway_CrossGatewayQueryRequest" element="nccommonadapter:RespondingGateway_CrossGatewayQuerySecureResponse"/>
 	</message>
 	<message name="RespondingGateway_CrossGatewayQueryResponseMessage">
 		<part name="RespondingGateway_CrossGatewayQueryResponse" element="dq:DocQueryAcknowledgement"/>
