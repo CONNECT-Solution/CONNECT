@@ -53,10 +53,8 @@ public class PolicyEngineProxyObjectFactory {
      */
     public PolicyEngineProxy getPolicyEngineProxy() {
         PolicyEngineProxy policyEngine = null;
-        if(context != null)
-        {
-            policyEngine = (PolicyEngineProxy)context.getBean(BEAN_NAME_POLICY_ENGINE);
-        }
+        
+        policyEngine = (PolicyEngineProxy)context.getBean(BEAN_NAME_POLICY_ENGINE);
         return policyEngine;
     }
 }

@@ -58,24 +58,6 @@ public class EntityAdminDistSecuredWebServiceImpl {
 
         return port;
     }
-    private String getUrl(String targetHCID) {
-        String url = null;
-
-        if (targetHCID != null) {
-            try {
-
-                url = ConnectionManagerCache.getEndpointURLByServiceName(targetHCID,  NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);
-
-            } catch (ConnectionManagerException ex) {
-                log.error("Error: Failed to retrieve url for service: " + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);
-                log.error(ex.getMessage());
-            }
-        } else {
-            log.error("Target system passed into the proxy is null");
-        }
-
-        return url;
-    }
 
     protected AdminDistributionHelper getHelper()
     {
