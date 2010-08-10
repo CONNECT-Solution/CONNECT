@@ -153,8 +153,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.nhinc.xdr.routing.CHiep" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.nhinc.xdr.routing.ConnectReference" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.nhinc.xdr.routing.RoutingObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi" linecount="3" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="12" branchrate="0.4166666666666667" branchsexecuted="0.05" class="gov.hhs.fha.nhinc.mpi.adapter.component.CommonChecks" linecount="4" linerate="0.5" linesexecuted="0.02"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.MpiDataAccess" linecount="7" linerate="0.5714285714285714" linesexecuted="0.04"/>
 <threshold branchcount="6" branchrate="0.6666666666666666" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.mpi.adapter.component.PatientChecker" linecount="23" linerate="0.8260869565217391" linesexecuted="0.19"/>
@@ -170,4 +170,5 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.AdapterComponentDocQueryDeferredResponseUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.AdapterDocQueryDeferredRequestErrorSecured" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.AdapterDocQueryDeferredRequestErrorUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiImpl" linecount="11" linerate="0.0" linesexecuted="0"/>
 </thresholds>

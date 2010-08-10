@@ -54,18 +54,18 @@ public class AdapterWebPatientCheckerTest {
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
         subjectId.setExtension("1234");
-        
+
         PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Smith", "M", "March 1, 1956", subjectId);
-        
+
         Identifier patId = new Identifier();
         patId.setId("1234");
         patId.setOrganizationId("2.16.840.1.113883.3.200");
         Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "M", "March 1, 1956", patId);
-        
+
         PRPAIN201306UV02 expResult = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
-        
+
         PRPAIN201306UV02 result = PatientChecker.FindPatient(query);
-        
+
         // Verify the messages match
         TestHelper.AssertPatientIdsAreSame(expResult, result);
         TestHelper.AssertPatientGendersAreSame(expResult, result);
