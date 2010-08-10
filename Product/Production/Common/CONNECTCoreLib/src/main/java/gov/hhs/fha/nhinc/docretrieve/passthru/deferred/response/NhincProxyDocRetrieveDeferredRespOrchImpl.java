@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.response;
+package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
