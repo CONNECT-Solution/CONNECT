@@ -10,4 +10,7 @@
 	
 	<!-- Web-service implementation unsecured -->
     <!-- <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl"/> -->
+
+	<!-- Java implementation -->
+    <!-- <bean id="entitypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyJavaImpl"/> -->
 </beans>
