@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveResponseType;
+import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.NhincProxyDocRetrieveDeferredRespOrchImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import org.jmock.Expectations;
