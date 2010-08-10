@@ -36,35 +36,6 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest
         }
     };
 
-//    @Test
-//    public void testGetContext()
-//    {
-//        try
-//        {
-//            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-//            EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory()
-//            {
-//                @Override
-//                protected ApplicationContext createApplicationContext()
-//                {
-//                    return mockContext;
-//                }
-//                @Override
-//                protected ApplicationContext getContext()
-//                {
-//                    return mockContext;
-//                }
-//            };
-//            assertNotNull("ApplicationContext", proxyFactory.getContext());
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testGetContext test: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testGetContext test: " + t.getMessage());
-//        }
-//    }
-
     @Test
     public void testGetConfigFileName()
     {
@@ -116,15 +87,6 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest
                 {
                     return type.cast(mockProxy);
                 }
-//                protected ApplicationContext createApplicationContext()
-//                {
-//                    return appContext;
-//                }
-//                @Override
-//                protected ApplicationContext getContext()
-//                {
-//                    return appContext;
-//                }
             };
             EntityPatientDiscoveryProxy proxy = proxyFactory.getEntityPatientDiscoveryProxy();
             assertNotNull("EntityPatientDiscoveryProxy was null", proxy);
@@ -136,34 +98,5 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest
             fail("Error running testGetEntityPatientDiscoveryProxyHappy test: " + t.getMessage());
         }
     }
-
-//    @Test
-//    public void testGetEntityPatientDiscoveryProxyNullContext()
-//    {
-//        try
-//        {
-//            EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory()
-//            {
-//                @Override
-//                protected ApplicationContext createApplicationContext()
-//                {
-//                    return null;
-//                }
-//                @Override
-//                protected ApplicationContext getContext()
-//                {
-//                    return null;
-//                }
-//            };
-//            EntityPatientDiscoveryProxy proxy = proxyFactory.getEntityPatientDiscoveryProxy();
-//            assertNull("EntityPatientDiscoveryProxy was not null", proxy);
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testGetEntityPatientDiscoveryProxyNullContext test: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testGetEntityPatientDiscoveryProxyNullContext test: " + t.getMessage());
-//        }
-//    }
 
 }

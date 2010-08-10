@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.policyengine.adapterpip.proxy;
+package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
@@ -10,11 +10,11 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 
 /**
  * This is a "NoOp" implementation of the AdapterPIPProxy interface.
- * It will return OptIn as true for all responses.
+ * It will return empty response objects.
  *
  * @author Les Westberg
  */
-public class AdapterPIPProxyOptInNoOpImpl implements AdapterPIPProxy
+public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
 {
 
     /**
@@ -52,7 +52,7 @@ public class AdapterPIPProxyOptInNoOpImpl implements AdapterPIPProxy
             oPref.setPatientId("");
         }
 
-        oPref.setOptIn(true);
+        oPref.setOptIn(false);
 
         return oResponse;
     }
@@ -71,7 +71,7 @@ public class AdapterPIPProxyOptInNoOpImpl implements AdapterPIPProxy
         oResponse.setPatientPreferences(oPref);
         oPref.setAssigningAuthority("");
         oPref.setPatientId("");
-        oPref.setOptIn(true);
+        oPref.setOptIn(false);
         return oResponse;
     }
 

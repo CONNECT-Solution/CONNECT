@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.policyengine.adapterpip.proxy;
+package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;

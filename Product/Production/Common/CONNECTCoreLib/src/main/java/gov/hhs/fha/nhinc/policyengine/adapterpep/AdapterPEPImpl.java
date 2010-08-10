@@ -15,12 +15,13 @@ import com.sun.identity.xacml.context.Resource;
 import com.sun.identity.xacml.context.Response;
 import com.sun.identity.xacml.context.Result;
 import com.sun.identity.xacml.context.Subject;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxy;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.net.URI;
@@ -325,7 +326,7 @@ public class AdapterPEPImpl {
                     } else {
                         // The existance of a patient identifier in the request indicates that
                         // the policy engine needs to check the patient opt-in status (Yes or No)
-                        resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds));
+                        resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds, checkPolicyRequest.getAssertion()));
                     }
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
                     if (resourcePatientOptInList.isEmpty()) {
@@ -793,9 +794,10 @@ public class AdapterPEPImpl {
      * Creates the XSPA Attributes for the patient status
      * @param resourceIdList The listing of patient ids
      * @param assigningAuthList The listing of matching assigning authorities
+     * @param assertion Assertion
      * @return The XSPA Attributes containing the determined consent status (Yes - optIn, No -optOut)
      */
-    private List<Attribute> createPatientOptStatusAttrs(List<String> resourceIdList, List<String> assigningAuthList) {
+    private List<Attribute> createPatientOptStatusAttrs(List<String> resourceIdList, List<String> assigningAuthList, AssertionType assertion) {
         List<Attribute> xspaAttrs = new ArrayList<Attribute>();
 
         try {
@@ -803,7 +805,7 @@ public class AdapterPEPImpl {
             xspaAttr.setAttributeId(new URI(XSPA_PATIENT_OPT_IN));
             xspaAttr.setDataType(new URI(XACML_DATATYPE));
 
-            List<String> optStatusVals = determinePatientOptStatus(resourceIdList, assigningAuthList);
+            List<String> optStatusVals = determinePatientOptStatus(resourceIdList, assigningAuthList, assertion);
             for (String optStatusVal : optStatusVals) {
                 log.debug("Adding attribute value: " + optStatusVal + " for " + XSPA_PATIENT_OPT_IN);
             }
@@ -823,9 +825,10 @@ public class AdapterPEPImpl {
      * Determines the opt-in/opt-out status of these patients as identified by their patient ids
      * @param resourceIds The listing of patient ids
      * @param assigningAuths The listing of matching assigning authorities
+     * @param assertion Assertion
      * @return The listing of matching consent status (Yes - optIn, No -optOut)
      */
-    protected List<String> determinePatientOptStatus(List<String> resourceIds, List<String> assigningAuths) {
+    protected List<String> determinePatientOptStatus(List<String> resourceIds, List<String> assigningAuths, AssertionType assertion) {
         List<String> optStatus = new ArrayList<String>();
         int numIdAttr = resourceIds.size();
         int numAuthAttr = assigningAuths.size();
@@ -844,6 +847,7 @@ public class AdapterPEPImpl {
                 RetrievePtConsentByPtIdRequestType consentReq = new RetrievePtConsentByPtIdRequestType();
                 consentReq.setPatientId(patientId);
                 consentReq.setAssigningAuthority(authId);
+                consentReq.setAssertion(assertion);
                 RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtId(consentReq);
                 if (consentResp.getPatientPreferences().isOptIn()) {
                     optStatus.add("Yes");

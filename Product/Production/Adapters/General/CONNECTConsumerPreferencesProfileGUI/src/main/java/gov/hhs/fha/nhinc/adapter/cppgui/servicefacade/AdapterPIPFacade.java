@@ -16,8 +16,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdReques
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxy;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.logging.Log;

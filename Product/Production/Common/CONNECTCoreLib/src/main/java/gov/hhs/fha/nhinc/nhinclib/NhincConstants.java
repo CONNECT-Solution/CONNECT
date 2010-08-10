@@ -66,6 +66,7 @@ public class NhincConstants {
     public static final String ENTITY_XDR_SECURED_RESPONSE_ACTION = "entityXDRSecuredResponse";
     public static final String AUDIT_REPO_ACTION = "auditrepository";
     public static final String POLICY_ENGINE_ACTION = "policyengine";
+    public static final String POLICY_INFORMATION_POINT_ACTION = "policyinformationpoint";
     public static final String PAT_CORR_ACTION = "patientcorrelation";
     public static final String ADAPTER_MPI_ACTION = "mpi";
     public static final String XDR_ACTION = "xdr";
@@ -123,6 +124,7 @@ public class NhincConstants {
     public static final String POLICYENGINE_SERVICE_NAME = "policyengineservice";
     public static final String POLICYENGINE_SERVICE_SECURED_NAME = "policyengineservicesecured";
     public static final String POLICYENGINE_FACADE_SERVICE_NAME = "policyenginefacade";
+    public static final String ADAPTER_PIP_SERVICE_NAME = "adapterpip";
     public static final String POLICYENGINE_INBOUND_DIRECTION = "Inbound";
     public static final String POLICYENGINE_OUTBOUND_DIRECTION = "Outbound";
     public static final String POLICY_PERMIT = "Permit";

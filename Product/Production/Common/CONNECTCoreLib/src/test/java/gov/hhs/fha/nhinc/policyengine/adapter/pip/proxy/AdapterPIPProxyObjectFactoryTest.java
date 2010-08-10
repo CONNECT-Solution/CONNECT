@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.policyengine.adapterpip.proxy;
+package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -57,7 +57,7 @@ public class AdapterPIPProxyObjectFactoryTest
             AdapterPIPProxyObjectFactory oFactory = new AdapterPIPProxyObjectFactory();
             AdapterPIPProxy oAdapterPIPProxy = oFactory.getAdapterPIPProxy();
             assertNotNull(oAdapterPIPProxy);
-            assertTrue("Adapter PIP was not the default type.", (oAdapterPIPProxy instanceof AdapterPIPProxyNoOpImpl));
+            assertTrue("Adapter PIP was not a web service proxy.", (oAdapterPIPProxy instanceof AdapterPIPProxyNoOpImpl));
         }
         catch (Throwable t)
         {
@@ -69,4 +69,5 @@ public class AdapterPIPProxyObjectFactoryTest
         System.out.println("End testAdapterPIPProxyObjectFactory");
 
     }
+
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" 
+xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified">
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
 	<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
@@ -9,6 +11,7 @@
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" schemaLocation="../common/SubscriptionB2OverrideForCdc.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" schemaLocation="../common/SubscriptionB2OverrideForDocuments.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:os" schemaLocation="../../oasis/xacml/access_control-xacml-2.0-context-schema-os.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
 	<!-- ====================================================================
          Document Query Schemas.
          ==================================================================== -->
@@ -19,6 +22,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType"/>
+	
 	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType">
 		<xsd:sequence>
 			<xsd:element ref="query:AdhocQueryResponse"/>
@@ -36,6 +40,12 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayRetrieveRequest" type="tns:RespondingGateway_CrossGatewayRetrieveRequestType"/>
+        <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredRequest" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredRequestType"/>
 	<xsd:complexType name="RespondingGateway_CrossGatewayRetrieveResponseType">
 		<xsd:sequence>
 			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
@@ -43,6 +53,12 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayRetrieveResponse" type="tns:RespondingGateway_CrossGatewayRetrieveResponseType"/>
+        <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredResponseType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredResponse" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredResponseType"/>
 	<!-- ====================================================================
          Document ProvideAndRegister Schemas.
          ==================================================================== -->
@@ -57,6 +73,7 @@
 		<xsd:sequence>
 			<xsd:element ref="rs:RegistryResponse"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="url" type="nccommon:UrlInfoType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponse" type="tns:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponseType"/>
@@ -633,7 +650,7 @@
         the Policy Engine PIP (Policy Information Point) -->
 	<xsd:complexType name="BinaryDocumentPolicyCriterionType">
 		<xsd:sequence>
-			<xsd:element name="policyOID" type="xsd:string"  minOccurs="0"/>
+			<xsd:element name="policyOID" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="documentUniqueId" type="xsd:string"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="documentTitle" type="xsd:string"/>
@@ -675,7 +692,8 @@
 	<xsd:element name="PatientPreferences" type="tns:PatientPreferencesType"/>
 	<xsd:complexType name="RetrievePtConsentByPtIdRequestType">
 		<xsd:sequence>
-			<xsd:element name="patientId" type="xsd:string"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType" minOccurs="0"/>
+            <xsd:element name="patientId" type="xsd:string"/>
 			<xsd:element name="assigningAuthority" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -688,7 +706,8 @@
 	<xsd:element name="RetrievePtConsentByPtIdResponse" type="tns:RetrievePtConsentByPtIdResponseType"/>
 	<xsd:complexType name="RetrievePtConsentByPtDocIdRequestType">
 		<xsd:sequence>
-			<xsd:element name="documentId" type="xsd:string"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType" minOccurs="0"/>
+            <xsd:element name="documentId" type="xsd:string"/>
 			<xsd:element name="repositoryId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="homeCommunityId" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
@@ -702,7 +721,8 @@
 	<xsd:element name="RetrievePtConsentByPtDocIdResponse" type="tns:RetrievePtConsentByPtDocIdResponseType"/>
 	<xsd:complexType name="StorePtConsentRequestType">
 		<xsd:sequence>
-			<xsd:element name="patientPreferences" type="tns:PatientPreferencesType"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType" minOccurs="0"/>
+            <xsd:element name="patientPreferences" type="tns:PatientPreferencesType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="StorePtConsentRequest" type="tns:StorePtConsentRequestType"/>
@@ -776,50 +796,111 @@
 			<xsd:element name="eventCodes" type="nccommon:CeType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
+        <!-- ====================================================================
+         Document Submission Schemas
+         ==================================================================== -->
 	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType">
-			</xsd:element>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+			<xsd:element name="url" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequest" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestType"/>
+	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetSecuredRequestType">
+		<xsd:sequence>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+			<xsd:element name="url" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetSecuredRequest" type="tns:Adapter_ProvideAndRegisterDocumentSetSecuredRequestType"/>
 	<xsd:complexType name="AdapterRegistryResponseType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="RegistryResponse" type="rs:RegistryResponseType">
-			</xsd:element>
+			<xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="AdapterRegistryResponse" type="tns:AdapterRegistryResponseType"/>
+	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestErrorType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequestError" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestErrorType"/>
+	<xsd:complexType name="Adapter_ProvideAndRegisterDocumentSetRequestErrorSecuredType">
+		<xsd:sequence>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Adapter_ProvideAndRegisterDocumentSetRequestErrorSecured" type="tns:Adapter_ProvideAndRegisterDocumentSetRequestErrorSecuredType"/>
 	<!-- ====================================================================
          Redaction
          ==================================================================== -->
-    <xsd:complexType name="FilterDocQueryResultsRequestType">
-        <xsd:sequence>
-            <xsd:element ref="query:AdhocQueryRequest"/>
-            <xsd:element ref="query:AdhocQueryResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocQueryResultsRequestType">
+		<xsd:sequence>
+			<xsd:element ref="query:AdhocQueryRequest"/>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocQueryResultsRequest" type="tns:FilterDocQueryResultsRequestType"/>
-    <xsd:complexType name="FilterDocQueryResultsResponseType">
-        <xsd:sequence>
-            <xsd:element ref="query:AdhocQueryResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocQueryResultsResponseType">
+		<xsd:sequence>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocQueryResultsResponse" type="tns:FilterDocQueryResultsResponseType"/>
-    <xsd:complexType name="FilterDocRetrieveResultsRequestType">
-        <xsd:sequence>
-            <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
-            <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocRetrieveResultsRequestType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocRetrieveResultsRequest" type="tns:FilterDocRetrieveResultsRequestType"/>
-    <xsd:complexType name="FilterDocRetrieveResultsResponseType">
-        <xsd:sequence>
-            <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FilterDocRetrieveResultsResponseType">
+		<xsd:sequence>
+			<xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="FilterDocRetrieveResultsResponse" type="tns:FilterDocRetrieveResultsResponseType"/>
-</xsd:schema>
+        <!-- ====================================================================
+         Document retrieve Deferred Schemas for Error handling
+         ==================================================================== -->
+         <xsd:complexType name="AdapterDocumentRetrieveDeferredRequestErrorType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+                        <xsd:element name="RetrieveDocumentSetRequest" type="ihe:RetrieveDocumentSetRequestType"/>
+			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AdapterDocumentRetrieveDeferredRequestError" type="tns:AdapterDocumentRetrieveDeferredRequestErrorType"/>
+	<xsd:complexType name="AdapterDocumentRetrieveDeferredRequestErrorSecuredType">
+		<xsd:sequence>
+			<xsd:element name="RetrieveDocumentSetRequest" type="ihe:RetrieveDocumentSetRequestType"/>
+			<xsd:element name="errorMsg" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AdapterDocumentRetrieveDeferredRequestErrorSecured" type="tns:AdapterDocumentRetrieveDeferredRequestErrorSecuredType"/>
+	
+	
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+		<xsd:sequence>
+                <xsd:element ref="edxlde:EDXLDistribution"/>
+		<xsd:element name="assertion" type="nccommon:AssertionType"/>					
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
 
+	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="edxlde:EDXLDistribution"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
+
+        <!-- ====================================================================
+         Continue adding from here for new Schemas
+         ==================================================================== -->
+</xsd:schema>

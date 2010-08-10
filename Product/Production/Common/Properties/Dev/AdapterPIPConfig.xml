@@ -9,14 +9,14 @@
 	file without requireing all of the project libraries to be loaded to run a single component. -->
 
 	<!-- Default AdapterPIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyNoOpImpl"/> -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyNoOpImpl"/> -->
 
 	<!-- Default AdapterPIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyOptInNoOpImpl"/> -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl"/> -->
 
 	<!-- Java Adapter PIP implementation -->
-	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPJavaProxy"/>
+	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPJavaProxy"/>
 
 	<!-- Web service adapter PIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPWebServiceProxy"/> -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPWebServiceProxy"/> -->
 </beans>
