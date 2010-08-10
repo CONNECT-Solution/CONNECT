@@ -1106,7 +1106,7 @@
       </wsimport-options>
     </service>
     <service name="EntityDocQueryDeferredReq">
-      <implementation-class>gov.hhs.fha.nhinc.docquerydeferred.entity.request.EntityDocQueryDeferredReq</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReq</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocQueryDeferredRequest.wsdl</local-wsdl-file>
       <service-name>EntityDocQueryDeferredRequest</service-name>
@@ -1130,7 +1130,7 @@
       </wsimport-options>
     </service>
     <service name="EntityDocQueryDeferredReqSecured">
-      <implementation-class>gov.hhs.fha.nhinc.docquerydeferred.entity.request.EntityDocQueryDeferredReqSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReqSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequestSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocQueryDeferredRequestSecured.wsdl</local-wsdl-file>
       <service-name>EntityDocQueryDeferredRequestSecured</service-name>
