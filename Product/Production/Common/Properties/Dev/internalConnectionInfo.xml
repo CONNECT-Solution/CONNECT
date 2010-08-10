@@ -17,6 +17,16 @@
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
 			</service>
 			<service>
+				<name>QueryForDocumentsDeferredRequest</name>
+				<description>NHIN Doc Query Deferred Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+			</service>
+			<service>
+				<name>QueryForDocumentsDeferredResponse</name>
+				<description>NHIN Doc Query Deferred Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
+			</service>
+			<service>
 				<name>RetrieveDocument</name>
 				<description>documentretrieve</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
@@ -706,11 +716,6 @@
 			</service>
 			
 			<service>
-				<name>nhindocquerydeferredrequest</name>
-				<description>NHIN Doc Query Deferred Request</description>
-				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
-			</service>
-			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
 				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
@@ -736,11 +741,6 @@
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorSecured</endpointURL>
 			</service>
 			
-			<service>
-				<name>nhindocquerydeferredresponse</name>
-				<description>NHIN Doc Query Deferred Response</description>
-				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
-			</service>
 			<service>
 				<name>adapterdocquerydeferredresponse</name>
 				<description>Unsecure Adapter Doc Query Deferred Response</description>
@@ -776,6 +776,16 @@
 				<name>QueryForDocument</name>
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+			<service>
+				<name>QueryForDocumentsDeferredRequest</name>
+				<description>NHIN Doc Query Deferred Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+			</service>
+			<service>
+				<name>QueryForDocumentsDeferredResponse</name>
+				<description>NHIN Doc Query Deferred Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
 			</service>
 			<service>
 				<name>RetrieveDocument</name>
@@ -1447,12 +1457,7 @@
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
 			<!-- End Doc Retrieve deferred service end points -->
-			
-			<service>
-				<name>nhindocquerydeferredrequest</name>
-				<description>NHIN Doc Query Deferred Request</description>
-				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
-			</service>
+
 			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
@@ -1479,11 +1484,6 @@
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorSecured</endpointURL>
 			</service>
 			
-			<service>
-				<name>nhindocquerydeferredresponse</name>
-				<description>NHIN Doc Query Deferred Response</description>
-				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
-			</service>
 			<service>
 				<name>adapterdocquerydeferredresponse</name>
 				<description>Unsecure Adapter Doc Query Deferred Response</description>
@@ -1519,6 +1519,16 @@
 				<name>QueryForDocument</name>
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+			<service>
+				<name>QueryForDocumentsDeferredRequest</name>
+				<description>NHIN Doc Query Deferred Request</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+			</service>
+			<service>
+				<name>QueryForDocumentsDeferredResponse</name>
+				<description>NHIN Doc Query Deferred Response</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
 			</service>
 			<service>
 				<name>RetrieveDocument</name>
@@ -2122,11 +2132,6 @@
 			<!-- End Doc Retrieve deferred service end points -->
 			
 			<service>
-				<name>nhindocquerydeferredrequest</name>
-				<description>NHIN Doc Query Deferred Request</description>
-				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
-			</service>
-			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
 				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
@@ -2151,12 +2156,7 @@
 				<description>Secured Adapter Doc Query Deferred Request Error</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorSecured</endpointURL>
 			</service>
-			
-			<service>
-				<name>nhindocquerydeferredresponse</name>
-				<description>NHIN Doc Query Deferred Response</description>
-				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
-			</service>
+
 			<service>
 				<name>adapterdocquerydeferredresponse</name>
 				<description>Unsecure Adapter Doc Query Deferred Response</description>
