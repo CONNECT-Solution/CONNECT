@@ -714,7 +714,11 @@
 				<description>Patient Correlation Facade DTE Service</description>
 				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
-			
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
+			</service>
 			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
