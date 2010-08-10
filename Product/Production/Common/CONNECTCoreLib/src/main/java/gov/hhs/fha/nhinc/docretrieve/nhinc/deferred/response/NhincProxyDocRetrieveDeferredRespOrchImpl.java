@@ -66,7 +66,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
                 assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
             }
             target = crossGatewayRetrieveResponse.getNhinTargetSystem();
-            ack = processCrossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, target);
+            ack = crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, target);
         } else {
             ack = createErrorAck("Proxy Inbound Response message is null");
         }
@@ -98,7 +98,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
                 assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
             }
             target = body.getNhinTargetSystem();
-            ack = processCrossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, target);
+            ack = crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, target);
 
         } else {
             ack = createErrorAck("Proxy Inbound Response message is null");
@@ -116,7 +116,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    private DocRetrieveAcknowledgementType processCrossGatewayRetrieveResponse(RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetSystemType target) {
         if (debugEnabled) {
             log.debug("Begin NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
         }
@@ -137,9 +137,9 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
             }
             ack = docRetrieveProxy.sendToRespondingGateway(req, assertion);
         }
-        catch (Throwable t)
+        catch (Exception ex)
         {
-            ack = createErrorAck("Unable to process Proxy response message :" + t.getMessage());
+            ack = createErrorAck("Unable to process Proxy response message :" + ex.getMessage());
         }
         if (ack != null) {
             // Audit response message

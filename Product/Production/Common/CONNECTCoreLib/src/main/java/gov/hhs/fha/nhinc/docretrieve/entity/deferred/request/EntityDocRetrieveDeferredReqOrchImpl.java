@@ -143,17 +143,22 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 //loop through the communities and send request if results were not null
                 if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
                     log.warn("No targets were found for the Document retrieve deferred service Request");
+                    nhincResponse = buildRegistryErrorAck(homeCommunityId, "No targets were found for the Document retrieve deferred service Request");
                 } else {
                     nhincResponse = new DocRetrieveAcknowledgementType();
+                    if (debugEnabled) {
+                                log.debug("Creating NHIN doc retrieve proxy");
+                            }
+                    NhincProxyDocRetrieveDeferredReqObjectFactory objFactory = new NhincProxyDocRetrieveDeferredReqObjectFactory();
+                    NhincProxyDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
                     for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
                         if (isPolicyValid(nhinDocRequest, assertion, urlInfo.getHcid())) {
                             // Call NHIN proxy
                             oTargetSystem = new NhinTargetSystemType();
                             oTargetSystem.setUrl(urlInfo.getUrl());
-                            log.debug("Creating NHIN doc retrieve proxy");
-                            NhincProxyDocRetrieveDeferredReqObjectFactory objFactory = new NhincProxyDocRetrieveDeferredReqObjectFactory();
-                            NhincProxyDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
-                            log.debug("Calling doc retrieve proxy");
+                            if (debugEnabled) {
+                                log.debug("Calling doc retrieve proxy");
+                            }
                             nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion, oTargetSystem);
                         } else {
                             nhincResponse = buildRegistryErrorAck(homeCommunityId, "Policy Check Failed on Doc retrieve deferred request for community ");
@@ -161,9 +166,9 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                     }
                 }
             }
-        } catch (Throwable t) {
-            log.error("Error sending doc retrieve deferred message...");
-            nhincResponse = buildRegistryErrorAck(homeCommunityId, "Fault encountered processing internal document retrieve deferred for community ");
+        } catch (Exception ex) {
+            log.error("Error sending doc retrieve deferred message..." + ex.getMessage());
+            nhincResponse = buildRegistryErrorAck(homeCommunityId, ex.getMessage());
             log.error("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
         }
         if (null != nhincResponse) {

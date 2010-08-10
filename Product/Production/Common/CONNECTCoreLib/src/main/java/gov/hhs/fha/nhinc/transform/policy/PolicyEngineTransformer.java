@@ -83,4 +83,8 @@ public class PolicyEngineTransformer {
         return new XDRPolicyTransformHelper().transformXDRResponseToCheckPolicy(request);
     }
 
+    public CheckPolicyRequestType transformDRResponseInputToCheckPolicy(DocRetrieveResultEventType request) {
+        return new DocRetrieveDeferredTransformHelper().transformDocRetrieveDeferredRespToCheckPolicy(request);
+    }
+    
 }

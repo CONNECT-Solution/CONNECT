@@ -66,7 +66,7 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
             }
             nhinTargetSystem = crossGatewayRetrieveRequest.getNhinTargetSystem();
             retrieveDocumentSetRequest = crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
-            ack = processCrossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetSystem);
+            ack = crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetSystem);
         } else {
             ack = createErrorAckResponse("Inbound Proxy request is null unable to process");
         }
@@ -98,7 +98,7 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
             }
             nhinTargetSystem = body.getNhinTargetSystem();
             retrieveDocumentSetRequest = body.getRetrieveDocumentSetRequest();
-            ack = processCrossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetSystem);
+            ack = crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetSystem);
         } else {
             ack = createErrorAckResponse("Inbound Proxy request is null unable to process");
         }
@@ -115,7 +115,7 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    private DocRetrieveAcknowledgementType processCrossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
         if (debugEnabled) {
             log.debug("Begin NhincProxyDocRetrieveDeferredReqOrchImpl.processCrossGatewayRetrieveRequest(...)");
         }
@@ -138,9 +138,9 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
             }
             ack = docRetrieveProxy.sendToRespondingGateway(req, assertion);
         }
-        catch(Throwable t)
+        catch(Exception ex)
         {
-            ack = createErrorAckResponse("Error Processing NHIN Proxy document retrieve deferred :"+t.getMessage());
+            ack = createErrorAckResponse("Error Processing NHIN Proxy document retrieve deferred :"+ex.getMessage());
         }
         if (ack != null) {
             // Audit response message
