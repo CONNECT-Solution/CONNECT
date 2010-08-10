@@ -78,7 +78,14 @@ public abstract class ComponentProxyObjectFactory
         {
             log.warn("ApplicationContext was null - not retrieving bean.");
         }
-        //TODO: Check type before returning.
+        if(proxyObject == null)
+        {
+            log.warn("Proxy object was null");
+        }
+        else if(proxyObject.getClass().isAssignableFrom(type))
+        {
+            log.error("Incorrect type: " + proxyObject.getClass().getName() + " - expected: " + type.getName());
+        }
         return type.cast(proxyObject);
     }
 

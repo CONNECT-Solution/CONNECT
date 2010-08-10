@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.policyengine.adapterpep.proxy;
+package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;

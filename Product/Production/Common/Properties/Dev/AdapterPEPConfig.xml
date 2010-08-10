@@ -9,12 +9,15 @@
 	file without requireing all of the project libraries to be loaded to run a single component. -->
 
 	<!-- Default Permit AdapterPEP implementation -->
-	<bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyNoOpImpl"/>
+	<bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyNoOpImpl"/>
 
 	<!-- Default Deny AdapterPEP implementation -->
-	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyDenyNoOpImpl"/> -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyDenyNoOpImpl"/> -->
+
+	<!-- Web service AdapterPEP implementation -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPWebServiceProxy"/> -->
 
 	<!-- Java Adapter PEP implementation -->
-	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPJavaProxy"/> -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPJavaProxy"/> -->
 
 </beans>
