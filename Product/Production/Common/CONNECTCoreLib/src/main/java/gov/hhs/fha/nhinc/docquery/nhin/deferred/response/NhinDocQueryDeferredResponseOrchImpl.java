@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -24,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
  * @author jhoppesc
  */
 public class NhinDocQueryDeferredResponseOrchImpl {
+
     private static Log log = LogFactory.getLog(NhinDocQueryDeferredResponseOrchImpl.class);
 
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
@@ -37,24 +37,27 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
         // Check if the service is enabled
         if (isServiceEnabled()) {
+            // Perform the inbound policy check
+            if (isPolicyValid(msg, assertion)) {
+                respAck = sendToAgency(msg, assertion);
+            } else {
+                log.error("Policy Check Failed for incoming Document Query Deferred Request");
+            }
 
             // Check if in Pass-Through Mode
             if (!(isInPassThroughMode())) {
-
-            }
-            else {
+            } else {
                 // Send the deferred response to the Adapter Interface
                 respAck = sendToAgency(msg, assertion);
             }
-        }
-        else {
+        } else {
             // Service is not enabled so we are not doing anything with this response
             log.error("Document Query Deferred Response Service Not Enabled");
         }
 
         // Audit the outgoing NHIN Message
-        ack = auditAck (respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        
+        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
         return respAck;
     }
 
@@ -94,23 +97,28 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
 
         // Audit the incoming Adapter Message
-        ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditAck(ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         return ackResp;
     }
 
-    private AcknowledgementType auditResponse (AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface) {
+    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
         AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface);
 
         return ack;
     }
 
-    private AcknowledgementType auditAck (DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface) {
+    private AcknowledgementType auditAck(DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
         AcknowledgementType ack = auditLogger.logDocQueryAck(msg, assertion, direction, _interface);
 
         return ack;
     }
 
+    private boolean isPolicyValid(AdhocQueryResponse message, AssertionType assertion) {
+        //boolean policyIsValid = new DocQueryPolicyChecker().checkIncomingPolicy(message, assertion);
+
+        return true;
+    }
 }
