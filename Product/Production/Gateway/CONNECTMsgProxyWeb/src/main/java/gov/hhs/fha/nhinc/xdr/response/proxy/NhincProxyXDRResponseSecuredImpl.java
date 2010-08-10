@@ -9,7 +9,9 @@ import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhincProxyXDRResponseSecuredImpl
 {
+
     private Log log = null;
     private XDRAuditLogger auditLogger = null;
 
@@ -33,15 +36,22 @@ public class NhincProxyXDRResponseSecuredImpl
     {
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, WebServiceContext)");
         XDRAcknowledgementType response = null;
+        WebServiceHelper oHelper = createWebServiceHelper();
 
-        AssertionType assertion = extractAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(extractMessageId(context));
+        try
+        {
+            if (provideAndRegisterResponseRequest != null)
+            {
+                response = (XDRAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "provideAndRegisterDocumentSetBResponse", provideAndRegisterResponseRequest, context);
+            } else
+            {
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponse).  The input parameter is null.");
+            }
+        } catch (Exception e)
+        {
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponse).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
         }
-
-        response = provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest, assertion);
 
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, WebServiceContext)");
         return response;
@@ -98,25 +108,8 @@ public class NhincProxyXDRResponseSecuredImpl
         return factory.getNhinXDRResponseProxy();
     }
 
-    protected AssertionType extractAssertion(WebServiceContext context)
+    protected WebServiceHelper createWebServiceHelper()
     {
-        log.debug("Begin extractAssertion");
-        AssertionType assertion = null;
-        if(context != null)
-        {
-            assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
-            log.warn("Attempted to extract assertion from null web service context.");
-        }
-        log.debug("End extractAssertion");
-        return assertion;
+        return new WebServiceHelper();
     }
-
-    protected String extractMessageId (WebServiceContext context) {
-        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-        return msgIdExtractor.GetAsyncRelatesTo(context);
-    }
-
 }

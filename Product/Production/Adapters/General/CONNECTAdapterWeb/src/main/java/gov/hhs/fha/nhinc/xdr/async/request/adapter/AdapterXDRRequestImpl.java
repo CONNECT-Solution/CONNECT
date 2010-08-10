@@ -20,8 +20,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import java.util.List;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.WebServiceContext;
@@ -47,14 +49,24 @@ public class AdapterXDRRequestImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         getLogger().debug("Begin provideAndRegisterDocumentSetBRequest()");
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (body != null &&
-                body.getAssertion() != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            body.getAssertion().setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+        WebServiceHelper oHelper = new WebServiceHelper();
+        RegistryResponseType response = new RegistryResponseType();
+
+        try
+        {
+            if (body != null && body.getProvideAndRegisterDocumentSetRequest() != null)
+            {
+                response = (RegistryResponseType) oHelper.invokeDeferredResponseWebService(this, this.getClass(), "callAdapterComponentXDR", body.getAssertion(), body.getProvideAndRegisterDocumentSetRequest(), context);
+            } else
+            {
+                getLogger().error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  The input parameter is null.");
+            }
+        } catch (Exception e)
+        {
+            getLogger().error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
         }
 
-        RegistryResponseType registryResponse = callAdapterComponentXDR(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion());
 
         //TODO: Call the XDR Response service asynchronously
         //ihe.iti.xdr._2007.AcknowledgementType ack = sendXDRResponse(registryResponse, body.getAssertion());

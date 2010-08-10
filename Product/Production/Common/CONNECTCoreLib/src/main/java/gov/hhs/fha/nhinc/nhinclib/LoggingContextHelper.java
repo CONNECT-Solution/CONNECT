@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.nhinclib;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import java.util.List;
 import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -11,14 +12,16 @@ import org.apache.log4j.NDC;
  * This helper class sets up a logging context such that message flow can be
  * traced through process log messages.
  */
-public class LoggingContextHelper {
+public class LoggingContextHelper
+{
 
     private Log log = null;
 
     /**
      * Default Constructor defines the logger
      */
-    public LoggingContextHelper() {
+    public LoggingContextHelper()
+    {
         log = createLogger();
     }
 
@@ -26,8 +29,10 @@ public class LoggingContextHelper {
      * Creates the error logger
      * @return The Logger
      */
-    protected Log createLogger() {
-        if (log == null) {
+    protected Log createLogger()
+    {
+        if (log == null)
+        {
             log = LogFactory.getLog(getClass());
         }
         return log;
@@ -39,7 +44,8 @@ public class LoggingContextHelper {
      * @param webServiceContext Provides the message context of the request
      *                          being served
      */
-    public void setContext(WebServiceContext webServiceContext) {
+    public void setContext(WebServiceContext webServiceContext)
+    {
         String loggingContextId = generateLoggingContextId(webServiceContext);
         NDC.push(loggingContextId);
     }
@@ -54,17 +60,27 @@ public class LoggingContextHelper {
      *                          being served
      * @return Unique representation of this logging context
      */
-    protected String generateLoggingContextId(WebServiceContext webServiceContext) {
+    protected String generateLoggingContextId(WebServiceContext webServiceContext)
+    {
 
         StringBuffer buffer = new StringBuffer();
         String messageId = AsyncMessageIdExtractor.GetAsyncMessageId(webServiceContext);
-        String relatesToId = AsyncMessageIdExtractor.GetAsyncRelatesTo(webServiceContext);
-        if (messageId != null) {
+        List<String> allRelatesToIds = AsyncMessageIdExtractor.GetAsyncRelatesTo(webServiceContext);
+        if (messageId != null)
+        {
             buffer.append(messageId);
         }
         buffer.append(".");
-        if (relatesToId != null) {
-            buffer.append(relatesToId);
+        if (allRelatesToIds != null && !allRelatesToIds.isEmpty())
+        {
+            for (String relatesToId : allRelatesToIds)
+            {
+                if (relatesToId != null)
+                {
+                    buffer.append(relatesToId);
+                    buffer.append(" ");
+                }
+            }
         }
         buffer.append(".");
         buffer.append(UUID.randomUUID().toString());
@@ -76,7 +92,8 @@ public class LoggingContextHelper {
      * This method should be used when exiting the processing thread to remove
      * the context.
      */
-    public void clearContext() {
+    public void clearContext()
+    {
         NDC.remove();
     }
 }

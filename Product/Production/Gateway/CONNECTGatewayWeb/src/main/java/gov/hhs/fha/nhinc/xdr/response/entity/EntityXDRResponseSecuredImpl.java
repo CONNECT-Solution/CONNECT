@@ -11,9 +11,11 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.xdr.async.response.proxy.NhinXDRResponseObjectFactory;
 import gov.hhs.fha.nhinc.xdr.async.response.proxy.NhinXDRResponseProxy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,32 +24,43 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Neil Webb
  */
-public class EntityXDRResponseSecuredImpl {
+public class EntityXDRResponseSecuredImpl
+{
 
     private Log log = null;
     private XDRAuditLogger auditLogger = null;
 
-    public EntityXDRResponseSecuredImpl() {
+    public EntityXDRResponseSecuredImpl()
+    {
         log = createLogger();
         auditLogger = createAuditLogger();
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, WebServiceContext context)
+    {
         log.info("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, WebServiceContext)");
+        WebServiceHelper oHelper = createWebServiceHelper();
         XDRAcknowledgementType response = null;
-        AssertionType assertion = extractAssertion(context);
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(extractMessageId(context));
+        try
+        {
+            if (provideAndRegisterDocumentSetSecuredResponseRequest != null)
+            {
+                response = (XDRAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "provideAndRegisterDocumentSetBResponse", provideAndRegisterDocumentSetSecuredResponseRequest, context);
+            } else
+            {
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponse).  The input parameter is null.");
+            }
+        } catch (Exception e)
+        {
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponse).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
         }
-
-        response = provideAndRegisterDocumentSetBResponse(provideAndRegisterDocumentSetSecuredResponseRequest, assertion);
-        log.info("End provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, WebServiceContext)");
         return response;
     }
 
-    private XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, AssertionType assertion) {
+    private XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, AssertionType assertion)
+    {
         log.info("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
@@ -61,9 +74,11 @@ public class EntityXDRResponseSecuredImpl {
                 NullChecker.isNotNullish(provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities().getNhinTargetCommunity()) &&
                 provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null &&
                 provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null &&
-                NullChecker.isNotNullish(provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId())) {
+                NullChecker.isNotNullish(provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId()))
+        {
 
-            if (checkPolicy(provideAndRegisterDocumentSetSecuredResponseRequest, assertion)) {
+            if (checkPolicy(provideAndRegisterDocumentSetSecuredResponseRequest, assertion))
+            {
                 log.info("Policy check successful");
 
                 NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
@@ -75,11 +90,13 @@ public class EntityXDRResponseSecuredImpl {
 
                 log.debug("Sending request from entity service to NHIN proxy service");
                 response = callNhinXDRResponseProxy(proxyRequest, assertion);
-            } else {
+            } else
+            {
                 log.error("Policy check unsuccessful");
 
             }
-        } else {
+        } else
+        {
             log.warn("There was not a target community provided in the Entity message");
         }
 
@@ -111,39 +128,32 @@ public class EntityXDRResponseSecuredImpl {
         return response;
     }
 
-    private void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
+    private void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion)
+    {
         log.debug("Begin logRequest");
         auditLogger.auditEntityXDRResponseRequest(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         log.debug("End logRequest");
     }
 
-    private void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
+    private void logResponse(XDRAcknowledgementType response, AssertionType assertion)
+    {
         log.debug("Beging logResponse");
         auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
         log.debug("End logResponse");
     }
 
-    protected XDRAuditLogger createAuditLogger() {
+    protected XDRAuditLogger createAuditLogger()
+    {
         return new XDRAuditLogger();
     }
 
-    protected Log createLogger() {
+    protected Log createLogger()
+    {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected AssertionType extractAssertion(WebServiceContext context) {
-        log.debug("Begin extractAssertion");
-        AssertionType assertion = null;
-        if (context != null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
-        } else {
-            log.warn("Attempted to extract assertion from null web service context.");
-        }
-        log.debug("End extractAssertion");
-        return assertion;
-    }
-
-    protected boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
+    protected boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion)
+    {
         log.debug("Begin checkPolicy");
         boolean bPolicyOk = false;
 
@@ -152,7 +162,8 @@ public class EntityXDRResponseSecuredImpl {
                 NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity()) &&
                 request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null &&
                 request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null &&
-                NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId())) {
+                NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId()))
+        {
 
             SubjectHelper subjHelp = new SubjectHelper();
             String senderHCID = subjHelp.determineSendingHomeCommunityId(assertion.getHomeCommunity(), assertion);
@@ -163,15 +174,16 @@ public class EntityXDRResponseSecuredImpl {
             //return true if 'permit' returned, false otherwise
             XDRPolicyChecker policyChecker = new XDRPolicyChecker();
             bPolicyOk = policyChecker.checkXDRResponsePolicy(request.getRegistryResponse(), assertion, senderHCID, receiverHCID, direction);
-        } else {
+        } else
+        {
             log.warn("EntityXDRResponseSecuredImpl check on policy requires a non null receiving home community ID specified in the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
         }
         log.debug("EntityXDRResponseSecuredImpl check on policy returns: " + bPolicyOk);
         return bPolicyOk;
     }
 
-    protected String extractMessageId(WebServiceContext context) {
-        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-        return msgIdExtractor.GetAsyncRelatesTo(context);
+    protected WebServiceHelper createWebServiceHelper()
+    {
+        return new WebServiceHelper();
     }
 }

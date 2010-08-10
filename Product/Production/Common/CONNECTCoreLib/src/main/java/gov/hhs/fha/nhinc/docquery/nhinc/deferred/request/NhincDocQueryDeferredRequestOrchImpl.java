@@ -53,7 +53,7 @@ public class NhincDocQueryDeferredRequestOrchImpl {
 
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+            assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
         }else{
             getLogger().error("Assertion is null");
             return createErrorAckResponse("Assertion is null");

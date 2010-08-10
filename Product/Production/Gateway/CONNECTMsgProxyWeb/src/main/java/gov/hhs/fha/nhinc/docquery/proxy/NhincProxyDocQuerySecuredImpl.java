@@ -13,6 +13,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 /**
@@ -20,34 +21,35 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
  *
  * @author Neil Webb
  */
-public class NhincProxyDocQuerySecuredImpl {
+public class NhincProxyDocQuerySecuredImpl
+{
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhincProxyDocQuerySecuredImpl.class);
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context) {
-        AdhocQueryResponse response = null;
-        LoggingContextHelper loggingContextHelper = new LoggingContextHelper();
-        try {
-            // Collect assertion
-            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-            // Extract the message id value from the WS-Addressing Header and
-            // place it in the Assertion Class
-            if (assertion != null) {
-                assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context)
+    {
+        WebServiceHelper oHelper = new WebServiceHelper();
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        try
+        {
+            if (body != null)
+            {
+                response = (AdhocQueryResponse) oHelper.invokeSecureWebService(this, this.getClass(), "respondingGatewayCrossGatewayQuery", body, context);
+            } else
+            {
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
             }
-
-            loggingContextHelper.setContext(context);
-
-            response = respondingGatewayCrossGatewayQuery(body, assertion);
-
-        } finally {
-            loggingContextHelper.clearContext();
+        } catch (Exception e)
+        {
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
         }
+
         return response;
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, AssertionType assertion) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, AssertionType assertion)
+    {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
@@ -55,7 +57,8 @@ public class NhincProxyDocQuerySecuredImpl {
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
         AcknowledgementType ack = auditLog.auditDQRequest(body.getAdhocQueryRequest(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-        try {
+        try
+        {
             log.debug("Creating NhinDocQueryProxy");
             NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
             NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
@@ -68,7 +71,8 @@ public class NhincProxyDocQuerySecuredImpl {
 
             log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
             response = proxy.respondingGatewayCrossGatewayQuery(request);
-        } catch (Throwable t) {
+        } catch (Throwable t)
+        {
             log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
             response = new AdhocQueryResponse();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");

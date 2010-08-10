@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.xdr.async.response.adapter;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -22,6 +21,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,35 +32,45 @@ import javax.xml.ws.handler.Handler;
  *
  * @author patlollav
  */
-public class AdapterXDRResponseSecuredImpl {
+public class AdapterXDRResponseSecuredImpl
+{
 
     private static final Log logger = LogFactory.getLog(AdapterXDRResponseSecuredImpl.class);
     private static AdapterComponentXDRResponseService adapterXDRService = new AdapterComponentXDRResponseService();
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
+    {
+
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
-
-        // Call AdapterComponent implementation to process the request.
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        WebServiceHelper oHelper = new WebServiceHelper();
+        XDRAcknowledgementType ack = null;
+        try
+        {
+            if (body != null)
+            {
+                ack = (XDRAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "callAdapterComponentXDR", body, context);
+            } else
+            {
+                logger.error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  The input parameter is null.");
+            }
+        } catch (Exception e)
+        {
+            logger.error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
         }
-
-        XDRAcknowledgementType ack = callAdapterComponentXDR(body, assertion);
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
 
         return ack;
     }
 
-    protected Log getLogger(){
+    protected Log getLogger()
+    {
         return logger;
     }
 
-    protected XDRAcknowledgementType callAdapterComponentXDR(RegistryResponseType body, AssertionType assertion) {
+    protected XDRAcknowledgementType callAdapterComponentXDR(RegistryResponseType body, AssertionType assertion)
+    {
 
         getLogger().debug("Calling AdapterComponentXDRImpl");
 
@@ -71,12 +81,14 @@ public class AdapterXDRResponseSecuredImpl {
 
         String adapterComponentXDRUrl = getAdapterComponentXDRUrl();
 
-        if (NullChecker.isNotNullish(adapterComponentXDRUrl)) {
+        if (NullChecker.isNotNullish(adapterComponentXDRUrl))
+        {
             AdapterComponentXDRResponsePortType port = getAdapterXDRPort(adapterComponentXDRUrl, assertion);
 
             ack = port.provideAndRegisterDocumentSetBResponse(msg);
 
-        } else {
+        } else
+        {
             getLogger().error("The URL for service: " + NhincConstants.ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME + " is null");
         }
 
@@ -88,19 +100,23 @@ public class AdapterXDRResponseSecuredImpl {
      *
      * @return
      */
-    protected String getAdapterComponentXDRUrl() {
+    protected String getAdapterComponentXDRUrl()
+    {
         String url = null;
 
-        try {
+        try
+        {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+        } catch (ConnectionManagerException ex)
+        {
             getLogger().error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME, ex);
         }
 
         return url;
     }
 
-    protected AdapterComponentXDRResponsePortType getAdapterXDRPort(String url, AssertionType assertion) {
+    protected AdapterComponentXDRResponsePortType getAdapterXDRPort(String url, AssertionType assertion)
+    {
 
         AdapterComponentXDRResponsePortType port = adapterXDRService.getAdapterComponentXDRResponsePort();
 
@@ -121,5 +137,4 @@ public class AdapterXDRResponseSecuredImpl {
 
         return port;
     }
-
 }

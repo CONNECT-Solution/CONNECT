@@ -67,7 +67,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
             AssertionType assertion = crossGatewayRetrieveResponse.getAssertion();
             if (null != assertion) {
                 assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+                assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
             }
             NhinTargetCommunitiesType target = crossGatewayRetrieveResponse.getNhinTargetCommunities();
             ack = this.crossGatewayRetrieveResponse(response, assertion, target);
@@ -96,7 +96,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
             AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
             if (null != assertion) {
                 assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+                assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
             }
             NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
             ack = this.crossGatewayRetrieveResponse(response, assertion, target);

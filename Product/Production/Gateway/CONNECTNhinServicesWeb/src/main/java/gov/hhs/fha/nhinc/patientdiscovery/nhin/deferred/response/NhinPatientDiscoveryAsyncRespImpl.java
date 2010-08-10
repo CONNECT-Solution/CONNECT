@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import java.beans.XMLDecoder;
@@ -37,26 +38,83 @@ import org.hl7.v3.PRPAIN201306UV02;
  *
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryAsyncRespImpl {
+public class NhinPatientDiscoveryAsyncRespImpl
+{
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryAsyncRespImpl.class);
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, WebServiceContext context) {
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, WebServiceContext context)
+    {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
+        WebServiceHelper oHelper = new WebServiceHelper();
 
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
+        try
+        {
+            if (body != null)
+            {
+                resp = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "respondingGatewayPRPAIN201306UV02", body, context);
+            } else
+            {
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayPRPAIN201306UV02).  The input parameter is null.");
+            }
+        } catch (Exception e)
+        {
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayPRPAIN201306UV02).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
         }
+        return resp;
+    }
+
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion)
+    {
+        MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         // Audit the incoming Nhin 201306 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditNhin201306(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
-        resp = respondingGatewayPRPAIN201306UV02(body, assertion);
+        // Check if the Patient Discovery Async Response Service is enabled
+        if (isServiceEnabled())
+        {
+            // Perform a policy check
+            if (checkPolicy(body, assertion))
+            {
+
+
+
+                // Obtain the response mode in order to determine how the message is to be processed
+                int respModeType = getResponseMode();
+
+                if (respModeType == ResponseFactory.PASSTHRU_MODE)
+                {
+                    // Nothing to do here, empty target to cover the passthrough case
+                } else if (respModeType == ResponseFactory.TRUST_MODE)
+                {
+                    // Store AA to HCID Mapping
+                    storeMapping(body);
+
+                    processRespTrustMode(body, assertion);
+                } else
+                {
+                    // Store AA to HCID Mapping
+                    storeMapping(body);
+
+                    // Default is Verify Mode
+                    processRespVerifyMode(body, assertion);
+                }
+            } else
+            {
+                log.error("Policy Check Failed");
+                body.getControlActProcess().getSubject().clear();
+            }
+        } else
+        {
+            log.error("Patient Discovery Async Response Service Not Enabled");
+            body.getControlActProcess().getSubject().clear();
+            ;
+        }
+
+        resp = sendToAdapter(body, assertion);
 
         // Audit the responding ack Message
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
@@ -64,48 +122,8 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         return resp;
     }
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion) {
-        MCCIIN000002UV01 resp = new MCCIIN000002UV01();
-
-        // Check if the Patient Discovery Async Response Service is enabled
-        if (isServiceEnabled()) {
-            // Perform a policy check
-            if (checkPolicy(body, assertion)) {
-
-
-
-                // Obtain the response mode in order to determine how the message is to be processed
-                int respModeType = getResponseMode();
-
-                if (respModeType == ResponseFactory.PASSTHRU_MODE) {
-                    // Nothing to do here, empty target to cover the passthrough case
-                } else if (respModeType == ResponseFactory.TRUST_MODE) {
-                    // Store AA to HCID Mapping
-                    storeMapping(body);
-
-                    processRespTrustMode(body, assertion);
-                } else {
-                    // Store AA to HCID Mapping
-                    storeMapping(body);
-
-                    // Default is Verify Mode
-                    processRespVerifyMode(body, assertion);
-                }
-            } else {
-                log.error("Policy Check Failed");
-                body.getControlActProcess().getSubject().clear();
-            }
-        } else {
-            log.error("Patient Discovery Async Response Service Not Enabled");
-            body.getControlActProcess().getSubject().clear();;
-        }
-
-        resp = sendToAdapter(body, assertion);
-
-        return resp;
-    }
-
-    protected int getResponseMode() {
+    protected int getResponseMode()
+    {
         ResponseFactory respFactory = new ResponseFactory();
 
         return respFactory.getResponseModeType();
@@ -116,11 +134,13 @@ public class NhinPatientDiscoveryAsyncRespImpl {
      *
      * @return Returns true if the servicePatientDiscoveryAsyncReq is enabled in the properties file.
      */
-    protected boolean isServiceEnabled() {
+    protected boolean isServiceEnabled()
+    {
         return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
     }
 
-    protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion) {
+    protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion)
+    {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditAdapter201306(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
@@ -133,7 +153,8 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         return resp;
     }
 
-    protected void processRespVerifyMode(PRPAIN201306UV02 body, AssertionType assertion) {
+    protected void processRespVerifyMode(PRPAIN201306UV02 body, AssertionType assertion)
+    {
         // In Verify Mode:
         //    1)  Query MPI to verify the patient is a match.
         //    2)  If a match is found in MPI then proceed with the correlation
@@ -147,7 +168,8 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         removeExpiredEntries(asyncDbDao);
     }
 
-    protected void processRespTrustMode(PRPAIN201306UV02 body, AssertionType assertion) {
+    protected void processRespTrustMode(PRPAIN201306UV02 body, AssertionType assertion)
+    {
         // In Trust Mode:
         //    1)  Query async database for a record corresponding to the message/relatesto id
         //    2)  If a record is found then proceed with correlation
@@ -159,7 +181,8 @@ public class NhinPatientDiscoveryAsyncRespImpl {
 
         List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByMessageId(assertion.getMessageId());
 
-        if (NullChecker.isNotNullish(asyncMsgRecs)) {
+        if (NullChecker.isNotNullish(asyncMsgRecs))
+        {
             AsyncMsgRecord dbRec = asyncMsgRecs.get(0);
             patId = extractPatId(dbRec.getMsgData());
 
@@ -171,33 +194,41 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         }
     }
 
-    private II extractPatId(Blob msgData) {
+    private II extractPatId(Blob msgData)
+    {
         II patId = new II();
 
-        if (msgData != null) {
-            try {
+        if (msgData != null)
+        {
+            try
+            {
                 XMLDecoder xdec = new XMLDecoder(msgData.getBinaryStream());
 
-                try {
+                try
+                {
                     Object o = xdec.readObject();
                     patId = (II) o;
-                } finally {
+                } finally
+                {
                     xdec.close();
                 }
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 ex.printStackTrace();
                 log.error(ex.getMessage());
             }
 
             log.debug("Patient Id Retrieved From the Database: " + patId.getExtension() + " " + patId.getRoot());
-        } else {
+        } else
+        {
             log.error("Message Data contained in the database was null");
         }
 
         return patId;
     }
 
-    protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
+    protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion)
+    {
         PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
 
         II patIdOverride = new II();
@@ -210,22 +241,26 @@ public class NhinPatientDiscoveryAsyncRespImpl {
                 NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
                 response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
                 NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
-                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot()))
+        {
             patIdOverride.setExtension(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
             patIdOverride.setRoot(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
-        } else {
+        } else
+        {
             patIdOverride = null;
         }
 
         return policyChecker.check201305Policy(response, patIdOverride, assertion);
     }
 
-    protected void storeMapping(PRPAIN201306UV02 msg) {
+    protected void storeMapping(PRPAIN201306UV02 msg)
+    {
         PatientDiscovery201306Processor msgProcessor = new PatientDiscovery201306Processor();
         msgProcessor.storeMapping(msg);
     }
 
-    protected void cleanupDatabase (AsyncMsgRecord dbRec) {
+    protected void cleanupDatabase(AsyncMsgRecord dbRec)
+    {
         AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
 
         // Delete the specific database record that was passed into this method.
@@ -235,21 +270,26 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         removeExpiredEntries(asyncDbDao);
     }
 
-    private void removeExpiredEntries (AsyncMsgRecordDao asyncDbDao) {
+    private void removeExpiredEntries(AsyncMsgRecordDao asyncDbDao)
+    {
         // Read the delta properties from the gateway.properties file
         long value = 0;
         String units = null;
 
-        try {
+        try
+        {
             value = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
-        } catch (PropertyAccessException ex) {
+        } catch (PropertyAccessException ex)
+        {
             log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
 
-        try {
+        try
+        {
             units = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
-        } catch (PropertyAccessException ex) {
+        } catch (PropertyAccessException ex)
+        {
             log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
@@ -261,27 +301,30 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByTime(expirationValue);
 
         // Delete all of the records that were returned from the query
-        for (AsyncMsgRecord rec : asyncMsgRecs) {
+        for (AsyncMsgRecord rec : asyncMsgRecs)
+        {
             asyncDbDao.delete(rec);
         }
     }
 
-    private Date calculateExpirationValue (long value, String units) {
+    private Date calculateExpirationValue(long value, String units)
+    {
         Calendar currentTime = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 
         // Convert the long to a Long Object and change the sign to negative so our query value ends up in the past.
-        Long longObj = Long.valueOf(0-value);
+        Long longObj = Long.valueOf(0 - value);
 
-        if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC)) {
+        if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC))
+        {
             currentTime.add(Calendar.SECOND, longObj.intValue());
-        }
-        else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN)) {
+        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN))
+        {
             currentTime.add(Calendar.MINUTE, longObj.intValue());
-        }
-        else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR)) {
+        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR))
+        {
             currentTime.add(Calendar.HOUR_OF_DAY, longObj.intValue());
-        }
-        else {
+        } else
+        {
             // Default to days
             currentTime.add(Calendar.DAY_OF_YEAR, longObj.intValue());
         }

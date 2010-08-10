@@ -63,7 +63,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
             assertion = crossGatewayRetrieveResponse.getAssertion();
             if (null != assertion) {
                 assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+                assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
             }
             target = crossGatewayRetrieveResponse.getNhinTargetSystem();
             ack = crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, target);
@@ -95,7 +95,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
             assertion = SamlTokenExtractor.GetAssertion(context);
             if (null != assertion) {
                 assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+                assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
             }
             target = body.getNhinTargetSystem();
             ack = crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, target);

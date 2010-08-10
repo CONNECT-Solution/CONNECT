@@ -8,6 +8,9 @@ import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
 
@@ -43,9 +46,9 @@ public class AsyncMessageIdExtractor
         return messageId;
     }
 
-    public static String GetAsyncRelatesTo(WebServiceContext context)
+    public static List<String> GetAsyncRelatesTo(WebServiceContext context)
     {
-        String relatesToId = null;
+        List<String> relatesToId = new ArrayList();
 
         if (context != null && context.getMessageContext() != null)
         {
@@ -53,10 +56,15 @@ public class AsyncMessageIdExtractor
             if (oList instanceof HeaderList)
             {
                 HeaderList hlist = (HeaderList) oList;
-                Header header = hlist.get(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_RELATESTO, false);
-                if (header != null)
+                Iterator<Header> allRelatesToHeaders = hlist.getHeaders(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_RELATESTO, false);
+                while (allRelatesToHeaders.hasNext())
                 {
-                    relatesToId = header.getStringContent();
+                    Header header = allRelatesToHeaders.next();
+
+                    if (header != null)
+                    {
+                        relatesToId.add(header.getStringContent());
+                    }
                 }
             }
         }

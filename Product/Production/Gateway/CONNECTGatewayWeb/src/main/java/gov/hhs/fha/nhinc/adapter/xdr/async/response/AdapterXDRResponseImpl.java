@@ -7,8 +7,8 @@ package gov.hhs.fha.nhinc.adapter.xdr.async.response;
 
 import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxy;
 import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxyObjectFactory;
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -23,19 +23,25 @@ public class AdapterXDRResponseImpl {
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (body != null &&
-                body.getAssertion() != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            body.getAssertion().setMessageId(msgIdExtractor.GetAsyncRelatesTo(context));
-        }
-
+        WebServiceHelper oHelper = new WebServiceHelper();
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
         AdapterXDRResponseProxyObjectFactory factory = new AdapterXDRResponseProxyObjectFactory();
-
         AdapterXDRResponseProxy proxy = factory.getAdapterXDRResponseProxy();
 
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBResponse(body.getRegistryResponse(), body.getAssertion());
+        try
+        {
+            if (body != null && body.getRegistryResponse() != null && proxy != null)
+            {
+                response = (XDRAcknowledgementType) oHelper.invokeDeferredResponseWebService(proxy, proxy.getClass(), "provideAndRegisterDocumentSetBResponse", body.getAssertion(), body.getRegistryResponse(), context);
+            } else
+            {
+                getLogger().error("Failed to call the web orchestration (" + proxy.getClass() + ".provideAndRegisterDocumentSetBResponse).  The input parameter is null.");
+            }
+        } catch (Exception e)
+        {
+            getLogger().error("Failed to call the web orchestration (" + proxy.getClass() + ".provideAndRegisterDocumentSetBResponse).  An unexpected exception occurred.  " +
+                    "Exception: " + e.getMessage(), e);
+        }
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
 

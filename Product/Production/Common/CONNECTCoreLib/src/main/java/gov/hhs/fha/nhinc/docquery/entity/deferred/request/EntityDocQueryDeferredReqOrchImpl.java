@@ -48,7 +48,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
       AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
       if (null != assertion) {
         assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+        assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
       }
       NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
       ack = respondingGatewayCrossGatewayQuery(message, assertion, target);
@@ -70,7 +70,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
       AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
       if (null != assertion) {
         assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
+        assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
       }
       NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
       ack = respondingGatewayCrossGatewayQuery(message, assertion, target);

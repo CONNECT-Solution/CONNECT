@@ -7,6 +7,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -56,6 +57,25 @@ public class EntityXDRResponseSecuredImplTest {
             }
 
             @Override
+            protected WebServiceHelper createWebServiceHelper()
+            {
+                WebServiceHelper mockHelper = new WebServiceHelper()
+                {
+
+                    @Override
+                    public Object invokeSecureDeferredResponseWebService(Object webOrchObject, Class webOrchClass, String methodName, Object operationInput, WebServiceContext context)
+                    {
+                        XDRAcknowledgementType response = new XDRAcknowledgementType();
+                        RegistryResponseType regResp = new RegistryResponseType();
+                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+                        response.setMessage(regResp);
+                        return response;
+                    }
+                };
+                return mockHelper;
+            }
+
+            @Override
             protected XDRAcknowledgementType callNhinXDRResponseProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, AssertionType assertion)
             {
                 XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -67,18 +87,8 @@ public class EntityXDRResponseSecuredImplTest {
             }
 
             @Override
-            protected AssertionType extractAssertion(WebServiceContext context) {
-                return mockAssertion;
-            }
-
-            @Override
             protected boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
                 return true;
-            }
-
-            @Override
-            protected String extractMessageId(WebServiceContext context) {
-                return "uuid:1111111111.11111.111.11";
             }
         };
 
@@ -88,7 +98,6 @@ public class EntityXDRResponseSecuredImplTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).warn(with(any(String.class)));
-                oneOf(mockAssertion).setMessageId(with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityXDRResponseRequest(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 oneOf(mockAuditLogger).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));

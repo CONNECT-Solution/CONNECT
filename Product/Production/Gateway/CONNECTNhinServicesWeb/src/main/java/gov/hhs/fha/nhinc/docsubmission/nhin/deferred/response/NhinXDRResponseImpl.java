@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -23,13 +24,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class NhinXDRResponseImpl
 {
+
     private static final Log logger = LogFactory.getLog(NhinXDRResponseImpl.class);
 
     /**
      *
      * @return
      */
-    protected Log getLogger(){
+    protected Log getLogger()
+    {
         return logger;
     }
 
@@ -39,7 +42,8 @@ public class NhinXDRResponseImpl
      * @param context
      * @return
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,WebServiceContext context ) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
+    {
 
         XDRAcknowledgementType result = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
@@ -51,7 +55,8 @@ public class NhinXDRResponseImpl
         AssertionType assertion = createAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
+        if (assertion != null)
+        {
             assertion.setMessageId(extractMessageId(context));
         }
 
@@ -67,8 +72,7 @@ public class NhinXDRResponseImpl
         {
             getLogger().debug("Policy Check Succeeded");
             result = forwardToAgency(body, assertion);
-        }
-        else
+        } else
         {
             getLogger().error("Policy Check Failed");
         }
@@ -79,16 +83,16 @@ public class NhinXDRResponseImpl
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
 
-         return result;
+        return result;
     }
 
-
-        /**
+    /**
      *
      * @param context
      * @return
      */
-    protected AssertionType createAssertion(WebServiceContext context){
+    protected AssertionType createAssertion(WebServiceContext context)
+    {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         return assertion;
     }
@@ -97,21 +101,26 @@ public class NhinXDRResponseImpl
      *
      * @return
      */
-    protected String retrieveHomeCommunityID(){
+    protected String retrieveHomeCommunityID()
+    {
         String localHCID = null;
-        try {
+        try
+        {
             localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        } catch (PropertyAccessException ex) {
+        } catch (PropertyAccessException ex)
+        {
             logger.error("Exception while retrieving home community ID", ex);
         }
 
         return localHCID;
     }
+
     /**
      *
      * @return
      */
-    protected XDRAuditLogger getXDRAuditLogger(){
+    protected XDRAuditLogger getXDRAuditLogger()
+    {
         return new XDRAuditLogger();
     }
 
@@ -144,14 +153,15 @@ public class NhinXDRResponseImpl
      * @param receiverHCID
      * @return
      */
-    protected boolean isPolicyOk(RegistryResponseType request, AssertionType assertion, String senderHCID, String receiverHCID) {
+    protected boolean isPolicyOk(RegistryResponseType request, AssertionType assertion, String senderHCID, String receiverHCID)
+    {
 
         boolean isPolicyOk = false;
 
         getLogger().debug("Check policy");
 
         XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-        isPolicyOk = policyChecker.checkXDRResponsePolicy(request, assertion, senderHCID ,receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        isPolicyOk = policyChecker.checkXDRResponsePolicy(request, assertion, senderHCID, receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
 
         getLogger().debug("Response from policy engine: " + isPolicyOk);
 
@@ -159,9 +169,14 @@ public class NhinXDRResponseImpl
 
     }
 
-    protected String extractMessageId (WebServiceContext context) {
-        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-        return msgIdExtractor.GetAsyncRelatesTo(context);
+    protected String extractMessageId(WebServiceContext context)
+    {
+        String messageId = null;
+        List<String> allRelatesTo = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+        if (allRelatesTo != null && !allRelatesTo.isEmpty())
+        {
+            messageId = allRelatesTo.get(0);
+        }
+        return messageId;
     }
-
 }
