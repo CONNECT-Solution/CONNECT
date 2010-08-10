@@ -49,7 +49,7 @@ public class DocRetrieveDeferredTransformHelper {
             log.debug("-- Begin DocRetrieveDeferredTransformHelper.transformDocRetrieveDeferredRespToCheckPolicy --");
         }
         CheckPolicyRequestType checkPolicyRequest = null;
-        if (null != event) {
+        if (null == event) {
             if (debugEnabled) {
                 log.debug("Request is null.");
             }

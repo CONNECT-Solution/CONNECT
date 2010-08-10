@@ -59,7 +59,7 @@ public class DocRetrieveDeferredPolicyChecker {
         DocRetrieveResultEventType eventRequest = new DocRetrieveResultEventType();
         DocRetrieveResponseMessageType respMessage = new DocRetrieveResponseMessageType();
         respMessage.setRetrieveDocumentSetResponse(request);
-        respMessage.setRetrieveDocumentSetResponse(request);
+        respMessage.setAssertion(assertion);
         eventRequest.setMessage(respMessage);
         eventRequest.setMessage(respMessage);
         eventRequest.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
