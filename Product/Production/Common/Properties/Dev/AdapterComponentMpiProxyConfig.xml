@@ -9,6 +9,9 @@
   <!--   <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceUnsecuredImpl"/> -->
   
   <!-- Web-service MPI implementation Secured -->
-  
     <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceSecuredImpl"/> 
+
+  <!-- Java implementation -->
+  <!--  <bean id="mpi" class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyJavaImpl"/>  -->
+
 </beans>
