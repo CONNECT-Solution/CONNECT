@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.nhinc.proxy.deferred.request;
+package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
