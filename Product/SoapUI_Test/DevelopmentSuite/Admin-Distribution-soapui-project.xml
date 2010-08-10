@@ -16714,23 +16714,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T18:32:40Z</con:value>
+          <con:value>2010-08-10T17:40:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:42:40Z</con:value>
+          <con:value>2010-08-10T17:50:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 18:32:40</con:value>
+          <con:value>08/10/2010 17:40:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 18:37:40 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:45:24 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17407,23 +17407,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T18:32:48Z</con:value>
+          <con:value>2010-08-10T17:40:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:42:48Z</con:value>
+          <con:value>2010-08-10T17:50:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 18:32:48</con:value>
+          <con:value>08/10/2010 17:40:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 18:37:48 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:45:40 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18111,23 +18111,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:50:38Z</con:value>
+          <con:value>2010-08-10T17:40:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:00:38Z</con:value>
+          <con:value>2010-08-10T17:50:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:50:38</con:value>
+          <con:value>08/10/2010 17:40:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 17:55:38 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:45:55 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18844,23 +18844,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:50:56Z</con:value>
+          <con:value>2010-08-10T17:41:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:00:56Z</con:value>
+          <con:value>2010-08-10T17:51:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:50:56</con:value>
+          <con:value>08/10/2010 17:41:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 17:55:56 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:46:11 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19497,23 +19497,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:51:01Z</con:value>
+          <con:value>2010-08-10T17:41:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:01:01Z</con:value>
+          <con:value>2010-08-10T17:51:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:51:01</con:value>
+          <con:value>08/10/2010 17:41:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 17:56:01 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:46:27 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20154,23 +20154,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:51:17Z</con:value>
+          <con:value>2010-08-10T17:41:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:01:17Z</con:value>
+          <con:value>2010-08-10T17:51:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:51:17</con:value>
+          <con:value>08/10/2010 17:41:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 17:56:17 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:46:43 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20797,7 +20797,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:configuration>
                 <path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
 count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
-                <content>6</content>
+                <content>5</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -20848,30 +20848,25 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:51:58Z</con:value>
+          <con:value>2010-08-10T17:41:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:01:58Z</con:value>
+          <con:value>2010-08-10T17:51:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:51:58</con:value>
+          <con:value>08/10/2010 17:41:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 17:56:58 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:46:59 UTC 20101</con:value>
         </con:property>
       </con:properties>
-      <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest to Secured Adapter" searchProperties="true" disabled="true">
-      <con:settings/>
-      <con:properties/>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest to UnSecured Adapter" searchProperties="true" disabled="true">
@@ -21334,7 +21329,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21422,7 +21417,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21466,7 +21461,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21510,7 +21505,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21554,7 +21549,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21599,7 +21594,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21643,7 +21638,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21687,7 +21682,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21731,7 +21726,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21776,7 +21771,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21820,7 +21815,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21864,7 +21859,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21908,7 +21903,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21953,7 +21948,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -21998,7 +21993,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22018,7 +22013,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service';
+def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist';
 log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
@@ -22044,7 +22039,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22063,7 +22058,7 @@ assert(XacmlAttributeCount=="1");
 
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
-def ExpectedValue='Execute';
+def ExpectedValue='myAuthzDecisionStatementAction';
 //log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
@@ -22089,7 +22084,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22134,7 +22129,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22179,7 +22174,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22224,7 +22219,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22495,7 +22490,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22539,7 +22534,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22583,7 +22578,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22635,7 +22630,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22680,7 +22675,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -22732,10 +22727,10 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
           <con:assertion type="XPath Match">
             <con:configuration>
-              <path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns19:CheckPolicyRequest[1]/ns19:assertion[1]/ns18:samlAuthzDecisionStatement[1]/ns18:action[1]</path>
-              <content>Execute</content>
+              <path>declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns17:CheckPolicyRequest[1]/ns17:assertion[1]/ns15:samlAuthzDecisionStatement[1]/ns15:action[1]</path>
+              <content>myAuthzDecisionStatementAction</content>
               <allowWildcards>false</allowWildcards>
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
@@ -22760,19 +22755,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T18:17:16Z</con:value>
+          <con:value>2010-08-10T15:13:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:27:16Z</con:value>
+          <con:value>2010-08-10T15:23:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 18:17:16</con:value>
+          <con:value>08/10/2010 15:13:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -22785,7 +22780,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDis";
+def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdmin";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmindist", URL, context, log)</script>
@@ -23163,19 +23158,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:52:41Z</con:value>
+          <con:value>2010-08-10T17:42:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:02:41Z</con:value>
+          <con:value>2010-08-10T17:52:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:52:41</con:value>
+          <con:value>08/10/2010 17:42:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -23488,33 +23483,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
             <urn1:asyncMessageId>?</urn1:asyncMessageId>
          </urn:assertion>
-         <!--Optional:-->
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
+            
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -23919,23 +23896,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T19:15:59Z</con:value>
+          <con:value>2010-08-10T17:42:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T19:25:59Z</con:value>
+          <con:value>2010-08-10T17:52:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 19:15:59</con:value>
+          <con:value>08/10/2010 17:42:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 19:20:59 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:47:30 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24250,30 +24227,12 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
          <!--Optional:-->
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -24675,28 +24634,28 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T17:54:53Z</con:value>
+          <con:value>2010-08-10T17:43:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:04:53Z</con:value>
+          <con:value>2010-08-10T17:53:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 17:54:53</con:value>
+          <con:value>08/10/2010 17:43:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Aug 06 17:59:53 UTC 20101</con:value>
+          <con:value>admindistTue Aug 10 17:48:01 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe">
       <con:settings/>
       <con:testStep type="groovy" name="Set User ID">
         <con:settings/>
@@ -25005,31 +24964,12 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -25471,10 +25411,31 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties/>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-08-10T17:43:17Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-08-10T17:53:17Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>08/10/2010 17:43:17</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2010-09-09T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>UserId</con:name>
+          <con:value>admindistTue Aug 10 17:48:17 UTC 20101</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861">
       <con:settings/>
       <con:testStep type="groovy" name="Set User ID">
         <con:settings/>
@@ -25784,30 +25745,12 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
          <!--Optional:-->
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -26217,10 +26160,31 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties/>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-08-10T17:43:32Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-08-10T17:53:32Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>08/10/2010 17:43:32</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2010-09-09T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>UserId</con:name>
+          <con:value>admindistTue Aug 10 17:48:32 UTC 20101</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322">
       <con:settings/>
       <con:testStep type="groovy" name="Set User ID">
         <con:settings/>
@@ -26529,31 +26493,12 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -26914,10 +26859,31 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties/>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-08-10T17:43:48Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-08-10T17:53:48Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>08/10/2010 17:43:48</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2010-09-09T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>UserId</con:name>
+          <con:value>admindistTue Aug 10 17:48:48 UTC 20101</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true" id="5361bf64-5349-4b98-8d4b-f414271422e0">
       <con:settings/>
       <con:testStep type="groovy" name="Set User ID">
         <con:settings/>
@@ -27227,30 +27193,12 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
          <!--Optional:-->
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -27614,7 +27562,28 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties/>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-08-10T17:44:04Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-08-10T17:54:04Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>08/10/2010 17:44:04</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2010-09-09T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>UserId</con:name>
+          <con:value>admindistTue Aug 10 17:49:04 UTC 20101</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d">
@@ -27929,31 +27898,12 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyen
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -29564,24 +29514,24 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T18:48:08Z</con:value>
+          <con:value>2010-08-10T17:59:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T18:58:08Z</con:value>
+          <con:value>2010-08-10T18:09:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 18:48:08</con:value>
+          <con:value>08/10/2010 17:59:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true" id="25050fb5-059d-4875-8ab5-337cd145f06d">
       <con:settings/>
       <con:testStep type="groovy" name="Modify endpoint - internalconnectioninfo">
         <con:settings/>
@@ -29916,7 +29866,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            <urn1:url></urn1:url>
          </urn:nhinTargetSystem>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
@@ -30031,7 +29981,24 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmindist", URL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:properties/>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2010-08-10T17:44:19Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2010-08-10T17:54:19Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>08/10/2010 17:44:19</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2010-09-09T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:properties/>
