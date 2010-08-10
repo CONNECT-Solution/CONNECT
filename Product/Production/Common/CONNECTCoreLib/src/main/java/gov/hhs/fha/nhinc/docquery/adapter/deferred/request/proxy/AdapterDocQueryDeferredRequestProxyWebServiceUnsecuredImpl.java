@@ -148,7 +148,7 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceUnsecuredImpl implemen
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
 
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestPortType.class, "respondingGatewayCrossGatewayQuery", msg);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestPortType.class, "respondingGatewayCrossGatewayQuery", request);
             }
         }
         catch (Exception ex)

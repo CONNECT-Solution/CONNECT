@@ -149,7 +149,7 @@ public class AdapterDocQueryDeferredResponseProxyWebServiceSecuredImpl implement
                 RespondingGatewayCrossGatewayQuerySecureResponseType request = new RespondingGatewayCrossGatewayQuerySecureResponseType();
                 request.setAdhocQueryResponse(msg);
 
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredResponseSecuredPortType.class, "respondingGatewayCrossGatewayQuery", msg);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredResponseSecuredPortType.class, "respondingGatewayCrossGatewayQuery", request);
             }
         }
         catch (Exception ex)

@@ -66,6 +66,7 @@ import gov.hhs.fha.nhinc.transform.audit.SubjectDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
+import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
@@ -418,6 +419,18 @@ public class AuditRepositoryLogger {
             logReqMsg.setMessage(message);
 
             auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logReqMsg);
+        }
+        log.debug("Exiting AuditRepositoryLogger.logAdhocQueryResult(...)");
+
+        return auditMsg;
+    }
+
+    public LogEventRequestType logAdhocQueryDeferredAck(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            auditMsg = new DocumentQueryTransforms().transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, _interface);
         }
         log.debug("Exiting AuditRepositoryLogger.logAdhocQueryResult(...)");
 

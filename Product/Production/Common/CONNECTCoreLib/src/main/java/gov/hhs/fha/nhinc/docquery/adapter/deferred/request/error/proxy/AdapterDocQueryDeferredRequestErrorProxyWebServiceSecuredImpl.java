@@ -149,7 +149,7 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl imple
                 request.setAdhocQueryRequest(msg);
                 request.setErrorMsg(errMsg);
 
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestErrorSecuredPortType.class, "respondingGatewayCrossGatewayQuery", msg);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestErrorSecuredPortType.class, "respondingGatewayCrossGatewayQuery", request);
             }
         }
         catch (Exception ex)

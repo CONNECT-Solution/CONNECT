@@ -15,6 +15,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,6 +28,9 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
+        respAck.setMessage(regResp);
 
         // Audit the incoming NHIN Message
         AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
@@ -48,7 +52,10 @@ public class NhinDocQueryDeferredResponseOrchImpl {
             log.error("Document Query Deferred Response Service Not Enabled");
         }
 
-        return new DocQueryAcknowledgementType();
+        // Audit the outgoing NHIN Message
+        ack = auditAck (respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        
+        return respAck;
     }
 
     private boolean isServiceEnabled() {
@@ -86,6 +93,9 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
 
+        // Audit the incoming Adapter Message
+        ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
         return ackResp;
     }
 
@@ -98,7 +108,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
     private AcknowledgementType auditAck (DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = new AcknowledgementType(); //= auditLogger.auditDQResponse(msg, assertion, direction, _interface);
+        AcknowledgementType ack = auditLogger.logDocQueryAck(msg, assertion, direction, _interface);
 
         return ack;
     }

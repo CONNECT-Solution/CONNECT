@@ -14,6 +14,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
@@ -149,6 +150,30 @@ public class DocQueryAuditLog {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
             ack = proxy.auditLog(auditLogMsg, message.getAssertion());
+        }
+
+        log.debug("Exiting DocQueryAuditLog.auditResponse(...)...");
+        return ack;
+    }
+
+    /**
+     * This method will log Document Query Responses received/sent on a particular public interface
+     *
+     * @param message The Document Query Response message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return An acknowledgement of whether or not the message was successfully logged.
+     */
+    public AcknowledgementType logDocQueryAck(DocQueryAcknowledgementType message, AssertionType assertion, String direction, String _interface) {
+        log.debug("Entering DocQueryAuditLog.auditResponse(...)...");
+        AcknowledgementType ack = new AcknowledgementType();
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryDeferredAck(message, assertion, direction, _interface);
+
+        if (auditLogMsg != null) {
+            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            ack = proxy.auditLog(auditLogMsg, assertion);
         }
 
         log.debug("Exiting DocQueryAuditLog.auditResponse(...)...");

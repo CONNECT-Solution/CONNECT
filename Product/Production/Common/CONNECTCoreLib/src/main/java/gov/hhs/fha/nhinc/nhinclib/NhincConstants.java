@@ -213,6 +213,9 @@ public class NhincConstants {
     public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adaptercomponentdocquerydeferredresponse";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME = "adapterdocquerydeferredrequesterror";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequesterrorsecured";
+    
+    public static final String NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "QueryForDocumentsDeferredRequest";
+    public static final String NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "QueryForDocumentsDeferredResponse";
 
     public static final String DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
