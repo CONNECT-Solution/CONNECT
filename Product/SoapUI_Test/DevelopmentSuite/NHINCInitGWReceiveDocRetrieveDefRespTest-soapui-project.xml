@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="NHINCInitGWReceiveDocRetrieveDefRespTest" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocumentRetrieveDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse}NhincProxyDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocumentRetrieveDeferredResponse.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl">
       <con:part>
-        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocumentRetrieveDeferredResponse.wsdl</con:url>
+        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl</con:url>
         <con:content><![CDATA[<!--Nhinc Proxy Document Retrieve Deferred Response-->
-<definitions name="NhincProxyDocRetrieveDeferredResponse" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:dr="http://www.hhs.gov/healthit/nhin" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
+<definitions name="NhincProxyDocRetrieveDeferredResponse" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:dr="http://www.hhs.gov/healthit/nhin" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
   <documentation>Nhinc Proxy document retrieve deferred response</documentation>
   <types>
     <xsd:schema>
@@ -22,13 +22,13 @@
   <message name="CrossGatewayRetrieveAcknowledgementMessage">
     <part name="CrossGatewayRetrieveAcknowledgement" element="dr:DocRetrieveAcknowledgement"/>
   </message>
-  <portType name="NhincProxyDocRetrieveResponsePortType">
+  <portType name="NhincProxyDocRetrieveDeferredResponsePortType">
     <operation name="CrossGatewayRetrieveResponse">
       <input name="CrossGatewayRetrieveResponse" message="tns:CrossGatewayRetrieveResponseMessage"/>
       <output name="CrossGatewayRetrieveAcknowledgement" message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
     </operation>
   </portType>
-  <binding name="NhincProxyDocRetrieveResponseBindingSoap" type="tns:NhincProxyDocRetrieveResponsePortType">
+  <binding name="NhincProxyDocRetrieveDeferredResponseBindingSoap" type="tns:NhincProxyDocRetrieveDeferredResponsePortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#NhincProxyDocRetrievePolicy"/>
     <operation name="CrossGatewayRetrieveResponse">
@@ -41,20 +41,11 @@
       </output>
     </operation>
   </binding>
-  <service name="NhincProxyDocRetrieveResponse">
-    <port name="NhincProxyDocRetrieveResponsePortSoap" binding="tns:NhincProxyDocRetrieveResponseBindingSoap">
-      <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveResponse"/>
+  <service name="NhincProxyDocRetrieveDeferredResponse">
+    <port name="NhincProxyDocRetrieveDeferredResponsePortSoap" binding="tns:NhincProxyDocRetrieveDeferredResponseBindingSoap">
+      <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredResponse"/>
     </port>
   </service>
-  <plnk:partnerLinkType name="NhincProxyDocRetrieveResponse">
-    <!--A partner link type is automatically generated when a new port type is added.
-         Partner link types are used by BPEL processes. In a BPEL process, a partner
-         link represents the interaction between the BPEL process and a partner service.
-         Each partner link is associated with a partner link type. A partner link type
-         characterizes the conversational relationship between two services. The
-         partner link type can have one or two roles.-->
-    <plnk:role name="NhincProxyDocRetrieveResponsePortTypeRole" portType="tns:NhincProxyDocRetrieveResponsePortType"/>
-  </plnk:partnerLinkType>
   <wsp:Policy wsu:Id="NhincProxyDocRetrievePolicy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1434,7 +1425,7 @@
       </con:part>
       <con:part>
         <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonProxy.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -1442,6 +1433,7 @@
   <xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../../ihe/auditmessage.xsd"/>
   <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd"/>
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription" schemaLocation="../common/Subscription.xsd"/>
+  <xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
   <!--====================================================================
          Document Query Schemas.
          ====================================================================-->
@@ -1610,6 +1602,21 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+    <xsd:sequence>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+      <xsd:element ref="edxlde:EDXLDistribution"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
+  <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+    <xsd:sequence>
+      <xsd:element ref="edxlde:EDXLDistribution"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
 </xsd:schema>]]></con:content>
         <con:type>http://www.w3.org/2001/XMLSchema</con:type>
       </con:part>
@@ -1661,7 +1668,8 @@
       <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
       <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
       <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
-      <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="relatesToList" type="xsd:string" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -3571,6 +3579,116 @@ This document and the information contained herein is provided on an "AS IS" bas
         <con:type>http://www.w3.org/2001/XMLSchema</con:type>
       </con:part>
       <con:part>
+        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\edxl-de.xsd</con:url>
+        <con:content><![CDATA[<xsd:schema targetNamespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0CD" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+  <xsd:element name="EDXLDistribution">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="distributionID" type="xsd:string"/>
+        <xsd:element name="senderID" type="xsd:string"/>
+        <xsd:element name="dateTimeSent" type="xsd:dateTime"/>
+        <xsd:element name="distributionStatus" type="statusValues"/>
+        <xsd:element name="distributionType" type="typeValues"/>
+        <xsd:element name="combinedConfidentiality" type="xsd:string"/>
+        <xsd:element name="language" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="senderRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="recipientRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="keyword" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="distributionReference" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="explicitAddress" type="valueSchemeType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="targetArea" type="targetAreaType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="contentObject" type="contentObjectType" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation/>
+  <xsd:annotation/>
+  <xsd:complexType name="contentObjectType">
+    <xsd:sequence>
+      <xsd:element name="contentDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="contentKeyword" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="incidentID" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="incidentDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="originatorRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="consumerRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="confidentiality" type="xsd:string" minOccurs="0"/>
+      <xsd:choice>
+        <xsd:element name="nonXMLContent" type="nonXMLContentType"/>
+        <xsd:element name="xmlContent" type="xmlContentType"/>
+      </xsd:choice>
+      <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="nonXMLContentType">
+    <xsd:sequence>
+      <xsd:element name="mimeType" type="xsd:string"/>
+      <xsd:element name="size" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="digest" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="uri" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="contentData" type="xsd:base64Binary" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="xmlContentType">
+    <xsd:sequence>
+      <xsd:element name="keyXMLContent" type="anyXMLType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="embeddedXMLContent" type="anyXMLType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="anyXMLType">
+    <xsd:sequence>
+      <xsd:any namespace="##other" processContents="lax" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax"/>
+  </xsd:complexType>
+  <xsd:complexType name="valueListType">
+    <xsd:sequence>
+      <xsd:element name="valueListUrn" type="xsd:string"/>
+      <xsd:element name="value" type="xsd:string" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="valueSchemeType">
+    <xsd:sequence>
+      <xsd:element name="explicitAddressScheme" type="xsd:string"/>
+      <xsd:element name="explicitAddressValue" type="xsd:string" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="targetAreaType">
+    <xsd:sequence>
+      <xsd:element name="circle" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="polygon" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="country" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="subdivision" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="locCodeUN" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="statusValues">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="Actual"/>
+      <xsd:enumeration value="Exercise"/>
+      <xsd:enumeration value="System"/>
+      <xsd:enumeration value="Test"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeValues">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="Report"/>
+      <xsd:enumeration value="Update"/>
+      <xsd:enumeration value="Cancel"/>
+      <xsd:enumeration value="Request"/>
+      <xsd:enumeration value="Response"/>
+      <xsd:enumeration value="Dispatch"/>
+      <xsd:enumeration value="Ack"/>
+      <xsd:enumeration value="Error"/>
+      <xsd:enumeration value="SensorConfiguration"/>
+      <xsd:enumeration value="SensorControl"/>
+      <xsd:enumeration value="SensorStatus"/>
+      <xsd:enumeration value="SensorDetection"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content>
+        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
+      </con:part>
+      <con:part>
         <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhin\RetrieveDocument.xsd</con:url>
         <con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="http://www.hhs.gov/healthit/nhin">
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
@@ -3586,8 +3704,9 @@ This document and the information contained herein is provided on an "AS IS" bas
     </con:definitionCache>
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-DocRetrieveNHINCResp}</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredResponse</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:CrossGatewayRetrieveResponse" name="CrossGatewayRetrieveResponse" bindingOperationName="CrossGatewayRetrieveResponse" type="Request-Response" outputName="CrossGatewayRetrieveAcknowledgement" inputName="CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false">
+    <con:operation isOneWay="false" action="urn:CrossGatewayRetrieveResponse" name="CrossGatewayRetrieveResponse" bindingOperationName="CrossGatewayRetrieveResponse" type="Request-Response" outputName="CrossGatewayRetrieveAcknowledgement" inputName="CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
@@ -12236,7 +12355,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincProxyDocRetrieveResponseBindingSoap</con:interface>
+          <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="NHINCProxyDocRetrieveDefResp">
             <con:settings>
@@ -12495,19 +12614,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-08T16:14:49Z</con:value>
+          <con:value>2010-08-10T02:36:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-08T16:24:49Z</con:value>
+          <con:value>2010-08-10T02:46:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/08/2010 16:14:49</con:value>
+          <con:value>08/10/2010 02:36:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-07T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12533,7 +12652,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincProxyDocRetrieveResponseBindingSoap</con:interface>
+          <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="NHINCProxyDocRetrieveDefResp">
             <con:settings>
@@ -14310,7 +14429,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincProxyDocRetrieveResponseBindingSoap</con:interface>
+          <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="NHINCProxyDocRetrieveDefResp">
             <con:settings>
@@ -16091,7 +16210,7 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincProxyDocRetrieveResponseBindingSoap</con:interface>
+          <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="NHINCProxyDocRetrieveDefResp">
             <con:settings>
@@ -16653,7 +16772,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincProxyDocRetrieveResponseBindingSoap</con:interface>
+          <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="NHINCProxyDocRetrieveDefResp">
             <con:settings>
@@ -16950,7 +17069,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincProxyDocRetrieveResponseBindingSoap</con:interface>
+          <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="NHINCProxyDocRetrieveDefResp">
             <con:settings>
@@ -17301,7 +17420,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieveNHINCResp</con:name>
-      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'

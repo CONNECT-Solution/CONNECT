@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="EntityInitGWSendsDocRetrieveDefReqTest" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReq.wsdl">
       <con:part>
-        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl</con:url>
+        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReq.wsdl</con:url>
         <con:content><![CDATA[<!--Entity Document Retrieve Deferred Request-->
 <definitions name="EntityDocRetrieveDeferredRequest" targetNamespace="urn:gov:hhs:fha:nhinc:entitydocretrieve" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocretrieve" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:dr="http://www.hhs.gov/healthit/nhin" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonentity">
   <documentation>Entity document retrieve deferred request</documentation>
@@ -1712,7 +1712,8 @@
       <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
       <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
       <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
-      <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="relatesToList" type="xsd:string" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -12878,19 +12879,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T02:58:21Z</con:value>
+          <con:value>2010-08-10T02:38:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T03:08:21Z</con:value>
+          <con:value>2010-08-10T02:48:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 02:58:21</con:value>
+          <con:value>08/10/2010 02:38:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12907,7 +12908,7 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":11231/mockPE";
+def mockPEURL = "http://" + mockHost + ":11251/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
@@ -13187,7 +13188,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
-          <con:port>11231</con:port>
+          <con:port>11251</con:port>
           <con:timeout>30000</con:timeout>
           <con:response>
             <con:settings/>
@@ -14665,19 +14666,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T03:00:01Z</con:value>
+          <con:value>2010-08-10T02:39:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T03:10:01Z</con:value>
+          <con:value>2010-08-10T02:49:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 03:00:01</con:value>
+          <con:value>08/10/2010 02:39:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14694,7 +14695,7 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":11231/mockPE";
+def mockPEURL = "http://" + mockHost + ":11251/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
@@ -14977,7 +14978,7 @@ declare namespace ns20='http://www.hhs.gov/healthit/nhin';
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
-          <con:port>11231</con:port>
+          <con:port>11251</con:port>
           <con:timeout>30000</con:timeout>
           <con:response>
             <con:settings/>
@@ -16455,19 +16456,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T03:00:26Z</con:value>
+          <con:value>2010-08-10T02:39:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T03:10:26Z</con:value>
+          <con:value>2010-08-10T02:49:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 03:00:26</con:value>
+          <con:value>08/10/2010 02:39:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-09T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
