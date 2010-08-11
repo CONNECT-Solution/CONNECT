@@ -268,4 +268,150 @@ public class WebServiceHelperTest
             ex.printStackTrace();
         }
     }
+
+
+    /**
+     * Test the invokeSecureDeferredResponseWebService method.
+     */
+    @Test
+    public void testInvokeSecureDeferredResponseWebService()
+    {
+        try
+        {
+            WebServiceHelper oHelper = new WebServiceHelper()
+            {
+
+                @Override
+                protected LoggingContextHelper getLoggingContextHelper()
+                {
+                    LoggingContextHelper loggingContextHelper = new LoggingContextHelper()
+                    {
+
+                        @Override
+                        public void setContext(WebServiceContext webServiceContext)
+                        {
+                        }
+
+                        @Override
+                        public void clearContext()
+                        {
+                        }
+                    };
+                    return loggingContextHelper;
+
+                }
+
+                @Override
+                protected AssertionType getSamlAssertion(WebServiceContext context)
+                {
+                    AssertionType assertion = new AssertionType();
+                    return assertion;
+                }
+
+                @Override
+                protected String getMessageId(WebServiceContext context)
+                {
+                    return "Test";
+                }
+
+                @Override
+                protected void populateAssertionWithMessageId(AssertionType assertion, String messageId)
+                {
+                }
+
+                @Override
+                protected List<String> getRelatesToList(WebServiceContext context)
+                {
+                    return new ArrayList();
+                }
+
+                @Override
+                protected void populateAssertionWithRelatesToList(AssertionType assertion, List<String> relatesToIds)
+                {
+                }
+            };
+            Integer oResponse = (Integer) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "helperMethod2", new Integer(100), mockWebServiceContext);
+            assertNotNull("invokePort failed to return a value.", oResponse);
+            assertTrue("Response was incorrect type.", oResponse instanceof Integer);
+            assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+
+        } catch (Exception ex)
+        {
+            fail("Error running testInvokeSecureDeferredResponseWebService test: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Test the invokeDeferredResponseWebService method.
+     */
+    @Test
+    public void testInvokeDeferredResponseWebService()
+    {
+        try
+        {
+            WebServiceHelper oHelper = new WebServiceHelper()
+            {
+
+                @Override
+                protected LoggingContextHelper getLoggingContextHelper()
+                {
+                    LoggingContextHelper loggingContextHelper = new LoggingContextHelper()
+                    {
+
+                        @Override
+                        public void setContext(WebServiceContext webServiceContext)
+                        {
+                        }
+
+                        @Override
+                        public void clearContext()
+                        {
+                        }
+                    };
+                    return loggingContextHelper;
+
+                }
+
+                @Override
+                protected AssertionType getSamlAssertion(WebServiceContext context)
+                {
+                    AssertionType assertion = new AssertionType();
+                    return assertion;
+                }
+
+                @Override
+                protected String getMessageId(WebServiceContext context)
+                {
+                    return "Test";
+                }
+
+                @Override
+                protected void populateAssertionWithMessageId(AssertionType assertion, String messageId)
+                {
+                }
+
+                @Override
+                protected List<String> getRelatesToList(WebServiceContext context)
+                {
+                    return new ArrayList();
+                }
+
+                @Override
+                protected void populateAssertionWithRelatesToList(AssertionType assertion, List<String> relatesToIds)
+                {
+                }
+            };
+            Integer oResponse = (Integer) oHelper.invokeDeferredResponseWebService(this, this.getClass(), "helperMethod", oHelper.getSamlAssertion(mockWebServiceContext),new Integer(100), mockWebServiceContext);
+            assertNotNull("invokePort failed to return a value.", oResponse);
+            assertTrue("Response was incorrect type.", oResponse instanceof Integer);
+            assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+
+        } catch (Exception ex)
+        {
+            fail("Error running testInvokeDeferredResponseWebService test: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 }
