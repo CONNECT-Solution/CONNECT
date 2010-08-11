@@ -223,6 +223,8 @@ public class NhincConstants {
     public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "passthrudocquerydeferredresponse";
     public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "passthrudocquerydeferredresponsesecured";
 
+    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "entitydocquerydeferredrequest";
+    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "entitydocquerydeferredrequestsecured";
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "entitydocquerydeferredresponse";
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "entitydocquerydeferredresponsesecured";
 
