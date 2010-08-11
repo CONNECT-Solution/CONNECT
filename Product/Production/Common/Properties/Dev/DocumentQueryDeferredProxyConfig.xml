@@ -54,7 +54,7 @@
 	<!-- Default java implementation -->
     <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyJavaImpl"/> 
 	<!-- Web-service Secured implementation -->
-   <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthrudeferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl"/> -->
+   <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl"/> -->
 	<!-- Web-service UnSecured implementation -->
     <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/> -->
     
