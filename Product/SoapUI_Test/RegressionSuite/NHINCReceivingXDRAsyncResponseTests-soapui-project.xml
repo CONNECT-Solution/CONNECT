@@ -12126,7 +12126,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Match content of [@status]" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NhincXDRAsyncResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -13621,19 +13621,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:52:46Z</con:value>
+          <con:value>2010-08-11T00:58:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T18:02:46Z</con:value>
+          <con:value>2010-08-11T01:08:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:52:46</con:value>
+          <con:value>08/11/2010 00:58:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-10T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13905,7 +13905,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Match content of [@status]" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NhincXDRAsyncResponse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -15400,19 +15400,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:52:52Z</con:value>
+          <con:value>2010-08-11T00:59:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T18:02:52Z</con:value>
+          <con:value>2010-08-11T01:09:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:52:52</con:value>
+          <con:value>08/11/2010 00:59:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-10T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15952,19 +15952,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:52:54Z</con:value>
+          <con:value>2010-08-11T00:59:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T18:02:54Z</con:value>
+          <con:value>2010-08-11T01:09:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:52:54</con:value>
+          <con:value>08/11/2010 00:59:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -15972,7 +15972,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserTue Aug 10 17:57:54 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserWed Aug 11 01:04:09 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
