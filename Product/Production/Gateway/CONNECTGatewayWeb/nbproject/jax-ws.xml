@@ -1225,6 +1225,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityDocQueryDeferredResponseUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocQueryDeferredResponse.wsdl</local-wsdl-file>
+      <service-name>EntityDocQueryDeferredResponse</service-name>
+      <port-name>EntityDocQueryDeferredResponsePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocquerydeferredresponse</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocQueryDeferredResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponseSecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocQueryDeferredResponseSecured.wsdl</local-wsdl-file>
+      <service-name>EntityDocQueryDeferredResponseSecured</service-name>
+      <port-name>EntityDocQueryDeferredResponseSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocquerydeferredresponsesecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

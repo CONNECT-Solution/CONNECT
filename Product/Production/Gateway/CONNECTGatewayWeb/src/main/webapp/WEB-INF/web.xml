@@ -9,6 +9,22 @@
         <url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocQueryDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocQueryDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AdapterDocQueryService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</servlet-class>
     </servlet>
@@ -319,6 +335,10 @@
         <web-resource-collection>
             <web-resource-name>EntityDocQuerySecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
+        </web-resource-collection>
+         <web-resource-collection>
+            <web-resource-name>EntityDocQueryDeferredResponseSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocQueryDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityDocRetrieveSecured</web-resource-name>
