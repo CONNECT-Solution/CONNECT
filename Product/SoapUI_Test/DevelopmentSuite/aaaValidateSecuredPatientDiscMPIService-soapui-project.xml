@@ -83362,7 +83362,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:testSuite name="ValidateSecuredPatientDiscMPIService">
+  <con:testSuite name="aaaValidateSecuredPatientDiscMPIService">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINPatientDiscoverySecuredTest" searchProperties="true" id="a769e4d1-e1fb-4fea-9268-8ac1c65e571c">
