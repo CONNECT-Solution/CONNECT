@@ -1586,7 +1586,7 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
       </con:property>
       <con:property>
         <con:name>ServiceCount</con:name>
-        <con:value>124</con:value>
+        <con:value>126</con:value>
       </con:property>
       <con:property>
         <con:name>Service1</con:name>
@@ -2084,6 +2084,14 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
         <con:name>Service124</con:name>
         <con:value>A|adapterdocquerydeferredrequesterrorsecured</con:value>
       </con:property>
+      <con:property>
+        <con:name>Service125</con:name>
+        <con:value>G|entitydocquerydeferredresponse</con:value>
+      </con:property>
+      <con:property>
+        <con:name>Service126</con:name>
+        <con:value>G|entitydocquerydeferredresponsesecured</con:value>
+      </con:property>
     </con:properties>
     <con:reportParameters/>
   </con:testSuite>
@@ -2267,7 +2275,7 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     </con:property>
     <con:property>
       <con:name>ServiceCount</con:name>
-      <con:value>108</con:value>
+      <con:value>126</con:value>
     </con:property>
     <con:property>
       <con:name>Service16</con:name>
@@ -2568,6 +2576,62 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     <con:property>
       <con:name>Service110</con:name>
       <con:value>G|entitydocretrievedeferredresponse</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service126</con:name>
+      <con:value>G|entitydocquerydeferredresponsesecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service125</con:name>
+      <con:value>G|entitydocquerydeferredresponse</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service124</con:name>
+      <con:value>A|adapterdocquerydeferredrequesterrorsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service123</con:name>
+      <con:value>A|adapterdocquerydeferredrequesterror</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service122</con:name>
+      <con:value>A|adaptercomponentdocquerydeferredrequest</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service121</con:name>
+      <con:value>A|adapterdocquerydeferredrequestsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service120</con:name>
+      <con:value>A|adapterdocquerydeferredrequest</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service119</con:name>
+      <con:value>A|adaptercomponentdocquerydeferredresponse</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service118</con:name>
+      <con:value>A|adapterdocquerydeferredresponsesecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service117</con:name>
+      <con:value>A|adapterdocquerydeferredresponse</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service116</con:name>
+      <con:value>G|passthrudocquerydeferredresponsesecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service115</con:name>
+      <con:value>G|passthrudocquerydeferredresponse</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service114</con:name>
+      <con:value>G|QueryForDocumentsDeferredResponse</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Service113</con:name>
+      <con:value>G|QueryForDocumentsDeferredRequest</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'ValidateServices-soapui-project.properties')
