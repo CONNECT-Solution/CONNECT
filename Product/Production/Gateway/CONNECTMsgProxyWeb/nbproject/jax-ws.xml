@@ -337,13 +337,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="PassthruDocQueryDeferredResponseUnsecured">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyDocQueryDeferredResponse.wsdl</local-wsdl-file>
-      <service-name>NhincProxyDocQueryDeferredResponse</service-name>
-      <port-name>NhincProxyDocQueryDeferredResponsePortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerydeferredresponse</package-name>
+    <service name="PassthruDocQueryDeferredRequestUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocQueryDeferredRequest.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocQueryDeferredRequest</service-name>
+      <port-name>NhincProxyDocQueryDeferredRequestPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequest</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -361,13 +361,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="PassthruDocQueryDeferredResponseSecured">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponseSecured.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyDocQueryDeferredResponseSecured.wsdl</local-wsdl-file>
-      <service-name>NhincProxyDocQueryDeferredResponseSecured</service-name>
-      <port-name>NhincProxyDocQueryDeferredResponseSecuredPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerydeferredresponsesecured</package-name>
+    <service name="PassthruDocQueryDeferredRequestSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequestSecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocQueryDeferredRequestSecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocQueryDeferredRequestSecured</service-name>
+      <port-name>NhincProxyDocQueryDeferredRequestSecuredPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequestsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

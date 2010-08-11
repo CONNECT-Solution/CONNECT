@@ -38,4 +38,6 @@
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.docquery.nhinc.deferred.request.NhincDocQueryDeferredRequest" linecount="10" linerate="0.8" linesexecuted="0.08"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured" linecount="13" linerate="0.7692307692307693" linesexecuted="0.1"/>
+<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured" linecount="12" linerate="0.8333333333333334" linesexecuted="0.1"/>
 </thresholds>
