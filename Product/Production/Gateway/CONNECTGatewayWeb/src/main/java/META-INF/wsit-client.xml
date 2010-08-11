@@ -19,6 +19,7 @@
     <import location="NhinPatientDiscovery.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
+    <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
     <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
     <import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>

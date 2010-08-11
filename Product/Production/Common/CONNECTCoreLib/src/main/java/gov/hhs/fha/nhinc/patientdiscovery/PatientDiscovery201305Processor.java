@@ -6,8 +6,8 @@ package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.proxy.PatientCorrelationProxyObjectFactory;
@@ -126,8 +126,8 @@ public class PatientDiscovery201305Processor {
 
         if (query != null) {
             // Query the MPI to see if the patient is found
-            AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
-            AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
+            AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
+            AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
             queryResults =
                     mpiProxy.findCandidates(query, assertion);

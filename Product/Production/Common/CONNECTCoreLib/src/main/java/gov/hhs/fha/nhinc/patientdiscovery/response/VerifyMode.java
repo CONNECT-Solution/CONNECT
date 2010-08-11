@@ -9,8 +9,8 @@ import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -263,8 +263,8 @@ public class VerifyMode implements ResponseMode {
 
         if (query != null) {
             // Query the MPI to see if the patient is found
-            AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
-            AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
+            AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
+            AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
             queryResults =
                     mpiProxy.findCandidates(query, assertion);

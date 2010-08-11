@@ -188,7 +188,7 @@
 
     <servlet>
         <servlet-name>AdapterMpiSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterMpiSecured</servlet-name>
@@ -197,7 +197,7 @@
 
     <servlet>
         <servlet-name>AdapterMpi</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpi</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterMpi</servlet-name>

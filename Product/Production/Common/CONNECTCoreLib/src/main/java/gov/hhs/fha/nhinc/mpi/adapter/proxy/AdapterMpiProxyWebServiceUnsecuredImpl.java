@@ -1,6 +1,6 @@
-package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
+package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
+import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
@@ -17,22 +17,22 @@ import javax.xml.namespace.QName;
  *
  * @author Les Westberg
  */
-public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterComponentMpiProxy
+public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy
 {
 
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi";
-    private static final String SERVICE_LOCAL_PART = "AdapterComponentMpiService";
-    private static final String PORT_LOCAL_PART = "AdapterComponentMpiPort";
-    private static final String WSDL_FILE = "AdapterComponentMpi.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi:FindCandidatesRequest";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptermpi";
+    private static final String SERVICE_LOCAL_PART = "AdapterMpiService";
+    private static final String PORT_LOCAL_PART = "AdapterMpiPort";
+    private static final String WSDL_FILE = "AdapterMpi.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptermpi:FindCandidatesRequest";
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
      * Default constructor.
      */
-    public AdapterComponentMpiProxyWebServiceUnsecuredImpl()
+    public AdapterMpiProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
     }
@@ -58,7 +58,7 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
     {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        String sServiceName = NhincConstants.ADAPTER_COMPONENT_MPI_SERVICE_NAME;
+        String sServiceName = NhincConstants.ADAPTER_MPI_SERVICE_NAME;
 
         try
         {
@@ -70,8 +70,8 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
 
                 if (NullChecker.isNotNullish(url))
                 {
-                    AdapterComponentMpiPortType port = getPort(url, NhincConstants.ADAPTER_MPI_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, AdapterComponentMpiPortType.class, "findCandidates", request);
+                    AdapterMpiPortType port = getPort(url, NhincConstants.ADAPTER_MPI_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, AdapterMpiPortType.class, "findCandidates", request);
                 }
                 else
                 {
@@ -122,15 +122,15 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected AdapterComponentMpiPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
+    protected AdapterMpiPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
     {
-        AdapterComponentMpiPortType port = null;
+        AdapterMpiPortType port = null;
         Service service = getService();
         if (service != null)
         {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentMpiPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterMpiPortType.class);
             oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else

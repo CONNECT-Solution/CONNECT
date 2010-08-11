@@ -165,11 +165,12 @@ public class NhincConstants {
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_SUBSCRIPTIONS = "createchildsubscription";
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_FORWARD = "forward";
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_DISABLED = "disabled";
-    // MPI constants
-    public static final String ADAPTER_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
-    public static final String ADAPTER_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
-    public static final String ADAPTER_MPI_PROXY_SERVICE_NAME = "mpi";
-    public static final String ADAPTER_MPI_PROXY_SECURED_SERVICE_NAME = "mpisecured";
+    // Adapter Component MPI constants
+    public static final String ADAPTER_MPI_SERVICE_NAME = "mpi";
+    public static final String ADAPTER_MPI_SECURED_SERVICE_NAME = "mpisecured";
+    // Adapter Component MPI constants
+    public static final String ADAPTER_COMPONENT_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
+    public static final String ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
     // SOAP Headers
     public static final String HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE = "SoapMessage";
     public static final String HIEM_SUBSCRIBE_SOAP_HDR_ATTR_TAG = "subscribeSoapMessage";

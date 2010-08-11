@@ -62,7 +62,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
     {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        String sServiceName = NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME;
+        String sServiceName = NhincConstants.ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME;
 
         try
         {

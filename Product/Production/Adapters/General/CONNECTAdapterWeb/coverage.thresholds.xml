@@ -157,4 +157,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.nhinc.xdr.routing.CHiep" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.nhinc.xdr.routing.ConnectReference" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.nhinc.xdr.routing.RoutingObjectFactory" linecount="8" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi" linecount="4" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured" linecount="4" linerate="0.0" linesexecuted="0"/>
 </thresholds>
