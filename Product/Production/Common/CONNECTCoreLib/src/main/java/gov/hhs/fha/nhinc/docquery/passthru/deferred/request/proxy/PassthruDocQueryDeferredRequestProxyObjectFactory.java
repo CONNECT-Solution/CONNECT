@@ -19,7 +19,7 @@ public class PassthruDocQueryDeferredRequestProxyObjectFactory extends Component
         return CONFIG_FILE_NAME;
     }
 
-    public PassthruDocQueryDeferredRequestProxy getNhincDocQueryDeferredRequestProxy() {
+    public PassthruDocQueryDeferredRequestProxy getPassthruDocQueryDeferredRequestProxy() {
         return getBean(BEAN_NAME, PassthruDocQueryDeferredRequestProxy.class);
     }
 }

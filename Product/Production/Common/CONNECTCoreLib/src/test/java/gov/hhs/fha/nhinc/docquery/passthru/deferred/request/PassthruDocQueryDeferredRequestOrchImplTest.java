@@ -5,7 +5,6 @@
 
 package gov.hhs.fha.nhinc.docquery.passthru.deferred.request;
 
-import gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
@@ -93,11 +92,12 @@ public class PassthruDocQueryDeferredRequestOrchImplTest {
                 allowing(mockLogger).error(with(any(String.class)));
                 one(mockDocQueryAuditLog).auditDQRequest(with(any(AdhocQueryRequest.class)), with(any(AssertionType.class)),
                         with(any(String.class)), with(any(String.class)));
+                one(mockDocQueryAuditLog).logDocQueryAck(with(any(DocQueryAcknowledgementType.class)), with(any(AssertionType.class)),
+                        with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
             }
         });
 
-        DocQueryAcknowledgementType expResult = null;
 
         DocQueryAcknowledgementType result = instance.crossGatewayQueryRequest(mockAdhocQueryRequest, mockAssertion, mockTarget);
         assertNotNull(result);

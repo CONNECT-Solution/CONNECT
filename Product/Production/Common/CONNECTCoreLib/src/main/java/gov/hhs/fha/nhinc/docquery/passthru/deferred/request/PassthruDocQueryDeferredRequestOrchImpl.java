@@ -7,6 +7,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxyObjectFactory;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -56,8 +58,19 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
            getLogger().debug("DocQueryDeferred Request Audit Log Acknowledgement " + ack.getMessage());
         }
 
+
         //Call Nhin component proxy
         docQueryAcknowledgement = callNhinDocQueryDeferredService(adhocQueryRequest, assertion, target);
+
+        if (docQueryAcknowledgement == null){
+            getLogger().error("docQueryAcknowledgement response returned by NhinDocQueryDefferedRequest service is null");
+            return createErrorAckResponse("docQueryAcknowledgement response returned by NhinDocQueryDefferedRequest service is null");
+        }
+        else{
+            // Audit log the response
+            ack = getDocQueryAuditLogger().logDocQueryAck(docQueryAcknowledgement, assertion,
+                              NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
 
         getLogger().debug("End of NhincDocQueryDeferredRequestOrchImpl.crossGatewayQueryRequest");
         
@@ -111,7 +124,12 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
      */
     protected DocQueryAcknowledgementType callNhinDocQueryDeferredService(AdhocQueryRequest adhocQueryRequest,
                                                     AssertionType assertion, NhinTargetSystemType target){
-        return new DocQueryAcknowledgementType();
+
+        NhinDocQueryDeferredRequestProxyObjectFactory factory = new NhinDocQueryDeferredRequestProxyObjectFactory();
+        NhinDocQueryDeferredRequestProxy proxy = factory.getNhinDocQueryDeferredRequestProxy();
+        DocQueryAcknowledgementType respAck = proxy.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, target);
+
+        return respAck;
     }
 
 }
