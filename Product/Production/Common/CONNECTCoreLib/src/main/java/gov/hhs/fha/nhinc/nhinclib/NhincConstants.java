@@ -227,6 +227,8 @@ public class NhincConstants {
 
     public static final String DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
+    public static final String DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    public static final String DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
     //Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
