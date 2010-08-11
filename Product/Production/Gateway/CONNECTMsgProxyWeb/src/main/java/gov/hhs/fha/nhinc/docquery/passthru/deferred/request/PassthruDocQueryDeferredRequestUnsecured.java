@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author patlollav
  */
-@WebService(serviceName = "NhincProxyDocQueryDeferredRequest", portName = "NhincProxyDocQueryDeferredRequestPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequest.NhincProxyDocQueryDeferredRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest", wsdlLocation = "WEB-INF/wsdl/NhincDocQueryDeferredRequest/NhincProxyDocQueryDeferredRequest.wsdl")
+@WebService(serviceName = "NhincProxyDocQueryDeferredRequest", portName = "NhincProxyDocQueryDeferredRequestPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequest.NhincProxyDocQueryDeferredRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest", wsdlLocation = "WEB-INF/wsdl/PassthruDocQueryDeferredRequestUnsecured/NhincProxyDocQueryDeferredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class PassthruDocQueryDeferredRequestUnsecured {
 
