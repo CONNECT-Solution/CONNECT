@@ -208,7 +208,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequest</name>
 				<description>NHIN Doc Retrieve Deferred Request</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequestsecured</name>
@@ -218,7 +218,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
@@ -228,7 +228,7 @@
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
 				<description>NHIN Doc Retrieve Deferred Response</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponsesecured</name>
@@ -722,7 +722,7 @@
 			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerydeferredrequestsecured</name>
@@ -737,7 +737,7 @@
 			<service>
 				<name>adapterdocquerydeferredrequesterror</name>
 				<description>Unsecure Adapter Doc Query Deferred Request Error</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerydeferredrequesterrorsecured</name>
@@ -758,7 +758,7 @@
 			<service>
 				<name>adaptercomponentdocquerydeferredresponse</name>
 				<description>Unsecure Adapter Component Doc Query Deferred Response</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterComponentDocQueryDeferredResponseUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocQueryDeferredResponseUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>passthrudocquerydeferredresponse</name>
@@ -769,6 +769,16 @@
 				<name>passthrudocquerydeferredresponsesecured</name>
 				<description>Secured Passthru Doc Query Deferred Response </description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredresponse</name>
+				<description>Unsecure Entity Doc Query Deferred Response</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredresponsesecured</name>
+				<description>Secured Entity Doc Query Deferred Response </description>
+				<endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
@@ -1443,7 +1453,7 @@
             <service>
                 <name>adapterdocretrievedeferredrequest</name>
                 <description>NHIN Doc Retrieve Deferred Request</description>
-                <endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequestsecured</name>
@@ -1453,7 +1463,7 @@
             <service>
                 <name>adapterdocretrievedeferredrequesterror</name>
                 <description>NHIN Doc Retrieve Deferred Request Error</description>
-                <endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequesterrorsecured</name>
@@ -1463,7 +1473,7 @@
             <service>
                 <name>adapterdocretrievedeferredresponse</name>
                 <description>NHIN Doc Retrieve Deferred Response</description>
-                <endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredresponsesecured</name>
@@ -1475,7 +1485,7 @@
 			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerydeferredrequestsecured</name>
@@ -1490,7 +1500,7 @@
 			<service>
 				<name>adapterdocquerydeferredrequesterror</name>
 				<description>Unsecure Adapter Doc Query Deferred Request Error</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerydeferredrequesterrorsecured</name>
@@ -1511,7 +1521,7 @@
 			<service>
 				<name>adaptercomponentdocquerydeferredresponse</name>
 				<description>Unsecure Adapter Component Doc Query Deferred Response</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterComponentDocQueryDeferredResponseUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocQueryDeferredResponseUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>passthrudocquerydeferredresponse</name>
@@ -1522,6 +1532,16 @@
 				<name>passthrudocquerydeferredresponsesecured</name>
 				<description>Secured Passthru Doc Query Deferred Response </description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredresponse</name>
+				<description>Unsecure Entity Doc Query Deferred Response</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredresponsesecured</name>
+				<description>Secured Entity Doc Query Deferred Response </description>
+				<endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
@@ -2126,7 +2146,7 @@
             <service>
                 <name>adapterdocretrievedeferredrequest</name>
                 <description>NHIN Doc Retrieve Deferred Request</description>
-                <endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequestsecured</name>
@@ -2136,7 +2156,7 @@
             <service>
                 <name>adapterdocretrievedeferredrequesterror</name>
                 <description>NHIN Doc Retrieve Deferred Request Error</description>
-                <endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequesterrorsecured</name>
@@ -2146,7 +2166,7 @@
             <service>
                 <name>adapterdocretrievedeferredresponse</name>
                 <description>NHIN Doc Retrieve Deferred Response</description>
-                <endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredresponsesecured</name>
@@ -2158,7 +2178,7 @@
 			<service>
 				<name>adapterdocquerydeferredrequest</name>
 				<description>Unsecure Adapter Doc Query Deferred Request</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerydeferredrequestsecured</name>
@@ -2173,7 +2193,7 @@
 			<service>
 				<name>adapterdocquerydeferredrequesterror</name>
 				<description>Unsecure Adapter Doc Query Deferred Request Error</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredRequestErrorUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerydeferredrequesterrorsecured</name>
@@ -2194,7 +2214,7 @@
 			<service>
 				<name>adaptercomponentdocquerydeferredresponse</name>
 				<description>Unsecure Adapter Component Doc Query Deferred Response</description>
-				<endpointURL>https://localhost:8080/CONNECTAdapter/AdapterComponentDocQueryDeferredResponseUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocQueryDeferredResponseUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>passthrudocquerydeferredresponse</name>
@@ -2205,6 +2225,16 @@
 				<name>passthrudocquerydeferredresponsesecured</name>
 				<description>Secured Passthru Doc Query Deferred Response </description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredresponse</name>
+				<description>Unsecure Entity Doc Query Deferred Response</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredresponsesecured</name>
+				<description>Secured Entity Doc Query Deferred Response </description>
+				<endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>

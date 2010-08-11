@@ -57,4 +57,13 @@
    <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthrudeferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl"/> -->
 	<!-- Web-service UnSecured implementation -->
     <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/> -->
+    
+    <!-- Default facade implementation -->
+     <!-- <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyNoOpImpl"/> -->
+	 <!-- Default java implementation -->
+     <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyJavaImpl"/> 
+	 <!-- Web-service Secured implementation -->
+     <!--  <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceSecuredImpl"/>-->
+	 <!-- Web-service UnSecured implementation -->
+     <!--  <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/>-->
 </beans>
