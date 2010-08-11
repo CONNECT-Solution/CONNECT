@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.policyengine;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
@@ -83,6 +84,11 @@ public class PolicyEngineChecker {
     public CheckPolicyRequestType checkPolicyAdhocQuery(AdhocQueryRequestEventType request) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformAdhocQueryToCheckPolicy(request);
+    }
+
+    public CheckPolicyRequestType checkPolicyAdhocQueryResponse(AdhocQueryResultEventType request) {
+        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
+        return policyTransformer.transformAdhocQueryResultToCheckPolicy(request);
     }
 
     /**

@@ -5,11 +5,14 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
@@ -30,12 +33,6 @@ public class AdhocQueryTransformHelper {
     public static CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType event) {
         log.debug("begin transformAdhocQueryToCheckPolicy");
 
-//        if (log.isDebugEnabled()) {
-//            AdhocQueryRequestEventMarshaller marshaller = new AdhocQueryRequestEventMarshaller();
-//            String message = XmlUtility.serializeElementIgnoreFaults(marshaller.marshalAdhocQueryRequestEvent(event));
-//            log.debug("message: [" + message + "]");
-//        }
-
         CheckPolicyRequestType result = null;
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
             result = transformAdhocQueryInboundToCheckPolicy(event);
@@ -48,6 +45,81 @@ public class AdhocQueryTransformHelper {
         return result;
     }
 
+    public static CheckPolicyRequestType transformAdhocQueryResponseToCheckPolicy(AdhocQueryResultEventType event) {
+        log.debug("begin transformAdhocQueryResponseToCheckPolicy");
+
+        CheckPolicyRequestType result = null;
+        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+            result = transformAdhocQueryResponseInboundToCheckPolicy(event);
+        }
+        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+            result = transformAdhocQueryResponseOutboundToCheckPolicy(event);
+        }
+
+        log.debug("end transformAdhocQueryToCheckPolicy");
+        return result;
+    }
+
+    private static CheckPolicyRequestType transformAdhocQueryResponseToCheckPolicyBase(AdhocQueryResultEventType event) {
+        CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
+
+        AdhocQueryResponse docQuery = event.getMessage().getAdhocQueryResponse();
+
+        RequestType request = new RequestType();
+
+        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
+        }
+
+        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
+        }
+
+        ResourceType resource = new ResourceType();
+        AttributeHelper attrHelper = new AttributeHelper();
+        String sPatientId = null;
+        String sStrippedPatientId = null;
+        String aaId = null;
+        if (event != null &&
+                event.getMessage() != null &&
+                event.getMessage().getAssertion() != null &&
+                NullChecker.isNotNullish(event.getMessage().getAssertion().getUniquePatientId()) &&
+                NullChecker.isNotNullish(event.getMessage().getAssertion().getUniquePatientId().get(0))) {
+            sPatientId = event.getMessage().getAssertion().getUniquePatientId().get(0);
+            sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
+            aaId = PatientIdFormatUtil.parseCommunityId(sPatientId);
+        }
+        resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+
+
+        resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+        request.getResource().add(resource);
+
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        request.getSubject().add(subject);
+
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
+        CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
+        policyRequest.setRequest(request);
+        genericPolicyRequest.setRequest(request);
+        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
+        return genericPolicyRequest;
+    }
+
+    private static CheckPolicyRequestType transformAdhocQueryResponseInboundToCheckPolicy(AdhocQueryResultEventType event) {
+        return transformAdhocQueryResponseToCheckPolicyBase(event);
+    }
+
+    private static CheckPolicyRequestType transformAdhocQueryResponseOutboundToCheckPolicy(AdhocQueryResultEventType event) {
+        CheckPolicyRequestType checkPolicy = transformAdhocQueryResponseToCheckPolicyBase(event);
+        AttributeHelper attrHelper = new AttributeHelper();
+        checkPolicy.getRequest().getResource().get(0).getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+        return checkPolicy;
+    }
+
     private static CheckPolicyRequestType transformAdhocQueryToCheckPolicyBase(AdhocQueryRequestEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
 
@@ -58,7 +130,7 @@ public class AdhocQueryTransformHelper {
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
         }
-        
+
         if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
         }

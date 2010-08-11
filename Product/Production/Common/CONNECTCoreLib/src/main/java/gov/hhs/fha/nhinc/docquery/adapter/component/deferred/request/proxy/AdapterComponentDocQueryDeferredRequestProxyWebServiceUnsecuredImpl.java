@@ -48,29 +48,7 @@ public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl
     {
         return new WebServiceProxyHelper();
     }
-
-    protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-    {
-        return ConnectionManagerCache.getLocalEndpointURLByServiceName(serviceName);
-    }
-
-    protected String getEndpointURL()
-    {
-        String endpointURL = null;
-        String serviceName = NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME;
-        try
-        {
-            endpointURL = invokeConnectionManager(serviceName);
-            log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        }
-        catch (ConnectionManagerException ex)
-        {
-            log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
-        }
-
-        return endpointURL;
-    }
-
+    
     /**
      * This method retrieves and initializes the port.
      *
@@ -122,7 +100,7 @@ public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl
 
         try
         {
-            String url = getEndpointURL();
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
             AdapterComponentDocQueryDeferredRequestProxy port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if(msg == null)

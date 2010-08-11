@@ -44,8 +44,7 @@ public class PolicyEngineTransformer {
     }
 
     public CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return AdhocQueryTransformHelper.transformAdhocQueryResponseToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {

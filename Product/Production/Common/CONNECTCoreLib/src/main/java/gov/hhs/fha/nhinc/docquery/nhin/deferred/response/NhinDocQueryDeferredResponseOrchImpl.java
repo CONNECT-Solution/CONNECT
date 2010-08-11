@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.docquery.nhin.deferred.response;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -97,7 +98,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
 
         // Audit the incoming Adapter Message
-        ack = auditAck(ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditAck(ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         return ackResp;
     }
@@ -117,8 +118,8 @@ public class NhinDocQueryDeferredResponseOrchImpl {
     }
 
     private boolean isPolicyValid(AdhocQueryResponse message, AssertionType assertion) {
-        //boolean policyIsValid = new DocQueryPolicyChecker().checkIncomingPolicy(message, assertion);
+        boolean policyIsValid = new DocQueryPolicyChecker().checkIncomingResponsePolicy(message, assertion);
 
-        return true;
+        return policyIsValid;
     }
 }
