@@ -4,8 +4,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.response;
 
-import gov.hhs.fha.nhinc.service.WebServiceHelper;
-import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -28,24 +26,6 @@ public class NhinDocQueryDeferredResponse
 
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse body)
     {
-        DocQueryAcknowledgementType response = null;
-        WebServiceHelper oHelper = new WebServiceHelper();
-        NhinDocQueryDeferredResponseOrchImpl proxy = new NhinDocQueryDeferredResponseOrchImpl();
-        try
-        {
-            if (body != null)
-            {
-                response = (DocQueryAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(proxy, proxy.getClass(), "respondingGatewayCrossGatewayQuery", body, context);
-            } else
-            {
-                log.error("Failed to call the web orchestration (" + proxy.getClass() + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
-            }
-        } catch (Exception e)
-        {
-            log.error("Failed to call the web orchestration (" + proxy.getClass() + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
-        }
-
-        return response;
+        return new NhinDocQueryDeferredResponseImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 }

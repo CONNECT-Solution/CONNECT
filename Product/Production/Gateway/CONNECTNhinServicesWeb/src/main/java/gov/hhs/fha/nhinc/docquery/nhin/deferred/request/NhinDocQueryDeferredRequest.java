@@ -25,15 +25,7 @@ public class NhinDocQueryDeferredRequest {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return new NhinDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);
+        return new NhinDocQueryDeferredRequestImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 
 }
