@@ -1,9 +1,9 @@
-package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
+package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy;
 
-import gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
@@ -12,22 +12,24 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This is the concrete implementation for the Web based call to the
- * AdapterPEP.
+ * This is the concrete implementation for the web service based call to the
+ * AdapterPolicyEngineOrchestrator.
+ *
+ * @author Les Westberg
  */
-public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
-
+public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPolicyEngineOrchestratorProxy
+{
     private Log log = null;
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpep";
-    private static final String SERVICE_LOCAL_PART = "AdapterPEP";
-    private static final String PORT_LOCAL_PART = "AdapterPEPPortSoap";
-    private static final String WSDL_FILE = "AdapterPEP.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpep:CheckPolicyRequest";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator";
+    private static final String SERVICE_LOCAL_PART = "AdapterPolicyEngineOrchestrator";
+    private static final String PORT_LOCAL_PART = "AdapterPolicyEngineOrchestratorPortSoap";
+    private static final String WSDL_FILE = "AdapterPolicyEngineOrchestrator.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator:CheckPolicyRequest";
 
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterPEPWebServiceProxy()
+    public AdapterPolicyEngineOrchestratorWebServiceProxy()
     {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
@@ -46,8 +48,7 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
     protected String getEndpointURL()
     {
         String endpointURL = null;
-
-        String serviceName = NhincConstants.ADAPTER_PEP_SERVICE_NAME;
+        String serviceName = NhincConstants.ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME;
         try
         {
             endpointURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
@@ -60,7 +61,7 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
 
         return endpointURL;
     }
-    
+
     /**
      * This method retrieves and initializes the port.
      *
@@ -69,15 +70,15 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected AdapterPEPPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
+    protected AdapterPolicyEngineOrchestratorPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
     {
-        AdapterPEPPortType port = null;
+        AdapterPolicyEngineOrchestratorPortType port = null;
         Service service = getService();
         if (service != null)
         {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPEPPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPolicyEngineOrchestratorPortType.class);
             oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else
@@ -110,30 +111,31 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
 
     /**
      * Given a request to check the access policy, this service will interface
-     * with the PDP to determine if access is to be granted or denied.
-     * @param request The xacml request to check defined policy
-     * @return The xacml response which contains the access decision
+     * with the Adapter PEP to determine if access is to be granted or denied.
+     *
+     * @param checkPolicyRequest The request to check defined policy
+     * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request) {
-
-        CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    {
+        CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
 
         try
         {
             String url = getEndpointURL();
-            AssertionType assertion = request.getAssertion();
-            AdapterPEPPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-            checkPolicyResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPEPPortType.class, "checkPolicy", request);
+            AssertionType assertion = checkPolicyRequest.getAssertion();
+            AdapterPolicyEngineOrchestratorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+            oResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            String message = "Error occurred calling AdapterPEPJavaProxy.checkPolicy.  Error: " +
-                                   ex.getMessage();
-            log.error(message, ex);
-            throw new RuntimeException(message, ex);
+            String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchestratorWebServiceProxy.checkPolicy.  Error: " +
+                                   e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new RuntimeException(sErrorMessage, e);
         }
 
-        return checkPolicyResponse;
+        return oResponse;
     }
 
 }

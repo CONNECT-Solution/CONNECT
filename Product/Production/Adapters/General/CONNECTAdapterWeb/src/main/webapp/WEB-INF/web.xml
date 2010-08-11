@@ -134,7 +134,7 @@
 
     <servlet>
         <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestrator</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
@@ -152,7 +152,7 @@
     
     <servlet>
         <servlet-name>AdapterPEPService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpepservice.AdapterPEPService</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPEPService</servlet-name>
@@ -161,7 +161,7 @@
 
     <servlet>
         <servlet-name>AdapterPIPService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapterpipservice.AdapterPIPService</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPIPService</servlet-name>

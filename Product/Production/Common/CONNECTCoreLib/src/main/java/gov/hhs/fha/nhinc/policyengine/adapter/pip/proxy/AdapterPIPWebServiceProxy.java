@@ -7,17 +7,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 
-import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.adapterpip.AdapterPIP;
 import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
@@ -59,21 +55,16 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
         return new WebServiceProxyHelper();
     }
 
-    protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-    {
-        return ConnectionManagerCache.getLocalEndpointURLByServiceName(serviceName);
-    }
-
     protected String getEndpointURL()
     {
         String endpointURL = null;
         String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
         try
         {
-            endpointURL = invokeConnectionManager(serviceName);
+            endpointURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
             log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
         }
-        catch (ConnectionManagerException ex)
+        catch (Exception ex)
         {
             log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
         }
@@ -181,8 +172,8 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
         {
             String url = getEndpointURL();
             AssertionType assertion = request.getAssertion();
-            AdapterPIPPortType oAdapterPIPPort = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID, assertion);
-            oResponse = oAdapterPIPPort.retrievePtConsentByPtId(request);
+            AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID, assertion);
+            oResponse = (RetrievePtConsentByPtIdResponseType)oProxyHelper.invokePort(port, AdapterPIPPortType.class, "retrievePtConsentByPtId", request);
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.retrievePtConsentByPtId.  Error: " +
                     e.getMessage();
@@ -207,8 +198,8 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
         try {
             String url = getEndpointURL();
             AssertionType assertion = request.getAssertion();
-            AdapterPIPPortType oAdapterPIPPort = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID, assertion);
-            oResponse = oAdapterPIPPort.retrievePtConsentByPtDocId(request);
+            AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID, assertion);
+            oResponse = (RetrievePtConsentByPtDocIdResponseType)oProxyHelper.invokePort(port, AdapterPIPPortType.class, "retrievePtConsentByPtDocId", request);
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.retrievePtConsentByPtDocId.  Error: " +
                     e.getMessage();
@@ -232,8 +223,8 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
         try {
             String url = getEndpointURL();
             AssertionType assertion = request.getAssertion();
-            AdapterPIPPortType oAdapterPIPPort = getPort(url, WS_ADDRESSING_ACTION_STOREPTCONSENT, assertion);
-            oResponse = oAdapterPIPPort.storePtConsent(request);
+            AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_STOREPTCONSENT, assertion);
+            oResponse = (StorePtConsentResponseType)oProxyHelper.invokePort(port, AdapterPIPPortType.class, "storePtConsent", request);
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.storePtConsent.  Error: " +
                     e.getMessage();

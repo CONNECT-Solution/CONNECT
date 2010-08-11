@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.proxy;
+package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -20,5 +20,5 @@ public interface AdapterPolicyEngineOrchestratorProxy
      * @return The response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest);
-    
+
 }

@@ -146,7 +146,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterPolicyEngineOrchestrator">
-      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestrator</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngineOrchestrator.wsdl</local-wsdl-file>
       <service-name>AdapterPolicyEngineOrchestrator</service-name>
@@ -194,7 +194,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterPEPService">
-      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapterpepservice.AdapterPEPService</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPEP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPEP.wsdl</local-wsdl-file>
       <service-name>AdapterPEP</service-name>
@@ -218,7 +218,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterPIPService">
-      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapterpipservice.AdapterPIPService</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPService</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPIP.wsdl</local-wsdl-file>
       <service-name>AdapterPIP</service-name>

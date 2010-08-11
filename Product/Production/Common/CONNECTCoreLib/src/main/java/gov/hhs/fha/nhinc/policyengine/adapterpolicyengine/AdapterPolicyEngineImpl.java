@@ -3,8 +3,8 @@ package gov.hhs.fha.nhinc.policyengine.adapterpolicyengine;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 
-import gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.proxy.AdapterPolicyEngineOrchestratorProxy;
-import gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.proxy.AdapterPolicyEngineOrchestratorProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchestratorProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchestratorProxyObjectFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
