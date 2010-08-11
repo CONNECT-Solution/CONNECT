@@ -1,6 +1,5 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.async.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -16,10 +15,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import java.util.List;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,14 +48,14 @@ public class EntityPatientDiscoverySecuredAsyncRespImpl
         {
             if (request != null)
             {
-                ack = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "processPatientDiscoveryAsyncResp", unsecureRequest, context);
+                ack = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "processPatientDiscoveryAsyncRespOrch", unsecureRequest, context);
             } else
             {
-                log.error("Failed to call the web orchestration (" + this.getClass() + ".processPatientDiscoveryAsyncResp).  The input parameter is null.");
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".processPatientDiscoveryAsyncRespOrch).  The input parameter is null.");
             }
         } catch (Exception e)
         {
-            log.error("Failed to call the web orchestration (" + this.getClass() + ".processPatientDiscoveryAsyncResp).  An unexpected exception occurred.  " +
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".processPatientDiscoveryAsyncRespOrch).  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
         }
 
@@ -70,7 +67,7 @@ public class EntityPatientDiscoverySecuredAsyncRespImpl
         return ack;
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType request, AssertionType assertion)
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(RespondingGatewayPRPAIN201306UV02RequestType request, AssertionType assertion)
     {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         CMUrlInfos urlInfoList = null;

@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceContext;
 public class WebServiceHelper
 {
 
-    private LoggingContextHelper loggingContextHelper = new LoggingContextHelper();
+    private LoggingContextHelper loggingContextHelper = null;
     private Log log = null;
 
     /**
@@ -132,43 +132,29 @@ public class WebServiceHelper
 
         try
         {
-            loggingContextHelper.setContext(context);
+            getLoggingContextHelper().setContext(context);
 
             // Collect assertion
-            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-            log.debug("Initializing the SAML assertion information: " + assertion);
+            AssertionType assertion = getSamlAssertion(context);
 
             // Extract the message id value from the WS-Addressing Header and
             // place it in the Assertion Class
-            if (assertion != null)
-            {
-                String messageId = AsyncMessageIdExtractor.GetAsyncMessageId(context);
-                if (messageId != null && !messageId.isEmpty())
-                {
-                    log.debug("Setting messageId: " + messageId);
-                    assertion.setMessageId(messageId);
-                }
-                List<String> relatesToList = assertion.getRelatesToList();
-                if (relatesToList != null)
-                {
-                    relatesToList.addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
-                    StringBuffer sBuf = new StringBuffer("Setting relatesToList: ");
-                    for (String relatesToItem : relatesToList)
-                    {
-                        sBuf.append(relatesToItem + " ");
-                    }
-                    log.debug(sBuf.toString());
-                }
-            }
+            String contextMessageId = getMessageId(context);
+            populateAssertionWithMessageId(assertion, contextMessageId);
+
+            // Extract the relatesTo values from the WS-Addressing Header and
+            // place them in the Assertion Class
+            List<String> contextRelatesTo = getRelatesToList(context);
+            populateAssertionWithRelatesToList(assertion, contextRelatesTo);
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput);
+            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput + " and assertion " + assertion);
             oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request" +
+                    "This assumes that the method should have exactly one request " +
                     "argument and the assertion object. " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -187,12 +173,12 @@ public class WebServiceHelper
 
         } finally
         {
-            loggingContextHelper.clearContext();
+            getLoggingContextHelper().clearContext();
         }
         return oResponse;
     }
 
-       /**
+    /**
      * This method will establish the context logging, create the Assertion
      * object including SAML information and the WS-Addressing messageId from the
      * relatesTo information, invoke the orchestration method, and then clear
@@ -213,40 +199,30 @@ public class WebServiceHelper
 
         try
         {
-            loggingContextHelper.setContext(context);
+            getLoggingContextHelper().setContext(context);
 
             // Collect assertion
-            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-            log.debug("Initializing the SAML assertion information: " + assertion);
+            AssertionType assertion = getSamlAssertion(context);
 
-            // Extract the relatesTo value from the WS-Addressing Header and
-            // place it in the Assertion Class as the messageId
-            if (assertion != null)
+            // Extract the relatesTo values from the WS-Addressing Header
+            List<String> contextRelatesTo = getRelatesToList(context);
+
+            // place the first one from the list into the Assertion Class as the message id
+            if (contextRelatesTo != null && !contextRelatesTo.isEmpty())
             {
-
-                List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-                if (relatesToList != null && !relatesToList.isEmpty())
-                {
-                    StringBuffer sBuf = new StringBuffer("Extracting relatesToList: ");
-                    for (String relatesToItem : relatesToList)
-                    {
-                        sBuf.append(relatesToItem + " ");
-                    }
-                    log.debug(sBuf.toString());
-
-                    log.debug("Setting messageId to first relatesToId: " + relatesToList.get(0));
-                    assertion.setMessageId(relatesToList.get(0));
-                }
+                log.debug("Setting messageId to first relatesToId: " + contextRelatesTo.get(0));
+                String messageId = contextRelatesTo.get(0);
+                populateAssertionWithMessageId(assertion, messageId);
             }
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput);
+            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput + " and assertion " + assertion);
             oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request" +
+                    "This assumes that the method should have exactly one request " +
                     "argument and the assertion object. " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -265,7 +241,7 @@ public class WebServiceHelper
 
         } finally
         {
-            loggingContextHelper.clearContext();
+            getLoggingContextHelper().clearContext();
         }
         return oResponse;
     }
@@ -290,28 +266,19 @@ public class WebServiceHelper
 
         try
         {
-            loggingContextHelper.setContext(context);
+            getLoggingContextHelper().setContext(context);
 
-            // Extract the relatesTo value from the WS-Addressing Header and
-            // place it in the Assertion Class as the messageId
-            if (assertion != null)
+            // Extract the relatesTo values from the WS-Addressing Header
+            List<String> contextRelatesTo = getRelatesToList(context);
+
+            // place the first one from the list into the Assertion Class as the message id
+            if (contextRelatesTo != null && !contextRelatesTo.isEmpty())
             {
-
-                List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-                if (relatesToList != null && !relatesToList.isEmpty())
-                {
-
-                    StringBuffer sBuf = new StringBuffer("Extracting relatesToList: ");
-                    for (String relatesToItem : relatesToList)
-                    {
-                        sBuf.append(relatesToItem + " ");
-                    }
-                    log.debug(sBuf.toString());
-
-                    log.debug("Setting messageId to first relatesToId: " + relatesToList.get(0));
-                    assertion.setMessageId(relatesToList.get(0));
-                }
+                log.debug("Setting messageId to first relatesToId: " + contextRelatesTo.get(0));
+                String messageId = contextRelatesTo.get(0);
+                populateAssertionWithMessageId(assertion, messageId);
             }
+
             Method oMethod = getMethod(webOrchClass, methodName);
             log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput);
             oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput);
@@ -319,8 +286,7 @@ public class WebServiceHelper
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request" +
-                    "argument and the assertion object. " +
+                    "This assumes that the method should have exactly one request argument " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
@@ -338,8 +304,104 @@ public class WebServiceHelper
 
         } finally
         {
-            loggingContextHelper.clearContext();
+            getLoggingContextHelper().clearContext();
         }
         return oResponse;
+    }
+
+    /**
+     * Extracts the SAML information from the context to populate the Assertion object
+     * 
+     * @param context The web service context used to initialize the assertion
+     * @return The assertion object populated with SAML information
+     */
+    protected AssertionType getSamlAssertion(WebServiceContext context)
+    {
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        log.debug("Initializing the SAML assertion information: " + assertion);
+        return assertion;
+    }
+
+    /**
+     * Extracts the message id from the web service context
+     * @param context The web service context that contains the message id
+     * @return the extracted message id
+     */
+    protected String getMessageId(WebServiceContext context)
+    {
+        String messageId = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+        log.debug("Extracted messageId: " + messageId + " from the context");
+        return messageId;
+    }
+
+    /**
+     * Sets the given messageId into the assertion
+     * @param assertion The assertion object to populate with the given message id
+     * @param messageId The message id
+     */
+    protected void populateAssertionWithMessageId(AssertionType assertion, String messageId)
+    {
+        if (assertion != null)
+        {
+            if (messageId != null && !messageId.isEmpty())
+            {
+                log.debug("Setting assertion messageId: " + messageId);
+                assertion.setMessageId(messageId);
+            }
+        }
+    }
+
+    /**
+     * Extracts the relatesTo ids from the web service context
+     * @param context The web service context that contains the ids
+     * @return the extracted list of relatesTo ids
+     */
+    protected List<String> getRelatesToList(WebServiceContext context)
+    {
+        List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+        StringBuffer sBuf = new StringBuffer("Extracting relatesToList: ");
+        for (String relatesToItem : relatesToList)
+        {
+            sBuf.append(relatesToItem + " ");
+        }
+        sBuf.append("from the context");
+        log.debug(sBuf.toString());
+        return relatesToList;
+    }
+
+    /**
+     * Sets the given list of relatesTo ids into the assertion
+     * @param assertion The assertion object to populate with the given relatesTo ids
+     * @param relatesToIds The list of the relatesTo ids
+     */
+    protected void populateAssertionWithRelatesToList(AssertionType assertion, List<String> relatesToIds)
+    {
+        if (assertion != null)
+        {
+            List<String> relatesToList = assertion.getRelatesToList();
+            if (relatesToList != null && relatesToIds != null)
+            {
+                relatesToList.addAll(relatesToIds);
+                StringBuffer sBuf = new StringBuffer("Setting assertion relatesToList: ");
+                for (String relatesToItem : relatesToList)
+                {
+                    sBuf.append(relatesToItem + " ");
+                }
+                log.debug(sBuf.toString());
+            }
+        }
+    }
+
+    /**
+     * Accessor for the Logging context helper object, creates this object on first need.
+     * @return instance of the LoggingContextHelper
+     */
+    protected LoggingContextHelper getLoggingContextHelper()
+    {
+        if (loggingContextHelper == null)
+        {
+            loggingContextHelper = new LoggingContextHelper();
+        }
+        return loggingContextHelper;
     }
 }

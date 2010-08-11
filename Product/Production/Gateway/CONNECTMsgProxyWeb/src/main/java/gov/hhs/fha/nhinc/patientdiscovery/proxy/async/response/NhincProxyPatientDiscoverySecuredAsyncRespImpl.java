@@ -4,16 +4,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxy;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
-import java.util.List;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,21 +49,21 @@ public class NhincProxyPatientDiscoverySecuredAsyncRespImpl
         {
             if (request != null)
             {
-                ack = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "proxyProcessPatientDiscoveryAsyncResp", unsecureRequest, context);
+                ack = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "proxyProcessPatientDiscoveryAsyncRespOrch", unsecureRequest, context);
             } else
             {
-                log.error("Failed to call the web orchestration (" + this.getClass() + ".proxyProcessPatientDiscoveryAsyncResp).  The input parameter is null.");
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".proxyProcessPatientDiscoveryAsyncRespOrch).  The input parameter is null.");
             }
         } catch (Exception e)
         {
-            log.error("Failed to call the web orchestration (" + this.getClass() + ".proxyProcessPatientDiscoveryAsyncResp).  An unexpected exception occurred.  " +
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".proxyProcessPatientDiscoveryAsyncRespOrch).  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
         }
 
         return ack;
     }
 
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(ProxyPRPAIN201306UVProxyRequestType request, AssertionType assertion)
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncRespOrch(ProxyPRPAIN201306UVProxyRequestType request, AssertionType assertion)
     {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 

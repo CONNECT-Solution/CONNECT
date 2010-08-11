@@ -52,20 +52,20 @@ public class NhinPatientDiscoveryAsyncRespImpl
         {
             if (body != null)
             {
-                resp = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "respondingGatewayPRPAIN201306UV02", body, context);
+                resp = (MCCIIN000002UV01) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "respondingGatewayPRPAIN201306UV02Orch", body, context);
             } else
             {
-                log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayPRPAIN201306UV02).  The input parameter is null.");
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayPRPAIN201306UV02Orch).  The input parameter is null.");
             }
         } catch (Exception e)
         {
-            log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayPRPAIN201306UV02).  An unexpected exception occurred.  " +
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayPRPAIN201306UV02Orch).  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
         }
         return resp;
     }
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion)
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02Orch(PRPAIN201306UV02 body, AssertionType assertion)
     {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 

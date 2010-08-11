@@ -100,7 +100,7 @@ public class NhincProxyXDRResponseSecuredImplTest
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
 
-        XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBResponse(request, mockAssertion);
+        XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBResponseOrch(request, mockAssertion);
 
         assertNotNull("Ack was null", ack);
         assertEquals("Response message incorrect", NhincConstants.XDR_ACK_STATUS_MSG, ack.getMessage().getStatus());

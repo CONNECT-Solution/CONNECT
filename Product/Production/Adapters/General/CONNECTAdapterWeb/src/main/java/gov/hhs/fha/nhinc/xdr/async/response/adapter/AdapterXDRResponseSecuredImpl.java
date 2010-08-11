@@ -14,13 +14,11 @@ import gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponse
 import gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponseService;
 import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +67,7 @@ public class AdapterXDRResponseSecuredImpl
         return logger;
     }
 
-    protected XDRAcknowledgementType callAdapterComponentXDR(RegistryResponseType body, AssertionType assertion)
+    public XDRAcknowledgementType callAdapterComponentXDR(RegistryResponseType body, AssertionType assertion)
     {
 
         getLogger().debug("Calling AdapterComponentXDRImpl");

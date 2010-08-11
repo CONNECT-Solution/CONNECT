@@ -46,20 +46,20 @@ public class EntityXDRResponseSecuredImpl
         {
             if (provideAndRegisterDocumentSetSecuredResponseRequest != null)
             {
-                response = (XDRAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "provideAndRegisterDocumentSetBResponse", provideAndRegisterDocumentSetSecuredResponseRequest, context);
+                response = (XDRAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "provideAndRegisterDocumentSetBResponseOrch", provideAndRegisterDocumentSetSecuredResponseRequest, context);
             } else
             {
-                log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponse).  The input parameter is null.");
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponseOrch).  The input parameter is null.");
             }
         } catch (Exception e)
         {
-            log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponse).  An unexpected exception occurred.  " +
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".provideAndRegisterDocumentSetBResponseOrch).  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
         }
         return response;
     }
 
-    private XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponseOrch(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, AssertionType assertion)
     {
         log.info("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
