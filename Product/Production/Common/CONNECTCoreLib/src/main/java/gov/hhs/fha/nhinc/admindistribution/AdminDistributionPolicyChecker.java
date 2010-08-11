@@ -36,7 +36,7 @@ public class AdminDistributionPolicyChecker {
         log.debug("checking the policy engine for the new request to a target community");
 
         gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper policyHelper;
-        
+
         policyHelper = new gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper();
 
         CheckPolicyRequestType checkPolicyRequest = policyHelper.transformEntityAlertToCheckPolicy(request, target);
