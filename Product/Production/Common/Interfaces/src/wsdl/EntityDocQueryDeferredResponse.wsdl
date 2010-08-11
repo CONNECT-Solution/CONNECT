@@ -7,7 +7,6 @@
    xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
-   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
@@ -44,7 +43,6 @@
   <binding name="EntityDocQueryDeferredResponseBindingSoap"
              type="tns:EntityDocQueryDeferredResponsePortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsp:PolicyReference URI="#EntityDocQueryPolicy"/>
     <operation name="CrossGatewayQueryResponse">
       <soap:operation soapAction="urn:CrossGatewayQueryResponse"/>
       <input name="CrossGatewayDocQueryDeferredResponseMessage">
@@ -63,3 +61,4 @@
     </port>
   </service>
 </definitions>
+
