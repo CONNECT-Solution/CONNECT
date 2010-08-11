@@ -108,7 +108,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
    * @param target
    * @return
    */
-  protected DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+  public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
           AdhocQueryRequest message, AssertionType assertion, NhinTargetCommunitiesType target) {
     throw new UnsupportedOperationException("Not yet implemented");
   }
