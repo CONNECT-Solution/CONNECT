@@ -53,7 +53,7 @@
 	 <!-- Default java implementation -->
      <!-- <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.AdapterDocRetrieveDeferredRespJavaImpl"/> -->
 	 <!-- Web-service Secured implementation -->
-       <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.AdapterocRetrieveDeferredRespSecuredWebServiceImpl"/>
+       <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.AdapterDocRetrieveDeferredRespSecuredWebServiceImpl"/>
 	 <!-- Web-service UnSecured implementation -->
      <!--  <bean id="adapterdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespWebServiceImpl"/>-->
 
