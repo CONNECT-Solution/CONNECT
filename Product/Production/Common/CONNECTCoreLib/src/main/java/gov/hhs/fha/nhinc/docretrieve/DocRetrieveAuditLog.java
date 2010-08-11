@@ -3,12 +3,12 @@ package gov.hhs.fha.nhinc.docretrieve;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**

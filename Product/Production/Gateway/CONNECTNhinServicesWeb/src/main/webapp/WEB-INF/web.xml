@@ -107,7 +107,7 @@
     <!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
         <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhin.request.NhinDocRetrieveDeferredReq</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.deferred.nhin.request.NhinDocRetrieveDeferredReq</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
@@ -115,7 +115,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrievedeferred.nhin.response.NhinDocRetrieveDeferredResp</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.deferred.nhin.response.NhinDocRetrieveDeferredResp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
@@ -151,7 +151,7 @@
             <web-resource-name>NhinAdministrativeDistribution</web-resource-name>
             <url-pattern>/NhinService/NhinAdminDist</url-pattern>
         </web-resource-collection>
-		
+
         <web-resource-collection>
             <web-resource-name>DocQuery</web-resource-name>
             <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>

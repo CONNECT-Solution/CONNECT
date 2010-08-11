@@ -6,18 +6,19 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
-import gov.hhs.fha.nhinc.docretrievedeferred.nhin.proxy.response.NhinDocRetrieveDeferredRespProxy;
+import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.proxy.response.NhinDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -45,7 +46,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param crossGatewayRetrieveResponse
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -77,7 +78,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param body
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -110,7 +111,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param retrieveDocumentSetResponse
      * @param assertion
      * @param target
@@ -152,7 +153,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param errorContext
      * @return DocRetrieveAcknowledgementType
      */

@@ -13,13 +13,14 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -41,7 +42,7 @@ public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements Ent
     }
 
     /**
-     * 
+     *
      * @return EntityDocRetrieveDeferredResponse
      */
     private EntityDocRetrieveDeferredResponse getWebService() {
@@ -57,7 +58,7 @@ public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements Ent
     }
 
     /**
-     * 
+     *
      * @param response
      * @param assertion
      * @param target
@@ -84,7 +85,7 @@ public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements Ent
     }
 
     /**
-     * 
+     *
      * @return String
      */
     private String getUrl() {
@@ -99,7 +100,7 @@ public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements Ent
     }
 
     /**
-     * 
+     *
      * @param url
      * @param assertion
      * @return EntityDocRetrieveDeferredResponsePortType

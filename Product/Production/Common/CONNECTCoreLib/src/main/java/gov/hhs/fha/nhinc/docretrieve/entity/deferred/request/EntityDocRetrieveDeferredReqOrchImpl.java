@@ -1,8 +1,8 @@
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -25,12 +25,13 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
-import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.xml.ws.WebServiceContext;
 
 /**
  * Implementation class for Entity Document Retrieve Deferred request message
@@ -58,7 +59,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param body
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -87,7 +88,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param crossGatewayRetrieveRequest
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -244,7 +245,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param targetCommunities
      * @return CMUrlInfos
      */

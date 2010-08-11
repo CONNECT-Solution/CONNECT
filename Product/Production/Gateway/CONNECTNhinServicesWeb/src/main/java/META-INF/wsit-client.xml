@@ -26,4 +26,6 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
     <import location="AdapterDocRetrieveDeferredReqSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured"/>
+    <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
+    <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
 </definitions>

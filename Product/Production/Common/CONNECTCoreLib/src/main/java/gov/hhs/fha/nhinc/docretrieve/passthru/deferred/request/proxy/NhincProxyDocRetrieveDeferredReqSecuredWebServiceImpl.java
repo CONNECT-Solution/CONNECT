@@ -13,13 +13,14 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -41,7 +42,7 @@ public class NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl implements Nh
     }
 
     /**
-     * 
+     *
      * @return NhincProxyDocRetrieveDeferredRequestSecured
      */
     private NhincProxyDocRetrieveDeferredRequestSecured getWebService() {
@@ -57,7 +58,7 @@ public class NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl implements Nh
     }
 
     /**
-     * 
+     *
      * @param request
      * @param assertion
      * @param target
@@ -92,7 +93,7 @@ public class NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl implements Nh
     }
 
     /**
-     * 
+     *
      * @param url
      * @param assertion
      * @return NhincProxyDocRetrieveDeferredRequestSecuredPortType
