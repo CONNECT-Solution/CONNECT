@@ -22,29 +22,10 @@ import javax.xml.ws.WebServiceContext;
 public class AdapterDocQueryDeferredResponseUnsecured {
     @Resource
     private WebServiceContext context;
-private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdapterDocQueryDeferredResponseUnsecured.class);
+
 
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryRequest) {
-        WebServiceHelper oHelper = new WebServiceHelper();
-        AdapterDocQueryDeferredResponseOrchImpl orchImpl = new AdapterDocQueryDeferredResponseOrchImpl();
-        DocQueryAcknowledgementType ack = null;
-        try
-        {
-            if (respondingGatewayCrossGatewayQueryRequest != null && orchImpl != null)
-            {
-                ack = (DocQueryAcknowledgementType) oHelper.invokeDeferredResponseWebService(orchImpl, orchImpl.getClass(), "respondingGatewayCrossGatewayQuery", respondingGatewayCrossGatewayQueryRequest.getAssertion(), respondingGatewayCrossGatewayQueryRequest.getAdhocQueryResponse(), context);
-            } else
-            {
-                log.error("Failed to call the web orchestration (" + orchImpl.getClass() + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
-            }
-        } catch (Exception e)
-        {
-            log.error("Failed to call the web orchestration (" + orchImpl.getClass() + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
-        }
-
-
-        return ack;
+        return new AdapterDocQueryDeferredResponseUnsecuredImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest, context);
     }
 
 }

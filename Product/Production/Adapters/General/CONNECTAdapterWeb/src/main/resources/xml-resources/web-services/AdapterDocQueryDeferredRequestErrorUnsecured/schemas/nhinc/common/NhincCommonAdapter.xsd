@@ -717,8 +717,7 @@
 	<xsd:element name="PatientPreferences" type="tns:PatientPreferencesType"/>
 	<xsd:complexType name="RetrievePtConsentByPtIdRequestType">
 		<xsd:sequence>
-			<xsd:element name="assertion" type="nccommon:AssertionType" minOccurs="0"/>
-            <xsd:element name="patientId" type="xsd:string"/>
+			<xsd:element name="patientId" type="xsd:string"/>
 			<xsd:element name="assigningAuthority" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -731,8 +730,7 @@
 	<xsd:element name="RetrievePtConsentByPtIdResponse" type="tns:RetrievePtConsentByPtIdResponseType"/>
 	<xsd:complexType name="RetrievePtConsentByPtDocIdRequestType">
 		<xsd:sequence>
-			<xsd:element name="assertion" type="nccommon:AssertionType" minOccurs="0"/>
-            <xsd:element name="documentId" type="xsd:string"/>
+			<xsd:element name="documentId" type="xsd:string"/>
 			<xsd:element name="repositoryId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="homeCommunityId" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
@@ -746,8 +744,7 @@
 	<xsd:element name="RetrievePtConsentByPtDocIdResponse" type="tns:RetrievePtConsentByPtDocIdResponseType"/>
 	<xsd:complexType name="StorePtConsentRequestType">
 		<xsd:sequence>
-			<xsd:element name="assertion" type="nccommon:AssertionType" minOccurs="0"/>
-            <xsd:element name="patientPreferences" type="tns:PatientPreferencesType"/>
+			<xsd:element name="patientPreferences" type="tns:PatientPreferencesType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="StorePtConsentRequest" type="tns:StorePtConsentRequestType"/>

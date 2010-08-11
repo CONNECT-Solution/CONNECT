@@ -24,15 +24,7 @@ public class AdapterDocQueryDeferredRequestErrorSecured {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentQueryDeferredRequestErrorSecuredType body) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return new AdapterDocQueryDeferredRequestErrorOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion, body.getErrorMsg());
+        return new AdapterDocQueryDeferredRequestErrorSecuredImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 
 }

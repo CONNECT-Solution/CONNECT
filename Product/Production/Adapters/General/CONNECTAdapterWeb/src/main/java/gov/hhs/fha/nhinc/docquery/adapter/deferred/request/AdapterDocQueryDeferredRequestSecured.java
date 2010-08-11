@@ -5,9 +5,6 @@
 
 package gov.hhs.fha.nhinc.docquery.adapter.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -24,15 +21,7 @@ public class AdapterDocQueryDeferredRequestSecured {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType body) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return new AdapterDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion);
+        return new AdapterDocQueryDeferredRequestSecuredImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 
 }
