@@ -36,8 +36,10 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.response.NhincProxyDocRetrieveDeferredResp" linecount="5" linerate="0.6" linesexecuted="0.03"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.response.NhincProxyDocRetrieveDeferredRespSecured" linecount="5" linerate="0.6" linesexecuted="0.03"/>
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.docquery.nhinc.deferred.request.NhincDocQueryDeferredRequest" linecount="10" linerate="0.8" linesexecuted="0.08"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured" linecount="6" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="-Infinity" branchsexecuted="-1.6" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured" linecount="2" linerate="-1.6" linesexecuted="-3.2"/>
+<threshold branchcount="0" branchrate="-Infinity" branchsexecuted="-1.6" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured" linecount="2" linerate="-1.2" linesexecuted="-2.4"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecuredImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecuredImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured" linecount="13" linerate="0.7692307692307693" linesexecuted="0.1"/>
 <threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured" linecount="12" linerate="0.8333333333333334" linesexecuted="0.1"/>
 </thresholds>

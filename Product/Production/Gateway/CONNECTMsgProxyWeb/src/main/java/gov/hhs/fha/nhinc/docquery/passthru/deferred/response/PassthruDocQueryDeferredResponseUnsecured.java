@@ -22,13 +22,7 @@ public class PassthruDocQueryDeferredResponseUnsecured {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryRequest) {
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (respondingGatewayCrossGatewayQueryRequest.getAssertion() != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            respondingGatewayCrossGatewayQueryRequest.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return new PassthruDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest.getAdhocQueryResponse(), respondingGatewayCrossGatewayQueryRequest.getAssertion(), respondingGatewayCrossGatewayQueryRequest.getNhinTargetSystem());
+        return new PassthruDocQueryDeferredResponseUnsecuredImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest, context);
     }
 
 }
