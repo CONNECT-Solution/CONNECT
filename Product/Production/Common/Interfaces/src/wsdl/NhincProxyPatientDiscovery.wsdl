@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" name="NhincProxyPatientDiscovery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery">
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" name="NhincProxyPatientDiscovery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery">
 	<wsdl:documentation>
      WSDL for NHINC Proxy interface of Patient Discovery
   </wsdl:documentation>
@@ -17,8 +17,8 @@
 	</wsdl:message>
 	<wsdl:portType name="NhincProxyPatientDiscoveryPortType">
 		<wsdl:operation name="Proxy_PRPA_IN201305UV">
-			<wsdl:input name="Proxy_PRPA_IN201305UVProxyRequest" message="tns:Proxy_PRPA_IN201305UVProxyRequestMessage"/>
-			<wsdl:output name="Proxy_PRPA_IN201306UVProxyResponse" message="tns:Proxy_PRPA_IN201306UVProxyResponseMessage"/>
+			<wsdl:input name="Proxy_PRPA_IN201305UVProxyRequest" message="tns:Proxy_PRPA_IN201305UVProxyRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery:Proxy_PRPA_IN201305UVProxyRequest"/>
+			<wsdl:output name="Proxy_PRPA_IN201306UVProxyResponse" message="tns:Proxy_PRPA_IN201306UVProxyResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery:Proxy_PRPA_IN201306UVProxyResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="NhincProxyPatientDiscoveryBinding" type="tns:NhincProxyPatientDiscoveryPortType">
