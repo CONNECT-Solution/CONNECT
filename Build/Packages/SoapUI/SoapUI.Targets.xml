@@ -81,7 +81,7 @@
           <environment refid="${Common.EnvironmentVariables.RefId}"/>
           <args>
             <arg line="-Dcompile.debug=${Compile.Debug}"/>
-            <arg line="-Dprofile=true"/>
+            <arg line="-Dprofile=false"/>
           </args>
         </ant>
         <property name="SoapUI.Failed" value="false"/>
