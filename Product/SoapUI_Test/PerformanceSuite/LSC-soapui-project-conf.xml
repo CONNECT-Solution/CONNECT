@@ -15,7 +15,37 @@
       <property name="PatientDiscovery.ExpectedResultCount">1</property>
     </testProperties>
   </test>
+-->
+<!--
   <test name="PatientDiscovery(1tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(5tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="5" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(10tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="10" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(25tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="25" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(50tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="50" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
       <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
@@ -73,6 +103,43 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
     </testProperties>
   </test>
+  <test name="DocQuery-NoResults(2tx50r)" testcase="Nhin.DocQuery" numberOfThreads="2" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-NoResults(5tx50r)" testcase="Nhin.DocQuery" numberOfThreads="5" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-NoResults(10tx50r)" testcase="Nhin.DocQuery" numberOfThreads="10" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+<!--
+  <test name="DocQuery-NoResults(25tx50r)" testcase="Nhin.DocQuery" numberOfThreads="25" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-NoResults(50tx50r)" testcase="Nhin.DocQuery" numberOfThreads="50" numberOfIteration="50">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+-->
 
 
 <!-- these are useful for testing locally, but not very use running on the real build server
