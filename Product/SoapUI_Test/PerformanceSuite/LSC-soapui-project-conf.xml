@@ -15,7 +15,6 @@
       <property name="PatientDiscovery.ExpectedResultCount">1</property>
     </testProperties>
   </test>
--->
   <test name="PatientDiscovery(1tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
@@ -23,6 +22,7 @@
       <property name="PatientDiscovery.ExpectedResultCount">1</property>
     </testProperties>
   </test>
+-->
 
 
 <!-- these are useful for testing locally, but not very use running on the real build server
@@ -40,7 +40,6 @@
       <property name="PatientDiscovery.ExpectedResultCount">0</property>
     </testProperties>
   </test>
--->
   <test name="PatientDiscovery-NoResults(1tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
@@ -48,6 +47,7 @@
       <property name="PatientDiscovery.ExpectedResultCount">0</property>
     </testProperties>
   </test>
+-->
 
 
 <!-- these are useful for testing locally, but not very use running on the real build server
@@ -116,6 +116,8 @@
     </testProperties>
   </test>
 -->
+
+<!--
   <test name="DocQuery-ThreeResults(1tx50r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1</property>
@@ -187,7 +189,7 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
-
+-->
 
 
 
@@ -235,7 +237,6 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
--->
   <test name="DocRetrieve-OneDocument(1tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
@@ -252,6 +253,7 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
+-->
   <!--
   <test name="DocRetrieve-OneDocument(1tx5000r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="5000">
     <testProperties filename="LSC-soapui-project.properties">
@@ -261,7 +263,6 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
-  -->
   <test name="DocRetrieve-OneDocument(2tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="2" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
@@ -278,7 +279,8 @@
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
-
+-->
+  
 
 <!-- these are useful for testing locally, but not very use running on the real build server
   <test name="DocRetrieve-SequentialRequestsForMultipleDocuments(1tx1r)" testcase="Nhin.DocRetrieve.SequentialRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="1">
@@ -303,7 +305,6 @@
       <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
     </testProperties>
   </test>
--->
   <test name="DocRetrieve-SequentialRequestsForMultipleDocuments(1tx50r)" testcase="Nhin.DocRetrieve.SequentialRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
@@ -315,6 +316,7 @@
       <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
     </testProperties>
   </test>
+-->
 
 
 <!-- these are useful for testing locally, but not very use running on the real build server
@@ -340,7 +342,6 @@
       <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
     </testProperties>
   </test>
--->
   <test name="DocRetrieve-SingleRequestsForMultipleDocuments(1tx50r)" testcase="Nhin.DocRetrieve.SingleRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="LSC-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
@@ -352,5 +353,6 @@
       <property name="DocRetrieve.DocumentId-5">1.123407.44444</property>
     </testProperties>
   </test>
+-->
 
 </tests>
