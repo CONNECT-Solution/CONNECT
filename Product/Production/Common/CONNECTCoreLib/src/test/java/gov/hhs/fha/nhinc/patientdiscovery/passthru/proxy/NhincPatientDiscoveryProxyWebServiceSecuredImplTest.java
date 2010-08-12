@@ -2,16 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
-import ihe.iti.xcpd._2009.RespondingGatewayPortType;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import static org.junit.Assert.*;
+package gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType;
 import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -23,12 +23,9 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Les Westberg
+ * @author mflynn02
  */
-@RunWith(JMock.class)
-public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest
-{
-
+public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
    Mockery context = new JUnit4Mockery()
     {
 
@@ -39,38 +36,15 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest
     };
     final Log mockLog = context.mock(Log.class);
     final Service mockService = context.mock(Service.class);
-    final RespondingGatewayPortType mockPort = context.mock(RespondingGatewayPortType.class);
 
-    public NhinPatientDiscoveryProxyWebServiceSecuredImplTest()
-    {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception
-    {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception
-    {
-    }
-
-    @Before
-    public void setUp()
-    {
-    }
-
-    @After
-    public void tearDown()
-    {
-    }
-
+    /**
+     * Test of createLogger method, of class NhincPatientDiscoveryProxyWebServiceSecuredImpl.
+     */
     @Test
-    public void testCreateLogger()
-    {
+    public void testCreateLogger() {
         try
         {
-            NhinPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhinPatientDiscoveryProxyWebServiceSecuredImpl()
+            NhincPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhincPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -90,12 +64,15 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest
         }
     }
 
+
+    /**
+     * Test of getService method, of class NhincPatientDiscoveryProxyWebServiceSecuredImpl.
+     */
     @Test
-    public void testGetService()
-    {
+    public void testGetService() {
         try
         {
-            NhinPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhinPatientDiscoveryProxyWebServiceSecuredImpl()
+            NhincPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhincPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -119,13 +96,15 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest
         }
     }
 
-
+    /**
+     * Test of getPort method, of class NhincPatientDiscoveryProxyWebServiceSecuredImpl.
+     */
     @Test
     public void testGetPortNullService()
     {
         try
         {
-            NhinPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhinPatientDiscoveryProxyWebServiceSecuredImpl()
+            NhincPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhincPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -146,7 +125,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest
                 }
             });
             String url = "url";
-            RespondingGatewayPortType port = sut.getPort(url, "", "", null);
+            NhincProxyPatientDiscoverySecuredPortType port = sut.getPort(url, "", "", null);
             assertNull("Port was not null", port);
         }
         catch(Throwable t)
