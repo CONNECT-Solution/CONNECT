@@ -21,6 +21,7 @@ public class AdapterPolicyEngineSecuredImpl
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         CheckPolicyResponseType checkPolicyResp = null;
 
+
         AdapterPolicyEngineImpl oPolicyEngine = new AdapterPolicyEngineImpl();
         try
         {

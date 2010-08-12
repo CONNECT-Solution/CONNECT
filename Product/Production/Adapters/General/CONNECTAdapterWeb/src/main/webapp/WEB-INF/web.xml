@@ -465,14 +465,10 @@
         <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
     </servlet-mapping>
     
-    <servlet>
-        <servlet-name>PatientCorrelationService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PatientCorrelationService</servlet-name>
-        <url-pattern>/PatientCorrelationService</url-pattern>
-    </servlet-mapping>
+    
+    
+    
+    
 
        
 
