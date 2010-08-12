@@ -180,6 +180,71 @@ public class WebServiceHelper
 
     /**
      * This method will establish the context logging, create the Assertion
+     * object including SAML information and the WS-Addressing messageId and
+     * relatesTo information, invoke the orchestration method, and then clear
+     * the logging context.
+     *
+     * @param webOrchObject The instance of the web orchestrator
+     * @param webOrchClass The class for the web orchestrator
+     * @param methodName The web orchestrator method to call
+     * @param assertion Assertion is not pulled from the contex in the unsecure scenario
+     * @param operationInput The parameters for the web orchestrator method
+     * @param context The web service context used to initialize the assertion
+     * @return The response object from the web orchestrator invocation
+     * @throws Exception Any exceptions are passed back up.
+     */
+    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass, String methodName, AssertionType assertion, Object operationInput, WebServiceContext context) throws Exception
+    {
+
+        Object oResponse = null;
+
+        try
+        {
+            getLoggingContextHelper().setContext(context);
+
+            // Extract the message id value from the WS-Addressing Header and
+            // place it in the Assertion Class
+            String contextMessageId = getMessageId(context);
+            populateAssertionWithMessageId(assertion, contextMessageId);
+
+            // Extract the relatesTo values from the WS-Addressing Header and
+            // place them in the Assertion Class
+            List<String> contextRelatesTo = getRelatesToList(context);
+            populateAssertionWithRelatesToList(assertion, contextRelatesTo);
+
+            Method oMethod = getMethod(webOrchClass, methodName);
+            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput + " and assertion " + assertion);
+            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
+
+        } catch (IllegalArgumentException e)
+        {
+            String sErrorMessage = "The method was called with incorrect arguments. " +
+                    "This assumes that the method should have exactly one request " +
+                    "argument and the assertion object. " +
+                    "Exception: " + e.getMessage();
+            log.error(sErrorMessage, e);
+            throw e;
+        } catch (Exception e)
+        {
+            // As near as we can tell based on the way we are using this, I do not
+            // believe there is any other exception we will see - but we want to
+            // log them if we see them.
+            //---------------------------------------------------------------------
+            String sErrorMessage = "An unexpected exception occurred of type: " +
+                    e.getClass().getCanonicalName() + ". Exception: " +
+                    e.getMessage();
+            log.error(sErrorMessage, e);
+            throw e;
+
+        } finally
+        {
+            getLoggingContextHelper().clearContext();
+        }
+        return oResponse;
+    }
+
+    /**
+     * This method will establish the context logging, create the Assertion
      * object including SAML information and the WS-Addressing messageId from the
      * relatesTo information, invoke the orchestration method, and then clear
      * the logging context.
@@ -254,6 +319,7 @@ public class WebServiceHelper
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
+     * @param assertion Assertion is not pulled from the contex in the unsecure scenario
      * @param operationInput The parameters for the web orchestrator method
      * @param context The web service context used to initialize the assertion
      * @return The response object from the web orchestrator invocation

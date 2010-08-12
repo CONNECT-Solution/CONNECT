@@ -1,17 +1,14 @@
 package gov.hhs.fha.nhinc.docquery.proxy;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -34,21 +31,21 @@ public class NhincProxyDocQuerySecuredImpl
         {
             if (body != null)
             {
-                response = (AdhocQueryResponse) oHelper.invokeSecureWebService(this, this.getClass(), "respondingGatewayCrossGatewayQuery", body, context);
+                response = (AdhocQueryResponse) oHelper.invokeSecureWebService(this, this.getClass(), "respondingGatewayCrossGatewayQueryOrch", body, context);
             } else
             {
-                log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
+                log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayCrossGatewayQueryOrch).  The input parameter is null.");
             }
         } catch (Exception e)
         {
-            log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  " +
+            log.error("Failed to call the web orchestration (" + this.getClass() + ".respondingGatewayCrossGatewayQueryOrch).  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
         }
 
         return response;
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, AssertionType assertion)
+    public AdhocQueryResponse respondingGatewayCrossGatewayQueryOrch(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, AssertionType assertion)
     {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;

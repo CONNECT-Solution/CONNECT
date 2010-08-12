@@ -5,8 +5,6 @@ import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.ws.WebServiceContext;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -258,6 +256,78 @@ public class WebServiceHelperTest
                 }
             };
             Integer oResponse = (Integer) oHelper.invokeSecureWebService(this, this.getClass(), "helperMethod2", new Integer(100), mockWebServiceContext);
+            assertNotNull("invokePort failed to return a value.", oResponse);
+            assertTrue("Response was incorrect type.", oResponse instanceof Integer);
+            assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+
+        } catch (Exception ex)
+        {
+            fail("Error running testInvokeSecureWebService test: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Test the invokeUnsecureWebService method.
+     */
+    @Test
+    public void testInvokeUnsecureWebService()
+    {
+        try
+        {
+            WebServiceHelper oHelper = new WebServiceHelper()
+            {
+
+                @Override
+                protected LoggingContextHelper getLoggingContextHelper()
+                {
+                    LoggingContextHelper loggingContextHelper = new LoggingContextHelper()
+                    {
+
+                        @Override
+                        public void setContext(WebServiceContext webServiceContext)
+                        {
+                        }
+
+                        @Override
+                        public void clearContext()
+                        {
+                        }
+                    };
+                    return loggingContextHelper;
+
+                }
+
+                @Override
+                protected AssertionType getSamlAssertion(WebServiceContext context)
+                {
+                    AssertionType assertion = new AssertionType();
+                    return assertion;
+                }
+
+                @Override
+                protected String getMessageId(WebServiceContext context)
+                {
+                    return "Test";
+                }
+
+                @Override
+                protected void populateAssertionWithMessageId(AssertionType assertion, String messageId)
+                {
+                }
+
+                @Override
+                protected List<String> getRelatesToList(WebServiceContext context)
+                {
+                    return new ArrayList();
+                }
+
+                @Override
+                protected void populateAssertionWithRelatesToList(AssertionType assertion, List<String> relatesToIds)
+                {
+                }
+            };
+            Integer oResponse = (Integer) oHelper.invokeUnsecureWebService(this, this.getClass(), "helperMethod2", oHelper.getSamlAssertion(mockWebServiceContext), new Integer(100), mockWebServiceContext);
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
