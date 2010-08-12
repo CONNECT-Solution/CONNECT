@@ -86,7 +86,11 @@ public class AdminDistributionTransformHelper {
             log.error("missing assertion");
             return result;
         }
-
+        if(message.getAssertion().getHomeCommunity() == null)
+        {
+            log.error("missing home community");
+            return result;
+        }
         
         EDXLDistribution body = message.getEDXLDistribution();
         //RequestType request = getRequestType(patDiscReq, event.getAssertion());

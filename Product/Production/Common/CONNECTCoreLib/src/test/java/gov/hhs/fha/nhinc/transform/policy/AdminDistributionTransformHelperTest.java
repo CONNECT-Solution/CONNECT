@@ -198,7 +198,13 @@ public class AdminDistributionTransformHelperTest {
         });
 
         RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
-        message.setAssertion(new AssertionType());
+        HomeCommunityType hc  = new HomeCommunityType();
+        hc.setHomeCommunityId("1.1");
+
+        AssertionType assertion = new AssertionType();
+        assertion.setHomeCommunity(hc);
+
+        message.setAssertion(assertion);
         message.setEDXLDistribution(new EDXLDistribution());
 
         String target = "121";
