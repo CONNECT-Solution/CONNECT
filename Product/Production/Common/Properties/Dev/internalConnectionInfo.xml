@@ -538,7 +538,7 @@
 			<service>
 				<name>nhincproxypatientdiscovery</name>
 				<description>NHINC Proxy Patient Discovery</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoveryasyncreq</name>
@@ -1248,7 +1248,7 @@
 			<service>
 				<name>nhincproxypatientdiscovery</name>
 				<description>NHINC Proxy Patient Discovery</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoveryasyncreq</name>

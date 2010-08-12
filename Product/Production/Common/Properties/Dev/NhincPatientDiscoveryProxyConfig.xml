@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- Default facade implementation -->
+    <!-- <bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryNoOpImpl"/> -->
+
+	<!-- Java implementation -->
+    <bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyJavaImpl"/>
+	
+	<!-- Web-service implementation secured -->
+     <!--<bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyWebServiceSecuredImpl"/>  -->
+	 
+	<!-- Web-service implementation unsecured -->
+     <!--<bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyWebServiceUnsecuredImpl"/>  -->
+</beans>
