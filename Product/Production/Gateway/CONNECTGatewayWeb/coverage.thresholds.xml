@@ -217,4 +217,8 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecuredImpl" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredRequestImpl" linecount="19" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredResponseImpl" linecount="19" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceSecured" linecount="3" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="10" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceSecuredImpl" linecount="21" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceUnsecured" linecount="3" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceUnsecuredImpl" linecount="14" linerate="0.0" linesexecuted="0"/>
 </thresholds>

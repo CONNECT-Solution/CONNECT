@@ -266,11 +266,19 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>PatientCorrelationServiceSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationServiceSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PatientCorrelationServiceSecured</servlet-name>
         <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PatientCorrelationServiceUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientCorrelationServiceUnsecured</servlet-name>
+        <url-pattern>/GatewayService/PatientCorrelationServiceUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>PatientCorrelationFacadeDteService</servlet-name>
