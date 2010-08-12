@@ -23035,7 +23035,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmi
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list>?</urn1:list>
+               <urn1:list></urn1:list>
                <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
@@ -23154,19 +23154,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmi
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T16:48:41Z</con:value>
+          <con:value>2010-08-12T19:10:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T16:58:41Z</con:value>
+          <con:value>2010-08-12T19:20:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 16:48:41</con:value>
+          <con:value>08/12/2010 19:10:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29535,7 +29535,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDis";
+def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdmin";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmindist", URL, context, log)</script>
@@ -29838,25 +29838,6 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -29980,19 +29961,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:44:19Z</con:value>
+          <con:value>2010-08-12T19:12:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:54:19Z</con:value>
+          <con:value>2010-08-12T19:22:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:44:19</con:value>
+          <con:value>08/12/2010 19:12:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
