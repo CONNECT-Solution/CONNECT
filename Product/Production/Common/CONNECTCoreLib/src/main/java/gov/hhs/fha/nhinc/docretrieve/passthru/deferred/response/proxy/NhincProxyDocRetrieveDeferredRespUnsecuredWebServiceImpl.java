@@ -1,27 +1,18 @@
 package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageHandler;
-import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveResponseType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.nhincproxydocretrieveresponse.NhincProxyDocRetrieveDeferredResponse;
 import gov.hhs.fha.nhinc.nhincproxydocretrieveresponse.NhincProxyDocRetrieveDeferredResponsePortType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 /**
  *
@@ -31,7 +22,13 @@ public class NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl implements
 
     private Log log = null;
     private boolean debugEnabled = false;
-    private static NhincProxyDocRetrieveDeferredResponse service = null;
+    private WebServiceProxyHelper oProxyHelper = null;
+    private static Service cachedService = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse";
+    private static final String SERVICE_LOCAL_PART = "NhincProxyDocRetrieveDeferredResponse";
+    private static final String PORT_LOCAL_PART = "NhincProxyDocRetrieveDeferredResponsePortSoap";
+    private static final String WSDL_FILE = "NhincProxyDocRetrieveDeferredResp.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse:CrossGatewayRetrieveResponseMessage";
 
     /**
      * default constructor
@@ -39,15 +36,15 @@ public class NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl implements
     public NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl() {
         log = createLogger();
         debugEnabled = log.isDebugEnabled();
-        service = getWebService();
+        oProxyHelper = createWebServiceProxyHelper();
     }
 
     /**
      *
-     * @return NhincProxyDocRetrieveResponse
+     * @return WebServiceProxyHelper
      */
-    private NhincProxyDocRetrieveDeferredResponse getWebService() {
-        return new NhincProxyDocRetrieveDeferredResponse();
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
+        return new WebServiceProxyHelper();
     }
 
     /**
@@ -70,17 +67,20 @@ public class NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl implements
             log.debug("-- Begin NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl.crossGatewayRetrieveResponse(...) --");
         }
         DocRetrieveAcknowledgementType ack = null;
-        String url = getUrl();
-        if (NullChecker.isNotNullish(url)) {
-            NhincProxyDocRetrieveDeferredResponsePortType port = getPort(url, assertion);
+        String url = null;
+        try {
+            url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE);
+            NhincProxyDocRetrieveDeferredResponsePortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
             RespondingGatewayCrossGatewayRetrieveResponseType resp = new RespondingGatewayCrossGatewayRetrieveResponseType();
             resp.setAssertion(assertion);
             resp.setNhinTargetSystem(target);
             resp.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
-            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
-            ack = port.crossGatewayRetrieveResponse(resp);
+            ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, NhincProxyDocRetrieveDeferredResponsePortType.class, "crossGatewayRetrieveResponse", resp);
+
+        } catch (Exception ex) {
+            log.error(ex);
         }
+
         if (debugEnabled) {
             log.debug("-- End NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl.crossGatewayRetrieveResponse(...) --");
         }
@@ -88,44 +88,43 @@ public class NhincProxyDocRetrieveDeferredRespUnsecuredWebServiceImpl implements
     }
 
     /**
-     *
-     * @return String
-     */
-    private String getUrl() {
-        String url = null;
-        try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE);
-        } catch (Exception e) {
-            log.error("Error: Failed to retrieve url for service: '" + NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE + "'");
-            log.error(e.getMessage());
-        }
-        return url;
-    }
-
-    /**
-     *
+     * 
      * @param url
+     * @param serviceAction
+     * @param wsAddressingAction
      * @param assertion
      * @return NhincProxyDocRetrieveDeferredResponsePortType
      */
-    private NhincProxyDocRetrieveDeferredResponsePortType getPort(String url, AssertionType assertion) {
+    private NhincProxyDocRetrieveDeferredResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
 
-        NhincProxyDocRetrieveDeferredResponsePortType port = service.getNhincProxyDocRetrieveDeferredResponsePortSoap();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-        SamlTokenCreator tokenCreator = new SamlTokenCreator();
-        Map samlMap = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION);
-
-        Map requestContext = ((BindingProvider) port).getRequestContext();
-        requestContext.putAll(samlMap);
-
-        List<Handler> handlerSetUp = new ArrayList<Handler>();
-        AsyncMessageHandler msgHandler = new AsyncMessageHandler();
-        handlerSetUp.add(msgHandler);
-        ((javax.xml.ws.BindingProvider) port).getBinding().setHandlerChain(handlerSetUp);
-
-        AsyncMessageIdCreator msgIdCreator = new AsyncMessageIdCreator();
-        requestContext.putAll(msgIdCreator.CreateRequestContextForMessageId(assertion));
+        NhincProxyDocRetrieveDeferredResponsePortType port = null;
+        Service service = getService();
+        if (service != null) {
+            if (debugEnabled) {
+                log.debug("Obtained service - creating port.");
+            }
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocRetrieveDeferredResponsePortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
 
         return port;
+    }
+
+    /**
+     * Retrieve the service class for this web service.
+     *
+     * @return The service class for this web service.
+     */
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
+                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 }

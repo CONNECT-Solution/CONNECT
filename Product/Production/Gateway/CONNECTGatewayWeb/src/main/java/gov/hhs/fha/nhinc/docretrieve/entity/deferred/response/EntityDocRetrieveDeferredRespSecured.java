@@ -13,7 +13,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "EntityDocRetrieveDeferredResponseSecured", portName = "EntityDocRetrieveDeferredResponseSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveDeferredResponseSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocretrievesecured", wsdlLocation = "WEB-INF/wsdl/EntityDocRetrieveDeferredRespSecured/EntityDocRetrieveDeferredRespSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityDocRetrieveDeferredRespSecured {
+public class EntityDocRetrieveDeferredRespSecured extends EntityDocRetrieveDeferredResponseImpl {
 
     @Resource
     private WebServiceContext context;
@@ -24,7 +24,6 @@ public class EntityDocRetrieveDeferredRespSecured {
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
-        return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(body, context);
+        return crossGatewayRetrieveResponse(body, context);
     }
-
 }

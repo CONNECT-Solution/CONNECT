@@ -1,22 +1,15 @@
 package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  *
  * @author Sai Valluripalli
  */
-public class NhincProxyDocRetrieveDeferredRespObjectFactory {
+public class NhincProxyDocRetrieveDeferredRespObjectFactory extends ComponentProxyObjectFactory {
 
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
     private static final String BEAN_NAME_NHINCPROXY_DOCRETRIEVE_DEFERRED_RESPONSE = "nhincproxydocretrievedeferredresp";
-    private static ApplicationContext context = null;
-
-    static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
-    }
 
     /**
      * Retrieve an Nhinc proxy Document Retrieve Deferred Response implementation
@@ -26,10 +19,14 @@ public class NhincProxyDocRetrieveDeferredRespObjectFactory {
      * @return NhincProxyDocRetrieveDeferredRespProxy
      */
     public NhincProxyDocRetrieveDeferredRespProxy getNhincProxyDocRetrieveDeferredRespProxy() {
-        NhincProxyDocRetrieveDeferredRespProxy nhincProxyDocRetrieveDeferredRespProxy = null;
-        if (null != context) {
-            nhincProxyDocRetrieveDeferredRespProxy = (NhincProxyDocRetrieveDeferredRespProxy) context.getBean(BEAN_NAME_NHINCPROXY_DOCRETRIEVE_DEFERRED_RESPONSE);
-        }
-        return nhincProxyDocRetrieveDeferredRespProxy;
+        return getBean(BEAN_NAME_NHINCPROXY_DOCRETRIEVE_DEFERRED_RESPONSE, NhincProxyDocRetrieveDeferredRespProxy.class);
+    }
+
+    /**
+     * 
+     * @return String
+     */
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 }

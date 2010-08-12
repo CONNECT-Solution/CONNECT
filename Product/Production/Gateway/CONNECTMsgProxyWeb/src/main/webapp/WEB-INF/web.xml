@@ -123,38 +123,36 @@
     </servlet-mapping>
 	<!-- Begin Nhinc proxy Document retrieve deferred services-->
     <servlet>
-        <servlet-name>NhincProxyDocRetrieveDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.request.NhincProxyDocRetrieveDeferredReq</servlet-class>
+        <servlet-name>PassthruDocRetrieveDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.PassthruDocRetrieveDeferredRequestUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhincProxyDocRetrieveDeferredReq</servlet-name>
+        <servlet-name>PassthruDocRetrieveDeferredRequestUnsecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequest</url-pattern>
     </servlet-mapping>
-        
     <servlet>
-        <servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.request.NhincProxyDocRetrieveDeferredReqSecured</servlet-class>
+        <servlet-name>PassthruDocRetrieveDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.PassthruDocRetrieveDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhincProxyDocRetrieveDeferredReqSecured</servlet-name>
+        <servlet-name>PassthruDocRetrieveDeferredRequestSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
     </servlet-mapping>
-
     <servlet>
-        <servlet-name>NhincProxyDocRetrieveDeferredResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.response.NhincProxyDocRetrieveDeferredResp</servlet-class>
+        <servlet-name>PassthruDocRetrieveDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.PassthruDocRetrieveDeferredResponseUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhincProxyDocRetrieveDeferredResp</servlet-name>
+        <servlet-name>PassthruDocRetrieveDeferredResponseUnsecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponse</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>NhincProxyDocRetrieveDeferredRespSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhinc.deferred.response.NhincProxyDocRetrieveDeferredRespSecured</servlet-class>
+        <servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.PassthruDocRetrieveDeferredResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhincProxyDocRetrieveDeferredRespSecured</servlet-name>
+        <servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
     </servlet-mapping>
         
@@ -237,11 +235,11 @@
         </web-resource-collection>
 		<!-- Begin Nhinc proxy Document retrieve deferred services-->
         <web-resource-collection>
-            <web-resource-name>NhincProxyDocRetrieveDeferredReqSecured</web-resource-name>
+            <web-resource-name>PassthruDocRetrieveDeferredRequestSecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>NhincProxyDocRetrieveDeferredRespSecured</web-resource-name>
+            <web-resource-name>PassthruDocRetrieveDeferredResponseSecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
         </web-resource-collection>
 		<!-- End Nhinc proxy Document retrieve deferred services-->

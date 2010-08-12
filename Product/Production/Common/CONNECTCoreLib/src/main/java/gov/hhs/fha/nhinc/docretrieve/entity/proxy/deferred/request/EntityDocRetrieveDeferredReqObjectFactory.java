@@ -1,21 +1,15 @@
 package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredReqObjectFactory {
+public class EntityDocRetrieveDeferredReqObjectFactory extends ComponentProxyObjectFactory {
+
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
     private static final String BEAN_NAME_ENTITY_DOCRETRIEVE_DEFERRED_REQUEST = "entitydocretrievedeferredreq";
-    private static ApplicationContext context = null;
-
-    static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
-    }
 
     /**
      * Retrieve an Entity Document Retrieve Deferred Request implementation
@@ -24,13 +18,15 @@ public class EntityDocRetrieveDeferredReqObjectFactory {
      * identifier of "entitydocretrievedeferredreq".
      * @return EntityDocRetrieveDeferredReqProxy
      */
-    public EntityDocRetrieveDeferredReqProxy getEntityDocRetrieveDeferredReqProxy()
-    {
-        EntityDocRetrieveDeferredReqProxy entityDocRetrieveDeferredReqProxy = null;
-        if(null != context)
-        {
-            entityDocRetrieveDeferredReqProxy = (EntityDocRetrieveDeferredReqProxy) context.getBean(BEAN_NAME_ENTITY_DOCRETRIEVE_DEFERRED_REQUEST);
-        }
-        return entityDocRetrieveDeferredReqProxy;
+    public EntityDocRetrieveDeferredReqProxy getEntityDocRetrieveDeferredReqProxy() {
+        return getBean(BEAN_NAME_ENTITY_DOCRETRIEVE_DEFERRED_REQUEST, EntityDocRetrieveDeferredReqProxy.class);
+    }
+
+    /**
+     * 
+     * @return String
+     */
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 }
