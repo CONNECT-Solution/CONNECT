@@ -60,7 +60,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         try {
             if (null != response && (null != assertion) && (null != target)) {
-                auditLog.auditDocRetrieveDeferredResponse(response, assertion);
+                auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion);
                 CMUrlInfos urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
                 homeCommunityId = getHomeCommFromTarget(target);
@@ -81,7 +81,6 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                         oTargetSystem.setUrl(urlInfo.getUrl());
                         if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
                             // Call NHIN proxy
-                            auditLog.auditDocRetrieveDeferredResponse(response, assertion);
                             nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(response, assertion, oTargetSystem);
                         }
 
@@ -98,7 +97,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
         }
         if (null != nhinResponse) {
             // Audit log - response
-            auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, homeCommunityId);
+            auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         }
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");

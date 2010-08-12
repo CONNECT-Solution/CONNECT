@@ -30,7 +30,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
     DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion) {
         DocRetrieveAcknowledgementType response = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredResponse(body, assertion);
+        auditLog.auditDocRetrieveDeferredResponse(body,NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
 
         try {
             String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
@@ -75,7 +75,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
         DocRetrieveAcknowledgementType response = null;
         HomeCommunityType hcId = new HomeCommunityType();
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredResponse(request, assertion);
+        auditLog.auditDocRetrieveDeferredResponse(request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
         String  msg = "Adapter doc retrieve deferred response policy check failed.";
 
         hcId.setHomeCommunityId(homeCommunityId);

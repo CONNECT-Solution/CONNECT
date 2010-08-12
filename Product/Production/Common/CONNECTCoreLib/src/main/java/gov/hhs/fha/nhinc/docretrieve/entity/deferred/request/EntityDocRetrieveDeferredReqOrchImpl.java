@@ -69,7 +69,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         try {
             if ((null != message) && (message.getDocumentRequest() != null) && (message.getDocumentRequest().size() > 0)) {
-                auditLog.auditDocRetrieveDeferredRequest(message, assertion);
+                auditLog.auditDocRetrieveDeferredRequest(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,assertion);
                 DocumentRequest docRequest = message.getDocumentRequest().get(0);
                 homeCommunityId = docRequest.getHomeCommunityId();
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType nhinDocRetrieveMsg = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
@@ -83,7 +83,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 //loop through the communities and send request if results were not null
                 if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
                     log.warn("No targets were found for the Document retrieve deferred service Request");
-                    nhincResponse = buildRegistryErrorAck(homeCommunityId, "No targets were found for the Document retrieve deferred service Request");
+                    nhincResponse = buildRegistryErrorAck();
                 } else {
                     nhincResponse = new DocRetrieveAcknowledgementType();
                     if (debugEnabled) {
@@ -101,19 +101,19 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                             }
                             nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion, oTargetSystem);
                         } else {
-                            nhincResponse = buildRegistryErrorAck(homeCommunityId, "Policy Check Failed on Doc retrieve deferred request for community ");
+                            nhincResponse = buildRegistryErrorAck();
                         }
                     }
                 }
             }
         } catch (Exception ex) {
             log.error("Error sending doc retrieve deferred message..." + ex.getMessage());
-            nhincResponse = buildRegistryErrorAck(homeCommunityId, ex.getMessage());
+            nhincResponse = buildRegistryErrorAck();
             log.error("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
         }
         if (null != nhincResponse) {
             // Audit log - response
-            auditLog.auditDocRetrieveDeferredAckResponse(nhincResponse.getMessage(), assertion, homeCommunityId);
+            auditLog.auditDocRetrieveDeferredAckResponse(nhincResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         }
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
@@ -125,17 +125,10 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
      *
      * @return DocRetrieveAcknowledgementType
      */
-    private DocRetrieveAcknowledgementType buildRegistryErrorAck(String homeCommunityId, String error) {
+    private DocRetrieveAcknowledgementType buildRegistryErrorAck() {
         DocRetrieveAcknowledgementType nhinResponse = new DocRetrieveAcknowledgementType();
         RegistryResponseType registryResponse = new RegistryResponseType();
         nhinResponse.setMessage(registryResponse);
-        RegistryErrorList regErrList = new RegistryErrorList();
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(error + " " + homeCommunityId);
-        regErr.setErrorCode("XDSRegistryNotAvailable");
-        regErr.setSeverity("Error");
-        registryResponse.setRegistryErrorList(regErrList);
         registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         return nhinResponse;
     }

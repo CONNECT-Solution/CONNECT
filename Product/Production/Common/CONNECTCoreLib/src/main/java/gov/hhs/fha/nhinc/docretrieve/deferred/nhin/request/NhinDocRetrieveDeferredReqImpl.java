@@ -38,7 +38,7 @@ public class NhinDocRetrieveDeferredReqImpl extends NhinDocRetrieveDeferred {
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         DocRetrieveAcknowledgementType response = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredRequest(body, assertion);
+        auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
 
         try {
             String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();

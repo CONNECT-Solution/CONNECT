@@ -52,7 +52,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         DocRetrieveAcknowledgementType ack = null;
         // Audit request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponse, assertion);
+        auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponse,NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
         try {
             if (debugEnabled) {
                 log.debug("Creating NHIN Proxy Component");

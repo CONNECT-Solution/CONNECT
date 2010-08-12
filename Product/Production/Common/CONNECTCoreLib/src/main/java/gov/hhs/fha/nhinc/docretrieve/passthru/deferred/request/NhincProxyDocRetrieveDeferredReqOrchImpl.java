@@ -47,35 +47,40 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
         if (debugEnabled) {
-            log.debug("Begin NhincProxyDocRetrieveDeferredReqOrchImpl.processCrossGatewayRetrieveRequest(...)");
+            log.debug("Begin NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
         }
         DocRetrieveAcknowledgementType ack = null;
-        // Audit request message
-        DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredRequest(request, assertion);
-        try {
-            if (debugEnabled) {
-                log.debug("Creating NHIN doc retrieve proxy");
+        if (null != request || null != assertion) {
+            // Audit request message
+            DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
+            try {
+                auditLog.auditDocRetrieveDeferredRequest(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
+                if (debugEnabled) {
+                    log.debug("Creating NHIN doc retrieve proxy");
+                }
+                NhinDocRetrieveDeferredReqObjectFactory objFactory = new NhinDocRetrieveDeferredReqObjectFactory();
+                NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getDocumentDeferredRequestProxy();
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
+                req.setNhinTargetSystem(target);
+                req.setRetrieveDocumentSetRequest(request);
+                if (debugEnabled) {
+                    log.debug("Calling NHIN doc retrieve proxy");
+                }
+                ack = docRetrieveProxy.sendToRespondingGateway(req, assertion);
+            } catch (Exception ex) {
+                log.error(ex);
+                ack = createErrorAckResponse();
             }
-            NhinDocRetrieveDeferredReqObjectFactory objFactory = new NhinDocRetrieveDeferredReqObjectFactory();
-            NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getDocumentDeferredRequestProxy();
-            RespondingGatewayCrossGatewayRetrieveSecuredRequestType req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-            req.setNhinTargetSystem(target);
-            req.setRetrieveDocumentSetRequest(request);
-            if (debugEnabled) {
-                log.debug("Calling NHIN doc retrieve proxy");
+            if (ack != null) {
+                // Audit response message
+                auditLog.auditDocRetrieveDeferredAckResponse(ack.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
             }
-            ack = docRetrieveProxy.sendToRespondingGateway(req, assertion);
-        } catch (Exception ex) {
-            log.error(ex);
+        } else {
+            log.error("Error in NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...): request/assertion are null");
             ack = createErrorAckResponse();
         }
-        if (ack != null) {
-            // Audit response message
-            auditLog.auditDocRetrieveDeferredAckResponse(ack.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-        }
         if (debugEnabled) {
-            log.debug("End NhincProxyDocRetrieveDeferredReqOrchImpl.processCrossGatewayRetrieveRequest(...)");
+            log.debug("End NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
         }
         return ack;
     }

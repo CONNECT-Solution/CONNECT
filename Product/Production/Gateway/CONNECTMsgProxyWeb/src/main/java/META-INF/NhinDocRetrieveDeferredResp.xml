@@ -59,13 +59,9 @@
       <soap:operation soapAction="urn:ihe:iti:2007:CrossGatewayRetrieveDeferredResponse"/>
       <input>
         <soap:body use="literal"/>
-        <wsp:PolicyReference
-             URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>
       </input>
       <output>
         <soap:body use="literal"/>
-        <wsp:PolicyReference
-             URI="#RespondingGateway_Retrieve_Binding_Soap_Output_Policy"/>
       </output>
     </operation>
   </binding>
