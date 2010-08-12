@@ -13,6 +13,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,7 +52,7 @@ public class AdminDistributionTransformHelper {
             log.error("Missing message");
             return result;
         }
-        log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding assertion data");
+        log.debug("transformAdminDistributionNhincToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, assertion);
         
@@ -86,23 +87,33 @@ public class AdminDistributionTransformHelper {
             return result;
         }
 
-        HomeCommunityType hc = new HomeCommunityType();
-        hc.setHomeCommunityId(target);
         
         EDXLDistribution body = message.getEDXLDistribution();
         //RequestType request = getRequestType(patDiscReq, event.getAssertion());
         RequestType request = new RequestType();
-
-
-        log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding subject");
-        SubjectType subject = createSubject(hc, message.getAssertion());
+        AttributeHelper attrHelper = new AttributeHelper();
+        
+        log.debug("transformEntityAlertToCheckPolicy - adding subject");
+                SubjectHelper subjHelp = new SubjectHelper();
+        //SubjectType subject = subjHelp.subjectFactory(event.getAssertion().getHomeCommunity(), event.getAssertion());
+        SubjectType subject = new SubjectType();
+        subject.setSubjectCategory(SubjectHelper.SubjectCategory);
+        log.debug("transformEntityAlertToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
+        ResourceType resource = new ResourceType();
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,message.getAssertion().getHomeCommunity().getHomeCommunityId()));
+        
+        request.getResource().add(resource);
 
-        log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding assertion data");
+        log.debug("transformEntityAlertToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, message.getAssertion());
+        
+        
 
+
+        
         request.setAction(ActionHelper.actionFactory(ActionOutValue));
         result.setAssertion(message.getAssertion());
         result.setRequest(request);
