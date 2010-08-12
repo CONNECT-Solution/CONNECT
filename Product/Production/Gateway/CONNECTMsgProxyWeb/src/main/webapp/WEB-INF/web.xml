@@ -66,6 +66,14 @@
         <url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyPatientDiscovery</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>NhincProxyPatientDiscoverySecuredAsyncReq</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReq</servlet-class>
     </servlet>
