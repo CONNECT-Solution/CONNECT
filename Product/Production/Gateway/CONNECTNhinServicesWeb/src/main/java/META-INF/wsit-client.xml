@@ -29,4 +29,5 @@
     <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
     <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
     <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
 </definitions>
