@@ -20869,11 +20869,6 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest to UnSecured Adapter" searchProperties="true" disabled="true">
-      <con:settings/>
-      <con:properties/>
-      <con:reportParameters/>
-    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b">
       <con:settings/>
       <con:testStep type="groovy" name="Set PolicyEngine Mock">
@@ -20929,7 +20924,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -21006,7 +21001,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </urn1:secondWitnessPhone>
             <urn1:SSN>253987546</urn1:SSN>
             <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:uniquePatientId>1234^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
                   <urn1:code>addrCode</urn1:code>
@@ -21065,12 +21060,12 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:userName>kkagerberg</urn1:userName>
                <urn1:role>Pharmacy</urn1:role>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
-                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+                  <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
+                  <urn1:name>InternalTest1</urn1:name>
                </urn1:org>
                <urn1:roleCoded>
                   <urn1:code>80584001</urn1:code>
@@ -22013,7 +22008,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist';
+def AssertionValue='myAuthzDecisionStatementResource';
 log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
@@ -22482,6 +22477,7 @@ log.debug('Finished checking ' + FieldName);</scriptText>
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:home-community-id';
 
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 log.debug('Checking ' + FieldName);
@@ -22503,17 +22499,17 @@ log.info('AssertionValue(' + FieldName + ')=' + AssertionValue);
 def mockRequestHolder = groovyUtils.getXmlHolder( messageExchange.requestContent );
 mockRequestHolder.namespaces['xacml'] = 'urn:oasis:names:tc:xacml:2.0:context:schema:os';
 
-def XacmlAttributeCount = mockRequestHolder["count(//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "'])"];
+def XacmlAttributeCount = mockRequestHolder["count(//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "'])"];
 log.info('XacmlAttributeCount(' + FieldName + ')='+XacmlAttributeCount);
 assert(XacmlAttributeCount=="1");
 
-def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
+def XacmlValue = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
 log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
-def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
+def ActualDataType = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
 def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
@@ -22603,7 +22599,7 @@ log.info('XacmlAttributeValue(' + FieldName + '@extension)=' + XacmlValueExtensi
 assert (ExpectedExtension==XacmlValueExtension);
 
 def XacmlValueRoot = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@root"]
-def ExpectedRoot='amp;1.1';
+def ExpectedRoot='1.1';
 log.info('XacmlAttributeValue(' + FieldName + '@root)=' + XacmlValueRoot);
 //log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedRoot==XacmlValueRoot);
@@ -22755,19 +22751,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:13:07Z</con:value>
+          <con:value>2010-08-12T15:43:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:23:07Z</con:value>
+          <con:value>2010-08-12T15:53:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:13:07</con:value>
+          <con:value>08/12/2010 15:43:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -22781,9 +22777,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdmin";
-def LocalHCID = context.findProperty( "LocalHCID" );
+def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmindist", URL, context, log)</script>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmindist", URL, context, log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="request" name="AdminDist Request">
@@ -23150,27 +23146,27 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist";
-def LocalHCID = context.findProperty( "LocalHCID" );
+def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmindist", URL, context, log)</script>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmindist", URL, context, log)</script>
         </con:config>
       </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:42:30Z</con:value>
+          <con:value>2010-08-11T16:48:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:52:30Z</con:value>
+          <con:value>2010-08-11T16:58:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:42:30</con:value>
+          <con:value>08/11/2010 16:48:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-10T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27596,9 +27592,9 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18082/mockPE";
-def RemoteHCID = context.findProperty( "RemoteHCID" );
+def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyengineservice", mockPEURL, context, log)</script>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="request" name="send request">
@@ -27641,7 +27637,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyen
             <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
                <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -27731,7 +27727,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyen
             </urn1:secondWitnessPhone>
             <urn1:SSN>253987546</urn1:SSN>
             <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:uniquePatientId>1234^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
                   <urn1:code>addrCode</urn1:code>
@@ -27802,11 +27798,11 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyen
                   <urn1:prefix>?</urn1:prefix>
                   <urn1:suffix>?</urn1:suffix>
                </urn1:personName>
-               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:userName>kkagerberg</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name>InternalTest2</urn1:name>
                </urn1:org>
                <!--Optional:-->
                <urn1:roleCoded>
@@ -28772,7 +28768,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service';
+def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist';
 log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
@@ -29239,7 +29235,7 @@ log.debug('Finished checking ' + FieldName);</scriptText>
             <con:configuration>
               <scriptText>def FieldName='home-community-id';
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
-def XacmlAttributeId='urn:gov:hhs:fha:nhinc:home-community-id';
+def XacmlAttributeId='http://www.hhs.gov/healthit/nhin#HomeCommunityId';
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
@@ -29273,7 +29269,7 @@ log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + Fiel
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
-def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
+def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
@@ -29362,7 +29358,7 @@ log.info('XacmlAttributeValue(' + FieldName + '@extension)=' + XacmlValueExtensi
 assert (ExpectedExtension==XacmlValueExtension);
 
 def XacmlValueRoot = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@root"]
-def ExpectedRoot='amp;1.1';
+def ExpectedRoot='1.1';
 log.info('XacmlAttributeValue(' + FieldName + '@root)=' + XacmlValueRoot);
 //log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedRoot==XacmlValueRoot);
@@ -29514,19 +29510,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:59:21Z</con:value>
+          <con:value>2010-08-12T15:26:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T18:09:21Z</con:value>
+          <con:value>2010-08-12T15:36:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:59:21</con:value>
+          <con:value>08/12/2010 15:26:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
