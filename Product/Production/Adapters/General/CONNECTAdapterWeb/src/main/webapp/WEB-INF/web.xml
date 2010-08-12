@@ -420,14 +420,6 @@
         <url-pattern>/EntityPatientDiscoveryAsyncResp</url-pattern>
     </servlet-mapping>
     
-    <servlet>
-        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
-        <url-pattern>/NhincProxyPatientDiscovery</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>NhincProxyPatientDiscoveryAsyncReq</servlet-name>
