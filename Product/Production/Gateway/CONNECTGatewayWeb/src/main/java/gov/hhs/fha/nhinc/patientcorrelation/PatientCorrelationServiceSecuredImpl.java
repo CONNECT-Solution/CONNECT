@@ -20,7 +20,7 @@ public class PatientCorrelationServiceSecuredImpl {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PatientCorrelationServiceSecuredImpl.class);
 
     public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest, WebServiceContext context) {
-        RetrievePatientCorrelationsSecuredResponseType response = null;
+        RetrievePatientCorrelationsSecuredResponseType response = new RetrievePatientCorrelationsSecuredResponseType();
         AssertionType assertion = createAssertion(context);
 
         log.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
@@ -34,7 +34,7 @@ public class PatientCorrelationServiceSecuredImpl {
     }
 
     public AddPatientCorrelationSecuredResponseType addPatientCorrelation(AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest, WebServiceContext context) {
-        AddPatientCorrelationSecuredResponseType response = null;
+        AddPatientCorrelationSecuredResponseType response = new AddPatientCorrelationSecuredResponseType();
         AssertionType assertion = createAssertion(context);
 
         log.info("Calling the Patient Correlation Add Correlations Orch Impl");
