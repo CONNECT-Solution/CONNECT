@@ -48,7 +48,7 @@ public class AsyncMessageIdExtractor
 
     public static List<String> GetAsyncRelatesTo(WebServiceContext context)
     {
-        List<String> relatesToId = new ArrayList();
+        List<String> relatesToId = new ArrayList<String>();
 
         if (context != null && context.getMessageContext() != null)
         {
