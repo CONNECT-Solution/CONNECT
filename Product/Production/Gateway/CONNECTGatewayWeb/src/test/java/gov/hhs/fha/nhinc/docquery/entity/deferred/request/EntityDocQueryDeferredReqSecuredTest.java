@@ -1,14 +1,17 @@
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import org.jmock.Mockery;
 import org.jmock.Expectations;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,51 +37,63 @@ public class EntityDocQueryDeferredReqSecuredTest {
    * Test of respondingGatewayCrossGatewayQuery method, of class EntityDocQueryDeferredReqSecured.
    */
   @Test
-  public void testRespondingGatewayCrossGatewayQuery() {
+  @Ignore
+  public void testRespondingGatewayCrossGatewayQuery_rem() {
     final EntityDocQueryDeferredReqOrchImpl mockOrchImpl = mockery.mock(EntityDocQueryDeferredReqOrchImpl.class);
 
-    final DocQueryAcknowledgementType mockAckType = mockery.mock(DocQueryAcknowledgementType.class);
-    final RegistryResponseType mockRespType = mockery.mock(RegistryResponseType.class);
+    final RespondingGatewayCrossGatewayQuerySecuredRequestType mockReq = mockery.mock(RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
+    final DocQueryAcknowledgementType expected = new DocQueryAcknowledgementType();
 
     EntityDocQueryDeferredReqSecured testSubject = new EntityDocQueryDeferredReqSecured() {
 
       @Override
-      protected EntityDocQueryDeferredReqOrchImpl getEntityDocQueryDeferredReqOrchImpl() {
+      protected EntityDocQueryDeferredReqOrchImpl getOrchImpl() {
         return mockOrchImpl;
+      }
+
+      @Override
+      protected AssertionType extractAssertion(WebServiceContext context) {
+        return new AssertionType();
       }
     };
 
     mockery.checking(new Expectations() {
 
       {
-        one(mockAckType).getMessage();
-        will(returnValue(mockRespType));
-        one(mockRespType).getStatus();
-        will(returnValue("Success"));
+        one(mockReq).getAdhocQueryRequest();
+        one(mockReq).getNhinTargetCommunities();
         one(mockOrchImpl).respondingGatewayCrossGatewayQuery(
-                with(any(RespondingGatewayCrossGatewayQuerySecuredRequestType.class)),
-                with(any(WebServiceContext.class)));
-        will(returnValue(mockAckType));
+                with(any(AdhocQueryRequest.class)),
+                with(any(AssertionType.class)),
+                with(any(NhinTargetCommunitiesType.class)));
+        will(returnValue(expected));
+
       }
     });
 
     DocQueryAcknowledgementType result = testSubject.respondingGatewayCrossGatewayQuery(new RespondingGatewayCrossGatewayQuerySecuredRequestType());
-    assertEquals("Success", result.getMessage().getStatus());
+    assertSame(result, expected);
 
     mockery.assertIsSatisfied();
   }
 
-  /**
-   * Test of getEntityDocQueryDeferredReqImpl method, of class EntityDocQueryDeferredReqSecured.
+   /**
+   * Test of respondingGatewayCrossGatewayQuery method, of class EntityDocQueryDeferredReqSecured.
    */
   @Test
-  public void testGetEntityDocQueryDeferredReqOrchImpl() {
-    EntityDocQueryDeferredReqSecured testSubject = new EntityDocQueryDeferredReqSecured();
+  public void testRespondingGatewayCrossGatewayQuery() {
+    final DocQueryAcknowledgementType expected = new DocQueryAcknowledgementType();
 
-    EntityDocQueryDeferredReqOrchImpl result1 = testSubject.getEntityDocQueryDeferredReqOrchImpl();
-    assertNotNull(result1);
+    EntityDocQueryDeferredReqSecured testSubject = new EntityDocQueryDeferredReqSecured() {
 
-    EntityDocQueryDeferredReqOrchImpl result2 = testSubject.getEntityDocQueryDeferredReqOrchImpl();
-    assertSame(result2, result1);
+      @Override
+      protected DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+          final RespondingGatewayCrossGatewayQuerySecuredRequestType body, final WebServiceContext context) {
+        return expected;
+      }
+    };
+
+    DocQueryAcknowledgementType result = testSubject.respondingGatewayCrossGatewayQuery(new RespondingGatewayCrossGatewayQuerySecuredRequestType());
+    assertSame(result, expected);
   }
 }

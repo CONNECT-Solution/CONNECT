@@ -1,14 +1,17 @@
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
-import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -30,56 +33,6 @@ public class EntityDocQueryDeferredReqOrchImpl {
    */
   protected DocQueryAuditLog getDocQueryAuditLog() {
     return new DocQueryAuditLog();
-  }
-
-  /**
-   * 
-   * @param body
-   * @param context
-   * @return
-   */
-  public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
-          RespondingGatewayCrossGatewayQueryRequestType body,
-          WebServiceContext context) {
-    LOG.debug("start respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType body, WebServiceContext context)");
-    DocQueryAcknowledgementType ack = null;
-    if (null != body) {
-      AdhocQueryRequest message = body.getAdhocQueryRequest();
-      AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-      if (null != assertion) {
-        assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
-      }
-      NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
-      ack = respondingGatewayCrossGatewayQuery(message, assertion, target);
-    } else {
-      ack = buildRegistryErrorAck(" ", "Entity Request was null unable to process");
-    }
-
-    LOG.debug("end respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType body, WebServiceContext context)");
-    return ack;
-  }
-
-  public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
-          RespondingGatewayCrossGatewayQuerySecuredRequestType body,
-          WebServiceContext context) {
-    LOG.debug("start respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context)");
-    DocQueryAcknowledgementType ack = null;
-    if (null != body) {
-      AdhocQueryRequest message = body.getAdhocQueryRequest();
-      AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-      if (null != assertion) {
-        assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        assertion.getRelatesToList().addAll(AsyncMessageIdExtractor.GetAsyncRelatesTo(context));
-      }
-      NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
-      ack = respondingGatewayCrossGatewayQuery(message, assertion, target);
-    } else {
-      ack = buildRegistryErrorAck(" ", "Entity Request was null unable to process");
-    }
-
-    LOG.debug("end respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context)");
-    return ack;
   }
 
   /**
@@ -110,6 +63,63 @@ public class EntityDocQueryDeferredReqOrchImpl {
    */
   public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
           AdhocQueryRequest message, AssertionType assertion, NhinTargetCommunitiesType target) {
+    LOG.debug("start respondingGatewayCrossGatewayQuery(AdhocQueryRequest message, AssertionType assertion, NhinTargetCommunitiesType target)");
+
+    DocQueryAcknowledgementType nhincResponse = null;
+    logEntityDocQuery(message, assertion);
+
+    CMUrlInfos urlInfoList = new CMUrlInfos();// = getEndpoints(target);
+
+    for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+      //create a new request to send out to each target community
+      LOG.debug("Target: " + urlInfo.getHcid());
+      //check the policy for the outgoing request to the target community
+      boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
+
+      if (bIsPolicyOk) {
+        NhinTargetSystemType targetSystem = buildTargetSystem(urlInfo);
+
+        //sendToNhinProxy(message, assertion, targetSystem);
+
+      } else {
+        LOG.error("The policy engine evaluated the request and denied the request.");
+      }
+    }
+    return nhincResponse;
+  }
+
+  private void logEntityDocQuery(AdhocQueryRequest message, AssertionType assertion) {
+    getDocQueryAuditLog().audit(message, assertion);
+  }
+
+  protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) throws ConnectionManagerException {
+    CMUrlInfos urlInfoList = null;
+
+    urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
+
+    return urlInfoList;
+  }
+
+  private boolean checkPolicy(AdhocQueryRequest message, AssertionType assertion, String hcid) {
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
+
+  public boolean isServiceEnabled() {
+    return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_ENABLED);
+  }
+
+  public boolean readBooleanGatewayProperty(String propertyName) {
+    boolean result = false;
+    try {
+      result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+    } catch (PropertyAccessException ex) {
+      LOG.error("Error: Failed to retrieve " + propertyName + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+      LOG.error(ex.getMessage());
+    }
+    return result;
+  }
+
+  private NhinTargetSystemType buildTargetSystem(CMUrlInfo urlInfo) {
     throw new UnsupportedOperationException("Not yet implemented");
   }
 }

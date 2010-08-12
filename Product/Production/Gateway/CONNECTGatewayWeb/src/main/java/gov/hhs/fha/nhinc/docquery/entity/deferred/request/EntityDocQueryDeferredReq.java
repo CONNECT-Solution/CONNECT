@@ -17,11 +17,10 @@ import javax.xml.ws.WebServiceContext;
             targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest",
             wsdlLocation = "WEB-INF/wsdl/EntityDocQueryDeferredReq/EntityDocQueryDeferredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityDocQueryDeferredReq {
+public class EntityDocQueryDeferredReq extends EntityDocQueryDeferredReqImpl {
 
   @Resource
   private WebServiceContext context;
-  private EntityDocQueryDeferredReqOrchImpl orchImpl;
 
   /**
    * The Entity Secured Method implementation for RespondingGatewayCrossGatewayQuery makes call to actual implementation
@@ -29,19 +28,7 @@ public class EntityDocQueryDeferredReq {
    * @return DocQueryAcknowledgementsType
    */
   public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
-          RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
-    return getEntityDocQueryDeferredReqOrchImpl().respondingGatewayCrossGatewayQuery(
-            respondingGatewayCrossGatewayQueryRequest, context);
-  }
-
-  /**
-   * Create an instance of EntityDocRetrieveDeferredReqImpl Class
-   * @return EntityDocRetrieveDeferredReqImpl
-   */
-  protected EntityDocQueryDeferredReqOrchImpl getEntityDocQueryDeferredReqOrchImpl() {
-    if (orchImpl == null) {
-      orchImpl = new EntityDocQueryDeferredReqOrchImpl();
-    }
-    return orchImpl;
+          RespondingGatewayCrossGatewayQueryRequestType body) {
+      return respondingGatewayCrossGatewayQuery(body, context);
   }
 }
