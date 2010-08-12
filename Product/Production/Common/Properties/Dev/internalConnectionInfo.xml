@@ -260,7 +260,7 @@
 			<service>
 				<name>patientcorrelation</name>
 				<description>Patient Correlation Service</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/PatientCorrelationService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelationsecured</name>
@@ -964,7 +964,7 @@
 			<service>
 				<name>patientcorrelation</name>
 				<description>Patient Correlation Service</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/PatientCorrelationService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelationsecured</name>
@@ -1717,7 +1717,7 @@
 			<service>
 				<name>patientcorrelation</name>
 				<description>Patient Correlation Service</description>
-				<endpointURL>http://localhost:8080/AdapterService/PatientCorrelationService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelationsecured</name>
