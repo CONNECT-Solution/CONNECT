@@ -9,7 +9,6 @@
           <user name="Mark Goldman"           group="buildmaster"       address="mark.goldman@agilex.com"/>
         
           <user name="Build Notification"     group="change"            address="NHINBuildNotification@agilex.com"/>
-
           <user name="Notification Dev"       group="failed"            address="NHINBuildNotification@agilex.com"/>
         </users>
         <groups>

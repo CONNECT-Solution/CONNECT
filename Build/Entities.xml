@@ -7,7 +7,7 @@
 <!ENTITY ConnectOrange.Server.Host.Name        'ConnectOrange31.fedsconnect.org'>
 <!ENTITY ConnectGreen.Server.Host.Name         'ConnectGreen31.fedsconnect.org'>
 <!ENTITY Klocwork.Server.Host.Name             'Build-KW.connectopensource.org'>
-<!ENTITY EmailHost                             '127.0.0.1'>
+<!ENTITY EmailHost                             '172.16.50.25'>
 
 <!ENTITY ProjectName                           'NHINC'>
 <!ENTITY ProjectCodeLineName                   'Current'>
