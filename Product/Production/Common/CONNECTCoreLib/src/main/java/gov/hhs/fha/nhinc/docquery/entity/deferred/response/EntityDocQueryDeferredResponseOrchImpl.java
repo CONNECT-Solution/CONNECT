@@ -67,8 +67,7 @@ public class EntityDocQueryDeferredResponseOrchImpl {
                 regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG);
             }
         } catch (Exception ex) {
-            log.error(ex.getMessage());
-            ex.printStackTrace();
+            log.error(ex);
             regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG);
         }
 

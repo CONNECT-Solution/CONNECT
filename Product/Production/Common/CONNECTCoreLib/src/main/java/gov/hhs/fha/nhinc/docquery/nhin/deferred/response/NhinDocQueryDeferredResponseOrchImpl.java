@@ -38,15 +38,14 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
         // Check if the service is enabled
         if (isServiceEnabled()) {
-            // Perform the inbound policy check
-            if (isPolicyValid(msg, assertion)) {
-                respAck = sendToAgency(msg, assertion);
-            } else {
-                log.error("Policy Check Failed for incoming Document Query Deferred Request");
-            }
-
             // Check if in Pass-Through Mode
             if (!(isInPassThroughMode())) {
+                // Perform the inbound policy check
+                if (isPolicyValid(msg, assertion)) {
+                    respAck = sendToAgency(msg, assertion);
+                } else {
+                    log.error("Policy Check Failed for incoming Document Query Deferred Request");
+                }
             } else {
                 // Send the deferred response to the Adapter Interface
                 respAck = sendToAgency(msg, assertion);

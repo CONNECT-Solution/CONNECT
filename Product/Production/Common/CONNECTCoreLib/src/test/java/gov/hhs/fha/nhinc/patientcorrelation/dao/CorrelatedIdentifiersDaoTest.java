@@ -5,7 +5,8 @@
 
 package gov.hhs.fha.nhinc.patientcorrelation.dao;
 
-import gov.hhs.fha.nhinc.patientcorrelation.model.CorrelatedIdentifiers;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDao;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import java.util.Date;
 import org.junit.Test;
 

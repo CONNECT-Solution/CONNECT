@@ -7,7 +7,7 @@
     Description:
         Purpose of the document follows.
 -->
-<hibernate-mapping package="gov.hhs.fha.nhinc.patientcorrelation.model">
+<hibernate-mapping package="gov.hhs.fha.nhinc.patientcorrelation.nhinc.model">
   <class name="CorrelatedIdentifiers" table="correlatedidentifiers">
     <id column="correlationid" name="correlationId" type="long">
       <generator class="increment"/>
