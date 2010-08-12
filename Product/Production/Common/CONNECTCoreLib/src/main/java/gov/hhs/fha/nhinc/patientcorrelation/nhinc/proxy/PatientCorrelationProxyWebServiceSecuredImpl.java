@@ -16,10 +16,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
+import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
+import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
 
 /**
  *
@@ -100,7 +102,8 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
 
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Begin retrievePatientCorrelations");
-        RetrievePatientCorrelationsResponseType response = null;
+        RetrievePatientCorrelationsResponseType response = new RetrievePatientCorrelationsResponseType();
+        RetrievePatientCorrelationsSecuredResponseType securedResp = new RetrievePatientCorrelationsSecuredResponseType();
 
         try
         {
@@ -120,7 +123,11 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 RetrievePatientCorrelationsSecuredRequestType request = new RetrievePatientCorrelationsSecuredRequestType();
                 request.setPRPAIN201309UV02(msg);
 
-                response = (RetrievePatientCorrelationsResponseType)oProxyHelper.invokePort(port, PatientCorrelationSecuredPortType.class, "retrievePatientCorrelations", request);
+                securedResp = (RetrievePatientCorrelationsSecuredResponseType)oProxyHelper.invokePort(port, PatientCorrelationSecuredPortType.class, "retrievePatientCorrelations", request);
+                if (securedResp != null &&
+                        securedResp.getPRPAIN201310UV02() != null) {
+                    response.setPRPAIN201310UV02(securedResp.getPRPAIN201310UV02());
+                }
             }
         }
         catch (Exception ex)
@@ -134,7 +141,8 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
 
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Begin addPatientCorrelation");
-        AddPatientCorrelationResponseType response = null;
+        AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();
+        AddPatientCorrelationSecuredResponseType securedResp = new AddPatientCorrelationSecuredResponseType();
 
         try
         {
@@ -154,7 +162,11 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
                 request.setPRPAIN201301UV02(msg);
 
-                response = (AddPatientCorrelationResponseType)oProxyHelper.invokePort(port, PatientCorrelationSecuredPortType.class, "addPatientCorrelation", request);
+                securedResp = (AddPatientCorrelationSecuredResponseType)oProxyHelper.invokePort(port, PatientCorrelationSecuredPortType.class, "addPatientCorrelation", request);
+                if (securedResp != null &&
+                        securedResp.getMCCIIN000002UV01() != null) {
+                    response.setMCCIIN000002UV01(securedResp.getMCCIIN000002UV01());
+                }
             }
         }
         catch (Exception ex)
