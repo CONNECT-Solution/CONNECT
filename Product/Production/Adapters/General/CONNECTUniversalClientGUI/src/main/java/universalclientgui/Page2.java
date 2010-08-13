@@ -16,12 +16,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
@@ -37,6 +38,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -48,9 +51,11 @@ import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
  * <p>Page bean that corresponds to a similarly named JSP page.  This
@@ -138,7 +143,6 @@ public class Page2 extends AbstractPageBean {
     public void setDocumentTab(Tab t) {
         this.documentTab = t;
     }
-
     // Patient Search Tab Bindings
     private TextField lastNameField = new TextField();
 
@@ -178,7 +182,6 @@ public class Page2 extends AbstractPageBean {
     public void setPatientSelectIdLink(Hyperlink h) {
         this.patientSelectIdLink = h;
     }
-
     private Hyperlink selectedDocumentID = new Hyperlink();
 
     public Hyperlink getSelectedDocumentID() {
@@ -188,8 +191,6 @@ public class Page2 extends AbstractPageBean {
     public void setSelectedDocumentID(Hyperlink selectedDocumentID) {
         this.selectedDocumentID = selectedDocumentID;
     }
-
-
     // Subject Discovery Tab Bindings
     private StaticText subjectDiscoveryResultsInfo = new StaticText();
 
@@ -256,7 +257,6 @@ public class Page2 extends AbstractPageBean {
     public void setCreationToDate(Calendar c) {
         this.creationToDate = c;
     }
-
     private StaticText errorMessage = new StaticText();
 
     public StaticText getErrorMessage() {
@@ -266,7 +266,6 @@ public class Page2 extends AbstractPageBean {
     public void setErrorMessage(StaticText errorMessage) {
         this.errorMessage = errorMessage;
     }
-
     private String errors;
 
     public String getErrors() {
@@ -276,8 +275,7 @@ public class Page2 extends AbstractPageBean {
     public void setErrors(String errors) {
         this.errors = errors;
     }
-    
-    
+
     // </editor-fold>
     /**
      * <p>Construct a new Page bean instance.</p>
@@ -665,21 +663,42 @@ public class Page2 extends AbstractPageBean {
     private void performPatientCorrelation() {
 
         this.getPatientCorrelationList().clear();
+        String assigningAuthId = null;
         try {
-            String assigningAuthId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+            assigningAuthId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+        } catch (PropertyAccessException ex) {
+            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            PatientCorrelationFacadeProxyObjectFactory pcFactory = new PatientCorrelationFacadeProxyObjectFactory();
-            PatientCorrelationFacadeProxy pcProxy = pcFactory.getPatientCorrelationFacadeProxy();
+        PatientCorrelationProxyObjectFactory pcFactory = new PatientCorrelationProxyObjectFactory();
+        PatientCorrelationProxy pcProxy = pcFactory.getPatientCorrelationProxy();
 
-            QualifiedSubjectIdentifierType homeQualifiedSubjectId = new QualifiedSubjectIdentifierType();
-            homeQualifiedSubjectId.setAssigningAuthorityIdentifier(assigningAuthId);
-            homeQualifiedSubjectId.setSubjectIdentifier(getSessionBean1().getFoundPatient().getPatientId());
-            RetrievePatientCorrelationsRequestType retrieveRequest = new RetrievePatientCorrelationsRequestType();
-            retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
-            retrieveRequest.setAssertion(getSessionBean1().getAssertionInfo());
+        QualifiedSubjectIdentifierType homeQualifiedSubjectId = new QualifiedSubjectIdentifierType();
+        homeQualifiedSubjectId.setAssigningAuthorityIdentifier(assigningAuthId);
+        homeQualifiedSubjectId.setSubjectIdentifier(getSessionBean1().getFoundPatient().getPatientId());
+        RetrievePatientCorrelationsRequestType retrieveRequest = new RetrievePatientCorrelationsRequestType();
+        retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
+        retrieveRequest.setAssertion(getSessionBean1().getAssertionInfo());
 
-            RetrievePatientCorrelationsResponseType pcResponse = pcProxy.retrievePatientCorrelations(retrieveRequest);
-            List<QualifiedSubjectIdentifierType> retrievedPatCorrList = pcResponse.getQualifiedPatientIdentifier();
+        PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(retrieveRequest);
+        RetrievePatientCorrelationsResponseType response = pcProxy.retrievePatientCorrelations(patCorrelationRequest, retrieveRequest.getAssertion());
+        List<QualifiedSubjectIdentifierType> retrievedPatCorrList = new ArrayList<QualifiedSubjectIdentifierType>();
+
+        if (response != null &&
+                response.getPRPAIN201310UV02() != null &&
+                response.getPRPAIN201310UV02().getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+            for (II id : response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) {
+                QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
+                subId.setAssigningAuthorityIdentifier(id.getRoot());
+                subId.setSubjectIdentifier(id.getExtension());
+                retrievedPatCorrList.add(subId);
+            }
 
             if (retrievedPatCorrList != null && !retrievedPatCorrList.isEmpty()) {
                 for (QualifiedSubjectIdentifierType qualSubject : retrievedPatCorrList) {
@@ -699,8 +718,7 @@ public class Page2 extends AbstractPageBean {
                     this.getPatientCorrelationList().add(patientData);
                 }
             }
-        } catch (PropertyAccessException ex) {
-            log.error("Property file assess problem: " + ex.getMessage());
+
         }
     }
 
@@ -737,7 +755,7 @@ public class Page2 extends AbstractPageBean {
 //            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
 //            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 //
-            PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
+        PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
 //            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
 //            //HL7PatientTransforms.create201302PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn(), null);
 //            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
@@ -748,19 +766,19 @@ public class Page2 extends AbstractPageBean {
 //
 //            if (sdAck != null) {
 
-                AssertionType assertion = getSessionBean1().getAssertionInfo();
-                PatientDiscoveryClient patientDiscoveryClient = new PatientDiscoveryClient();
-                patientDiscoveryClient.broadcastPatientDiscovery(assertion, foundPatient);
+        AssertionType assertion = getSessionBean1().getAssertionInfo();
+        PatientDiscoveryClient patientDiscoveryClient = new PatientDiscoveryClient();
+        patientDiscoveryClient.broadcastPatientDiscovery(assertion, foundPatient);
 
-                performPatientCorrelation();
-                this.getSubjectDiscoveryResultsInfo().setText("Broadcast Patient Discovery Results");
+        performPatientCorrelation();
+        this.getSubjectDiscoveryResultsInfo().setText("Broadcast Patient Discovery Results");
 
-                GregorianCalendar cal = new GregorianCalendar();
-                cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-                cal.setTimeInMillis(System.currentTimeMillis());
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+        cal.setTimeInMillis(System.currentTimeMillis());
 
-                this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
-                this.getBroadcastInfo2().setText("");
+        this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
+        this.getBroadcastInfo2().setText("");
 
 //            } else {
 //                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
@@ -785,8 +803,7 @@ public class Page2 extends AbstractPageBean {
         //SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
         //System.out.println("Creation Date: " + dateFormatter.format(this.getCreationFromDate().getSelectedDate()));
 
-        if(!isDocumentSearchCriteriaValid())
-        {
+        if (!isDocumentSearchCriteriaValid()) {
             log.error("Error Message: " + errors);
             this.errorMessage.setText(errors);
             return null;
@@ -796,25 +813,22 @@ public class Page2 extends AbstractPageBean {
 
         PatientSearchData currentPatient = null;
 
-        for (PatientSearchData testPatient : getPatientSearchDataList())
-        {
-            if (testPatient.getPatientId().equals(searchData.getPatientID()))
-            {
+        for (PatientSearchData testPatient : getPatientSearchDataList()) {
+            if (testPatient.getPatientId().equals(searchData.getPatientID())) {
                 currentPatient = testPatient;
             }
         }
-        
+
         //System.out.println("Patient ID: " + currentPatient.getPatientId() + "Assigning Authority ID: " + currentPatient.getAssigningAuthorityID());
 
-        if (currentPatient == null)
-        {
+        if (currentPatient == null) {
             this.errorMessage.setText("Patient information is not available. Please search again.");
         }
 
         DocumentQueryClient docQueryClient = new DocumentQueryClient();
 
         List<DocumentInformation> docInfoList = docQueryClient.retrieveDocumentsInformation(currentPatient, this.getCreationFromDate().getSelectedDate(),
-                                                this.getCreationToDate().getSelectedDate());
+                this.getCreationToDate().getSelectedDate());
 
         DocumentQueryResults documentQueryResults = new DocumentQueryResults();
         documentQueryResults.setDocuments(docInfoList);
@@ -830,19 +844,17 @@ public class Page2 extends AbstractPageBean {
         return null;
     }
 
-    private boolean isDocumentSearchCriteriaValid(){
+    private boolean isDocumentSearchCriteriaValid() {
         StringBuffer message = new StringBuffer();
         boolean isValid = true;
 
-        if (this.creationFromDate == null || this.creationToDate == null){
+        if (this.creationFromDate == null || this.creationToDate == null) {
             message.append("Earliest Date and Most Recent Date should not be null");
             isValid = false;
-        }
-        else if(this.creationFromDate.getSelectedDate() == null || this.getCreationToDate().getSelectedDate() == null){
+        } else if (this.creationFromDate.getSelectedDate() == null || this.getCreationToDate().getSelectedDate() == null) {
             message.append("Earliest Date and Most Recent Date should not be null");
             isValid = false;
-        }
-        else if(this.creationFromDate.getSelectedDate().after(this.getCreationToDate().getSelectedDate())){
+        } else if (this.creationFromDate.getSelectedDate().after(this.getCreationToDate().getSelectedDate())) {
             message.append("Earliest Date should not be after Most Recent Date");
             isValid = false;
         }
@@ -852,8 +864,8 @@ public class Page2 extends AbstractPageBean {
         return isValid;
     }
 
-    public String displayDocument() throws Exception{
-        
+    public String displayDocument() throws Exception {
+
         log.debug("Selected document ID: " + this.selectedDocumentID.getText());
 
         DocumentRetrieveClient docRetrieveClient = new DocumentRetrieveClient();
@@ -864,10 +876,8 @@ public class Page2 extends AbstractPageBean {
 
         DocumentInformation currentDocument = null;
 
-        for(DocumentInformation documentInformation:docQueryResults.getDocuments())
-        {
-            if (documentID.equals(documentInformation.getDocumentID()))
-            {
+        for (DocumentInformation documentInformation : docQueryResults.getDocuments()) {
+            if (documentID.equals(documentInformation.getDocumentID())) {
                 currentDocument = documentInformation;
                 break;
             }
@@ -875,8 +885,7 @@ public class Page2 extends AbstractPageBean {
 
         String document = docRetrieveClient.retriveDocument(currentDocument);
 
-        if (document == null || document.isEmpty())
-        {
+        if (document == null || document.isEmpty()) {
             return "display_document_error";
         }
 
@@ -885,9 +894,8 @@ public class Page2 extends AbstractPageBean {
         String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()), xsl);
 
         log.debug("HTML PAGE: " + html);
-        
-        if (html == null || html.isEmpty())
-        {
+
+        if (html == null || html.isEmpty()) {
             return "display_document_error";
         }
 
@@ -897,37 +905,35 @@ public class Page2 extends AbstractPageBean {
         os.write(html.getBytes());
         os.flush();
         FacesContext.getCurrentInstance().responseComplete();
-             
+
         return null;
     }
 
-        /**
-         *
-         * @param xml
-         * @param xsl
-         * @return
-         */
-        private String convertXMLToHTML(InputStream xml, InputStream xsl)
-        {
+    /**
+     *
+     * @param xml
+     * @param xsl
+     * @return
+     */
+    private String convertXMLToHTML(InputStream xml, InputStream xsl) {
 
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-        
-            try {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-                TransformerFactory tFactory = TransformerFactory.newInstance();
+        try {
 
-                Transformer transformer =
-                        tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
+            TransformerFactory tFactory = TransformerFactory.newInstance();
 
-                transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
-                        new javax.xml.transform.stream.StreamResult(output));
+            Transformer transformer =
+                    tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
 
-            } catch (Exception e) {
-                log.error("Exception in transforming xml to html", e);
-            }
+            transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
+                    new javax.xml.transform.stream.StreamResult(output));
+
+        } catch (Exception e) {
+            log.error("Exception in transforming xml to html", e);
+        }
 
         return output.toString();
     }
-
 }
 
