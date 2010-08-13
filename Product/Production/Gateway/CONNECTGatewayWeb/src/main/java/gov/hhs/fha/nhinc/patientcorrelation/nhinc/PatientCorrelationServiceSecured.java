@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.patientcorrelation;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;

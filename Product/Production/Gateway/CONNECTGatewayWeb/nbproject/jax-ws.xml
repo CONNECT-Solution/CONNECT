@@ -914,7 +914,7 @@
       </wsimport-options>
     </service>
     <service name="PatientCorrelationServiceSecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPatientCorrelationSecured.wsdl</local-wsdl-file>
       <service-name>PatientCorrelationServiceSecured</service-name>
@@ -1274,7 +1274,7 @@
       </wsimport-options>
     </service>
     <service name="PatientCorrelationServiceUnsecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceUnsecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentPatientCorrelation.wsdl</local-wsdl-file>
       <service-name>PatientCorrelationService</service-name>

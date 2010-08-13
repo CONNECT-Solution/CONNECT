@@ -266,7 +266,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>PatientCorrelationServiceSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PatientCorrelationServiceSecured</servlet-name>
@@ -274,7 +274,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>PatientCorrelationServiceUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.PatientCorrelationServiceUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PatientCorrelationServiceUnsecured</servlet-name>
