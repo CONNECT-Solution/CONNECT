@@ -317,7 +317,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -697,7 +697,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -1084,7 +1084,7 @@
 			<service>
 				<name>entitydocqueryproxy</name>
 				<description>Entity Document Query Proxy</description>
-				<endpointURL>http://localhost:8080/AdapterService/EntityDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>entitydocquerysecured</name>
@@ -1200,7 +1200,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>

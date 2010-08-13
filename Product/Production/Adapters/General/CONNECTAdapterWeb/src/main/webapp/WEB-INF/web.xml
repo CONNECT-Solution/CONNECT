@@ -362,15 +362,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityDocQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQuery</servlet-name>
-        <url-pattern>/EntityDocQuery</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>NhincProxyDocQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery</servlet-class>
     </servlet>

@@ -10,14 +10,10 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-/**
- *
- *
- * @author Neil Webb
- */
-public class EntityDocQueryImpl
+class EntityDocQueryUnsecuredImpl
 {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(EntityDocQueryImpl.class);
+
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(EntityDocQueryUnsecuredImpl.class);
     private static EntityDocQuerySecured service = new EntityDocQuerySecured();
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest)
@@ -27,7 +23,7 @@ public class EntityDocQueryImpl
         try
         {
             String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_DOC_QUERY_SECURED_SERVICE_NAME);
-            
+
             EntityDocQuerySecuredPortType port = getPort(url);
 
             AssertionType assertIn = respondingGatewayCrossGatewayQueryRequest.getAssertion();
@@ -39,8 +35,7 @@ public class EntityDocQueryImpl
             body.setAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest());
             body.setNhinTargetCommunities(respondingGatewayCrossGatewayQueryRequest.getNhinTargetCommunities());
             response = port.respondingGatewayCrossGatewayQuery(body);
-        }
-        catch (Exception ex)
+        } catch (Exception ex)
         {
             log.error("Failed to send entity doc query from proxy EJB to secure interface: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
@@ -48,8 +43,9 @@ public class EntityDocQueryImpl
         }
         return response;
     }
-    
-    private EntityDocQuerySecuredPortType getPort(String url) {
+
+    private EntityDocQuerySecuredPortType getPort(String url)
+    {
         EntityDocQuerySecuredPortType port = service.getEntityDocQuerySecuredPortSoap();
 
         log.info("Setting endpoint address to Entity Document Query Secured Service to " + url);

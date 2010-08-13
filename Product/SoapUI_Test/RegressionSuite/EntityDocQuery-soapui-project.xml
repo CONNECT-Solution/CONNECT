@@ -6861,7 +6861,7 @@ if(gatewayBakFile.exists()) {
     </con:property>
     <con:property>
       <con:name>Endpoint-DocQuery</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityDocQuery</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalHCID</con:name>

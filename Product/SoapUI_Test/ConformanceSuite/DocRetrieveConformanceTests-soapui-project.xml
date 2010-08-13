@@ -10063,7 +10063,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:property>
     <con:property>
       <con:name>NhincProxyDocQueryEndpoint</con:name>
-      <con:value>http://exttestgw3.fedsconnect.org:8080/CONNECTAdapter/EntityDocQuery</con:value>
+      <con:value>http://exttestgw3.fedsconnect.org:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>ZeroDocStatus</con:name>

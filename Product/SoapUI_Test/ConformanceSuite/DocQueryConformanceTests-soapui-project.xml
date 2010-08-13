@@ -16873,7 +16873,7 @@ assert docCount.toInteger() == 0;</scriptText>
     </con:property>
     <con:property>
       <con:name>EntityDocQueryEndpoint</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityDocQuery</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalAA</con:name>
