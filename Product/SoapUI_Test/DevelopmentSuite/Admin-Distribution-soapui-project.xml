@@ -16714,23 +16714,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:40:24Z</con:value>
+          <con:value>2010-08-13T12:50:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:50:24Z</con:value>
+          <con:value>2010-08-13T13:00:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:40:24</con:value>
+          <con:value>08/13/2010 12:50:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:45:24 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:55:13 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17407,23 +17407,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:40:40Z</con:value>
+          <con:value>2010-08-13T12:50:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:50:40Z</con:value>
+          <con:value>2010-08-13T13:00:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:40:40</con:value>
+          <con:value>08/13/2010 12:50:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:45:40 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:55:45 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18111,23 +18111,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:40:55Z</con:value>
+          <con:value>2010-08-13T12:51:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:50:55Z</con:value>
+          <con:value>2010-08-13T13:01:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:40:55</con:value>
+          <con:value>08/13/2010 12:51:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:45:55 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:56:01 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18844,23 +18844,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:41:11Z</con:value>
+          <con:value>2010-08-13T12:51:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:51:11Z</con:value>
+          <con:value>2010-08-13T13:01:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:41:11</con:value>
+          <con:value>08/13/2010 12:51:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:46:11 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:56:17 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19497,23 +19497,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:41:27Z</con:value>
+          <con:value>2010-08-13T12:51:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:51:27Z</con:value>
+          <con:value>2010-08-13T13:01:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:41:27</con:value>
+          <con:value>08/13/2010 12:51:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:46:27 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:56:32 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20154,23 +20154,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:41:43Z</con:value>
+          <con:value>2010-08-13T12:51:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:51:43Z</con:value>
+          <con:value>2010-08-13T13:01:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:41:43</con:value>
+          <con:value>08/13/2010 12:51:48</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:46:43 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:56:48 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20848,23 +20848,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:41:59Z</con:value>
+          <con:value>2010-08-13T12:52:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:51:59Z</con:value>
+          <con:value>2010-08-13T13:02:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:41:59</con:value>
+          <con:value>08/13/2010 12:52:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:46:59 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:57:04 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -22751,19 +22751,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-12T15:43:20Z</con:value>
+          <con:value>2010-08-13T14:11:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-12T15:53:20Z</con:value>
+          <con:value>2010-08-13T14:21:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/12/2010 15:43:20</con:value>
+          <con:value>08/13/2010 14:11:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-11T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -23154,19 +23154,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmi
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-12T19:10:24Z</con:value>
+          <con:value>2010-08-13T12:52:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-12T19:20:24Z</con:value>
+          <con:value>2010-08-13T13:02:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/12/2010 19:10:24</con:value>
+          <con:value>08/13/2010 12:52:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-11T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -23892,23 +23892,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:42:30Z</con:value>
+          <con:value>2010-08-13T12:52:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:52:30Z</con:value>
+          <con:value>2010-08-13T13:02:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:42:30</con:value>
+          <con:value>08/13/2010 12:52:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:47:30 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:57:37 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24630,23 +24630,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:43:01Z</con:value>
+          <con:value>2010-08-13T12:53:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:53:01Z</con:value>
+          <con:value>2010-08-13T13:03:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:43:01</con:value>
+          <con:value>08/13/2010 12:53:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:48:01 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:58:08 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -25410,23 +25410,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:43:17Z</con:value>
+          <con:value>2010-08-13T12:53:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:53:17Z</con:value>
+          <con:value>2010-08-13T13:03:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:43:17</con:value>
+          <con:value>08/13/2010 12:53:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:48:17 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:58:24 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26159,23 +26159,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:43:32Z</con:value>
+          <con:value>2010-08-13T12:53:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:53:32Z</con:value>
+          <con:value>2010-08-13T13:03:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:43:32</con:value>
+          <con:value>08/13/2010 12:53:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:48:32 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:58:40 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26858,23 +26858,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:43:48Z</con:value>
+          <con:value>2010-08-13T12:53:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:53:48Z</con:value>
+          <con:value>2010-08-13T13:03:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:43:48</con:value>
+          <con:value>08/13/2010 12:53:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:48:48 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:58:55 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27561,23 +27561,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T17:44:04Z</con:value>
+          <con:value>2010-08-13T12:54:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T17:54:04Z</con:value>
+          <con:value>2010-08-13T13:04:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 17:44:04</con:value>
+          <con:value>08/13/2010 12:54:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Aug 10 17:49:04 UTC 20101</con:value>
+          <con:value>admindistFri Aug 13 12:59:11 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29269,7 +29269,7 @@ log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + Fiel
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
-def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
+def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
@@ -29510,19 +29510,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-12T15:26:08Z</con:value>
+          <con:value>2010-08-13T14:11:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-12T15:36:08Z</con:value>
+          <con:value>2010-08-13T14:21:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/12/2010 15:26:08</con:value>
+          <con:value>08/13/2010 14:11:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-11T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29961,19 +29961,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-12T19:12:12Z</con:value>
+          <con:value>2010-08-13T12:54:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-12T19:22:12Z</con:value>
+          <con:value>2010-08-13T13:04:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/12/2010 19:12:12</con:value>
+          <con:value>08/13/2010 12:54:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-11T00:00:00Z</con:value>
+          <con:value>2010-09-12T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
