@@ -79,63 +79,23 @@
                location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredResponseSecured"/>
         </port>
     </service>
-    <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
-                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
-                <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
-                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+    <wsp1:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <sc1:KeyStore wspp:visibility="private"
+                            aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector"
+                            callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private"
+                        certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector"
+                        callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+
                 <sc1:CallbackHandlerConfiguration wspp:visibility="private">
-                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                  <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
                 </sc1:CallbackHandlerConfiguration>
-                <sp:TransportBinding>
-                    <wsp:Policy>
-                        <sp:TransportToken>
-                            <wsp:Policy>
-                                <sp:HttpsToken>
-                                    <wsp:Policy>
-                                        <sp:RequireClientCertificate/>
-                                    </wsp:Policy>
-                                </sp:HttpsToken>
-                            </wsp:Policy>
-                        </sp:TransportToken>
-                        <sp:Layout>
-                            <wsp:Policy>
-                                <sp:Strict/>
-                            </wsp:Policy>
-                        </sp:Layout>
-                        <sp:IncludeTimestamp/>
-                        <sp:AlgorithmSuite>
-                            <wsp:Policy>
-                                <sp:Basic128/>
-                            </wsp:Policy>
-                        </sp:AlgorithmSuite>
-                    </wsp:Policy>
-                </sp:TransportBinding>
-                <sp:EndorsingSupportingTokens>
-                    <wsp:Policy>
-                        <sp:SamlToken
-                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-                            <wsp:Policy>
-                                <sp:WssSamlV20Token11/>
-                            </wsp:Policy>
-                        </sp:SamlToken>
-                    </wsp:Policy>
-                </sp:EndorsingSupportingTokens>
-                <sp:Wss11>
-                    <wsp:Policy>
-                        <sp:MustSupportRefKeyIdentifier/>
-                        <sp:MustSupportRefIssuerSerial/>
-                        <sp:RequireSignatureConfirmation/>
-                    </wsp:Policy>
-                </sp:Wss11>
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+
     <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_Soap_Input_Policy">
         <wsp:ExactlyOne>
             <wsp:All>

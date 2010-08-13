@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.error;
 
-import gov.hhs.fha.nhinc.adapterdocretrievedeferredrequesterror.AdapterDocRetrieveRequestErrorPortType;
+import gov.hhs.fha.nhinc.adapterdocretrievedeferredrequesterror.AdapterDocRetrieveDeferredRequestErrorPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorType;
@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+import javax.xml.ws.WebServiceContext;
 import java.util.Map;
 
 /**
@@ -60,7 +61,7 @@ public class AdapterDocRetrieveDeferredReqErrorWebServiceImpl implements Adapter
         }
 
         if (NullChecker.isNotNullish(url)) {
-            AdapterDocRetrieveRequestErrorPortType port = getPort(url);
+            AdapterDocRetrieveDeferredRequestErrorPortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.AUDIT_REPO_ACTION);
@@ -73,14 +74,14 @@ public class AdapterDocRetrieveDeferredReqErrorWebServiceImpl implements Adapter
         return result;
     }
 
-    protected AdapterDocRetrieveRequestErrorPortType getPort(String url) {
+    protected AdapterDocRetrieveDeferredRequestErrorPortType getPort(String url) {
 
-        AdapterDocRetrieveRequestErrorPortType port = null;
+        AdapterDocRetrieveDeferredRequestErrorPortType port = null;
         Service service = getService();
         if(service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveRequestErrorPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestErrorPortType.class);
             setEndpointAddress(port, url);
         }
         else
@@ -108,7 +109,7 @@ public class AdapterDocRetrieveDeferredReqErrorWebServiceImpl implements Adapter
     }
 
 
-    protected void setEndpointAddress(AdapterDocRetrieveRequestErrorPortType port, String url)
+    protected void setEndpointAddress(AdapterDocRetrieveDeferredRequestErrorPortType port, String url)
     {
         if(port == null)
         {

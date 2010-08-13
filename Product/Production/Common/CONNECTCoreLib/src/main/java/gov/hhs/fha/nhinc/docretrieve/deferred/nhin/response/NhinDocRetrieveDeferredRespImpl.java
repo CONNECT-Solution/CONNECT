@@ -11,11 +11,14 @@ import gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response.AdapterDocR
 import gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.NhinDocRetrieveDeferred;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractorHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.xml.ws.WebServiceContext;
 
 /**
  * Created by
@@ -27,9 +30,11 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
 
     private static Log log = LogFactory.getLog(NhinDocRetrieveDeferredRespImpl.class);
 
-    DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion) {
-        DocRetrieveAcknowledgementType response = null;
-        DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body,
+                                                           AssertionType  assertion) {
+        DocRetrieveAcknowledgementType  response = null;
+        DocRetrieveDeferredAuditLogger  auditLog = new DocRetrieveDeferredAuditLogger();
+
         auditLog.auditDocRetrieveDeferredResponse(body,NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
 
         try {
@@ -40,13 +45,9 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
                 } else {
                     response = serviceDocRetrieveInternal(body, assertion, homeCommunityId);
                 }
-                auditLog.auditDocRetrieveDeferredAckResponse(createSuccessResponse().getMessage(),
-                                                             assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
             } else {
                 String  msg = "Doc retrieve service is not enabled for Home Community Id: " + homeCommunityId;
                 log.debug(msg);
-                auditLog.auditDocRetrieveDeferredAckResponse(createErrorResponse(msg).getMessage(), assertion,
-                                                             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 response = createSuccessResponse();
             }
         } catch (Throwable t) {
@@ -55,11 +56,13 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
             // We may be required to return a Success message when things fail, but we can at least audit it properly.
             //
 //            response = createErrorResponse("Error encountered processing document retrieve message:  " + t.getMessage());
-            auditLog.auditDocRetrieveDeferredAckResponse(createErrorResponse("Error encountered processing document retrieve message:  " +
-                    t.getMessage()).getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+//            auditLog.auditDocRetrieveDeferredAckResponse(createErrorResponse("Error encountered processing document retrieve message:  " +
+//                    t.getMessage()).getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
             response = createSuccessResponse();
         }
 
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion,
+                                                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         return response;
     }
     /**

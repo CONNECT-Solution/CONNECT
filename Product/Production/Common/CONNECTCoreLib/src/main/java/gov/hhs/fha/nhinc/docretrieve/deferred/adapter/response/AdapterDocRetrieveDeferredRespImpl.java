@@ -30,7 +30,8 @@ public class AdapterDocRetrieveDeferredRespImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveResponseType body, WebServiceContext context)
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveResponseType body,
+                                                                                WebServiceContext context)
     {
         log.debug("Enter AdapterDocRetrieveDeferredRespImpl.respondingGatewayCrossGatewayRetrieve()");
         DocRetrieveAcknowledgementType response = null;

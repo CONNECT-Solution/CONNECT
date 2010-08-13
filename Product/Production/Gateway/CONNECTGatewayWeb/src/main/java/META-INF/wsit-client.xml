@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<definitions 
- xmlns="http://schemas.xmlsoap.org/wsdl/" 
- xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
- xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
- xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -32,10 +32,11 @@
     <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"/>
-    <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/> 
+    <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
 	<import location="NhinDocRetrieveDeferredReq.xml" namespace="urn:gov:hhs:fha:nhinc:nhindocretrievedeferredrequest"/>
+    <import location="NhinDocRetrieveDeferredResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhindocretrievedeferredresponse"/>
         <import location="NhinDocQueryDeferredRequest.xml" namespace="urn:ihe:iti:xds-b:2007"/>
 	<import location="NhinDocQueryDeferredResponse.xml" namespace="urn:ihe:iti:xds-b:2007"/>
 	<import location="NhincProxyDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured"/>

@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -30,7 +31,8 @@ public class AdapterDocRetrieveDeferredRespSecuredImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context)
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
+                                                                                AssertionType  assertion)
     {
         log.debug("Enter AdapterDocRetrieveDeferredRespSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         DocRetrieveAcknowledgementType response = null;

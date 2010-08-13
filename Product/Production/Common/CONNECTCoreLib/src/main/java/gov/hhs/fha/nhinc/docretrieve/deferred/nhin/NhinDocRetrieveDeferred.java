@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
@@ -77,14 +78,15 @@ public class NhinDocRetrieveDeferred {
      * @param targetCommunity  The community id where the request is being sent.
      * @return  True is the request is allowed and false if it is not.
      */
-    protected boolean isPolicyValidForResponse(RetrieveDocumentSetResponseType nhinResponse,
+    protected boolean isPolicyValidForResponse(RetrieveDocumentSetResponseType request,
                                   AssertionType assertion, HomeCommunityType targetCommunity) {
 
-        //
-        // @todo  Implement Policy Check for doc retrieve response.
-        //
+        DocRetrieveDeferredPolicyChecker        policyChecker = new DocRetrieveDeferredPolicyChecker();
+        boolean isValid = false;
 
-        return true;
+        isValid = policyChecker.checkOutgoingPolicy(request, assertion, targetCommunity.getHomeCommunityId());
+
+        return isValid;
     }
 
     /**

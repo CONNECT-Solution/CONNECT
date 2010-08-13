@@ -77,12 +77,12 @@
     <wsp:ExactlyOne>
       <wsp:All>
         <wsoma:OptimizedMimeSerialization/>
-        
+
         <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.NHINc.callback.KeyStoreServerAliasSelector"
-                     callbackHandler="gov.hhs.fha.NHINc.callback.KeyStoreCallbackHandler"/>
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
         <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.NHINc.callback.TrustStoreCallbackHandler"/>
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
         <sp:TransportBinding>
           <wsp:Policy>
             <sp:TransportToken>

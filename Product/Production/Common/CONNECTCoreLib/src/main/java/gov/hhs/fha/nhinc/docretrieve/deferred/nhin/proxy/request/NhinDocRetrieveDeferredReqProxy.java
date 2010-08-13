@@ -4,6 +4,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 
+import javax.xml.ws.WebServiceContext;
+
 /**
  * Created by
  * User: ralph
@@ -12,5 +14,6 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
  */
 public interface NhinDocRetrieveDeferredReqProxy {
 
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion);
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body,
+                                                                  AssertionType assertion);
 }

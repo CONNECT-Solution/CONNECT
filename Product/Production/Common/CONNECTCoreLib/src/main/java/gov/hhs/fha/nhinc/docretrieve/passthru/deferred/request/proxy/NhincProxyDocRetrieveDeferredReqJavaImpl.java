@@ -13,13 +13,15 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 public class NhincProxyDocRetrieveDeferredReqJavaImpl implements NhincProxyDocRetrieveDeferredReqProxy
 {
     /**
-     * 
+     *
      * @param request
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request,
+                                                                      AssertionType assertion,
+                                                                      NhinTargetSystemType target) {
         return new NhincProxyDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(request, assertion, target);
     }
 

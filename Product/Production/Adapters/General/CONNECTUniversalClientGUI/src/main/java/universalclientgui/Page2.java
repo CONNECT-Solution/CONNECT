@@ -289,7 +289,7 @@ public class Page2 extends AbstractPageBean {
      * Customize this method to acquire resources that will be needed
      * for event handlers and lifecycle methods, whether or not this
      * page is performing post back processing.</p>
-     * 
+     *
      * <p>Note that, if the current request is a postback, the property
      * values of the components do <strong>not</strong> represent any
      * values submitted with this request.  Instead, they represent the
@@ -794,7 +794,7 @@ public class Page2 extends AbstractPageBean {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getDocQueryResults() {

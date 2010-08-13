@@ -3,7 +3,7 @@
   Adapter Document Retrieve Deferred Request Secured Error
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
-   name="AdapterDocRetrieveDeferredRequestSecured"
+   name="AdapterDocRetrieveDeferredRequestErrorSecured"
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"
    xmlns="http://schemas.xmlsoap.org/wsdl/"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"

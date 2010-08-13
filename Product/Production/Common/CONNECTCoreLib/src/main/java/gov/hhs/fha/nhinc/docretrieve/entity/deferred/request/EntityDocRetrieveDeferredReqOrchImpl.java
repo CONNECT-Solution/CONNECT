@@ -60,7 +60,9 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
      * @param crossGatewayRetrieveRequest
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message,
+                                                                      AssertionType assertion,
+                                                                      NhinTargetCommunitiesType target) {
         if (debugEnabled) {
             log.debug("Begin EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
         }
@@ -99,7 +101,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                             if (debugEnabled) {
                                 log.debug("Calling doc retrieve proxy");
                             }
-                            nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion, oTargetSystem);
+                            nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion,
+                                                                                         oTargetSystem);
                         } else {
                             nhincResponse = buildRegistryErrorAck();
                         }

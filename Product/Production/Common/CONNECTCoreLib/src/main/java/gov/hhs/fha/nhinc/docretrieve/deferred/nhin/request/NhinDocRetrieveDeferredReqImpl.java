@@ -19,6 +19,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.xml.ws.WebServiceContext;
+
 /**
  * Created by
  * User: ralph
@@ -35,9 +37,12 @@ public class NhinDocRetrieveDeferredReqImpl extends NhinDocRetrieveDeferred {
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, AssertionType assertion) {
-        DocRetrieveAcknowledgementType response = null;
-        DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body,
+                                                                  AssertionType  assertion) {
+        DocRetrieveAcknowledgementType  response = null;
+        DocRetrieveDeferredAuditLogger  auditLog = new DocRetrieveDeferredAuditLogger();
+
+
         auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
 
         try {
@@ -48,12 +53,10 @@ public class NhinDocRetrieveDeferredReqImpl extends NhinDocRetrieveDeferred {
                 } else {
                     response = serviceDocRetrieveInternal(body, assertion, homeCommunityId);
                 }
-                auditLog.auditDocRetrieveDeferredAckResponse(createSuccessResponse().getMessage(),
-                                                             assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-            } else {
+           } else {
                 String  msg = "Doc retrieve service is not enabled for Home Community Id: " + homeCommunityId;
-                log.debug(msg);
-                response = createErrorResponse(msg);
+                log.error(msg);
+                response = createSuccessResponse();
             }
         } catch (Throwable t) {
             log.error("Error processing NHIN Doc Retrieve: " + t.getMessage(), t);
@@ -61,11 +64,13 @@ public class NhinDocRetrieveDeferredReqImpl extends NhinDocRetrieveDeferred {
             // We may be required to return a Success message when things fail, but we can at least audit it properly.
             //
 //            response = createErrorResponse("Error encountered processing document retrieve message:  " + t.getMessage());
-            auditLog.auditDocRetrieveDeferredAckResponse(createErrorResponse("Error encountered processing document retrieve message:  " +
-                    t.getMessage()).getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+//            auditLog.auditDocRetrieveDeferredAckResponse(createErrorResponse("Error encountered processing document retrieve message:  " +
+//                    t.getMessage()).getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
             response = createSuccessResponse();
         }
 
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(),
+                                                     assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         return response;
     }
 
@@ -77,7 +82,8 @@ public class NhinDocRetrieveDeferredReqImpl extends NhinDocRetrieveDeferred {
      * @return
      */
     private DocRetrieveAcknowledgementType serviceDocRetrieveInternal(RetrieveDocumentSetRequestType request,
-                                                                      AssertionType assertion, String homeCommunityId) {
+                                                                      AssertionType assertion,
+                                                                      String homeCommunityId) {
         log.debug("Begin DocRetrieveImpl.serviceDocRetrieveInternal");
         DocRetrieveAcknowledgementType response = null;
         HomeCommunityType hcId = new HomeCommunityType();

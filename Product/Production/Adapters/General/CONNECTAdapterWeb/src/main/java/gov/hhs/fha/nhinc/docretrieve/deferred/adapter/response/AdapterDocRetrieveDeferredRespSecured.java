@@ -1,6 +1,8 @@
 package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 
 import javax.annotation.Resource;
@@ -19,8 +21,10 @@ public class AdapterDocRetrieveDeferredRespSecured {
     @Resource
     private WebServiceContext context;
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
-        return new AdapterDocRetrieveDeferredRespSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+        return new AdapterDocRetrieveDeferredRespSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, assertion);
     }
 
 }

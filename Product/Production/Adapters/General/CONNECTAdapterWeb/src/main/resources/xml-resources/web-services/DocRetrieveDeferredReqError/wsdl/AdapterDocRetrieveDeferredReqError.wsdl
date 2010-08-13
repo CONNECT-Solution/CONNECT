@@ -26,7 +26,7 @@
         <documentation>Document Retrieve Request Acknowledgement Message</documentation>
         <part name="body" element="dr:DocRetrieveAcknowledgement"/>
     </message>
-    <portType name="AdapterDocRetrieveRequestErrorPortType">
+    <portType name="AdapterDocRetrieveDeferredRequestErrorPortType">
         <operation name="CrossGatewayRetrieveRequestError">
             <input message="tns:CrossGatewayRetrieveRequestErrorMessage"
                    wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequest:CrossGatewayRetrieveRequestErrorMessage"/>
@@ -34,7 +34,7 @@
                     wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror:CrossGatewayRetrieveRequestAcknowledgementMessage"/>
         </operation>
     </portType>
-    <binding name="AdapterDocRetrieveDeferredRequestErrorBinding" type="tns:AdapterDocRetrieveRequestErrorPortType">
+    <binding name="AdapterDocRetrieveDeferredRequestErrorBinding" type="tns:AdapterDocRetrieveDeferredRequestErrorPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsaws:UsingAddressing/>
         <operation name="CrossGatewayRetrieveRequestError">

@@ -26,16 +26,17 @@ public class NhinDocRetrieveDeferredResp {
 
     @Resource
     private WebServiceContext context;
-    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(RetrieveDocumentSetResponseType body) {
+    public DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(RetrieveDocumentSetResponseType body) {
         DocRetrieveAcknowledgementType      response;
 
-        response = getResponse(body);
+        AssertionType  assertion = SamlTokenExtractor.GetAssertion(context);
+
+        response = getResponse(body, assertion);
 
         return response;
     }
 
-    protected DocRetrieveAcknowledgementType  getResponse(RetrieveDocumentSetResponseType body) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+    protected DocRetrieveAcknowledgementType  getResponse(RetrieveDocumentSetResponseType body, AssertionType  assertion) {
 
         return new NhinDocRetrieveDeferredRespImpl().sendToRespondingGateway(body, assertion);
     }

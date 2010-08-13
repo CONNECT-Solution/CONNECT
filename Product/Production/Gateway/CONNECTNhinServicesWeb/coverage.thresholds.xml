@@ -35,8 +35,8 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="40" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncRespImpl" linecount="111" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery" linecount="5" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="208" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201301Processor" linecount="116" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="164" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201302Processor" linecount="89" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="206" branchrate="-0.0077669902912621365" branchsexecuted="-1.6" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201301Processor" linecount="111" linerate="-0.036036036036036036" linesexecuted="-4"/>
+<threshold branchcount="162" branchrate="-0.009876543209876543" branchsexecuted="-1.6" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201302Processor" linecount="84" linerate="-0.047619047619047616" linesexecuted="-4"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery201309Processor" linecount="6" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="82" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryAckCreater" linecount="37" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryAdapterSender" linecount="16" linerate="0.0" linesexecuted="0"/>
