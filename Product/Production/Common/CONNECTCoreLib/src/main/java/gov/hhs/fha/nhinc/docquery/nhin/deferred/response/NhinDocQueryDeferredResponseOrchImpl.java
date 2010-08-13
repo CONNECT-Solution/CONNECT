@@ -44,7 +44,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
                 if (isPolicyValid(msg, assertion)) {
                     respAck = sendToAgency(msg, assertion);
                 } else {
-                    log.error("Policy Check Failed for incoming Document Query Deferred Request");
+                    log.error("Policy Check Failed for incoming Document Query Deferred Response");
                 }
             } else {
                 // Send the deferred response to the Adapter Interface
@@ -94,7 +94,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         AdapterDocQueryDeferredResponseProxyObjectFactory factory = new AdapterDocQueryDeferredResponseProxyObjectFactory();
         AdapterDocQueryDeferredResponseProxy proxy = factory.getAdapterDocQueryDeferredResponseProxy();
 
-        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
+        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion);
 
         // Audit the incoming Adapter Message
         ack = auditAck(ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);

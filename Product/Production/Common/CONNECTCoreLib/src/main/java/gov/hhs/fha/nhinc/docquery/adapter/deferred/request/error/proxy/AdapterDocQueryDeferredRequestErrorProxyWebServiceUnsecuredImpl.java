@@ -7,10 +7,7 @@ package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.adapterdocquerydeferredrequesterror.AdapterDocQueryDeferredRequestErrorPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentQueryDeferredRequestErrorType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
@@ -95,7 +92,7 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceUnsecuredImpl imp
         return cachedService;
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets, String errMsg) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, String errMsg) {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         DocQueryAcknowledgementType response = null;
 
@@ -111,10 +108,6 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceUnsecuredImpl imp
             else if(assertion == null)
             {
                 log.error("AssertionType was null");
-            }
-            else if(targets == null)
-            {
-                log.error("NhinTargetCommunitiesType was null");
             }
             else if(port == null)
             {

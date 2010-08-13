@@ -20,6 +20,6 @@ public class AdapterDocQueryDeferredResponseOrchImpl {
         AdapterComponentDocQueryDeferredResponseProxyObjectFactory factory = new AdapterComponentDocQueryDeferredResponseProxyObjectFactory();
         AdapterComponentDocQueryDeferredResponseProxy proxy = factory.getAdapterDocQueryDeferredResponseProxy();
 
-        return proxy.respondingGatewayCrossGatewayQuery(msg, assertion, null);
+        return proxy.respondingGatewayCrossGatewayQuery(msg, assertion);
     }
 }

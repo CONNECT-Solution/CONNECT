@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterDocQueryDeferredResponseProxyNoOpImpl implements AdapterDocQueryDeferredResponseProxy {
     private static Log log = LogFactory.getLog(AdapterDocQueryDeferredResponseProxyNoOpImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Doc Query Deferred Response Service");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

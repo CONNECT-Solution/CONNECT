@@ -6,7 +6,6 @@
 package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -21,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterDocQueryDeferredRequestErrorProxyNoOpImpl implements AdapterDocQueryDeferredRequestErrorProxy {
     private static Log log = LogFactory.getLog(AdapterDocQueryDeferredRequestErrorProxyNoOpImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets, String errMsg) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, String errMsg) {
         log.debug("Using NoOp Implementation for Adapter Doc Query Deferred Request Error Service");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

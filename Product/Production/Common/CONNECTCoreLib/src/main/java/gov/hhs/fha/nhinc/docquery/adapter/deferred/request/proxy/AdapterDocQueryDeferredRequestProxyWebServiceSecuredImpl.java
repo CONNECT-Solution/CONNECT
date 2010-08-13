@@ -96,7 +96,7 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
         return cachedService;
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         DocQueryAcknowledgementType response = null;
 
@@ -112,10 +112,6 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
             else if(assertion == null)
             {
                 log.error("AssertionType was null");
-            }
-            else if(targets == null)
-            {
-                log.error("NhinTargetCommunitiesType was null");
             }
             else if(port == null)
             {

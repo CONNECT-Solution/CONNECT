@@ -104,7 +104,7 @@ public class NhinDocQueryDeferredRequestOrchImpl {
 
         AdapterDocQueryDeferredRequestErrorProxyObjectFactory factory = new AdapterDocQueryDeferredRequestErrorProxyObjectFactory();
         AdapterDocQueryDeferredRequestErrorProxy proxy = factory.getAdapterDocQueryDeferredRequestErrorProxy();
-        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null, errMsg);
+        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, errMsg);
 
         // Audit the incoming Adapter Message
         ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
@@ -121,7 +121,7 @@ public class NhinDocQueryDeferredRequestOrchImpl {
         AdapterDocQueryDeferredRequestProxyObjectFactory factory = new AdapterDocQueryDeferredRequestProxyObjectFactory();
         AdapterDocQueryDeferredRequestProxy proxy = factory.getAdapterDocQueryDeferredRequestProxy();
 
-        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, null);
+        DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion);
 
         // Audit the incoming Adapter Message
         ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);

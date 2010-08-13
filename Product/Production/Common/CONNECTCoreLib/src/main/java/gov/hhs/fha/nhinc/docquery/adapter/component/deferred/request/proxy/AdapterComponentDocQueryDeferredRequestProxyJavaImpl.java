@@ -20,9 +20,9 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterComponentDocQueryDeferredRequestProxyJavaImpl implements AdapterComponentDocQueryDeferredRequestProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocQueryDeferredRequestProxyJavaImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Component Doc Query Deferred Request Service");
-        return new AdapterComponentDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion, targets);
+        return new AdapterComponentDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion);
     }
 
 }
