@@ -314,7 +314,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterMpiSecured">
-      <implementation-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpiSecured.wsdl</local-wsdl-file>
       <service-name>AdapterMpiSecuredService</service-name>
@@ -338,7 +338,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterMpi">
-      <implementation-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpi</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpi.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpi.wsdl</local-wsdl-file>
       <service-name>AdapterMpiService</service-name>
