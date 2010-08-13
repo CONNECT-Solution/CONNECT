@@ -198,6 +198,8 @@
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${com.sun.aas.instanceRoot}/config/nhin</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
+        <jvm-options>-Djavax.net.ssl.keyStoreType=JKS</jvm-options>
+        <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
         <jvm-options>-Dcom.sun.net.ssl.checkRevocation=true</jvm-options>
         <jvm-options>-Dcom.sun.security.enableCRLDP=true</jvm-options>
         <jvm-options>-Djava.security.debug=certpath</jvm-options>
