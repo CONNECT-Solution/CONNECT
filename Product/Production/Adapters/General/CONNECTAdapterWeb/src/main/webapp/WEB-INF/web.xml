@@ -233,11 +233,20 @@
 
     <servlet>
         <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscoverySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
         <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscovery</servlet-name>
+        <url-pattern>/AdapterPatientDiscovery</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -224,7 +224,7 @@
 			<service>
 				<name>adapterpatientdiscovery</name>
 				<description>Adapter Patient Discovery</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscovery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>adapterpatientdiscoverysecured</name>
@@ -1191,7 +1191,7 @@
 			<service>
 				<name>adapterpatientdiscovery</name>
 				<description>Adapter Patient Discovery</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscovery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>adapterpatientdiscoverysecured</name>
@@ -2496,7 +2496,7 @@
 			<service>
 				<name>adapterpatientdiscovery</name>
 				<description>Adapter Patient Discovery</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscovery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>adapterpatientdiscoverysecured</name>

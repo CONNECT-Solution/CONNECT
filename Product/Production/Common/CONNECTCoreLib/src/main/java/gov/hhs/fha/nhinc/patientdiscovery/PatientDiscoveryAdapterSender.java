@@ -13,8 +13,8 @@ import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.Adap
 import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory;
 import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.proxy.AdapterPatientDiscoveryAsyncRespProxy;
 import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.proxy.AdapterPatientDiscoveryAsyncRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryProxy;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import org.hl7.v3.AsyncAdapterPatientDiscoveryErrorRequestType;
@@ -38,7 +38,7 @@ public class PatientDiscoveryAdapterSender {
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
-        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(), adapterReq.getAssertion(), adapterReq.getNhinTargetCommunities());
+        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(), adapterReq.getAssertion());
 
         return adapterResp;
     }

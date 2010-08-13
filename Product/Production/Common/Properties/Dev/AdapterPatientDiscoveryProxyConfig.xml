@@ -2,13 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	<!-- Default facade implementation -->
-    <!-- <bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryNoOpImpl"/> -->
+	<!-- No Op implementation -->
+  <!-- <bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyNoOpImpl"/> -->
 	
+	<!-- Java implementation -->
+  <!-- <bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyJavaImpl"/> -->
+
       
 	<!-- Web- Secured Service implementation -->
- 	<!--    <bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceSecuredProxy"/>    -->  
+ 	<bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyWebServiceSecuredImpl"/>
   
-  <!-- Web- Secured Service implementation -->
-     <bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy.AdapterPatientDiscoveryWebServiceUnSecuredProxy"/>     
+  <!-- Web- Unsecured Service implementation -->
+  <!--   <bean id="adapterpatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl"/>      -->
 </beans>

@@ -39,7 +39,7 @@
 		</operation>
 	</portType>
 	<binding name="AdapterMpiSecuredPortTypeBinding" type="tns:AdapterMpiSecuredPortType">
-    <wsp1:PolicyReference URI="#AdapterMpiSecuredPortTypeBindingPolicy"/>
+    <wsp:PolicyReference URI="#AdapterMpiSecuredPortTypeBindingPolicy"/>
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="FindCandidates">
 			<soap:operation soapAction="FindCandidates"/>
@@ -66,9 +66,9 @@
              services. The partner link type can have one or two roles.-->
 		<plnk:role name="AdapterMpiPortTypeRole" portType="tns:AdapterMpiSecuredPortType"/>
 	</plnk:partnerLinkType>
-  <wsp1:Policy wsu:Id="AdapterMpiSecuredPortTypeBindingPolicy">
-      <wsp1:ExactlyOne>
-          <wsp1:All>
+  <wsp:Policy wsu:Id="AdapterMpiSecuredPortTypeBindingPolicy">
+      <wsp:ExactlyOne>
+          <wsp:All>
               <sc1:KeyStore wspp:visibility="private"
                   aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector"
                   callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
@@ -79,7 +79,7 @@
                   <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
               </sc1:CallbackHandlerConfiguration>
 
-          </wsp1:All>
-      </wsp1:ExactlyOne>
-  </wsp1:Policy>
+          </wsp:All>
+      </wsp:ExactlyOne>
+  </wsp:Policy>
 </definitions>
