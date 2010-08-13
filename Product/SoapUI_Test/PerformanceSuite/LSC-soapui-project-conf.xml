@@ -7,4 +7,18 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
     </testProperties>
   </test>
+  <test name="DocQuery-NoResults(1tx2r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="2">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
+  <test name="DocQuery-NoResults(1tx5r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="5">
+    <testProperties filename="LSC-soapui-project.properties">
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
+    </testProperties>
+  </test>
 </tests>
