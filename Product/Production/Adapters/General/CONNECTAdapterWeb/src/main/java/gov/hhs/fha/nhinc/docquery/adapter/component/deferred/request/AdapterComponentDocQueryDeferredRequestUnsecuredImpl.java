@@ -22,6 +22,6 @@ public class AdapterComponentDocQueryDeferredRequestUnsecuredImpl {
             body.getAssertion().setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
-        return new AdapterComponentDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), body.getAssertion(), null);
+        return new AdapterComponentDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), body.getAssertion());
     }
 }
