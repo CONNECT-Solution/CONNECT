@@ -408,7 +408,17 @@
 				<name>nhinadmindist</name>
 				<description>Administrative Distribution Service</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
-			</service>		                
+			</service>	
+			<service>
+				<name>passthrudocquerydeferredrequest</name>
+				<description>Unsecure Passthru Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>passthrudocquerydeferredrequestsecured</name>
+				<description>Secured Passthru Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+			</service>
       </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -812,7 +822,17 @@
 				<name>nhinadmindist</name>
 				<description>Administrative Distribution Service</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
-			</service>		            
+			</service>		       
+			<service>
+				<name>passthrudocquerydeferredrequest</name>
+				<description>Unsecure Passthru Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>passthrudocquerydeferredrequestsecured</name>
+				<description>Secured Passthru Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -1198,7 +1218,17 @@
 				<name>nhinadmindist</name>
 				<description>Administrative Distribution Service</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
-			</service>					
+			</service>		
+			<service>
+				<name>passthrudocquerydeferredrequest</name>
+				<description>Unsecure Passthru Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>passthrudocquerydeferredrequestsecured</name>
+				<description>Secured Passthru Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>

@@ -11,8 +11,6 @@ import gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferr
 import gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxyObjectFactory;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 
@@ -30,24 +28,24 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
     public gov.hhs.healthit.nhin.DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest adhocQueryRequest,
                                                     AssertionType assertion, NhinTargetSystemType target) {
 
-        getLogger().debug("Beginning of NhincDocQueryDeferredRequestOrchImpl.crossGatewayQueryRequest");
+        getLogger().debug("Beginning of PassthruDocQueryDeferredRequestOrchImpl.crossGatewayQueryRequest");
 
         AcknowledgementType ack = null;
         DocQueryAcknowledgementType docQueryAcknowledgement = null;
 
         if (adhocQueryRequest == null) {
             getLogger().error("adhocQueryRequest is null");
-            return createErrorAckResponse("adhocQueryRequest is null");
+            return createFailureAck();
         }
 
         if (assertion == null) {
             getLogger().error("assertion is null");
-            return createErrorAckResponse("assertion is null");
+            return createFailureAck();
         }
 
         if (target == null) {
             getLogger().error("target is null");
-            return createErrorAckResponse("target is null");
+            return createFailureAck();
         }
 
         // Log the incoming request -- Audit Logging
@@ -64,15 +62,13 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
 
         if (docQueryAcknowledgement == null){
             getLogger().error("docQueryAcknowledgement response returned by NhinDocQueryDefferedRequest service is null");
-            return createErrorAckResponse("docQueryAcknowledgement response returned by NhinDocQueryDefferedRequest service is null");
-        }
-        else{
-            // Audit log the response
-            ack = getDocQueryAuditLogger().logDocQueryAck(docQueryAcknowledgement, assertion,
-                              NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            docQueryAcknowledgement = createFailureAck();
         }
 
-        getLogger().debug("End of NhincDocQueryDeferredRequestOrchImpl.crossGatewayQueryRequest");
+        ack = getDocQueryAuditLogger().logDocQueryAck(docQueryAcknowledgement, assertion,
+                              NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
+        getLogger().debug("End of PassthruDocQueryDeferredRequestOrchImpl.crossGatewayQueryRequest");
         
         return docQueryAcknowledgement;
     }
@@ -98,26 +94,6 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
     }
 
     /**
-     *
-     * @param errorContext
-     * @return DocRetrieveAcknowledgementType
-     */
-    private DocQueryAcknowledgementType createErrorAckResponse(String errorContext) {
-        DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
-        RegistryResponseType responseType = new RegistryResponseType();
-        ack.setMessage(responseType);
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-        RegistryErrorList regErrList = new RegistryErrorList();
-        responseType.setRegistryErrorList(regErrList);
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(errorContext);
-        regErr.setErrorCode("XDSRepositoryError");
-        regErr.setSeverity("Error");
-        return ack;
-    }
-
-    /**
      * This method uses Nhin Component proxy to call Nhin service
      *
      * @return
@@ -125,11 +101,25 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
     protected DocQueryAcknowledgementType callNhinDocQueryDeferredService(AdhocQueryRequest adhocQueryRequest,
                                                     AssertionType assertion, NhinTargetSystemType target){
 
+        getLogger().debug("Beginning of PassthruDocQueryDeferredRequestOrchImpl.callNhinDocQueryDeferredService");
+
         NhinDocQueryDeferredRequestProxyObjectFactory factory = new NhinDocQueryDeferredRequestProxyObjectFactory();
         NhinDocQueryDeferredRequestProxy proxy = factory.getNhinDocQueryDeferredRequestProxy();
         DocQueryAcknowledgementType respAck = proxy.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, target);
 
+        getLogger().debug("End of PassthruDocQueryDeferredRequestOrchImpl.callNhinDocQueryDeferredService");
+
         return respAck;
     }
+
+    private DocQueryAcknowledgementType createFailureAck(){
+        DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
+        respAck.setMessage(regResp);
+
+        return respAck;
+    }
+
 
 }

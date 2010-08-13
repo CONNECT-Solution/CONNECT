@@ -8,6 +8,25 @@
         <servlet-name>NhincProxyDocQuerySecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
     </servlet-mapping>
+
+    <!-- Passthru DocQuery Deferred Request servlet mapping -->
+    <servlet>
+        <servlet-name>PassthruDocQueryDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PassthruDocQueryDeferredRequestSecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocQueryDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PassthruDocQueryDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PassthruDocQueryDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocQueryDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>PassthruDocQueryDeferredResponseSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured</servlet-class>

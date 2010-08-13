@@ -23,7 +23,7 @@ public class PassthruDocQueryDeferredRequestProxyNoOpImpl implements PassthruDoc
 
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
+        regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG);
         ack.setMessage(regResp);
 
         return ack;

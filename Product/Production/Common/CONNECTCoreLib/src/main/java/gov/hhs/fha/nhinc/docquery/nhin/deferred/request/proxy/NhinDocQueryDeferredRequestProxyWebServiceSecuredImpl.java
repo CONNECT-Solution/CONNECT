@@ -11,7 +11,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredRequestPortType;
-import ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredResponsePortType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -97,7 +96,7 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
 
         try
         {
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            String url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
             RespondingGatewayQueryDeferredRequestPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(msg == null)
@@ -118,7 +117,7 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
             }
             else
             {
-                response = (DocQueryAcknowledgementType)getWebServiceProxyHelper().invokePort(port, RespondingGatewayQueryDeferredResponsePortType.class, "respondingGatewayCrossGatewayQuery", msg);
+                response = (DocQueryAcknowledgementType)getWebServiceProxyHelper().invokePort(port, RespondingGatewayQueryDeferredRequestPortType.class, "respondingGatewayCrossGatewayQuery", msg);
             }
         }
         catch (Exception ex)

@@ -384,6 +384,16 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>passthrudocquerydeferredrequest</name>
+				<description>Unsecure Passthru Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>passthrudocquerydeferredrequestsecured</name>
+				<description>Secured Passthru Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+			</service>
                 
       </services>
     </internalConnectionInfo>
@@ -764,6 +774,16 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>passthrudocquerydeferredrequest</name>
+				<description>Unsecure Passthru Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>passthrudocquerydeferredrequestsecured</name>
+				<description>Secured Passthru Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+			</service>
             
         </services>
     </internalConnectionInfo>
@@ -1126,6 +1146,17 @@
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
 			</service>
+			<service>
+				<name>passthrudocquerydeferredrequest</name>
+				<description>Unsecure Passthru Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>passthrudocquerydeferredrequestsecured</name>
+				<description>Secured Passthru Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+			</service>
+			
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
