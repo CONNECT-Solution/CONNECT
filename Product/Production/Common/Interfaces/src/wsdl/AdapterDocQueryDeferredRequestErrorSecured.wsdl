@@ -12,7 +12,7 @@
 			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
 		</xsd:schema>
 	</types>
-	<message name="RespondingGateway_CrossGatewayQueryRequestErrorMessage">
+	<message name="RespondingGateway_CrossGatewayQueryRequestErrorSecuredMessage">
 		<part name="body" element="nccommonadapter:AdapterDocumentQueryDeferredRequestErrorSecured"/>
 	</message>
 	<message name="RespondingGateway_CrossGatewayQueryResponseMessage">
@@ -20,7 +20,7 @@
 	</message>
 	<portType name="AdapterDocQueryDeferredRequestErrorSecuredPortType">
 		<operation name="RespondingGateway_CrossGatewayQuery">
-			<input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:RespondingGateway_CrossGatewayQueryRequestErrorMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryRequestErrorMessage"/>
+			<input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:RespondingGateway_CrossGatewayQueryRequestErrorSecuredMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryRequestErrorMessage"/>
 			<output name="RespondingGateway_CrossGatewayQueryResponse" message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryResponseMessage"/>
 		</operation>
 	</portType>
