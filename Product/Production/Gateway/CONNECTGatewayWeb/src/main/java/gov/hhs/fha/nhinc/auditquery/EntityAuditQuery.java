@@ -4,8 +4,8 @@
  */
 package gov.hhs.fha.nhinc.auditquery;
 
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType;
