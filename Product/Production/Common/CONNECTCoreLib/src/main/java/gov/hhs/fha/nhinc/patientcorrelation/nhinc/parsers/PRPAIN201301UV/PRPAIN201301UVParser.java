@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.patientcorrelationservice.parsers.PRPAIN201301UV;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV;
 
 import java.util.List;
 import org.apache.commons.logging.Log;

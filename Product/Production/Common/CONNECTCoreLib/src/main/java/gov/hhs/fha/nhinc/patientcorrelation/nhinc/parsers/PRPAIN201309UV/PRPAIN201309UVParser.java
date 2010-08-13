@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.patientcorrelationservice.parsers.PRPAIN201309UV;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
@@ -12,17 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CS;
 import org.hl7.v3.II;
-import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
-import org.hl7.v3.MFMIMT700711UV01QueryAck;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201310UV02;
-import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject2;
-import org.hl7.v3.PRPAMT201304UV02Patient;
-import org.hl7.v3.PRPAMT201304UV02Person;
 import org.hl7.v3.PRPAMT201307UV02DataSource;
 import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;

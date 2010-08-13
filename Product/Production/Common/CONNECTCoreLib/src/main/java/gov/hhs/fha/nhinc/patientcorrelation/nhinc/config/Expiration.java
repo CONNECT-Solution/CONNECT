@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.patientcorrelationservice.config;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
 
 /**
  *

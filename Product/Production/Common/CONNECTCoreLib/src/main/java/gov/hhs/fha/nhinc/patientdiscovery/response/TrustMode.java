@@ -104,7 +104,7 @@ public class TrustMode implements ResponseMode {
 
                 PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
                 PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
-                patCorrelationProxy.addPatientCorrelation(request, assertion, null);
+                patCorrelationProxy.addPatientCorrelation(request, assertion);
             }
         }
     }

@@ -100,7 +100,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
     }
 
 
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg, AssertionType assertion) {
         log.debug("Begin retrievePatientCorrelations");
         RetrievePatientCorrelationsResponseType response = new RetrievePatientCorrelationsResponseType();
         RetrievePatientCorrelationsSecuredResponseType securedResp = new RetrievePatientCorrelationsSecuredResponseType();
@@ -139,7 +139,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
         return response;
     }
 
-    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
         log.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();
         AddPatientCorrelationSecuredResponseType securedResp = new AddPatientCorrelationSecuredResponseType();

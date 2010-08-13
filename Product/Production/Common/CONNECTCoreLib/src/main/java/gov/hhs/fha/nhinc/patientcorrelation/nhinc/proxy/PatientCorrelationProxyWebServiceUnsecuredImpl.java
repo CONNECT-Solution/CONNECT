@@ -98,7 +98,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     }
 
 
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg, AssertionType assertion) {
         log.debug("Begin retrievePatientCorrelations");
         RetrievePatientCorrelationsResponseType response = null;
 
@@ -137,7 +137,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
         return response;
     }
 
-    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
         log.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = null;
 

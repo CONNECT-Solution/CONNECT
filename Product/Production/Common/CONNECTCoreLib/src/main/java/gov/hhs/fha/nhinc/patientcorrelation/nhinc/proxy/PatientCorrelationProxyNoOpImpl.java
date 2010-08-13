@@ -5,9 +5,7 @@
 
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -19,13 +17,13 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  */
 public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy {
 
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request, AssertionType assertion, NhinTargetCommunitiesType  targets) {
+    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request, AssertionType assertion) {
         RetrievePatientCorrelationsResponseType resp = new RetrievePatientCorrelationsResponseType();
 
         return resp;
     }
 
-    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion, NhinTargetCommunitiesType  targets) {
+    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion) {
         AddPatientCorrelationResponseType resp = new AddPatientCorrelationResponseType();
 
         return resp;

@@ -180,7 +180,7 @@ public class PatientDiscovery201305Processor {
                 PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
                 PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
 
-                patCorrelationProxy.addPatientCorrelation(request, assertion, null);
+                patCorrelationProxy.addPatientCorrelation(request, assertion);
             }
         } else {
             log.error("Null parameter passed to createPatientCorrelation method, no correlation created");

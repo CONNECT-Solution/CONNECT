@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.patientcorrelationservice.config;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
 import gov.hhs.fha.nhinc.properties.*;
 import java.util.List;
 import java.util.ArrayList;
