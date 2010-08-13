@@ -63,9 +63,21 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
             
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            try
+            {
+                log.debug("invoke port");
+                getWebServiceProxyHelper().invokePort(port, RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
+            }
+            catch(Exception ex)
+            {
+                log.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME + ").  An unexpected exception occurred.  " +
+                        "Exception: " + ex.getMessage(), ex);
+            }
             
 
-            port.sendAlertMessage(body);
+            
+            
         }
 
 
@@ -73,7 +85,7 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
 
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion)
     {
-        WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
+        WebServiceProxyHelper proxyHelper =getWebServiceProxyHelper();
         
         RespondingGatewayAdministrativeDistributionPortType port = null;
         Service cacheService = getService(WSDL_FILE,NAMESPACE_URI, SERVICE_LOCAL_PART);
@@ -88,6 +100,10 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
+    }
+    protected WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        return new WebServiceProxyHelper();
     }
     protected Service getService(String wsdl, String uri, String service)
     {
