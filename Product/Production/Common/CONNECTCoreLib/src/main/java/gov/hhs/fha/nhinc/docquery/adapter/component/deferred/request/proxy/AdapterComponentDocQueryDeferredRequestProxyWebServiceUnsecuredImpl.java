@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy;
 
+import gov.hhs.fha.nhinc.adaptercomponentdocquerydeferredrequest.AdapterComponentDocQueryDeferredRequestPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -20,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author jhoppesc
  */
-public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl {
+public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl implements AdapterComponentDocQueryDeferredRequestProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentdocquerydeferredrequest";
@@ -52,15 +53,15 @@ public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterComponentDocQueryDeferredRequestProxy getPort(String url, String wsAddressingAction, AssertionType assertion)
+    protected AdapterComponentDocQueryDeferredRequestPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
     {
-        AdapterComponentDocQueryDeferredRequestProxy port = null;
+        AdapterComponentDocQueryDeferredRequestPortType port = null;
         Service service = getService();
         if (service != null)
         {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentDocQueryDeferredRequestProxy.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentDocQueryDeferredRequestPortType.class);
             oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else
@@ -98,7 +99,7 @@ public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl
         try
         {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
-            AdapterComponentDocQueryDeferredRequestProxy port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+            AdapterComponentDocQueryDeferredRequestPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if(msg == null)
             {
@@ -118,7 +119,7 @@ public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
 
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterComponentDocQueryDeferredRequestProxy.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, AdapterComponentDocQueryDeferredRequestPortType.class, "respondingGatewayCrossGatewayQuery", request);
             }
         }
         catch (Exception ex)

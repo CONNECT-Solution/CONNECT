@@ -29,7 +29,7 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl imple
     private static final String SERVICE_LOCAL_PART = "AdapterDocQueryDeferredRequestError";
     private static final String PORT_LOCAL_PART = "AdapterDocQueryDeferredRequestErrorPortSoap";
     private static final String WSDL_FILE = "AdapterDocQueryDeferredRequestError.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror:RespondingGateway_CrossGatewayQueryRequestErrorMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror:RespondingGateway_CrossGatewayQueryRequestErrorSecuredMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl()
@@ -99,7 +99,7 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl imple
 
         try
         {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME);
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SECURED_SERVICE_NAME);
             AdapterDocQueryDeferredRequestErrorSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(msg == null)

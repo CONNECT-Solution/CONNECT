@@ -107,7 +107,7 @@ public class NhinDocQueryDeferredRequestOrchImpl {
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion, errMsg);
 
         // Audit the incoming Adapter Message
-        ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         return ackResp;
     }
@@ -124,7 +124,7 @@ public class NhinDocQueryDeferredRequestOrchImpl {
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion);
 
         // Audit the incoming Adapter Message
-        ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditAck (ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         return ackResp;
     }
