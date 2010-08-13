@@ -7,8 +7,7 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRe
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import javax.xml.bind.JAXBElement;
@@ -219,13 +218,13 @@ public class SubjectDiscovery201302Processor {
             }
         }
 
-        if (request.getQualifiedPatientIdentifier().isEmpty() == false) {
-            PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
-            PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
-
-            request.setAssertion(assertion);
-            patCorrelationProxy.addPatientCorrelation(request);
-        }
+//        if (request.getQualifiedPatientIdentifier().isEmpty() == false) {
+//            PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
+//            PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
+//
+//            request.setAssertion(assertion);
+//            patCorrelationProxy.addPatientCorrelation(request);
+//        }
     }
 
     private II isPatientMatch(II remotePatient, PRPAIN201306UV02 localPatient) {
