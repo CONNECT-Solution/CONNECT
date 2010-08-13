@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DocQueryLoadTest-soapui-project-conf.xsd">
-  <test name="PatientDiscovery-NoResults(1tx1r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
+  <test name="DocQuery-NoResults(1tx1r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
     <testProperties filename="LSC-soapui-project.properties">
-      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
-      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
-      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+      <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
+      <property name="DocQuery.PatientId">UNKNOWN</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
     </testProperties>
   </test>
 </tests>
