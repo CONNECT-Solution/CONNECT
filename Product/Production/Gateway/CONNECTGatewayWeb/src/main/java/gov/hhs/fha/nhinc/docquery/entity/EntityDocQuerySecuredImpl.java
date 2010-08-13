@@ -308,7 +308,7 @@ public class EntityDocQuerySecuredImpl {
         PatientCorrelationProxy proxy = factory.getPatientCorrelationProxy();
 
         patientCorrelationReq.setAssertion(assertion);
-        PRPAIN201309UV02 patCorrelationRequest = new PixRetrieveBuilder().createPixRetrieve(patientCorrelationReq);
+        PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(patientCorrelationReq);
 
         results = proxy.retrievePatientCorrelations(patCorrelationRequest, assertion);
 
@@ -326,6 +326,7 @@ public class EntityDocQuerySecuredImpl {
                 QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
                 subId.setAssigningAuthorityIdentifier(id.getRoot());
                 subId.setSubjectIdentifier(id.getExtension());
+                subIdList.add(subId);
             }
             
             // If we are querying ourselves as well then add this community to the list of correlations
