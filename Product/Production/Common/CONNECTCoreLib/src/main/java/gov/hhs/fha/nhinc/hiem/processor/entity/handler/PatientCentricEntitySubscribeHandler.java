@@ -12,9 +12,9 @@ import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration.TopicConfigurationEntry;
-
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import java.util.List;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -23,9 +23,12 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+import org.hl7.v3.II;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
+import java.util.ArrayList;
 
 /**
  * Entity subscribe processor for subscribe messages that are patient related.
@@ -128,7 +131,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
     }
 
     private List<QualifiedSubjectIdentifierType> determineTargets(CMUrlInfos targets) {
-        List<QualifiedSubjectIdentifierType> correlations = null;
+        List<QualifiedSubjectIdentifierType> correlations = new ArrayList<QualifiedSubjectIdentifierType>();
         RetrievePatientCorrelationsRequestType request = new RetrievePatientCorrelationsRequestType();
         request.setQualifiedPatientIdentifier(patientIdentifier);
 
@@ -137,17 +140,29 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
                 request.getTargetHomeCommunity().add(targetCommunity.getHcid());
             }
         }
+        PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(request);
 
-//        PatientCorrelationProxy proxy = new PatientCorrelationProxyObjectFactory().getPatientCorrelationProxy();
-//        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(request);
-//
-//        if (response != null) {
-//            correlations = response.getQualifiedPatientIdentifier();
-//            if (correlations != null) {
-//                for (QualifiedSubjectIdentifierType correlation : correlations) {
-//                }
-//            }
-//        }
+        PatientCorrelationProxy proxy = new PatientCorrelationProxyObjectFactory().getPatientCorrelationProxy();
+        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(patCorrelationRequest, request.getAssertion());
+
+        if (response != null &&
+                response.getPRPAIN201310UV02() != null &&
+                response.getPRPAIN201310UV02().getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+            for (II id : response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) {
+                QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
+                subId.setAssigningAuthorityIdentifier(id.getRoot());
+                subId.setSubjectIdentifier(id.getExtension());
+                correlations.add(subId);
+            }
+
+        }
+
         return correlations;
     }
 
