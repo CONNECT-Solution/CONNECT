@@ -1,8 +1,8 @@
 package gov.hhs.fha.nhinc.hiem.nhin.notify;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
