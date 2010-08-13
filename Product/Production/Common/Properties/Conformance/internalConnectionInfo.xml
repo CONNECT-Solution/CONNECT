@@ -618,7 +618,17 @@
 				<name>nhinadmindist</name>
 				<description>Administrative Distribution Service</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
-			</service>	
+			</service>
+			<service>
+				<name>adapteradmindistsecured</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/Adapter_AdministrativeDistributionSecured</endpointURL>
+			</service>			
+			<service>
+				<name>adapteradmindistsecured</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/Adapter_AdministrativeDistribution</endpointURL>
+			</service>				
 			<service>
 				<name>passthrudocquerydeferredrequest</name>
 				<description>Unsecure Passthru Doc Query Deferred Request</description>

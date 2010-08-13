@@ -790,6 +790,21 @@
 				<description>Secured Entity Doc Query Deferred Response </description>
 				<endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
 			</service>
+			<service>
+				<name>adapteradmindistsecured</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/Adapter_AdministrativeDistributionSecured</endpointURL>
+			</service>			
+			<service>
+				<name>adapteradmindistsecured</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/Adapter_AdministrativeDistribution</endpointURL>
+			</service>							
+			<service>
+				<name>nhinadmindist</name>
+				<description>Administrative Distribution Service</description>
+				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
+			</service>			
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
