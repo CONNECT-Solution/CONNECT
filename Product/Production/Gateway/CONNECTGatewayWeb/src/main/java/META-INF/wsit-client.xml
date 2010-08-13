@@ -42,4 +42,7 @@
 	<import location="NhinDocQueryDeferredResponse.xml" namespace="urn:ihe:iti:xds-b:2007"/>
 	<import location="NhincProxyDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured"/>
 	<import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
+    <import location="AdapterDocRetrieveDeferredReqSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured"/>
+    <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
+    <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
 </definitions>

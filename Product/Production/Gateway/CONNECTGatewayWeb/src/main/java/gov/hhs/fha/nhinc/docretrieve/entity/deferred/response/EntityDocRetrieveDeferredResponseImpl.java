@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceContext;
 public class EntityDocRetrieveDeferredResponseImpl {
 
     /**
-     * 
+     *
      * @param crossGatewayRetrieveResponse
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -32,7 +32,7 @@ public class EntityDocRetrieveDeferredResponseImpl {
     }
 
     /**
-     * 
+     *
      * @param body
      * @return DocRetrieveAcknowledgementType
      */

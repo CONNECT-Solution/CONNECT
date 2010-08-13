@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.nhindocretrievedeferredrequest.RespondingGatewayDeferre
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.service.ServiceUtil;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,6 +41,10 @@ public class NhinDocRetrieveDeferredReqWebServiceImpl implements NhinDocRetrieve
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion) {
         String url = null;
         DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
+        RegistryResponseType resp = new RegistryResponseType();
+
+        resp.setStatus("Success");
+        result.setMessage(resp);
 
         try {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST);

@@ -14,6 +14,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.service.ServiceUtil;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,81 +46,85 @@ public class NhinDocRetrieveDeferredRespWebServiceImpl implements NhinDocRetriev
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
                                                                   AssertionType assertion)
     {
-            String url = null;
-            DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
+        String url = null;
+        DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
+        RegistryResponseType resp = new RegistryResponseType();
 
-            try {
-                url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
-            } catch (ConnectionManagerException ex) {
-                log.error("Error: Failed to retrieve url for service: " +
-                        NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME + " for local home community");
-                log.error(ex.getMessage());
-            }
+        resp.setStatus("Success");
+        result.setMessage(resp);
 
-            if (NullChecker.isNotNullish(url)) {
-                RespondingGatewayDeferredResponseRetrievePortType port = getPort(url);
-
-                SamlTokenCreator tokenCreator = new SamlTokenCreator();
-                Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOCRETRIEVEDEFERRED_RESPONSE_ACTION);
-
-                ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-                result = port.respondingGatewayDeferredResponseCrossGatewayRetrieve(body.getRetrieveDocumentSetResponse());
-            }
-
-            return result;
+        try {
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
+        } catch (ConnectionManagerException ex) {
+            log.error("Error: Failed to retrieve url for service: " +
+                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME + " for local home community");
+            log.error(ex.getMessage());
         }
 
-        protected RespondingGatewayDeferredResponseRetrievePortType getPort(String url) {
+        if (NullChecker.isNotNullish(url)) {
+            RespondingGatewayDeferredResponseRetrievePortType port = getPort(url);
 
-            RespondingGatewayDeferredResponseRetrievePortType port = null;
-            Service service = getService();
-            if(service != null)
-            {
-                log.debug("Obtained service - creating port.");
-                port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayDeferredResponseRetrievePortType.class);
-                setEndpointAddress(port, url);
-            }
-            else
-            {
-                log.error("Unable to obtain serivce - no port created.");
-            }
-            return port;
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOCRETRIEVEDEFERRED_RESPONSE_ACTION);
+
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            result = port.respondingGatewayDeferredResponseCrossGatewayRetrieve(body.getRetrieveDocumentSetResponse());
         }
 
+        return result;
+    }
 
-        protected Service getService()
+    protected RespondingGatewayDeferredResponseRetrievePortType getPort(String url) {
+
+        RespondingGatewayDeferredResponseRetrievePortType port = null;
+        Service service = getService();
+        if(service != null)
         {
-            if(cachedService == null)
-            {
-                try
-                {
-                    cachedService = new ServiceUtil().createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                }
-                catch(Throwable t)
-                {
-                    log.error("Error creating service: " + t.getMessage(), t);
-                }
-            }
-            return cachedService;
+            log.debug("Obtained service - creating port.");
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayDeferredResponseRetrievePortType.class);
+            setEndpointAddress(port, url);
         }
-
-
-        protected void setEndpointAddress(RespondingGatewayDeferredResponseRetrievePortType port, String url)
+        else
         {
-            if(port == null)
+            log.error("Unable to obtain serivce - no port created.");
+        }
+        return port;
+    }
+
+
+    protected Service getService()
+    {
+        if(cachedService == null)
+        {
+            try
             {
-                log.error("Port was null - not setting endpoint address.");
+                cachedService = new ServiceUtil().createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
             }
-            else if((url == null) || (url.length() < 1))
+            catch(Throwable t)
             {
-                log.error("URL was null or empty - not setting endpoint address.");
-            }
-            else
-            {
-                log.info("Setting endpoint address to Document Retrieve Response Secure Service to " + url);
-                ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+                log.error("Error creating service: " + t.getMessage(), t);
             }
         }
+        return cachedService;
+    }
+
+
+    protected void setEndpointAddress(RespondingGatewayDeferredResponseRetrievePortType port, String url)
+    {
+        if(port == null)
+        {
+            log.error("Port was null - not setting endpoint address.");
+        }
+        else if((url == null) || (url.length() < 1))
+        {
+            log.error("URL was null or empty - not setting endpoint address.");
+        }
+        else
+        {
+            log.info("Setting endpoint address to Document Retrieve Response Secure Service to " + url);
+            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        }
+    }
 
 }

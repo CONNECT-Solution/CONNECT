@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.error;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 
@@ -19,7 +20,7 @@ public class AdapterDocRetrieveDeferredReqError {
     @Resource
     private WebServiceContext context;
 
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(RespondingGatewayCrossGatewayRetrieveRequestType body) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(AdapterDocumentRetrieveDeferredRequestErrorType body) {
         return new AdapterDocRetrieveDeferredReqErrorImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
 
