@@ -88,9 +88,22 @@ public class EntityAdminDistSecuredWebServiceImpl {
             message.setEDXLDistribution(body);
             message.setNhinTargetCommunities(target);
 
-            port.sendAlertMessage(message);
+            try
+            {
+                log.debug("invoke port");
+                getWebServiceProxyHelper().invokePort(port, AdministrativeDistributionSecuredPortType.class, "sendAlertMessage", body);
+            }
+            catch(Exception ex)
+            {
+                log.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  " +
+                        "Exception: " + ex.getMessage(), ex);
+            }
         }
 
+    }
+    protected WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        return new WebServiceProxyHelper();
     }
 
 }

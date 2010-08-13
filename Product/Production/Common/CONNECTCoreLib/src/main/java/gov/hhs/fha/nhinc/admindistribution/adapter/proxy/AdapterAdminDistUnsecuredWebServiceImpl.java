@@ -59,9 +59,19 @@ public class AdapterAdminDistUnsecuredWebServiceImpl implements AdapterAdminDist
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
             oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
 
-
-            port.sendAlertMessage(message);
+            try
+            { 
+                getWebServiceProxyHelper().invokePort(port, AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
+            }
+            catch(Exception ex)
+            {
+                log.error("Unable to send message: " + ex.getMessage());
+            }
         }
+    }
+    protected WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        return new WebServiceProxyHelper();
     }
     protected AdapterAdministrativeDistributionPortType getPort(String url) {
         AdapterAdministrativeDistributionPortType port = adapterService.getAdapterAdministrativeDistributionPortType();
