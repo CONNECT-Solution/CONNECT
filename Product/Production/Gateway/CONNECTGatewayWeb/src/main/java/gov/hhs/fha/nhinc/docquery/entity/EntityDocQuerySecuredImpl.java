@@ -10,12 +10,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifiersType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
@@ -36,7 +33,14 @@ import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryResponseType;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
 import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
+import java.util.ArrayList;
 import java.util.HashMap;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
  *
@@ -91,11 +95,6 @@ public class EntityDocQuerySecuredImpl {
             log.error(ex.getMessage());
         }
         return sPropertyValue;
-    }
-
-    protected PatientCorrelationFacadeProxy getPatientCorrelationFacadeProxy() {
-        PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
-        return patCorrelationFactory.getPatientCorrelationFacadeProxy();
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
@@ -153,14 +152,13 @@ public class EntityDocQuerySecuredImpl {
                     NullChecker.isNotNullish(request.getAdhocQueryRequest().getAdhocQuery().getSlot())) {
                 List<SlotType1> slotList = request.getAdhocQueryRequest().getAdhocQuery().getSlot();
 
-                RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted);
+                List<QualifiedSubjectIdentifierType> correlationsResult = retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted);
 
                 // Make sure the valid results back
-                if (correlationsResult != null &&
-                        NullChecker.isNotNullish(correlationsResult.getQualifiedPatientIdentifier())) {
+                if (NullChecker.isNotNullish(correlationsResult)) {
 
                     QualifiedSubjectIdentifiersType subjectIds = new QualifiedSubjectIdentifiersType();
-                    for (QualifiedSubjectIdentifierType subjectId : correlationsResult.getQualifiedPatientIdentifier()) {
+                    for (QualifiedSubjectIdentifierType subjectId : correlationsResult) {
                         if (subjectId != null) {
                             subjectIds.getQualifiedSubjectIdentifier().add(subjectId);
                         }
@@ -188,8 +186,8 @@ public class EntityDocQuerySecuredImpl {
         return response;
     }
 
-    private void sendQueryMessages(String transactionId, RetrievePatientCorrelationsResponseType correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion) {
-        for (QualifiedSubjectIdentifierType subId : correlationsResult.getQualifiedPatientIdentifier()) {
+    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion) {
+        for (QualifiedSubjectIdentifierType subId : correlationsResult) {
             DocQuerySender querySender = new DocQuerySender(transactionId, assertion, subId, queryRequest, localAssigningAuthorityId);
             querySender.sendMessage();
         }
@@ -258,10 +256,11 @@ public class EntityDocQuerySecuredImpl {
         }
     }
 
-    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion, boolean isTargeted) {
+    private List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion, boolean isTargeted) {
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
+        List<QualifiedSubjectIdentifierType> subIdList = new ArrayList<QualifiedSubjectIdentifierType>();
         boolean querySelf = false;
 
         // For each slot process each of the Patient Id slots
@@ -305,23 +304,37 @@ public class EntityDocQuerySecuredImpl {
         }
 
         // Retreive Patient Correlations this patient
-        PatientCorrelationFacadeProxy proxy = getPatientCorrelationFacadeProxy();
+        PatientCorrelationProxyObjectFactory factory = new PatientCorrelationProxyObjectFactory();
+        PatientCorrelationProxy proxy = factory.getPatientCorrelationProxy();
 
-        log.debug("Setting Assertion: " + assertion.getSSN());
         patientCorrelationReq.setAssertion(assertion);
+        PRPAIN201309UV02 patCorrelationRequest = new PixRetrieveBuilder().createPixRetrieve(patientCorrelationReq);
 
-        results = proxy.retrievePatientCorrelations(patientCorrelationReq);
+        results = proxy.retrievePatientCorrelations(patCorrelationRequest, assertion);
 
         // Make sure the response is valid
         if (results != null &&
-                results.getQualifiedPatientIdentifier() != null) {
+                results.getPRPAIN201310UV02() != null &&
+                results.getPRPAIN201310UV02().getControlActProcess() != null &&
+                NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
+                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
+                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+            for (II id : results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) {
+                QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
+                subId.setAssigningAuthorityIdentifier(id.getRoot());
+                subId.setSubjectIdentifier(id.getExtension());
+            }
+            
             // If we are querying ourselves as well then add this community to the list of correlations
             if (querySelf == true) {
-                results.getQualifiedPatientIdentifier().add(patientCorrelationReq.getQualifiedPatientIdentifier());
+                subIdList.add(patientCorrelationReq.getQualifiedPatientIdentifier());
             }
         }
 
-        return results;
+        return subIdList;
     }
 
     private String startTransaction(DocQueryAggregator aggregator, QualifiedSubjectIdentifiersType subjectIds) {

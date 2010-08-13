@@ -24,8 +24,7 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelat
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxy;
 import gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -125,15 +124,15 @@ public class EntitySubjectDiscoveryImpl {
                         patientRetrieveRequest.setAssertion(request.getAssertion());
 
                         // Retreive Patient Correlations this patient
-                        PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
-                        PatientCorrelationFacadeProxy proxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
-                        RetrievePatientCorrelationsResponseType results = proxy.retrievePatientCorrelations(patientRetrieveRequest);
+//                        PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
+//                        PatientCorrelationFacadeProxy proxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
+//                        RetrievePatientCorrelationsResponseType results = proxy.retrievePatientCorrelations(patientRetrieveRequest);
 
-                        if (results.getQualifiedPatientIdentifier().size() > 0) {
-                            patientHasCorrelation = true;
-                            log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- found patientCorrelation");
-                            break;
-                        }
+//                        if (results.getQualifiedPatientIdentifier().size() > 0) {
+//                            patientHasCorrelation = true;
+//                            log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- found patientCorrelation");
+//                            break;
+//                        }
                     }
                 }
 

@@ -281,14 +281,6 @@
         <url-pattern>/GatewayService/PatientCorrelationServiceUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>PatientCorrelationFacadeDteService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte.PatientCorrelationFacadeDteService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PatientCorrelationFacadeDteService</servlet-name>
-        <url-pattern>/GatewayService/PatientCorrelationFacadeDteService</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>GatewayLiftManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.lift.GatewayLiftManager</servlet-class>
     </servlet>
