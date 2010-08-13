@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.auditrepository.proxy;
+package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;

@@ -5,8 +5,8 @@
 package gov.hhs.fha.nhinc.subjectdiscovery;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectAddedMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationRequestMessageType;

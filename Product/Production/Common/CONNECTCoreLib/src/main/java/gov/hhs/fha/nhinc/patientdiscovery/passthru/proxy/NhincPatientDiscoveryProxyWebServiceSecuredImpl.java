@@ -119,7 +119,7 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImpl implements NhincPat
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyPatientDiscoverySecuredPortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
         {

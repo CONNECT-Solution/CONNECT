@@ -1,5 +1,6 @@
-package gov.hhs.fha.nhinc.auditrepository.proxy;
+package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositorySecuredWebServiceProxy;
 import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType;
 import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
