@@ -47,6 +47,10 @@ public class NhinAdminDistOrchImpl {
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion)
     {
         log.info("begin sendAlert");
+        //With the one-way service in a one-machine setup,
+        //we were hanging on the next webservice call.
+        //sleep allows Glassfish to catch up. Only applies to one box (dev)
+        //setups. Please refer to the CONNECT 3.1 Release Notes for more information. 
         this.checkSleep();
         
         AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
@@ -142,8 +146,8 @@ public class NhinAdminDistOrchImpl {
         }
         catch(Exception ex)
         {
-            log.error("Unable to retrieve local home community id from Gateway.properties");
-            log.error(ex);
+            log.warn("Unable to retrieve local home community id from Gateway.properties");
+            log.warn(ex);
         }
         return Long.parseLong(result);
     }

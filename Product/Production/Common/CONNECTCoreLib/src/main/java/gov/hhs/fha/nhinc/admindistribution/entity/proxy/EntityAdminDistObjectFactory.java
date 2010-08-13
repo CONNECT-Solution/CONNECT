@@ -4,21 +4,19 @@
  */
 
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  *
  * @author dunnek
  */
-public class EntityAdminDistObjectFactory {
+public class EntityAdminDistObjectFactory extends ComponentProxyObjectFactory{
     private static final String CONFIG_FILE_NAME = "EntityAdminDistProxyConfig.xml";
     private static final String BEAN_NAME_AUDIT_REPOSITORY = "entityadmindist";
-    private static ApplicationContext context = null;
 
-    static {
-        context = initializeContext();
+    protected String getConfigFileName()
+    {
+        return CONFIG_FILE_NAME;
     }
     /**
      * Retrieve an adapter audit query implementation using the IOC framework.
@@ -28,15 +26,7 @@ public class EntityAdminDistObjectFactory {
      * @return AdapterAuditQueryProxy instance
      */
     public EntityAdminDistProxy getAdapterAuditQueryProxy() {
-        EntityAdminDistProxy result = null;
-
-        
-        result = (EntityAdminDistProxy) context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
-
-        return result;
+        return getBean(BEAN_NAME_AUDIT_REPOSITORY, EntityAdminDistProxy.class);
     }
-    private static ApplicationContext initializeContext()
-    {
-        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
-    }
+
 }

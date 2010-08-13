@@ -70,14 +70,7 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
 
 
     }
-    private RespondingGatewayAdministrativeDistributionPortType getPort(String url) {
-        RespondingGatewayAdministrativeDistributionPortType port = nhinService.getRespondingGatewayAdministrativeDistributionPortType();
 
-        log.info("Setting endpoint address to Nhin Administrative DIstribution Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
-        return port;
-    }
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion)
     {
         WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
