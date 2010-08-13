@@ -2,9 +2,7 @@ package gov.hhs.fha.nhinc.hiem.processor.entity.handler;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
@@ -14,8 +12,7 @@ import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration.TopicConfigurationEntry;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
+
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import java.util.List;
@@ -26,6 +23,8 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -139,16 +138,16 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             }
         }
 
-        PatientCorrelationFacadeProxy patientCorrFacadeProxy = new PatientCorrelationFacadeProxyObjectFactory().getPatientCorrelationFacadeProxy();
-        RetrievePatientCorrelationsResponseType response = patientCorrFacadeProxy.retrievePatientCorrelations(request);
-
-        if (response != null) {
-            correlations = response.getQualifiedPatientIdentifier();
-            if (correlations != null) {
-                for (QualifiedSubjectIdentifierType correlation : correlations) {
-                }
-            }
-        }
+//        PatientCorrelationProxy proxy = new PatientCorrelationProxyObjectFactory().getPatientCorrelationProxy();
+//        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(request);
+//
+//        if (response != null) {
+//            correlations = response.getQualifiedPatientIdentifier();
+//            if (correlations != null) {
+//                for (QualifiedSubjectIdentifierType correlation : correlations) {
+//                }
+//            }
+//        }
         return correlations;
     }
 
