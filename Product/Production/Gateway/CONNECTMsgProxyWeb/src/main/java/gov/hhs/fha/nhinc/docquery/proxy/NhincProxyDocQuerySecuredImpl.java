@@ -4,8 +4,8 @@ import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxy;
-import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
+import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
@@ -67,7 +67,7 @@ public class NhincProxyDocQuerySecuredImpl
             request.setNhinTargetSystem(body.getNhinTargetSystem());
 
             log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
-            response = proxy.respondingGatewayCrossGatewayQuery(request);
+            response = proxy.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(), request.getNhinTargetSystem());
         } catch (Throwable t)
         {
             log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
