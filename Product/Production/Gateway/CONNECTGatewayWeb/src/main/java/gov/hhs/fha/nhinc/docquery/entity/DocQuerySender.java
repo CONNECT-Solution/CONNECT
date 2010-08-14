@@ -15,8 +15,8 @@ import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhindocquery.proxy.NhinDocQueryProxy;
+import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
@@ -129,7 +129,7 @@ public class DocQuerySender {
                 request.setNhinTargetSystem(docQuery.getNhinTargetSystem());
 
                 log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
-                queryResults = proxy.respondingGatewayCrossGatewayQuery(request);
+                queryResults = proxy.respondingGatewayCrossGatewayQuery(docQuery.getAdhocQueryRequest(), oAssertion, docQuery.getNhinTargetSystem());
             } catch (Throwable t) {
                 queryResults = new AdhocQueryResponse();
                 RegistryErrorList regErrList = new RegistryErrorList();
