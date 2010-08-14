@@ -20,11 +20,19 @@
 
     <servlet>
         <servlet-name>AdapterDocQuerySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQuerySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterDocQuerySecured</servlet-name>
         <url-pattern>/AdapterDocQuerySecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocQueryUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryUnsecured</servlet-name>
+        <url-pattern>/AdapterDocQueryUnsecured</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.adapterdocquery;
+package gov.hhs.fha.nhinc.docquery.adapter;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -17,7 +17,7 @@ public class AdapterDocQuerySecured {
     private WebServiceContext context;
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        return new AdapterDocQuerySecuredImpl().respondingGatewayCrossGatewayQuery(body, context);
+        return new AdapterDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 
 }

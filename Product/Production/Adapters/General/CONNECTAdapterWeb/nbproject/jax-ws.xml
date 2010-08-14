@@ -50,11 +50,11 @@
       </wsimport-options>
     </service>
     <service name="AdapterDocQuerySecured">
-      <implementation-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQuerySecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuerySecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocQuerySecured</service-name>
-      <port-name>AdapterDocQuerySecuredPortSoap11</port-name>
+      <port-name>AdapterDocQuerySecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.adapterdocquerysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
@@ -1640,6 +1640,30 @@
       <service-name>AdapterDocQueryDeferredRequestErrorSecured</service-name>
       <port-name>AdapterDocQueryDeferredRequestErrorSecuredPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.adapterdocquerydeferredrequesterrorsecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterDocQueryUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQuery.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQuery</service-name>
+      <port-name>AdapterDocQueryPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
