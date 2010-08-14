@@ -178,7 +178,7 @@ public class NhinDocQueryOrchImpl {
 
         AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
         AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
-        resp = adapterProxy.respondingGatewayCrossGatewayQuery(crossGatewayQueryEventsRequest);
+        resp = adapterProxy.respondingGatewayCrossGatewayQuery(adhocQueryRequestMsg.getAdhocQueryRequest(), adhocQueryRequestMsg.getAssertion());
 
         return resp;
     }

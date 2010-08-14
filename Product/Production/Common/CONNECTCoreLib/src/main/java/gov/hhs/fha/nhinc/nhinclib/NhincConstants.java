@@ -17,6 +17,10 @@ public class NhincConstants {
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     public static final String SPRING_CONFIG_FILE = "ComponentProxyConfig.xml";
+
+    public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
+    public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
+    
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";

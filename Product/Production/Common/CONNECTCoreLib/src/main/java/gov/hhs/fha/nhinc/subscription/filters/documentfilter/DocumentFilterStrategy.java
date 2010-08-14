@@ -4,11 +4,11 @@
  */
 package gov.hhs.fha.nhinc.subscription.filters.documentfilter;
 
-import gov.hhs.fha.nhinc.adapterdocumentregistry.proxy.AdapterDocumentRegistryProxy;
-import gov.hhs.fha.nhinc.adapterdocumentregistry.proxy.AdapterDocumentRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.AdhocQueryMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.RetrieveDocumentSetRequestMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -169,13 +169,13 @@ public class DocumentFilterStrategy {
     }
 
     private ExtrinsicObjectType getDocumentMetadata(DocumentRequest documentIdentifier) throws Exception {
-        AdapterDocumentRegistryProxyObjectFactory factory = new gov.hhs.fha.nhinc.adapterdocumentregistry.proxy.AdapterDocumentRegistryProxyObjectFactory();
-        AdapterDocumentRegistryProxy proxy = factory.getAdapterDocumentRegistryProxy();
+        AdapterComponentDocRegistryProxyObjectFactory factory = new AdapterComponentDocRegistryProxyObjectFactory();
+        AdapterComponentDocRegistryProxy proxy = factory.getAdapterComponentDocRegistryProxy();
 
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
         AdhocQueryRequest adhocQuery = buildAdhocQueryToQueryByDocumentIdentifiers(documentIdentifier);
-        AdhocQueryResponse response = proxy.queryForDocument(adhocQuery, assertion, target);
+        AdhocQueryResponse response = proxy.registryStoredQuery(adhocQuery);
 
         //todo: a little defensive programming needed here
         ExtrinsicObjectType metadata = (ExtrinsicObjectType) response.getRegistryObjectList().getIdentifiable().get(0).getValue();

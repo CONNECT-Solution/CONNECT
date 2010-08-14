@@ -1,6 +1,8 @@
 package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
@@ -35,7 +37,7 @@ public class AdapterDocQueryWebServiceProxyTest
     {
         try
         {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
+            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -60,7 +62,7 @@ public class AdapterDocQueryWebServiceProxyTest
     {
         try
         {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
+            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -84,135 +86,13 @@ public class AdapterDocQueryWebServiceProxyTest
         }
     }
 
-    @Test
-    public void testSetEndpointAddressHappy()
-    {
-        try
-        {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void setEndpointAddress(AdapterDocQuerySecuredPortType port, String url)
-                {
-                    // Do nothing
-                }
-            };
-            AdapterDocQuerySecuredPortType port = mockPort;
-            String url = "url";
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressHappy test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressHappy test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetEndpointAddressNullPort()
-    {
-        try
-        {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).error("Port was null - not setting endpoint address.");
-                }
-            });
-            AdapterDocQuerySecuredPortType port = null;
-            String url = "url";
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressNullPort test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressNullPort test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetEndpointAddressNullURL()
-    {
-        try
-        {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).error("URL was null or empty - not setting endpoint address.");
-                }
-            });
-            AdapterDocQuerySecuredPortType port = mockPort;
-            String url = null;
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressNullURL test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressNullURL test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSetEndpointAddressEmptyURL()
-    {
-        try
-        {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    oneOf(mockLog).error("URL was null or empty - not setting endpoint address.");
-                }
-            });
-            AdapterDocQuerySecuredPortType port = mockPort;
-            String url = "";
-            sut.setEndpointAddress(port, url);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSetEndpointAddressEmptyURL test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSetEndpointAddressEmptyURL test: " + t.getMessage());
-        }
-    }
-
+    
     @Test
     public void testGetPortNullService()
     {
         try
         {
-            AdapterDocQueryWebServiceProxy sut = new AdapterDocQueryWebServiceProxy()
+            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -233,7 +113,7 @@ public class AdapterDocQueryWebServiceProxyTest
                 }
             });
             String url = "url";
-            AdapterDocQuerySecuredPortType port = sut.getPort(url);
+            AdapterDocQuerySecuredPortType port = sut.getPort(url, NhincConstants.DOC_QUERY_ACTION, "urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage", new AssertionType());
             assertNull("Port was not null", port);
         }
         catch(Throwable t)

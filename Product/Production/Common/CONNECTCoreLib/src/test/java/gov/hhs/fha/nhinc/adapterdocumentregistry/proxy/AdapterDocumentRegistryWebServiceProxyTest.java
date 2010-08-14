@@ -2,6 +2,8 @@ package gov.hhs.fha.nhinc.adapterdocumentregistry.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.junit.AfterClass;
@@ -35,15 +37,15 @@ public class AdapterDocumentRegistryWebServiceProxyTest {
     @Test
     public void InvokeMock() throws Exception {
         String url = "http://localhost:8088/mockDocumentRegistry";
-        AdapterDocumentRegistryProxyObjectFactory factory = new AdapterDocumentRegistryProxyObjectFactory();
-        AdapterDocumentRegistryProxy proxy = factory.getAdapterDocumentRegistryProxy();
+        AdapterComponentDocRegistryProxyObjectFactory factory = new AdapterComponentDocRegistryProxyObjectFactory();
+        AdapterComponentDocRegistryProxy proxy = factory.getAdapterComponentDocRegistryProxy();
 
         AdhocQueryRequest adhocQuery = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
         NhinTargetSystemType target = new NhinTargetSystemType();
         target.setUrl(url);
 
-        AdhocQueryResponse response = proxy.queryForDocument(adhocQuery, assertion, target);
+        AdhocQueryResponse response = proxy.registryStoredQuery(adhocQuery);
         assertNotNull(response);
     }
 }
