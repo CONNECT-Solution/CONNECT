@@ -10,6 +10,8 @@
             uri="wsdl/AdapterDocRetrieveSecured/AdapterDocRetrieveSecured.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuthentication.wsdl"
             uri="wsdl/AdapterAuthenticationService/AdapterAuthentication.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl"
+            uri="wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineSecured.wsdl"
             uri="wsdl/AdapterPolicyEngineSecured/AdapterPolicyEngineSecured.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl"

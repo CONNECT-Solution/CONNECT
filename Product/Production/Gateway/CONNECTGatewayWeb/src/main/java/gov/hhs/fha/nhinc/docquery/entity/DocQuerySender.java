@@ -18,8 +18,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
@@ -185,7 +185,7 @@ public class DocQuerySender {
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(checkPolicy);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
         /* if response='permit' */
         if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {
             isValid = true;

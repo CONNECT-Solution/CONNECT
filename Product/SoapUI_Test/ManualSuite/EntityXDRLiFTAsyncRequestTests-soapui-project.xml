@@ -15453,7 +15453,7 @@ assert dir.list().size() == 0 : "Dir: " + dir + " Not empty";</script></con:conf
 def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-06-07T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-06-07T16:35:38Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/07/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-07-07T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityXDRLiFTAuditLog" searchProperties="true" id="439351d4-f41b-410f-855d-e9db39064f58"><con:settings/><con:testStep type="groovy" name="Create Directories"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )

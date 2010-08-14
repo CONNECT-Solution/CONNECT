@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 
@@ -15,5 +16,5 @@ public interface AdapterPEPProxy
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest);
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion);
 }

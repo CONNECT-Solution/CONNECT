@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapterpep.AdapterPEPImpl;
@@ -10,9 +11,19 @@ import org.apache.commons.logging.LogFactory;
  * This is the concrete implementation for the Java based call to the
  * AdapterPEP.
  */
-public class AdapterPEPJavaProxy implements AdapterPEPProxy {
+public class AdapterPEPJavaProxy implements AdapterPEPProxy
+{
+    private Log log = null;
 
-    private static Log log = LogFactory.getLog(AdapterPEPJavaProxy.class);
+    public AdapterPEPJavaProxy()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
 
     /**
      * Given a request to check the access policy, this service will interface
@@ -20,15 +31,16 @@ public class AdapterPEPJavaProxy implements AdapterPEPProxy {
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest) {
-
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
+    {
+        log.debug("Begin AdapterPEPJavaProxy.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
 
         AdapterPEPImpl pepImpl = new AdapterPEPImpl();
 
         try
         {
-            checkPolicyResponse = pepImpl.checkPolicy(checkPolicyRequest);
+            checkPolicyResponse = pepImpl.checkPolicy(checkPolicyRequest, assertion);
         }
         catch (Exception ex)
         {
@@ -38,6 +50,7 @@ public class AdapterPEPJavaProxy implements AdapterPEPProxy {
             throw new RuntimeException(message, ex);
         }
 
+        log.debug("End AdapterPEPJavaProxy.checkPolicy");
         return checkPolicyResponse;
     }
 }

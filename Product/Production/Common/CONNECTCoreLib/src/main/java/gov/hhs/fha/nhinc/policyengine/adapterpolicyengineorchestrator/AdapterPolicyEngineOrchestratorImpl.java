@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxy;
@@ -24,7 +25,7 @@ public class AdapterPolicyEngineOrchestratorImpl
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
     {
         CheckPolicyResponseType checkPolicyResp = new CheckPolicyResponseType();
 
@@ -34,7 +35,7 @@ public class AdapterPolicyEngineOrchestratorImpl
 
         try
         {
-            checkPolicyResp = adapterPEPProxy.checkPolicy(checkPolicyRequest);
+            checkPolicyResp = adapterPEPProxy.checkPolicy(checkPolicyRequest, assertion);
         }
         catch (Exception ex)
         {

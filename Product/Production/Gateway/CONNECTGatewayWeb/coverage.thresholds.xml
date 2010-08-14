@@ -78,7 +78,7 @@
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policydteproxy.PolicyDteWebServiceProxy" linecount="58" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengineproxy.PolicyEngineProxyFactory" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengineproxy.PolicyEngineWebServiceProxy" linecount="26" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="82" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoveryImpl" linecount="234" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="82" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoveryImpl" linecount="235" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="102" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.repository.BaseSubscriptionRepositoryHelper" linecount="243" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionReferenceRepository" linecount="40" linerate="0.0" linesexecuted="0"/>

@@ -22942,7 +22942,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-06-22T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-06-22T14:37:18Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/22/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-07-22T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure Message from the Adapter to nhinc" searchProperties="true" id="4d1f7d5b-63ff-4a77-aa5d-554f4633ba05"><con:settings/><con:testStep type="groovy" name="Set Adapter Mock URL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );

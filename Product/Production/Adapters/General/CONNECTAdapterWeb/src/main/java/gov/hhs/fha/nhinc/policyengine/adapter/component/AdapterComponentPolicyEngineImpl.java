@@ -52,7 +52,7 @@ public class AdapterComponentPolicyEngineImpl
             AssertionType assertion = checkPolicyRequest.getAssertion();
             loadAssertion(assertion, context);
 
-            checkPolicyResp = oOrchestrator.checkPolicy(checkPolicyRequest);
+            checkPolicyResp = oOrchestrator.checkPolicy(checkPolicyRequest, assertion);
         }
         catch (Exception e)
         {

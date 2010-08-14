@@ -29,8 +29,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
@@ -137,7 +137,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
 
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&

@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -23,7 +24,7 @@ public class AdapterPolicyEnginePermitNoOpImpl implements AdapterPolicyEnginePro
      * @return The response which contains the access decision
      */
 
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
     {
         CheckPolicyResponseType oPolicyResponse = new CheckPolicyResponseType();
         ResponseType oResponse = new ResponseType();

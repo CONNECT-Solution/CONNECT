@@ -68275,7 +68275,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:complexContent>
   </xs:complexType>
   <!---->
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://172.16.50.47:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:CheckPolicy" name="CheckPolicy" bindingOperationName="CheckPolicy" type="Request-Response" outputName="CheckPolicyResponse" inputName="CheckPolicyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="EntityPolicyEngineTest TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Reidentification" searchProperties="true" id="0be7e07c-5ae6-4b88-a0ac-2634e98b6eaf"><con:settings/><con:testStep type="groovy" name="Intialize Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://172.16.50.47:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:CheckPolicy" name="CheckPolicy" bindingOperationName="CheckPolicy" type="Request-Response" outputName="CheckPolicyResponse" inputName="CheckPolicyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="EntityPolicyEngineTest TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Reidentification" searchProperties="true" id="0be7e07c-5ae6-4b88-a0ac-2634e98b6eaf"><con:settings/><con:testStep type="groovy" name="Intialize Configurations"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
 </script></con:config></con:testStep><con:testStep type="groovy" name="ModifyInterrnalConnectionInfo"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -68480,7 +68480,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
@@ -68754,7 +68754,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
@@ -68940,7 +68940,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
@@ -69232,7 +69232,7 @@ if(gatewayBakFile.exists()) {
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
@@ -69740,7 +69740,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
@@ -70132,7 +70132,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
@@ -70386,7 +70386,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
+def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
 def InitiatingHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)

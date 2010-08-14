@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectF
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
@@ -17,8 +18,8 @@ import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.FindAuditEventsRequestTy
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -137,18 +138,23 @@ public class AuditQueryImpl {
     private boolean checkPolicy(FindAuditEventsRequestType message) {
         boolean policyIsValid = false;
 
+        AssertionType assertion = null;
         FindAuditEventsEventType policyCheckReq = new FindAuditEventsEventType();
         policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
         gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsMessageType();
-        request.setAssertion(message.getAssertion());
-        request.setFindAuditEvents(message.getFindAuditEvents());
+        if(message != null)
+        {
+            assertion = message.getAssertion();
+            request.setAssertion(assertion);
+            request.setFindAuditEvents(message.getFindAuditEvents());
+        }
         policyCheckReq.setMessage(request);
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyFindAuditEvents(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&

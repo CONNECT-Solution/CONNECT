@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorImpl;
@@ -16,8 +17,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPolicyEngineOrchestratorJavaProxy implements AdapterPolicyEngineOrchestratorProxy
 {
-    private static Log log = LogFactory.getLog(AdapterPolicyEngineOrchestratorJavaProxy.class);
+    private Log log = null;
 
+    public AdapterPolicyEngineOrchestratorJavaProxy()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
 
     /**
      * Given a request to check the access policy, this service will interface
@@ -26,15 +36,16 @@ public class AdapterPolicyEngineOrchestratorJavaProxy implements AdapterPolicyEn
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
     {
+        log.debug("Begin AdapterPolicyEngineOrchestratorJavaProxy.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
 
         AdapterPolicyEngineOrchestratorImpl oOrchestratorImpl = new AdapterPolicyEngineOrchestratorImpl();
 
         try
         {
-            oResponse = oOrchestratorImpl.checkPolicy(checkPolicyRequest);
+            oResponse = oOrchestratorImpl.checkPolicy(checkPolicyRequest, assertion);
         }
         catch (Exception e)
         {
@@ -44,6 +55,7 @@ public class AdapterPolicyEngineOrchestratorJavaProxy implements AdapterPolicyEn
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPolicyEngineOrchestratorJavaProxy.checkPolicy");
         return oResponse;
     }
 

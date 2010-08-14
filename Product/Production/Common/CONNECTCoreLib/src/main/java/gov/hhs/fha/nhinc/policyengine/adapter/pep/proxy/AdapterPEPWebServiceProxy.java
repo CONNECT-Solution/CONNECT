@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -15,8 +16,8 @@ import org.apache.commons.logging.LogFactory;
  * This is the concrete implementation for the Web based call to the
  * AdapterPEP.
  */
-public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
-
+public class AdapterPEPWebServiceProxy implements AdapterPEPProxy
+{
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpep";
@@ -43,24 +44,6 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
         return new WebServiceProxyHelper();
     }
 
-    protected String getEndpointURL()
-    {
-        String endpointURL = null;
-
-        String serviceName = NhincConstants.ADAPTER_PEP_SERVICE_NAME;
-        try
-        {
-            endpointURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        }
-        catch (Exception ex)
-        {
-            log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
-        }
-
-        return endpointURL;
-    }
-    
     /**
      * This method retrieves and initializes the port.
      *
@@ -114,16 +97,30 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
      * @param request The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request) {
-
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request, AssertionType assertion)
+    {
+        log.debug("Begin AdapterPEPWebServiceProxy.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
+        String serviceName = NhincConstants.ADAPTER_PEP_SERVICE_NAME;
 
         try
         {
-            String url = getEndpointURL();
-            AssertionType assertion = request.getAssertion();
-            AdapterPEPPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-            checkPolicyResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPEPPortType.class, "checkPolicy", request);
+            log.debug("Before target system URL look up.");
+            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            if(log.isDebugEnabled())
+            {
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            }
+
+            if (NullChecker.isNotNullish(url))
+            {
+                AdapterPEPPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+                checkPolicyResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPEPPortType.class, "checkPolicy", request);
+            }
+            else
+            {
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+            }
         }
         catch (Exception ex)
         {
@@ -133,6 +130,7 @@ public class AdapterPEPWebServiceProxy implements AdapterPEPProxy{
             throw new RuntimeException(message, ex);
         }
 
+        log.debug("End AdapterPEPWebServiceProxy.checkPolicy");
         return checkPolicyResponse;
     }
 

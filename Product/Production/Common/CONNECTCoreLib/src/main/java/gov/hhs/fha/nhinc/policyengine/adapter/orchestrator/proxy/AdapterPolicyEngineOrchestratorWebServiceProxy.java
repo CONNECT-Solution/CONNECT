@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -43,23 +44,6 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
     protected WebServiceProxyHelper createWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
-    }
-
-    protected String getEndpointURL()
-    {
-        String endpointURL = null;
-        String serviceName = NhincConstants.ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME;
-        try
-        {
-            endpointURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        }
-        catch (Exception ex)
-        {
-            log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
-        }
-
-        return endpointURL;
     }
 
     /**
@@ -116,16 +100,30 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
     {
+        log.debug("Begin AdapterPolicyEngineOrchestratorWebServiceProxy.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
+        String serviceName = NhincConstants.ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME;
 
         try
         {
-            String url = getEndpointURL();
-            AssertionType assertion = checkPolicyRequest.getAssertion();
-            AdapterPolicyEngineOrchestratorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-            oResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
+            log.debug("Before target system URL look up.");
+            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            if(log.isDebugEnabled())
+            {
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            }
+
+            if (NullChecker.isNotNullish(url))
+            {
+                AdapterPolicyEngineOrchestratorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+                oResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
+            }
+            else
+            {
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+            }
         }
         catch (Exception e)
         {
@@ -135,6 +133,7 @@ public class AdapterPolicyEngineOrchestratorWebServiceProxy implements AdapterPo
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPolicyEngineOrchestratorWebServiceProxy.checkPolicy");
         return oResponse;
     }
 

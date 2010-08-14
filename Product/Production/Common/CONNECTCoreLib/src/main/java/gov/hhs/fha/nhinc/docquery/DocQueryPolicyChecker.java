@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.docquery;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
@@ -14,8 +9,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -47,7 +42,7 @@ public class DocQueryPolicyChecker {
         policyReq.setAssertion(assertion);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         //check the policy engine's response, return true if response = permit
         if (policyResp.getResponse() != null &&
@@ -77,7 +72,7 @@ public class DocQueryPolicyChecker {
         policyReq.setAssertion(assertion);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         //check the policy engine's response, return true if response = permit
         if (policyResp.getResponse() != null &&
@@ -107,7 +102,7 @@ public class DocQueryPolicyChecker {
         policyReq.setAssertion(assertion);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         //check the policy engine's response, return true if response = permit
         if (policyResp.getResponse() != null &&
@@ -138,7 +133,7 @@ public class DocQueryPolicyChecker {
         policyReq.setAssertion(assertion);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         //check the policy engine's response, return true if response = permit
         if (policyResp.getResponse() != null &&

@@ -173,8 +173,17 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AdapterPolicyEngine</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPolicyEngine</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterPolicyEngine</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdapterPolicyEngineSecured</servlet-name>
-        <servlet-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPolicyEngineSecured</servlet-name>

@@ -4,14 +4,15 @@ import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import javax.xml.bind.JAXBElement;
@@ -35,6 +36,11 @@ public class SubjectDiscoveryPolicyChecker {
 
     public boolean check201301Policy(PIXConsumerPRPAIN201301UVRequestType message, II patIdOverride) {
         boolean policyIsValid = false;
+        AssertionType assertion = null;
+        if(message != null)
+        {
+            assertion = message.getAssertion();
+        }
         SubjectAddedMessageType request = new SubjectAddedMessageType();
         String roid = message.getPRPAIN201301UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot();
         String soid = message.getPRPAIN201301UV02().getSender().getDevice().getId().get(0).getRoot();
@@ -44,7 +50,7 @@ public class SubjectDiscoveryPolicyChecker {
         JAXBElement<PRPAMT201301UV02Person> patientPerson = HL7PatientTransforms.create201301PatientPerson(message.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().get(0), null, null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(patientPerson, patIdOverride);
         request.setPRPAIN201301UV02(HL7PRPA201301Transforms.createPRPA201301(patient, null, roid, soid));
-        request.setAssertion(message.getAssertion());
+        request.setAssertion(assertion);
 
         // Check to see if the patient id should be overwritten
 //        if (patIdOverride != null) {
@@ -69,7 +75,7 @@ public class SubjectDiscoveryPolicyChecker {
         CheckPolicyRequestType policyReq = policyChecker.checkPolicySubjectAdded(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
@@ -108,11 +114,15 @@ public class SubjectDiscoveryPolicyChecker {
 
     public boolean check201309Policy(PIXConsumerPRPAIN201309UVRequestType message) {
         boolean policyIsValid = false;
-
+        AssertionType assertion = null;
+        if(message != null)
+        {
+            assertion = message.getAssertion();
+        }
         SubjectReidentificationEventType policyCheckReq = new SubjectReidentificationEventType();
         policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
         SubjectReidentificationMessageType request = new SubjectReidentificationMessageType();
-        request.setAssertion(message.getAssertion());
+        request.setAssertion(assertion);
         request.setPRPAIN201309UV02(message.getPRPAIN201309UV02());
         policyCheckReq.setMessage(request);
 
@@ -134,7 +144,7 @@ public class SubjectDiscoveryPolicyChecker {
         CheckPolicyRequestType policyReq = policyChecker.checkPolicySubjectReidentification(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&

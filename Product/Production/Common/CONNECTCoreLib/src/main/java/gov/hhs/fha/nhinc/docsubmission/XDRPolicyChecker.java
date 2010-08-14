@@ -12,8 +12,8 @@ import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseMessageType;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -67,7 +67,12 @@ public class XDRPolicyChecker {
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDRRequest(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        AssertionType assertion = null;
+        if(policyReq != null)
+        {
+            assertion = policyReq.getAssertion();
+        }
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
@@ -99,7 +104,7 @@ public class XDRPolicyChecker {
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDRResponse(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&

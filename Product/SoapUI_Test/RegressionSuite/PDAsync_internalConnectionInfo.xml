@@ -180,7 +180,7 @@
             <service>
                 <name>policyengineservice</name>
                 <description>Policy Engine Service</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</endpointURL>
             </service>
             <service>
                 <name>policyengineservicesecured</name>
@@ -740,7 +740,7 @@
             <service>
                 <name>policyengineservice</name>
                 <description>Policy Engine Service</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</endpointURL>
             </service>
             <service>
                 <name>policyengineservicesecured</name>
@@ -1290,7 +1290,7 @@
 			<service>
 				<name>policyengineservice</name>
 				<description>Policy Engine Service</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</endpointURL>
 			</service>
 			<service>
 				<name>policyengineservicesecured</name>

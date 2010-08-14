@@ -50,7 +50,7 @@ public class AdapterPEPServiceImpl
             AssertionType assertion = checkPolicyRequest.getAssertion();
             loadAssertion(assertion, context);
 
-            checkPolicyResp = adapterPEPImpl.checkPolicy(checkPolicyRequest);
+            checkPolicyResp = adapterPEPImpl.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPImpl.checkPolicy.  Error: " +
                     ex.getMessage();

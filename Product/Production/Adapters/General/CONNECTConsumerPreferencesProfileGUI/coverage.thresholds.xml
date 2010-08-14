@@ -4,7 +4,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.ConsumerPreferencesSearchCriteria" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.PatientSearchCriteria" linecount="16" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.UserSession" linecount="28" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="50" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.AdapterPIPFacade" linecount="85" linerate="0" linesexecuted="0"/>
+<threshold branchcount="56" branchrate="0.08571428571428572" branchsexecuted="4.8" class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.AdapterPIPFacade" linecount="94" linerate="0.07659574468085106" linesexecuted="7.2"/>
 <threshold branchcount="40" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade" linecount="51" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO" linecount="31" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO" linecount="26" linerate="0" linesexecuted="0"/>

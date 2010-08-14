@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
@@ -20,7 +21,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPIPJavaProxy implements AdapterPIPProxy
 {
-    private static Log log = LogFactory.getLog(AdapterPIPJavaProxy.class);
+    private Log log = null;
+
+    public AdapterPIPJavaProxy()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
 
     /**
      * Retrieve the patient consent settings for the given patient ID.
@@ -28,8 +39,9 @@ public class AdapterPIPJavaProxy implements AdapterPIPProxy
      * @param request The patient ID for which the consent is being retrieved.
      * @return The patient consent information for that patient.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request, AssertionType assertion)
     {
+        log.debug("Begin AdapterPIPJavaProxy.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
@@ -46,6 +58,7 @@ public class AdapterPIPJavaProxy implements AdapterPIPProxy
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPIPJavaProxy.retrievePtConsentByPtId");
         return oResponse;
     }
 
@@ -57,8 +70,9 @@ public class AdapterPIPJavaProxy implements AdapterPIPProxy
      * @return The patient consent settings for the patient associated with
      *         the given document identifiers.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion)
     {
+        log.debug("Begin AdapterPIPJavaProxy.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
@@ -75,6 +89,7 @@ public class AdapterPIPJavaProxy implements AdapterPIPProxy
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPIPJavaProxy.retrievePtConsentByPtDocId");
         return oResponse;
     }
 
@@ -85,8 +100,9 @@ public class AdapterPIPJavaProxy implements AdapterPIPProxy
      * @return Status of the storage.  Currently this is either "SUCCESS" or
      *         or the word "FAILED" followed by a ':' followed by the error information.
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request)
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion)
     {
+        log.debug("Begin AdapterPIPJavaProxy.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
@@ -104,6 +120,7 @@ public class AdapterPIPJavaProxy implements AdapterPIPProxy
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPIPJavaProxy.storePtConsent");
         return oResponse;
     }
 

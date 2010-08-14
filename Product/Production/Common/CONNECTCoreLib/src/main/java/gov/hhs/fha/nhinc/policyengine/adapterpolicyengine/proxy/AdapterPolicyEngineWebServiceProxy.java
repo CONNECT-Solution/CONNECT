@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 
 import gov.hhs.fha.nhinc.adapterpolicyengine.AdapterPolicyEngine;
 import gov.hhs.fha.nhinc.adapterpolicyengine.AdapterPolicyEnginePortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineException;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -84,7 +85,7 @@ public class AdapterPolicyEngineWebServiceProxy implements AdapterPolicyEnginePr
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
     {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
 

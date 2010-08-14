@@ -8,8 +8,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.policy.DocRetrieveDeferredTransformHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -132,7 +132,12 @@ public class DocRetrieveDeferredPolicyChecker {
         /* invoke check policy */
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyCheckReq);
+        AssertionType assertion = null;
+        if(policyCheckReq != null)
+        {
+            assertion = policyCheckReq.getAssertion();
+        }
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyCheckReq, assertion);
 
         /* if response='permit' */
         if (policyResp.getResponse() != null &&

@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.adapter.cppgui.servicefacade;
 
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO;
 import gov.hhs.fha.nhinc.adapter.cppgui.*;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
@@ -34,7 +31,12 @@ public class AdapterPIPFacade {
     public String saveConsumerPreferences(StorePtConsentRequestType consentRequest) {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
 
-        StorePtConsentResponseType consentResponse = adapterPIPProxy.storePtConsent(consentRequest);
+        AssertionType assertion = null;
+        if(consentRequest != null)
+        {
+            assertion = consentRequest.getAssertion();
+        }
+        StorePtConsentResponseType consentResponse = adapterPIPProxy.storePtConsent(consentRequest, assertion);
 
         if (consentResponse != null)
         {
@@ -53,7 +55,12 @@ public class AdapterPIPFacade {
 
     public RetrievePtConsentByPtIdResponseType retrieveConsumerPreferences(RetrievePtConsentByPtIdRequestType consentRequest) {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
-        RetrievePtConsentByPtIdResponseType consentResponse = adapterPIPProxy.retrievePtConsentByPtId(consentRequest);
+        AssertionType assertion = null;
+        if(consentRequest != null)
+        {
+            assertion = consentRequest.getAssertion();
+        }
+        RetrievePtConsentByPtIdResponseType consentResponse = adapterPIPProxy.retrievePtConsentByPtId(consentRequest, assertion);
 
         return consentResponse;
     }
@@ -63,8 +70,13 @@ public class AdapterPIPFacade {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
 
         RetrievePtConsentByPtIdRequestType consentReq = createRetrievePtConsentByPtIdRequestType(criteria);
+        AssertionType assertion = null;
+        if(consentReq != null)
+        {
+            assertion = consentReq.getAssertion();
+        }
 
-        RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtId(consentReq);
+        RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtId(consentReq, assertion);
 
         return convertConsentResponseToPatientPreferences(consentResp);
     }

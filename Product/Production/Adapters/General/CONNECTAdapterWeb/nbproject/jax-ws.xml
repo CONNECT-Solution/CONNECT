@@ -122,7 +122,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterPolicyEngineSecured">
-      <implementation-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngineSecured.wsdl</local-wsdl-file>
       <service-name>AdapterPolicyEngineSecured</service-name>

@@ -147,12 +147,13 @@ public class AdapterPEPServiceImplTest
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockAdapterPEPImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)));
+                    oneOf(mockAdapterPEPImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)), with(aNonNull(AssertionType.class)));
                 }
             });
 
             CheckPolicyRequestType request = new CheckPolicyRequestType();
-
+            AssertionType assertion = new AssertionType();
+            request.setAssertion(assertion);
             CheckPolicyResponseType response = sut.checkPolicy(request, mockWebServiceContext);
             assertNotNull("CheckPolicyResponseType was null", response);
         }

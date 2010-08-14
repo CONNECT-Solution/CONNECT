@@ -6,15 +6,12 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdReques
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -25,8 +22,8 @@ import javax.xml.ws.Service;
  *
  * @author Les Westberg
  */
-public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
-
+public class AdapterPIPWebServiceProxy implements AdapterPIPProxy
+{
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpip";
@@ -36,7 +33,6 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
     private static final String WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID = "urn:gov:hhs:fha:nhinc:adapterpip:RetrievePtConsentByPtIdRequest";
     private static final String WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID = "urn:gov:hhs:fha:nhinc:adapterpip:RetrievePtConsentByPtDocIdRequest";
     private static final String WS_ADDRESSING_ACTION_STOREPTCONSENT = "urn:gov:hhs:fha:nhinc:adapterpip:StorePtConsentRequest";
-
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPIPWebServiceProxy()
@@ -53,23 +49,6 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
     protected WebServiceProxyHelper createWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
-    }
-
-    protected String getEndpointURL()
-    {
-        String endpointURL = null;
-        String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
-        try
-        {
-            endpointURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        }
-        catch (Exception ex)
-        {
-            log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
-        }
-
-        return endpointURL;
     }
 
     /**
@@ -90,7 +69,6 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPIPPortType.class);
             oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-//            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
         {
@@ -120,67 +98,46 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
         return cachedService;
     }
 
-//    /**
-//     * Return a handle to the AdapterPIP web service.
-//     *
-//     * @return The handle to the Adapter PIP port web service.
-//     */
-//    private AdapterPIPPortType getAdapterPIPPort()
-//            throws AdapterPIPException {
-//        AdapterPIPPortType oAdapterPIPPort = null;
-//
-//        try {
-//            if (oAdapterPIPService == null) {
-//                oAdapterPIPService = new AdapterPIP();
-//            }
-//
-//            oAdapterPIPPort = oAdapterPIPService.getAdapterPIPPortSoap();
-//
-//            // Get the real endpoint URL for this service.
-//            //--------------------------------------------
-//            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_PIP_SERVICE_NAME);
-//
-//            if (sEndpointURL != null &&
-//                    sEndpointURL.length() > 0) {
-//                ((javax.xml.ws.BindingProvider) oAdapterPIPPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-//            } else {
-//                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-//                        ADAPTER_PIP_SERVICE_NAME + "'.  " +
-//                        "Setting this to: '" + sEndpointURL + "'";
-//                log.error(sErrorMessage);
-//            }
-//        } catch (Exception e) {
-//            String sErrorMessage = "Failed to retrieve a handle to the Adapter PIP web service.  Error: " +
-//                    e.getMessage();
-//            log.error(sErrorMessage, e);
-//            throw new AdapterPIPException(sErrorMessage, e);
-//        }
-//
-//        return oAdapterPIPPort;
-//    }
-
     /**
      * Retrieve the patient consent settings for the given patient ID.
      *
      * @param request The patient ID for which the consent is being retrieved.
      * @return The patient consent information for that patient.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request) {
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request, AssertionType assertion)
+    {
+        log.debug("Begin AdapterPIPWebServiceProxy.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
+        String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
 
         try
         {
-            String url = getEndpointURL();
-            AssertionType assertion = request.getAssertion();
-            AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID, assertion);
-            oResponse = (RetrievePtConsentByPtIdResponseType)oProxyHelper.invokePort(port, AdapterPIPPortType.class, "retrievePtConsentByPtId", request);
-        } catch (Exception e) {
+            log.debug("Before target system URL look up.");
+            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            if(log.isDebugEnabled())
+            {
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            }
+
+            if (NullChecker.isNotNullish(url))
+            {
+                AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID, assertion);
+                oResponse = (RetrievePtConsentByPtIdResponseType) oProxyHelper.invokePort(port, AdapterPIPPortType.class, "retrievePtConsentByPtId", request);
+            }
+            else
+            {
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+            }
+        }
+        catch (Exception e)
+        {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.retrievePtConsentByPtId.  Error: " +
                     e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPIPWebServiceProxy.retrievePtConsentByPtId");
         return oResponse;
     }
 
@@ -192,21 +149,40 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
      * @return The patient consent settings for the patient associated with
      *         the given document identifiers.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request) {
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion)
+    {
+        log.debug("Begin AdapterPIPWebServiceProxy.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
+        String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
 
-        try {
-            String url = getEndpointURL();
-            AssertionType assertion = request.getAssertion();
-            AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID, assertion);
-            oResponse = (RetrievePtConsentByPtDocIdResponseType)oProxyHelper.invokePort(port, AdapterPIPPortType.class, "retrievePtConsentByPtDocId", request);
-        } catch (Exception e) {
+        try
+        {
+            log.debug("Before target system URL look up.");
+            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            if(log.isDebugEnabled())
+            {
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            }
+
+            if (NullChecker.isNotNullish(url))
+            {
+                AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID, assertion);
+                oResponse = (RetrievePtConsentByPtDocIdResponseType) oProxyHelper.invokePort(port, AdapterPIPPortType.class, "retrievePtConsentByPtDocId", request);
+            }
+            else
+            {
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+            }
+        }
+        catch (Exception e)
+        {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.retrievePtConsentByPtDocId.  Error: " +
                     e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPIPWebServiceProxy.retrievePtConsentByPtDocId");
         return oResponse;
     }
 
@@ -217,15 +193,33 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
      * @return Status of the storage.  Currently this is either "SUCCESS" or
      *         or the word "FAILED" followed by a ':' followed by the error information.
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request) {
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion)
+    {
+        log.debug("Begin AdapterPIPWebServiceProxy.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
+        String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
 
-        try {
-            String url = getEndpointURL();
-            AssertionType assertion = request.getAssertion();
-            AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_STOREPTCONSENT, assertion);
-            oResponse = (StorePtConsentResponseType)oProxyHelper.invokePort(port, AdapterPIPPortType.class, "storePtConsent", request);
-        } catch (Exception e) {
+        try
+        {
+            log.debug("Before target system URL look up.");
+            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            if(log.isDebugEnabled())
+            {
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            }
+
+            if (NullChecker.isNotNullish(url))
+            {
+                AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_STOREPTCONSENT, assertion);
+                oResponse = (StorePtConsentResponseType) oProxyHelper.invokePort(port, AdapterPIPPortType.class, "storePtConsent", request);
+            }
+            else
+            {
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+            }
+        }
+        catch (Exception e)
+        {
             String sErrorMessage = "Error occurred calling AdapterPIPWebServiceProxy.storePtConsent.  Error: " +
                     e.getMessage();
             oResponse.setStatus("FAILED: " + sErrorMessage);
@@ -233,6 +227,7 @@ public class AdapterPIPWebServiceProxy implements AdapterPIPProxy {
             throw new RuntimeException(sErrorMessage, e);
         }
 
+        log.debug("End AdapterPIPWebServiceProxy.storePtConsent");
         return oResponse;
     }
 }

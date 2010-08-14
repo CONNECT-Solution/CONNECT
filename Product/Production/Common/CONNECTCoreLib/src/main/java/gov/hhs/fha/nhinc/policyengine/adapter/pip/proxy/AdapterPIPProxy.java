@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
@@ -20,7 +21,7 @@ public interface AdapterPIPProxy
      * @param request The patient ID for which the consent is being retrieved.
      * @return The patient consent information for that patient.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request);
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request, AssertionType assertion);
 
     /**
      * Retrieve the patient consent settings for the patient associated with
@@ -30,7 +31,7 @@ public interface AdapterPIPProxy
      * @return The patient consent settings for the patient associated with
      *         the given document identifiers.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request);
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion);
 
     /**
      * Store the patient consent information into the repository.
@@ -39,6 +40,6 @@ public interface AdapterPIPProxy
      * @return Status of the storage.  Currently this is either "SUCCESS" or
      *         or the word "FAILED" followed by a ':' followed by the error information.
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request);
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion);
 
 }

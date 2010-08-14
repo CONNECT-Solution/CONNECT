@@ -143,12 +143,13 @@ public class AdapterComponentPolicyEngineImplTest
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockAdapterPolicyEngineOrchestratorImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)));
+                    oneOf(mockAdapterPolicyEngineOrchestratorImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)), with(aNonNull(AssertionType.class)));
                 }
             });
 
             CheckPolicyRequestType request = new CheckPolicyRequestType();
-
+            AssertionType assertion = new AssertionType();
+            request.setAssertion(assertion);
             CheckPolicyResponseType response = sut.checkPolicy(request, mockWebServiceContext);
             assertNotNull("CheckPolicyResponseType was null", response);
         }

@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
@@ -7,6 +8,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This is a "NoOp" implementation of the AdapterPIPProxy interface.
@@ -16,6 +19,17 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
  */
 public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
 {
+    private Log log = null;
+
+    public AdapterPIPProxyNoOpImpl()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
 
     /**
      * NO-OP implementation of the RetrievePtConsentByPtId operation.
@@ -26,8 +40,9 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
      * @return A response containing the given assigning authority and patient
      *         ID along with OptIn set to false.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request, AssertionType assertion)
     {
+        log.debug("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
         PatientPreferencesType oPref = new PatientPreferencesType();
         oResponse.setPatientPreferences(oPref);
@@ -54,6 +69,7 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
 
         oPref.setOptIn(false);
 
+        log.debug("End AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
         return oResponse;
     }
 
@@ -64,14 +80,16 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
      * @param request The patient doc ID information for the patient.
      * @return An empty message with the OptIn set to false.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion)
     {
+        log.debug("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
         PatientPreferencesType oPref = new PatientPreferencesType();
         oResponse.setPatientPreferences(oPref);
         oPref.setAssigningAuthority("");
         oPref.setPatientId("");
         oPref.setOptIn(false);
+        log.debug("End AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
         return oResponse;
     }
 
@@ -83,10 +101,12 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
      * @param request Patient consent preferenes to be stored.
      * @return Always returns "SUCCESS".
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request)
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion)
     {
+        log.debug("Begin AdapterPIPProxyNoOpImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         oResponse.setStatus("SUCCESS");
+        log.debug("End AdapterPIPProxyNoOpImpl.storePtConsent");
         return oResponse;
     }
 

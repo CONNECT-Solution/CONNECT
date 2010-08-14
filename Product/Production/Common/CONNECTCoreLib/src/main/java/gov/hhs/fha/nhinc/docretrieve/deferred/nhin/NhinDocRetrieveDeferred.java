@@ -13,8 +13,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -117,7 +117,7 @@ public class NhinDocRetrieveDeferred {
         checkPolicy.setReceivingHomeCommunity(targetCommunity);
 
         policyReq = policyChecker.checkPolicyDocRetrieve(checkPolicy);
-        policyResp = policyProxy.checkPolicy(policyReq);
+        policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         /* if response='permit' */
         if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {

@@ -18,8 +18,6 @@
             uri="wsdl/DocRetrieve/NhinDocRetrieve.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl"
             uri="wsdl/DocRetrieve/NhinDocRetrieve.wsdl"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl"
-            uri="wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl"
             uri="wsdl/NhincComponentAggregator/NhincComponentAggregator.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"

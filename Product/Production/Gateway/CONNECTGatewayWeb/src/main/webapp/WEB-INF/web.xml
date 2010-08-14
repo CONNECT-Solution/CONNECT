@@ -57,14 +57,6 @@
         <url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AdapterPolicyEngine</servlet-name>
-        <servlet-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPolicyEngine</servlet-name>
-        <url-pattern>/AdapterProxyService/AdapterPolicyEngine</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>NhincComponentAggregator</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.gateway.aggregator.NhincComponentAggregator</servlet-class>
     </servlet>

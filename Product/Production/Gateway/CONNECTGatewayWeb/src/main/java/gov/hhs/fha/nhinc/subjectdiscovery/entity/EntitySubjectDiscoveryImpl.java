@@ -1,8 +1,8 @@
 package gov.hhs.fha.nhinc.subjectdiscovery.entity;
 
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationMessageType;
@@ -197,7 +197,8 @@ public class EntitySubjectDiscoveryImpl {
         PRPAIN201310UV02 proxyResponse;
 
         PIXConsumerPRPAIN201309UVRequestType request = new PIXConsumerPRPAIN201309UVRequestType();
-        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        request.setAssertion(assertion);
         request.setNhinTargetCommunities(pixConsumerPRPAIN201309UVRequest.getNhinTargetCommunities());
         request.setPRPAIN201309UV02(pixConsumerPRPAIN201309UVRequest.getPRPAIN201309UV02());
 
@@ -221,7 +222,7 @@ public class EntitySubjectDiscoveryImpl {
         CheckPolicyRequestType policyReq = policyChecker.checkPolicySubjectReidentification(checkPolicy);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         /* if response='permit' */
         if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {

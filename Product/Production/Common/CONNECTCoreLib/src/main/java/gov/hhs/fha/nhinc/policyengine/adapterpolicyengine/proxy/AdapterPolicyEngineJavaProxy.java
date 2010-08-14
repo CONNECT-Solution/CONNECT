@@ -1,12 +1,11 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineImpl;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 
 /**
  * This is the concrete implementation for the Java based call to the
@@ -18,7 +17,6 @@ public class AdapterPolicyEngineJavaProxy implements AdapterPolicyEngineProxy
 {
     private static Log log = LogFactory.getLog(AdapterPolicyEngineJavaProxy.class);
 
-
     /**
      * Given a request to check the access policy, this service will interface
      * with the Adapter Policy Engine to determine if access is to be granted or denied.
@@ -26,7 +24,7 @@ public class AdapterPolicyEngineJavaProxy implements AdapterPolicyEngineProxy
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest)
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
     {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
 
@@ -34,7 +32,7 @@ public class AdapterPolicyEngineJavaProxy implements AdapterPolicyEngineProxy
 
         try
         {
-            oResponse = oPolicyEngineImpl.checkPolicy(checkPolicyRequest);
+            oResponse = oPolicyEngineImpl.checkPolicy(checkPolicyRequest, assertion);
         }
         catch (Exception e)
         {
