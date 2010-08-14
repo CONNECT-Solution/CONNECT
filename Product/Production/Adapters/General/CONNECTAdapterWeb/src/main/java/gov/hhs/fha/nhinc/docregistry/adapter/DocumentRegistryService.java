@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.document;
+package gov.hhs.fha.nhinc.docregistry.adapter;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -28,7 +28,7 @@ public class DocumentRegistryService {
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
     {
-        return new DocumentRegistryHelper().documentRegistryRegistryStoredQuery(body);
+        return new DocumentRegistryImpl().documentRegistryRegistryStoredQuery(body, context);
     }
 
     public org.hl7.v3.MCCIIN000002UV01 documentRegistryPRPAIN201301UV02(org.hl7.v3.PRPAIN201301UV02 body)

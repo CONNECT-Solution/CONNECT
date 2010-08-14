@@ -2,7 +2,7 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="DocumentRegistryService">
-      <implementation-class>gov.hhs.fha.nhinc.document.DocumentRegistryService</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryService</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRegistry.wsdl</local-wsdl-file>
       <service-name>DocumentRegistry_Service</service-name>
