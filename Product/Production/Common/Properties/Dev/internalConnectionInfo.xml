@@ -365,7 +365,7 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerysecured</name>
@@ -1044,7 +1044,7 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerysecured</name>
@@ -1807,7 +1807,7 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquerysecured</name>

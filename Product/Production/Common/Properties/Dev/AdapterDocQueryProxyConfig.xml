@@ -3,8 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryNoOpImpl"/> -->
+    <!-- <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyNoOpImpl"/> -->
+    
+    <!-- Java implementation -->
+     <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl"/> 
 	
-	<!-- Web-service implementation -->
-     <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryWebServiceProxy"/> 
+	<!-- Unsecured Web-service implementation -->
+   <!--  <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceUnsecuredImpl"/> -->
+     
+	<!-- Secured Web-service implementation -->
+  <!--   <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl"/> -->
 </beans>

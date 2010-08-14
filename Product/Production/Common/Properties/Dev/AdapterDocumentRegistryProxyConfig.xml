@@ -3,8 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="adapterdocumentregistry" class="gov.hhs.fha.nhinc.docregistryadapter.proxy.AdapterDocumentRegistryNoOpImpl"/> -->
+  <!--  <bean id="adapterdocumentregistry" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyNoOpImpl"/> -->
+    
+    <!-- Java implementation -->
+     <bean id="adapterdocumentregistry" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyJavaImpl"/> 
 	
 	<!-- Web-service implementation -->
-     <bean id="adapterdocumentregistry" class="gov.hhs.fha.nhinc.adapterdocumentregistry.proxy.AdapterInternalDocumentRegistryWebServiceProxy"/> 
+   <!--  <bean id="adapterdocumentregistry" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl"/> -->
 </beans>
