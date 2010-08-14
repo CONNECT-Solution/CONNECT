@@ -100,7 +100,7 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceSecuredImpl implement
 
         try
         {
-            String url = getWebServiceProxyHelper().getUrlLocalHomeCommunity(NhincConstants.PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
+            String url = getWebServiceProxyHelper().getUrlLocalHomeCommunity(NhincConstants.PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME);
 
             NhincProxyDocQueryDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 

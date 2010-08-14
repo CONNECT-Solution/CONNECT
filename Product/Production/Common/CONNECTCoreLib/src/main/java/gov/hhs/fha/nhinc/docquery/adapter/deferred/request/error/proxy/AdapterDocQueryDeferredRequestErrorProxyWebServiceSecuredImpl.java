@@ -25,11 +25,11 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl imple
 
     private Log log = null;
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocQueryDeferredRequestError";
-    private static final String PORT_LOCAL_PART = "AdapterDocQueryDeferredRequestErrorPortSoap";
-    private static final String WSDL_FILE = "AdapterDocQueryDeferredRequestError.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror:RespondingGateway_CrossGatewayQueryRequestErrorSecuredMessage";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocQueryDeferredRequestErrorSecured";
+    private static final String PORT_LOCAL_PART = "AdapterDocQueryDeferredRequestErrorSecuredPortSoap";
+    private static final String WSDL_FILE = "AdapterDocQueryDeferredRequestErrorSecured.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryRequestErrorSecuredMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl()

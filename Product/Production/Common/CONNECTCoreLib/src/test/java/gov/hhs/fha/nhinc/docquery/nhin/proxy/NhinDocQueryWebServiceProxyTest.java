@@ -1,5 +1,6 @@
-package gov.hhs.fha.nhinc.nhindocquery.proxy;
+package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
@@ -35,7 +36,7 @@ public class NhinDocQueryWebServiceProxyTest
     {
         try
         {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
+            NhinDocQueryProxyWebServiceSecuredImpl sut = new NhinDocQueryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -60,7 +61,7 @@ public class NhinDocQueryWebServiceProxyTest
     {
         try
         {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
+            NhinDocQueryProxyWebServiceSecuredImpl sut = new NhinDocQueryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -90,7 +91,7 @@ public class NhinDocQueryWebServiceProxyTest
     {
         try
         {
-            NhinDocQueryWebServiceProxy sut = new NhinDocQueryWebServiceProxy()
+            NhinDocQueryProxyWebServiceSecuredImpl sut = new NhinDocQueryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
