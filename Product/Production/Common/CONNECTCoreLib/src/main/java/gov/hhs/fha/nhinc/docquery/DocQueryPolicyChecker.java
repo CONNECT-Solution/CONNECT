@@ -1,6 +1,8 @@
 package gov.hhs.fha.nhinc.docquery;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
+import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -20,130 +22,126 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
  * @author JHOPPESC
  */
 public class DocQueryPolicyChecker {
-    /**
-     * Checks to see if the security policy will permit the query to be executed.
-     * @param message The AdhocQuery request message.
-     * @return Returns true if the security policy permits the query; false if denied.
-     */
-    public boolean checkIncomingPolicy(AdhocQueryRequest message, AssertionType assertion) {
-        boolean policyIsValid = false;
 
-        //convert the request message to an object recognized by the policy engine
-        AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType();
-        request.setAssertion(assertion);
-        request.setAdhocQueryRequest(message);
-        policyCheckReq.setMessage(request);
+  /**
+   * Checks to see if the security policy will permit the query to be executed.
+   * @param message The AdhocQuery request message.
+   * @return Returns true if the security policy permits the query; false if denied.
+   */
+  public boolean checkIncomingPolicy(AdhocQueryRequest message, AssertionType assertion) {
+    //convert the request message to an object recognized by the policy engine
+    AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
+    request.setAssertion(assertion);
+    request.setAdhocQueryRequest(message);
 
-        //call the policy engine to check the permission on the request
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(policyCheckReq);
-        policyReq.setAssertion(assertion);
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+    AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
+    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+    policyCheckReq.setMessage(request);
 
-        //check the policy engine's response, return true if response = permit
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
-        {
-            policyIsValid = true;
-        }
+    return checkResponcePolicy(policyCheckReq, assertion);
+  }
 
-        return policyIsValid;
-    }
+  public boolean checkOutgoingPolicy(AdhocQueryRequest message, AssertionType assertion) {
+    //convert the request message to an object recognized by the policy engine
+    AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
+    request.setAssertion(assertion);
+    request.setAdhocQueryRequest(message);
 
-    public boolean checkOutgoingPolicy(AdhocQueryRequest message, AssertionType assertion) {
-        boolean policyIsValid = false;
+    AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
+    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+    policyCheckReq.setMessage(request);
 
-        //convert the request message to an object recognized by the policy engine
-        AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType();
-        request.setAssertion(assertion);
-        request.setAdhocQueryRequest(message);
-        policyCheckReq.setMessage(request);
+    return checkResponcePolicy(policyCheckReq, assertion);
+  }
 
-        //call the policy engine to check the permission on the request
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(policyCheckReq);
-        policyReq.setAssertion(assertion);
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+  public boolean checkIncomingResponsePolicy(AdhocQueryResponse message, AssertionType assertion) {
+    //convert the request message to an object recognized by the policy engine
+    AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
+    request.setAssertion(assertion);
+    request.setAdhocQueryResponse(message);
 
-        //check the policy engine's response, return true if response = permit
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
-        {
-            policyIsValid = true;
-        }
+    AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
+    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+    policyCheckReq.setMessage(request);
 
-        return policyIsValid;
-    }
+    return checkResponsePolicy(policyCheckReq, assertion);
+  }
 
-    public boolean checkIncomingResponsePolicy(AdhocQueryResponse message, AssertionType assertion) {
-        boolean policyIsValid = false;
+  public boolean checkOutgoingResponsePolicy(AdhocQueryResponse message, AssertionType assertion, HomeCommunityType receiverHcid) {
+    //convert the request message to an object recognized by the policy engine
+    AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
+    request.setAssertion(assertion);
+    request.setAdhocQueryResponse(message);
 
-        //convert the request message to an object recognized by the policy engine
-        AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResponseMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResponseMessageType();
-        request.setAssertion(assertion);
-        request.setAdhocQueryResponse(message);
-        policyCheckReq.setMessage(request);
+    AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
+    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+    policyCheckReq.setMessage(request);
+    policyCheckReq.setReceivingHomeCommunity(receiverHcid);
 
-        //call the policy engine to check the permission on the request
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQueryResponse(policyCheckReq);
-        policyReq.setAssertion(assertion);
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+    //call the policy engine to check the permission on the request
+    return checkResponsePolicy(policyCheckReq, assertion);
+  }
 
-        //check the policy engine's response, return true if response = permit
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
-        {
-            policyIsValid = true;
-        }
+  public boolean checkOutgoingRequestPolicy(AdhocQueryRequest message, AssertionType assertion, HomeCommunityType receiverHcid) {
+    //convert the request message to an object recognized by the policy engine
+    AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
+    request.setAssertion(assertion);
+    request.setAdhocQueryRequest(message);
 
-        return policyIsValid;
-    }
+    AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
+    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+    policyCheckReq.setMessage(request);
+    policyCheckReq.setReceivingHomeCommunity(receiverHcid);
 
-    public boolean checkOutgoingResponsePolicy(AdhocQueryResponse message, AssertionType assertion, HomeCommunityType receiverHcid) {
-        boolean policyIsValid = false;
+    //call the policy engine to check the permission on the request
+    return checkResponcePolicy(policyCheckReq, assertion);
+  }
 
-        //convert the request message to an object recognized by the policy engine
-        AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResponseMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResponseMessageType();
-        request.setAssertion(assertion);
-        request.setAdhocQueryResponse(message);
-        policyCheckReq.setMessage(request);
-        policyCheckReq.setReceivingHomeCommunity(receiverHcid);
+  protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryRequestEventType policyCheckReq, AssertionType assertion) {
+    //call the policy engine to check the permission on the request
+    CheckPolicyRequestType policyReq = getPolicyChecker().checkPolicyAdhocQuery(policyCheckReq);
+    policyReq.setAssertion(assertion);
+    return policyReq;
+  }
 
-        //call the policy engine to check the permission on the request
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQueryResponse(policyCheckReq);
-        policyReq.setAssertion(assertion);
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+  protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryResultEventType policyCheckResult, AssertionType assertion) {
+    //call the policy engine to check the permission on the request
+    CheckPolicyRequestType policyReq = getPolicyChecker().checkPolicyAdhocQueryResponse(policyCheckResult);
+    policyReq.setAssertion(assertion);
+    return policyReq;
+  }
 
-        //check the policy engine's response, return true if response = permit
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
-        {
-            policyIsValid = true;
-        }
+  protected boolean checkResponcePolicy(AdhocQueryRequestEventType policyCheckReq, AssertionType assertion) {
+    //call the policy engine to check the permission on the request
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+    return checkPolicy(policyReq, assertion);
+  }
 
-        return policyIsValid;
-    }
+  protected boolean checkResponsePolicy(AdhocQueryResultEventType policyCheckReq, AssertionType assertion) {
+    //call the policy engine to check the permission on the request
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+    return checkPolicy(policyReq, assertion);
+  }
 
+  /**
+   * check the policy engine's response, return true if response = permit
+   * @param policyCheckReq
+   * @param assertion
+   * @return return true if response = permit
+   */
+  protected boolean checkPolicy(CheckPolicyRequestType policyReq, AssertionType assertion) {
+    PolicyEngineProxy policyProxy = getPolicyEngineFactory().getPolicyEngineProxy();
+    CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+    return policyResp.getResponse() != null &&
+           NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
+           policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT;
+  }
+
+  protected PolicyEngineChecker getPolicyChecker() {
+    return new PolicyEngineChecker();
+  }
+
+  protected PolicyEngineProxyObjectFactory getPolicyEngineFactory() {
+    return new PolicyEngineProxyObjectFactory();
+  }
 }

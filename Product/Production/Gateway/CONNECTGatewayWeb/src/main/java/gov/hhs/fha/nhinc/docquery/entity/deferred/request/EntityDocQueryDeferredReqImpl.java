@@ -9,7 +9,7 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- * This abstract class contains common businnes logic for Entity Secure/Unsecure services for Document Query Deferred Request message
+ * This abstract class contains business logic common to Entity Secured and Unsecured services for Document Query Deferred Request message
  * @author Mark Goldman
  */
 public abstract class EntityDocQueryDeferredReqImpl {

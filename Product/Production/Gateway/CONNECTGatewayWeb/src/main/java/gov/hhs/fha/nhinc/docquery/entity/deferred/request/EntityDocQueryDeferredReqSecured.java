@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 
 /**
- * This is an Entity Secure service for Document Query Deferred Request message
+ * This is an Entity Secured service for Document Query Deferred Request message
  * @author Mark Goldman
  */
 @WebService(serviceName = "EntityDocQueryDeferredRequestSecured",
