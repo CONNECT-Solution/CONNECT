@@ -218,7 +218,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorServiceUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
@@ -1033,7 +1033,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorServiceUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
@@ -1868,7 +1868,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorServiceUnsecured</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
