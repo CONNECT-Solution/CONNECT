@@ -50,7 +50,7 @@ public class AdapterDocRetrieveDeferredReqNoOpImplTest {
          // Define mock objects
          //
          final AdapterDocRetrieveDeferredReqProxyNoOpImpl                    mockAdapterDocRetrieveDeferredReqNoOpImpl;
-         final RespondingGatewayCrossGatewayRetrieveSecuredRequestType  mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+         final RetrieveDocumentSetRequestType  mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType;
          final AssertionType                                            mockAssertionType;
          final DocRetrieveAcknowledgementType                           mockAck;
 
@@ -58,7 +58,7 @@ public class AdapterDocRetrieveDeferredReqNoOpImplTest {
          // Define the class to be tested and it's inputs and outputs.
          //
          AdapterDocRetrieveDeferredReqProxyNoOpImpl retrieveRequest;
-         RespondingGatewayCrossGatewayRetrieveSecuredRequestType            req;
+         RetrieveDocumentSetRequestType            req;
          AssertionType                                                      assertionType;
          RetrieveDocumentSetRequestType                                     retrieveDocumentSetRequestType;
          DocRetrieveAcknowledgementType                                     ack;
@@ -67,7 +67,7 @@ public class AdapterDocRetrieveDeferredReqNoOpImplTest {
          // Instantiate the mock objects.
          //
          mockAdapterDocRetrieveDeferredReqNoOpImpl = context.mock(AdapterDocRetrieveDeferredReqProxyNoOpImpl.class);
-         mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType = context.mock(RespondingGatewayCrossGatewayRetrieveSecuredRequestType.class);
+         mockRespondingGatewayCrossGatewayRetrieveSecuredRequestType = context.mock(RetrieveDocumentSetRequestType.class);
          mockAssertionType = context.mock(AssertionType.class);
          mockAck = context.mock(DocRetrieveAcknowledgementType.class);
 
@@ -88,8 +88,7 @@ public class AdapterDocRetrieveDeferredReqNoOpImplTest {
          retrieveRequest = new AdapterDocRetrieveDeferredReqProxyNoOpImpl();
          assertionType = new AssertionType();
          retrieveDocumentSetRequestType = new RetrieveDocumentSetRequestType();
-         req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-         req.setRetrieveDocumentSetRequest(retrieveDocumentSetRequestType);
+         req = new RetrieveDocumentSetRequestType();
 
          //
          // Run the test.

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.deferred.nhin;
+package gov.hhs.fha.nhinc.docretrieve.nhin.deferred;
 
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -112,8 +112,8 @@ public class NhinDocRetrieveDeferred {
         checkPolicyMessage.setAssertion(assertion);
 
         checkPolicy.setMessage(checkPolicyMessage);
-        checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-        checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        checkPolicy.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        checkPolicy.setInterface(NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         checkPolicy.setReceivingHomeCommunity(targetCommunity);
 
         policyReq = policyChecker.checkPolicyDocRetrieve(checkPolicy);
@@ -161,7 +161,7 @@ public class NhinDocRetrieveDeferred {
         response = new DocRetrieveAcknowledgementType();
         responseType = new RegistryResponseType();
         response.setMessage(responseType);
-        responseType.setStatus("Success");
+        responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
 
         return response;
     }
@@ -175,17 +175,10 @@ public class NhinDocRetrieveDeferred {
     protected DocRetrieveAcknowledgementType createErrorResponse(String codeContext) {
         DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
         RegistryResponseType responseType = new RegistryResponseType();
-        RegistryErrorList regErrList = new RegistryErrorList();
-        RegistryError regErr = new RegistryError();
 
         response.setMessage(responseType);
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-        responseType.setRegistryErrorList(regErrList);
+        responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
 
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(codeContext);
-        regErr.setErrorCode("XDSRepositoryError");
-        regErr.setSeverity("Error");
 
         return response;
     }

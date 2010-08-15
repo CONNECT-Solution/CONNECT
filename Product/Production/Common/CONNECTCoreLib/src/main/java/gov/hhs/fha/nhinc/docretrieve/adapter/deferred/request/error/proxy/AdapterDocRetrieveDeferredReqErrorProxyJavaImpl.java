@@ -1,9 +1,9 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorSecuredType;
-import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredReqErrorSecuredImpl;
+import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredReqErrorOrchImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,12 +21,11 @@ public class AdapterDocRetrieveDeferredReqErrorProxyJavaImpl implements AdapterD
          log = LogFactory.getLog(getClass());
      }
 
-     public DocRetrieveAcknowledgementType sendToAdapter(AdapterDocumentRetrieveDeferredRequestErrorSecuredType body,
-                                                         AssertionType assertion) {
+     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg) {
          DocRetrieveAcknowledgementType                 response = new DocRetrieveAcknowledgementType();
-         AdapterDocRetrieveDeferredReqErrorSecuredImpl  errorAdapter = new AdapterDocRetrieveDeferredReqErrorSecuredImpl();
+         AdapterDocRetrieveDeferredReqErrorOrchImpl  errorAdapter = new AdapterDocRetrieveDeferredReqErrorOrchImpl();
 
-         response = errorAdapter.respondingGatewayCrossGatewayRetrieve(body, assertion);
+         response = errorAdapter.respondingGatewayCrossGatewayRetrieve(body, assertion, errMsg);
 
          return response;
      }

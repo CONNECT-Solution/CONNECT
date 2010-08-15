@@ -1,10 +1,6 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * Created by
@@ -12,39 +8,16 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * Date: Jul 26, 2010
  * Time: 1:28:35 PM
  */
-public class AdapterDocRetrieveDeferredReqProxyObjectFactory {
-    private Log log = null;
-
+public class AdapterDocRetrieveDeferredReqProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
-    private static final String BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST = "adapterdocretrievedeferredrequest";
-    private static ApplicationContext context = null;
+    private static final String BEAN_NAME = "adapterdocretrievedeferredrequest";
 
-     public AdapterDocRetrieveDeferredReqProxyObjectFactory()
-     {
-         log = LogFactory.getLog(getClass());
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
 
-         context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
-     }
-
-     /**
-      * Retrieve an adapter audit query implementation using the IOC framework.
-      * This method retrieves the object from the framework that has an
-      * identifier of "nhindocretrievedeferredrequest."
-      *
-      * @return AdapterAuditQueryProxy instance
-      */
-     public AdapterDocRetrieveDeferredReqProxy getDocumentDeferredRequestProxy() {
-
-         AdapterDocRetrieveDeferredReqProxy result = null;
-
-         if (context != null) {
-             result = (AdapterDocRetrieveDeferredReqProxy) context.getBean(BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST);
-         }
-         else {
-             log.error("Could not get context "+ BEAN_NAME_ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST + " from config file " +
-                     PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
-         }
-
-         return result;
-     }
+    public AdapterDocRetrieveDeferredReqProxy getAdapterDocRetrieveDeferredRequestProxy() {
+        return getBean(BEAN_NAME, AdapterDocRetrieveDeferredReqProxy.class);
+    }
+    
 }

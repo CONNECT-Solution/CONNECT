@@ -9,16 +9,14 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGateway
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespProxy;
-import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.NhinDocRetrieveDeferred;
+import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.NhinDocRetrieveDeferred;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractorHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.xml.ws.WebServiceContext;
 
 /**
  * Created by
@@ -62,7 +60,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
         }
 
         auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion,
-                                                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                                                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         return response;
     }
     /**
@@ -78,7 +76,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
         DocRetrieveAcknowledgementType response = null;
         HomeCommunityType hcId = new HomeCommunityType();
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredResponse(request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
+        auditLog.auditDocRetrieveDeferredResponse(request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion);
         String  msg = "Adapter doc retrieve deferred response policy check failed.";
 
         hcId.setHomeCommunityId(homeCommunityId);
@@ -92,7 +90,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
                     ".  Home Community ID = " + hcId + ".";
             log.error(msg);
             auditLog.auditDocRetrieveDeferredAckResponse(createErrorResponse(msg).getMessage(), assertion,
-                                                         NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                                                         NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
             response = createSuccessResponse();
         }
 
@@ -116,7 +114,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
 
         log.debug("Begin DocRetrieveReqImpl.sendDocRetrieveToAgency");
         auditDeferredRetrieveMessage(request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                            NhincConstants.AUDIT_LOG_ADAPTER_ERROR_INTERFACE, assertion);
+                            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion);
 
         proxy = new AdapterDocRetrieveDeferredRespObjectFactory().getDocumentDeferredResponseProxy();
         body = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
@@ -125,7 +123,7 @@ public class NhinDocRetrieveDeferredRespImpl extends NhinDocRetrieveDeferred {
         response = proxy.sendToAdapter(body, assertion);
 
         auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(),
-                                                     assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                                                     assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         log.debug("End DocRetrieveReqImpl.sendDocRetrieveToAgency");
         return response;

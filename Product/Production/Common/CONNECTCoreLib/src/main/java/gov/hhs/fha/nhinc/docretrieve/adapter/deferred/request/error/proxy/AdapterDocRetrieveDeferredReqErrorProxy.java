@@ -1,10 +1,9 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorSecuredType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 
-import javax.xml.ws.WebServiceContext;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
  * Created by
@@ -14,6 +13,5 @@ import javax.xml.ws.WebServiceContext;
  */
 public interface AdapterDocRetrieveDeferredReqErrorProxy {
 
-    public DocRetrieveAcknowledgementType sendToAdapter(AdapterDocumentRetrieveDeferredRequestErrorSecuredType body,
-                                                        AssertionType assertion);
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg);
 }

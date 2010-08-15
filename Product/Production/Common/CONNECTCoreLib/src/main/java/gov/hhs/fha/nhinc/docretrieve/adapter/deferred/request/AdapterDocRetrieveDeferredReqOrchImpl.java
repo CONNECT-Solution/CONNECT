@@ -5,23 +5,23 @@
 
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.xml.ws.WebServiceContext;
 
 /**
  *
  * @author Ralph Saunders
  */
-public class AdapterDocRetrieveDeferredReqImpl {
+public class AdapterDocRetrieveDeferredReqOrchImpl {
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredReqImpl()
+    public AdapterDocRetrieveDeferredReqOrchImpl()
     {
         log = createLogger();
     }
@@ -31,8 +31,7 @@ public class AdapterDocRetrieveDeferredReqImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveRequestType body,
-                                                                                WebServiceContext context)
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion)
     {
         log.debug("Enter AdapterDocRetrieveDeferredReqImpl.respondingGatewayCrossGatewayRetrieve()");
         DocRetrieveAcknowledgementType response = null;

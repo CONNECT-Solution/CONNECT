@@ -97,7 +97,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
         }
         if (null != nhinResponse) {
             // Audit log - response
-            auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+            auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         }
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");

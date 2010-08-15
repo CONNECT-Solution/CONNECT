@@ -8,16 +8,17 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.service.ServiceUtil;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceContext;
 import java.util.Map;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * Created by
@@ -26,72 +27,58 @@ import java.util.Map;
  * Time: 2:37:22 PM
  */
 public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements AdapterDocRetrieveDeferredReqProxy {
+    private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured";
     private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveDeferredRequestSecured";
     private static final String PORT_LOCAL_PART = "AdapterDocRetrieveDeferredRequestSecuredPortSoap";
     private static final String WSDL_FILE = "AdapterDocRetrieveDeferredReqSecured.wsdl";
-    private Log log = null;
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured:CrossGatewayRetrieveRequestSecuredMessage";
+    private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl() {
-        log = LogFactory.getLog(getClass());
+        log = createLogger();
+        oProxyHelper = createWebServiceProxyHelper();
     }
 
-    public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body,
-                                                        AssertionType assertion) {
-        String url = null;
-        DocRetrieveAcknowledgementType result = new DocRetrieveAcknowledgementType();
-
-        try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " +
-                    NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME + " for local home community");
-            log.error(ex.getMessage());
-        }
-
-        if (NullChecker.isNotNullish(url)) {
-            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url);
-
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOCRETRIEVEDEFERRED_REQUEST_ACTION);
-
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            result = port.crossGatewayRetrieveRequest(body);
-        }
-
-        return result;
+    protected Log createLogger() {
+        return LogFactory.getLog(getClass());
     }
 
-    protected AdapterDocRetrieveDeferredRequestSecuredPortType getPort(String url) {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
+        return new WebServiceProxyHelper();
+    }
 
+    /**
+     * This method retrieves and initializes the port.
+     *
+     * @param url The URL for the web service.
+     * @return The port object for the web service.
+     */
+    protected AdapterDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
         AdapterDocRetrieveDeferredRequestSecuredPortType port = null;
         Service service = getService();
-        if(service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
+
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestSecuredPortType.class);
-            setEndpointAddress(port, url);
-        }
-        else
-        {
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
     }
 
-
-    protected Service getService()
-    {
-        if(cachedService == null)
-        {
-            try
-            {
-                cachedService = new ServiceUtil().createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch(Throwable t)
-            {
+    /**
+     * Retrieve the service class for this web service.
+     *
+     * @return The service class for this web service.
+     */
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
+                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -99,21 +86,34 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
     }
 
 
-    protected void setEndpointAddress(AdapterDocRetrieveDeferredRequestSecuredPortType port, String url)
-    {
-        if(port == null)
-        {
-            log.error("Port was null - not setting endpoint address.");
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion) {
+        log.debug("Begin sendToAdapter");
+        DocRetrieveAcknowledgementType response = null;
+
+        try {
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
+            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+
+            if (body == null) {
+                log.error("Message was null");
+            } else if (port == null) {
+                log.error("port was null");
+            } else {
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
+                request.setRetrieveDocumentSetRequest(body);
+
+                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
+            }
+        } catch (Exception ex) {
+            log.error("Error calling crossGatewayRetrieveRequest: " + ex.getMessage(), ex);
+            response = new DocRetrieveAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
-        else if((url == null) || (url.length() < 1))
-        {
-            log.error("URL was null or empty - not setting endpoint address.");
-        }
-        else
-        {
-            log.info("Setting endpoint address to Document Retrieve Request Secure Service to " + url);
-            ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-        }
+
+        log.debug("End sendToAdapter");
+        return response;
     }
 
 }

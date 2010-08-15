@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request;
+package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,10 +18,10 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Ralph Saunders
  */
-public class AdapterDocRetrieveDeferredReqSecuredImpl {
+public class AdapterDocRetrieveDeferredReqErrorOrchImpl {
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredReqSecuredImpl()
+    public AdapterDocRetrieveDeferredReqErrorOrchImpl()
     {
         log = createLogger();
     }
@@ -31,10 +31,9 @@ public class AdapterDocRetrieveDeferredReqSecuredImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body,
-                                                                                AssertionType  assertion)
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg)
     {
-        log.debug("Enter AdapterDocRetrieveDeferredReqSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
+        log.debug("Enter AdapterDocRetrieveDeferredReqErrorImpl.respondingGatewayCrossGatewayRetrieve()");
         DocRetrieveAcknowledgementType response = null;
         RegistryResponseType           responseType;
 
@@ -44,7 +43,7 @@ public class AdapterDocRetrieveDeferredReqSecuredImpl {
         response.setMessage(responseType);
         responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
 
-        log.debug("Leaving AdapterDocRetrieveDeferredReqSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
+        log.debug("Leaving AdapterDocRetrieveDeferredReqErrorImpl.respondingGatewayCrossGatewayRetrieve()");
         return response;
     }
 
