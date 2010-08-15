@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;

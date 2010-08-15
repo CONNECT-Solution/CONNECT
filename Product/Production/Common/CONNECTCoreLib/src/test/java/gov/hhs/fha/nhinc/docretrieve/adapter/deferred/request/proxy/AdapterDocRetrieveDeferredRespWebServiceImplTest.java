@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
