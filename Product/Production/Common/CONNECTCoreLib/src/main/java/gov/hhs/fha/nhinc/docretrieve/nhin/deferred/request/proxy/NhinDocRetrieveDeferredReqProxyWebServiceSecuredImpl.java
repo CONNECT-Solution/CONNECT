@@ -80,10 +80,8 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
         getLogger().debug("Begin respondingGatewayCrossGatewayQuery");
 
-        DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
-        RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
-        response.setMessage(regResp);
+        DocRetrieveAcknowledgementType response = null;
+
 
         try {
             String url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST);
@@ -98,6 +96,10 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
             }
         } catch (Exception ex) {
             getLogger().error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            response = new DocRetrieveAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         getLogger().debug("End respondingGatewayCrossGatewayQuery");

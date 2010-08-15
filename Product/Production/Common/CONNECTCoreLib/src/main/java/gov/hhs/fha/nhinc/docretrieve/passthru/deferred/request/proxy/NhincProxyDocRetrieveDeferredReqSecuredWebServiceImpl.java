@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
@@ -78,6 +79,10 @@ public class NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl implements Nh
         } catch (Exception e) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST);
             log.error(e.getMessage());
+            ack = new DocRetrieveAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
+            ack.setMessage(regResp);
         }
         if (debugEnable) {
             log.debug("-- End NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl.crossGatewayRetrieveRequest() --");

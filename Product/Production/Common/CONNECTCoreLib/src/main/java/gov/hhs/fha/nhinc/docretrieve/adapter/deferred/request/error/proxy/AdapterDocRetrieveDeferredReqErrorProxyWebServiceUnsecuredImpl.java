@@ -98,7 +98,7 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
             {
                 log.error("AssertionType was null");
             }
-            else if (NullChecker.isNotNullish(errMsg)) {
+            else if (NullChecker.isNullish(errMsg)) {
                 log.error("errMsg was null");
             }
             else if(port == null)

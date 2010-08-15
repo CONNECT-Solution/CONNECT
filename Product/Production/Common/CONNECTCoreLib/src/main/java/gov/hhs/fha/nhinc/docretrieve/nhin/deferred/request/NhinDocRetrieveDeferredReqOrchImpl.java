@@ -140,16 +140,12 @@ public class NhinDocRetrieveDeferredReqOrchImpl extends NhinDocRetrieveDeferred 
         DocRetrieveAcknowledgementType response = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         AdapterDocRetrieveDeferredReqErrorProxy proxy;
-        AdapterDocumentRetrieveDeferredRequestErrorSecuredType body;
 
         log.debug("Begin DocRetrieveReqImpl.sendToAgencyErrorInterface");
         auditDeferredRetrieveMessage(request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                                      NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion);
 
         proxy = new AdapterDocRetrieveDeferredReqErrorProxyObjectFactory().getAdapterDocRetrieveDeferredRequestErrorProxy();
-        body = new AdapterDocumentRetrieveDeferredRequestErrorSecuredType();
-        body.setRetrieveDocumentSetRequest(request);
-        body.setErrorMsg(errMsg);
 
         response = proxy.sendToAdapter(request, assertion, errMsg);
 

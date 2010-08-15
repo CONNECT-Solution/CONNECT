@@ -95,7 +95,7 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceSecuredImpl implem
 
             if (body == null) {
                 log.error("Message was null");
-            } else if (NullChecker.isNotNullish(errMsg)) {
+            } else if (NullChecker.isNullish(errMsg)) {
                 log.error("errMsg was null");
             }else if (port == null) {
                 log.error("port was null");

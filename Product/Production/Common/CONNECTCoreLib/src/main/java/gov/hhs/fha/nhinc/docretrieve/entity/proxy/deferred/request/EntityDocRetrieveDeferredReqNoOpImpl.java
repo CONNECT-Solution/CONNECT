@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -25,7 +26,7 @@ public class EntityDocRetrieveDeferredReqNoOpImpl implements EntityDocRetrieveDe
     {
         DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
         RegistryResponseType resp = new RegistryResponseType();
-        resp.setStatus("Success");
+        resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
         ack.setMessage(resp);
         return ack;
     }

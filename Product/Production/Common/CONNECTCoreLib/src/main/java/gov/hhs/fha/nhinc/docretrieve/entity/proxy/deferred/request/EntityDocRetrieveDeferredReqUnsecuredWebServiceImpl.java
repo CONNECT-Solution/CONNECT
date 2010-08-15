@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * Entity Doc Retrieve Deferred Request unsecured webservice implementation call
@@ -88,6 +89,10 @@ public class EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl implements Enti
             }
         } catch (Exception e) {
             log.error("Unable to retrieve endpoint for service name '" + NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST + "' " + e.getMessage());
+            ack = new DocRetrieveAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
+            ack.setMessage(regResp);
         }
         if (enableDebug) {
             log.debug("End unsecure implementation of Entity Doc retrieve Request unsecured");
