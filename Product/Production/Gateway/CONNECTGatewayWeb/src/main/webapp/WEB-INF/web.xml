@@ -33,14 +33,6 @@
         <url-pattern>/EntityService/EntityDocQueryDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AdapterDocQueryService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterDocQueryService</servlet-name>
-        <url-pattern>/AdapterProxyService/AdapterDocQuery</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>AdapterDocRetrieveService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveService</servlet-class>
     </servlet>
