@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.error;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredReqErrorImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 
 import javax.annotation.Resource;
