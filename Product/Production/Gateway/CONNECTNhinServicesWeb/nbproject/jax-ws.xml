@@ -385,6 +385,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinDocRetrieveDeferredRequest">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.NhinDocRetrieveDeferredRequest</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieveDeferredReq.wsdl</wsdl-url>
+      <local-wsdl-file>NhinDocRetrieveDeferredReq.wsdl</local-wsdl-file>
+      <service-name>RespondingGatewayDeferredRequest_Retrieve_Service</service-name>
+      <port-name>RespondingGatewayDeferredRequest_Retrieve_Port_Soap</port-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

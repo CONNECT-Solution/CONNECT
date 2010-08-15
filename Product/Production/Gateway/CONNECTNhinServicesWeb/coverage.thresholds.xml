@@ -42,4 +42,6 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryAdapterSender" linecount="16" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryImpl" linecount="92" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="26" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscoveryPolicyChecker" linecount="60" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.NhinDocRetrieveDeferredRequest" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.NhinDocRetrieveDeferredRequestImpl" linecount="6" linerate="0.0" linesexecuted="0"/>
 </thresholds>

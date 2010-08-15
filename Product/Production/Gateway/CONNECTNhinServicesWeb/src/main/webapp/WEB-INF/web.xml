@@ -106,11 +106,11 @@
     </servlet-mapping>
     <!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
-        <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.deferred.nhin.request.NhinDocRetrieveDeferredReq</servlet-class>
+        <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.NhinDocRetrieveDeferredRequest</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredReq</servlet-name>
+        <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
         <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
     </servlet-mapping>
     <servlet>
