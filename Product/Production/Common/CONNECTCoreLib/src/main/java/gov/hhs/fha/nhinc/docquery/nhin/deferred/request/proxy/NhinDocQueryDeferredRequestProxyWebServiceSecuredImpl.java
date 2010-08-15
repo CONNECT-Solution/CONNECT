@@ -14,6 +14,7 @@ import ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredRequestPortType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -123,6 +124,10 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
         catch (Exception ex)
         {
             getLogger().error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            response = new DocQueryAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         getLogger().debug("End respondingGatewayCrossGatewayQuery");

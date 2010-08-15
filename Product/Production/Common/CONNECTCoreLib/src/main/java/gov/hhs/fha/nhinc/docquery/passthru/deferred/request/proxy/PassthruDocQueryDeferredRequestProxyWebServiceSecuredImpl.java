@@ -15,6 +15,7 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -131,6 +132,10 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceSecuredImpl implement
         catch (Exception ex)
         {
             getLogger().error("Error calling crossGatewayQueryRequest: " + ex.getMessage(), ex);
+            response = new DocQueryAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         getLogger().debug("End crossGatewayQueryRequest");

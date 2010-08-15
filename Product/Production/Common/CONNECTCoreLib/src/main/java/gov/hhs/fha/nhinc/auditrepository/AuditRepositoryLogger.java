@@ -1024,14 +1024,14 @@ public class AuditRepositoryLogger {
      * @param direction
      * @return LogEventRequestType
      */
-    public LogEventRequestType logDocRetrieveAckResponse(RegistryResponseType message, AssertionType assertion, String direction) {
+    public LogEventRequestType logDocRetrieveAckResponse(RegistryResponseType message, AssertionType assertion, String direction, String _interface) {
         log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
         LogEventRequestType auditMsg = null;
 
 
         if (isServiceEnabled()) {
             DocumentRetrieveDeferredTransforms auditTransformer = new DocumentRetrieveDeferredTransforms();
-            auditMsg = auditTransformer.transformAckResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            auditMsg = auditTransformer.transformAckResponseToAuditMsg(message, assertion, direction, _interface);
         }
 
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");

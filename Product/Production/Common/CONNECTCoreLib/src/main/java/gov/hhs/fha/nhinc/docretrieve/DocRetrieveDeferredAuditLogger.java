@@ -166,23 +166,19 @@ public class DocRetrieveDeferredAuditLogger {
      * @param direction
      * @return AcknowledgementType
      */
-    public AcknowledgementType auditDocRetrieveDeferredAckResponse(RegistryResponseType Response, AssertionType assertion, String direction)
+    public AcknowledgementType auditDocRetrieveDeferredAckResponse(RegistryResponseType Response, AssertionType assertion, String direction, String _interface)
     {
         log.debug("Entering DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...)");
         AcknowledgementType ack = new AcknowledgementType ();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveAckResponse(Response, assertion, direction);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveAckResponse(Response, assertion, direction, _interface);
 
         if (auditLogMsg != null) {
-            log.debug("Inside: DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...) - Creating AuditRepositoryProxyObjectFactory object.");
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            log.debug("Inside: DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...) - calling AuditRepositoryProxyObjectFactory.getAuditRepositoryProxy(...)");
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            log.debug("Inside: DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...) - calling AuditRepositoryProxy.auditLog(...)");
             ack = proxy.auditLog(auditLogMsg, assertion);
-            log.debug("Inside: DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...) - returned from calling AuditRepositoryProxy.auditLog(...)");
         }
 
         log.debug("Exiting DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...)");

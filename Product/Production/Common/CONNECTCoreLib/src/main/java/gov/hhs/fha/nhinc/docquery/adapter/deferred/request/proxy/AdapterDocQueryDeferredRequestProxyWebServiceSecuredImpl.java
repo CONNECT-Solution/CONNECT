@@ -103,6 +103,10 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            response = new DocQueryAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         log.debug("End respondingGatewayCrossGatewayQuery");

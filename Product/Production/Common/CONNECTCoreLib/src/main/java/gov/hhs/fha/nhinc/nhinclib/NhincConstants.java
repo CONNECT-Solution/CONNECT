@@ -120,7 +120,6 @@ public class NhincConstants {
     public static final String AUDIT_LOG_ENTITY_INTERFACE = "Entity";
     public static final String AUDIT_LOG_NHIN_INTERFACE = "Nhin";
     public static final String AUDIT_LOG_ADAPTER_INTERFACE = "Adapter";
-    public static final String AUDIT_LOG_ADAPTER_ERROR_INTERFACE = "AdapterError";
     public static final String AUDIT_LOG_SERVICE_PROPERTY = "serviceAuditRepository";
     public static final String AUDIT_LOG_SERVICE_PASSTHRU_PROPERTY = "auditRepositoryPassthrough";
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
@@ -250,6 +249,11 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
+
+    public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
+    public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
+    public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";

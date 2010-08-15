@@ -4,8 +4,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
-import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.proxy.request.NhinDocRetrieveDeferredReqObjectFactory;
-import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.proxy.request.NhinDocRetrieveDeferredReqProxy;
+import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.proxy.NhinDocRetrieveDeferredReqProxy;
+import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.proxy.NhinDocRetrieveDeferredReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -58,22 +58,22 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
                 if (debugEnabled) {
                     log.debug("Creating NHIN doc retrieve proxy");
                 }
-                NhinDocRetrieveDeferredReqObjectFactory objFactory = new NhinDocRetrieveDeferredReqObjectFactory();
-                NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getDocumentDeferredRequestProxy();
+                NhinDocRetrieveDeferredReqProxyObjectFactory objFactory = new NhinDocRetrieveDeferredReqProxyObjectFactory();
+                NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredRequestProxy();
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
                 req.setNhinTargetSystem(target);
                 req.setRetrieveDocumentSetRequest(request);
                 if (debugEnabled) {
                     log.debug("Calling NHIN doc retrieve proxy");
                 }
-                ack = docRetrieveProxy.sendToRespondingGateway(req, assertion);
+                ack = docRetrieveProxy.sendToRespondingGateway(request, assertion, target);
             } catch (Exception ex) {
                 log.error(ex);
                 ack = createErrorAckResponse();
             }
             if (ack != null) {
                 // Audit response message
-                auditLog.auditDocRetrieveDeferredAckResponse(ack.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                auditLog.auditDocRetrieveDeferredAckResponse(ack.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
             }
         } else {
             log.error("Error in NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...): request/assertion are null");

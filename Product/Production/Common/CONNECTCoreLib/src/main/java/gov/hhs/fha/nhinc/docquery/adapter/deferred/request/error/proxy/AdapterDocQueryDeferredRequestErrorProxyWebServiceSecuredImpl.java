@@ -14,6 +14,7 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -126,6 +127,10 @@ public class AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl imple
         catch (Exception ex)
         {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            response = new DocQueryAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG);
+            response.setMessage(regResp);
         }
 
         log.debug("End respondingGatewayCrossGatewayQuery");

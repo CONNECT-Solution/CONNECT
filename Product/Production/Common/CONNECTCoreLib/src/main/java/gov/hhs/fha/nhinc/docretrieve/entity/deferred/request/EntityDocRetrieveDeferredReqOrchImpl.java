@@ -116,7 +116,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
         }
         if (null != nhincResponse) {
             // Audit log - response
-            auditLog.auditDocRetrieveDeferredAckResponse(nhincResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+            auditLog.auditDocRetrieveDeferredAckResponse(nhincResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         }
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
@@ -188,7 +188,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
         CMUrlInfos urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }
