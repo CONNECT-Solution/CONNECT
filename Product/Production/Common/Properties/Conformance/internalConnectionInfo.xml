@@ -440,30 +440,26 @@
 			<service>
 				<name>adapterxdsbdocrepositorysoap12</name>
 				<description>Adapter Document Retrieve Soap12</description>
-				<endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
-				<!-- <endpointURL>http://12.54.145.45:8080/axis2/services/xdsrepositoryb</endpointURL> -->
+				<endpointURL>http://localhost:6080/axis2/services/xdsrepositoryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocregistrysoap12</name>
 				<description>Adapter Document Query Soap12</description>
-				<endpointURL>http://localhost:8080/axis2/services/xdsregistryb</endpointURL>
-				<!-- <endpointURL>http://12.54.145.45:9080/axis2/services/xdsregistryb</endpointURL> -->
+				<endpointURL>http://localhost:6080/axis2/services/xdsregistryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
-				<!-- <endpointURL>http://localhost:8080/CONNECTAdapterDocReposSoap12/AdapterDocRepository2Soap12Service</endpointURL> -->
-				<!-- <endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
-				<!-- <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRepository2Soap12Service</endpointURL> -->
+				<endpointURL>http://localhost:8080/CONNECTAdapterDocReposSoap12/AdapterDocRepository2Soap12Service</endpointURL>
+				<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
+				<!--				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRepository2Soap12Service</endpointURL>		-->
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL>
-				<!-- <endpointURL>http://localhost:8080/CONNECTAdapterDocRegSoap12/AdapterDocRegistry2Soap12Service</endpointURL> -->
-				<!-- <endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
-				<!-- <endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL> -->
+				<endpointURL>http://localhost:8080/CONNECTAdapterDocRegSoap12/AdapterDocRegistry2Soap12Service</endpointURL>
+				<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
+				<!--				<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>			-->
 			</service>
 			<service>
 				<name>adapterpip</name>
