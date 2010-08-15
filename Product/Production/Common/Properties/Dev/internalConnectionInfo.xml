@@ -208,7 +208,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequest</name>
 				<description>NHIN Doc Retrieve Deferred Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequestsecured</name>
@@ -218,12 +218,12 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorServiceUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
 				<description>NHIN Doc Retrieve Deferred Request Error Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
@@ -1023,7 +1023,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequest</name>
 				<description>NHIN Doc Retrieve Deferred Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequestsecured</name>
@@ -1033,12 +1033,12 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorServiceUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
 				<description>NHIN Doc Retrieve Deferred Request Error Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
@@ -1556,26 +1556,7 @@
 				<description>Entity Doc Retrieve Deferred Response Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
-            <service>
-                <name>adapterdocretrievedeferredrequest</name>
-                <description>NHIN Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
-            </service>
-            <service>
-                <name>adapterdocretrievedeferredrequestsecured</name>
-                <description>NHIN Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestSecured</endpointURL>
-            </service>
-            <service>
-                <name>adapterdocretrievedeferredrequesterror</name>
-                <description>NHIN Doc Retrieve Deferred Request Error</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
-            </service>
-            <service>
-                <name>adapterdocretrievedeferredrequesterrorsecured</name>
-                <description>NHIN Doc Retrieve Deferred Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService</endpointURL>
-            </service>
+           
             <service>
                 <name>adapterdocretrievedeferredresponse</name>
                 <description>NHIN Doc Retrieve Deferred Response</description>
@@ -1877,7 +1858,7 @@
 			<service>
 				<name>adapterdocretrievedeferredrequest</name>
 				<description>NHIN Doc Retrieve Deferred Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequestsecured</name>
@@ -1887,12 +1868,12 @@
 			<service>
 				<name>adapterdocretrievedeferredrequesterror</name>
 				<description>NHIN Doc Retrieve Deferred Request Error</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorServiceUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredrequesterrorsecured</name>
 				<description>NHIN Doc Retrieve Deferred Request Error Secured</description>
-				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
@@ -2340,26 +2321,7 @@
 				<description>Entity Doc Retrieve Deferred Response Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
 			</service>
-            <service>
-                <name>adapterdocretrievedeferredrequest</name>
-                <description>NHIN Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequest</endpointURL>
-            </service>
-            <service>
-                <name>adapterdocretrievedeferredrequestsecured</name>
-                <description>NHIN Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestSecured</endpointURL>
-            </service>
-            <service>
-                <name>adapterdocretrievedeferredrequesterror</name>
-                <description>NHIN Doc Retrieve Deferred Request Error</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</endpointURL>
-            </service>
-            <service>
-                <name>adapterdocretrievedeferredrequesterrorsecured</name>
-                <description>NHIN Doc Retrieve Deferred Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService</endpointURL>
-            </service>
+            
             <service>
                 <name>adapterdocretrievedeferredresponse</name>
                 <description>NHIN Doc Retrieve Deferred Response</description>
