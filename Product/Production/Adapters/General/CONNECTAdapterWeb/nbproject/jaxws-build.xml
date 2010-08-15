@@ -1681,6 +1681,82 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocquery"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryUnsecured"/>
     </target>
+    <target name="wsimport-service-AdapterDocRetrieveDeferredRequestUnsecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestUnsecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestUnsecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestUnsecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestUnsecured/wsdl/AdapterDocRetrieveDeferredReq.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestUnsecured/wsdl/AdapterDocRetrieveDeferredReq.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestUnsecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestUnsecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveDeferredRequestUnsecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestUnsecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieveDeferredRequestUnsecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievedeferredreq"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestUnsecured"/>
+    </target>
+    <target name="wsimport-service-AdapterDocRetrieveDeferredRequestSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestSecured/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestSecured/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveDeferredRequestSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieveDeferredRequestSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievedeferredreqsecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestSecured"/>
+    </target>
+    <target name="wsimport-service-AdapterDocRetrieveDeferredRequestErrorUnsecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorUnsecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorUnsecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorUnsecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestErrorUnsecured/wsdl/AdapterDocRetrieveDeferredReqError.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestErrorUnsecured/wsdl/AdapterDocRetrieveDeferredReqError.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorUnsecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorUnsecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveDeferredRequestErrorUnsecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestErrorUnsecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieveDeferredRequestErrorUnsecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievedeferredrequesterror"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorUnsecured"/>
+    </target>
+    <target name="wsimport-service-AdapterDocRetrieveDeferredRequestErrorSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestErrorSecured/wsdl/AdapterDocRetrieveDeferredReqErrorSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestErrorSecured/wsdl/AdapterDocRetrieveDeferredReqErrorSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveDeferredRequestErrorSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveDeferredRequestErrorSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieveDeferredRequestErrorSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievedeferredreqerrorsecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveDeferredRequestErrorSecured"/>
+    </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntityAuditLogQuerySecured, wsimport-client-NhincProxyAuditLogQuerySecured, wsimport-client-AdapterMpiSecured, wsimport-client-EntityDocQuerySecured, wsimport-client-NhincProxyDocQuerySecured, wsimport-client-EntityDocRetrieveSecured, wsimport-client-NhincProxyDocRetrieveSecured, wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-NhincProxySubjectDiscoverySecured, wsimport-client-EntityPatientDiscoverySecured, wsimport-client-NhincProxyPatientDiscoverySecured, wsimport-client-EntityNotificationConsumerSecured, wsimport-client-EntitySubscriptionManagementSecured, wsimport-client-NhincProxyNotificationConsumerSecured, wsimport-client-NhincProxySubscriptionManagementSecured, wsimport-client-NhincProxyXDRSecured, wsimport-client-EntityXDRSecured, wsimport-client-NhincProxyXDRSecuredRequest, wsimport-client-NhincProxyXDRSecuredResponse, wsimport-client-EntityXDRSecuredRequest, wsimport-client-EntityXDRSecuredResponse"/>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocumentRegistryService, wsimport-service-DocumentRepositoryService, wsimport-service-AdapterDocQuerySecured, wsimport-service-AdapterDocRetrieveSecured, wsimport-service-AdapterAuthenticationService, wsimport-service-AdapterPolicyEngineSecured, wsimport-service-AdapterPolicyEngineOrchestrator, wsimport-service-AdapterPolicyEngineTransform, wsimport-service-AdapterPEPService, wsimport-service-AdapterPIPService, wsimport-service-AdapterDocProvideAndRegisterservice, wsimport-service-AdapterSecuredAuditLogQuery, wsimport-service-AdapterReidentification, wsimport-service-AdapterMpiSecured, wsimport-service-AdapterMpi, wsimport-service-AdapterComponentMpi, wsimport-service-AdapterComponentMpiSecured, wsimport-service-AdapterPatientDiscoverySecured, wsimport-service-AdapterSubjectDiscoverySecured, wsimport-service-EntityAuditQuery, wsimport-service-ProxyAuditQuery, wsimport-service-EntityDocQuery, wsimport-service-NhincProxyDocQuery, wsimport-service-EntityDocRetrieve, wsimport-service-NhincProxyDocRetrieve, wsimport-service-EntityNotifyService, wsimport-service-EntitySubscribeService, wsimport-service-EntityUnsubscribeService, wsimport-service-ProxyHiemNotify, wsimport-service-ProxyHiemSubscribe, wsimport-service-ProxyHiemUnsubscribe, wsimport-service-EntitySubjectDiscovery, wsimport-service-NhincProxySubjectDiscovery, wsimport-service-MpiManager, wsimport-service-EntityXDR, wsimport-service-ProxyXDR, wsimport-service-AdapterComponentXDR, wsimport-service-AdapterComponentXDRSecured, wsimport-service-NhincProxyXDRRequest, wsimport-service-NhincProxyXDRResponse, wsimport-service-AdapterXDRRequestSecured, wsimport-service-AdapterXDRResponseSecured, wsimport-service-EntityXDRRequest, wsimport-service-EntityEDRResponse, wsimport-service-AdapterXDRResponse, wsimport-service-AdapterXDRRequest, wsimport-service-AdapterPatientDiscoveryAsyncReqSecured, wsimport-service-AdapterPatientDiscoverySecuredAsyncResp, wsimport-service-AdapterPatientDiscoverySecuredAsyncReqQueue, wsimport-service-EntityPatientDiscoveryAsyncReqQueue, wsimport-service-AdapterPatientDiscoverySecuredAsynReqError, wsimport-service-EntityPatientDiscoveryAsyncReq, wsimport-service-NhincProxyPatientDiscoveryAsyncReq, wsimport-service-EntityPatientDiscoveryAsycResp, wsimport-service-NhincProxyPatientDiscoveryAsyncResp, wsimport-service-AdapterXDRSecuredRequestError, wsimport-service-AdapterComponentXDRRequest, wsimport-service-AdapterComponentXDRResponse, wsimport-service-AdapterAdministrativeDistributionSecured, wsimport-service-AdapterAdministrativeDistribution, wsimport-service-AdapterDocQueryDeferredRequestUnsecured, wsimport-service-AdapterDocQueryDeferredRequestSecured, wsimport-service-AdapterDocQueryDeferredResponseUnsecured, wsimport-service-AdapterDocQueryDeferredResponseSecured, wsimport-service-AdapterPatientDiscovery, wsimport-service-AdapterComponentDocQueryDeferredRequestUnsecured, wsimport-service-AdapterComponentDocQueryDeferredResponseUnsecured, wsimport-service-AdapterDocQueryDeferredRequestErrorUnsecured, wsimport-service-AdapterDocQueryDeferredRequestErrorSecured, wsimport-service-AdapterDocQueryUnsecured"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocumentRegistryService, wsimport-service-DocumentRepositoryService, wsimport-service-AdapterDocQuerySecured, wsimport-service-AdapterDocRetrieveSecured, wsimport-service-AdapterAuthenticationService, wsimport-service-AdapterPolicyEngineSecured, wsimport-service-AdapterPolicyEngineOrchestrator, wsimport-service-AdapterPolicyEngineTransform, wsimport-service-AdapterPEPService, wsimport-service-AdapterPIPService, wsimport-service-AdapterDocProvideAndRegisterservice, wsimport-service-AdapterSecuredAuditLogQuery, wsimport-service-AdapterReidentification, wsimport-service-AdapterMpiSecured, wsimport-service-AdapterMpi, wsimport-service-AdapterComponentMpi, wsimport-service-AdapterComponentMpiSecured, wsimport-service-AdapterPatientDiscoverySecured, wsimport-service-AdapterSubjectDiscoverySecured, wsimport-service-EntityAuditQuery, wsimport-service-ProxyAuditQuery, wsimport-service-EntityDocQuery, wsimport-service-NhincProxyDocQuery, wsimport-service-EntityDocRetrieve, wsimport-service-NhincProxyDocRetrieve, wsimport-service-EntityNotifyService, wsimport-service-EntitySubscribeService, wsimport-service-EntityUnsubscribeService, wsimport-service-ProxyHiemNotify, wsimport-service-ProxyHiemSubscribe, wsimport-service-ProxyHiemUnsubscribe, wsimport-service-EntitySubjectDiscovery, wsimport-service-NhincProxySubjectDiscovery, wsimport-service-MpiManager, wsimport-service-EntityXDR, wsimport-service-ProxyXDR, wsimport-service-AdapterComponentXDR, wsimport-service-AdapterComponentXDRSecured, wsimport-service-NhincProxyXDRRequest, wsimport-service-NhincProxyXDRResponse, wsimport-service-AdapterXDRRequestSecured, wsimport-service-AdapterXDRResponseSecured, wsimport-service-EntityXDRRequest, wsimport-service-EntityEDRResponse, wsimport-service-AdapterXDRResponse, wsimport-service-AdapterXDRRequest, wsimport-service-AdapterPatientDiscoveryAsyncReqSecured, wsimport-service-AdapterPatientDiscoverySecuredAsyncResp, wsimport-service-AdapterPatientDiscoverySecuredAsyncReqQueue, wsimport-service-EntityPatientDiscoveryAsyncReqQueue, wsimport-service-AdapterPatientDiscoverySecuredAsynReqError, wsimport-service-EntityPatientDiscoveryAsyncReq, wsimport-service-NhincProxyPatientDiscoveryAsyncReq, wsimport-service-EntityPatientDiscoveryAsycResp, wsimport-service-NhincProxyPatientDiscoveryAsyncResp, wsimport-service-AdapterXDRSecuredRequestError, wsimport-service-AdapterComponentXDRRequest, wsimport-service-AdapterComponentXDRResponse, wsimport-service-AdapterAdministrativeDistributionSecured, wsimport-service-AdapterAdministrativeDistribution, wsimport-service-AdapterDocQueryDeferredRequestUnsecured, wsimport-service-AdapterDocQueryDeferredRequestSecured, wsimport-service-AdapterDocQueryDeferredResponseUnsecured, wsimport-service-AdapterDocQueryDeferredResponseSecured, wsimport-service-AdapterPatientDiscovery, wsimport-service-AdapterComponentDocQueryDeferredRequestUnsecured, wsimport-service-AdapterComponentDocQueryDeferredResponseUnsecured, wsimport-service-AdapterDocQueryDeferredRequestErrorUnsecured, wsimport-service-AdapterDocQueryDeferredRequestErrorSecured, wsimport-service-AdapterDocQueryUnsecured, wsimport-service-AdapterDocRetrieveDeferredRequestUnsecured, wsimport-service-AdapterDocRetrieveDeferredRequestSecured, wsimport-service-AdapterDocRetrieveDeferredRequestErrorUnsecured, wsimport-service-AdapterDocRetrieveDeferredRequestErrorSecured"/>
 </project>

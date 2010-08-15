@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Adapter Document Retrieve Deferred Request Secured
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" name="AdapterDocRetrieveDeferredRequestSecured" targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured" xmlns:dr="http://www.hhs.gov/healthit/nhin">
+	<documentation>Adapter Document Retrieve Request Secured</documentation>
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+			<xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CrossGatewayRetrieveRequestSecuredMessage">
+		<part name="body" element="nccommondr:RespondingGateway_CrossGatewayRetrieveSecuredRequest"/>
+	</message>
+	<message name="CrossGatewayRetrieveAcknowledgementMessage">
+		<part name="body" element="dr:DocRetrieveAcknowledgement"/>
+	</message>
+	<portType name="AdapterDocRetrieveDeferredRequestSecuredPortType">
+		<operation name="CrossGatewayRetrieveRequest">
+			<input name="CrossGatewayRetrieveRequestMessage" message="tns:CrossGatewayRetrieveRequestSecuredMessage"/>
+			<output name="CrossGatewayRetrieveAcknowledgement" message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+		</operation>
+	</portType>
+	<binding name="AdapterDocRetrieveDeferredRequestSecuredBindingSoap" type="tns:AdapterDocRetrieveDeferredRequestSecuredPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
+		<operation name="CrossGatewayRetrieveRequest">
+			<soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
+			<input name="CrossGatewayRetrieveRequestMessage">
+				<soap:body use="literal"/>
+				<wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>
+			</input>
+			<output name="CrossGatewayRetrieveAcknowledgement">
+				<soap:body use="literal"/>
+				<wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Output_Policy"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="AdapterDocRetrieveDeferredRequestSecured">
+		<port name="AdapterDocRetrieveDeferredRequestSecuredPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestSecuredBindingSoap">
+			<soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequestSecured"/>
+		</port>
+	</service>
+	<wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<wsoma:OptimizedMimeSerialization/>
+				<sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+				<sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+				<sp:TransportBinding>
+					<wsp:Policy>
+						<sp:TransportToken>
+							<wsp:Policy>
+								<sp:HttpsToken>
+									<wsp:Policy>
+										<sp:RequireClientCertificate/>
+									</wsp:Policy>
+								</sp:HttpsToken>
+							</wsp:Policy>
+						</sp:TransportToken>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict/>
+							</wsp:Policy>
+						</sp:Layout>
+						<sp:IncludeTimestamp/>
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic128/>
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+					</wsp:Policy>
+				</sp:TransportBinding>
+				<sp:EndorsingSupportingTokens>
+					<wsp:Policy>
+						<sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+							<wsp:Policy>
+								<sp:WssSamlV20Token11/>
+							</wsp:Policy>
+						</sp:SamlToken>
+					</wsp:Policy>
+				</sp:EndorsingSupportingTokens>
+				<sp:Wss11>
+					<wsp:Policy>
+						<sp:MustSupportRefKeyIdentifier/>
+						<sp:MustSupportRefIssuerSerial/>
+						<sp:RequireSignatureConfirmation/>
+					</wsp:Policy>
+				</sp:Wss11>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_Soap_Input_Policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<wsoma:OptimizedMimeSerialization/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_Soap_Output_Policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<wsoma:OptimizedMimeSerialization/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+</definitions>
