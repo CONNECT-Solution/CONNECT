@@ -25,11 +25,11 @@
         <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
+        <servlet-name>EntityDocQueryDeferredRequestUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredRequestUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
+        <servlet-name>EntityDocQueryDeferredRequestUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityDocQueryDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
