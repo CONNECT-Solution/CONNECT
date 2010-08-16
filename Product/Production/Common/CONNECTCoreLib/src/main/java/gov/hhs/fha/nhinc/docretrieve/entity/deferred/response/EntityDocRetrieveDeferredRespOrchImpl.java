@@ -83,12 +83,13 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                             // Call NHIN proxy
                             nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(response, assertion, oTargetSystem);
                         }
+                        else {
+                            nhinResponse = buildRegistryErrorAck();
+                        }
 
                     }
                 }
-                if (debugEnabled) {
-                    log.debug("Calling Policy Engine");
-                }
+                
             }
         } catch (Exception ex) {
             log.error(ex);
