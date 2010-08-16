@@ -17,6 +17,22 @@
         <url-pattern>/EntityService/EntityDocQueryUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>EntityDocQueryDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocQueryDeferredRequestSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocQueryDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecured</servlet-class>
     </servlet>

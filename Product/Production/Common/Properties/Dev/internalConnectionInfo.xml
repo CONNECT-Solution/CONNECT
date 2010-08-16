@@ -154,6 +154,7 @@
 				<description>NHIN Proxy XDR Response Secured</description>
 				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRResponseSecured</endpointURL>
 			</service>
+      
 			<!-- Begin Doc Retrieve deferred service end points -->
 			<service>
 				<name>nhincproxydocretrievedeferredrequest</name>
@@ -789,6 +790,16 @@
 				<name>entitydocquerydeferredresponsesecured</name>
 				<description>Secured Entity Doc Query Deferred Response </description>
 				<endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
+			</service>
+      <service>
+				<name>entitydocquerydeferredrequest</name>
+				<description>Unsecure Entity Doc Query Deferred Request</description>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerydeferredrequestsecured</name>
+				<description>Secured Entity Doc Query Deferred Request </description>
+				<endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>adapteradmindistsecured</name>
