@@ -228,7 +228,7 @@
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
 				<description>NHIN Doc Retrieve Deferred Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponseUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponsesecured</name>
@@ -1043,7 +1043,7 @@
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
 				<description>NHIN Doc Retrieve Deferred Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponseUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponsesecured</name>
@@ -1878,7 +1878,7 @@
 			<service>
 				<name>adapterdocretrievedeferredresponse</name>
 				<description>NHIN Doc Retrieve Deferred Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponseUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievedeferredresponsesecured</name>
