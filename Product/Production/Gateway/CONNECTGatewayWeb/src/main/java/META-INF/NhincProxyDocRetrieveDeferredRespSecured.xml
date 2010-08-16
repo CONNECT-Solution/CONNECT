@@ -4,7 +4,7 @@
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
              name="NhincProxyDocRetrieveDeferredResponseSecured"
-             targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecuredresponse"
+             targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredresponse"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:ihe="urn:ihe:iti:xds-b:2007"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -18,7 +18,7 @@
              xmlns:dr="http://www.hhs.gov/healthit/nhin"
              xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
              xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
-             xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecuredresponse">
+             xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredresponse">
     <documentation>Nhinc Proxy document Retrieve Deferred Response Secured</documentation>
     <types>
         <xsd:schema>
