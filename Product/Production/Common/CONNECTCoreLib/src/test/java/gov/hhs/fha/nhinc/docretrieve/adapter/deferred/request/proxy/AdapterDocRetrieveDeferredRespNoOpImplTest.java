@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
-import gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response.AdapterDocRetrieveDeferredRespNoOpImpl;
+import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.proxy.AdapterDocRetrieveDeferredRespProxyNoOpImpl;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.jmock.Expectations;
@@ -50,15 +50,15 @@ public class AdapterDocRetrieveDeferredRespNoOpImplTest {
          //
          // Define mock objects
          //
-         final AdapterDocRetrieveDeferredRespNoOpImpl                        mockAdapterDocRetrieveDeferredRespNoOpImpl;
-         final RespondingGatewayCrossGatewayRetrieveSecuredResponseType     mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+         final AdapterDocRetrieveDeferredRespProxyNoOpImpl                        mockAdapterDocRetrieveDeferredRespNoOpImpl;
+         final RetrieveDocumentSetResponseType     mockRetrieveDocumentSetResponseType;
          final AssertionType                                                mockAssertionType;
          final DocRetrieveAcknowledgementType                               mockAck;
 
          //
          // Define the class to be tested and it's inputs and outputs.
          //
-         AdapterDocRetrieveDeferredRespNoOpImpl                              docRetrieve;
+         AdapterDocRetrieveDeferredRespProxyNoOpImpl                              docRetrieve;
          RespondingGatewayCrossGatewayRetrieveSecuredResponseType           req;
          AssertionType                                                      assertionType;
          RetrieveDocumentSetResponseType                                    retrieveDocumentSetResponseType;
@@ -67,8 +67,8 @@ public class AdapterDocRetrieveDeferredRespNoOpImplTest {
          //
          // Instantiate the mock objects.
          //
-         mockAdapterDocRetrieveDeferredRespNoOpImpl = context.mock(AdapterDocRetrieveDeferredRespNoOpImpl.class);
-         mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType = context.mock(RespondingGatewayCrossGatewayRetrieveSecuredResponseType.class);
+         mockAdapterDocRetrieveDeferredRespNoOpImpl = context.mock(AdapterDocRetrieveDeferredRespProxyNoOpImpl.class);
+         mockRetrieveDocumentSetResponseType = context.mock(RetrieveDocumentSetResponseType.class);
          mockAssertionType = context.mock(AssertionType.class);
          mockAck = context.mock(DocRetrieveAcknowledgementType.class);
 
@@ -77,7 +77,7 @@ public class AdapterDocRetrieveDeferredRespNoOpImplTest {
          //
          context.checking(new Expectations() {
              {
-                 allowing(mockAdapterDocRetrieveDeferredRespNoOpImpl).sendToAdapter(mockRespondingGatewayCrossGatewayRetrieveSecuredResponseType,
+                 allowing(mockAdapterDocRetrieveDeferredRespNoOpImpl).sendToAdapter(mockRetrieveDocumentSetResponseType,
                                                                              mockAssertionType);
                  will(returnValue(mockAck));
              }
@@ -86,7 +86,7 @@ public class AdapterDocRetrieveDeferredRespNoOpImplTest {
          //
          // Instantiate the object to be tested and it's inputs.
          //
-         docRetrieve = new AdapterDocRetrieveDeferredRespNoOpImpl();
+         docRetrieve = new AdapterDocRetrieveDeferredRespProxyNoOpImpl();
          assertionType = new AssertionType();
          retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
          req = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
@@ -95,7 +95,7 @@ public class AdapterDocRetrieveDeferredRespNoOpImplTest {
          //
          // Run the test.
          //
-         ack = docRetrieve.sendToAdapter(req, assertionType);
+         ack = docRetrieve.sendToAdapter(retrieveDocumentSetResponseType, assertionType);
 
          //
          // Check the results.

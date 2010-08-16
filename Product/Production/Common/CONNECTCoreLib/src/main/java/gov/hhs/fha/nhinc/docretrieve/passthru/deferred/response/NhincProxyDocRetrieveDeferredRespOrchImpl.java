@@ -2,10 +2,9 @@ package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
-import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.proxy.response.NhinDocRetrieveDeferredRespObjectFactory;
-import gov.hhs.fha.nhinc.docretrieve.deferred.nhin.proxy.response.NhinDocRetrieveDeferredRespProxy;
+import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.proxy.NhinDocRetrieveDeferredRespProxy;
+import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.proxy.NhinDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -57,14 +56,12 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
             if (debugEnabled) {
                 log.debug("Creating NHIN Proxy Component");
             }
-            NhinDocRetrieveDeferredRespObjectFactory objFactory = new NhinDocRetrieveDeferredRespObjectFactory();
-            NhinDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getDocumentDeferredResponseProxy();
-            RespondingGatewayCrossGatewayRetrieveSecuredResponseType req = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
-            req.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
+            NhinDocRetrieveDeferredRespProxyObjectFactory objFactory = new NhinDocRetrieveDeferredRespProxyObjectFactory();
+            NhinDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredResponseProxy();
             if (debugEnabled) {
                 log.debug("Calling NHIN Proxy Component");
             }
-            ack = docRetrieveProxy.sendToRespondingGateway(req, assertion);
+            ack = docRetrieveProxy.sendToRespondingGateway(retrieveDocumentSetResponse, assertion, target);
         } catch (Exception ex) {
             log.error(ex);
             ack = createErrorAck();

@@ -1,13 +1,13 @@
-package gov.hhs.fha.nhinc.docretrieve.deferred.adapter.proxy.response;
+package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.xml.ws.WebServiceContext;
 
 /**
  * Created by
@@ -15,19 +15,18 @@ import javax.xml.ws.WebServiceContext;
  * Date: Jul 28, 2010
  * Time: 12:36:16 PM
  */
-public class AdapterDocRetrieveDeferredRespNoOpImpl implements AdapterDocRetrieveDeferredRespProxy {
+public class AdapterDocRetrieveDeferredRespProxyNoOpImpl implements AdapterDocRetrieveDeferredRespProxy {
     private Log log = null;
 
-     public AdapterDocRetrieveDeferredRespNoOpImpl() {
+     public AdapterDocRetrieveDeferredRespProxyNoOpImpl() {
          log = LogFactory.getLog(getClass());
      }
 
-     public DocRetrieveAcknowledgementType sendToAdapter(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body,
-                                    AssertionType assertion) {
+     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetResponseType body, AssertionType assertion) {
          DocRetrieveAcknowledgementType     response = new DocRetrieveAcknowledgementType();
          RegistryResponseType               resp = new RegistryResponseType();
 
-         resp.setStatus("Success");
+         resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
          response.setMessage(resp);
 
          log.info("AdapterDocRetrieveDeferredRespNoOpImpl.sendToAdapter() - NO OP called");

@@ -142,7 +142,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
     protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
         CMUrlInfos urlInfoList = null;
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }
