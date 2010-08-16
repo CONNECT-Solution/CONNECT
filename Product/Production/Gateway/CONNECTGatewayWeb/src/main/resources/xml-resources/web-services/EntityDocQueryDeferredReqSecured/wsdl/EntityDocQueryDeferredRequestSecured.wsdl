@@ -25,7 +25,7 @@
 	</portType>
 	<binding name="EntityDocQueryDeferredRequestSecuredBindingSoap" type="tns:EntityDocQueryDeferredRequestSecuredPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsp:PolicyReference URI="#Entity_AdminDist_SoapPolicy"/>
+		<wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
 		<operation name="RespondingGateway_CrossGatewayQuery">
 			<soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
 			<input name="RespondingGateway_CrossGatewayQueryRequest">
@@ -43,7 +43,7 @@
 			<soap:address location="http://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQueryDeferredRequestSecured"/>
 		</port>
 	</service>
-	<wsp:Policy wsu:Id="Entity_DocQueryDeferred_SoapPolicy">
+	<wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
 		<wsp:ExactlyOne>
 			<wsp:All>
 				<wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
