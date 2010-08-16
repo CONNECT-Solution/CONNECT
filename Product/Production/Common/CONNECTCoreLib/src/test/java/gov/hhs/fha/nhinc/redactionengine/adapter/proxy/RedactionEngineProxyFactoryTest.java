@@ -33,53 +33,15 @@ public class RedactionEngineProxyFactoryTest
         }
     };
 
-    @Test
-    public void testGetRedactionEngineProxyNullContext()
-    {
-        try
-        {
-            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory()
-            {
-                @Override
-                protected ApplicationContext createApplicationContext()
-                {
-                    return null;
-                }
-                @Override
-                protected ApplicationContext getContext()
-                {
-                    return null;
-                }
-            };
-            AdapterRedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
-            assertNull("RedactionEngineProxy was not null", proxy);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetRedactionEngineProxyNullContext test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetRedactionEngineProxyNullContext test: " + t.getMessage());
-        }
-    }
+
 
     @Test
     public void testGetRedactionEngineProxyHappy()
     {
         try
         {
-            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory()
-            {
-                @Override
-                protected ApplicationContext createApplicationContext()
-                {
-                    return appContext;
-                }
-                @Override
-                protected ApplicationContext getContext()
-                {
-                    return appContext;
-                }
-            };
+            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory();
+            
             AdapterRedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
             assertNotNull("RedactionEngineProxy was null", proxy);
         }
@@ -91,33 +53,6 @@ public class RedactionEngineProxyFactoryTest
         }
     }
 
-    @Test
-    public void testGetContext()
-    {
-        try
-        {
-            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory()
-            {
-                @Override
-                protected ApplicationContext createApplicationContext()
-                {
-                    return mockContext;
-                }
-                @Override
-                protected ApplicationContext getContext()
-                {
-                    return mockContext;
-                }
-            };
-            assertNotNull("ApplicationContext", proxyFactory.getContext());
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetContext test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetContext test: " + t.getMessage());
-        }
-    }
+    
 
 }
