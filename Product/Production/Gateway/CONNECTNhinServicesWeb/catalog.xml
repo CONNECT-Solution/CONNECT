@@ -97,15 +97,23 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocQueryDeferredResponse.wsdl" uri="src/main/resources/xml-resources/web-services/NhinDocQueryDeferredResponse/wsdl/NhinDocQueryDeferredResponse.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhin/QueryDocument.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocQueryDeferredResponse/schemas/nhin/QueryDocument.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieveDeferredReq.wsdl" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/wsdl/NhinDocRetrieveDeferredReq.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/ebRS/rs.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/ebRS/query.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/nhinc/gateway/SamlTokenData.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhin/RetrieveDocument.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/nhin/RetrieveDocument.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/ebRS/rim.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/ebRS/lcm.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredRequest/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieveDeferredResp.wsdl" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/wsdl/NhinDocRetrieveDeferredResp.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ebRS/rs.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ebRS/query.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/nhinc/gateway/SamlTokenData.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhin/RetrieveDocument.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/nhin/RetrieveDocument.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ebRS/rim.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/ebRS/lcm.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-services/NhinDocRetrieveDeferredResponse/schemas/www.w3.org/2001/xml.xsd"/>
 </catalog>
+
+
+
+
+
+
+
 
 
 

@@ -114,11 +114,11 @@
         <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.deferred.nhin.response.NhinDocRetrieveDeferredResp</servlet-class>
+        <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.NhinDocRetrieveDeferredResponse</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredResp</servlet-name>
+        <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
         <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
     </servlet-mapping>
     <servlet>
@@ -206,11 +206,11 @@
         </web-resource-collection>
         <!-- BEGIN Document Retrieve Deferred Service -->
         <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredReq</web-resource-name>
+            <web-resource-name>NhinDocRetrieveDeferredRequest</web-resource-name>
             <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredResp</web-resource-name>
+            <web-resource-name>NhinDocRetrieveDeferredResponse</web-resource-name>
             <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
         </web-resource-collection>
         <web-resource-collection>

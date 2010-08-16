@@ -1,9 +1,7 @@
 package gov.hhs.fha.nhinc.docretrieve.deferred.nhin.response;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredResponseType;
+import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.NhinDocRetrieveDeferredResponse;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -50,7 +48,7 @@ public class NhinDocRetrieveDeferredRespTest {
          //
          // Define mock objects
          //
-         final NhinDocRetrieveDeferredResp                                  mockNhinDocRetrieveDeferredResp;
+         final NhinDocRetrieveDeferredResponse                                  mockNhinDocRetrieveDeferredResp;
          final RetrieveDocumentSetResponseType                              mockRetrieveDocumentSetResponseType;
          final DocRetrieveAcknowledgementType                               mockAck;
 
@@ -63,7 +61,7 @@ public class NhinDocRetrieveDeferredRespTest {
          //
          // Instantiate the mock objects.
          //
-         mockNhinDocRetrieveDeferredResp = context.mock(NhinDocRetrieveDeferredResp.class);
+         mockNhinDocRetrieveDeferredResp = context.mock(NhinDocRetrieveDeferredResponse.class);
          mockRetrieveDocumentSetResponseType = context.mock(RetrieveDocumentSetResponseType.class);
          mockAck = context.mock(DocRetrieveAcknowledgementType.class);
 
@@ -82,7 +80,7 @@ public class NhinDocRetrieveDeferredRespTest {
          //
          retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
 
-         NhinDocRetrieveDeferredResp testSubject = new NhinDocRetrieveDeferredResp()
+         NhinDocRetrieveDeferredResponse testSubject = new NhinDocRetrieveDeferredResponse()
          {
              @Override
              public DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(RetrieveDocumentSetResponseType req)
