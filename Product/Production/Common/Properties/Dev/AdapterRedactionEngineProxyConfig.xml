@@ -3,10 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- No-op implementation -->
-    <bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineNoOpImpl"/>
+    <bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyNoOpImpl"/>
 	
 	<!-- Web-service implementation -->
-    <!--<bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxyWebImpl"/> -->
+    <!--<bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyWebServiceUnsecuredImpl"/> -->
 	<!-- Java implementation -->
-    <!-- <bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxyJavaImpl"/> -->
+    <!-- <bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.rredactionengine.adapter.proxy.AdapterRedactionEngineProxyJavaImpl"/> -->
 </beans>
