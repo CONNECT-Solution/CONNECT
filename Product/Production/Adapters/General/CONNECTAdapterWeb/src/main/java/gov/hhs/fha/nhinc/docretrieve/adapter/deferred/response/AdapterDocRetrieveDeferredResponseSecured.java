@@ -21,8 +21,7 @@ public class AdapterDocRetrieveDeferredResponseSecured {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new AdapterDocRetrieveDeferredResponseImpl().crossGatewayRetrieveResponse(body, context);
     }
 
 }
