@@ -6,12 +6,12 @@
     <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineNoOpImpl"/> -->
 	
 	<!-- Unsecured web service policy engine implementation -->
-    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxy"/> -->
+    <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxy"/>
 
 	<!-- Secured web service policy engine implementation -->
     <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxySecuredImpl"/> -->
     
 	<!-- Java policy engine implementation -->
-    <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxyJavaImpl"/>
+    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxyJavaImpl"/> -->
     
 </beans>
