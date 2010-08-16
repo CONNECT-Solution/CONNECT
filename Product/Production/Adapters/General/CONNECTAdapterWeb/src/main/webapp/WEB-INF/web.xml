@@ -603,7 +603,7 @@
 
     <servlet>
         <servlet-name>AdapterComponentRedactionEngine</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEngine</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterComponentRedactionEngine</servlet-name>

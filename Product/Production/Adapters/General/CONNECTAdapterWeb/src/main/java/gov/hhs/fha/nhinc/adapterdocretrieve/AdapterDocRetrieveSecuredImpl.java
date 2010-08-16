@@ -10,11 +10,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxy;
 import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxy;
-import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxyFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 
 /**
  *
@@ -70,9 +70,9 @@ public class AdapterDocRetrieveSecuredImpl {
         return response;
     }
 
-    protected RedactionEngineProxy getRedactionEngineProxy()
+    protected AdapterRedactionEngineProxy getRedactionEngineProxy()
     {
-        return new RedactionEngineProxyFactory().getRedactionEngineProxy();
+        return new AdapterRedactionEngineProxyObjectFactory().getRedactionEngineProxy();
     }
     
 }
