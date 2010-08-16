@@ -22,9 +22,10 @@
 	<property name="dist.instrumented.dir" value="${project.dir}/dist/instrumented" />
 	<property name="dist.instrumented.file" value="${dist.instrumented.dir}/${project.name}.${dist.type}" />
 	<property name="coverage.isneeded" value="${compile.debug}" />
-	<property name="coverage.threshold.linerate" value="80" />
-	<property name="coverage.threshold.branchrate" value="80" />
-
+	<property name="coverage.validate.file" value="${coverage.report.dir}/coverage.validate.xml" />
+  <property name="coverage.failure.file" value="${coverage.report.dir}/coverage.failure.xml" />
+  <property name="coverage.threshold.linerate" value="80" />
+  <property name="coverage.threshold.branchrate" value="80" />	
 
 	<path id="instrument.classpath">
 		<pathelement path="${build.classes.dir}" />

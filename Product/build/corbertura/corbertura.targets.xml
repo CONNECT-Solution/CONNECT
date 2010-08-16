@@ -486,4 +486,119 @@
 		</path>
     <mkdir dir="${coverage.report.dir}" />
 	</target>
+
+  <target name="-coverage.check.project.transform">
+    <if>
+      <and>
+        <istrue value="${coverage.isneeded}"/>
+        <exists path="${coverage.classes.report.file}" />
+      </and>
+      <then>
+        <call target="coverage.write.xml.report" />
+        <if>
+          <and>
+            <exists path="${coverage.report.dir}/coverage.xml" />
+          </and>
+          <then>
+            <echo message="Checking Code Coverage Thresholds..." />
+            
+            <if>
+              <istrue value="${called.from.main.build}"/>
+              <then>
+                <mkdir dir="${root.project.directory.path}/coverage-reports"/>
+              </then>
+            </if>
+            
+            <echo message="" file="${coverage.check.tag.file}" />
+            
+            
+            <trycatch reference="exception">
+              <try>
+                <xmltask dest="${coverage.report.dir}/coverage.validate.xml" outputter="simple:3">
+                  <insert path="/" xml="&lt;root&gt;&lt;/root&gt;"/>
+                  <insert path="root" file="${coverage.thresholds.file}"/>
+                  <insert path="root" file="${coverage.report.file}"/>
+                </xmltask>
+                
+                <xslt in="${coverage.validate.file}" out="${coverage.failure.file}"
+                      style="${root.project.directory.path}/build/corbertura/coveragecheck.xsl"> 
+                </xslt>
+                
+                <xmltask source="${coverage.failure.file}">
+                  <call path="/thresholds/threshold-error">
+                    <param name="class" path="@class" />
+                    <param name="branchrate" path="@branchrate" />
+                    <param name="linerate" path="@linerate" />                   
+                    <actions>
+                      <var name="branchrate" value="@{branchrate}" />
+                      <var name="linerate" value="@{linerate}" />
+                      <var name="class" value="@{class}" />
+                      <property name="coverage.check.failures" value="true"/>
+                      <if>
+                          <compare less="${linerate}" greater="${coverage.threshold.linerate}" />
+                          <then>
+                            <converttopercent name="current.linerate.percent" value="${linerate}"/>
+                            <echo message="Project ${project.name}, Class @{class} failed check. Line coverage rate of ${current.linerate.percent} % is below ${coverage.threshold.linerate}%."/>
+                          </then>
+                      </if>
+                      <if>
+                        <compare less="${branchrate}" greater="${coverage.threshold.branchrate}" />
+                        <then>
+                          <converttopercent name="current.branchrate.percent" value="${branchrate}"/>
+                          <echo message="Project ${project.name}, Class @{class} failed check. Branch coverage rate of ${branchrate}% is below ${coverage.threshold.branchrate}%."/>
+                        </then>
+                      </if>
+                    </actions>
+                  </call>
+                 </xmltask>                 
+              </try>
+              <catch>
+                <delete file="${coverage.check.tag.file}"/>
+                <throw refid="exception"/>
+              </catch>
+            </trycatch>
+              
+            <if>
+              <isset property="coverage.check.failures"/>
+            <then>
+              <if>
+                <isfalse value="${called.from.main.build}"/>
+                <then>
+                  <fail message="Coverage Check failed, please Coverage Summary Report or Ant Report for details."/>
+                </then>
+                <else>
+                  <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+                </else>
+              </if>
+            </then> 
+          </if>
+          </then>
+        </if>
+      </then>
+    </if>
+  </target>
+  
+    <target name="coverage.bless.transform" description="Will take all existing coverage failures and enter them as exceptions in the project's coverage.thresholds.xml file.">
+  <if>
+    <exists path="${coverage.check.tag.file}"/>
+    <then>
+      <if>
+        <not>
+          <exists path="${coverage.thresholds.file}"/>
+        </not>
+        <then>
+          <echo file="${coverage.thresholds.file}"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+</thresholds>]]></echo>
+        </then>
+      </if>
+
+      <xmltask source="${coverage.failure.file}" dest="${coverage.thresholds.file}" >
+            <regexp path="/thresholds" pattern="threshold-error" replace="threshold"  />
+      </xmltask>
+
+    </then>
+  </if>
+</target>
+	
 </project>
