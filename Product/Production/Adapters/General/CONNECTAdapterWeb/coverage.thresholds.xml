@@ -18,7 +18,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.5" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQuerySecuredImpl" linecount="44" linerate="0.22727272727272727" linesexecuted="0.1"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="2" branchrate="1.0" branchsexecuted="0.02" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecuredImpl" linecount="25" linerate="0.36" linesexecuted="0.09"/>
+<threshold branchcount="2" branchrate="0.5" branchsexecuted="0.01" class="gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecuredImpl" linecount="30" linerate="0.26666666666666666" linesexecuted="0.08"/>
 <threshold branchcount="12" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpimanager.CommonChecks" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpimanager.MpiDataAccess" linecount="14" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptermpimanager.MpiManager" linecount="3" linerate="0.0" linesexecuted="0"/>
