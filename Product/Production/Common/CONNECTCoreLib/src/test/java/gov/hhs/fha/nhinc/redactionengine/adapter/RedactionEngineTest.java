@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.redaction;
+package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;

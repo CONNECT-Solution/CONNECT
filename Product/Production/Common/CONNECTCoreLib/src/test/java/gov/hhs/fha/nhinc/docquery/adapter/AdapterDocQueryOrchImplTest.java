@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxy;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
@@ -27,7 +27,7 @@ public class AdapterDocQueryOrchImplTest
         }
     };
     final Log mockLog = context.mock(Log.class);
-    final RedactionEngineProxy mockRedactionEngineProxy = context.mock(RedactionEngineProxy.class);
+    final AdapterRedactionEngineProxy mockRedactionEngineProxy = context.mock(AdapterRedactionEngineProxy.class);
 
     @Test
     public void testCreateLogger()
@@ -67,13 +67,13 @@ public class AdapterDocQueryOrchImplTest
                     return mockLog;
                 }
                 @Override
-                protected RedactionEngineProxy getRedactionEngineProxy()
+                protected AdapterRedactionEngineProxy getRedactionEngineProxy()
                 {
                     return mockRedactionEngineProxy;
                 }
             };
 
-            RedactionEngineProxy redactionEngineProxy = docQueryImpl.getRedactionEngineProxy();
+            AdapterRedactionEngineProxy redactionEngineProxy = docQueryImpl.getRedactionEngineProxy();
             assertNotNull("Redaction engine proxy was null", redactionEngineProxy);
         }
         catch(Throwable t)
@@ -100,7 +100,7 @@ public class AdapterDocQueryOrchImplTest
                     return mockLog;
                 }
                 @Override
-                protected RedactionEngineProxy getRedactionEngineProxy()
+                protected AdapterRedactionEngineProxy getRedactionEngineProxy()
                 {
                     return mockRedactionEngineProxy;
                 }
@@ -140,7 +140,7 @@ public class AdapterDocQueryOrchImplTest
                     return mockLog;
                 }
                 @Override
-                protected RedactionEngineProxy getRedactionEngineProxy()
+                protected AdapterRedactionEngineProxy getRedactionEngineProxy()
                 {
                     return mockRedactionEngineProxy;
                 }

@@ -8,8 +8,8 @@ package gov.hhs.fha.nhinc.docquery.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
-import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxy;
-import gov.hhs.fha.nhinc.redaction.proxy.RedactionEngineProxyFactory;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -78,13 +78,14 @@ public class AdapterDocQueryOrchImpl {
         if (queryResponse == null) {
             log.warn("Did not call redaction engine because the query response was null.");
         } else {
+            log.debug("Calling Redaction Engine");
             response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse);
         }
         return response;
     }
 
-    protected RedactionEngineProxy getRedactionEngineProxy() {
-        return new RedactionEngineProxyFactory().getRedactionEngineProxy();
+    protected AdapterRedactionEngineProxy getRedactionEngineProxy() {
+        return new AdapterRedactionEngineProxyObjectFactory().getRedactionEngineProxy();
     }
 
 }

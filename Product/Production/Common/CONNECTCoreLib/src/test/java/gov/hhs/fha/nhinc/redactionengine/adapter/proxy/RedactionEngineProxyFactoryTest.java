@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.redaction.proxy;
+package gov.hhs.fha.nhinc.redactionengine.adapter.proxy;
 
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -23,7 +23,7 @@ public class RedactionEngineProxyFactoryTest
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final RedactionEngineProxy mockProxy = context.mock(RedactionEngineProxy.class);
+    final AdapterRedactionEngineProxy mockProxy = context.mock(AdapterRedactionEngineProxy.class);
     final ApplicationContext appContext = new FileSystemXmlApplicationContext()
     {
         @Override
@@ -38,7 +38,7 @@ public class RedactionEngineProxyFactoryTest
     {
         try
         {
-            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory()
             {
                 @Override
                 protected ApplicationContext createApplicationContext()
@@ -51,7 +51,7 @@ public class RedactionEngineProxyFactoryTest
                     return null;
                 }
             };
-            RedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
+            AdapterRedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
             assertNull("RedactionEngineProxy was not null", proxy);
         }
         catch(Throwable t)
@@ -67,7 +67,7 @@ public class RedactionEngineProxyFactoryTest
     {
         try
         {
-            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory()
             {
                 @Override
                 protected ApplicationContext createApplicationContext()
@@ -80,7 +80,7 @@ public class RedactionEngineProxyFactoryTest
                     return appContext;
                 }
             };
-            RedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
+            AdapterRedactionEngineProxy proxy = proxyFactory.getRedactionEngineProxy();
             assertNotNull("RedactionEngineProxy was null", proxy);
         }
         catch(Throwable t)
@@ -97,7 +97,7 @@ public class RedactionEngineProxyFactoryTest
         try
         {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-            RedactionEngineProxyFactory proxyFactory = new RedactionEngineProxyFactory()
+            AdapterRedactionEngineProxyObjectFactory proxyFactory = new AdapterRedactionEngineProxyObjectFactory()
             {
                 @Override
                 protected ApplicationContext createApplicationContext()

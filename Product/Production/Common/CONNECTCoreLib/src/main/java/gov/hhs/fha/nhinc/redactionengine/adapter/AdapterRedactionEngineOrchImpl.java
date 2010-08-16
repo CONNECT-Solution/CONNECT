@@ -1,4 +1,9 @@
-package gov.hhs.fha.nhinc.redaction;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -9,13 +14,12 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  *
- * @author Neil Webb
+ * @author JHOPPESC
  */
-public class RedactionEngine
-{
+public class AdapterRedactionEngineOrchImpl {
     private Log log = null;
 
-    public RedactionEngine()
+    public AdapterRedactionEngineOrchImpl()
     {
         log = createLogger();
     }
@@ -25,28 +29,23 @@ public class RedactionEngine
         return LogFactory.getLog(getClass());
     }
 
-    protected DocQueryResponseProcessor getDocQueryResponseProcessor()
+    protected RedactionEngine getRedactionEngine()
     {
-        return new DocQueryResponseProcessor();
-    }
-
-    protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
-    {
-        return new DocRetrieveResponseProcessor();
+        return new RedactionEngine();
     }
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
     {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
-        DocQueryResponseProcessor processor = getDocQueryResponseProcessor();
-        if(processor != null)
+        RedactionEngine redactionEngine = getRedactionEngine();
+        if(redactionEngine != null)
         {
-            response = processor.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
+            response = redactionEngine.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
         }
         else
         {
-            log.warn("DocQueryResponseProcessor was null.");
+            log.warn("RedactionEngine was null");
         }
         log.debug("End filterAdhocQueryResults");
         return response;
@@ -56,16 +55,17 @@ public class RedactionEngine
     {
         log.debug("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
-        DocRetrieveResponseProcessor processor = getDocRetrieveResponseProcessor();
-        if(processor != null)
+        RedactionEngine redactionEngine = getRedactionEngine();
+        if(redactionEngine != null)
         {
-            return processor.filterRetrieveDocumentSetReults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
+            response = redactionEngine.filterRetrieveDocumentSetResults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
         }
         else
         {
-            log.warn("DocRetrieveResponseProcessor was null.");
+            log.warn("RedactionEngine was null");
         }
-        log.debug("End filterRetrieveDocumentSetResults");
+        log.debug("Begin filterRetrieveDocumentSetResults");
         return response;
     }
+
 }

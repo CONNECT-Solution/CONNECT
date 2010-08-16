@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.redaction.proxy;
+package gov.hhs.fha.nhinc.redactionengine.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType;
 import gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEngineService;
@@ -23,8 +23,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.util.Properties;
 
 import static org.junit.Assert.*;
 
@@ -68,7 +66,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -102,7 +100,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -135,7 +133,7 @@ public class RedactionEngineProxyWebImplTest
     @Test (expected= gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
     public void testInvokeConnectionManagerException() throws ConnectionManagerException
     {
-        RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+        AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
         {
             @Override
             protected Log createLogger()
@@ -169,7 +167,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -211,7 +209,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -253,7 +251,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -294,7 +292,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -341,7 +339,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -388,7 +386,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -435,7 +433,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -477,7 +475,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -520,7 +518,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -563,7 +561,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -606,7 +604,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -649,7 +647,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -704,7 +702,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -767,7 +765,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -810,7 +808,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -853,7 +851,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -896,7 +894,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -939,7 +937,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -994,7 +992,7 @@ public class RedactionEngineProxyWebImplTest
     {
         try
         {
-            RedactionEngineProxyWebImpl webProxy = new RedactionEngineProxyWebImpl()
+            AdapterRedactionEngineProxyWebServiceUnsecuredImpl webProxy = new AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
             {
                 @Override
                 protected Log createLogger()

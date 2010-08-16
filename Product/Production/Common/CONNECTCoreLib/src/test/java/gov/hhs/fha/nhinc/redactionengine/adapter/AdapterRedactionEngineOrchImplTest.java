@@ -1,6 +1,10 @@
-package gov.hhs.fha.nhinc.redaction.proxy;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-import gov.hhs.fha.nhinc.redaction.RedactionEngine;
+package gov.hhs.fha.nhinc.redactionengine.adapter;
+
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -20,8 +24,8 @@ import static org.junit.Assert.*;
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class RedactionEngineProxyJavaImplTest
-{
+public class AdapterRedactionEngineOrchImplTest {
+
     Mockery context = new JUnit4Mockery()
     {
         {
@@ -40,7 +44,7 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -69,7 +73,7 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -98,7 +102,7 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -139,7 +143,7 @@ public class RedactionEngineProxyJavaImplTest
             final AdhocQueryRequest adhocQueryRequest = null;
             final AdhocQueryResponse adhocQueryResponse = null;
 
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -178,7 +182,7 @@ public class RedactionEngineProxyJavaImplTest
         try
         {
 
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -216,7 +220,7 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -257,7 +261,7 @@ public class RedactionEngineProxyJavaImplTest
             final RetrieveDocumentSetRequestType retrieveRequest = null;
             final RetrieveDocumentSetResponseType retrieveResponse = null;
 
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -295,7 +299,7 @@ public class RedactionEngineProxyJavaImplTest
     {
         try
         {
-            RedactionEngineProxyJavaImpl javaProxy = new RedactionEngineProxyJavaImpl()
+            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl()
             {
                 @Override
                 protected Log createLogger()

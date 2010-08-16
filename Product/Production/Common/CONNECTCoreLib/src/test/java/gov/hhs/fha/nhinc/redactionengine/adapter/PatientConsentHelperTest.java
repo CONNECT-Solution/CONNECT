@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.redaction;
+package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;

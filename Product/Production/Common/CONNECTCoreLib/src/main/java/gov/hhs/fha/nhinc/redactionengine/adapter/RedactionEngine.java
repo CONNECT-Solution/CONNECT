@@ -1,6 +1,5 @@
-package gov.hhs.fha.nhinc.redaction.proxy;
+package gov.hhs.fha.nhinc.redactionengine.adapter;
 
-import gov.hhs.fha.nhinc.redaction.RedactionEngine;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -9,15 +8,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Simple redirection to the Java implementation of the redaction engine.
- * 
+ *
  * @author Neil Webb
  */
-public class RedactionEngineProxyJavaImpl implements RedactionEngineProxy
+public class RedactionEngine
 {
     private Log log = null;
 
-    public RedactionEngineProxyJavaImpl()
+    public RedactionEngine()
     {
         log = createLogger();
     }
@@ -27,23 +25,28 @@ public class RedactionEngineProxyJavaImpl implements RedactionEngineProxy
         return LogFactory.getLog(getClass());
     }
 
-    protected RedactionEngine getRedactionEngine()
+    protected DocQueryResponseProcessor getDocQueryResponseProcessor()
     {
-        return new RedactionEngine();
+        return new DocQueryResponseProcessor();
+    }
+
+    protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
+    {
+        return new DocRetrieveResponseProcessor();
     }
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
     {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
-        RedactionEngine redactionEngine = getRedactionEngine();
-        if(redactionEngine != null)
+        DocQueryResponseProcessor processor = getDocQueryResponseProcessor();
+        if(processor != null)
         {
-            response = redactionEngine.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
+            response = processor.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
         }
         else
         {
-            log.warn("RedactionEngine was null");
+            log.warn("DocQueryResponseProcessor was null.");
         }
         log.debug("End filterAdhocQueryResults");
         return response;
@@ -53,17 +56,16 @@ public class RedactionEngineProxyJavaImpl implements RedactionEngineProxy
     {
         log.debug("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
-        RedactionEngine redactionEngine = getRedactionEngine();
-        if(redactionEngine != null)
+        DocRetrieveResponseProcessor processor = getDocRetrieveResponseProcessor();
+        if(processor != null)
         {
-            response = redactionEngine.filterRetrieveDocumentSetResults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
+            return processor.filterRetrieveDocumentSetReults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
         }
         else
         {
-            log.warn("RedactionEngine was null");
+            log.warn("DocRetrieveResponseProcessor was null.");
         }
-        log.debug("Begin filterRetrieveDocumentSetResults");
+        log.debug("End filterRetrieveDocumentSetResults");
         return response;
     }
-
 }

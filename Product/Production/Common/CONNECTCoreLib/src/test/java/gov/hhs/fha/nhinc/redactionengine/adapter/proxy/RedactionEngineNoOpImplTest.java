@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.redaction.proxy;
+package gov.hhs.fha.nhinc.redactionengine.adapter.proxy;
 
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -37,7 +37,7 @@ public class RedactionEngineNoOpImplTest
             AdhocQueryResponse inputAdhocQueryResponse = new AdhocQueryResponse();
             inputAdhocQueryResponse.setRequestId(expectedRequestId);
 
-            RedactionEngineNoOpImpl noOpProxy = new RedactionEngineNoOpImpl();
+            AdapterRedactionEngineProxyNoOpImpl noOpProxy = new AdapterRedactionEngineProxyNoOpImpl();
 
             AdhocQueryResponse response = noOpProxy.filterAdhocQueryResults(mockAdhocQueryRequest, inputAdhocQueryResponse);
             assertNotNull("AdhocQueryResponse should not be null", response);
@@ -63,7 +63,7 @@ public class RedactionEngineNoOpImplTest
             inputResponse.setRegistryResponse(registryResponse);
             registryResponse.setStatus(expectedStatus);
 
-            RedactionEngineNoOpImpl noOpProxy = new RedactionEngineNoOpImpl();
+            AdapterRedactionEngineProxyNoOpImpl noOpProxy = new AdapterRedactionEngineProxyNoOpImpl();
 
             RetrieveDocumentSetResponseType response = noOpProxy.filterRetrieveDocumentSetResults(mockRequest, inputResponse);
             assertNotNull("RetrieveDocumentSetResponseType should not be null", response);

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.redaction;
+package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapterpip.PatientConsentManager;
