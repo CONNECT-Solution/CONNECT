@@ -38,7 +38,9 @@ public class DocQueryPolicyChecker {
     policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
     policyCheckReq.setMessage(request);
 
-    return checkResponcePolicy(policyCheckReq, assertion);
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+
+    return checkPolicy(policyReq, assertion);
   }
 
   public boolean checkOutgoingPolicy(AdhocQueryRequest message, AssertionType assertion) {
@@ -51,7 +53,9 @@ public class DocQueryPolicyChecker {
     policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
     policyCheckReq.setMessage(request);
 
-    return checkResponcePolicy(policyCheckReq, assertion);
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+
+    return checkPolicy(policyReq, assertion);
   }
 
   public boolean checkIncomingResponsePolicy(AdhocQueryResponse message, AssertionType assertion) {
@@ -64,7 +68,9 @@ public class DocQueryPolicyChecker {
     policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
     policyCheckReq.setMessage(request);
 
-    return checkResponsePolicy(policyCheckReq, assertion);
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+
+    return checkPolicy(policyReq, assertion);
   }
 
   public boolean checkOutgoingResponsePolicy(AdhocQueryResponse message, AssertionType assertion, HomeCommunityType receiverHcid) {
@@ -78,8 +84,10 @@ public class DocQueryPolicyChecker {
     policyCheckReq.setMessage(request);
     policyCheckReq.setReceivingHomeCommunity(receiverHcid);
 
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+
     //call the policy engine to check the permission on the request
-    return checkResponsePolicy(policyCheckReq, assertion);
+    return checkPolicy(policyReq, assertion);
   }
 
   public boolean checkOutgoingRequestPolicy(AdhocQueryRequest message, AssertionType assertion, HomeCommunityType receiverHcid) {
@@ -93,8 +101,10 @@ public class DocQueryPolicyChecker {
     policyCheckReq.setMessage(request);
     policyCheckReq.setReceivingHomeCommunity(receiverHcid);
 
+    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+    
     //call the policy engine to check the permission on the request
-    return checkResponcePolicy(policyCheckReq, assertion);
+    return checkPolicy(policyReq, assertion);
   }
 
   protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryRequestEventType policyCheckReq, AssertionType assertion) {
@@ -111,18 +121,6 @@ public class DocQueryPolicyChecker {
     return policyReq;
   }
 
-  protected boolean checkResponcePolicy(AdhocQueryRequestEventType policyCheckReq, AssertionType assertion) {
-    //call the policy engine to check the permission on the request
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
-    return checkPolicy(policyReq, assertion);
-  }
-
-  protected boolean checkResponsePolicy(AdhocQueryResultEventType policyCheckReq, AssertionType assertion) {
-    //call the policy engine to check the permission on the request
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
-    return checkPolicy(policyReq, assertion);
-  }
-
   /**
    * check the policy engine's response, return true if response = permit
    * @param policyCheckReq
@@ -130,18 +128,21 @@ public class DocQueryPolicyChecker {
    * @return return true if response = permit
    */
   protected boolean checkPolicy(CheckPolicyRequestType policyReq, AssertionType assertion) {
-    PolicyEngineProxy policyProxy = getPolicyEngineFactory().getPolicyEngineProxy();
-    CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
-    return policyResp.getResponse() != null &&
-           NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-           policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT;
+    CheckPolicyResponseType policyResp = getPolicyEngine().checkPolicy(policyReq, assertion);
+    return validatePolicyResponse(policyResp);
   }
 
   protected PolicyEngineChecker getPolicyChecker() {
     return new PolicyEngineChecker();
   }
 
-  protected PolicyEngineProxyObjectFactory getPolicyEngineFactory() {
-    return new PolicyEngineProxyObjectFactory();
+  protected PolicyEngineProxy getPolicyEngine() {
+    return (new PolicyEngineProxyObjectFactory()).getPolicyEngineProxy();
+  }
+
+  protected boolean validatePolicyResponse(CheckPolicyResponseType policyResp) {
+    return policyResp.getResponse() != null 
+            && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+            && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT;
   }
 }

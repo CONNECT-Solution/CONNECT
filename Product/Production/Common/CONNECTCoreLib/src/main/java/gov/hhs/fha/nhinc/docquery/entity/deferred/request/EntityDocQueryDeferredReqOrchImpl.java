@@ -111,7 +111,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
    * @param hcid
    * @return Returns true if given home community is allowed to send requests
    */
-  private boolean checkPolicy(final AdhocQueryRequest message, final AssertionType assertion, final String hcid) {
+  protected boolean checkPolicy(final AdhocQueryRequest message, final AssertionType assertion, final String hcid) {
     HomeCommunityType homeCommunity = new HomeCommunityType();
     homeCommunity.setHomeCommunityId(hcid);
 

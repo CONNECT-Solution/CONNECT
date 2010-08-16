@@ -4,7 +4,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -12,7 +11,6 @@ import org.jmock.Mockery;
 import org.jmock.Expectations;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
