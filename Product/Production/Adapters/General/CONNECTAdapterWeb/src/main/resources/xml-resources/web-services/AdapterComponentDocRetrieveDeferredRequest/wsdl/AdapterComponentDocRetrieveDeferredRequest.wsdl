@@ -11,48 +11,22 @@
              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
              xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
              xmlns:dr="http://www.hhs.gov/healthit/nhin"
-             xmlns:ihe="urn:ihe:iti:xds-b:2007"
              xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
              xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization">
     <documentation>IHE XDS.b Document Retrieve Request</documentation>
     <types>
-    <xsd:schema elementFormDefault="qualified"
-      targetNamespace="urn:ihe:iti:xds-b:2007"
-      xmlns:tns="urn:ihe:iti:xds-b:2007">
-      <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-    </xsd:schema>
-    <xsd:schema elementFormDefault="qualified"
-      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
-      xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
-      <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
-    </xsd:schema>
-    <!-- While no elements are directly used from these schema in the WSDL,
-      they need to be present here in order for
-      code generating toolkits to work properly -->
-    <xsd:schema elementFormDefault="qualified"
-      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
-      xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
-      <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
-    </xsd:schema>
-   <xsd:schema elementFormDefault="qualified"
-      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
-      xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
-      <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
-    </xsd:schema>
-    <xsd:schema elementFormDefault="qualified"
-    targetNamespace="http://www.hhs.gov/healthit/nhin"
-    xmlns:dr="http://www.hhs.gov/healthit/nhin">
-        <!-- Include the message schema -->
-        <xsd:include   schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
-    </xsd:schema>
-  </types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                        schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+                        schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+        </xsd:schema>
+    </types>
   <message name="RetrieveDocumentSetRequestMessage">
     <documentation>Retrieve Document Set Request</documentation>
-    <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+    <part name="body" element="tns:RetrieveDocumentSetRequest"/>
   </message>
   <message name="RetrieveDocumentSetAcknowledgementMessage">
     <documentation>Retrieve Document Set Acknowledgement</documentation>
@@ -94,5 +68,3 @@
           </wsp:ExactlyOne>
     </wsp:Policy>
 </definitions>
-
-

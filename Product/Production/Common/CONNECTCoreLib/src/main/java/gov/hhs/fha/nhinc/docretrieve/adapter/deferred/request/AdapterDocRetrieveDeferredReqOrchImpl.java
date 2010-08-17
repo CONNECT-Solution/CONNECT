@@ -6,6 +6,10 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxy;
+import gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -33,18 +37,17 @@ public class AdapterDocRetrieveDeferredReqOrchImpl {
 
     public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion)
     {
-        log.debug("Enter AdapterDocRetrieveDeferredReqImpl.respondingGatewayCrossGatewayRetrieve()");
-        DocRetrieveAcknowledgementType response = null;
-        RegistryResponseType           responseType;
+        DocRetrieveAcknowledgementType      result = null;
+        
+        log.debug("Enter AdapterDocRetrieveDeferredReqOrchImpl.respondingGatewayCrossGatewayRetrieve()");
+        AdapterComponentDocRetrieveDeferredReqProxyObjectFactory factory = new AdapterComponentDocRetrieveDeferredReqProxyObjectFactory();
+        AdapterComponentDocRetrieveDeferredReqProxy proxy = factory.getAdapterDocRetrieveDeferredRequestProxy();
 
+        result = proxy.sendToAdapter(body, assertion);
 
-        response = new DocRetrieveAcknowledgementType();
-        responseType = new RegistryResponseType();
-        response.setMessage(responseType);
-        responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
+        log.debug("Leaving AdapterDocRetrieveDeferredReqOrchImpl.respondingGatewayCrossGatewayRetrieve()");
 
-        log.debug("Leaving AdapterDocRetrieveDeferredReqImpl.respondingGatewayCrossGatewayRetrieve()");
-        return response;
+        return result;
     }
 
 }

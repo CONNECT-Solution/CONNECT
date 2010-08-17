@@ -20,7 +20,7 @@ public class NhincConstants {
 
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
-    
+
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
@@ -219,7 +219,7 @@ public class NhincConstants {
     public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adaptercomponentdocquerydeferredresponse";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME = "adapterdocquerydeferredrequesterror";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequesterrorsecured";
-    
+
     public static final String NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "QueryForDocumentsDeferredRequest";
     public static final String NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "QueryForDocumentsDeferredResponse";
     public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "passthrudocquerydeferredrequest";
@@ -397,10 +397,12 @@ public class NhincConstants {
     public static final String NHIN_DOCRETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
     public static final String DOCRETRIEVEDEFERRED_REQUEST_ACTION = "docretrievedeferredrequest";
     public static final String DOCRETRIEVEDEFERRED_RESPONSE_ACTION = "docretrievedeferredresponse";
+    public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME = "adaptercomponentdocretrievedeferredrequest";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME = "adapterdocretrievedeferredrequest";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME = "adapterdocretrievedeferredrequestsecured";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME = "adapterdocretrievedeferredrequesterror";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SECURED_SERVICE_NAME = "adapterdocretrievedeferredrequesterrorsecured";
+    public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adaptercomponentdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
     /* -- End Document Retrieve deferred Service Name -- */
