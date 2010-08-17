@@ -1,7 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import javax.jws.WebService;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;

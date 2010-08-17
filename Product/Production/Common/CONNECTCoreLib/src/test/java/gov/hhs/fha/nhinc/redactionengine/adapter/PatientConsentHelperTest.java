@@ -8,9 +8,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdReq
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPImpl;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.PatientConsentManager;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.PatientConsentManager;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;

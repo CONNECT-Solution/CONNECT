@@ -15,9 +15,9 @@
 	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyDenyNoOpImpl"/> -->
 
 	<!-- Web service AdapterPEP implementation -->
-	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPWebServiceProxy"/> -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyWebServiceUnsecuredImpl"/> -->
 
 	<!-- Java Adapter PEP implementation -->
-	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPJavaProxy"/> -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyJavaImpl"/> -->
 
 </beans>

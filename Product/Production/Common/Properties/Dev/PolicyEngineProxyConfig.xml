@@ -3,15 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineNoOpImpl"/> -->
+    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyNoOpImpl"/> -->
 	
 	<!-- Unsecured web service policy engine implementation -->
-    <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxy"/>
+    <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyWebServiceUnsecuredImpl"/>
 
 	<!-- Secured web service policy engine implementation -->
-    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxySecuredImpl"/> -->
+    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyWebServiceSecuredImpl"/> -->
     
 	<!-- Java policy engine implementation -->
-    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineWebServiceProxyJavaImpl"/> -->
+    <!-- <bean id="policyengine" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyJavaImpl"/> -->
     
 </beans>

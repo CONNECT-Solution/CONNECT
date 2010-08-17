@@ -4,7 +4,6 @@ import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineImpl;
 
 /**
  *
@@ -21,7 +20,7 @@ public class AdapterPolicyEngineSecuredImpl
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         CheckPolicyResponseType checkPolicyResp = null;
 
-        AdapterPolicyEngineImpl oPolicyEngine = new AdapterPolicyEngineImpl();
+        AdapterPolicyEngineProcessorImpl oPolicyEngine = new AdapterPolicyEngineProcessorImpl();
         try
         {
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType();

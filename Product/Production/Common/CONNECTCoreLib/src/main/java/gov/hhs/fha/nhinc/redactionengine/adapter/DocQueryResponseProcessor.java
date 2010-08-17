@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.CDAConstants;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.CDAConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.math.BigInteger;
 import java.util.ArrayList;

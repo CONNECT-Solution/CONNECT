@@ -64,7 +64,7 @@ public class AdapterPolicyEngineImpl
     {
         CheckPolicyResponseType checkPolicyResp = null;
 
-        gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngineImpl();
+        gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl();
         try
         {
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType();

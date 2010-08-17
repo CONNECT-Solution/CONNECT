@@ -9,15 +9,15 @@
 	file without requireing all of the project libraries to be loaded to run a single component. -->
 
 	<!-- Default AdapterPolicyEngineOrchestrator for always permit implementation -->
-	<bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchestratorPermitNoOpImpl"/>
+	<bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyPermitNoOpImpl"/>
 
 	<!-- AdapterPolicyEngineOrchestrator for always deny implementation -->
-	<!-- <bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchestratorDenyNoOpImpl"/> -->
+	<!-- <bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyDenyNoOpImpl"/> -->
 
 	<!-- AdapterPolicyEngineOrchestrator java implementation -->
-	<!-- <bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchestratorJavaProxy"/> -->
+	<!-- <bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyJavaImpl"/> -->
 
 	<!-- AdapterPolicyEngineOrchestrator web service implementation -->
-	<!-- <bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchestratorWebServiceProxy"/> -->
+	<!-- <bean id="adapterpolicyengineorchestrator" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl"/> -->
 
 </beans>

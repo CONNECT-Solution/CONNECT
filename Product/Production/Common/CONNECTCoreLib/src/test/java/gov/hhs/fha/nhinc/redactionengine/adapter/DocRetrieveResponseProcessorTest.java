@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.PatientConsentManager;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.PatientConsentManager;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;

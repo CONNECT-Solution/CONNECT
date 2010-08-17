@@ -7,7 +7,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdReq
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
-import gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPImpl;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

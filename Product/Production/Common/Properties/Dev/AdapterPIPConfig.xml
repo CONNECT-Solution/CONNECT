@@ -15,8 +15,8 @@
 	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl"/> -->
 
 	<!-- Java Adapter PIP implementation -->
-	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPJavaProxy"/>
+	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyJavaImpl"/>
 
 	<!-- Web service adapter PIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPWebServiceProxy"/> -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyWebServiceUnsecuredImpl"/> -->
 </beans>
