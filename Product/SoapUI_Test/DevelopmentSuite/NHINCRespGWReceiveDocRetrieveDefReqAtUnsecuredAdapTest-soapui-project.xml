@@ -18618,15 +18618,15 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T03:47:49Z</con:value>
+          <con:value>2010-08-17T18:56:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T03:57:49Z</con:value>
+          <con:value>2010-08-17T19:06:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 03:47:49</con:value>
+          <con:value>08/17/2010 18:56:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -18637,7 +18637,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqWIthMockUnsecuredAdap" searchProperties="true" id="db38180d-3612-41e1-81f7-d88f117ce496">
       <con:settings/>
-      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
+      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockAdapter">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -18647,7 +18647,7 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockAdapterRespURL = "http://" + mockHost + ":11211//mockAdapteUnsecuredrResponse";
+def mockAdapterRespURL = "http://" + mockHost + ":11211/mockAdapterUnsecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
@@ -18925,7 +18925,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
         <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterDocRetrieveDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveRequest</con:operation>
-          <con:path>/mockAdapteUnsecuredrResponse</con:path>
+          <con:path>/mockAdapterUnsecuredResponse</con:path>
           <con:port>11211</con:port>
           <con:timeout>30000</con:timeout>
           <con:response>
@@ -18944,15 +18944,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T04:12:15Z</con:value>
+          <con:value>2010-08-17T18:51:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T04:22:15Z</con:value>
+          <con:value>2010-08-17T19:01:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 04:12:15</con:value>
+          <con:value>08/17/2010 18:51:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -20730,15 +20730,15 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T03:45:36Z</con:value>
+          <con:value>2010-08-17T18:26:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T03:55:36Z</con:value>
+          <con:value>2010-08-17T18:36:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 03:45:36</con:value>
+          <con:value>08/17/2010 18:26:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -20749,7 +20749,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqPermitPEWithMockUnsecuredAdap" searchProperties="true" id="64c7d529-295b-4588-8e3b-29d77d7324f2">
       <con:settings/>
-      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
+      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockAdapter">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -20759,7 +20759,7 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockAdapterRespURL = "http://" + mockHost + ":11233/mockAdapteUnsecuredrResponse";
+def mockAdapterRespURL = "http://" + mockHost + ":11233/mockAdapterUnsecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
@@ -22526,7 +22526,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
         <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterDocRetrieveDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveRequest</con:operation>
-          <con:path>/mockAdapteUnsecuredrResponse</con:path>
+          <con:path>/mockAdapterUnsecuredResponse</con:path>
           <con:port>11233</con:port>
           <con:timeout>30000</con:timeout>
           <con:response outgoingWss="">
@@ -22545,15 +22545,15 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T04:05:56Z</con:value>
+          <con:value>2010-08-17T18:59:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T04:15:56Z</con:value>
+          <con:value>2010-08-17T19:09:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 04:05:56</con:value>
+          <con:value>08/17/2010 18:59:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -24321,15 +24321,15 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T03:21:56Z</con:value>
+          <con:value>2010-08-17T18:28:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T03:31:56Z</con:value>
+          <con:value>2010-08-17T18:38:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 03:21:56</con:value>
+          <con:value>08/17/2010 18:28:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -24338,9 +24338,9 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqDenyPEWithMockUnsecErrAdap" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqDenyPEWithMockUnsecErrAdap" searchProperties="true" id="d341b80b-64b2-4d62-b1e4-161551c4e0a0">
       <con:settings/>
-      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadterError">
+      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockAdapterError">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -24350,7 +24350,7 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockAdapterErrorRespURL = "http://" + mockHost + ":11235/mockAdapteUnsecuredrResponse";
+def mockAdapterErrorRespURL = "http://" + mockHost + ":11235/AdapterMockRespError";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
@@ -26139,24 +26139,24 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-06T03:14:14Z</con:value>
+          <con:value>2010-08-17T18:28:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-06T03:24:14Z</con:value>
+          <con:value>2010-08-17T18:38:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/06/2010 03:14:14</con:value>
+          <con:value>08/17/2010 18:28:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-05T00:00:00Z</con:value>
+          <con:value>2010-09-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqServiceDisabled" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqServiceDisabled" searchProperties="true" id="33d19903-e317-4aa5-9aef-6f5d64d3a5ae">
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
@@ -26420,7 +26420,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
               <con:configuration>
                 <path>declare namespace ns11='http://www.hhs.gov/healthit/nhin';
 //ns11:DocRetrieveAcknowledgement[1]/ns11:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -26435,24 +26435,24 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T17:31:24Z</con:value>
+          <con:value>2010-08-17T18:41:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T17:41:24Z</con:value>
+          <con:value>2010-08-17T18:51:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 17:31:24</con:value>
+          <con:value>08/17/2010 18:41:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqServiceDisabledWithMockErrAdapter" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqServiceDisabledWithMockErrAdapter" searchProperties="true" id="d142553f-cd0d-41f9-b7e6-ef5ab442e533">
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
@@ -26716,7 +26716,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
               <con:configuration>
                 <path>declare namespace ns11='http://www.hhs.gov/healthit/nhin';
 //ns11:DocRetrieveAcknowledgement[1]/ns11:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -26731,19 +26731,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T17:33:24Z</con:value>
+          <con:value>2010-08-17T18:39:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T17:43:24Z</con:value>
+          <con:value>2010-08-17T18:49:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 17:33:24</con:value>
+          <con:value>08/17/2010 18:39:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
