@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.redactionengine.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
@@ -54,7 +55,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterComponentRedactionEnginePortType getPort(String url, String wsAddressingAction)
+    protected AdapterComponentRedactionEnginePortType getPort(String url, String wsAddressingAction, AssertionType assertion)
     {
         AdapterComponentRedactionEnginePortType port = null;
         Service service = getService();
@@ -63,7 +64,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentRedactionEnginePortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, null);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else
         {
@@ -93,7 +94,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         return cachedService;
     }
  
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse, AssertionType assertion)
     {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
@@ -101,7 +102,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         try
         {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.REDACTION_ENGINE_SERVICE_NAME);
-            AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY);
+            AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY, assertion);
 
             if(adhocQueryRequest == null)
             {
@@ -134,7 +135,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         return response;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion)
     {
         log.debug("Begin filterAdhocQueryResults");
         RetrieveDocumentSetResponseType response = null;
@@ -142,7 +143,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         try
         {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.REDACTION_ENGINE_SERVICE_NAME);
-            AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE);
+            AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
 
             if(retrieveDocumentSetRequest == null)
             {

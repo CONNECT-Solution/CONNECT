@@ -53,7 +53,7 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setRequestSlotList(request.getRequestSlotList());
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(request);
-                response = callRedactionEngine(request, response);
+                response = callRedactionEngine(request, response, assertion);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
@@ -73,13 +73,13 @@ public class AdapterDocQueryOrchImpl {
 
     }
 
-    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse) {
+    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse, AssertionType assertion) {
         AdhocQueryResponse response = null;
         if (queryResponse == null) {
             log.warn("Did not call redaction engine because the query response was null.");
         } else {
             log.debug("Calling Redaction Engine");
-            response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse);
+            response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse, assertion);
         }
         return response;
     }
