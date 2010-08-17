@@ -2,9 +2,7 @@ package gov.hhs.fha.nhinc.policyengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,49 +25,24 @@ public class AdapterPolicyEngineImpl
         return LogFactory.getLog(getClass());
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest, WebServiceContext context)
+    protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
+    {
+        // TODO: Extract message ID from the web service context for logging.
+    }
+
+    public CheckPolicyResponseType checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType request, WebServiceContext context)
     {
         log.debug("Begin AdapterPolicyEngineImpl.checkPolicy (unsecure)");
-        CheckPolicyResponseType result = null;
-        if(checkPolicyRequest != null)
-        {
-            result = checkPolicy(checkPolicyRequest.getRequest(), checkPolicyRequest.getAssertion());
-        }
-        else
-        {
-            log.error("AdapterPolicyEngineImpl.checkPolicy (unsecure) - request was null");
-        }
-        log.debug("End AdapterPolicyEngineImpl.checkPolicy (unsecure)");
-        return result;
-    }
-
-    public CheckPolicyResponseType checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body, WebServiceContext context)
-    {
-        log.debug("Begin AdapterPolicyEngineImpl.checkPolicy (secure)");
-        CheckPolicyResponseType response = null;
-        if(body != null)
-        {
-            AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-            response = checkPolicy(body.getRequest(), assertion);
-        }
-        else
-        {
-            log.error("AdapterPolicyEngineImpl.checkPolicy (secure) - request was null");
-        }
-        log.debug("End AdapterPolicyEngineImpl.checkPolicy (secure)");
-        return response;
-    }
-
-    private CheckPolicyResponseType checkPolicy(RequestType request, AssertionType assertion)
-    {
         CheckPolicyResponseType checkPolicyResp = null;
 
         gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl();
         try
         {
+            AssertionType assertion = request.getAssertion();
+            loadAssertion(assertion, context);
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType();
             checkPolicyRequest.setAssertion(assertion);
-            checkPolicyRequest.setRequest(request);
+            checkPolicyRequest.setRequest(request.getRequest());
             checkPolicyResp = oPolicyEngine.checkPolicy(checkPolicyRequest, assertion);
         }
         catch (Exception e)
@@ -79,6 +52,7 @@ public class AdapterPolicyEngineImpl
             log.error(sMessage, e);
             throw new RuntimeException(sMessage, e);
         }
+        log.debug("End AdapterPolicyEngineImpl.checkPolicy (unsecure)");
         return checkPolicyResp;
     }
 

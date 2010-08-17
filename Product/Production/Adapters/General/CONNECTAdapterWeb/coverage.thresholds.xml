@@ -114,7 +114,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoveryAsyncResp" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoveryAsyncRespImpl" linecount="13" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineImpl" linecount="33" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="-Infinity" branchsexecuted="-3.2" class="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineImpl" linecount="22" linerate="-0.4" linesexecuted="-8.8"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecuredImpl" linecount="15" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator" linecount="4" linerate="0.5" linesexecuted="0.02"/>
