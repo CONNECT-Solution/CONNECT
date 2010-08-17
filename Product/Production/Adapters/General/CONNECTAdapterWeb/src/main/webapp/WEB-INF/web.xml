@@ -11,7 +11,7 @@
 
     <servlet>
         <servlet-name>DocumentRepositoryService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.document.DocumentRepositoryService</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DocumentRepositoryService</servlet-name>
@@ -378,14 +378,10 @@
         <url-pattern>/NhincProxyAuditQuery</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>NhincProxyDocQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyDocQuery</servlet-name>
-        <url-pattern>/NhincProxyDocQuery</url-pattern>
-    </servlet-mapping>
+    
+
+    
+
 
     <servlet>
         <servlet-name>EntityDocRetrieve</servlet-name>

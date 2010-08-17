@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.document;
+package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -28,12 +28,12 @@ public class DocumentRepositoryService {
 
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body)
     {
-        return new DocumentRepositoryHelper().documentRepositoryProvideAndRegisterDocumentSet(body);
+        return new DocumentRepositoryServiceImpl().documentRepositoryProvideAndRegisterDocumentSet(body, context);
     }
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body)
     {
-        return new DocumentRepositoryHelper().documentRepositoryRetrieveDocumentSet(body);
+        return new DocumentRepositoryServiceImpl().documentRepositoryRetrieveDocumentSet(body, context);
     }
 
 }
