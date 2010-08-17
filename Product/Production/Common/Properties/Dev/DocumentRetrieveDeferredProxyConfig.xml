@@ -101,7 +101,7 @@
     <!-- Default java implementation -->
          <!-- <bean id="adaptercomponentdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.proxy.AdapterComponentDocRetrieveDeferredRespProxyJavaImpl"/> -->
     <!-- Web-service Secured implementation -->
-         <bean id="adaptercomponentdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.proxy.AdapterComponentDocRetrieveDeferredRespProxyWebServiceSecuredImpl"/>
+         <bean id="adaptercomponentdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.proxy.AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl"/>
     <!-- Web-service UnSecured implementation -->
          <!--  <bean id="adaptercomponentdocretrievedeferredresponse" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.proxy.AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl"/>-->
 
@@ -112,7 +112,7 @@
 	<!-- Default java implementation -->
          <!-- <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.component.adapter.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyJavaImpl"/>-->
 	<!-- Web-service Secured implementation -->
-         <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyWebServiceSecuredImpl"/>
+         <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl"/>
 	<!-- Web-service UnSecured implementation -->
          <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl"/> -->
 </beans>

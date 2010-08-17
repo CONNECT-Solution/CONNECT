@@ -8,5 +8,5 @@
 	<!-- Web-service implementation -->
     <!--<bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyWebServiceUnsecuredImpl"/> -->
 	<!-- Java implementation -->
-    <!-- <bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.rredactionengine.adapter.proxy.AdapterRedactionEngineProxyJavaImpl"/> -->
+    <!-- <bean id="adapterredactionengine" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyJavaImpl"/> -->
 </beans>
