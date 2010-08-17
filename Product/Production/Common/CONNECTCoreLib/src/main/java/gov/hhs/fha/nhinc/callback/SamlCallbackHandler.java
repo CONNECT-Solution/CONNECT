@@ -505,7 +505,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeOfUse
+     * UserRole, and PurposeForUse
      * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of all Attribute statements
@@ -621,11 +621,11 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         try {
-            // Add the PurposeOfUse Attribute
+            // Add the PurposeForUse Attribute
             List attributeValues4 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
-            final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeOfUse");
+            final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeForUse");
             elemPFUAttr.appendChild(purpose);
 
             purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
