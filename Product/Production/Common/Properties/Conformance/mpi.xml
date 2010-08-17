@@ -252,7 +252,7 @@
      <void method="add"> 
       <object class="gov.hhs.fha.nhinc.mpilib.Address"> 
        <void property="city"> 
-        <stringFullerton</string> 
+        <string>Fullerton</string> 
        </void> 
        <void property="state"> 
         <string>CA</string> 
