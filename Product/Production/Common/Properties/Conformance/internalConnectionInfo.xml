@@ -579,7 +579,7 @@
 			<service>
 				<name>nhincproxydocquery</name>
 				<description>NHINC Proxy Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterauthentication</name>
@@ -704,11 +704,6 @@
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
-			</service>
-			<service>
-				<name>patientcorrelationfacadedteservice</name>
-				<description>Patient Correlation Facade DTE Service</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 			<service>
 				<name>nhinadmindist</name>
@@ -1382,7 +1377,7 @@
 			<service>
 				<name>nhincproxydocquery</name>
 				<description>NHINC Proxy Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterauthentication</name>
@@ -1507,11 +1502,6 @@
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
-			</service>
-			<service>
-				<name>patientcorrelationfacadedteservice</name>
-				<description>Patient Correlation Facade DTE Service</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 			<service>
 				<name>nhinadmindist</name>
@@ -2078,7 +2068,7 @@
 			<service>
 				<name>nhincproxydocquery</name>
 				<description>NHINC Proxy Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterauthentication</name>
@@ -2308,11 +2298,6 @@
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
-			</service>
-			<service>
-				<name>patientcorrelationfacadedteservice</name>
-				<description>Patient Correlation Facade DTE Service</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 			<service>
 				<name>nhinadmindist</name>
@@ -2908,7 +2893,7 @@
 			<service>
 				<name>nhincproxydocquery</name>
 				<description>NHINC Proxy Document Query</description>
-				<endpointURL>http://localhost:8080/AdapterService/NhincProxyDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterauthentication</name>
@@ -3078,11 +3063,6 @@
 				<name>adapterredactionengine</name>
 				<description>Adapter component redaction engine</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
-			</service>
-			<service>
-				<name>patientcorrelationfacadedteservice</name>
-				<description>Patient Correlation Facade DTE Service</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 			<service>
 				<name>nhinadmindist</name>
@@ -3274,7 +3254,7 @@
 			<service>
 				<name>nhincproxydocquery</name>
 				<description>NHINC Proxy Document Query</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>entitydocretrieveproxy</name>
@@ -3300,11 +3280,6 @@
 				<name>adapterauditquerysecured</name>
 				<description>adapterauditquerysecured</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
-			</service>
-			<service>
-				<name>patientcorrelationfacadedteservice</name>
-				<description>Patient Correlation Facade DTE Service</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationFacadeDteService</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
