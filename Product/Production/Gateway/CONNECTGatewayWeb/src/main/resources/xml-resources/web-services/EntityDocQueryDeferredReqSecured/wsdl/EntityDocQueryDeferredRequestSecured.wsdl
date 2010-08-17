@@ -34,7 +34,7 @@
 			</input>
 			<output name="AcknowledgementMessage">
 				<soap:body use="literal"/>
-				<wsp:PolicyReference URI="#Entity_DocQueryDeferred_Binding_Soap_Input_Policy"/>
+				<wsp:PolicyReference URI="#Entity_DocQueryDeferred_Binding_Soap_Output_Policy"/>
 			</output>
 		</operation>
 	</binding>
