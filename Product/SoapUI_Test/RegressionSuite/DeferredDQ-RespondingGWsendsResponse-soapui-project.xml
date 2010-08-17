@@ -12215,7 +12215,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body>
+   <soap:Body projectName="DeferredDQ-RespondingGWsendsResponse" testCase="Response passes Policy Engine Check">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
          <urn1:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.w3.org/2005/08/addressing" xmlns:ns7="http://docs.oasis-open.org/wsn/b-2" xmlns:ns8="urn:ihe:iti:xds-b:2007" xmlns:ns9="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns10="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns11="http://docs.oasis-open.org/wsn/t-1" xmlns:ns12="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ns15="http://nhinc.services.com/schema/auditmessage" xmlns:ns16="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:subscription">
             <urn2:RegistryObjectList>
@@ -14138,15 +14138,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T03:48:14Z</con:value>
+          <con:value>2010-08-17T14:17:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T03:58:14Z</con:value>
+          <con:value>2010-08-17T14:27:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 03:48:14</con:value>
+          <con:value>08/17/2010 14:17:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -14185,7 +14185,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body>
+   <soap:Body projectName="DeferredDQ-RespondingGWsendsResponse" testCase="Response fails Policy Engine Check">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
          <urn1:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.w3.org/2005/08/addressing" xmlns:ns7="http://docs.oasis-open.org/wsn/b-2" xmlns:ns8="urn:ihe:iti:xds-b:2007" xmlns:ns9="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns10="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns11="http://docs.oasis-open.org/wsn/t-1" xmlns:ns12="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ns15="http://nhinc.services.com/schema/auditmessage" xmlns:ns16="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:subscription">
             <urn2:RegistryObjectList>
@@ -16108,15 +16108,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T03:48:16Z</con:value>
+          <con:value>2010-08-17T14:20:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T03:58:16Z</con:value>
+          <con:value>2010-08-17T14:30:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 03:48:16</con:value>
+          <con:value>08/17/2010 14:20:44</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -16160,7 +16160,7 @@ context.testCase.setPropertyValue('UserId',"${DDQUserID}${nowDate}1");</script>
             <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body>
+   <soap:Body projectName="DeferredDQ-RespondingGWsendsResponse" testCase="Response - Audit log">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
          <urn1:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.w3.org/2005/08/addressing" xmlns:ns7="http://docs.oasis-open.org/wsn/b-2" xmlns:ns8="urn:ihe:iti:xds-b:2007" xmlns:ns9="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns10="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns11="http://docs.oasis-open.org/wsn/t-1" xmlns:ns12="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ns15="http://nhinc.services.com/schema/auditmessage" xmlns:ns16="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:subscription">
             <urn2:RegistryObjectList>
@@ -16588,7 +16588,7 @@ context.testCase.setPropertyValue('UserId',"${DDQUserID}${nowDate}1");</script>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
-   <soapenv:Body projectName="DeferredDQ-RespondingGWreceivesRequest" testCase="Request - Audit Log">
+   <soapenv:Body projectName="DeferredDQ-RespondingGWsendsResponse" testCase="Response - Audit log">
       <urn:FindAuditEventsRequest>
          <aud:FindAuditEvents>
             <aud:userId>${#TestCase#UserId}</aud:userId>
@@ -16840,15 +16840,15 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T03:48:16Z</con:value>
+          <con:value>2010-08-17T14:21:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T03:58:16Z</con:value>
+          <con:value>2010-08-17T14:31:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 03:48:16</con:value>
+          <con:value>08/17/2010 14:21:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -16860,7 +16860,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DeferredDQTue Aug 17 03:53:16 UTC 20101</con:value>
+          <con:value>DeferredDQTue Aug 17 14:26:26 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
