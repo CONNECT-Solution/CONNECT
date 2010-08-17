@@ -11,7 +11,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 public class AdapterComponentDocRetrieveDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory {
 
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
-    private static final String BEAN_NAME = "adapterdocretrievedeferredresponse";
+    private static final String BEAN_NAME = "adaptercomponentdocretrievedeferredresponse";
 
     protected String getConfigFileName()
     {

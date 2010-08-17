@@ -26,7 +26,7 @@ public class AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredresp";
-    private static final String SERVICE_LOCAL_PART = "AdapterComponentDocRetrieveDeferredResponse";
+    private static final String SERVICE_LOCAL_PART = "adapterComponentDocRetrieveDeferredResponse";
     private static final String PORT_LOCAL_PART = "AdapterComponentDocRetrieveDeferredRespPortSoap";
     private static final String WSDL_FILE = "AdapterDocRetrieveDeferredResp.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredresp:CrossGatewayRetrieveResponse_Message";
