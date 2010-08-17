@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.repository.persistence;
+package gov.hhs.fha.nhinc.docrepository.adapter.persistence;
 
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;

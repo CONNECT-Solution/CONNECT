@@ -1,20 +1,17 @@
-package gov.hhs.fha.nhinc.repository.model;
+package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- * Data class for a document event code.
- * 
+ * Query parameter for a single event code.
+ *
  * @author Neil Webb
  */
-public class EventCode
+public class EventCodeParam
 {
 
-    private Long eventCodeId;
     private String eventCode;
     private String eventCodeScheme;
-    private String eventCodeDisplayName;
-    private Document document;
 
     public String getEventCode()
     {
@@ -24,26 +21,6 @@ public class EventCode
     public void setEventCode(String eventCode)
     {
         this.eventCode = eventCode;
-    }
-
-    public String getEventCodeDisplayName()
-    {
-        return eventCodeDisplayName;
-    }
-
-    public void setEventCodeDisplayName(String eventCodeDisplayName)
-    {
-        this.eventCodeDisplayName = eventCodeDisplayName;
-    }
-
-    public Long getEventCodeId()
-    {
-        return eventCodeId;
-    }
-
-    public void setEventCodeId(Long eventCodeId)
-    {
-        this.eventCodeId = eventCodeId;
     }
 
     public String getEventCodeScheme()
@@ -56,25 +33,11 @@ public class EventCode
         this.eventCodeScheme = eventCodeScheme;
     }
 
-    public Document getDocument()
-    {
-        return document;
-    }
-
-    public void setDocument(Document document)
-    {
-        this.document = document;
-    }
-
     @Override
     public int hashCode()
     {
         int hashCode = 0;
-        if(eventCodeId != null)
-        {
-            hashCode = eventCodeId.hashCode();
-        }
-        else if(NullChecker.isNotNullish(eventCode))
+        if(NullChecker.isNotNullish(eventCode))
         {
             hashCode = eventCode.hashCode();
             if(NullChecker.isNotNullish(eventCodeScheme))
@@ -85,6 +48,8 @@ public class EventCode
         return hashCode;
     }
 
+
+
     @Override
     public boolean equals(Object obj)
     {
@@ -93,16 +58,7 @@ public class EventCode
         {
             return false;
         }
-        EventCode toCheck = (EventCode)obj;
-
-        if((this.getEventCodeId() == null) && (toCheck.getEventCodeId() != null))
-        {
-            return false;
-        }
-        else if((this.getEventCodeId() != null) && (!this.getEventCodeId().equals(toCheck.getEventCodeId())))
-        {
-            return false;
-        }
+        EventCodeParam toCheck = (EventCodeParam)obj;
 
         if((this.getEventCode() == null) && (toCheck.getEventCode() != null))
         {
@@ -118,15 +74,6 @@ public class EventCode
             return false;
         }
         else if((this.getEventCodeScheme() != null) && (!this.getEventCodeScheme().equals(toCheck.getEventCodeScheme())))
-        {
-            return false;
-        }
-
-        if((this.getEventCodeDisplayName() == null) && (toCheck.getEventCodeDisplayName() != null))
-        {
-            return false;
-        }
-        else if((this.getEventCodeDisplayName() != null) && (!this.getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName())))
         {
             return false;
         }

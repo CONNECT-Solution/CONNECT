@@ -433,7 +433,7 @@ public class HL7PRPA201306Transforms {
         oDetectedIssueEvent.getMoodCode().add(HL7Constants.DETECTED_ISSUE_MOODCODE_EVN);
 
         //other errors may look a little differently than the one for responder busy
-        if (sErrorCode.equalsIgnoreCase(HL7Constants.DETECTEDISSUEMANAGEMENT_CODE_RESPONDER_BUSY))
+        if (NullChecker.isNotNullish(sErrorCode))
         {
             //<code code="ActAdministrativeDetectedIssueCode" codeSystem="2.16.840.1.113883.5.4"/>
             CD oCode = new CD();

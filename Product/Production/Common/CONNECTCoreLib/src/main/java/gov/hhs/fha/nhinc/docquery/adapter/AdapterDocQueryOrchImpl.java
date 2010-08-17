@@ -52,7 +52,7 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setMaxResults(request.getMaxResults());
                 adhocQueryRequest.setRequestSlotList(request.getRequestSlotList());
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
-                response = registryProxy.registryStoredQuery(request);
+                response = registryProxy.registryStoredQuery(request, assertion);
                 response = callRedactionEngine(request, response, assertion);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();

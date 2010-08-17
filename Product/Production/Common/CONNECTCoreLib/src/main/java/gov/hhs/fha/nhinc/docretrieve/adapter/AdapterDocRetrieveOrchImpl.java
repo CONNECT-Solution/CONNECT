@@ -5,10 +5,10 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxy;
-import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -40,8 +40,8 @@ public class AdapterDocRetrieveOrchImpl
 
         try
         {
-            AdapterDocumentRepositoryProxy proxy = new AdapterDocumentRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
-            response = proxy.retrieveDocumentSet(body);
+            AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
+            response = proxy.retrieveDocument(body, assertion);
             response = callRedactionEngine(body, response, assertion);
         }
         catch(Throwable t)

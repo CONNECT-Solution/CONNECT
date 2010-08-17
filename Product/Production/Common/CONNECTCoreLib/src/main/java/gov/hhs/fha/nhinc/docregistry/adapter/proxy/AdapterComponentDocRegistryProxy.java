@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -22,6 +23,6 @@ public interface AdapterComponentDocRegistryProxy
      * @param request
      * @return AdhocQueryResponse
      */
-    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request);
+    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion);
     
 }

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.repository.model;
+package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
 import java.util.Date;
 import java.util.List;

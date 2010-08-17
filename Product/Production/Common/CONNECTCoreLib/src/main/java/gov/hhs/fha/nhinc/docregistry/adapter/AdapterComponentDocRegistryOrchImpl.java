@@ -20,11 +20,11 @@ import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.repository.model.Document;
-import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.repository.model.EventCode;
-import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
-import gov.hhs.fha.nhinc.repository.service.DocumentService;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
+import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 

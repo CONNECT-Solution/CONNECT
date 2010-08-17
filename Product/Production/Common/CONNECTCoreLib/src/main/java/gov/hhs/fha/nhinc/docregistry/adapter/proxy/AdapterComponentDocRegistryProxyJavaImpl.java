@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -18,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterComponentDocRegistryProxyJavaImpl implements AdapterComponentDocRegistryProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocRegistryProxyJavaImpl.class);
 
-    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
+    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Component Doc Registry Service");
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(request);
     }

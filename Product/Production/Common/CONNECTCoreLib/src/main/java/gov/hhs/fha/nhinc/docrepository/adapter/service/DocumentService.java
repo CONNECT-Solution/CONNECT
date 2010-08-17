@@ -1,12 +1,12 @@
-package gov.hhs.fha.nhinc.repository.service;
+package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.repository.model.Document;
-import gov.hhs.fha.nhinc.repository.dao.DocumentDao;
-import gov.hhs.fha.nhinc.repository.dao.EventCodeDao;
-import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.repository.model.EventCode;
-import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.repository.service;
+package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
 /**
  * Exception class for DocumentService exceptions

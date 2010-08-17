@@ -3,7 +3,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
@@ -11,13 +10,9 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
-import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
-import gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
@@ -466,11 +461,7 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return true;
                 }
-                @Override
-                protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
-                {
-                    return mockPRPAIN201306UV02;
-                }
+
                 @Override
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
@@ -541,11 +532,7 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return true;
                 }
-                @Override
-                protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
-                {
-                    return mockPRPAIN201306UV02;
-                }
+
                 @Override
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
@@ -610,11 +597,7 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return true;
                 }
-                @Override
-                protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
-                {
-                    return mockPRPAIN201306UV02;
-                }
+
                 @Override
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
@@ -680,11 +663,7 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return true;
                 }
-                @Override
-                protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
-                {
-                    return mockPRPAIN201306UV02;
-                }
+
                 @Override
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
@@ -753,11 +732,7 @@ public class EntityPatientDiscoveryProcessorTest
                 {
                     return false;
                 }
-                @Override
-                protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url)
-                {
-                    return mockPRPAIN201306UV02;
-                }
+
                 @Override
                 protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
                 {
@@ -791,308 +766,7 @@ public class EntityPatientDiscoveryProcessorTest
 
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="sendToNhinProxy">
-    @Test
-    public void testSendToNhinProxyHappy()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return mockResponse;
-                }
-                @Override
-                protected ResponseFactory getResponseFactory()
-                {
-                    return mockResponseFactory;
-                }
-                @Override
-                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
-                {
-                    return mockPRPAIN201306UV02;
-                }
 
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockResponseFactory).getResponseMode();
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-            request.setNhinTargetCommunities(mockTargetCommunities);
-
-            PRPAIN201306UV02 response = processor.sendToNhinProxy(request, mockAssertion, "url");
-            assertNotNull("PRPAIN201306UV02 was null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSendToNhinProxyHappy: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSendToNhinProxyHappy: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSendToNhinProxyNullRequest()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return mockResponse;
-                }
-                @Override
-                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
-                {
-                    return mockPRPAIN201306UV02;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = null;
-
-            PRPAIN201306UV02 response = processor.sendToNhinProxy(request, mockAssertion, "url");
-            assertNull("PRPAIN201306UV02 was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSendToNhinProxyNullRequest: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSendToNhinProxyNullRequest: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSendToNhinProxyNullAssertion()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return mockResponse;
-                }
-                @Override
-                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
-                {
-                    return mockPRPAIN201306UV02;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).warn("AssertionType was null.");
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-            request.setNhinTargetCommunities(mockTargetCommunities);
-
-            PRPAIN201306UV02 response = processor.sendToNhinProxy(request, null, "url");
-            assertNull("PRPAIN201306UV02 was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSendToNhinProxyNullAssertion: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSendToNhinProxyNullAssertion: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSendToNhinProxyNullUrl()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return mockResponse;
-                }
-                @Override
-                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
-                {
-                    return mockPRPAIN201306UV02;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).warn("URL was null.");
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-            request.setNhinTargetCommunities(mockTargetCommunities);
-
-            PRPAIN201306UV02 response = processor.sendToNhinProxy(request, mockAssertion, null);
-            assertNull("PRPAIN201306UV02 was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSendToNhinProxyNullUrl: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSendToNhinProxyNullUrl: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testSendToNhinProxyRespProcessException()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return mockResponse;
-                }
-                @Override
-                protected ResponseFactory getResponseFactory()
-                {
-                    ResponseFactory respFactory = new ResponseFactory()
-                    {
-                        @Override
-                        public ResponseMode getResponseMode()
-                        {
-                            ResponseMode respMode = new VerifyMode()
-                            {
-                                @Override
-                                protected Log createLogger()
-                                {
-                                    return mockLog;
-                                }
-                                @Override
-                                public PRPAIN201306UV02 processResponse(ResponseParams params)
-                                {
-                                    throw new RuntimeException("Thrown from test");
-                                }
-                            };
-                            return respMode;
-                        }
-                    };
-                    return respFactory;
-                }
-                @Override
-                protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
-                {
-                    return mockPRPAIN201306UV02;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(RuntimeException.class)));
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-            request.setNhinTargetCommunities(mockTargetCommunities);
-
-            PRPAIN201306UV02 response = processor.sendToNhinProxy(request, mockAssertion, "url");
-            assertNotNull("PRPAIN201306UV02 was null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testSendToNhinProxyRespProcessException: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testSendToNhinProxyRespProcessException: " + t.getMessage());
-        }
-    }
-
-// </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Logging Methods">
     @Test

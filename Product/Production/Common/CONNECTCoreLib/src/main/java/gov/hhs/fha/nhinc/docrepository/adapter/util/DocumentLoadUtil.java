@@ -1,7 +1,7 @@
-package gov.hhs.fha.nhinc.repository.util;
+package gov.hhs.fha.nhinc.docrepository.adapter.util;
 
-import gov.hhs.fha.nhinc.repository.model.EventCode;
-import gov.hhs.fha.nhinc.repository.service.DocumentService;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
+import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -60,7 +60,7 @@ public class DocumentLoadUtil
         {
             throw new Exception("Document element was null.");
         }
-        gov.hhs.fha.nhinc.repository.model.Document doc = new gov.hhs.fha.nhinc.repository.model.Document();
+        gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc = new gov.hhs.fha.nhinc.docrepository.adapter.model.Document();
         doc.setDocumentid(getChildElementLongValue(documentElement, "documentId"));
         doc.setDocumentUniqueId(getChildElementStringValue(documentElement, "documentUniqueId"));
         doc.setDocumentTitle(getChildElementStringValue(documentElement, "documentTitle"));
@@ -161,7 +161,7 @@ public class DocumentLoadUtil
         return formatString;
     }
 
-    private static void loadEventCodes(Element documentElement, gov.hhs.fha.nhinc.repository.model.Document doc)
+    private static void loadEventCodes(Element documentElement, gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc)
     {
         if (documentElement != null)
         {

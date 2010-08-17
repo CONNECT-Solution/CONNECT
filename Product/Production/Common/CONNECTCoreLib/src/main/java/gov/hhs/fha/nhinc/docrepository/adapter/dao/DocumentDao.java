@@ -1,8 +1,8 @@
-package gov.hhs.fha.nhinc.repository.dao;
+package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import gov.hhs.fha.nhinc.repository.model.Document;
-import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.repository.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

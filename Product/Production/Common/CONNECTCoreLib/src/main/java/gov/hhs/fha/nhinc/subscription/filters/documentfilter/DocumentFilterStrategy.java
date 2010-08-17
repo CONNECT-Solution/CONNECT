@@ -175,7 +175,7 @@ public class DocumentFilterStrategy {
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
         AdhocQueryRequest adhocQuery = buildAdhocQueryToQueryByDocumentIdentifiers(documentIdentifier);
-        AdhocQueryResponse response = proxy.registryStoredQuery(adhocQuery);
+        AdhocQueryResponse response = proxy.registryStoredQuery(adhocQuery, assertion);
 
         //todo: a little defensive programming needed here
         ExtrinsicObjectType metadata = (ExtrinsicObjectType) response.getRegistryObjectList().getIdentifiable().get(0).getValue();

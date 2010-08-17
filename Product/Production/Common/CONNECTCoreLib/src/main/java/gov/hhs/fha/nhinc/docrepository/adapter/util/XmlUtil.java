@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.repository.util;
+package gov.hhs.fha.nhinc.docrepository.adapter.util;
 
 import java.io.File;
 import java.io.StringReader;

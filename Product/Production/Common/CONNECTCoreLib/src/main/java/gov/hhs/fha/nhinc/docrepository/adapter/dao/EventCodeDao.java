@@ -1,10 +1,10 @@
-package gov.hhs.fha.nhinc.repository.dao;
+package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.repository.model.Document;
-import gov.hhs.fha.nhinc.repository.model.EventCode;
-import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
-import gov.hhs.fha.nhinc.repository.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
+import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.logging.Log;
