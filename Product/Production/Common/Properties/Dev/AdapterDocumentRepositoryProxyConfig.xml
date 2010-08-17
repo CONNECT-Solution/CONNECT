@@ -2,9 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	<!-- Default facade implementation -->
-    <!-- <bean id="adapterdocumentrepository" class="gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryNoOpImpl"/> -->
+		<!-- Default facade implementation -->
+    <!-- <bean id="adapterdocumentrepository" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyNoOpImpl"/> -->
+    
+    <!-- Default java implementation -->
+   <!--  <bean id="adapterdocumentrepository" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyJavaImpl"/> -->
 	
 	<!-- Web-service implementation -->
-    <bean id="adapterdocumentrepository" class="gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryWebServiceProxy"/>
+    <bean id="adapterdocumentrepository" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl"/>
 </beans>
