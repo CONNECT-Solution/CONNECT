@@ -270,54 +270,7 @@ public class EntityPatientDiscoveryProcessorTest
 
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="respondingGatewayPRPAIN201305UV02">
-    @Test
-    public void testRespondingGatewayPRPAIN201305UV02Happy()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return mockResponse;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-            request.setNhinTargetCommunities(mockTargetCommunities);
-
-            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.respondingGatewayPRPAIN201305UV02(request, mockAssertion);
-            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02Happy: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testRespondingGatewayPRPAIN201305UV02Happy: " + t.getMessage());
-        }
-    }
+//
 
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullRequest()
@@ -422,145 +375,145 @@ public class EntityPatientDiscoveryProcessorTest
         }
     }
 
-    @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-                {
-                    CMUrlInfos urlInfoList = new CMUrlInfos();
-                    CMUrlInfo urlInfo = new CMUrlInfo();
-                    urlInfoList.getUrlInfo().add(urlInfo);
-                    urlInfo.setUrl("url");
-                    return urlInfoList;
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-                {
-                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-                }
-                @Override
-                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return true;
-                }
-
-                @Override
-                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-                {
-                    return mockPatientDiscovery201306Processor;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-
-            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.respondingGatewayPRPAIN201305UV02(request, mockAssertion);
-            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
-        }
-    }
+//    @Test
+//    public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities()
+//    {
+//        try
+//        {
+//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+//            {
+//                @Override
+//                protected Log createLogger()
+//                {
+//                    return mockLog;
+//                }
+//                @Override
+//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+//                {
+//                }
+//                @Override
+//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+//                {
+//                }
+//                @Override
+//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+//                {
+//                    CMUrlInfos urlInfoList = new CMUrlInfos();
+//                    CMUrlInfo urlInfo = new CMUrlInfo();
+//                    urlInfoList.getUrlInfo().add(urlInfo);
+//                    urlInfo.setUrl("url");
+//                    return urlInfoList;
+//                }
+//                @Override
+//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+//                {
+//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+//                }
+//                @Override
+//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+//                {
+//                    return true;
+//                }
+//
+//                @Override
+//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+//                {
+//                    return mockPatientDiscovery201306Processor;
+//                }
+//            };
+//            context.checking(new Expectations()
+//            {
+//                {
+//                    allowing(mockLog).debug(with(any(String.class)));
+//                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
+//                }
+//            });
+//
+//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+//
+//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.respondingGatewayPRPAIN201305UV02(request, mockAssertion);
+//            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
+//        }
+//        catch(Throwable t)
+//        {
+//            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
+//            t.printStackTrace();
+//            fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
+//        }
+//    }
 
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="getResponseFromCommunities">
-    @Test
-    public void testGetResponseFromCommunitiesHappy()
-    {
-        try
-        {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
-                @Override
-                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-                {
-                }
-                @Override
-                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                }
-                @Override
-                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-                {
-                    CMUrlInfos urlInfoList = new CMUrlInfos();
-                    CMUrlInfo urlInfo = new CMUrlInfo();
-                    urlInfoList.getUrlInfo().add(urlInfo);
-                    urlInfo.setUrl("url");
-                    return urlInfoList;
-                }
-                @Override
-                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-                {
-                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-                }
-                @Override
-                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                {
-                    return true;
-                }
-
-                @Override
-                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-                {
-                    return mockPatientDiscovery201306Processor;
-                }
-            };
-            context.checking(new Expectations()
-            {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
-                }
-            });
-
-            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-            request.setNhinTargetCommunities(mockTargetCommunities);
-
-            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
-            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
-        }
-    }
+//    @Test
+//    public void testGetResponseFromCommunitiesHappy()
+//    {
+//        try
+//        {
+//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+//            {
+//                @Override
+//                protected Log createLogger()
+//                {
+//                    return mockLog;
+//                }
+//                @Override
+//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+//                {
+//                }
+//                @Override
+//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+//                {
+//                }
+//                @Override
+//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+//                {
+//                    CMUrlInfos urlInfoList = new CMUrlInfos();
+//                    CMUrlInfo urlInfo = new CMUrlInfo();
+//                    urlInfoList.getUrlInfo().add(urlInfo);
+//                    urlInfo.setUrl("url");
+//                    return urlInfoList;
+//                }
+//                @Override
+//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+//                {
+//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+//                }
+//                @Override
+//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+//                {
+//                    return true;
+//                }
+//
+//                @Override
+//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+//                {
+//                    return mockPatientDiscovery201306Processor;
+//                }
+//            };
+//            context.checking(new Expectations()
+//            {
+//                {
+//                    allowing(mockLog).debug(with(aNonNull(String.class)));
+//                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
+//                }
+//            });
+//
+//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+//            request.setNhinTargetCommunities(mockTargetCommunities);
+//
+//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
+//            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
+//        }
+//        catch(Throwable t)
+//        {
+//            System.out.println("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
+//            t.printStackTrace();
+//            fail("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
+//        }
+//    }
 
     @Test
     public void testGetResponseFromCommunitiesNullUrlList()
