@@ -8,6 +8,14 @@
         <servlet-name>NhincProxyDocQuerySecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxyDocQueryUnsecured</url-pattern>
+    </servlet-mapping>
 
     <!-- Passthru DocQuery Deferred Request servlet mapping -->
     <servlet>

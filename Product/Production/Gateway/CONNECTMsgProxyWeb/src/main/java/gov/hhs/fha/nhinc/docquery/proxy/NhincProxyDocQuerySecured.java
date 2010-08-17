@@ -18,7 +18,7 @@ public class NhincProxyDocQuerySecured {
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body)
     {
-        return new NhincProxyDocQuerySecuredImpl().respondingGatewayCrossGatewayQuery(body, context);
+        return new NhincProxyDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 
 }
