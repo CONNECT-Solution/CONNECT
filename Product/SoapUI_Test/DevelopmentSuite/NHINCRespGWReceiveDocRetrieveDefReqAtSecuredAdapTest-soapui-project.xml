@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="NHINCRespGWReceiveDocRetrieveDefReqAtSecuredAdapTest" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="NHINCRespGWReceiveDocRetrieveDefReqAtSecuredAdapTest" resourceRoot="" soapui-version="3.5" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -20419,19 +20419,18 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockSecuredResponse";
+//def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockSecuredResponse";
+def mockAdapterRespURL = "https://" + mockHost + ":11222/AdapterMockSecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequestsecured", mockAdapterRespURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequestsecured", mockAdapterRespURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -24032,19 +24031,18 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockErrSecuredResponse";
+//def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockErrSecuredResponse";
+def mockAdapterRespURL = "https://" + mockHost + ":11222/AdapterMockErrSecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -26167,19 +26165,18 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockErrSecuredResponse";
+//def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockErrSecuredResponse";
+def mockAdapterRespURL = "https://" + mockHost + ":11222/AdapterMockErrSecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
