@@ -12604,6 +12604,15 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Success response">
+              <con:configuration>
+                <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
+//ns18:DocRetrieveAcknowledgement[1]/ns18:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -12614,19 +12623,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T02:36:58Z</con:value>
+          <con:value>2010-08-16T23:47:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T02:46:58Z</con:value>
+          <con:value>2010-08-16T23:57:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 02:36:58</con:value>
+          <con:value>08/16/2010 23:47:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12900,6 +12909,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Success response">
+              <con:configuration>
+                <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
+//ns18:DocRetrieveAcknowledgement[1]/ns18:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -12909,7 +12927,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveDefResp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="Success response" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -14391,19 +14409,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-08T16:14:59Z</con:value>
+          <con:value>2010-08-16T23:28:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-08T16:24:59Z</con:value>
+          <con:value>2010-08-16T23:38:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/08/2010 16:14:59</con:value>
+          <con:value>08/16/2010 23:28:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-07T00:00:00Z</con:value>
+          <con:value>2010-09-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14677,6 +14695,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Success response">
+              <con:configuration>
+                <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
+//ns18:DocRetrieveAcknowledgement[1]/ns18:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -14686,7 +14713,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveDefResp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="Success response" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -16168,19 +16195,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-08T16:15:44Z</con:value>
+          <con:value>2010-08-16T23:29:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-08T16:25:44Z</con:value>
+          <con:value>2010-08-16T23:39:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/08/2010 16:15:44</con:value>
+          <con:value>08/16/2010 23:29:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-07T00:00:00Z</con:value>
+          <con:value>2010-09-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16734,19 +16761,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-08T16:20:20Z</con:value>
+          <con:value>2010-08-16T23:47:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-08T16:30:20Z</con:value>
+          <con:value>2010-08-16T23:57:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/08/2010 16:20:20</con:value>
+          <con:value>08/16/2010 23:47:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-07T00:00:00Z</con:value>
+          <con:value>2010-09-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16754,7 +16781,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserSun Aug 08 16:25:20 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserMon Aug 16 23:52:03 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17021,6 +17048,15 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
+//ns18:DocRetrieveAcknowledgement[1]/ns18:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -17031,19 +17067,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-08T16:22:23Z</con:value>
+          <con:value>2010-08-16T23:30:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-08T16:32:23Z</con:value>
+          <con:value>2010-08-16T23:40:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/08/2010 16:22:23</con:value>
+          <con:value>08/16/2010 23:30:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-07T00:00:00Z</con:value>
+          <con:value>2010-09-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17318,6 +17354,15 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
+//ns18:DocRetrieveAcknowledgement[1]/ns18:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -17328,19 +17373,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-08T16:21:50Z</con:value>
+          <con:value>2010-08-16T23:31:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-08T16:31:50Z</con:value>
+          <con:value>2010-08-16T23:41:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/08/2010 16:21:50</con:value>
+          <con:value>08/16/2010 23:31:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-07T00:00:00Z</con:value>
+          <con:value>2010-09-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
