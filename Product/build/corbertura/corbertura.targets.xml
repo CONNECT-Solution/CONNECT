@@ -11,7 +11,7 @@
 			</fileset>
 		</classpath>
 	</taskdef>
-	
+  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9he.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9-ant.jar"/>	
 	<target name="coverage.help">
 		
 	</target>
@@ -487,7 +487,7 @@
     <mkdir dir="${coverage.report.dir}" />
 	</target>
 
-  <target name="-coverage.check.project.transform">
+  <target name="coverage.check.project.transform">
     <if>
       <and>
         <istrue value="${coverage.isneeded}"/>
@@ -511,7 +511,6 @@
             
             <echo message="" file="${coverage.check.tag.file}" />
             
-            
             <trycatch reference="exception">
               <try>
                 <xmltask dest="${coverage.report.dir}/coverage.validate.xml" outputter="simple:3">
@@ -519,33 +518,38 @@
                   <insert path="root" file="${coverage.thresholds.file}"/>
                   <insert path="root" file="${coverage.report.file}"/>
                 </xmltask>
-                
-                <xslt in="${coverage.validate.file}" out="${coverage.failure.file}"
-                      style="${root.project.directory.path}/build/corbertura/coveragecheck.xsl"> 
-                </xslt>
+
+						    <saxon-xslt in="${coverage.validate.file}" out="${coverage.failure.file}" style="${root.project.directory.path}/build/corbertura/coveragecheck.xsl" force="true"/>
                 
                 <xmltask source="${coverage.failure.file}">
                   <call path="/thresholds/threshold-error">
                     <param name="class" path="@class" />
                     <param name="branchrate" path="@branchrate" />
-                    <param name="linerate" path="@linerate" />                   
+                    <param name="linerate" path="@linerate" />
+                    <param name="actualLinerate" path="@actualLineRate" /> 
+                    <param name="actualBranchrate" path="@actualBrnchRate" />                    
                     <actions>
                       <var name="branchrate" value="@{branchrate}" />
                       <var name="linerate" value="@{linerate}" />
                       <var name="class" value="@{class}" />
-                      <property name="coverage.check.failures" value="true"/>
+                      <var name="actualLineRate" value="@{actualLinerate}" />
+                      <var name="actualBrnchRate" value="@{actualBranchrate}" />
                       <if>
-                          <compare less="${linerate}" greater="${coverage.threshold.linerate}" />
+                          <compare less="${linerate}" greater="${actualLineRate}" />
                           <then>
+                            <property name="coverage.check.failures" value="true"/>
                             <converttopercent name="current.linerate.percent" value="${linerate}"/>
-                            <echo message="Project ${project.name}, Class @{class} failed check. Line coverage rate of ${current.linerate.percent} % is below ${coverage.threshold.linerate}%."/>
+                            <converttopercent name="actual.linerate.percent" value="${actualLineRate}"/>
+                            <echo message="Project ${project.name}, Class @{class} failed check. Line coverage rate of ${linerate} % is below ${actualLineRate}%."/>
                           </then>
                       </if>
                       <if>
-                        <compare less="${branchrate}" greater="${coverage.threshold.branchrate}" />
+                        <compare less="${branchrate}" greater="${actualBrnchRate}" />
                         <then>
+                          <property name="coverage.check.failures" value="true"/>
                           <converttopercent name="current.branchrate.percent" value="${branchrate}"/>
-                          <echo message="Project ${project.name}, Class @{class} failed check. Branch coverage rate of ${branchrate}% is below ${coverage.threshold.branchrate}%."/>
+                          <converttopercent name="actaul.branchrate.percent" value="${actualBrnchRate}"/>
+                          <echo message="Project ${project.name}, Class @{class} failed check. Branch coverage rate of ${branchrate}% is below ${actualBrnchRate}%."/>
                         </then>
                       </if>
                     </actions>
@@ -579,26 +583,31 @@
   </target>
   
     <target name="coverage.bless.transform" description="Will take all existing coverage failures and enter them as exceptions in the project's coverage.thresholds.xml file.">
-  <if>
-    <exists path="${coverage.check.tag.file}"/>
-    <then>
-      <if>
-        <not>
-          <exists path="${coverage.thresholds.file}"/>
-        </not>
-        <then>
-          <echo file="${coverage.thresholds.file}"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+		  <if>
+		    <exists path="${coverage.check.tag.file}"/>
+		    <then>
+		      <if>
+		        <not>
+		          <exists path="${coverage.thresholds.file}"/>
+		        </not>
+		        <then>
+		          <echo file="${coverage.thresholds.file}"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
 </thresholds>]]></echo>
-        </then>
-      </if>
-
-      <xmltask source="${coverage.failure.file}" dest="${coverage.thresholds.file}" >
-            <regexp path="/thresholds" pattern="threshold-error" replace="threshold"  />
-      </xmltask>
-
-    </then>
-  </if>
-</target>
+		        </then>
+		      </if>
+		
+		      <saxon-xslt in="${coverage.failure.file}" out="${coverage.thresholds.file}" style="${root.project.directory.path}/build/corbertura/blesscoverage.xsl" force="true"/>
+		
+		    </then>
+		  </if>
+		</target>
 	
+	<target name="scratch.cobetura">
+    <saxon-xslt
+     in="${root.project.directory.path}/build/test/NewFile.xml" out="C:/temp/2.xml" 
+     style="${root.project.directory.path}/build/corbertura/coveragecheck.xsl"
+     force="true">
+    </saxon-xslt>	
+	</target>
 </project>
