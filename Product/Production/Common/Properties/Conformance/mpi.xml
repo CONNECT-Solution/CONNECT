@@ -249,6 +249,22 @@
        </void> 
       </object> 
      </void> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.mpilib.Address"> 
+       <void property="city"> 
+        <stringFullerton</string> 
+       </void> 
+       <void property="state"> 
+        <string>CA</string> 
+       </void> 
+       <void property="street1"> 
+        <string>19 Main Street</string> 
+       </void> 
+       <void property="zip"> 
+        <string>92831</string> 
+       </void> 
+      </object> 
+     </void> 
     </void> 
     <void property="dateOfBirth"> 
      <string>20010420</string> 
