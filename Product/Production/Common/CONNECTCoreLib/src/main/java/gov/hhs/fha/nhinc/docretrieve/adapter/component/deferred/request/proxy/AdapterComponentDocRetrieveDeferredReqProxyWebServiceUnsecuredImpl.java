@@ -25,10 +25,10 @@ public class AdapterComponentDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl 
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredreq";
-    private static final String SERVICE_LOCAL_PART = "adapterComponentDocRetrieveDeferredReqest";
-    private static final String PORT_LOCAL_PART = "AdapterComponentDocRetrieveDeferredReqPortSoap";
-    private static final String WSDL_FILE = "AdapterComponentDocRetrieveDeferredReq.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredreq:CrossGatewayRetrieveRequestMessage";
+    private static final String SERVICE_LOCAL_PART = "AdapterComponentDocRetrieveReqService";
+    private static final String PORT_LOCAL_PART = "AdapterComponentDocRetrieveReqPortSoap";
+    private static final String WSDL_FILE = "AdapterComponentDocRetrieveDeferredRequest.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredreq:RetrieveDocumentSetRequestMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl()
@@ -116,15 +116,14 @@ public class AdapterComponentDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl 
             else
             {
                 RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-                request.setRetrieveDocumentSetRequest(body);
                 request.setAssertion(assertion);
-
-                response = (DocRetrieveAcknowledgementType)oProxyHelper.invokePort(port, AdapterComponentDocRetrieveDeferredReqPortType.class, "crossGatewayRetrieveRequest", request);
+                request.setRetrieveDocumentSetRequest(body);
+                response = (DocRetrieveAcknowledgementType)oProxyHelper.invokePort(port, AdapterComponentDocRetrieveDeferredReqPortType.class, "retrieveDocumentSetRequest", request);
             }
         }
         catch (Exception ex)
         {
-            log.error("Error calling crossGatewayRetrieveRequest: " + ex.getMessage(), ex);
+            log.error("Error calling retrieveDocumentSetRequest: " + ex.getMessage(), ex);
             response = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);

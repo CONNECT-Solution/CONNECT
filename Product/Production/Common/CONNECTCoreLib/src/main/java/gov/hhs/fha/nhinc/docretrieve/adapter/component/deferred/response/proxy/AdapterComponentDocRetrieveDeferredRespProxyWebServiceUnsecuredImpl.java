@@ -26,10 +26,10 @@ public class AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredresp";
-    private static final String SERVICE_LOCAL_PART = "adapterComponentDocRetrieveDeferredResponse";
-    private static final String PORT_LOCAL_PART = "AdapterComponentDocRetrieveDeferredRespPortSoap";
-    private static final String WSDL_FILE = "AdapterDocRetrieveDeferredResp.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredresp:CrossGatewayRetrieveResponse_Message";
+    private static final String SERVICE_LOCAL_PART = "AdapterComponentDocRetrieveResponseService";
+    private static final String PORT_LOCAL_PART = "AdapterComponentDocRetrieveResponsePortSoap";
+    private static final String WSDL_FILE = "AdapterComponentDocumentRetrieveDeferredResponse.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredresp:RetrieveDocumentSetResponseMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl() {
@@ -98,13 +98,12 @@ public class AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl
                 log.error("port was null");
             } else {
                 RespondingGatewayCrossGatewayRetrieveResponseType request = new RespondingGatewayCrossGatewayRetrieveResponseType();
-                request.setRetrieveDocumentSetResponse(msg);
                 request.setAssertion(assertion);
-
-                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredResponsePortType.class, "crossGatewayRetrieveResponse", request);
+                request.setRetrieveDocumentSetResponse(msg);
+                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, AdapterComponentDocRetrieveDeferredRespPortType.class, "retrieveDocumentSetResponse", request);
             }
         } catch (Exception ex) {
-            log.error("Error calling crossGatewayRetrieveResponse: " + ex.getMessage(), ex);
+            log.error("Error calling retrieveDocumentSetResponse: " + ex.getMessage(), ex);
             response = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
