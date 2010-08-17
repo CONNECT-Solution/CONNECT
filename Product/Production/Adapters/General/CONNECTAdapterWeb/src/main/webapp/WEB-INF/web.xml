@@ -146,6 +146,14 @@
         <url-pattern>/AdapterDocRetrieveDeferredRequestErrorSecured</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>AdapterComponentDocRetrieveDeferredRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.AdapterComponentDocRetrieveDeferredRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocRetrieveDeferredRequest</servlet-name>
+        <url-pattern>/AdapterComponentDocRetrieveDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AdapterDocRetrieveDeferredResponseUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseUnsecured</servlet-class>
     </servlet>
@@ -160,6 +168,14 @@
     <servlet-mapping>
         <servlet-name>AdapterDocRetrieveDeferredResponseSecured</servlet-name>
         <url-pattern>/AdapterDocRetrieveDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentDocRetrieveDeferredResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.AdapterComponentDocRetrieveDeferredResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocRetrieveDeferredResponse</servlet-name>
+        <url-pattern>/AdapterComponentDocRetrieveDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
 
     <servlet>

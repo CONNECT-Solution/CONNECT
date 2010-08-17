@@ -26,7 +26,7 @@
       </wsimport-options>
     </service>
     <service name="DocumentRepositoryService">
-      <implementation-class>gov.hhs.fha.nhinc.document.DocumentRepositoryService</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRepository.wsdl</local-wsdl-file>
       <service-name>DocumentRepository_Service</service-name>
@@ -488,30 +488,6 @@
       <service-name>NhincProxyAuditLogQuery</service-name>
       <port-name>NhincProxyAuditLogQueryPortSoap11</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxyauditlogquery</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="NhincProxyDocQuery">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyDocQuery.wsdl</local-wsdl-file>
-      <service-name>NhincProxyDocQuery</service-name>
-      <port-name>NhincProxyDocQueryPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxydocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -1808,6 +1784,54 @@
       <service-name>AdapterDocRetrieve</service-name>
       <port-name>AdapterDocRetrievePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.adapterdocretrieve</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterComponentDocRetrieveDeferredRequest">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.AdapterComponentDocRetrieveDeferredRequest</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRetrieveDeferredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterComponentDocRetrieveDeferredRequest.wsdl</local-wsdl-file>
+      <service-name>AdapterComponentDocRetrieveReqService</service-name>
+      <port-name>AdapterComponentDocRetrieveReqPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adaptercomponentdocretrievedeferredreq</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterComponentDocRetrieveDeferredResponse">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.AdapterComponentDocRetrieveDeferredResponse</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocumentRetrieveDeferredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterComponentDocumentRetrieveDeferredResponse.wsdl</local-wsdl-file>
+      <service-name>AdapterComponentDocRetrieveResponseService</service-name>
+      <port-name>AdapterComponentDocRetrieveResponsePortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adaptercomponentdocretrievedeferredresp</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
