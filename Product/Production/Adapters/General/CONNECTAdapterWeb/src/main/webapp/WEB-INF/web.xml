@@ -106,7 +106,7 @@
 
     <servlet>
         <servlet-name>AdapterDocRetrieveSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterDocRetrieveSecured</servlet-name>

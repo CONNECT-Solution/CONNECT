@@ -29,21 +29,21 @@
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
         </xsd:schema>
     </types>
-    <message name="RespondingGateway_CrossGatewayRetrieveRequestMessage">
+    <message name="RespondingGateway_CrossGatewayRetrieveSecuredRequestMessage">
         <part name="body"
               element="ihe:RetrieveDocumentSetRequest"/>
     </message>
-    <message name="RespondingGateway_CrossGatewayRetrieveResponseMessage">
+    <message name="RespondingGateway_CrossGatewayRetrieveSecuredResponseMessage">
         <part name="body"
               element="ihe:RetrieveDocumentSetResponse"/>
     </message>
 
     <portType name="AdapterDocRetrieveSecuredPortType">
         <operation name="RespondingGateway_CrossGatewayRetrieve">
-            <input name="RespondingGateway_CrossGatewayRetrieveRequest"
-                   message="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage" />
-            <output name="RespondingGateway_CrossGatewayRetrieveResponse"
-                    message="tns:RespondingGateway_CrossGatewayRetrieveResponseMessage"/>
+            <input name="RespondingGateway_CrossGatewayRetrieveSecuredRequest"
+                   message="tns:RespondingGateway_CrossGatewayRetrieveSecuredRequestMessage" />
+            <output name="RespondingGateway_CrossGatewayRetrieveSecuredResponse"
+                    message="tns:RespondingGateway_CrossGatewayRetrieveSecuredResponseMessage"/>
         </operation>
     </portType>
 
@@ -53,10 +53,10 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="RespondingGateway_CrossGatewayRetrieve">
             <soap:operation soapAction="urn:RespondingGateway_CrossGatewayRetrieve"/>
-            <input name="RespondingGateway_CrossGatewayRetrieveRequest">
+            <input name="RespondingGateway_CrossGatewayRetrieveSecuredRequest">
                 <soap:body use="literal"/>
             </input>
-            <output name="RespondingGateway_CrossGatewayRetrieveResponse">
+            <output name="RespondingGateway_CrossGatewayRetrieveSecuredResponse">
                 <soap:body use="literal"/>
             </output>
         </operation>

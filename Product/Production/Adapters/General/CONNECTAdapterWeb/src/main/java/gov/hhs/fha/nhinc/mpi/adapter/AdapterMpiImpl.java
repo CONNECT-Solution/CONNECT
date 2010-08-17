@@ -30,8 +30,6 @@ import org.hl7.v3.PRPAIN201305UV02;
 public class AdapterMpiImpl {
    private static Log log = LogFactory.getLog(AdapterMpiImpl.class);
 
-   private static AdapterMpiSecuredService service = new gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredService();
-
     /**
      * Perform a look up on the MPI.
      *

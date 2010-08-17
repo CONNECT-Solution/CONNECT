@@ -295,7 +295,7 @@
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievesecured</name>
@@ -1098,7 +1098,7 @@
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievesecured</name>
@@ -1904,7 +1904,7 @@
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievesecured</name>
@@ -2734,12 +2734,12 @@
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrievesecured</name>
 				<description>Adapter Document Retrieve Secured</description>
-				<endpointURL>https://localhost:8181/AdapterService/AdapterDocRetrieveSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveSecured</endpointURL>
 			</service>
 			<service>
 				<name>adaptersubjectdiscovery</name>

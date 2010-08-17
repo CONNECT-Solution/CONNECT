@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.adapterdocretrieve;
+package gov.hhs.fha.nhinc.docretrieve.adapter;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -17,7 +17,7 @@ public class AdapterDocRetrieveSecured {
     private WebServiceContext context;
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        return new AdapterDocRetrieveSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+        return new AdapterDocRetrieveImpl().respondingGatewayCrossGatewayRetrieveSecured(body, context);
     }
 
 }

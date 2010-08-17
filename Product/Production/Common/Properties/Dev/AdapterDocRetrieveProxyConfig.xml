@@ -3,8 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="adapterdocretrieve" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveNoOpImpl"/> -->
+  <!-- <bean id="adapterdocretrieve" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyNoOpImpl"/> -->
+
+	<!-- Java implementation -->
+	<!-- <bean id="adapterdocretrieve" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyJavaImpl"/> -->
 	
-	<!-- Web-service implementation -->
-     <bean id="adapterdocretrieve" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveWebServiceSecuredProxy"/> 
+	<!-- Secured Web-service implementation -->
+	<bean id="adapterdocretrieve" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyWebServiceSecuredImpl"/> 
+
+	<!-- Unsecured Web-service implementation -->
+	<!-- <bean id="adapterdocretrieve" class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyWebServiceUnsecuredImpl"/> -->
+
 </beans>

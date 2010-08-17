@@ -89,7 +89,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeService" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeServiceImpl" linecount="35" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi" linecount="4" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiImpl" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiImpl" linecount="11" linerate="-0.07272727272727274" linesexecuted="-0.8"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured" linecount="4" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiImpl" linecount="11" linerate="0.0" linesexecuted="0"/>
@@ -173,4 +173,9 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseUnsecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="4" branchrate="1.0" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngineImpl" linecount="31" linerate="0.7741935483870968" linesexecuted="0.24"/>
 <threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEngine" linecount="12" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEngineImpl" linecount="28" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="4" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveImpl" linecount="22" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 </thresholds>

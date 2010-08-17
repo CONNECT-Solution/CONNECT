@@ -1,8 +1,6 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.proxy;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -29,24 +27,28 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Neil Webb
  */
-public class AdapterDocRetrieveProxyObjectFactory
+public class AdapterDocRetrieveProxyObjectFactory extends ComponentProxyObjectFactory
 {
     private static final String CONFIG_FILE_NAME = "AdapterDocRetrieveProxyConfig.xml";
-    private static final String BEAN_NAME_ADAPTER_DOCRETRIEVE = "adapterdocretrieve";
-    private static ApplicationContext context = null;
+    private static final String BEAN_NAME = "adapterdocretrieve";
 
-    static
+    /**
+     * Returns the name of the config file.
+     *
+     * @return The name of the config file.
+     */
+    protected String getConfigFileName()
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+        return CONFIG_FILE_NAME;
     }
 
+    /**
+     * Return an instance of the AdapterDocRetrieveProxy class.
+     *
+     * @return An instance of the AdapterDocRetrieveProxy class.
+     */
     public AdapterDocRetrieveProxy getAdapterDocRetrieveProxy()
     {
-        AdapterDocRetrieveProxy adapterDocRetrieve = null;
-        if (context != null) {
-            adapterDocRetrieve = (AdapterDocRetrieveProxy) context.getBean(BEAN_NAME_ADAPTER_DOCRETRIEVE);
-        }
-        return adapterDocRetrieve;
+        return getBean(BEAN_NAME, AdapterDocRetrieveProxy.class);
     }
-
 }
