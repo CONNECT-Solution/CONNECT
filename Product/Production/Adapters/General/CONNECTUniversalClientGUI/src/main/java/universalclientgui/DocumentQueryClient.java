@@ -29,6 +29,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,6 +46,7 @@ public class DocumentQueryClient {
     private static final String HOME_ID = "urn:oid:2.16.840.1.113883.3.200";
     private static final String ID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
+    private static final String DOCUMENT_STATUS_SLOT_NAME = "('$XDSDocumentEntryStatus')";
     private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
     //private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
@@ -69,6 +71,22 @@ public class DocumentQueryClient {
         return convertAdhocQueryResponseToDocInfoBO(response);
     }
 
+    private SlotType1 createStatusTypeSlot()
+    {
+        SlotType1 slot = new SlotType1();
+        RegistryResponseType responseType = new RegistryResponseType();
+        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Approved");
+
+        ValueListType valueList = new ValueListType();
+
+        valueList.getValue().add("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Approved");
+
+        slot.setName(DOCUMENT_STATUS_SLOT_NAME);
+        slot.setValueList(valueList);
+
+
+        return slot;
+    }
     /**
      * 
      * @param patientSearchData
@@ -80,6 +98,8 @@ public class DocumentQueryClient {
         AdhocQueryType adhocQuery = new AdhocQueryType();
         adhocQuery.setHome(HOME_ID);
         adhocQuery.setId(ID);
+
+
 
         // Set patient id
         SlotType1 patientIDSlot = new SlotType1();
@@ -121,6 +141,8 @@ public class DocumentQueryClient {
 
         creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
         adhocQuery.getSlot().add(creationEndTimeSlot);
+
+        adhocQuery.getSlot().add(createStatusTypeSlot());
 
         ResponseOptionType responseOption = new ResponseOptionType();
         responseOption.setReturnType("LeafClass");
