@@ -1,7 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-<threshold branchcount="222" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRegistryHelper" linecount="442" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRegistryService" linecount="6" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="156" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRepositoryHelper" linecount="455" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.document.DocumentRepositoryService" linecount="3" linerate="0.0" linesexecuted="0"/>
+   <threshold branchcount="222" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.document.DocumentRegistryHelper"
+              linecount="442"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.document.DocumentRegistryService"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="156" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.document.DocumentRepositoryHelper"
+              linecount="455"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.document.DocumentRepositoryService"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
 </thresholds>

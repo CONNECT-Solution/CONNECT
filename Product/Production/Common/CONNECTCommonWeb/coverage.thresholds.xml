@@ -1,17 +1,73 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-<threshold branchcount="434" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.CMServiceHelper" linecount="392" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="294" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.CMTransform" linecount="332" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager" linecount="23" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.propaccessor.NhincComponentPropAccessor" linecount="79" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="102" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.common.propaccessor.PropertyAccessHelper" linecount="105" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="328" branchrate="0.03353658536585366" branchsexecuted="0.11" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor" linecount="282" linerate="0.10638297872340426" linesexecuted="0.3"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException" linecount="8" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDITimer" linecount="52" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDITimerTask" linecount="45" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager" linecount="12" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager$1" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="20" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManagerHelper" linecount="92" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.document.DocumentTransform" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.transform.document.DocumentTransformHelper" linecount="16" linerate="0.0" linesexecuted="0"/>
+   <threshold branchcount="434" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.common.connectionmanager.CMServiceHelper"
+              linecount="392"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="294" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.common.connectionmanager.CMTransform"
+              linecount="332"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager"
+              linecount="23"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.common.propaccessor.NhincComponentPropAccessor"
+              linecount="79"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="102" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.common.propaccessor.PropertyAccessHelper"
+              linecount="105"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="328" branchrate="80" branchsexecuted="0.1"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor"
+              linecount="282"
+              linerate="80"
+              linesexecuted="0.31"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDITimer"
+              linecount="52"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="16" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDITimerTask"
+              linecount="45"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager"
+              linecount="12"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager$1"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="20" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManagerHelper"
+              linecount="92"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.transform.document.DocumentTransform"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.transform.document.DocumentTransformHelper"
+              linecount="16"
+              linerate="80"
+              linesexecuted="0"/>
 </thresholds>

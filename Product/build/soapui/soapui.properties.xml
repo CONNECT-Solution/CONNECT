@@ -4,6 +4,8 @@
 	<property name="soapui.hasTests" value="false" />
 	<property name="soapui.report.dir" value="${project.dir}/soapui-test-reports" />
 	<property name="soapui.project.file.pattern" value="*-soapui-project.xml" />
+	<property name="soapui.project.dir.pattern" value="*-soapui-project" />
+  
 
 	<property name="soapui.home" value="${env.SOAPUI_HOME}"/>
 	<property name="soapui.install.bin.directory.path" value="${soapui.home}/bin"/>

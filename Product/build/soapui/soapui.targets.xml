@@ -43,8 +43,11 @@
     <property name="soapui.project.count" value="0" />
     <for param="soapui.project.file.path">
       <path>
+        <dirset dir="${project.dir}">
+          <include name="**/${soapui.project.dir.pattern}"/>
+        </dirset>
         <fileset dir="${project.dir}">
-          <include name="**/${soapui.project.file.pattern}"/>
+          <include name="**/${soapui.project.file.pattern}"/>          
         </fileset>
       </path>
       <sequential>
@@ -55,14 +58,18 @@
     <property name="soapui.current.project.count" value="0" />
     <for param="soapui.project.file.path">
       <path>
+        <dirset dir="${project.dir}">
+          <include name="**/${soapui.project.dir.pattern}"/>
+        </dirset>
         <fileset dir="${project.dir}">
-          <include name="**/${soapui.project.file.pattern}"/>
+          <include name="**/${soapui.project.file.pattern}"/>          
         </fileset>
       </path>
       <sequential>
         <math result="soapui.current.project.count" operand1="${soapui.current.project.count}" operation="+" operand2="1" datatype="int" />
         <var unset="true" name="soapui.project.name" />
         <basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
+        <echo message="@{soapui.project.file.path}. ${soapui.project.name}"/>        
         <script language="javascript">
           <![CDATA[
             projectName = project.getProperty("soapui.project.name");
