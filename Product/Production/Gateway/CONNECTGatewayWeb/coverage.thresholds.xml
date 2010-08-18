@@ -100,4 +100,8 @@
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryImpl" linecount="34" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecuredImpl" linecount="45" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositorySecuredImpl" linecount="41" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecuredImpl" linecount="45" linerate="0.0" linesexecuted="0"/>
 </thresholds>
