@@ -167,6 +167,7 @@
 			<xsd:element ref="auditmessage:AuditMessage"/>
 			<xsd:element ref="auditlog:direction"/>
 			<xsd:element ref="auditlog:interface"/>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="LogEventRequest" type="auditlog:LogEventRequestType"/>
@@ -175,7 +176,7 @@
 			<xsd:element ref="auditmessage:AuditMessage"/>
 			<xsd:element ref="auditlog:direction"/>
 			<xsd:element ref="auditlog:interface"/>
-			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+<!--			<xsd:element name="assertion" type="nccommon:AssertionType"/> -->
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="LogEventSecureRequest" type="auditlog:LogEventSecureRequestType"/>
