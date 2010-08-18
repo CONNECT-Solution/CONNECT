@@ -34,4 +34,13 @@
   <!-- Web-service UnSecured implementation -->
   <!--  <bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl"/>-->
   
+  <!-- Default facade implementation -->
+  <!-- <bean id="passthrudocquery" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyNoOpImpl"/> -->
+  <!-- Default java implementation -->
+  <bean id="passthrudocquery" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyJavaImpl"/> 
+  <!-- Web-service Secured implementation -->
+  <!--  <bean id="passthrudocquery" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyWebServiceSecuredImpl"/>-->
+  <!-- Web-service UnSecured implementation -->
+  <!--  <bean id="passthrudocquery" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyWebServiceUnsecuredImpl"/>-->
+  
 </beans>

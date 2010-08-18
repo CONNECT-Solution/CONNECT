@@ -594,7 +594,7 @@
       <service>
         <name>nhincproxydocquery</name>
         <description>NHINC Proxy Document Query</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterauthentication</name>
@@ -614,7 +614,7 @@
       <service>
         <name>nhincproxydocretrieve</name>
         <description>NHINC Proxy Document Retrieve</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocRetrieveUnsecured</endpointURL>
       </service>
       <service>
         <name>entityauditqueryproxy</name>
@@ -1300,7 +1300,7 @@
       <service>
         <name>nhincproxydocquery</name>
         <description>NHINC Proxy Document Query</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterauthentication</name>
@@ -2141,7 +2141,7 @@
       <service>
         <name>nhincproxydocquery</name>
         <description>NHINC Proxy Document Query</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterauthentication</name>
