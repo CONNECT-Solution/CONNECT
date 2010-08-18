@@ -13,7 +13,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class PassthruDocQueryProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentQueryProxyConfig.xml";
     private static final String BEAN_NAME = "passthrudocquery";
 
     protected String getConfigFileName() {

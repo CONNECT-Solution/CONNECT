@@ -12,8 +12,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxy;
+import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -119,8 +119,8 @@ public class DocQuerySender {
                 DocQueryAuditLog auditLog = new DocQueryAuditLog();
                 AcknowledgementType ack = auditLog.auditDQRequest(adhocQueryRequest, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                 log.debug("Creating NhinDocQueryProxy");
-                NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
-                NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
+                PassthruDocQueryProxyObjectFactory docQueryFactory = new PassthruDocQueryProxyObjectFactory();
+                PassthruDocQueryProxy proxy = docQueryFactory.getPassthruDocQueryProxy();
 
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
 
