@@ -41,8 +41,6 @@
         <description>End Clean Up Actions</description>
 
         <description>Begin Compile Actions</description>
-        <call target="Ant.Clean"/>
-        
         <asyncexec taskname="Simian" program="${Tools.NAnt.Exe}" failonerror="False">
           <arg line="-buildfile:${Package.Simian.Directory.Path}\Simian.Runner.xml" />
           <arg line='@"${Common.PropertiesFile}"' />
