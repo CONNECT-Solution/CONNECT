@@ -12,7 +12,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.deferred.nhin.request.NhinDocRetrieveDeferredReq" linecount="5" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.deferred.nhin.response.NhinDocRetrieveDeferredResp" linecount="5" linerate="0.2" linesexecuted="0.01"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="16" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieveImpl" linecount="113" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="-Infinity" branchsexecuted="-12.8" class="gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieveImpl" linecount="8" linerate="-10.5" linesexecuted="-84"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDR" linecount="3" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinXDRImpl" linecount="67" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinXDRRequest" linecount="2" linerate="0.0" linesexecuted="0"/>

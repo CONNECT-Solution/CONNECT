@@ -3,7 +3,7 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured" linecount="2" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecuredImpl" linecount="40" linerate="-0.06000000000000001" linesexecuted="-2.4000000000000004"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecuredImpl" linecount="35" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecuredImpl" linecount="36" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifyHeaderHandler" linecount="7" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifyImpl" linecount="31" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured" linecount="3" linerate="0.0" linesexecuted="0"/>

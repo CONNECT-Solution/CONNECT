@@ -1,8 +1,6 @@
-package gov.hhs.fha.nhinc.nhindocretrieve.proxy;
+package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -29,32 +27,29 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Neil Webb
  */
-public class NhinDocRetrieveProxyObjectFactory
+public class NhinDocRetrieveProxyObjectFactory extends ComponentProxyObjectFactory
 {
     private static final String CONFIG_FILE_NAME = "NhinDocRetrieveProxyConfig.xml";
-    private static final String BEAN_NAME_NHIN_DOC_RETRIEVE = "nhindocretrieve";
-    private static ApplicationContext context = null;
+    private static final String BEAN_NAME = "nhindocretrieve";
 
-
-    static
+    /**
+     * Returns the name of the config file.
+     *
+     * @return The name of the config file.
+     */
+    protected String getConfigFileName()
     {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+        return CONFIG_FILE_NAME;
     }
 
     /**
-     * Retrieve a nhin document retrieve implementation using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "nhindocretrieve."
+     * Return an instance of the NhinDocRetrieveProxy class.
      *
-     * @return NhinDocRetrieveProxy instance
+     * @return An instance of the NhinDocRetrieveProxy class.
      */
     public NhinDocRetrieveProxy getNhinDocRetrieveProxy()
     {
-        NhinDocRetrieveProxy nhinDocRetrieve = null;
-        if (context != null)
-        {
-            nhinDocRetrieve = (NhinDocRetrieveProxy) context.getBean(BEAN_NAME_NHIN_DOC_RETRIEVE);
-        }
-        return nhinDocRetrieve;
+        return getBean(BEAN_NAME, NhinDocRetrieveProxy.class);
     }
+
 }

@@ -2,12 +2,14 @@ package gov.hhs.fha.nhinc.docretrieve.proxy;
 
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
-import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxy;
+import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -44,13 +46,16 @@ public class NhincProxyDocRetrieveSecuredImpl
             NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
             NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
 
-            RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-            request.setAssertion(assertion);
-            request.setNhinTargetSystem(body.getNhinTargetSystem());
-            request.setRetrieveDocumentSetRequest(body.getRetrieveDocumentSetRequest());
+            RetrieveDocumentSetRequestType request = null;
+            NhinTargetSystemType target = null;
+            if (body != null)
+            {
+                request = body.getRetrieveDocumentSetRequest();
+                target = body.getNhinTargetSystem();
+            }
 
             log.debug("Calling doc retrieve proxy");
-            response = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request);
+            response = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request, assertion, target);
         }
         catch(Throwable t)
         {

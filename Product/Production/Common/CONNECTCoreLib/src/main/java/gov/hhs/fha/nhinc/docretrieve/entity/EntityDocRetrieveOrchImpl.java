@@ -13,8 +13,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRe
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocRetrieveAggregator;
-import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxy;
-import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
+import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
