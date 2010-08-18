@@ -18595,15 +18595,15 @@ This document and the information contained herein is provided on an "AS IS" bas
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Response Ack" disabled="true">
+            <con:assertion type="XPath Match" name="Response Ack">
               <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>Success</content>
+                <path>declare namespace ns8='http://www.hhs.gov/healthit/nhin';
+//ns8:DocRetrieveAcknowledgement[1]/ns8:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -18618,19 +18618,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:56:54Z</con:value>
+          <con:value>2010-08-18T00:37:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T19:06:54Z</con:value>
+          <con:value>2010-08-18T00:47:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:56:54</con:value>
+          <con:value>08/18/2010 00:37:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18900,15 +18900,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Response Ack" disabled="true">
+            <con:assertion type="XPath Match" name="Response Ack">
               <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>Success</content>
+                <path>declare namespace ns8='http://www.hhs.gov/healthit/nhin';
+//ns8:DocRetrieveAcknowledgement[1]/ns8:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -18939,24 +18939,44 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
+          <con:assertion type="XPath Match" name="Repository ID">
+            <con:configuration>
+              <path>declare namespace ns17='urn:ihe:iti:xds-b:2007';
+declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns20:RespondingGateway_CrossGatewayRetrieveRequest[1]/ns17:RetrieveDocumentSetRequest[1]/ns17:DocumentRequest[1]/ns17:RepositoryUniqueId[1]</path>
+              <content>1</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="XPath Match" name="Document ID">
+            <con:configuration>
+              <path>declare namespace ns17='urn:ihe:iti:xds-b:2007';
+declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns20:RespondingGateway_CrossGatewayRetrieveRequest[1]/ns17:RetrieveDocumentSetRequest[1]/ns17:DocumentRequest[1]/ns17:DocumentUniqueId[1]</path>
+              <content>1.123407.777777</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
         </con:config>
       </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:51:43Z</con:value>
+          <con:value>2010-08-18T00:37:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T19:01:43Z</con:value>
+          <con:value>2010-08-18T00:47:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:51:43</con:value>
+          <con:value>08/18/2010 00:37:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19226,7 +19246,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -20730,24 +20750,24 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:26:22Z</con:value>
+          <con:value>2010-08-18T00:37:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T18:36:22Z</con:value>
+          <con:value>2010-08-18T00:47:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:26:22</con:value>
+          <con:value>08/18/2010 00:37:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqPermitPEWithMockUnsecuredAdap" searchProperties="true" id="64c7d529-295b-4588-8e3b-29d77d7324f2">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqPermitPEWithMockUnsecuredAdap" searchProperties="true" id="38a9abeb-b7a5-4de9-b968-e57097ae9a8c">
       <con:settings/>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockAdapter">
         <con:settings/>
@@ -20763,7 +20783,7 @@ def mockAdapterRespURL = "http://" + mockHost + ":11233/mockAdapterUnsecuredResp
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "adapterdocretrievedeferredrequest", mockAdapterRespURL, context, log)</script>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequest", mockAdapterRespURL, context, log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
@@ -20780,7 +20800,7 @@ def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyengineservice", mockPEURL, context, log)</script>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
@@ -21029,10 +21049,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "policyen
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns8='http://www.hhs.gov/healthit/nhin';
+//ns8:DocRetrieveAcknowledgement[1]/ns8:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -22540,24 +22569,44 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
+          <con:assertion type="XPath Match" name="Repository ID">
+            <con:configuration>
+              <path>declare namespace ns17='urn:ihe:iti:xds-b:2007';
+declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns20:RespondingGateway_CrossGatewayRetrieveRequest[1]/ns17:RetrieveDocumentSetRequest[1]/ns17:DocumentRequest[1]/ns17:RepositoryUniqueId[1]</path>
+              <content>1</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="XPath Match" name="Document ID">
+            <con:configuration>
+              <path>declare namespace ns17='urn:ihe:iti:xds-b:2007';
+declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns20:RespondingGateway_CrossGatewayRetrieveRequest[1]/ns17:RetrieveDocumentSetRequest[1]/ns17:DocumentRequest[1]/ns17:DocumentUniqueId[1]</path>
+              <content>1.123407.777777</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
         </con:config>
       </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:59:24Z</con:value>
+          <con:value>2010-08-18T00:37:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T19:09:24Z</con:value>
+          <con:value>2010-08-18T00:47:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:59:24</con:value>
+          <con:value>08/18/2010 00:37:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -22830,6 +22879,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns8='http://www.hhs.gov/healthit/nhin';
+//ns8:DocRetrieveAcknowledgement[1]/ns8:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -24321,19 +24379,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:28:01Z</con:value>
+          <con:value>2010-08-18T00:37:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T18:38:01Z</con:value>
+          <con:value>2010-08-18T00:47:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:28:01</con:value>
+          <con:value>08/18/2010 00:37:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24354,7 +24412,7 @@ def mockAdapterErrorRespURL = "http://" + mockHost + ":11235/AdapterMockRespErro
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, context, log)
 
 //The secure endpoint   - https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService
 //The unsecure endpoint - http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</script>
@@ -26128,30 +26186,39 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
    <soap:Header/>
    <soap:Body>
       <nhin:DocRetrieveAcknowledgement>
-         <nhin:message status="Error"/>
+         <nhin:message status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted"/>
       </nhin:DocRetrieveAcknowledgement>
    </soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
+          <con:assertion type="XPath Match" name="Error message">
+            <con:configuration>
+              <path>declare namespace ns12='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns12:AdapterDocumentRetrieveDeferredRequestError[1]/ns12:errorMsg[1]</path>
+              <content>Policy Check Failed</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
         </con:config>
       </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:28:16Z</con:value>
+          <con:value>2010-08-18T00:37:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T18:38:16Z</con:value>
+          <con:value>2010-08-18T00:47:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:28:16</con:value>
+          <con:value>08/18/2010 00:37:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26435,25 +26502,45 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:41:10Z</con:value>
+          <con:value>2010-08-18T00:37:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T18:51:10Z</con:value>
+          <con:value>2010-08-18T00:47:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:41:10</con:value>
+          <con:value>08/18/2010 00:37:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReqServiceDisabledWithMockErrAdapter" searchProperties="true" id="d142553f-cd0d-41f9-b7e6-ef5ab442e533">
       <con:settings/>
+      <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockAdapterError">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
+//**** mockHost is localhost because Groovy script resides in local machine ****
+def mockHost = context.findProperty("mockHost");
+def mockAdapterErrorRespURL = "http://" + mockHost + ":11235/AdapterMockRespError";
+def LocalHCID = context.findProperty( "LocalHCID" );
+def RemoteHCID = context.findProperty( "RemoteHCID" );
+
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, context, log)
+
+//The secure endpoint   - https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService
+//The unsecure endpoint - http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</script>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
         <con:config>
@@ -26728,22 +26815,53 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="mockresponse" name="Mock Response">
+        <con:settings/>
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdapterDocRetrieveDeferredRequestErrorBinding</con:interface>
+          <con:operation>CrossGatewayRetrieveRequestError</con:operation>
+          <con:path>/AdapterMockRespError</con:path>
+          <con:port>11235</con:port>
+          <con:timeout>30000</con:timeout>
+          <con:response>
+            <con:settings/>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin">
+   <soap:Header/>
+   <soap:Body>
+      <nhin:DocRetrieveAcknowledgement>
+         <nhin:message status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted"/>
+      </nhin:DocRetrieveAcknowledgement>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+          </con:response>
+          <con:assertion type="XPath Match" name="error message">
+            <con:configuration>
+              <path>declare namespace ns12='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns12:AdapterDocumentRetrieveDeferredRequestError[1]/ns12:errorMsg[1]</path>
+              <content>Doc retrieve deferred request service is not enabled</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+        </con:config>
+      </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T18:39:17Z</con:value>
+          <con:value>2010-08-18T00:37:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T18:49:17Z</con:value>
+          <con:value>2010-08-18T00:47:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 18:39:17</con:value>
+          <con:value>08/18/2010 00:37:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>

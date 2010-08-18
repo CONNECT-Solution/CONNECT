@@ -62,18 +62,18 @@
 	 <!-- Default facade implementation -->
     <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyNoOpImpl"/> -->
 	<!-- Default java implementation -->
-     <!--<bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyJavaImpl"/> -->
+     <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyJavaImpl"/> 
 	<!-- Web-service Secured implementation -->
   <!--  <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl"/> -->
 	<!-- Web-service UnSecured implementation -->
-    <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl"/>
+    <!-- <bean id="adapterdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl"/> -->
 
 	 <!-- Default facade implementation -->
     <!-- <bean id="adapterdocretrievedeferredrequesterror" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy.AdapterDocRetrieveDeferredReqErrorProxyNoOpImpl"/> -->
 	<!-- Default java implementation -->
-    <!-- <bean id="adapterdocretrievedeferredrequesterror" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy.AdapterDocRetrieveDeferredReqErrorProxyJavaImpl"/> -->
+     <bean id="adapterdocretrievedeferredrequesterror" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy.AdapterDocRetrieveDeferredReqErrorProxyJavaImpl"/> 
 	<!-- Web-service Secured implementation -->
   <!--  <bean id="adapterdocretrievedeferredrequesterror" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy.AdapterDocRetrieveDeferredReqErrorProxyWebServiceSecuredImpl"/> -->
 	<!-- Web-service UnSecured implementation -->
-    <bean id="adapterdocretrievedeferredrequesterror" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy.AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl"/>
+    <!-- <bean id="adapterdocretrievedeferredrequesterror" class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy.AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl"/> -->
 </beans>

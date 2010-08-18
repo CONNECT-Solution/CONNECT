@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="NHINCRespGWReceiveDocRetrieveDefReqAtSecuredAdapTest" resourceRoot="" soapui-version="3.5" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="NHINCRespGWReceiveDocRetrieveDefReqAtSecuredAdapTest" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -18570,7 +18570,7 @@ This document and the information contained herein is provided on an "AS IS" bas
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration>
                 <definition/>
               </con:configuration>
@@ -18595,19 +18595,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:41Z</con:value>
+          <con:value>2010-08-18T00:18:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:41Z</con:value>
+          <con:value>2010-08-18T00:28:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:41</con:value>
+          <con:value>08/18/2010 00:18:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18877,7 +18877,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -20381,19 +20381,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:41Z</con:value>
+          <con:value>2010-08-18T00:22:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:41Z</con:value>
+          <con:value>2010-08-18T00:32:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:41</con:value>
+          <con:value>08/18/2010 00:22:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20419,18 +20419,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-//def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockSecuredResponse";
 def mockAdapterRespURL = "https://" + mockHost + ":11222/AdapterMockSecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequestsecured", mockAdapterRespURL, context, log)</script></con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequestsecured", mockAdapterRespURL, context, log)</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -20678,7 +20679,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -22204,20 +22205,40 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
+          <con:assertion type="XPath Match" name="Repository ID">
+            <con:configuration>
+              <path>declare namespace ns9='urn:ihe:iti:xds-b:2007';
+declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns15:RespondingGateway_CrossGatewayRetrieveSecuredRequest[1]/ns9:RetrieveDocumentSetRequest[1]/ns9:DocumentRequest[1]/ns9:RepositoryUniqueId[1]</path>
+              <content>1</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="XPath Match" name="Document ID">
+            <con:configuration>
+              <path>declare namespace ns9='urn:ihe:iti:xds-b:2007';
+declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns15:RespondingGateway_CrossGatewayRetrieveSecuredRequest[1]/ns9:RetrieveDocumentSetRequest[1]/ns9:DocumentRequest[1]/ns9:DocumentUniqueId[1]</path>
+              <content>1.123407.777777</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
         </con:config>
       </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:42Z</con:value>
+          <con:value>2010-08-17T23:51:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:42Z</con:value>
+          <con:value>2010-08-18T00:01:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:42</con:value>
+          <con:value>08/17/2010 23:51:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -22490,7 +22511,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -22512,7 +22533,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Response Ack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -23994,15 +24015,15 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:43Z</con:value>
+          <con:value>2010-08-17T23:51:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:43Z</con:value>
+          <con:value>2010-08-18T00:01:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:43</con:value>
+          <con:value>08/17/2010 23:51:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -24031,18 +24052,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-//def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockErrSecuredResponse";
 def mockAdapterRespURL = "https://" + mockHost + ":11222/AdapterMockErrSecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script></con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -24290,7 +24312,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -24312,7 +24334,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Response Ack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -25793,7 +25815,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       </con:testStep>
       <con:testStep type="mockresponse" name="AdapterMockErrSecuredResponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Response Ack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveRequestError</con:operation>
           <con:path>/AdapterMockErrSecuredResponse</con:path>
@@ -25841,15 +25863,15 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:45Z</con:value>
+          <con:value>2010-08-17T23:51:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:45Z</con:value>
+          <con:value>2010-08-18T00:01:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:45</con:value>
+          <con:value>08/17/2010 23:51:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -26113,7 +26135,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -26136,15 +26158,15 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:46Z</con:value>
+          <con:value>2010-08-17T23:51:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:46Z</con:value>
+          <con:value>2010-08-18T00:01:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:46</con:value>
+          <con:value>08/17/2010 23:51:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -26165,18 +26187,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
-//def mockAdapterRespURL = "https://" + mockHost + ":22556/AdapterMockErrSecuredResponse";
 def mockAdapterRespURL = "https://" + mockHost + ":11222/AdapterMockErrSecuredResponse";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script></con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterrorsecured", mockAdapterRespURL, context, log)</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -26423,7 +26446,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -26445,7 +26468,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
       </con:testStep>
       <con:testStep type="mockresponse" name="AdapterMockErrSecuredResponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Response Ack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveRequestError</con:operation>
           <con:path>/AdapterMockErrSecuredResponse</con:path>
@@ -26493,15 +26516,15 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:42:46Z</con:value>
+          <con:value>2010-08-17T23:51:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:52:46Z</con:value>
+          <con:value>2010-08-18T00:01:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:42:46</con:value>
+          <con:value>08/17/2010 23:51:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
