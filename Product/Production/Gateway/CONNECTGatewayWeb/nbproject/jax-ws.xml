@@ -938,7 +938,7 @@
       </wsimport-options>
     </service>
     <service name="AuditRepository">
-      <implementation-class>gov.hhs.fha.nhinc.auditrepository.AuditRepository</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentAuditRepositorySecured.wsdl</local-wsdl-file>
       <service-name>AuditRepositoryManagerSecuredService</service-name>
@@ -1274,7 +1274,7 @@
       </wsimport-options>
     </service>
     <service name="AuditRepositoryManagerService">
-      <implementation-class>gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentAuditRepository.wsdl</local-wsdl-file>
       <service-name>AuditRepositoryManagerService</service-name>
