@@ -4,9 +4,8 @@
  */
 
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -24,7 +23,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * "getBean(String beanId)" method is called on the application context passing
  * in the beanId that is specified in the config file. Considering the default
  * correlation definition in the config file for this component:
- * <bean id="auditrepository" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryNoOpImpl"/>
+ * <bean id="auditrepository" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryNoOpImpl"/>
  * the bean id is "auditrepository" and an object of this type can be retrieved from
  * the application context by calling the getBean method like:
  * context.getBean("auditrepository");. This returns an object that can be casted to
@@ -33,34 +32,27 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Jon Hoppesch
  */
-public class AuditRepositoryProxyObjectFactory {
+public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "AuditRepositoryProxyConfig.xml";
     private static final String BEAN_NAME_AUDIT_REPOSITORY = "auditrepository";
 
-    private static ApplicationContext context = null;
 
-    static
-    {
-        context = initializeContext();
-    }
-
-    /**
-     * Retrieve an audit repository implementation using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "auditrepository."
+     /**
+     * Returns the name of the config file.
      *
-     * @return AuditRepositoryProxy instance
+     * @return The name of the config file.
+     */
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+    /**
+     * Return an instance of the NhinPatientDiscoveryProxy class.
+     *
+     * @return An instance of the NhinPatientDiscoveryProxy class.
      */
     public AuditRepositoryProxy getAuditRepositoryProxy() {
-        AuditRepositoryProxy auditRepo = null;
-        
-        auditRepo = (AuditRepositoryProxy)context.getBean(BEAN_NAME_AUDIT_REPOSITORY);
-        
 
-        return auditRepo;
+        return getBean(BEAN_NAME_AUDIT_REPOSITORY, AuditRepositoryProxy.class);
     }
-    private static ApplicationContext initializeContext()
-    {
-        return new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
-    }
+
 }

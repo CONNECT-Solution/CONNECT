@@ -9,6 +9,7 @@
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
     xmlns:audit="urn:gov:hhs:fha:nhinc:common:auditlog" 
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
     xmlns:nccomadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository">
@@ -32,13 +33,13 @@
     <portType name="AuditRepositoryManagerPortType">
         <operation name="QueryAuditEvents">
             <input name="QueryAuditEventsRequest" 
-                   message="tns:QueryAuditEventsRequestMessage"/>
+                   message="tns:QueryAuditEventsRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsRequest"/>
             <output name="QueryAuditEventsResponse" 
-                    message="tns:QueryAuditEventsResponseMessage"/>
+                    message="tns:QueryAuditEventsResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsResponse"/>
         </operation>
         <operation name="LogEvent">
-            <input name="LogEventRequest" message="tns:LogEventRequestMessage"/>
-            <output name="LogEventResponse" message="tns:LogEventResponseMessage"/>
+            <input name="LogEventRequest" message="tns:LogEventRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventRequest"/>
+            <output name="LogEventResponse" message="tns:LogEventResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventResponse"/>
         </operation>
     </portType>
     <binding name="AuditRepositoryManagerBinding" 
