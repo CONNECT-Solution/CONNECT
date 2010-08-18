@@ -281,7 +281,7 @@
       <service>
         <name>auditrepository</name>
         <description>Audit Repository</description>
-        <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/AuditRepositoryManagerService</endpointURL>
       </service>
       <service>
         <name>auditrepositorysecured</name>
@@ -1106,7 +1106,7 @@
       <service>
         <name>auditrepository</name>
         <description>Audit Repository</description>
-        <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/AuditRepositoryManagerService</endpointURL>
       </service>
       <service>
         <name>auditrepositorysecured</name>
@@ -1947,7 +1947,7 @@
       <service>
         <name>auditrepository</name>
         <description>Audit Repository</description>
-        <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/AuditRepositoryManagerService</endpointURL>
       </service>
       <service>
         <name>auditrepositorysecured</name>
