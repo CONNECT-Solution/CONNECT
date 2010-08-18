@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.auditrepository;
+package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.ws.WebServiceContext;
@@ -16,11 +16,11 @@ import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 
-public class AuditRepositoryImpl {
+public class AuditRepositorySecuredImpl {
 
     private Log log = null;
 
-    public AuditRepositoryImpl() {
+    public AuditRepositorySecuredImpl() {
         log = createLogger();
     }
 

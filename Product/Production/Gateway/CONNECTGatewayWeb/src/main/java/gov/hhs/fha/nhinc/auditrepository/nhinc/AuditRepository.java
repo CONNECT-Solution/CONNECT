@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.auditrepository;
+package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
@@ -17,8 +17,8 @@ public class AuditRepository
 {
     @Resource
     private WebServiceContext context;
-    protected AuditRepositoryImpl getAuditRepositorySecuredImpl() {
-        return new AuditRepositoryImpl();
+    protected AuditRepositorySecuredImpl getAuditRepositorySecuredImpl() {
+        return new AuditRepositorySecuredImpl();
     }
 
     protected WebServiceContext getWebServiceContext() {

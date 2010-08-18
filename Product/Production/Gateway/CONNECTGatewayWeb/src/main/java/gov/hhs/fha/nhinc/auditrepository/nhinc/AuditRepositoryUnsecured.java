@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.auditrepository;
+package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;

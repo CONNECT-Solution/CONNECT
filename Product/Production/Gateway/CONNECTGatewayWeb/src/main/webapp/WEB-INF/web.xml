@@ -262,7 +262,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>AuditRepository</servlet-name>
-    <servlet-class>gov.hhs.fha.nhinc.auditrepository.AuditRepository</servlet-class>
+    <servlet-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AuditRepository</servlet-name>
@@ -270,7 +270,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>AuditRepositoryUnsecured</servlet-name>
-    <servlet-class>gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecured</servlet-class>
+    <servlet-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AuditRepositoryUnsecured</servlet-name>
