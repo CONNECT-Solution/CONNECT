@@ -17,22 +17,21 @@ public class AuditRepository
 {
     @Resource
     private WebServiceContext context;
-    private static Log log = LogFactory.getLog(AuditRepository.class);
+    protected AuditRepositoryImpl getAuditRepositorySecuredImpl() {
+        return new AuditRepositoryImpl();
+    }
 
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest)
     {
-        log.debug("Entering AuditRepository.FindCommunitiesAndAuditEventsResponseType(...)");
-        gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType oResponse = AuditRepositoryHelper.queryAuditEvents(queryAuditEventsRequest, context);;
-        log.debug("Exiting AuditRepository.FindCommunitiesAndAuditEventsResponseType(...)");
-        return oResponse;
+        return getAuditRepositorySecuredImpl().findAudit(queryAuditEventsRequest.getFindAuditEvents(), getWebServiceContext());
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType logEventRequest)
     {
-        log.debug("Entering AuditRepository.logEvent(...)");
-        gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType oResponse = AuditRepositoryHelper.logEvent(logEventRequest, context);
-        log.debug("Exiting AuditRepository.logEvent(...)");
-        return oResponse;
+       return getAuditRepositorySecuredImpl().logAudit(logEventRequest, getWebServiceContext());
     }
 
 }

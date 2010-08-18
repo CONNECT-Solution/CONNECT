@@ -28,9 +28,9 @@
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.EntityAuditQuery" linecount="10" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="26" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogImpl" linecount="54" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery" linecount="2" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepository" linecount="10" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepository" linecount="5" linerate="-0.8" linesexecuted="-4"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryHelper" linecount="10" linerate="0.0" linesexecuted="0"/>
-<threshold branchcount="54" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryImpl" linecount="155" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="-4.6" branchsexecuted="-36.8" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryImpl" linecount="41" linerate="-2.2243902439024392" linesexecuted="-91.2"/>
 <threshold branchcount="14" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.DocQuerySender" linecount="103" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="88" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecuredImpl" linecount="172" linerate="0.0" linesexecuted="0"/>
@@ -98,4 +98,6 @@
 <threshold branchcount="2" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryUnsecured" linecount="8" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryUnsecuredImpl" linecount="23" linerate="0.0" linesexecuted="0"/>
 <threshold branchcount="6" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryImpl" linecount="34" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="0" branchrate="1.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecured" linecount="5" linerate="0.0" linesexecuted="0"/>
+<threshold branchcount="8" branchrate="0.0" branchsexecuted="0" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecuredImpl" linecount="45" linerate="0.0" linesexecuted="0"/>
 </thresholds>

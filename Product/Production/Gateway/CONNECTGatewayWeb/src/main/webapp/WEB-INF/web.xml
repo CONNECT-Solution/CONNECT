@@ -269,6 +269,14 @@
     <url-pattern>/GatewayService/AuditRepositoryManagerSecuredService</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>AuditRepositoryUnsecured</servlet-name>
+    <servlet-class>gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecured</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuditRepositoryUnsecured</servlet-name>
+    <url-pattern>/GatewayService/AuditRepositoryManagerService</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>PatientCorrelationServiceSecured</servlet-name>
     <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured</servlet-class>
   </servlet>

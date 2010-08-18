@@ -1273,6 +1273,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AuditRepositoryManagerService">
+      <implementation-class>gov.hhs.fha.nhinc.auditrepository.AuditRepositoryUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentAuditRepository.wsdl</local-wsdl-file>
+      <service-name>AuditRepositoryManagerService</service-name>
+      <port-name>AuditRepositoryManagerPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentauditrepository</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>
