@@ -10,7 +10,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyObjectFactory;
@@ -23,8 +22,10 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.logging.Log;
@@ -72,22 +73,7 @@ public class DocQuerySender {
         return sHomeCommunity;
     }
 
-    protected HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId) {
-        HomeCommunityType targetCommunity = null;
-        if ((sAssigningAuthorityId != null) && (sAssigningAuthorityId.equals(sLocalAssigningAuthorityId))) {
-            /*
-             * If the target is the local home community, the local
-             * assigning authority may not be mapped to the local
-             * home community in the community mapping. Set manually.
-             */
-            targetCommunity = new HomeCommunityType();
-            targetCommunity.setHomeCommunityId(sLocalHomeCommunity);
-            log.debug("Assigning authority was for the local home community. Set target to manual local home community id");
-        } else {
-            targetCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(sAssigningAuthorityId);
-        }
-        return targetCommunity;
-    }
+    
 
     protected DocumentQueryTransform createDocumentTransform() {
         return new DocumentQueryTransform();
@@ -101,7 +87,10 @@ public class DocQuerySender {
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType docQuery = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType();
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         String assigningAuthority = oSubjectId.getAssigningAuthorityIdentifier();
-        HomeCommunityType targetCommunity = lookupHomeCommunityId(assigningAuthority);
+        EntityDocQueryHelper helper = new EntityDocQueryHelper();
+
+        List<SlotType1> slotList = oOriginalQueryRequest.getAdhocQuery().getSlot();
+        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(assigningAuthority, helper.getLocalAssigningAuthority(slotList), sLocalHomeCommunity);
         String sTargetHomeCommunityId = null;
         if (targetCommunity != null) {
             targetSystem.setHomeCommunity(targetCommunity);
