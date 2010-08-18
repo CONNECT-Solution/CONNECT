@@ -57,7 +57,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
 
           //check the policy for the outgoing request to the target community
           if (checkPolicy(message, assertion, urlInfo.getHcid())) {
-            getProxy().crossGatewayQueryRequest(message, assertion, buildTargetSystem(urlInfo));
+            nhincResponse = getProxy().crossGatewayQueryRequest(message, assertion, buildTargetSystem(urlInfo));
           } else {
             getLog().error("The policy engine evaluated the request and denied the request.");
           }
