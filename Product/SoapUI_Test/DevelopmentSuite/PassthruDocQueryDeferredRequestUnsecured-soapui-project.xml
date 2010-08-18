@@ -3771,7 +3771,7 @@ This document and the information contained herein is provided on an "AS IS" bas
   <con:testSuite name="DQDeferredRequestTestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQDeferredRequest" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQDeferredRequest" searchProperties="true" id="793d5125-dc37-4514-b2f0-a412bb664cee">
       <con:settings/>
       <con:testStep type="groovy" name="Generate patient ID for Doc Query">
         <con:settings/>
@@ -3792,7 +3792,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:endpoint>http://localhost:8080/CONNECTMsgProxyWeb//EntityService/PassthruDocQueryDeferredRequestUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="InternalSelfTest" testCase="Document Query">
@@ -4048,17 +4048,13 @@ declare namespace ns1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                 <definition/>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="GroovyScriptAssertion" name="DocID Match">
+            <con:assertion type="XPath Match" name="Status">
               <con:configuration>
-                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
-holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
-holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
-
-def documentID = context.findProperty('DQDocID')
-def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-assert (documentID == msgDocID)
-log.info documentID + " " + msgDocID</scriptText>
+                <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
+//ns18:DocQueryAcknowledgement[1]/ns18:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -4087,7 +4083,7 @@ log.info documentID + " " + msgDocID</scriptText>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
-          <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+          <con:value>'null^^^&amp;amp;null&amp;amp;ISO'</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
