@@ -20,14 +20,24 @@ import javax.xml.ws.WebServiceContext;
 public class AdapterDocRetrieveDeferredRequestErrorImpl {
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(AdapterDocumentRetrieveDeferredRequestErrorSecuredType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        AdapterDocumentRetrieveDeferredRequestErrorType   request = new AdapterDocumentRetrieveDeferredRequestErrorType();
 
-        return new AdapterDocRetrieveDeferredReqErrorOrchImpl().respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion, body.getErrorMsg());
+        request.setAssertion(assertion);
+        request.setRetrieveDocumentSetRequest(body.getRetrieveDocumentSetRequest());
+        request.setErrorMsg(body.getErrorMsg());
+
+        return new AdapterDocRetrieveDeferredReqErrorOrchImpl().respondingGatewayCrossGatewayRetrieve(request, assertion, body.getErrorMsg());
     }
 
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(AdapterDocumentRetrieveDeferredRequestErrorType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
+        AdapterDocumentRetrieveDeferredRequestErrorType   request = new AdapterDocumentRetrieveDeferredRequestErrorType();
 
-        return new AdapterDocRetrieveDeferredReqErrorOrchImpl().respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion, body.getErrorMsg());
+        request.setAssertion(assertion);
+        request.setRetrieveDocumentSetRequest(body.getRetrieveDocumentSetRequest());
+        request.setErrorMsg(body.getErrorMsg());
+
+        return new AdapterDocRetrieveDeferredReqErrorOrchImpl().respondingGatewayCrossGatewayRetrieve(request, assertion, body.getErrorMsg());
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {

@@ -5,6 +5,8 @@
 
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
+
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -20,7 +22,7 @@ public class AdapterDocRetrieveDeferredRequestUnsecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
+    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
         return new AdapterDocRetrieveDeferredRequestImpl().crossGatewayRetrieveRequest(crossGatewayRetrieveRequest, context);
     }
 

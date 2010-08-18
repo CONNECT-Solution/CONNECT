@@ -120,7 +120,7 @@ public class NhinDocRetrieveDeferred {
         policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
         /* if response='permit' */
-        if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {
+        if (policyResp.getResponse().getResult().get(0).getDecision().value().equalsIgnoreCase(NhincConstants.POLICY_PERMIT)) {
             isValid = true;
         }
         return isValid;

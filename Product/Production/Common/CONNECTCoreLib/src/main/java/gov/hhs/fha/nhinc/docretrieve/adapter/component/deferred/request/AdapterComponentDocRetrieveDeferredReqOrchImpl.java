@@ -13,6 +13,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 
 /**
  *
@@ -34,9 +39,8 @@ public class AdapterComponentDocRetrieveDeferredReqOrchImpl {
     public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion)
     {
         log.debug("Enter AdapterComponentDocRetrieveDeferredReqImpl.respondingGatewayCrossGatewayRetrieve()");
-        DocRetrieveAcknowledgementType response = null;
-        RegistryResponseType           responseType;
-
+        DocRetrieveAcknowledgementType  response = null;
+        RegistryResponseType            responseType;
 
         response = new DocRetrieveAcknowledgementType();
         responseType = new RegistryResponseType();
