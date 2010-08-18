@@ -14144,6 +14144,26 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityDocRetrieveDeferredTestSecuredAdapEndtoEndJavaImpl" searchProperties="true" id="b94804da-4f7c-488a-9b2c-c0cb4b790287">
       <con:settings/>
+      <con:testStep type="groovy" name="beforeRun">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "DocumentRetrieveDeferredProxyConfigJavaImpl.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+        </con:config>
+      </con:testStep>
       <con:testStep type="request" name="DocRetrieveDefRequest">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -14410,6 +14430,26 @@ This document and the information contained herein is provided on an "AS IS" bas
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="afterRun">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "DocumentRetrieveDeferredProxyConfig.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
       <con:properties>
