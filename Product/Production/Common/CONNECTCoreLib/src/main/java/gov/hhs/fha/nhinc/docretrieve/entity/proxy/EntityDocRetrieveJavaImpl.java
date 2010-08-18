@@ -28,7 +28,7 @@ public class EntityDocRetrieveJavaImpl implements EntityDocRetrieveProxy{
         return LogFactory.getLog(getClass());
     }
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetCommunitiesType targets) {
-        return getEntityImpl().respondingGatewayCrossGatewayRetrieve(body, assertion, targets);
+        return getEntityImpl().respondingGatewayCrossGatewayRetrieve(body, assertion);
     }
     protected EntityDocRetrieveOrchImpl getEntityImpl()
     {

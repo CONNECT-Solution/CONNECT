@@ -5,6 +5,9 @@
 
 package universalclientgui;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -36,6 +39,7 @@ public class DocumentRetrieveClient {
         EntityDocRetrievePortType port = getPort(getEntityDocumentRetrieveProxyAddress());
 
         RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
+
 
         RetrieveDocumentSetResponseType response = port.respondingGatewayCrossGatewayRetrieve(request);
 
@@ -93,9 +97,25 @@ public class DocumentRetrieveClient {
         AssertionCreator assertionCreator = new AssertionCreator();
         request.setAssertion(assertionCreator.createAssertion());
 
+        request.setNhinTargetCommunities(createTargetCommunities(documentInformation.getHomeCommunityID()));
         return request;
     }
 
+    private NhinTargetCommunitiesType createTargetCommunities(String homeCommunityId)
+    {
+        NhinTargetCommunitiesType result = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType community = new NhinTargetCommunityType();
+
+        HomeCommunityType hc = new HomeCommunityType();
+        hc.setHomeCommunityId(homeCommunityId);
+
+        community.setHomeCommunity(hc);
+
+        result.getNhinTargetCommunity().add(community);
+
+        return result;
+
+    }
     /**
      *
      * @return

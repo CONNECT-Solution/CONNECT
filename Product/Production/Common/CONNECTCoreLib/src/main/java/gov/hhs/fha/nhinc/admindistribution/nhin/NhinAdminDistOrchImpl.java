@@ -61,7 +61,11 @@ public class NhinAdminDistOrchImpl {
 
         if(isServiceEnabled())
         {
-             if(checkPolicy(body, assertion))
+            if(this.isInPassThroughMode())
+            {
+                sendToAgency(body, assertion);
+            }
+            else if(checkPolicy(body, assertion))
             {
                 sendToAgency(body, assertion);
             }
@@ -73,6 +77,10 @@ public class NhinAdminDistOrchImpl {
 
 
         log.info("End sendAlert");
+    }
+    protected boolean isInPassThroughMode()
+    {
+        return new AdminDistributionHelper().isInPassThroughMode();
     }
     protected boolean isServiceEnabled()
     {

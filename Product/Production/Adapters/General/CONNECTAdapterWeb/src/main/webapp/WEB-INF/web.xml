@@ -399,14 +399,20 @@
     
 
 
-    <servlet>
-        <servlet-name>EntityDocRetrieve</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocRetrieve</servlet-name>
-        <url-pattern>/EntityDocRetrieve</url-pattern>
-    </servlet-mapping>
+    
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
 
     <servlet>
         <servlet-name>NhincProxyDocRetrieve</servlet-name>

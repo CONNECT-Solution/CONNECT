@@ -18,7 +18,11 @@ public class EntityDocRetrieveSecured
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body)
     {
-        return new EntityDocRetrieveSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+        //return new EntityDocRetrieveSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+        return getImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
-
+    protected EntityDocRetreiveImpl getImpl()
+    {
+        return new EntityDocRetreiveImpl();
+    }
 }

@@ -44,42 +44,33 @@ public class EntityAdminDistributionOrchImpl {
     {
         logEntityAdminDist(message, assertion);
 
+        CMUrlInfos urlInfoList = getEndpoints(target);
 
-        if(this.isServiceEnabled())
-        {
+        if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
+            log.warn("No targets were found for the Admin Distribution Request");
 
-
-            CMUrlInfos urlInfoList = getEndpoints(target);
-
-            if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
-                log.warn("No targets were found for the Admin Distribution Request");
-
-            }
-            else
-            {
-
-                for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
-                    //create a new request to send out to each target community
-                   log.debug("Target: " + urlInfo.getHcid());
-                    //check the policy for the outgoing request to the target community
-                    boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
-
-                    if (bIsPolicyOk) {
-                        NhinTargetSystemType targetSystem =buildTargetSystem(urlInfo);
-
-                        sendToNhinProxy(message, assertion, targetSystem);
-
-                    } //if (bIsPolicyOk)
-                    else {
-                        log.error("The policy engine evaluated the request and denied the request.");
-                    } //else policy enging did not return a permit response
-                }
-            }
         }
         else
         {
-            log.warn("Service disabled");
+
+            for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                //create a new request to send out to each target community
+               log.debug("Target: " + urlInfo.getHcid());
+                //check the policy for the outgoing request to the target community
+                boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
+
+                if (bIsPolicyOk) {
+                    NhinTargetSystemType targetSystem =buildTargetSystem(urlInfo);
+
+                    sendToNhinProxy(message, assertion, targetSystem);
+
+                } //if (bIsPolicyOk)
+                else {
+                    log.error("The policy engine evaluated the request and denied the request.");
+                } //else policy enging did not return a permit response
+            }
         }
+
 
         
     }

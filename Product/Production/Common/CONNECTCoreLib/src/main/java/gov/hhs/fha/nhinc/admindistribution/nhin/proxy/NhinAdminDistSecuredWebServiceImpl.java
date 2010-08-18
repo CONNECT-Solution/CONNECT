@@ -22,6 +22,18 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import java.util.Map;
+import javax.xml.ws.BindingProvider;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *

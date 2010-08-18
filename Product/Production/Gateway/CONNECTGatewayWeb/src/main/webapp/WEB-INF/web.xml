@@ -60,9 +60,18 @@
         <servlet-name>EntityDocRetrieveSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>EntityDocRetrieveSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocRetrieve</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieve</servlet-name>
+        <url-pattern>/EntityService/EntityDocRetrieve</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincComponentAggregator</servlet-name>

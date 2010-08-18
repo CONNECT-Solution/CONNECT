@@ -52,7 +52,7 @@ public class EntityDocRetrieveOrchImpl {
     {
         return LogFactory.getLog(getClass());
     }
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetCommunitiesType targets)
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion)
     {
         RetrieveDocumentSetResponseType response = null;
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
