@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,9 +20,9 @@ import static org.junit.Assert.*;
  *
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryAsyncRespNoOpImplTest {
+public class NhinPatientDiscoveryAsyncReqNoOpImplTest {
 
-    public NhinPatientDiscoveryAsyncRespNoOpImplTest() {
+    public NhinPatientDiscoveryAsyncReqNoOpImplTest() {
     }
 
     @BeforeClass
@@ -42,17 +42,17 @@ public class NhinPatientDiscoveryAsyncRespNoOpImplTest {
     }
 
     /**
-     * Test of respondingGatewayPRPAIN201306UV02 method, of class NhinPatientDiscoveryAsyncRespNoOpImpl.
+     * Test of respondingGatewayPRPAIN201305UV02 method, of class NhinPatientDiscoveryAsyncReqNoOpImpl.
      */
     @Test
-    public void testRespondingGatewayPRPAIN201306UV02() {
-        System.out.println("testRespondingGatewayPRPAIN201306UV02");
-        PRPAIN201306UV02 body = new PRPAIN201306UV02();
+    public void testRespondingGatewayPRPAIN201305UV02() {
+        System.out.println("respondingGatewayPRPAIN201305UV02");
+        PRPAIN201305UV02 body = new PRPAIN201305UV02();
         AssertionType assertion = new AssertionType();
         NhinTargetSystemType target = new NhinTargetSystemType();
-        NhinPatientDiscoveryAsyncRespNoOpImpl instance = new NhinPatientDiscoveryAsyncRespNoOpImpl();
-       
-        MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201306UV02(body, assertion, target);
+        NhinPatientDiscoveryDeferredReqProxyNoOpImpl instance = new NhinPatientDiscoveryDeferredReqProxyNoOpImpl();
+        
+        MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201305UV02(body, assertion, target);
 
         assertNotNull(result);
     }

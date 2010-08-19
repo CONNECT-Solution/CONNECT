@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.gateway.aggregator.document;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryResponseType;
@@ -24,6 +26,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.dao.AggMessageResultDao;
 import gov.hhs.fha.nhinc.gateway.aggregator.persistence.GarbageCollectorMgr;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -41,9 +44,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 
 /**
- * This class is used to handle the tasks surrounding aggregating 
+ * This class is used to handle the tasks surrounding aggregating
  * responses to document query messages.
- * 
+ *
  * @author Les Westberg
  */
 public class DocQueryAggregator
@@ -51,24 +54,24 @@ public class DocQueryAggregator
     private static Log log = LogFactory.getLog(DocQueryAggregator.class);
     private static String DOC_QUERY_NAME = "documentquery";
     private static String DOC_QUERY_RESPONSE = "AdhocQueryResponse";
-    
+
     /**
      * Default constructor
      */
     public DocQueryAggregator()
     {
     }
-    
+
     /**
      * This method marshalls the AdhocQueryResponse into an XML string.
-     * 
+     *
      * @param oAdhocQueryRsponse The object to be marshalled.
      * @return The XML representation of the object.
      */
     public String marshalAdhocQueryResponse(AdhocQueryResponse oAdhocQueryResponse)
     {
         String sXML = "";
-        
+
         if (oAdhocQueryResponse != null)
         {
             try
@@ -85,20 +88,20 @@ public class DocQueryAggregator
                 log.error("Failed to marshall AdhocQueryResponse to XML: " + e.getMessage());
             }
         }
-        
+
         return sXML;
     }
-    
+
     /**
      * This method unmarshalls the XML into an AdhocQueryResponse object.
-     * 
+     *
      * @param sAdhocQueryResponseXML The XML of the AdhocQueryResponse object to be unmarshalled.
      * @return The AdhocQueryResponse object.
      */
     public AdhocQueryResponse unmarshalAdhocQueryResponse(String sAdhocQueryResponseXML)
     {
         AdhocQueryResponse oAdhocQueryResponse = null;
-        
+
         if (sAdhocQueryResponseXML != null)
         {
             try
@@ -114,7 +117,7 @@ public class DocQueryAggregator
                 log.error("Failed to marshall AdhocQueryResponse to XML: " + e.getMessage());
             }
         }
-        
+
         return oAdhocQueryResponse;
     }
 
@@ -122,19 +125,19 @@ public class DocQueryAggregator
      * This method is called from the web service to start a transaction.  it
      * prepares the set of DocQueryMessageKey(s) and then calls the
      * other startTransaction to do the work.
-     * 
+     *
      * @param oRequest The message that was sent to the web service.
      * @return The transaction Id.
      */
-    public String startTransaction (StartTransactionDocQueryRequestType oRequest, 
+    public String startTransaction (StartTransactionDocQueryRequestType oRequest,
                                     HashMap<String,String> hAssignAuthHomeCommMap)
     {
         String sTransactionId = "";
-        
+
         // Based on property settings, spin off the garbage collector thread
         //-------------------------------------------------------------------
         GarbageCollectorMgr.runGarbageCollection();
-        
+
         if ((oRequest != null) &&
             (oRequest.getQualifiedPatientIdentifiers() != null) &&
             (oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier() != null) &&
@@ -142,11 +145,11 @@ public class DocQueryAggregator
         {
             ArrayList<DocQueryMessageKey> olKey = new ArrayList<DocQueryMessageKey>();
             List<QualifiedSubjectIdentifierType> olIds = oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier();
-            
+
             for (QualifiedSubjectIdentifierType oId : olIds)
             {
                 boolean baFound[] = {false, false, false};
-                
+
                 DocQueryMessageKey oKey = new DocQueryMessageKey();
                 if (oId.getAssigningAuthorityIdentifier() != null)
                 {
@@ -161,28 +164,22 @@ public class DocQueryAggregator
                 if ((oKey.getAssigningAuthority() != null) &&
                     (oKey.getAssigningAuthority().length() > 0))
                 {
-                    if (hAssignAuthHomeCommMap.containsKey(oKey.getAssigningAuthority()))
-                    {
-                        String sHomeCommunityId = hAssignAuthHomeCommMap.get(oKey.getAssigningAuthority());
-                        if ((sHomeCommunityId != null) &&
-                            (sHomeCommunityId.length() > 0))
+                    HomeCommunityType homeCommunityId = null;
+                    log.debug("Looking up Home Community Id for Assigning Authority Id: " + oKey.getAssigningAuthority());
+                    homeCommunityId = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(oKey.getAssigningAuthority());
+
+                        if (homeCommunityId != null &&
+                            NullChecker.isNotNullish(homeCommunityId.getHomeCommunityId()))
                         {
-                            oKey.setHomeCommunityId(sHomeCommunityId);
+                            oKey.setHomeCommunityId(homeCommunityId.getHomeCommunityId());
                         }
                         else
                         {
-                            log.warn("There was a mapping for this assigning authority to a home community,  " +
-                                     "but the mapping was to an empty string.  " +
+                            log.warn("There was no mapping for this assigning authority to a home community,  " +
                                      "The home community ID will be treated as the same as the assigning authority.");
                             oKey.setHomeCommunityId("");            // Assume it is the same as the
                         }
-                    }
-                    else
-                    {
-                        log.warn("There was no mapping for this assigning authority to a home community.  " +
-                                 "The home community ID will be treated as the same as the assigning authority.");
-                        oKey.setHomeCommunityId("");            // Assume it is the same as the
-                    }
+
                     baFound[1] = true;
                 }
                 else
@@ -201,7 +198,7 @@ public class DocQueryAggregator
                 {
                     oKey.setPatientId("");
                 }
-                
+
                 // We can only build keys when we have all the appropriate identifiers
                 //--------------------------------------------------------------------
                 if (baFound[0] && baFound[1] && baFound[2])
@@ -209,20 +206,20 @@ public class DocQueryAggregator
                     olKey.add(oKey);
                 }
             }   // for (QualifiedSubjectIdentifierType oId : olIds)
-            
+
             if (olKey.size() > 0)
             {
                 DocQueryMessageKey oaKey[] = olKey.toArray(new DocQueryMessageKey[0]);
                 sTransactionId = startTransaction(oaKey);
             }
         }   // if ((oRequest != null) && ...
-        
+
         return sTransactionId;
     }
-    
+
     /**
      * This method sets the response message for the specified message key.
-     * 
+     *
      * @param oRequest The message key and the response message.
      * @return The status of the request, either "SUCCESS" or "FAIL".
      */
@@ -233,7 +230,7 @@ public class DocQueryAggregator
         String sHomeCommunityId = "";
         DocQueryMessageKey oKey = new DocQueryMessageKey();
         String sAdhocQueryResponseXML = "";
-        
+
         if (oRequest != null)
         {
             // Transaction Id
@@ -249,7 +246,7 @@ public class DocQueryAggregator
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
-            
+
             // HomeCommunityId
             //-----------------
             // If the home community is not passed, it will be looked up by the DocQueryMessageKey based
@@ -261,7 +258,7 @@ public class DocQueryAggregator
                 sHomeCommunityId = oRequest.getHomeCommunityId();
             }
             oKey.setHomeCommunityId(sHomeCommunityId);
-            
+
             // Assigning Authority
             //--------------------
             if ((oRequest.getQualifiedPatientIdentifier() != null) &&
@@ -276,7 +273,7 @@ public class DocQueryAggregator
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
-            
+
             //Patient Id
             //-----------
             if ((oRequest.getQualifiedPatientIdentifier() != null) &&
@@ -291,14 +288,14 @@ public class DocQueryAggregator
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
-            
+
             // Marshall the AdhocQueryResponse
             //---------------------------------
             if (oRequest.getAdhocQueryResponse() != null)
             {
                 sAdhocQueryResponseXML = marshalAdhocQueryResponse(oRequest.getAdhocQueryResponse());
             }
-            
+
             if (!sStatus.equals(DocumentConstants.FAIL_TEXT))
             {
                 sStatus = setResponseMsg(sTransactionId, oKey, sAdhocQueryResponseXML);
@@ -308,38 +305,38 @@ public class DocQueryAggregator
         {
             sStatus = DocumentConstants.FAIL_TEXT;
         }
-        
+
         return sStatus;
     }
-    
+
     /**
      * This method returns either a status if it is still waiting for results
      * to come in, or the set of aggregated results.  If the caller passes in
      * false for the "timed out" parameter, it will only return the results
      * when all of the expected responses have been recieved.  If they have not
-     * all been received, then it will return a status of "Pending" with no 
-     * reesults.  When all are received, it will send a status of "Complete" 
+     * all been received, then it will return a status of "Pending" with no
+     * reesults.  When all are received, it will send a status of "Complete"
      * along with the aggregated results.   If timedOut is set to true, then
-     * it will pass back the set of aggregated results that was received and 
+     * it will pass back the set of aggregated results that was received and
      * it will place error information in the aggregated results for the ones
      * that it did not receive.  It will also send back a status of "Incomplete"
      * with the results.  If timedOut is set to true, but everything had been
      * received, then it will send back a status of "Complete" with the
      * aggregated results.
-     * 
+     *
      * @param getAggResultsDocQueryRequest Tells whether we are in a timed out
      *                                     state or not.
      * @return Returns results if all responses have been received or if
-     *         timedOut is set to true.  Returns status only if we are not 
+     *         timedOut is set to true.  Returns status only if we are not
      *         timedOut and if not all expected results have been received.
      */
     public GetAggResultsDocQueryResponseType getAggResults(GetAggResultsDocQueryRequestType oRequest)
     {
         GetAggResultsDocQueryResponseType oResponse = new GetAggResultsDocQueryResponseType();
-        
+
         String sTransactionId = "";
         boolean bTimedOut = false;
-        
+
         if ((oRequest != null) &&
             (oRequest.getTransactionId() != null) &&
             (oRequest.getTransactionId().trim().length() > 0))
@@ -353,10 +350,10 @@ public class DocQueryAggregator
             oResponse.setStatus(DocumentConstants.FAIL_TEXT);
             return oResponse;
         }
-        
+
         bTimedOut = oRequest.isTimedOut();
         AdhocQueryResponse oAdhocQueryResponse = null;
-        
+
         try
         {
             oAdhocQueryResponse = getAggResults(sTransactionId, bTimedOut);
@@ -381,14 +378,14 @@ public class DocQueryAggregator
 
         return oResponse;
     }
-    
-    
+
+
     /**
      * This method starts a transaction using the set of message keys passed in.
      * It will create a transaction, with one message for each message key.  The
-     * entries will be written to the AGGREGATOR.AGG_TRANSACTION and 
+     * entries will be written to the AGGREGATOR.AGG_TRANSACTION and
      * AGGREGATOR.AGG_MESSAGE_RESULTS tables.
-     * 
+     *
      * @param oaMessageKey The set of message keys.  There will be one row
      *                     written to the AGG_MESSAGE_RESULTS table for each
      *                     array item.
@@ -398,22 +395,22 @@ public class DocQueryAggregator
     public String startTransaction (DocQueryMessageKey[] oaMessageKey)
     {
         String sTransactionId = "";
-        
+
         if ((oaMessageKey == null) ||
             (oaMessageKey.length <= 0))
         {
             return sTransactionId;          // Nothing in the record to start
                                             // a transaction for.
         }
-        
+
         Date dtNow = new Date();
-        
+
         AggTransaction oTrans = new AggTransaction();
         oTrans.setServiceType(DOC_QUERY_NAME);
         oTrans.setTransactionStartTime(dtNow);
-        
+
         HashSet<AggMessageResult> hMsgResult = new HashSet<AggMessageResult>();
-        
+
         for (DocQueryMessageKey oMessageKey : oaMessageKey)
         {
             AggMessageResult oMsgResult = new AggMessageResult();
@@ -426,25 +423,25 @@ public class DocQueryAggregator
             hMsgResult.add(oMsgResult);
         }
         oTrans.setAggMessageResults(hMsgResult);
-        
+
         AggTransactionDao oTransDao = new AggTransactionDao();
         oTransDao.save(oTrans);
-        
+
         if ((oTrans != null) &&
             (oTrans.getTransactionId() != null) &&
             (oTrans.getTransactionId().length() > 0))
         {
             sTransactionId = oTrans.getTransactionId();
         }
-        
+
         return sTransactionId;
     }
-    
+
     /**
      * This method retrieves the message result entry in the database and fills in the
      * response information for that message.  It locates the entry based on the
      * message key and transaction Id based on the information that was passed in.
-     * 
+     *
      * @param sTransactionId The transaction Id associated with the message.
      * @param oKey The information that is used for the message key.
      * @param sAdhocQueryResponseXML The AdhocQueryResponse in XML form.
@@ -454,7 +451,7 @@ public class DocQueryAggregator
     {
         String sStatus = DocumentConstants.SUCCESS_TEXT;
         String sMessageKey = oKey.createXMLMessageKey();
-        
+
         AggMessageResultDao oAggMessageResultDao = new AggMessageResultDao();
         AggMessageResult oMsgResult = null;
         try
@@ -469,7 +466,7 @@ public class DocQueryAggregator
             sStatus = DocumentConstants.FAIL_TEXT;
             return sStatus;         // No reason to proceed....
         }
-        
+
         if (oMsgResult == null)
         {
             String sErrorMessage = "Failed to find existing AggMessageResult for: TransactionId: " + sTransactionId +
@@ -478,21 +475,21 @@ public class DocQueryAggregator
             sStatus = DocumentConstants.FAIL_TEXT;
             return sStatus;         // No reason to proceed....
         }
-        
+
         // if we got here - we have the message and we need to fill in the response information...
         //----------------------------------------------------------------------------------------
         oMsgResult.setResponseReceivedTime(new Date());
         oMsgResult.setResponseMessage(sAdhocQueryResponseXML);
         oAggMessageResultDao.save(oMsgResult);
-        
+
         return DocumentConstants.SUCCESS_TEXT;
     }
-    
+
     /**
      * This method looks through the results to see if all responses have been
      * received.  If they have, then it returns true.  Otherwise it returns
      * false.
-     * 
+     *
      * @param oTrans The Transaction with all of the message results.
      * @return TRUE if all responses have been received, FALSE if not.
      */
@@ -502,7 +499,7 @@ public class DocQueryAggregator
         {
             return false;
         }
-        
+
         for (AggMessageResult oMsgResult : oTrans.getAggMessageResults())
         {
             // If we fall through - we are still waiting for results.
@@ -513,32 +510,32 @@ public class DocQueryAggregator
                 return false;
             }
         }
-        
-        
+
+
         return true;
     }
-    
+
     /**
      * This method will create an empty AdhocQueryResponse.  One that would
      * be returned if there were no results.
-     * 
+     *
      * @return An AdhocQueryResponse that represents an empty result set.
      */
     private AdhocQueryResponse createEmptyResult()
     {
         AdhocQueryResponse oAdhocQueryResponse = new AdhocQueryResponse();
-        
+
         oAdhocQueryResponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         oAdhocQueryResponse.setRegistryObjectList(new RegistryObjectListType());
-        
+
         return oAdhocQueryResponse;
     }
-    
+
     /**
-     * This method is used to combine the results together into a single 
+     * This method is used to combine the results together into a single
      * AdhocQueryResponse.  It will extract the items in the RegistryObjectList
      * from the various systems and place them into the new response.
-     * 
+     *
      * @param olMsgResult List of messages to be combined
      * @return The combined AdhocQueryResponse object.
      */
@@ -546,7 +543,7 @@ public class DocQueryAggregator
     {
         AdhocQueryResponse oAdhocQueryResponse = createEmptyResult();
         RegistryObjectListType oRegObjList = oAdhocQueryResponse.getRegistryObjectList();
-        
+
         for (AggMessageResult oMsgResult : olMsgResult)
         {
             // If the message contains a response received time, then it means that we
@@ -573,7 +570,7 @@ public class DocQueryAggregator
                             oRegObjList.getIdentifiable().add(oJAXBElement);
                         }   // for (JAXBElement<? extends IdentifiableType> oJAXBElement : olNewRegObjs)
                     }   // if ((oTempResponse != null) &&
-                    
+
                     // It is possible that there may be error information in this message
                     // that we need to pull out too...
                     //--------------------------------------------------------------------
@@ -613,7 +610,7 @@ public class DocQueryAggregator
                 {
                     oRegErrors = oAdhocQueryResponse.getRegistryErrorList();
                 }
-                
+
                 List<RegistryError> olRegError = oRegErrors.getRegistryError();
                 RegistryError oRegError = new RegistryError();
                 olRegError.add(oRegError);
@@ -636,17 +633,17 @@ public class DocQueryAggregator
                 }   // if ((oMsgResult.getMessageKey() != null) &&
             }   // else ...
         }   // for (AggMessageResult oMsgResult : olMsgResult)
-        
-        
+
+
         return oAdhocQueryResponse;
     }
-    
+
     /**
      * This method returns either an aggregated AdhocQueryResponse if all results
      * have been retrieved, or if the timed out flag has been passed, or it will
      * return null if the results are not ready and the timedout flag has not
-     * been set.  
-     * 
+     * been set.
+     *
      * @param sTransactionId The transaction ID of the transaction to be aggregated.
      * @param bTimedOut TRUE if we should stop waiting for results and compile what
      *                       is available.  FALSE if we should only return them
@@ -657,7 +654,7 @@ public class DocQueryAggregator
         throws AggregatorException
     {
         AdhocQueryResponse oResponse = null;
-        
+
         // Retrieve the records and see if everything is ready...
         //--------------------------------------------------------
         AggTransactionDao oAggTransactionDao = new AggTransactionDao();
@@ -669,7 +666,7 @@ public class DocQueryAggregator
             log.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
-        
+
         // Make sure this transaction ID is for the right type of transaction.
         //--------------------------------------------------------------------
         if ((oTrans.getServiceType() == null) ||
@@ -681,8 +678,8 @@ public class DocQueryAggregator
             log.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
-        
-        // If we have timed out, or if the results are ready then aggregate them 
+
+        // If we have timed out, or if the results are ready then aggregate them
         // and return them.
         //----------------------------------------------------------------------
         if ((bTimedOut) ||
@@ -700,13 +697,13 @@ public class DocQueryAggregator
                 //---------------------------------------------------------------
                 oResponse = createEmptyResult();
             }
-            
+
             // Delete the entries out of the database...
             //--------------------------------------------
             oAggTransactionDao.delete(oTrans);
             oTrans = null;
         }
-        
+
         return oResponse;
     }
 }
