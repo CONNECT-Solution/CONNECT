@@ -7,9 +7,9 @@ package gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxy;
-import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -71,8 +71,8 @@ public class NhincProxyPatientDiscoverySecuredAsyncRespImpl
         PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLog.auditNhin201306(request.getPRPAIN201306UV02(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-        NhinPatientDiscoveryAsyncRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryAsyncRespProxyObjectFactory();
-        NhinPatientDiscoveryAsyncRespProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncRespProxy();
+        NhinPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredRespProxyObjectFactory();
+        NhinPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncRespProxy();
 
         resp = proxy.respondingGatewayPRPAIN201306UV02(request.getPRPAIN201306UV02(), assertion, request.getNhinTargetSystem());
 
