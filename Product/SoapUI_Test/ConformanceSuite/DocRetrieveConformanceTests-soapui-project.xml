@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="DocRetrieveConformanceTests" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -10039,7 +10039,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:property>
     <con:property>
       <con:name>EntityDocRetrieveEndpoint</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</con:value>
     </con:property>
     <con:property>
       <con:name>LocalHCDescription</con:name>
