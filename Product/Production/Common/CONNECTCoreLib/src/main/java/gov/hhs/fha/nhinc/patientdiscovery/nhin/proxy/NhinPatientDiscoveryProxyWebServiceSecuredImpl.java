@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import javax.xml.namespace.QName;
@@ -81,6 +82,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         {
             log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                       "Exception: " + e.getMessage(), e);
+            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
 
         return response;

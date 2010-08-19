@@ -82,11 +82,17 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                     DocumentQueryTransform transform = new DocumentQueryTransform();
                                     AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(message, getLocalHomeCommunityId(), subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
                                     nhincResponse = getProxy().crossGatewayQueryRequest(adhocQueryRequest, assertion, targetSystem);
+                                } else {
+                                    getLog().error("The policy engine evaluated the request and denied the request.");
+                                    regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
                                 }
+                            } else {
+                                getLog().error("No correlations were found");
+                                regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
                             }
                         }
                     } else {
-                        getLog().error("The policy engine evaluated the request and denied the request.");
+                        getLog().error("No correlations were found");
                         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
                     }
                 }

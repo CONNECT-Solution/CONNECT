@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import javax.xml.namespace.QName;
 import org.apache.commons.logging.Log;
@@ -54,12 +55,13 @@ public class NhincPatientDiscoveryProxyWebServiceUnsecuredImpl implements NhincP
 
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
+        ProxyPRPAIN201305UVProxyRequestType proxyRequest = new ProxyPRPAIN201305UVProxyRequestType();
 
         try
         {
             if (body != null)
             {
-                ProxyPRPAIN201305UVProxyRequestType proxyRequest = new ProxyPRPAIN201305UVProxyRequestType();
+                
                 proxyRequest.setPRPAIN201305UV02(body);
                 proxyRequest.setAssertion(assertion);
                 proxyRequest.setNhinTargetSystem(target);
@@ -87,6 +89,7 @@ public class NhincPatientDiscoveryProxyWebServiceUnsecuredImpl implements NhincP
         {
             log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                       "Exception: " + e.getMessage(), e);
+            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(proxyRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
 
         return response;

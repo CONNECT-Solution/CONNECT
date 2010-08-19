@@ -982,7 +982,7 @@
               linesexecuted="0"/>
    <threshold branchcount="18" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReqOrchImpl"
-              linecount="61"
+              linecount="66"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -3435,11 +3435,11 @@
               linecount="42"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="22" branchrate="80" branchsexecuted="0.13"
+   <threshold branchcount="16" branchrate="80" branchsexecuted="0.13"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryProcessor"
-              linecount="94"
+              linecount="80"
               linerate="80"
-              linesexecuted="0.35"/>
+              linesexecuted="0.38"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxy"
               linecount="0"
@@ -3542,7 +3542,7 @@
               linesexecuted="0.02"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0.01"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyWebServiceSecuredImpl"
-              linecount="37"
+              linecount="38"
               linerate="80"
               linesexecuted="0.11"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -3559,7 +3559,7 @@
               class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyJavaImpl"
               linecount="10"
               linerate="80"
-              linesexecuted="0"/>
+              linesexecuted="0.05"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyNoOpImpl"
               linecount="7"
@@ -3569,10 +3569,10 @@
               class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyObjectFactory"
               linecount="3"
               linerate="80"
-              linesexecuted="0.02"/>
+              linesexecuted="0.03"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0.01"
               class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyWebServiceSecuredImpl"
-              linecount="41"
+              linecount="42"
               linerate="80"
               linesexecuted="0.11"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
@@ -3855,11 +3855,11 @@
               linecount="8"
               linerate="80"
               linesexecuted="0.04"/>
-   <threshold branchcount="96" branchrate="80" branchsexecuted="0.26"
+   <threshold branchcount="96" branchrate="80" branchsexecuted="0.29"
               class="gov.hhs.fha.nhinc.properties.PropertyAccessor"
               linecount="248"
               linerate="80"
-              linesexecuted="0.82"/>
+              linesexecuted="0.84"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.properties.PropertyAccessor$1"
               linecount="0"
@@ -3880,11 +3880,11 @@
               linecount="31"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0.05"
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.07"
               class="gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory"
               linecount="46"
               linerate="80"
-              linesexecuted="0.3"/>
+              linesexecuted="0.41"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory$LocalApplicationContextInfo"
               linecount="9"
