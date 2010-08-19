@@ -386,7 +386,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyDocQueryUnsecured">
-      <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryUnsecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQueryUnsecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyDocQuery.wsdl</local-wsdl-file>
       <service-name>NhincProxyDocQuery</service-name>
