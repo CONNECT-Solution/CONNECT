@@ -7,6 +7,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRe
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
+import gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxy;
+import gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocRetrieveAggregator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -81,9 +83,7 @@ public class DocRetrieveSender
                 DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
                 auditLog.auditDocRetrieveRequest(request.getRetrieveDocumentSetRequest(), assertion);
 
-                log.debug("Creating NHIN doc retrieve proxy");
-                NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
-                NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
+                PassthruDocRetrieveProxy docRetrieveProxy = getDocRetreiveProxy();
 
                 RetrieveDocumentSetRequestType body = null;
                 NhinTargetSystemType target = null;
@@ -138,10 +138,10 @@ public class DocRetrieveSender
 
         log.debug("End DocRetrieveSender.run");
     }
-    protected  NhinDocRetrieveProxy getDocRetreiveProxy()
+    protected  PassthruDocRetrieveProxy getDocRetreiveProxy()
     {
         log.debug("Creating NHIN doc retrieve proxy");
-        NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
-        return objFactory.getNhinDocRetrieveProxy();
+        PassthruDocRetrieveProxyObjectFactory objFactory = new PassthruDocRetrieveProxyObjectFactory();
+        return objFactory.getPassthruDocRetrieveProxy();
     }
 }

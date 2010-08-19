@@ -54,7 +54,7 @@
 
     <servlet>
         <servlet-name>NhincProxyDocRetrieve</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieve</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyDocRetrieve</servlet-name>
