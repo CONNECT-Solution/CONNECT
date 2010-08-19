@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <InternalConnectionInfos>
     <internalConnectionInfo>
         <homeCommunityId>1.1</homeCommunityId>
@@ -459,7 +459,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -929,7 +929,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -1663,7 +1663,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
