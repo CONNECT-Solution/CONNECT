@@ -415,15 +415,6 @@
 
 
     <servlet>
-        <servlet-name>NhincProxyDocRetrieve</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieve</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyDocRetrieve</servlet-name>
-        <url-pattern>/NhincProxyDocRetrieve</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>EntityNotifyService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService</servlet-class>
     </servlet>

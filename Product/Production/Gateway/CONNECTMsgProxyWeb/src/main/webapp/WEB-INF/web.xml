@@ -53,8 +53,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>NhincProxyDocRetrieve</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyDocRetrieve</servlet-name>
+        <url-pattern>/NhincProxyDocRetrieve</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyDocRetrieveSecured</servlet-name>

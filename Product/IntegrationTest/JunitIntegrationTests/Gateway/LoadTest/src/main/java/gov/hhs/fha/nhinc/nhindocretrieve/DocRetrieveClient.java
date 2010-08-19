@@ -17,7 +17,7 @@ import javax.xml.ws.BindingProvider;
  */
 public class DocRetrieveClient
 {
-    private static final String ENDPOINT_NHIN_PROXY = "http://localhost:8080/CONNECTAdapter/NhincProxyDocRetrieve";
+    private static final String ENDPOINT_NHIN_PROXY = "http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve";
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(DocRetrieveClient.class);
     private static NhincProxyDocRetrieve service = null;
 

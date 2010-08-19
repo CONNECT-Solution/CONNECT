@@ -20032,7 +20032,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieve</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/NhincProxyDocRetrieve</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-NhincProxyXDRRequest</con:name>

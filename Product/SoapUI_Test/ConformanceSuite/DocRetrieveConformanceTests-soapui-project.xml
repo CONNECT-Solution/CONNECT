@@ -10075,7 +10075,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:property>
     <con:property>
       <con:name>NhincProxyDocRetrieveEndpoint</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/NhincProxyDocRetrieve</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
     </con:property>
     <con:property>
       <con:name>RDI-1.1</con:name>
