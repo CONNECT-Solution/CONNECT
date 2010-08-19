@@ -14455,19 +14455,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T23:47:46Z</con:value>
+          <con:value>2010-08-19T22:24:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T23:57:46Z</con:value>
+          <con:value>2010-08-19T22:34:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 23:47:46</con:value>
+          <con:value>08/19/2010 22:24:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14785,19 +14785,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T23:47:47Z</con:value>
+          <con:value>2010-08-19T22:24:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T23:57:47Z</con:value>
+          <con:value>2010-08-19T22:34:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 23:47:47</con:value>
+          <con:value>08/19/2010 22:24:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15115,19 +15115,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T23:47:48Z</con:value>
+          <con:value>2010-08-19T22:24:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T23:57:48Z</con:value>
+          <con:value>2010-08-19T22:34:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 23:47:48</con:value>
+          <con:value>08/19/2010 22:24:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16902,19 +16902,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T23:47:49Z</con:value>
+          <con:value>2010-08-19T22:24:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T23:57:49Z</con:value>
+          <con:value>2010-08-19T22:34:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 23:47:49</con:value>
+          <con:value>08/19/2010 22:24:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18689,19 +18689,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T23:47:50Z</con:value>
+          <con:value>2010-08-19T22:24:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T23:57:50Z</con:value>
+          <con:value>2010-08-19T22:34:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 23:47:50</con:value>
+          <con:value>08/19/2010 22:24:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19247,13 +19247,8 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="AuditEventsResponse is 3">
-              <con:configuration>
-                <path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
-count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
-                <content>9</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
+count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -19265,19 +19260,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T23:48:36Z</con:value>
+          <con:value>2010-08-19T22:24:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T23:58:36Z</con:value>
+          <con:value>2010-08-19T22:34:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 23:48:36</con:value>
+          <con:value>08/19/2010 22:24:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -19285,7 +19280,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserTue Aug 17 23:53:36 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserThu Aug 19 22:29:36 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>

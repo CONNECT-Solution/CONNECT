@@ -12987,13 +12987,8 @@ This document and the information contained herein is provided on an "AS IS" bas
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Success response">
-              <con:configuration>
-                <path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
-//ns15:DocRetrieveAcknowledgement[1]/ns15:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
+//ns15:DocRetrieveAcknowledgement[1]/ns15:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -13005,19 +13000,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:41:53Z</con:value>
+          <con:value>2010-08-19T22:27:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:51:53Z</con:value>
+          <con:value>2010-08-19T22:37:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:41:53</con:value>
+          <con:value>08/19/2010 22:27:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13296,13 +13291,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Success response">
-              <con:configuration>
-                <path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
-//ns15:DocRetrieveAcknowledgement[1]/ns15:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
+//ns15:DocRetrieveAcknowledgement[1]/ns15:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -14815,19 +14805,19 @@ declare namespace ns12='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:41:54Z</con:value>
+          <con:value>2010-08-19T22:27:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:51:54Z</con:value>
+          <con:value>2010-08-19T22:37:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:41:54</con:value>
+          <con:value>08/19/2010 22:27:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16665,19 +16655,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:41:55Z</con:value>
+          <con:value>2010-08-19T22:27:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:51:55Z</con:value>
+          <con:value>2010-08-19T22:37:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:41:55</con:value>
+          <con:value>08/19/2010 22:27:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17221,13 +17211,8 @@ log.info nowDate;</script>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="AuditLogResponse">
-              <con:configuration>
-                <path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
-count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
-                <content>7</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
+count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -17239,19 +17224,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:41:56Z</con:value>
+          <con:value>2010-08-19T22:27:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:51:56Z</con:value>
+          <con:value>2010-08-19T22:37:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:41:56</con:value>
+          <con:value>08/19/2010 22:27:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -17259,7 +17244,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserWed Aug 18 00:46:56 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserThu Aug 19 22:32:36 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17279,7 +17264,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieve</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse	</con:value>
     </con:property>
     <con:property>
       <con:name>NHINGatewayConfigDir</con:name>
@@ -17327,7 +17312,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-AuditLogQuery</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery		</con:value>
     </con:property>
     <con:property>
       <con:name>MockHost</con:name>
