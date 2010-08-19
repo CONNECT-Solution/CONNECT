@@ -445,11 +445,11 @@
               linecount="24"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="88" branchrate="80" branchsexecuted="0.02"
+   <threshold branchcount="88" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger"
               linecount="387"
               linerate="80"
-              linesexecuted="0.23"/>
+              linesexecuted="0"/>
    <threshold branchcount="54" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl"
               linecount="154"
@@ -474,7 +474,7 @@
               class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory"
               linecount="3"
               linerate="80"
-              linesexecuted="0.03"/>
+              linesexecuted="0"/>
    <threshold branchcount="16" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceSecuredImpl"
               linecount="59"
@@ -1622,7 +1622,7 @@
               linesexecuted="0"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.DocRetrieveSender"
-              linecount="75"
+              linecount="73"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="18" branchrate="80" branchsexecuted="0"
@@ -3390,11 +3390,11 @@
               linecount="38"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="16" branchrate="80" branchsexecuted="0.02"
+   <threshold branchcount="16" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger"
               linecount="52"
               linerate="80"
-              linesexecuted="0.13"/>
+              linesexecuted="0"/>
    <threshold branchcount="58" branchrate="80" branchsexecuted="0.04"
               class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker"
               linecount="48"
@@ -3475,11 +3475,11 @@
               linecount="21"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="28" branchrate="80" branchsexecuted="0.08"
+   <threshold branchcount="28" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchImpl"
               linecount="54"
               linerate="80"
-              linesexecuted="0.21"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxy"
               linecount="0"
@@ -3855,11 +3855,11 @@
               linecount="8"
               linerate="80"
               linesexecuted="0.04"/>
-   <threshold branchcount="96" branchrate="80" branchsexecuted="0.3"
+   <threshold branchcount="96" branchrate="80" branchsexecuted="0.26"
               class="gov.hhs.fha.nhinc.properties.PropertyAccessor"
               linecount="248"
               linerate="80"
-              linesexecuted="0.84"/>
+              linesexecuted="0.82"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.properties.PropertyAccessor$1"
               linecount="0"
@@ -3884,7 +3884,7 @@
               class="gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory"
               linecount="46"
               linerate="80"
-              linesexecuted="0.33"/>
+              linesexecuted="0.3"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory$LocalApplicationContextInfo"
               linecount="9"
@@ -4270,7 +4270,7 @@
               linecount="85"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="152" branchrate="80" branchsexecuted="0.9"
+   <threshold branchcount="152" branchrate="80" branchsexecuted="0.87"
               class="gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms"
               linecount="445"
               linerate="80"
