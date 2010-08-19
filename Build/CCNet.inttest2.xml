@@ -191,7 +191,7 @@
           <target>Regression.Test</target>
         </targetList>
 
-        <buildTimeoutSeconds>4200</buildTimeoutSeconds>
+        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
       </nant>
     </tasks>
     <publishers>
