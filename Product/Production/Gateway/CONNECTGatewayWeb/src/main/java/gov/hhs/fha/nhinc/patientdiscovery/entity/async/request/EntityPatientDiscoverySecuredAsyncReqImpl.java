@@ -14,11 +14,11 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqProxy;
-import gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.beans.XMLEncoder;
@@ -136,15 +136,14 @@ public class EntityPatientDiscoverySecuredAsyncReqImpl {
         NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
         oTargetSystemType.setUrl(urlInfo.getUrl());
 
-        PassthruPatientDiscoveryAsyncReqProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryAsyncReqProxyObjectFactory();
-        PassthruPatientDiscoveryAsyncReqProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryAsyncReqProxy();
+        NhinPatientDiscoveryDeferredReqProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredReqProxyObjectFactory();
+        NhinPatientDiscoveryDeferredReqProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncReqProxy();
         ProxyPRPAIN201305UVProxyRequestType msg = new ProxyPRPAIN201305UVProxyRequestType();
         msg.setAssertion(request.getAssertion());
         msg.setNhinTargetSystem(oTargetSystemType);
         msg.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
 
-        resp = proxy.proxyProcessPatientDiscoveryAsyncReq(msg);
-
+        resp = proxy.respondingGatewayPRPAIN201305UV02(request.getPRPAIN201305UV02(), request.getAssertion(), oTargetSystemType);
 
         return resp;
     }
