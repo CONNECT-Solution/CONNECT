@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docquery.proxy;
+package gov.hhs.fha.nhinc.docquery.passthru;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;

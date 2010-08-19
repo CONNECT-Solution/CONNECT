@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.docquery.proxy;
+package gov.hhs.fha.nhinc.docquery.passthru;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;

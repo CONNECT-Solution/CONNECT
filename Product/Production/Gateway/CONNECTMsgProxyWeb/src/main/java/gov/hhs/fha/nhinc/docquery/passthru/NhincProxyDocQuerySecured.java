@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docquery.proxy;
+package gov.hhs.fha.nhinc.docquery.passthru;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;
