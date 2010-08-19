@@ -14,8 +14,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxy;
-import gov.hhs.fha.nhinc.nhinpatientdiscovery.async.response.proxy.NhinPatientDiscoveryAsyncRespProxyObjectFactory;
+import gov.hhs.fha.nhinc.passthru.patientdiscovery.async.response.proxy.PassthruPatientDiscoveryAsyncRespProxy;
+import gov.hhs.fha.nhinc.passthru.patientdiscovery.async.response.proxy.PassthruPatientDiscoveryAsyncRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 
@@ -86,19 +87,17 @@ public class EntityPatientDiscoverySecuredAsyncReqQueueImpl {
                 urlInfoList.getUrlInfo().get(0) != null &&
                 NullChecker.isNotNullish(urlInfoList.getUrlInfo().get(0).getUrl())) {
 
-            // Audit the Patient Discovery Request Message sent on the Nhin Interface
-            PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
-            AcknowledgementType ack = auditLog.auditNhin201306(respMsg, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
             targetSystem.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
-            NhinPatientDiscoveryAsyncRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryAsyncRespProxyObjectFactory();
-            NhinPatientDiscoveryAsyncRespProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncRespProxy();
+            PassthruPatientDiscoveryAsyncRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryAsyncRespProxyObjectFactory();
+            PassthruPatientDiscoveryAsyncRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryAsyncRespProxy();
+            ProxyPRPAIN201306UVProxyRequestType msg = new ProxyPRPAIN201306UVProxyRequestType();
+            msg.setAssertion(assertion);
+            msg.setNhinTargetSystem(targetSystem);
+            msg.setPRPAIN201306UV02(respMsg);
 
-            resp = proxy.respondingGatewayPRPAIN201306UV02(respMsg, assertion, targetSystem);
+            resp = proxy.proxyProcessPatientDiscoveryAsyncResp(msg);
 
-            // Audit the Patient Discovery Response Message received on the Nhin Interface
-            ack = auditLog.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
         return resp;
