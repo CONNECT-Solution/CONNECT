@@ -18,7 +18,7 @@ public class NhincProxyDocRetrieveSecured
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body)
     {
-        return new NhincProxyDocRetrieveSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+        return new NhincProxyDocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
 
 }

@@ -154,6 +154,11 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
+                public String getUrlLocalHomeCommunity(String serviceName)
+                {
+                    return "url";
+                }
+                @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
                     throws Exception
                 {

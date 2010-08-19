@@ -65,14 +65,14 @@
               linecount="9"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveImpl"
+              linecount="21"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveSecured"
               linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveSecuredImpl"
-              linecount="21"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

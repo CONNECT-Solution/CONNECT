@@ -13,10 +13,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  * @author Neil Webb
  */
-public class NhincProxyDocRetrieveSecuredImpl
+public class NhincProxyDocRetrieveImpl
 {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhincProxyDocRetrieveSecuredImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhincProxyDocRetrieveImpl.class);
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context)
     {
