@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterComponentDocRetrieveDeferredRequest" targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredreq" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredreq" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:dr="http://www.hhs.gov/healthit/nhin" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization">
+	<documentation>IHE XDS.b Document Retrieve Request</documentation>
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+			<xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="RetrieveDocumentSetRequestMessage">
+		<documentation>Retrieve Document Set Request</documentation>
+		<part name="body" element="nccommondr:RespondingGateway_CrossGatewayRetrieveRequest"/>
+	</message>
+	<message name="RetrieveDocumentSetAcknowledgementMessage">
+		<documentation>Retrieve Document Set Acknowledgement</documentation>
+		<part name="body" element="dr:DocRetrieveAcknowledgement"/>
+	</message>
+	<portType name="AdapterComponentDocRetrieveDeferredReqPortType">
+		<operation name="RetrieveDocumentSetRequest">
+			<input message="tns:RetrieveDocumentSetRequestMessage"/>
+			<output message="tns:RetrieveDocumentSetAcknowledgementMessage"/>
+		</operation>
+	</portType>
+	<binding name="AdapterDocRetrieveDeferredRequestBinding" type="tns:AdapterComponentDocRetrieveDeferredReqPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="RetrieveDocumentSetRequest">
+			<soap:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSetRequest"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="AdapterComponentDocRetrieveReqService">
+		<port name="AdapterComponentDocRetrieveReqPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestBinding">
+			<soap:address location="http://localhost:${NhincHttpPort}/AdapterComponentDocRetrieveReqService"/>
+		</port>
+	</service>
+	<wsp:Policy wsu:Id="AdapterComponentDocRepositoryPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<wsoma:OptimizedMimeSerialization/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+</definitions>
