@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <InternalConnectionInfos>
     <internalConnectionInfo>
         <homeCommunityId>1.1</homeCommunityId>
@@ -1489,7 +1489,7 @@
 			<service>
 				<name>nhincproxydocretrieve</name>
 				<description>NHINC Proxy Document Retrieve</description>
-				<endpointURL>http://localhost:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>entityauditqueryproxy</name>
