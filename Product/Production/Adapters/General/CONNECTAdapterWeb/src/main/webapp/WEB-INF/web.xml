@@ -478,15 +478,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.request.EntityPatientDiscoveryAsyncReq</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityPatientDiscoveryAsyncReq</servlet-name>
-        <url-pattern>/EntityPatientDiscoveryAsyncReq</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>EntityPatientDiscoveryAsyncResp</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoveryAsyncResp</servlet-class>
     </servlet>

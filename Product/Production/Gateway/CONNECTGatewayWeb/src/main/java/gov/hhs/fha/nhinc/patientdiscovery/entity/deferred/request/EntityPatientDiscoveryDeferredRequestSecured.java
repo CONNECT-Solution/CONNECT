@@ -1,0 +1,39 @@
+package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
+
+import javax.annotation.Resource;
+import javax.jws.WebService;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
+
+@WebService(serviceName = "EntityPatientDiscoverySecuredAsyncReq", portName = "EntityPatientDiscoverySecuredAsyncReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncreq.EntityPatientDiscoverySecuredAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredRequestSecured/EntityPatientDiscoverySecuredAsyncReq.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+public class EntityPatientDiscoveryDeferredRequestSecured
+{
+
+    @Resource
+    private WebServiceContext context;
+
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02SecuredRequestType request)
+    {
+        MCCIIN000002UV01 response = null;
+
+        EntityPatientDiscoveryDeferredRequestImpl serviceImpl = getEntityPatientDiscoveryDeferredRequestImpl();
+        if (serviceImpl != null)
+        {
+            response = serviceImpl.processPatientDiscoveryAsyncRequestSecured(request, getWebServiceContext());
+        }
+        return response;
+    }
+
+    protected EntityPatientDiscoveryDeferredRequestImpl getEntityPatientDiscoveryDeferredRequestImpl()
+    {
+        return new EntityPatientDiscoveryDeferredRequestImpl();
+    }
+
+    protected WebServiceContext getWebServiceContext()
+    {
+        return context;
+    }
+}
