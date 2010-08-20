@@ -3,8 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="adapterpatientdiscoveryasyncresp" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.proxy.AdapterPatientDiscoveryAsyncRespNoOpImpl"/> -->
+    <!-- <bean id="adapterpatientdiscoveryasyncresp" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyNoOpImpl"/> -->
+    
+    <!-- Java implementation -->
+   <!--  <bean id="adapterpatientdiscoveryasyncresp" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyJavaImpl"/> -->
+    
+    <!-- Secured web service implementation -->
+     <bean id="adapterpatientdiscoveryasyncresp" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl"/> 
 	
-	<!-- Web-service implementation -->
-     <bean id="adapterpatientdiscoveryasyncresp" class="gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.proxy.AdapterPatientDiscoveryAsyncRespWebServiceProxy"/> 
+	<!-- Unsecured web service implementation -->
+    <!-- <bean id="adapterpatientdiscoveryasyncresp" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl"/> --> 
 </beans>
