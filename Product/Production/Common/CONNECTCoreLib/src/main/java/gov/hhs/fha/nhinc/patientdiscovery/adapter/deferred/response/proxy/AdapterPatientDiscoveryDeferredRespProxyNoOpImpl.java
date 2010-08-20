@@ -1,0 +1,26 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201306UV02;
+
+/**
+ *
+ * @author JHOPPESC
+ */
+public class AdapterPatientDiscoveryDeferredRespProxyNoOpImpl implements AdapterPatientDiscoveryDeferredRespProxy{
+    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredRespProxyJavaImpl.class);
+
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
+        log.debug("Using NoOp Implementation for Adapter Patient Discovery Deferred Response Service");
+        return new MCCIIN000002UV01();
+    }
+
+}

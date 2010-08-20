@@ -5,17 +5,17 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery;
 
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.proxy.AdapterPatientDiscoveryAsyncReqErrorProxy;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.proxy.AdapterPatientDiscoveryAsyncReqErrorProxyObjectFactory;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.proxy.AdapterPatientDiscoveryAsyncReqProxy;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.proxy.AdapterPatientDiscoveryAsyncReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxy;
 import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.proxy.AdapterPatientDiscoveryAsyncRespProxy;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.proxy.AdapterPatientDiscoveryAsyncRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import org.hl7.v3.AsyncAdapterPatientDiscoveryErrorRequestType;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -43,15 +43,11 @@ public class PatientDiscoveryAdapterSender {
         return adapterResp;
     }
 
-    public MCCIIN000002UV01 sendAsyncReqToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-        RespondingGatewayPRPAIN201305UV02RequestType adapterReq = new RespondingGatewayPRPAIN201305UV02RequestType();
+    public MCCIIN000002UV01 sendDeferredReqToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
+        AdapterPatientDiscoveryDeferredReqProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredReqProxyObjectFactory();
+        AdapterPatientDiscoveryDeferredReqProxy proxy = factory.getAdapterPatientDiscoveryDeferredReqProxy();
 
-        AdapterPatientDiscoveryAsyncReqProxyObjectFactory factory = new AdapterPatientDiscoveryAsyncReqProxyObjectFactory();
-        AdapterPatientDiscoveryAsyncReqProxy proxy = factory.getAdapterPatientDiscoveryAsyncReqProxy();
-
-        adapterReq.setAssertion(assertion);
-        adapterReq.setPRPAIN201305UV02(request);
-        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncReq(adapterReq);
+        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncReq(request, assertion);
 
         return adapterResp;
     }
@@ -70,31 +66,31 @@ public class PatientDiscoveryAdapterSender {
         return adapterResp;
     }
 
-    public MCCIIN000002UV01 sendAsyncReqErrorToAgency(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
+    public MCCIIN000002UV01 sendDeferredReqErrorToAgency(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
         AsyncAdapterPatientDiscoveryErrorRequestType adapterReq = new AsyncAdapterPatientDiscoveryErrorRequestType();
 
-        AdapterPatientDiscoveryAsyncReqErrorProxyObjectFactory factory = new AdapterPatientDiscoveryAsyncReqErrorProxyObjectFactory();
-        AdapterPatientDiscoveryAsyncReqErrorProxy proxy = factory.getAdapterPatientDiscoveryAsyncReqErrorProxy();
+        AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory();
+        AdapterPatientDiscoveryDeferredReqErrorProxy proxy = factory.getAdapterPatientDiscoveryDeferredReqErrorProxy();
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
         adapterReq.setErrorMsg(errMsg);
-        adapterReq.setPRPAIN201306UV02(new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request));
+        PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
-        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncReqError(adapterReq);
+        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
 
         return adapterResp;
     }
 
-    public MCCIIN000002UV01 sendAsyncRespToAgency(PRPAIN201306UV02 request, AssertionType assertion) {
+    public MCCIIN000002UV01 sendDeferredRespToAgency(PRPAIN201306UV02 request, AssertionType assertion) {
         RespondingGatewayPRPAIN201306UV02RequestType adapterReq = new RespondingGatewayPRPAIN201306UV02RequestType();
 
-        AdapterPatientDiscoveryAsyncRespProxyObjectFactory factory = new AdapterPatientDiscoveryAsyncRespProxyObjectFactory();
-        AdapterPatientDiscoveryAsyncRespProxy proxy = factory.getAdapterPatientDiscoveryAsyncRespProxy();
+        AdapterPatientDiscoveryDeferredRespProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredRespProxyObjectFactory();
+        AdapterPatientDiscoveryDeferredRespProxy proxy = factory.getAdapterPatientDiscoveryDeferredRespProxy();
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201306UV02(request);
-        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncResp(adapterReq);
+        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncResp(request, assertion);
 
         return adapterResp;
     }

@@ -75,15 +75,22 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                 EntityDocQueryHelper helper = new EntityDocQueryHelper();
                                 HomeCommunityType targetCommunity = helper.lookupHomeCommunityId(subjectId.getAssigningAuthorityIdentifier(), helper.getLocalAssigningAuthority(slotList), getLocalHomeCommunityId());
                                 //check the policy for the outgoing request to the target community
-                                if (checkPolicy(message, assertion, targetCommunity.getHomeCommunityId())) {
-                                    NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-                                    targetSystem.setHomeCommunity(targetCommunity);
+                                if (targetCommunity != null &&
+                                        NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
+                                    if (checkPolicy(message, assertion, targetCommunity.getHomeCommunityId())) {
+                                        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+                                        targetSystem.setHomeCommunity(targetCommunity);
 
-                                    DocumentQueryTransform transform = new DocumentQueryTransform();
-                                    AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(message, getLocalHomeCommunityId(), subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
-                                    nhincResponse = getProxy().crossGatewayQueryRequest(adhocQueryRequest, assertion, targetSystem);
-                                } else {
-                                    getLog().error("The policy engine evaluated the request and denied the request.");
+                                        DocumentQueryTransform transform = new DocumentQueryTransform();
+                                        AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(message, getLocalHomeCommunityId(), subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
+                                        nhincResponse = getProxy().crossGatewayQueryRequest(adhocQueryRequest, assertion, targetSystem);
+                                    } else {
+                                        getLog().error("The policy engine evaluated the request and denied the request.");
+                                        regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
+                                    }
+                                }
+                                else {
+                                    getLog().error("Could not find home community for assigning authority " + subjectId.getAssigningAuthorityIdentifier());
                                     regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
                                 }
                             } else {
@@ -102,7 +109,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
             }
         } catch (Exception e) {
             getLog().error(e);
-            nhincResponse.getMessage().setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG);
+            nhincResponse.getMessage().setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
         }
 
         getAuditLog().logDocQueryAck(nhincResponse,

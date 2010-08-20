@@ -118,7 +118,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 
-        MCCIIN000002UV01 resp = adapterSender.sendAsyncRespToAgency(body, assertion);
+        MCCIIN000002UV01 resp = adapterSender.sendDeferredRespToAgency(body, assertion);
 
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 

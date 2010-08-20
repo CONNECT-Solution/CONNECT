@@ -102,7 +102,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 
-        MCCIIN000002UV01 resp = adapterSender.sendAsyncReqToAgency(request, assertion);
+        MCCIIN000002UV01 resp = adapterSender.sendDeferredReqToAgency(request, assertion);
 
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
@@ -128,7 +128,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 
-        MCCIIN000002UV01 resp = adapterSender.sendAsyncReqErrorToAgency(request, assertion, errMsg);
+        MCCIIN000002UV01 resp = adapterSender.sendDeferredReqErrorToAgency(request, assertion, errMsg);
 
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
