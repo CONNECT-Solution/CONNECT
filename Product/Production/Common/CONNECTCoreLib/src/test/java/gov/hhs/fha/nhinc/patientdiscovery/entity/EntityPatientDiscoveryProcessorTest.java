@@ -20,6 +20,7 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -375,347 +376,347 @@ public class EntityPatientDiscoveryProcessorTest
         }
     }
 
-//    @Test
-//    public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities()
-//    {
-//        try
-//        {
-//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-//            {
-//                @Override
-//                protected Log createLogger()
-//                {
-//                    return mockLog;
-//                }
-//                @Override
-//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-//                {
-//                    CMUrlInfos urlInfoList = new CMUrlInfos();
-//                    CMUrlInfo urlInfo = new CMUrlInfo();
-//                    urlInfoList.getUrlInfo().add(urlInfo);
-//                    urlInfo.setUrl("url");
-//                    return urlInfoList;
-//                }
-//                @Override
-//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-//                {
-//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-//                }
-//                @Override
-//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                    return true;
-//                }
-//
-//                @Override
-//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-//                {
-//                    return mockPatientDiscovery201306Processor;
-//                }
-//            };
-//            context.checking(new Expectations()
-//            {
-//                {
-//                    allowing(mockLog).debug(with(any(String.class)));
-//                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
-//                }
-//            });
-//
-//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-//
-//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.respondingGatewayPRPAIN201305UV02(request, mockAssertion);
-//            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
-//        }
-//    }
+    @Ignore
+    public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities()
+    {
+        try
+        {
+            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+                {
+                }
+                @Override
+                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                }
+                @Override
+                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+                {
+                    CMUrlInfos urlInfoList = new CMUrlInfos();
+                    CMUrlInfo urlInfo = new CMUrlInfo();
+                    urlInfoList.getUrlInfo().add(urlInfo);
+                    urlInfo.setUrl("url");
+                    return urlInfoList;
+                }
+                @Override
+                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+                {
+                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+                }
+                @Override
+                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                    return true;
+                }
+
+                @Override
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+                {
+                    return mockPatientDiscovery201306Processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
+                }
+            });
+
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+
+            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.respondingGatewayPRPAIN201305UV02(request, mockAssertion);
+            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunities: " + t.getMessage());
+        }
+    }
 
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="getResponseFromCommunities">
-//    @Test
-//    public void testGetResponseFromCommunitiesHappy()
-//    {
-//        try
-//        {
-//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-//            {
-//                @Override
-//                protected Log createLogger()
-//                {
-//                    return mockLog;
-//                }
-//                @Override
-//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-//                {
-//                    CMUrlInfos urlInfoList = new CMUrlInfos();
-//                    CMUrlInfo urlInfo = new CMUrlInfo();
-//                    urlInfoList.getUrlInfo().add(urlInfo);
-//                    urlInfo.setUrl("url");
-//                    return urlInfoList;
-//                }
-//                @Override
-//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-//                {
-//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-//                }
-//                @Override
-//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                    return true;
-//                }
-//
-//                @Override
-//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-//                {
-//                    return mockPatientDiscovery201306Processor;
-//                }
-//            };
-//            context.checking(new Expectations()
-//            {
-//                {
-//                    allowing(mockLog).debug(with(aNonNull(String.class)));
-//                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
-//                }
-//            });
-//
-//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-//            request.setNhinTargetCommunities(mockTargetCommunities);
-//
-//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
-//            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
-//        }
-//    }
+    @Ignore
+    public void testGetResponseFromCommunitiesHappy()
+    {
+        try
+        {
+            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+                {
+                }
+                @Override
+                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                }
+                @Override
+                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+                {
+                    CMUrlInfos urlInfoList = new CMUrlInfos();
+                    CMUrlInfo urlInfo = new CMUrlInfo();
+                    urlInfoList.getUrlInfo().add(urlInfo);
+                    urlInfo.setUrl("url");
+                    return urlInfoList;
+                }
+                @Override
+                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+                {
+                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+                }
+                @Override
+                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                    return true;
+                }
 
-//    @Test
-//    public void testGetResponseFromCommunitiesNullUrlList()
-//    {
-//        try
-//        {
-//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-//            {
-//                @Override
-//                protected Log createLogger()
-//                {
-//                    return mockLog;
-//                }
-//                @Override
-//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-//                {
-//                    return null;
-//                }
-//                @Override
-//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-//                {
-//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-//                }
-//                @Override
-//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                    return true;
-//                }
-//
-//                @Override
-//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-//                {
-//                    return mockPatientDiscovery201306Processor;
-//                }
-//            };
-//            context.checking(new Expectations()
-//            {
-//                {
-//                    allowing(mockLog).debug(with(aNonNull(String.class)));
-//                    oneOf(mockLog).warn("No targets were found for the Patient Discovery Request");
-//                }
-//            });
-//
-//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-//            request.setNhinTargetCommunities(mockTargetCommunities);
-//
-//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
-//            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testGetResponseFromCommunitiesNullUrlList: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testGetResponseFromCommunitiesNullUrlList: " + t.getMessage());
-//        }
-//    }
-//
-//    @Test
-//    public void testGetResponseFromCommunitiesEmptyUrlList()
-//    {
-//        try
-//        {
-//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-//            {
-//                @Override
-//                protected Log createLogger()
-//                {
-//                    return mockLog;
-//                }
-//                @Override
-//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-//                {
-//                    CMUrlInfos urlInfoList = new CMUrlInfos();
-//                    return urlInfoList;
-//                }
-//                @Override
-//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-//                {
-//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-//                }
-//                @Override
-//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                    return true;
-//                }
-//
-//                @Override
-//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-//                {
-//                    return mockPatientDiscovery201306Processor;
-//                }
-//            };
-//            context.checking(new Expectations()
-//            {
-//                {
-//                    allowing(mockLog).debug(with(aNonNull(String.class)));
-//                    oneOf(mockLog).warn("No targets were found for the Patient Discovery Request");
-//                }
-//            });
-//
-//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-//            request.setNhinTargetCommunities(mockTargetCommunities);
-//
-//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
-//            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testGetResponseFromCommunitiesEmptyUrlList: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testGetResponseFromCommunitiesEmptyUrlList: " + t.getMessage());
-//        }
-//    }
-//
-//    @Test
-//    public void testGetResponseFromCommunitiesFailedPolicyCheck()
-//    {
-//        try
-//        {
-//            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
-//            {
-//                @Override
-//                protected Log createLogger()
-//                {
-//                    return mockLog;
-//                }
-//                @Override
-//                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                }
-//                @Override
-//                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
-//                {
-//                    CMUrlInfos urlInfoList = new CMUrlInfos();
-//                    CMUrlInfo urlInfo = new CMUrlInfo();
-//                    urlInfoList.getUrlInfo().add(urlInfo);
-//                    urlInfo.setUrl("url");
-//                    return urlInfoList;
-//                }
-//                @Override
-//                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
-//                {
-//                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
-//                }
-//                @Override
-//                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                {
-//                    return false;
-//                }
-//
-//                @Override
-//                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
-//                {
-//                    return mockPatientDiscovery201306Processor;
-//                }
-//            };
-//            context.checking(new Expectations()
-//            {
-//                {
-//                    allowing(mockLog).debug(with(aNonNull(String.class)));
-//                    oneOf(mockLog).error("The policy engine evaluated the request and denied the request.");
-//                }
-//            });
-//
-//            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-//            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
-//            request.setNhinTargetCommunities(mockTargetCommunities);
-//
-//            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
-//            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-//            assertTrue("Community response list not empty", response.getCommunityResponse().isEmpty());
-//        }
-//        catch(Throwable t)
-//        {
-//            System.out.println("Error running testGetResponseFromCommunitiesFailedPolicyCheck: " + t.getMessage());
-//            t.printStackTrace();
-//            fail("Error running testGetResponseFromCommunitiesFailedPolicyCheck: " + t.getMessage());
-//        }
-//    }
-//
+                @Override
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+                {
+                    return mockPatientDiscovery201306Processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockPatientDiscovery201306Processor).storeMapping(with(aNonNull(PRPAIN201306UV02.class)));
+                }
+            });
+
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+            request.setNhinTargetCommunities(mockTargetCommunities);
+
+            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
+            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetResponseFromCommunitiesHappy: " + t.getMessage());
+        }
+    }
+
+    @Ignore
+    public void testGetResponseFromCommunitiesNullUrlList()
+    {
+        try
+        {
+            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+                {
+                }
+                @Override
+                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                }
+                @Override
+                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+                {
+                    return null;
+                }
+                @Override
+                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+                {
+                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+                }
+                @Override
+                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                    return true;
+                }
+
+                @Override
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+                {
+                    return mockPatientDiscovery201306Processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockLog).warn("No targets were found for the Patient Discovery Request");
+                }
+            });
+
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+            request.setNhinTargetCommunities(mockTargetCommunities);
+
+            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
+            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetResponseFromCommunitiesNullUrlList: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetResponseFromCommunitiesNullUrlList: " + t.getMessage());
+        }
+    }
+
+    @Ignore
+    public void testGetResponseFromCommunitiesEmptyUrlList()
+    {
+        try
+        {
+            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+                {
+                }
+                @Override
+                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                }
+                @Override
+                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+                {
+                    CMUrlInfos urlInfoList = new CMUrlInfos();
+                    return urlInfoList;
+                }
+                @Override
+                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+                {
+                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+                }
+                @Override
+                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                    return true;
+                }
+
+                @Override
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+                {
+                    return mockPatientDiscovery201306Processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockLog).warn("No targets were found for the Patient Discovery Request");
+                }
+            });
+
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+            request.setNhinTargetCommunities(mockTargetCommunities);
+
+            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
+            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetResponseFromCommunitiesEmptyUrlList: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetResponseFromCommunitiesEmptyUrlList: " + t.getMessage());
+        }
+    }
+
+    @Ignore
+    public void testGetResponseFromCommunitiesFailedPolicyCheck()
+    {
+        try
+        {
+            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+                @Override
+                protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion)
+                {
+                }
+                @Override
+                protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                }
+                @Override
+                protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities)
+                {
+                    CMUrlInfos urlInfoList = new CMUrlInfos();
+                    CMUrlInfo urlInfo = new CMUrlInfo();
+                    urlInfoList.getUrlInfo().add(urlInfo);
+                    urlInfo.setUrl("url");
+                    return urlInfoList;
+                }
+                @Override
+                protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo)
+                {
+                    return mockRespondingGatewayPRPAIN201305UV02RequestType;
+                }
+                @Override
+                protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                {
+                    return false;
+                }
+
+                @Override
+                protected PatientDiscovery201306Processor getPatientDiscovery201306Processor()
+                {
+                    return mockPatientDiscovery201306Processor;
+                }
+            };
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockLog).error("The policy engine evaluated the request and denied the request.");
+                }
+            });
+
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPRPAIN201305UV02);
+            request.setNhinTargetCommunities(mockTargetCommunities);
+
+            RespondingGatewayPRPAIN201306UV02ResponseType response = processor.getResponseFromCommunities(request, mockAssertion);
+            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
+            assertTrue("Community response list not empty", response.getCommunityResponse().isEmpty());
+        }
+        catch(Throwable t)
+        {
+            System.out.println("Error running testGetResponseFromCommunitiesFailedPolicyCheck: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetResponseFromCommunitiesFailedPolicyCheck: " + t.getMessage());
+        }
+    }
+
 
 // </editor-fold>
 
