@@ -333,7 +333,7 @@
 
     <servlet>
         <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.AdapterPatientDiscoveryAsyncReqSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryAsyncReqSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
@@ -342,7 +342,7 @@
 
     <servlet>
         <servlet-name>AdapterPatientDiscoverySecuredAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.response.AdapterPatientDiscoverySecuredAsyncResp</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoverySecuredAsyncResp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPatientDiscoverySecuredAsyncResp</servlet-name>
@@ -360,7 +360,7 @@
 
     <servlet>
         <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.error.AdapterPatientDiscoverySecuredAsyncReqError</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoverySecuredAsyncReqError</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>

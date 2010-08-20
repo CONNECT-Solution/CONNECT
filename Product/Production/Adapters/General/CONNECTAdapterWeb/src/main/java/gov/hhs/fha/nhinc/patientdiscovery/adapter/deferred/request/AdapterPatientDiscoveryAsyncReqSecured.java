@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request;
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -21,7 +21,7 @@ public class AdapterPatientDiscoveryAsyncReqSecured {
     private WebServiceContext context;
 
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReq(org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType processPatientDiscoveryAsyncReqAsyncRequest) {
-        return new AdapterPatientDiscoveryAsyncReqSecuredImpl().processPatientDiscoveryAsyncReq(processPatientDiscoveryAsyncReqAsyncRequest, context);
+        return new AdapterPatientDiscoveryAsyncReqSecuredImpl().processPatientDiscoveryAsyncReq(processPatientDiscoveryAsyncReqAsyncRequest.getPRPAIN201305UV02(), context);
     }
 
 }
