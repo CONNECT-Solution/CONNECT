@@ -336,22 +336,22 @@
       <service>
         <name>adapterpatientdiscoveryasyncreq</name>
         <description>Adapter Patient Discovery Async Request</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoverysecuredasyncreq</name>
         <description>Adapter Patient Discovery Async Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoveryasyncresp</name>
         <description>Adapter Patient Discovery Async Response</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncResp</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoverysecuredasyncresp</name>
         <description>Adapter Patient Discovery Async Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoveryasyncreqqueue</name>
@@ -366,12 +366,12 @@
       <service>
         <name>adapterpatientdiscoveryasyncreqerror</name>
         <description>Adapter Patient Discovery Async Request Error</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqError</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoverysecuredasyncreqerror</name>
         <description>Adapter Patient Discovery Async Request Error Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqErrorSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorSecured</endpointURL>
       </service>
       <service>
         <name>adapterdocquery</name>
@@ -1486,25 +1486,25 @@
         <description>Adapter Patient Discovery Secured</description>
         <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoverySecured</endpointURL>
       </service>
-      <service>
+       <service>
         <name>adapterpatientdiscoveryasyncreq</name>
         <description>Adapter Patient Discovery Async Request</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoverysecuredasyncreq</name>
         <description>Adapter Patient Discovery Async Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoveryasyncresp</name>
         <description>Adapter Patient Discovery Async Response</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncResp</endpointURL>
+        <endpointURL>http://localhost:8080/CCONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoverysecuredasyncresp</name>
         <description>Adapter Patient Discovery Async Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncRespSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoveryasyncreqqueue</name>
@@ -1519,12 +1519,12 @@
       <service>
         <name>adapterpatientdiscoveryasyncreqerror</name>
         <description>Adapter Patient Discovery Async Request Error</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqError</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</endpointURL>
       </service>
       <service>
         <name>adapterpatientdiscoverysecuredasyncreqerror</name>
         <description>Adapter Patient Discovery Async Request Error Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqErrorSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorSecured</endpointURL>
       </service>
       <service>
         <name>adapterredactionengine</name>
