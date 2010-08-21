@@ -355,7 +355,7 @@
 			<service>
 				<name>adapterpatientdiscoveryasyncreqqueue</name>
 				<description>Adapter Patient Discovery Async Request Queue</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
 			</service>
 			<service>
 				<name>adapterpatientdiscoverysecuredasyncreqqueue</name>
@@ -1163,7 +1163,7 @@
 			<service>
 				<name>adapterpatientdiscoveryasyncreqqueue</name>
 				<description>Adapter Patient Discovery Async Request Queue</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
 			</service>
 			<service>
 				<name>adapterpatientdiscoverysecuredasyncreqqueue</name>
@@ -2307,7 +2307,7 @@
 			<service>
 				<name>adapterpatientdiscoveryasyncreqqueue</name>
 				<description>Adapter Patient Discovery Async Request Queue</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
 			</service>
 			<service>
 				<name>adapterpatientdiscoverysecuredasyncreqqueue</name>

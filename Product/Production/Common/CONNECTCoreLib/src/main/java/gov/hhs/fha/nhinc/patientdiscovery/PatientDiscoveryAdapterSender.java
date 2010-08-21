@@ -5,8 +5,8 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery;
 
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxy;
-import gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -53,15 +53,11 @@ public class PatientDiscoveryAdapterSender {
     }
 
     public MCCIIN000002UV01 sendAsyncReqToAgencyQueue(PRPAIN201305UV02 request, AssertionType assertion) {
-        RespondingGatewayPRPAIN201305UV02RequestType adapterReq = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory factory = new AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory();
         AdapterPatientDiscoveryAsyncReqQueueProxy proxy = factory.getAdapterPatientDiscoveryAsyncReqQueueProxy();
 
-        adapterReq.setAssertion(assertion);
-        adapterReq.setPRPAIN201305UV02(request);
-
-        MCCIIN000002UV01 adapterResp = proxy.addPatientDiscoveryAsyncReq(adapterReq);
+        MCCIIN000002UV01 adapterResp = proxy.addPatientDiscoveryAsyncReq(request, assertion);
 
         return adapterResp;
     }

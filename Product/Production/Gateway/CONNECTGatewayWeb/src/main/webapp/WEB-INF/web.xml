@@ -162,14 +162,6 @@
         <url-pattern>/GatewayInternalService/HiemSubscriptionRepositoryUtil</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AdapterPatientDiscoveryAsyncReqQueue</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoveryAsyncReqQueue</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoveryAsyncReqQueue</servlet-name>
-        <url-pattern>/AdapterProxyService/AdapterPatientDiscoveryAsyncReqQueue</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>AdapterSubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</servlet-class>
     </servlet>

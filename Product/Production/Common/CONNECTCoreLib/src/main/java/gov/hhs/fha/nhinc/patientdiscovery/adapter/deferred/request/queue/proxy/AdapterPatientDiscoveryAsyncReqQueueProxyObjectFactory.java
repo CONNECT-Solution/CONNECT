@@ -2,12 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy;
 
-package gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -34,27 +31,28 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Jon Hoppesch
  */
-public class AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory {
+public class AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory extends ComponentProxyObjectFactory
+{
     private static final String CONFIG_FILE_NAME = "AdapterPatientDiscoveryAsyncReqQueueProxyConfig.xml";
-    private static final String BEAN_NAME_PATIENT_DISCOVERY = "adapterpatientdiscoveryasyncreqqueue";
-    private static ApplicationContext context = null;
+    private static final String BEAN_NAME = "adapterpatientdiscoveryasyncreqqueue";
 
-    static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+    /**
+     * Returns the name of the config file.
+     *
+     * @return The name of the config file.
+     */
+    protected String getConfigFileName()
+    {
+        return CONFIG_FILE_NAME;
     }
 
     /**
-     * Retrieve a adapter patient discovery implementation using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "adapterpatientdiscoveryasyncreqqueue."
+     * Return an instance of the AdapterPatientDiscoveryAsyncReqQueueProxy class.
      *
-     * @return AdapterPatientDiscoveryAsyncReqQueueProxy instance
+     * @return An instance of the AdapterPatientDiscoveryAsyncReqQueueProxy class.
      */
-    public AdapterPatientDiscoveryAsyncReqQueueProxy getAdapterPatientDiscoveryAsyncReqQueueProxy() {
-        AdapterPatientDiscoveryAsyncReqQueueProxy adapterPatientDiscoveryAsyncReqQueue = null;
-        if (context != null) {
-            adapterPatientDiscoveryAsyncReqQueue = (AdapterPatientDiscoveryAsyncReqQueueProxy) context.getBean(BEAN_NAME_PATIENT_DISCOVERY);
-        }
-        return adapterPatientDiscoveryAsyncReqQueue;
+    public AdapterPatientDiscoveryAsyncReqQueueProxy getAdapterPatientDiscoveryAsyncReqQueueProxy()
+    {
+        return getBean(BEAN_NAME, AdapterPatientDiscoveryAsyncReqQueueProxy.class);
     }
 }

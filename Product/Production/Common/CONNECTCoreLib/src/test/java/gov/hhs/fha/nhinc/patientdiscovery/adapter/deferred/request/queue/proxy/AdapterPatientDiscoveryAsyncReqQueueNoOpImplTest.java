@@ -3,10 +3,11 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,9 +47,10 @@ public class AdapterPatientDiscoveryAsyncReqQueueNoOpImplTest {
     public void testAddPatientDiscoveryAsyncReq() {
         System.out.println("addPatientDiscoveryAsyncReq");
 
-        RespondingGatewayPRPAIN201305UV02RequestType request = null;
-        AdapterPatientDiscoveryAsyncReqQueueNoOpImpl instance = new AdapterPatientDiscoveryAsyncReqQueueNoOpImpl();
-        MCCIIN000002UV01 result = instance.addPatientDiscoveryAsyncReq(request);
+        PRPAIN201305UV02 request = null;
+        AssertionType assertion = null;
+        AdapterPatientDiscoveryAsyncReqQueueProxyNoOpImpl instance = new AdapterPatientDiscoveryAsyncReqQueueProxyNoOpImpl();
+        MCCIIN000002UV01 result = instance.addPatientDiscoveryAsyncReq(request, assertion);
 
         assertNotNull(result);
     }

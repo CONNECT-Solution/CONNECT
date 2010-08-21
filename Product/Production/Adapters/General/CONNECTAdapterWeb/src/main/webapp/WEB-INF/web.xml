@@ -367,11 +367,20 @@
 
     <servlet>
         <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
         <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryUnsecuredAsyncReqQueue</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryUnsecuredAsyncReqQueue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryUnsecuredAsyncReqQueue</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</url-pattern>
     </servlet-mapping>
 
     <servlet>
