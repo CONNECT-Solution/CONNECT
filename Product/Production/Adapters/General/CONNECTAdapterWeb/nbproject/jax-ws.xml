@@ -1009,54 +1009,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="AdapterPatientDiscoveryAsyncReqSecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryAsyncReqSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
-      <service-name>AdapterPatientDiscoverySecuredAsyncReq</service-name>
-      <port-name>AdapterPatientDiscoverySecuredAsyncReqPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="AdapterPatientDiscoverySecuredAsyncResp">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoverySecuredAsyncResp</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
-      <service-name>AdapterPatientDiscoverySecuredAsyncResp</service-name>
-      <port-name>AdapterPatientDiscoverySecuredAsyncRespPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncresp</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="AdapterPatientDiscoverySecuredAsyncReqQueue">
       <implementation-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl</wsdl-url>
@@ -1088,30 +1040,6 @@
       <service-name>EntityPatientDiscoveryAsyncReqQueue</service-name>
       <port-name>EntityPatientDiscoveryAsyncReqQueuePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreqqueue</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="AdapterPatientDiscoverySecuredAsynReqError">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoverySecuredAsyncReqError</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReqError.wsdl</local-wsdl-file>
-      <service-name>AdapterPatientDiscoverySecuredAsyncReqError</service-name>
-      <port-name>AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqerror</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -1760,6 +1688,150 @@
       <service-name>AdapterComponentDocRetrieveResponseService</service-name>
       <port-name>AdapterComponentDocRetrieveResponsePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.adaptercomponentdocretrievedeferredresp</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPatientDiscoveryDeferredRequestUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoveryAsyncReq.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoveryAsyncReq</service-name>
+      <port-name>AdapterPatientDiscoveryAsyncReqPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreq</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPatientDiscoveryDeferredRequestSecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoverySecuredAsyncReq</service-name>
+      <port-name>AdapterPatientDiscoverySecuredAsyncReqPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPatientDiscoveryDeferredRequestErrorUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoveryAsyncReqError.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoveryAsyncReqError</service-name>
+      <port-name>AdapterPatientDiscoveryAsyncReqErrorPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreqerror</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPatientDiscoveryDeferredRequestErrorSecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReqError.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoverySecuredAsyncReqError</service-name>
+      <port-name>AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqerror</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPatientDiscoveryDeferredResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoverySecuredAsyncResp</service-name>
+      <port-name>AdapterPatientDiscoverySecuredAsyncRespPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncresp</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterPatientDiscoveryDeferredResponseUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPatientDiscoveryAsyncResp.wsdl</local-wsdl-file>
+      <service-name>AdapterPatientDiscoveryAsyncResp</service-name>
+      <port-name>AdapterPatientDiscoveryAsyncRespPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncresp</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

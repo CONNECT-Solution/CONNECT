@@ -332,21 +332,37 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryAsyncReqSecured</servlet-class>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoveryAsyncReqSecured</servlet-name>
-        <url-pattern>/AdapterPatientDiscoveryAsyncReqSecured</url-pattern>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdapterPatientDiscoverySecuredAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoverySecuredAsyncResp</servlet-class>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoverySecuredAsyncResp</servlet-name>
-        <url-pattern>/AdapterPatientDiscoveryAsyncRespSecured</url-pattern>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -359,12 +375,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoverySecuredAsyncReqError</servlet-class>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqError</servlet-name>
-        <url-pattern>/AdapterPatientDiscoveryAsyncReqErrorSecured</url-pattern>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</url-pattern>
     </servlet-mapping>
 
     <servlet>
