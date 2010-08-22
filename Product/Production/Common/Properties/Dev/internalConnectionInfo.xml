@@ -519,12 +519,12 @@
       <service>
         <name>entitypatientdiscoverysecuredasyncreqqueue</name>
         <description>Entity Patient Discovery Secured Async Req Queue</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoveryasyncreqqueue</name>
         <description>Entity Patient Discovery Async Req Queue</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoverysecuredasyncreq</name>
@@ -1350,12 +1350,12 @@
       <service>
         <name>entitypatientdiscoverysecuredasyncreqqueue</name>
         <description>Entity Patient Discovery Secured Async Req Queue</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoveryasyncreqqueue</name>
         <description>Entity Patient Discovery Async Req Queue</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoverysecuredasyncreq</name>
@@ -2201,12 +2201,12 @@
       <service>
         <name>entitypatientdiscoverysecuredasyncreqqueue</name>
         <description>Entity Patient Discovery Secured Async Req Queue</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoveryasyncreqqueue</name>
         <description>Entity Patient Discovery Async Req Queue</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncReqQueue</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoverysecuredasyncreq</name>

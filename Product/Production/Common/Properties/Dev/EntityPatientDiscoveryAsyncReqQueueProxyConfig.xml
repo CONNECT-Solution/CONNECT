@@ -3,8 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="entitypatientdiscoveryasyncreqqueue" class="gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.queue.proxy.EntityPatientDiscoveryAsyncReqQueueNoOpImpl"/> -->
+    <!-- <bean id="entitypatientdiscoveryasyncreqqueue" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.proxy.EntityPatientDiscoveryDeferredReqQueueProxyNoOpImpl"/> -->
+    
+    <!-- Java implementation -->
+    <!-- <bean id="entitypatientdiscoveryasyncreqqueue" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.proxy.EntityPatientDiscoveryDeferredReqQueueProxyJavaImpl"/> -->
+    
+    <!-- Unsecure Web Service implementation -->
+    <!-- <bean id="entitypatientdiscoveryasyncreqqueue" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.proxy.EntityPatientDiscoveryDeferredReqQueueProxyWebServiceUnsecuredImpl"/> -->
 	
-	<!-- Web-service implementation -->
-     <bean id="entitypatientdiscoveryasyncreqqueue" class="gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.queue.proxy.EntityPatientDiscoveryAsyncReqQueueWebServiceProxy"/> 
+	<!-- Secure Web-service implementation -->
+     <bean id="entitypatientdiscoveryasyncreqqueue" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.proxy.EntityPatientDiscoveryDeferredReqQueueProxyWebServiceSecuredImpl"/> 
 </beans>
