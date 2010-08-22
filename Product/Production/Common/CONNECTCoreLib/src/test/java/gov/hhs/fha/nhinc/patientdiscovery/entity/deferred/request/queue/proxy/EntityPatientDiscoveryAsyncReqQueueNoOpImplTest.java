@@ -3,10 +3,12 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.entity.patientdiscovery.async.request.queue.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.proxy;
 
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,9 +48,8 @@ public class EntityPatientDiscoveryAsyncReqQueueNoOpImplTest {
     public void testAddPatientDiscoveryAsyncReq() {
         System.out.println("addPatientDiscoveryAsyncReq");
 
-        RespondingGatewayPRPAIN201305UV02RequestType request = null;
-        EntityPatientDiscoveryAsyncReqQueueNoOpImpl instance = new EntityPatientDiscoveryAsyncReqQueueNoOpImpl();
-        MCCIIN000002UV01 result = instance.addPatientDiscoveryAsyncReq(request);
+        EntityPatientDiscoveryDeferredReqQueueProxyNoOpImpl instance = new EntityPatientDiscoveryDeferredReqQueueProxyNoOpImpl();
+        MCCIIN000002UV01 result = instance.addPatientDiscoveryAsyncReq(new PRPAIN201305UV02(), new AssertionType(), new NhinTargetCommunitiesType());
 
         assertNotNull(result);
     }
