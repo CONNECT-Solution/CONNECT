@@ -28,10 +28,6 @@
 		</filelist>
 	</path>
 
-	<path id="war.libs">
-		<filelist dir="${root.project.directory.path}">
-			<file name="${project.CONNECTCoreLib.dist.file}" />
-		</filelist>
-	</path>  
+	<path id="war.libs"/>
 
 </project>
