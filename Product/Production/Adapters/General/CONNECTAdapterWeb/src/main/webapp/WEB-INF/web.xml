@@ -223,14 +223,10 @@
         <url-pattern>/AdapterPolicyEngineOrchestrator</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>AdapterPolicyEngineTransform</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransform</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPolicyEngineTransform</servlet-name>
-        <url-pattern>/AdapterPolicyEngineTransform</url-pattern>
-    </servlet-mapping>
+
+
+
+
 
     <servlet>
         <servlet-name>AdapterPEPService</servlet-name>
