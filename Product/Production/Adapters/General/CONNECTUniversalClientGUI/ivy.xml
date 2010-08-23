@@ -38,7 +38,6 @@
     <!-- Project dependencies -->
 
     <!-- compile time jars -->
-    <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
 
     <!-- runtime jars -->
     <dependency org="com.sun.xml" 		      name="jaxb-impl" 			rev="2.0EA3"			  conf="runtime->default" transitive="false" />
@@ -50,6 +49,7 @@
     <dependency org="jsf"                   name="appbase" rev="1.0" conf="runtime->default" transitive="false" /> 
     <dependency org="jsf"                   name="dataprovider" rev="1.0" conf="runtime->default" transitive="false" />
     <dependency org="jsf"                   name="errorhandler" rev="1.0" conf="runtime->default" transitive="false" />
+    <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="runtime->default" transitive="false" />
     <dependency org="OpenSSO"       name="openssoclientsdk"              rev="1.0" conf="runtime->default" transitive="false" />
 	<dependency org="jsf"                   name="jsfcl" rev="1.0" conf="runtime->default" transitive="false" /> 
     <dependency org="jsf"                   name="webui-jsf" rev="1.0" conf="runtime->default" transitive="false" /> 
