@@ -18618,19 +18618,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:07Z</con:value>
+          <con:value>2010-08-23T17:27:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:07Z</con:value>
+          <con:value>2010-08-23T17:37:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:07</con:value>
+          <con:value>08/23/2010 17:27:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18964,19 +18964,19 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:08Z</con:value>
+          <con:value>2010-08-23T17:27:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:08Z</con:value>
+          <con:value>2010-08-23T17:37:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:08</con:value>
+          <con:value>08/23/2010 17:27:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20750,19 +20750,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:09Z</con:value>
+          <con:value>2010-08-23T17:27:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:09Z</con:value>
+          <con:value>2010-08-23T17:37:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:09</con:value>
+          <con:value>08/23/2010 17:27:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -22594,19 +22594,19 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:10Z</con:value>
+          <con:value>2010-08-23T17:27:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:10Z</con:value>
+          <con:value>2010-08-23T17:37:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:10</con:value>
+          <con:value>08/23/2010 17:27:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24379,19 +24379,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:11Z</con:value>
+          <con:value>2010-08-23T17:27:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:11Z</con:value>
+          <con:value>2010-08-23T17:37:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:11</con:value>
+          <con:value>08/23/2010 17:27:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26206,19 +26206,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:11Z</con:value>
+          <con:value>2010-08-23T17:27:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:11Z</con:value>
+          <con:value>2010-08-23T17:37:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:11</con:value>
+          <con:value>08/23/2010 17:27:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26227,11 +26227,10 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>//def destDir = context.findProperty("NHINGatewayConfigDir");
+def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -26502,19 +26501,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:12Z</con:value>
+          <con:value>2010-08-23T17:27:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:12Z</con:value>
+          <con:value>2010-08-23T17:37:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:12</con:value>
+          <con:value>08/23/2010 17:27:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26543,11 +26542,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
       </con:testStep>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>//def destDir = context.findProperty("NHINGatewayConfigDir");
+def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -26849,19 +26847,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:37:13Z</con:value>
+          <con:value>2010-08-23T17:27:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:47:13Z</con:value>
+          <con:value>2010-08-23T17:37:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:37:13</con:value>
+          <con:value>08/23/2010 17:27:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>

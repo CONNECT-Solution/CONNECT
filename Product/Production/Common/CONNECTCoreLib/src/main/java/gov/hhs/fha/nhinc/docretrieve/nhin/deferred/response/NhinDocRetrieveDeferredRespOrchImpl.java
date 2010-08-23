@@ -45,11 +45,11 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
             } else {
                 String  msg = "Doc retrieve service is not enabled for Home Community Id: " + homeCommunityId;
                 log.warn(msg);
-                response = createSuccessResponse();
+                response = createSuccessResponse(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
             }
         } catch (Throwable t) {
             log.error("Error processing NHIN Doc Retrieve: " + t.getMessage(), t);
-            response = createSuccessResponse();
+            response = createSuccessResponse(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
         }
 
         auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion,
@@ -78,7 +78,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
         } else {
             msg = "Policy Check Failed on NHIN community : "+ homeCommunityId;
             log.error(msg);
-            response = createSuccessResponse();
+            response = createSuccessResponse(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
         }
 
         log.debug("End DocRetrieveImpl.serviceDocRetrieveInternal");

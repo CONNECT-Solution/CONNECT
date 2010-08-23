@@ -153,7 +153,7 @@ public class NhinDocRetrieveDeferred {
      * @param codeContext
      * @return RetrieveDocumentSetResponseType
      */
-    protected DocRetrieveAcknowledgementType createSuccessResponse() {
+    protected DocRetrieveAcknowledgementType createSuccessResponse(String  status) {
         DocRetrieveAcknowledgementType response;
         RegistryResponseType responseType;
 
@@ -161,7 +161,7 @@ public class NhinDocRetrieveDeferred {
         response = new DocRetrieveAcknowledgementType();
         responseType = new RegistryResponseType();
         response.setMessage(responseType);
-        responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
+        responseType.setStatus(status);
 
         return response;
     }
@@ -172,12 +172,12 @@ public class NhinDocRetrieveDeferred {
      * @param codeContext
      * @return RetrieveDocumentSetResponseType
      */
-    protected DocRetrieveAcknowledgementType createErrorResponse(String codeContext) {
+    protected DocRetrieveAcknowledgementType createErrorResponse(String codeContext, String  status) {
         DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
         RegistryResponseType responseType = new RegistryResponseType();
 
         response.setMessage(responseType);
-        responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
+        responseType.setStatus(status);
 
 
         return response;

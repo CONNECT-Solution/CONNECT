@@ -27479,19 +27479,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:24:57Z</con:value>
+          <con:value>2010-08-23T17:36:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:34:57Z</con:value>
+          <con:value>2010-08-23T17:46:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:24:57</con:value>
+          <con:value>08/23/2010 17:36:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27500,19 +27500,15 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Set Passthrough Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -27783,19 +27779,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:21:43Z</con:value>
+          <con:value>2010-08-23T17:36:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:31:43Z</con:value>
+          <con:value>2010-08-23T17:46:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:21:43</con:value>
+          <con:value>08/23/2010 17:36:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27804,36 +27800,28 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Set Non-Passthrough Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -29585,19 +29573,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:21:44Z</con:value>
+          <con:value>2010-08-23T17:36:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:31:44Z</con:value>
+          <con:value>2010-08-23T17:46:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:21:44</con:value>
+          <con:value>08/23/2010 17:36:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29606,35 +29594,27 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Set Non-Passthrough Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -31386,19 +31366,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:21:47Z</con:value>
+          <con:value>2010-08-23T17:36:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:31:47Z</con:value>
+          <con:value>2010-08-23T17:46:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:21:47</con:value>
+          <con:value>08/23/2010 17:36:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -31407,11 +31387,9 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>
@@ -31682,19 +31660,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:21:50Z</con:value>
+          <con:value>2010-08-23T17:36:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:31:50Z</con:value>
+          <con:value>2010-08-23T17:46:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:21:50</con:value>
+          <con:value>08/23/2010 17:36:44</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -31703,19 +31681,15 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredReq', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Set Non-Passthrough Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>def destDir = System.getenv("NHINC_PROPERTIES_DIR");
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredReqPassthrough', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Generate patient ID for Audit Log Query">
         <con:settings/>
@@ -32263,19 +32237,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-17T02:21:51Z</con:value>
+          <con:value>2010-08-23T17:36:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-17T02:31:51Z</con:value>
+          <con:value>2010-08-23T17:46:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2010 02:21:51</con:value>
+          <con:value>08/23/2010 17:36:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-16T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -32283,7 +32257,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserTue Aug 17 02:26:51 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserMon Aug 23 17:41:45 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -32292,36 +32266,28 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:settings/>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoforMockApadter">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");//**** Redbox (remove later)
 //**** mockHost is localhost because Groovy script resides in local machine ****
 def mockHost = context.findProperty("mockHost");
 def mockAdapterRespURL = "https://" + mockHost + ":22556/MockResponse1";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequestsecured", mockAdapterRespURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequestsecured", mockAdapterRespURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveRequest">
         <con:settings/>

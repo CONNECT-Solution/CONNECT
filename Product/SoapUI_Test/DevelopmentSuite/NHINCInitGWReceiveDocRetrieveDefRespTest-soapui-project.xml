@@ -12605,13 +12605,8 @@ This document and the information contained herein is provided on an "AS IS" bas
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Request Accepted Ack">
-              <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
+//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -12623,19 +12618,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:00:59Z</con:value>
+          <con:value>2010-08-23T18:04:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:10:59Z</con:value>
+          <con:value>2010-08-23T18:14:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:00:59</con:value>
+          <con:value>08/23/2010 18:04:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12644,8 +12639,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:settings/>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -12655,8 +12649,9 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+log.info("mock host = " + mockHost);
+
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
@@ -12911,13 +12906,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Request Accepted Ack">
-              <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
+//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -12928,7 +12918,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Request Accepted Ack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveDefResp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -14410,19 +14400,19 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:01:00Z</con:value>
+          <con:value>2010-08-23T18:05:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:11:00Z</con:value>
+          <con:value>2010-08-23T18:15:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:01:00</con:value>
+          <con:value>08/23/2010 18:05:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14431,8 +14421,7 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:settings/>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -14442,8 +14431,9 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+log.info("mock host = " + mockHost);
+
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
@@ -14698,13 +14688,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Request Accepted Ack">
-              <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
+//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -14715,7 +14700,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       </con:testStep>
       <con:testStep type="mockresponse" name="Policy Engine Mock">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Request Accepted Ack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="NHINCProxyDocRetrieveDefResp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -16197,19 +16182,19 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:01:01Z</con:value>
+          <con:value>2010-08-23T18:05:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:11:01Z</con:value>
+          <con:value>2010-08-23T18:15:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:01:01</con:value>
+          <con:value>08/23/2010 18:05:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16489,13 +16474,8 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Request Accepted Ack">
-              <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
+//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -16755,13 +16735,8 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
-count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
-                <content>5</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
+count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -16773,19 +16748,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:01:02Z</con:value>
+          <con:value>2010-08-23T18:05:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:11:02Z</con:value>
+          <con:value>2010-08-23T18:15:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:01:02</con:value>
+          <con:value>08/23/2010 18:05:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16793,7 +16768,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserWed Aug 18 00:06:02 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserMon Aug 23 18:10:47 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16802,11 +16777,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>//def destDir = context.findProperty("NHINGatewayConfigDir");
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredResp', 'false',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredResp', 'false',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
@@ -17061,13 +17035,8 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Request Accepted Ack">
-              <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
+//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -17079,19 +17048,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:01:04Z</con:value>
+          <con:value>2010-08-23T18:05:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:11:04Z</con:value>
+          <con:value>2010-08-23T18:15:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:01:04</con:value>
+          <con:value>08/23/2010 18:05:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17100,19 +17069,17 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
       <con:settings/>
       <con:testStep type="groovy" name="Set Service Enabled Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>//def destDir = context.findProperty("NHINGatewayConfigDir");
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredResp', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieveDeferredResp', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Set Passthrough Mode">
         <con:settings/>
-        <con:config>
-          <script>def destDir = context.findProperty("NHINGatewayConfigDir");
+        <con:config><script>//def destDir = context.findProperty("NHINGatewayConfigDir");
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredRespPassthrough', 'true',context,log)</script>
-        </con:config>
+FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferredRespPassthrough', 'true',context,log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="NHINCProxyDocRetrieveDefResp">
         <con:settings/>
@@ -17367,13 +17334,8 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Request Accepted Ack">
-              <con:configuration>
-                <path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
-//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns9='http://www.hhs.gov/healthit/nhin';
+//ns9:DocRetrieveAcknowledgement[1]/ns9:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -17385,19 +17347,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-18T00:01:05Z</con:value>
+          <con:value>2010-08-23T18:05:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-18T00:11:05Z</con:value>
+          <con:value>2010-08-23T18:15:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2010 00:01:05</con:value>
+          <con:value>08/23/2010 18:05:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-17T00:00:00Z</con:value>
+          <con:value>2010-09-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17477,7 +17439,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieveNHINCResp</con:name>
-      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse </con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'

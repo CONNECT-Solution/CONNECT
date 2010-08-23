@@ -22,8 +22,8 @@ public class AdapterComponentDocRetrieveDeferredRespProxyJavaImpl implements Ada
      }
 
      public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetResponseType body, AssertionType assertion) {
-         DocRetrieveAcknowledgementType             response = new DocRetrieveAcknowledgementType();
-         AdapterComponentDocRetrieveDeferredRespOrchImpl  adapter = new AdapterComponentDocRetrieveDeferredRespOrchImpl();
+         DocRetrieveAcknowledgementType                     response = new DocRetrieveAcknowledgementType();
+         AdapterComponentDocRetrieveDeferredRespOrchImpl    adapter = new AdapterComponentDocRetrieveDeferredRespOrchImpl();
 
          log.info("AdapterComponentDocRetrieveDeferredRespJavaImpl.sendToAdapter() - JavaImpl called");
 

@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.AdapterComponentDocRetrieveDeferredReqOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.AdapterDocRetrieveDeferredReqOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxy;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -23,8 +24,8 @@ public class AdapterComponentDocRetrieveDeferredReqProxyJavaImpl implements Adap
      }
 
      public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion) {
-         DocRetrieveAcknowledgementType             response = new DocRetrieveAcknowledgementType();
-         AdapterDocRetrieveDeferredReqOrchImpl   adapter = new AdapterDocRetrieveDeferredReqOrchImpl();
+         DocRetrieveAcknowledgementType                 response = new DocRetrieveAcknowledgementType();
+         AdapterComponentDocRetrieveDeferredReqOrchImpl adapter = new AdapterComponentDocRetrieveDeferredReqOrchImpl();
 
          log.info("AdapterComponentDocRetrieveDeferredReqJavaImpl.sendToAdapter() - JavaImpl called");
 
