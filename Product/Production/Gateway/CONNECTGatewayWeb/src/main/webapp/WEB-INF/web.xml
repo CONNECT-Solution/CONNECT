@@ -74,30 +74,6 @@
         <url-pattern>/EntityService/EntityDocRetrieve</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>NhincComponentAggregator</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.gateway.aggregator.NhincComponentAggregator</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincComponentAggregator</servlet-name>
-        <url-pattern>/GatewayInternalService/NhincComponentAggregator</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>GatewayPolicyEngineFacade</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policy.GatewayPolicyEngineFacade</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GatewayPolicyEngineFacade</servlet-name>
-        <url-pattern>/GatewayInternalService/PolicyEngineFacadeService</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PolicyEngineTransformationService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PolicyEngineTransformationService</servlet-name>
-        <url-pattern>/GatewayInternalService/PolicyEngineGatewayTransformationService</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>AdapterAuditQueryService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</servlet-class>
     </servlet>
