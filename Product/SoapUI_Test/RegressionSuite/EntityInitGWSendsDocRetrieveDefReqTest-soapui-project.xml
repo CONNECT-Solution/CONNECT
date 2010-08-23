@@ -14144,6 +14144,26 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityDocRetrieveDeferredTestSecuredAdapEndtoEndJavaImpl" searchProperties="true" id="b94804da-4f7c-488a-9b2c-c0cb4b790287">
       <con:settings/>
+      <con:testStep type="groovy" name="beforeRun">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "DocumentRetrieveDeferredProxyConfigJavaImpl.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+        </con:config>
+      </con:testStep>
       <con:testStep type="request" name="DocRetrieveDefRequest">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -14412,22 +14432,42 @@ This document and the information contained herein is provided on an "AS IS" bas
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="groovy" name="afterRun">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "DocumentRetrieveDeferredProxyConfig.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+        </con:config>
+      </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T16:46:30Z</con:value>
+          <con:value>2010-08-19T22:24:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T16:56:30Z</con:value>
+          <con:value>2010-08-19T22:34:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 16:46:30</con:value>
+          <con:value>08/19/2010 22:24:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14745,19 +14785,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T16:46:31Z</con:value>
+          <con:value>2010-08-19T22:24:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T16:56:31Z</con:value>
+          <con:value>2010-08-19T22:34:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 16:46:31</con:value>
+          <con:value>08/19/2010 22:24:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15075,45 +15115,25 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T16:46:31Z</con:value>
+          <con:value>2010-08-19T22:24:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T16:56:31Z</con:value>
+          <con:value>2010-08-19T22:34:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 16:46:31</con:value>
+          <con:value>08/19/2010 22:24:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityDocRetrieveDeferredWithPermitPE" searchProperties="true" id="2893439f-2144-4ed2-938f-1f1f6690b5e2">
       <con:settings/>
-      <con:testStep type="groovy" name="ModifyPEConfigFileBeforeRun">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
-
-def sourceDir = projectPropPath;
-def sourceFile = "PolicyEngineProxyUnsecureConfig.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "PolicyEngineProxyConfig.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-        </con:config>
-      </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
         <con:config>
@@ -16879,68 +16899,28 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="ModifyPEConfigFileAfterRun">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
-
-def sourceDir = projectPropPath;
-def sourceFile = "PolicyEngineProxyConfig.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "PolicyEngineProxyConfig.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-        </con:config>
-      </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T16:46:32Z</con:value>
+          <con:value>2010-08-19T22:24:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T16:56:32Z</con:value>
+          <con:value>2010-08-19T22:34:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 16:46:32</con:value>
+          <con:value>08/19/2010 22:24:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityDocRetrieveDeferredWithDenyPE" searchProperties="true" id="f3db73a2-f2c2-4832-aab1-da25e8bc7453">
       <con:settings/>
-      <con:testStep type="groovy" name="ModifyPEConfigFileBeforeRun">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
-
-def sourceDir = projectPropPath;
-def sourceFile = "PolicyEngineProxyUnsecureConfig.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "PolicyEngineProxyConfig.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-        </con:config>
-      </con:testStep>
       <con:testStep type="groovy" name="ModifyInterrnalConnectionInfoPE">
         <con:settings/>
         <con:config>
@@ -18706,42 +18686,22 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="ModifyPEConfigFileAfterRun">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
-
-def sourceDir = projectPropPath;
-def sourceFile = "PolicyEngineProxyConfig.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "PolicyEngineProxyConfig.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-        </con:config>
-      </con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T16:46:33Z</con:value>
+          <con:value>2010-08-19T22:24:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T16:56:33Z</con:value>
+          <con:value>2010-08-19T22:34:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 16:46:33</con:value>
+          <con:value>08/19/2010 22:24:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19287,13 +19247,8 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="AuditEventsResponse is 3">
-              <con:configuration>
-                <path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
-count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
-                <content>8</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
+count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -19305,19 +19260,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T16:46:34Z</con:value>
+          <con:value>2010-08-19T22:24:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T16:56:34Z</con:value>
+          <con:value>2010-08-19T22:34:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 16:46:34</con:value>
+          <con:value>08/19/2010 22:24:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2010-09-18T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -19325,7 +19280,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserMon Aug 16 16:51:34 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserThu Aug 19 22:29:36 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
