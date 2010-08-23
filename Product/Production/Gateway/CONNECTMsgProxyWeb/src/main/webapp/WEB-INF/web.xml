@@ -117,8 +117,16 @@
         <url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>

@@ -357,7 +357,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -761,7 +761,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -1182,7 +1182,7 @@
 			<service>
 				<name>nhincproxydocretrieve</name>
 				<description>NHINC Proxy Document Retrieve</description>
-				<endpointURL>http://localhost:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>entityauditqueryproxy</name>
@@ -1287,7 +1287,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>

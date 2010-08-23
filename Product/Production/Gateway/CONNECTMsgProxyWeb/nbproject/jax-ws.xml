@@ -98,7 +98,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyPatientDiscoverySecuredAsyncResp">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoverySecuredAsyncResp</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
       <service-name>NhincProxyPatientDiscoverySecuredAsyncResp</service-name>
@@ -416,6 +416,30 @@
       <service-name>NhincProxyDocRetrieve</service-name>
       <port-name>NhincProxyDocRetrievePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxydocretrieve</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincProxyPatientDiscoveryAsyncResp">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncResp</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyPatientDiscoveryAsyncResp.wsdl</local-wsdl-file>
+      <service-name>NhincProxyPatientDiscoveryAsyncResp</service-name>
+      <port-name>NhincProxyPatientDiscoveryAsyncRespPortType</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

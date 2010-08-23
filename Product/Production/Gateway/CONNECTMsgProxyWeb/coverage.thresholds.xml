@@ -156,6 +156,21 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncResp"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl"
+              linecount="39"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoverySecuredAsyncResp"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscovery"
               linecount="4"
               linerate="80"
@@ -183,16 +198,6 @@
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReqImpl"
               linecount="18"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncRespImpl"
-              linecount="25"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

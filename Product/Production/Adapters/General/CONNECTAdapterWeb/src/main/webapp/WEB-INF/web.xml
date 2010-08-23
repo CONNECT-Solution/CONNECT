@@ -506,15 +506,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
-        <url-pattern>/NhincProxyPatientDiscoveryAsyncResp</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>EntitySubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subdisc.entity.EntitySubjectDiscovery</servlet-class>
     </servlet>

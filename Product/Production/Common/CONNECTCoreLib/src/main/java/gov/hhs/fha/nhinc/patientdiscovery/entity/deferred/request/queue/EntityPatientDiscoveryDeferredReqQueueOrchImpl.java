@@ -14,8 +14,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.passthru.patientdiscovery.async.response.proxy.PassthruPatientDiscoveryAsyncRespProxy;
-import gov.hhs.fha.nhinc.passthru.patientdiscovery.async.response.proxy.PassthruPatientDiscoveryAsyncRespProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import org.apache.commons.logging.Log;
@@ -79,14 +79,14 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
 
             targetSystem.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
-            PassthruPatientDiscoveryAsyncRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryAsyncRespProxyObjectFactory();
-            PassthruPatientDiscoveryAsyncRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryAsyncRespProxy();
+            PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
+            PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRespProxy();
             ProxyPRPAIN201306UVProxyRequestType msg = new ProxyPRPAIN201306UVProxyRequestType();
             msg.setAssertion(assertion);
             msg.setNhinTargetSystem(targetSystem);
             msg.setPRPAIN201306UV02(respMsg);
 
-            resp = proxy.proxyProcessPatientDiscoveryAsyncResp(msg);
+            resp = proxy.proxyProcessPatientDiscoveryAsyncResp(msg, assertion, targetSystem);
 
         }
 

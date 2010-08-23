@@ -4,7 +4,7 @@
       <add:Action>urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:22222222222.22222.222.22</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</add:To>
    </soap:Header>
    <soap:Body>
       <urn:RespondingGateway_PRPA_IN201306UV02Request>

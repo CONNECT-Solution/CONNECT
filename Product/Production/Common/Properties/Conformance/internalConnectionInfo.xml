@@ -554,7 +554,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
 				<description>NHINC Proxy Patient Discovery Async Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>entitynotificationconsumer</name>
@@ -1362,7 +1362,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
 				<description>NHINC Proxy Patient Discovery Async Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>entitynotificationconsumer</name>
@@ -2188,7 +2188,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
 				<description>NHINC Proxy Patient Discovery Async Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>adapternotificationconsumer</name>
@@ -2963,7 +2963,7 @@
 			<service>
 				<name>nhincproxydocretrieve</name>
 				<description>NHINC Proxy Document Retrieve</description>
-				<endpointURL>http://localhost:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>entityauditqueryproxy</name>
@@ -3033,7 +3033,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
 				<description>NHINC Proxy Patient Discovery Async Response</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<!-- Start: XDR Request and Response service definitions-->
 			<!-- XDR Request -->

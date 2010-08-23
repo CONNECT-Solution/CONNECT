@@ -103,7 +103,7 @@ public class Main {
 
         EntityDocRetrieve service = new EntityDocRetrieve();
         EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/CONNECTAdapter/EntityDocRetrieve");
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve");
         SOAPBinding binding = (SOAPBinding)((javax.xml.ws.BindingProvider) port).getBinding();
         binding.setMTOMEnabled(true);
 
