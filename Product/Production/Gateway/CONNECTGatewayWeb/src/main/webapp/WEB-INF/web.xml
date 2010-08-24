@@ -219,20 +219,36 @@
         <url-pattern>/AdapterService/AdapterXDRRequestError_Service</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>EntityXDRRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</servlet-class>
+        <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityXDRRequestSecured</servlet-name>
-        <url-pattern>/EntityService/EntityXDRRequestSecured</url-pattern>
+        <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestSecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>EntityXDRResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured</servlet-class>
+        <servlet-name>EntityDocSubmissionDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityXDRResponseSecured</servlet-name>
-        <url-pattern>/EntityService/EntityXDRResponseSecured</url-pattern>
+        <servlet-name>EntityDocSubmissionDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocSubmissionDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocSubmissionDeferredResponseSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityDocSubmissionDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocSubmissionDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AuditRepository</servlet-name>
@@ -388,12 +404,12 @@
         </web-resource-collection>
     <!-- Start: XDR Request and Response services-->
         <web-resource-collection>
-            <web-resource-name>EntityXDRRequestSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityXDRRequestSecured</url-pattern>
+            <web-resource-name>EntityDocSubmissionDeferredRequestSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>EntityXDRResponseSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityXDRResponseSecured</url-pattern>
+            <web-resource-name>EntityDocSubmissionDeferredResponseSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseSecured</url-pattern>
         </web-resource-collection>
     <!-- End: XDR Request and Response services-->
         <web-resource-collection>

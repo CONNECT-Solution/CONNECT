@@ -433,54 +433,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="EntityXDRRequestSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl</wsdl-url>
-      <local-wsdl-file>EntityXDRSecuredRequest.wsdl</local-wsdl-file>
-      <service-name>EntityXDRSecuredAsyncRequest_Service</service-name>
-      <port-name>EntityXDRSecuredAsyncRequest_Port</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="EntityXDRResponseSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl</wsdl-url>
-      <local-wsdl-file>EntityXDRSecuredResponse.wsdl</local-wsdl-file>
-      <service-name>EntityXDRSecuredAsyncResponse_Service</service-name>
-      <port-name>EntityXDRSecuredAsyncResponse_Port</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="AdapterPatientDiscoveryAsyncReqQueue">
       <implementation-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.async.request.queue.AdapterPatientDiscoveryAsyncReqQueue</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReqQueue.wsdl</wsdl-url>
@@ -1184,6 +1136,102 @@
       <service-name>EntityPatientDiscoverySecuredAsyncReqQueue</service-name>
       <port-name>EntityPatientDiscoverySecuredAsyncReqQueuePortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncreqqueue</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocSubmissionDeferredRequestSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRSecuredRequest.wsdl</local-wsdl-file>
+      <service-name>EntityXDRSecuredAsyncRequest_Service</service-name>
+      <port-name>EntityXDRSecuredAsyncRequest_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocSubmissionDeferredRequestUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRRequest.wsdl</local-wsdl-file>
+      <service-name>EntityXDRAsyncRequest_Service</service-name>
+      <port-name>EntityXDRAsyncRequest_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdr.async.request</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocSubmissionDeferredResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRSecuredResponse.wsdl</local-wsdl-file>
+      <service-name>EntityXDRSecuredAsyncResponse_Service</service-name>
+      <port-name>EntityXDRSecuredAsyncResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocSubmissionDeferredResponseUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRResponse.wsdl</local-wsdl-file>
+      <service-name>EntityXDRAsyncResponse_Service</service-name>
+      <port-name>EntityXDRAsyncResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdr.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
