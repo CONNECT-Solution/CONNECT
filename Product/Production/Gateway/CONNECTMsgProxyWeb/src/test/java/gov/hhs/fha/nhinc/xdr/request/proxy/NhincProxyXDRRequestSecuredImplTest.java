@@ -37,129 +37,129 @@ public class NhincProxyXDRRequestSecuredImplTest {
         };
     }
 
-    @Ignore
-    public void testProvideAndRegisterDocumentSetBRequestWithAssertion() {
-        final Log mockLogger = context.mock(Log.class);
-        final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
-        final AssertionType mockAssertion = context.mock(AssertionType.class);
-
-        NhincProxyXDRRequestSecuredImpl sut = new NhincProxyXDRRequestSecuredImpl() {
-
-            @Override
-            protected XDRAuditLogger createAuditLogger() {
-                return mockAuditLogger;
-            }
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-            @Override
-            protected NhinXDRRequestProxy createNhinProxy() {
-                NhinXDRRequestProxy nhinProxy = new NhinXDRRequestProxy() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return nhinProxy;
-            }
-
-            @Override
-            protected String extractMessageId(WebServiceContext context) {
-                return "uuid:1111111111.11111.111.11";
-            }
-        };
-
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                oneOf(mockAssertion).setMessageId(with(any(String.class)));
-                oneOf(mockAuditLogger).auditXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
-                oneOf(mockAuditLogger).auditAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
-                will(returnValue(null));
-            }
-        });
-
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-
-        XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockAssertion);
-
-        assertNotNull("Ack was null", ack);
-        assertEquals("Response message incorrect", NhincConstants.XDR_ACK_STATUS_MSG, ack.getMessage().getStatus());
-    }
-
-    @Ignore
-    public void testProvideAndRegisterDocumentSetBRequestWithWebServiceContext() {
-        final Log mockLogger = context.mock(Log.class);
-        final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
-        final AssertionType mockAssertion = context.mock(AssertionType.class);
-        final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
-
-        NhincProxyXDRRequestSecuredImpl sut = new NhincProxyXDRRequestSecuredImpl() {
-
-            @Override
-            protected XDRAuditLogger createAuditLogger() {
-                return mockAuditLogger;
-            }
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-            @Override
-            protected AssertionType extractAssertion(WebServiceContext context) {
-                return mockAssertion;
-            }
-
-            @Override
-            protected NhinXDRRequestProxy createNhinProxy() {
-                NhinXDRRequestProxy nhinProxy = new NhinXDRRequestProxy() {
-
-                    @Override
-                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
-                        XDRAcknowledgementType response = new XDRAcknowledgementType();
-                        RegistryResponseType regResp = new RegistryResponseType();
-                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                        response.setMessage(regResp);
-                        return response;
-                    }
-                };
-                return nhinProxy;
-            }
-
-            @Override
-            protected String extractMessageId(WebServiceContext context) {
-                return "uuid:1111111111.11111.111.11";
-            }
-        };
-
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                oneOf(mockAssertion).setMessageId(with(any(String.class)));
-                oneOf(mockAuditLogger).auditXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
-                oneOf(mockAuditLogger).auditAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
-                will(returnValue(null));
-            }
-        });
-
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-
-        XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
-
-        assertNotNull("Ack was null", ack);
-        assertEquals("Response message incorrect", NhincConstants.XDR_ACK_STATUS_MSG, ack.getMessage().getStatus());
-    }
+//    @Ignore
+//    public void testProvideAndRegisterDocumentSetBRequestWithAssertion() {
+//        final Log mockLogger = context.mock(Log.class);
+//        final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
+//        final AssertionType mockAssertion = context.mock(AssertionType.class);
+//
+//        NhincProxyXDRRequestSecuredImpl sut = new NhincProxyXDRRequestSecuredImpl() {
+//
+//            @Override
+//            protected XDRAuditLogger createAuditLogger() {
+//                return mockAuditLogger;
+//            }
+//
+//            @Override
+//            protected Log createLogger() {
+//                return mockLogger;
+//            }
+//
+//            @Override
+//            protected NhinXDRRequestProxy createNhinProxy() {
+//                NhinXDRRequestProxy nhinProxy = new NhinXDRRequestProxy() {
+//
+//                    @Override
+//                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+//                        XDRAcknowledgementType response = new XDRAcknowledgementType();
+//                        RegistryResponseType regResp = new RegistryResponseType();
+//                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+//                        response.setMessage(regResp);
+//                        return response;
+//                    }
+//                };
+//                return nhinProxy;
+//            }
+//
+//            @Override
+//            protected String extractMessageId(WebServiceContext context) {
+//                return "uuid:1111111111.11111.111.11";
+//            }
+//        };
+//
+//        context.checking(new Expectations() {
+//
+//            {
+//                allowing(mockLogger).info(with(any(String.class)));
+//                allowing(mockLogger).debug(with(any(String.class)));
+//                oneOf(mockAssertion).setMessageId(with(any(String.class)));
+//                oneOf(mockAuditLogger).auditXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
+//                oneOf(mockAuditLogger).auditAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+//                will(returnValue(null));
+//            }
+//        });
+//
+//        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+//
+//        XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockAssertion);
+//
+//        assertNotNull("Ack was null", ack);
+//        assertEquals("Response message incorrect", NhincConstants.XDR_ACK_STATUS_MSG, ack.getMessage().getStatus());
+//    }
+//
+//    @Ignore
+//    public void testProvideAndRegisterDocumentSetBRequestWithWebServiceContext() {
+//        final Log mockLogger = context.mock(Log.class);
+//        final XDRAuditLogger mockAuditLogger = context.mock(XDRAuditLogger.class);
+//        final AssertionType mockAssertion = context.mock(AssertionType.class);
+//        final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
+//
+//        NhincProxyXDRRequestSecuredImpl sut = new NhincProxyXDRRequestSecuredImpl() {
+//
+//            @Override
+//            protected XDRAuditLogger createAuditLogger() {
+//                return mockAuditLogger;
+//            }
+//
+//            @Override
+//            protected Log createLogger() {
+//                return mockLogger;
+//            }
+//
+//            @Override
+//            protected AssertionType extractAssertion(WebServiceContext context) {
+//                return mockAssertion;
+//            }
+//
+//            @Override
+//            protected NhinXDRRequestProxy createNhinProxy() {
+//                NhinXDRRequestProxy nhinProxy = new NhinXDRRequestProxy() {
+//
+//                    @Override
+//                    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+//                        XDRAcknowledgementType response = new XDRAcknowledgementType();
+//                        RegistryResponseType regResp = new RegistryResponseType();
+//                        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+//                        response.setMessage(regResp);
+//                        return response;
+//                    }
+//                };
+//                return nhinProxy;
+//            }
+//
+//            @Override
+//            protected String extractMessageId(WebServiceContext context) {
+//                return "uuid:1111111111.11111.111.11";
+//            }
+//        };
+//
+//        context.checking(new Expectations() {
+//
+//            {
+//                allowing(mockLogger).info(with(any(String.class)));
+//                allowing(mockLogger).debug(with(any(String.class)));
+//                oneOf(mockAssertion).setMessageId(with(any(String.class)));
+//                oneOf(mockAuditLogger).auditXDR(with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
+//                oneOf(mockAuditLogger).auditAcknowledgement(with(any(XDRAcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+//                will(returnValue(null));
+//            }
+//        });
+//
+//        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+//
+//        XDRAcknowledgementType ack = sut.provideAndRegisterDocumentSetBRequest(request, mockWebServiceContext);
+//
+//        assertNotNull("Ack was null", ack);
+//        assertEquals("Response message incorrect", NhincConstants.XDR_ACK_STATUS_MSG, ack.getMessage().getStatus());
+//    }
 }
