@@ -3,10 +3,12 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.entity.xdr.async.response.proxy;
+package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,10 +47,9 @@ public class EntityXDRAsyncRespNoOpImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetBAsyncResponse() {
         System.out.println("testProvideAndRegisterDocumentSetBAsyncResponse");
-        RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest = null;
-        EntityXDRAsyncRespNoOpImpl instance = new EntityXDRAsyncRespNoOpImpl();
+        EntityDocSubmissionDeferredResponseProxyNoOpImpl instance = new EntityDocSubmissionDeferredResponseProxyNoOpImpl();
         
-        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest);
+        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncResponse(new RegistryResponseType(), new AssertionType(), new NhinTargetCommunitiesType());
         assertNotNull(result);
     }
 
