@@ -27,7 +27,6 @@
 	</portType>
 	<binding name="ProxyXDRAsyncRequest_Binding" type="tns:ProxyXDRAsyncRequest_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsaws:UsingAddressing/>
 		<operation name="ProvideAndRegisterDocumentSet-bAsyncRequest">
 			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncRequest"/>
 			<input>
