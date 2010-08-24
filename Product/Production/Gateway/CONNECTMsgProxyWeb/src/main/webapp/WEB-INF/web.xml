@@ -150,11 +150,19 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyXDRRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequestSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.NhincProxyXDRRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyXDRRequestSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyXDRRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyXDRResponseSecured</servlet-name>
