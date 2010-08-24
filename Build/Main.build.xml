@@ -39,6 +39,7 @@
         <description>Begin Clean Up Actions</description>
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
+        <call target="Ant.Dev.Clean"/>
 
         <description>Begin Compile Actions</description>
         <asyncexec taskname="Simian" program="${Tools.NAnt.Exe}" failonerror="False">
@@ -57,7 +58,6 @@
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Checkstyle.xml"'/>
         </asyncexec>
 
-        <call target="Ant.Dev.Clean"/>
         <call target="Ant.CompileSource" />
 
         <description>End Compile Actions</description>
