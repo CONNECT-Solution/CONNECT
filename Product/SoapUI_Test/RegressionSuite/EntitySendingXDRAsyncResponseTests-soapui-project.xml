@@ -13628,19 +13628,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:53:12Z</con:value>
+          <con:value>2010-08-24T12:44:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T02:58:12Z</con:value>
+          <con:value>2010-08-24T14:49:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:53:12</con:value>
+          <con:value>08/24/2010 12:44:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15404,19 +15404,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:53:39Z</con:value>
+          <con:value>2010-08-24T12:46:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T02:58:39Z</con:value>
+          <con:value>2010-08-24T14:51:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:53:39</con:value>
+          <con:value>08/24/2010 12:46:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15956,23 +15956,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:53:41Z</con:value>
+          <con:value>2010-08-24T12:43:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T02:58:41Z</con:value>
+          <con:value>2010-08-24T14:48:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:53:41</con:value>
+          <con:value>08/24/2010 12:43:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Aug 11 00:58:41 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserTue Aug 24 12:48:37 UTC 2010</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16036,7 +16036,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalHCDescription</con:name>
@@ -16044,7 +16044,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRResponse</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntitySendingXDRAsyncResponseTests-soapui-project.properties')

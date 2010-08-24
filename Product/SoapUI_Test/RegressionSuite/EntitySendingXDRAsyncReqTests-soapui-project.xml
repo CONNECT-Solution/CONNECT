@@ -3580,7 +3580,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </con:definitionCache>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
+      <con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" name="ProvideAndRegisterDocumentSet-bAsyncRequest" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
@@ -15429,18 +15429,25 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityXDRAsyncRequest_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-          <con:request name="EntityXDRAsyncRequest" useWsAddressing="true">
+          <con:request name="EntityXDRAsyncRequest" useWsAddressing="false">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
-   <soapenv:Header/>
+   <soapenv:Header>
+      <To xmlns="http://www.w3.org/2005/08/addressing"  soapenv:mustUnderstand="true">http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</To>
+      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage</Action>
+      <ReplyTo xmlns="http://www.w3.org/2005/08/addressing">
+         <Address>http://www.w3.org/2005/08/addressing/anonymous</Address>
+      </ReplyTo>
+      <MessageID xmlns="http://www.w3.org/2005/08/addressing">uuid:1111111111.55555.999.22</MessageID>
+   </soapenv:Header>
    <soapenv:Body projectName="EntitySendingXDRAsyncReqTests" testCase="PolicyCheckPermit">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
-            <urn1:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
                   <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
@@ -15455,17 +15462,17 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:streetAddress>AddrStreet</urn1:streetAddress>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
-            <urn1:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn1:haveSignature>
-            <urn1:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn1:haveWitnessSignature>
-            <urn1:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:personName>
                <urn1:familyName>Smith</urn1:familyName>
                <urn1:givenName>Sandy</urn1:givenName>
                <urn1:nameType>
@@ -15479,7 +15486,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                <urn1:fullName>Sandy S. Smith</urn1:fullName>
             </urn1:personName>
-            <urn1:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:phoneNumber>
                <urn1:areaCode>321</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
                <urn1:extension>5436</urn1:extension>
@@ -15493,7 +15500,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
                   <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
@@ -15508,7 +15515,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:streetAddress>Addr2Street</urn1:streetAddress>
                <urn1:zipCode>Addr2Zip</urn1:zipCode>
             </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:secondWitnessName>
                <urn1:familyName>Smith</urn1:familyName>
                <urn1:givenName>Sammy</urn1:givenName>
                <urn1:nameType>
@@ -15522,7 +15529,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
                <urn1:fullName>Sammy S. Smith</urn1:fullName>
             </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:secondWitnessPhone>
                <urn1:areaCode>321</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
                <urn1:extension>5424</urn1:extension>
@@ -15536,9 +15543,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
-            <urn1:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
-            <urn1:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:SSN>253-98-7546</urn1:SSN>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
                <urn1:addressType>
                   <urn1:code>addrCode</urn1:code>
                   <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
@@ -15553,7 +15560,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:streetAddress>825 North</urn1:streetAddress>
                <urn1:zipCode>32184</urn1:zipCode>
             </urn1:witnessAddress>
-            <urn1:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:witnessName>
                <urn1:familyName>Smith</urn1:familyName>
                <urn1:givenName>Scott</urn1:givenName>
                <urn1:nameType>
@@ -15567,7 +15574,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
                <urn1:fullName>Scott S. Smith</urn1:fullName>
             </urn1:witnessName>
-            <urn1:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:witnessPhone>
                <urn1:areaCode>321</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
                <urn1:extension>8432</urn1:extension>
@@ -15581,7 +15588,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:witnessPhone>
-            <urn1:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:userInfo>
                <urn1:personName>
                   <urn1:familyName>Skagerberg</urn1:familyName>
                   <urn1:givenName>Karl</urn1:givenName>
@@ -15611,8 +15618,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                   <urn1:originalText>Public Health</urn1:originalText>
                </urn1:roleCoded>
             </urn1:userInfo>
-            <urn1:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn1:authorized>
-            <urn1:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
                <urn1:code>PUBLICHEALTH</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
@@ -15620,17 +15627,17 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
                <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
-            <urn1:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
                <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
-               <urn1:action>TestSaml</urn1:action>
+               <urn1:action>Execute</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
                      <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
@@ -15657,7 +15664,6 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
-
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <urn4:RegistryObjectList>
@@ -15863,7 +15869,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
             </urn2:SubmitObjectsRequest>
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
@@ -15892,7 +15898,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="TRUE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1111111111.55555.999.22"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1111111111.55555.999.22"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -17394,19 +17400,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:50:41Z</con:value>
+          <con:value>2010-08-24T12:07:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:00:41Z</con:value>
+          <con:value>2010-08-24T12:17:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:50:41</con:value>
+          <con:value>08/24/2010 12:07:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17433,7 +17439,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           <con:interface>EntityXDRAsyncRequest_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
           <con:request name="EntityXDRAsyncRequest" useWsAddressing="true">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
@@ -17631,7 +17639,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             <urn1:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn1:decision>Permit</urn1:decision>
                <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
-               <urn1:action>TestSaml</urn1:action>
+               <urn1:action>Execute</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
                      <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
@@ -17892,7 +17900,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="TRUE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:8888888888.44444.000.11"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:8888888888.44444.000.11"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -19394,19 +19402,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:50:49Z</con:value>
+          <con:value>2010-08-24T12:07:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:00:49Z</con:value>
+          <con:value>2010-08-24T12:17:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:50:49</con:value>
+          <con:value>08/24/2010 12:07:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19900,7 +19908,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="TRUE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:9999944444.55555.888,33"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:9999944444.55555.888,33"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -20170,19 +20178,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:50:50Z</con:value>
+          <con:value>2010-08-24T12:07:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:00:50Z</con:value>
+          <con:value>2010-08-24T12:17:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:50:50</con:value>
+          <con:value>08/24/2010 12:07:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -20190,7 +20198,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Aug 11 00:55:50 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserTue Aug 24 12:12:04 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -20250,7 +20258,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalHCDescription</con:name>

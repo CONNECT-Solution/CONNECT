@@ -24552,19 +24552,19 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T01:07:33Z</con:value>
+          <con:value>2010-08-24T12:47:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:17:33Z</con:value>
+          <con:value>2010-08-24T12:57:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 01:07:33</con:value>
+          <con:value>08/24/2010 12:47:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26548,19 +26548,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T01:07:39Z</con:value>
+          <con:value>2010-08-24T12:47:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:17:39Z</con:value>
+          <con:value>2010-08-24T12:57:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 01:07:39</con:value>
+          <con:value>08/24/2010 12:47:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27325,23 +27325,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Aug 11 01:12:40 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserTue Aug 24 12:53:03 UTC 2010</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T01:07:40Z</con:value>
+          <con:value>2010-08-24T12:48:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:17:40Z</con:value>
+          <con:value>2010-08-24T12:58:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 01:07:40</con:value>
+          <con:value>08/24/2010 12:48:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27587,19 +27587,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T01:07:46Z</con:value>
+          <con:value>2010-08-24T12:48:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:17:46Z</con:value>
+          <con:value>2010-08-24T12:58:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 01:07:46</con:value>
+          <con:value>08/24/2010 12:48:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29356,19 +29356,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T01:07:48Z</con:value>
+          <con:value>2010-08-24T12:48:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:17:48Z</con:value>
+          <con:value>2010-08-24T12:58:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 01:07:48</con:value>
+          <con:value>08/24/2010 12:48:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29940,23 +29940,23 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Aug 11 01:12:48 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserTue Aug 24 12:53:09 UTC 2010</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T01:07:48Z</con:value>
+          <con:value>2010-08-24T12:48:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:17:48Z</con:value>
+          <con:value>2010-08-24T12:58:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 01:07:48</con:value>
+          <con:value>08/24/2010 12:48:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-23T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -30064,7 +30064,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRResponse</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAsyncRequestInbound-Tests-soapui-project.properties')
