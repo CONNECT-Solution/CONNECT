@@ -579,23 +579,17 @@
         <url-pattern>/AdapterComponentXDRRequest_Service</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>EntityXDRRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityXDRRequest</servlet-name>
-        <url-pattern>/EntityProxyService/EntityXDRRequest</url-pattern>
-    </servlet-mapping>
+    
 
-    <servlet>
-        <servlet-name>EntityEDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityEDRResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityEDRResponse</servlet-name>
-        <url-pattern>/EntityProxyService/EntityXDRResponse</url-pattern>
-    </servlet-mapping>
+    
+
+
+    
+
+
+    
+
+
 
     <servlet>
         <servlet-name>AdapterComponentRedactionEngine</servlet-name>
