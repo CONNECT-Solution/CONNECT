@@ -3,8 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="entityxdrasyncresp" class="gov.hhs.fha.nhinc.entity.xdr.async.response.proxy.EntityXDRAsyncRespNoOpImpl"/> -->
-	
-	<!-- Web-service implementation -->
-     <bean id="entityxdrasyncresp" class="gov.hhs.fha.nhinc.entity.xdr.async.response.proxy.EntityXDRAsyncRespWebServiceProxy"/> 
+    <!-- <bean id="entityxdrasyncresp" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyNoOpImpl"/> -->
+    
+    <!-- Java implementation -->
+    <!-- <bean id="entityxdrasyncresp" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyJavaImpl"/> -->
+    
+     <!-- Unsecure Web Service implementation -->
+    <!-- <bean id="entityxdrasyncresp" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl"/> -->
+    
+     <!-- Secure Web Service implementation -->
+    <bean id="entityxdrasyncresp" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.responseproxy.EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl"/>  
 </beans>

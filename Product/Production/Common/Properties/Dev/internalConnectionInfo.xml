@@ -681,12 +681,12 @@
       <service>
         <name>entityxdrrequestsecured</name>
         <description>Entity XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRRequestSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>entityxdrrequest</name>
         <description>Entity XDR Request</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
       </service>
       <!-- XDR Response -->
       <service>
@@ -707,12 +707,12 @@
       <service>
         <name>entityxdrresponsesecured</name>
         <description>Entity XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRResponseSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>entityxdrresponse</name>
         <description>Entity XDR Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
       </service>
       <!--End: XDR Request and Response service definitions -->
       <service>
@@ -1439,15 +1439,15 @@
         <description>NHIN Proxy XDR Request</description>
         <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
       </service>
-      <service>
+     <service>
         <name>entityxdrrequestsecured</name>
         <description>Entity XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRRequestSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>entityxdrrequest</name>
         <description>Entity XDR Request</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
       </service>
       <!-- XDR Response -->
       <service>
@@ -1468,12 +1468,12 @@
       <service>
         <name>entityxdrresponsesecured</name>
         <description>Entity XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRResponseSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>entityxdrresponse</name>
         <description>Entity XDR Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
       </service>
       <!--End: XDR Request and Response service definitions -->
       <service>
@@ -2283,12 +2283,12 @@
       <service>
         <name>entityxdrrequestsecured</name>
         <description>Entity XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRRequestSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>entityxdrrequest</name>
         <description>Entity XDR Request</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
       </service>
       <!-- XDR Response -->
       <service>
@@ -2309,12 +2309,12 @@
       <service>
         <name>entityxdrresponsesecured</name>
         <description>Entity XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRResponseSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>entityxdrresponse</name>
         <description>Entity XDR Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
       </service>
       <!--End: XDR Request and Response service definitions -->
       <service>
