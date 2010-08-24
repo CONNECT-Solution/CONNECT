@@ -23,11 +23,11 @@ public class PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl impl
 
     private Log log = null;
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured";
-    private static final String SERVICE_LOCAL_PART = "NhincProxyDocRetrieveSecured";
-    private static final String PORT_LOCAL_PART = "NhincProxyDocRetrieveSecuredPortSoap";
-    private static final String WSDL_FILE = "NhincProxyDocRetrieveSecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured:RespondingGateway_CrossGatewayRetrieveRequest";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp";
+    private static final String SERVICE_LOCAL_PART = "NhincProxyPatientDiscoverySecuredAsyncResp";
+    private static final String PORT_LOCAL_PART = "NhincProxyPatientDiscoverySecuredAsyncRespPortType";
+    private static final String WSDL_FILE = "NhincProxyPatientDiscoverySecuredAsyncResp.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl()
@@ -56,7 +56,7 @@ public class PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl impl
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyPatientDiscoverySecuredAsyncRespPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.DOC_RETRIEVE_ACTION, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.PATIENT_DISCOVERY_ACTION, wsAddressingAction, assertion);
         }
         else
         {

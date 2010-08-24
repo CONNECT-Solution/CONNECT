@@ -21,11 +21,11 @@ public class PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl im
 {
     private Log log = null;
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured";
-    private static final String SERVICE_LOCAL_PART = "NhincProxyDocRetrieveSecured";
-    private static final String PORT_LOCAL_PART = "NhincProxyDocRetrieveSecuredPortSoap";
-    private static final String WSDL_FILE = "NhincProxyDocRetrieveSecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured:RespondingGateway_CrossGatewayRetrieveRequest";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp";
+    private static final String SERVICE_LOCAL_PART = "NhincProxyPatientDiscoveryAsyncResp";
+    private static final String PORT_LOCAL_PART = "NhincProxyPatientDiscoveryAsyncRespPortType";
+    private static final String WSDL_FILE = "NhincProxyPatientDiscoveryAsyncResp.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl()
@@ -105,8 +105,9 @@ public class PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl im
                 ProxyPRPAIN201306UVProxyRequestType wsRequest = new ProxyPRPAIN201306UVProxyRequestType();
                 if (request != null)
                 {
-                    wsRequest.setNhinTargetSystem(targetSystem);
                     wsRequest.setPRPAIN201306UV02(request.getPRPAIN201306UV02());
+                    wsRequest.setAssertion(assertion);
+                    wsRequest.setNhinTargetSystem(targetSystem);
                 }
                 NhincProxyPatientDiscoveryAsyncRespPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
                 response = (MCCIIN000002UV01) oProxyHelper.invokePort(port, NhincProxyPatientDiscoveryAsyncRespPortType.class, "proxyProcessPatientDiscoveryAsyncResp", wsRequest);

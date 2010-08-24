@@ -539,12 +539,12 @@
       <service>
         <name>entitypatientdiscoverysecuredasyncresp</name>
         <description>Entity Patient Discovery Secured Async Response</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncRespSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoveryasyncresp</name>
         <description>Entity Patient Discovery Async Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncResp</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>nhincproxypatientdiscovery</name>
@@ -1370,12 +1370,12 @@
       <service>
         <name>entitypatientdiscoverysecuredasyncresp</name>
         <description>Entity Patient Discovery Secured Async Response</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncRespSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoveryasyncresp</name>
         <description>Entity Patient Discovery Async Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncResp</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>nhincproxypatientdiscovery</name>
@@ -2221,12 +2221,12 @@
       <service>
         <name>entitypatientdiscoverysecuredasyncresp</name>
         <description>Entity Patient Discovery Secured Async Response</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryAsyncRespSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>entitypatientdiscoveryasyncresp</name>
         <description>Entity Patient Discovery Async Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryAsyncResp</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>nhincproxypatientdiscovery</name>

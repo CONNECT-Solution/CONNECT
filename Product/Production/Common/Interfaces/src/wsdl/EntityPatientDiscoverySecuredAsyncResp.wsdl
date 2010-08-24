@@ -71,7 +71,7 @@
     <wsp:Policy wsu:Id="Entity_PatientDiscovery_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <!-- <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/> -->
                 <sc:KeyStore wspp:visibility="private"
                      aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
                      callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>

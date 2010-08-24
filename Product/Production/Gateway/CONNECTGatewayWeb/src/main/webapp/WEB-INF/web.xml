@@ -171,13 +171,23 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityPatientDiscoverySecuredAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.async.response.EntityPatientDiscoverySecuredAsyncResp</servlet-class>
+        <servlet-name>EntityPatientDiscoveryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityPatientDiscoverySecuredAsyncResp</servlet-name>
-        <url-pattern>/EntityService/EntityPatientDiscoveryAsyncRespSecured</url-pattern>
+        <servlet-name>EntityPatientDiscoveryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryDeferredResponseSecured</servlet-name>
+        <url-pattern>/EntityService/EntityPatientDiscoveryDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+
+
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredRequestSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestSecured</servlet-class>
@@ -387,8 +397,8 @@
             <url-pattern>/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>EntityPatientDiscoverySecuredAsyncResp</web-resource-name>
-            <url-pattern>/EntityService/EntityPatientDiscoveryAsyncRespSecured</url-pattern>
+            <web-resource-name>EntityPatientDiscoveryDeferredResponseSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityPatientDiscoveryDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityPatientDiscoveryDeferredRequestSecured</web-resource-name>

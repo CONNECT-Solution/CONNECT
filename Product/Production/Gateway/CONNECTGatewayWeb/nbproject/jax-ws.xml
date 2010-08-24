@@ -1249,6 +1249,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityPatientDiscoveryDeferredResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>EntityPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
+      <service-name>EntityPatientDiscoverySecuredAsyncResp</service-name>
+      <port-name>EntityPatientDiscoverySecuredAsyncRespPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncresp</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityPatientDiscoveryDeferredResponseUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncResp.wsdl</wsdl-url>
+      <local-wsdl-file>EntityPatientDiscoveryAsyncResp.wsdl</local-wsdl-file>
+      <service-name>EntityPatientDiscoveryAsyncResp</service-name>
+      <port-name>EntityPatientDiscoveryAsyncRespPortSoap</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitypatientdiscoveryasyncresp</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

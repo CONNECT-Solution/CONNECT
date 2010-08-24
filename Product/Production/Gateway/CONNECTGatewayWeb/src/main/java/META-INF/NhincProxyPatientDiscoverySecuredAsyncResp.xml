@@ -29,8 +29,8 @@
     </wsdl:message>
     <wsdl:portType name="NhincProxyPatientDiscoverySecuredAsyncRespPortType">
         <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncResp">
-            <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest" message="tns:Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage"/>
-            <wsdl:output name="Proxy_ProcessPatientDiscoveryAsyncRespResponse" message="tns:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage"/>
+            <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest" message="tns:Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespRequest"/>
+            <wsdl:output name="Proxy_ProcessPatientDiscoveryAsyncRespResponse" message="tns:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="NhincProxyPatientDiscoverySecuredAsyncRespBinding" type="tns:NhincProxyPatientDiscoverySecuredAsyncRespPortType">
