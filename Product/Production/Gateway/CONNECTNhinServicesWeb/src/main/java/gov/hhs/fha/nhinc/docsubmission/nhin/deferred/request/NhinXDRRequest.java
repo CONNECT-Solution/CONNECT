@@ -16,7 +16,7 @@ public class NhinXDRRequest {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
+        return new NhinDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
     }
 
 }

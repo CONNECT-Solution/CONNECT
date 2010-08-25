@@ -16,7 +16,7 @@ public class NhinXDRResponse {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
-        return new NhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
+        return new NhinDocSubmissionDeferredResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
     }
 
 }
