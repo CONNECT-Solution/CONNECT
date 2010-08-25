@@ -3,12 +3,13 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.xdr.adapter.component.response;
+package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "AdapterComponentXDRResponse_Service", portName = "AdapterComponentXDRResponse_Port", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse", wsdlLocation = "WEB-INF/wsdl/AdapterComponentXDRResponse/AdapterComponentXDRResponse.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled=true)
 public class AdapterComponentXDRResponse {
     @Resource
     private WebServiceContext context;

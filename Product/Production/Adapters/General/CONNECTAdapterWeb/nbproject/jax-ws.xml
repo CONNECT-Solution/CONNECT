@@ -1010,7 +1010,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterComponentXDRRequest">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequest</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentXDRRequest</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDRRequest_Service</service-name>
@@ -1034,7 +1034,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterComponentXDRResponse">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.AdapterComponentXDRResponse</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDRResponse.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDRResponse_Service</service-name>

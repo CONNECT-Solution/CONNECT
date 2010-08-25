@@ -1323,7 +1323,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1386,7 +1386,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(2).of(mockLog).debug(with(any(String.class)));
+                    exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(IllegalArgumentException.class)));
                 }
             });
@@ -1515,7 +1515,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(3).of(mockLog).debug(with(any(String.class)));
+                    exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
@@ -1572,7 +1572,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(4).of(mockLog).debug(with(any(String.class)));
+                    exactly(7).of(mockLog).debug(with(any(String.class)));
                     exactly(2).of(mockLog).warn(with(any(String.class)));
                     exactly(2).of(mockLog).info(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
@@ -1642,7 +1642,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(2).of(mockLog).debug(with(any(String.class)));
+                    exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
@@ -1710,7 +1710,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(2).of(mockLog).debug(with(any(String.class)));
+                    exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
@@ -1778,7 +1778,7 @@ public class WebServiceProxyHelperTest
 
 
                 {
-                    exactly(2).of(mockLog).debug(with(any(String.class)));
+                    exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });

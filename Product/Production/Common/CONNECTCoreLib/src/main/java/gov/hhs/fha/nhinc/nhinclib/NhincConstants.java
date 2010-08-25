@@ -66,7 +66,9 @@ public class NhincConstants {
     public static final String ADMIN_DIST_ACTION = "administrativedistribution";
     public static final String ADAPTER_XDR_ACTION = "adapterXDRSecured";
     public static final String ADAPTER_XDRREQUEST_SECURED_ACTION = "adapterXDRRequestSecured";
+    public static final String ADAPTER_XDRREQUEST_ACTION = "adapterXDRRequest";
     public static final String ADAPTER_XDRRESPONSE_SECURED_ACTION = "adapterXDRResponseSecured";
+    public static final String ADAPTER_XDRRESPONSE_ACTION = "adapterXDRResponse";
     public static final String ENTITY_XDR_SECURED_RESPONSE_ACTION = "entityXDRSecuredResponse";
     public static final String AUDIT_REPO_ACTION = "auditrepository";
     public static final String POLICY_ENGINE_ACTION = "policyengine";

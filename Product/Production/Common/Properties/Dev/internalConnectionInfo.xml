@@ -651,12 +651,12 @@
       <service>
         <name>adaptercomponentxdrrequest</name>
         <description>Adapter Component XDR Request</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
       </service>
       <service>
         <name>adaptercomponentxdrresponse</name>
         <description>Adapter Component XDR Response</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
       </service>
       <service>
         <name>adapterxdrsecuredasyncreqerror</name>
@@ -1412,12 +1412,12 @@
       <service>
         <name>adaptercomponentxdrrequest</name>
         <description>Adapter Component XDR Request</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
       </service>
       <service>
         <name>adaptercomponentxdrresponse</name>
         <description>Adapter Component XDR Response</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
       </service>
       <service>
         <name>adapterxdrsecuredasyncreqerror</name>
@@ -2253,12 +2253,12 @@
       <service>
         <name>adaptercomponentxdrrequest</name>
         <description>Adapter Component XDR Request</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
       </service>
       <service>
         <name>adaptercomponentxdrresponse</name>
         <description>Adapter Component XDR Response</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
       </service>
       <service>
         <name>adapterxdrsecuredasyncreqerror</name>

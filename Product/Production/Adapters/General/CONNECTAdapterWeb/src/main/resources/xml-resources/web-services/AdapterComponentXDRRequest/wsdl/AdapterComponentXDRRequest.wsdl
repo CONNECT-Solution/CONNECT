@@ -18,13 +18,12 @@
 	</message>
 	<portType name="AdapterComponentXDRRequest_PortType">
 		<operation name="ProvideAndRegisterDocumentSet-bRequest">
-			<input message="tns:XDRRequestInputMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterxdrrequest:XDRRequestInputMessage"/>
-			<output message="tns:XDRRequestAcknowledgementMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterxdrrequest:XDRRequestAcknowledgementMessage"/>
+			<input message="tns:XDRRequestInputMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrrequest:XDRRequestInputMessage"/>
+			<output message="tns:XDRRequestAcknowledgementMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrrequest:XDRRequestAcknowledgementMessage"/>
 		</operation>
 	</portType>
 	<binding name="AdapterComponentXDRRequest_Binding" type="tns:AdapterComponentXDRRequest_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsaws:UsingAddressing/>
 		<operation name="ProvideAndRegisterDocumentSet-bRequest">
 			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
 			<input>
@@ -36,7 +35,7 @@
 		</operation>
 	</binding>
 	<service name="AdapterComponentXDRRequest_Service">
-		<port name="AdapterXDRRequest_Port" binding="tns:AdapterComponentXDRRequest_Binding">
+		<port name="AdapterComponentXDRRequest_Port" binding="tns:AdapterComponentXDRRequest_Binding">
 			<soap:address location="https://localhost:${HttpsDefaultPort}/AdapterComponentXDRRequest"/>
 		</port>
 	</service>

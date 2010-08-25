@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- No Op implementation -->
+  <!-- <bean id="adaptercomponentdocsubmissionresponse" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyNoOpImpl"/> -->
+	
+	<!-- Java implementation -->
+  <!-- <bean id="adaptercomponentdocsubmissionresponse" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyJavaImpl"/> -->
+
+      
+  <!-- Web- Unsecured Service implementation -->
+  <bean id="adaptercomponentdocsubmissionresponse" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl"/>
+</beans>

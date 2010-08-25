@@ -18,12 +18,11 @@
 	</message>
 	<portType name="AdapterComponentXDRResponse_PortType">
 		<operation name="ProvideAndRegisterDocumentSet-bResponse">
-			<input message="tns:XDRResponseInputMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterxdrresponse:XDRResponseInputMessage"/>
-			<output message="tns:XDRResponseAcknowledgementMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterxdrresponse:XDRResponseAcknowledgementMessage"/>
+			<input message="tns:XDRResponseInputMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse:XDRResponseInputMessage"/>
+			<output message="tns:XDRResponseAcknowledgementMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse:XDRResponseAcknowledgementMessage"/>
 		</operation>
 	</portType>
 	<binding name="AdapterComponentXDRResponse_Binding" type="tns:AdapterComponentXDRResponse_PortType">
-		<wsaws:UsingAddressing/>
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ProvideAndRegisterDocumentSet-bResponse">
 			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>

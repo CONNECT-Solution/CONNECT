@@ -593,6 +593,28 @@ public class WebServiceProxyHelper {
     }
 
     /**
+     * Return the list of parameters.
+     *
+     * @param parameterTypes The parameter class list
+     * @return An array listing the parameters.
+     */
+    private String listParameters(Class[] parameterTypes)
+    {
+        StringBuffer sbParams = new StringBuffer();
+
+        for (Class oClass : parameterTypes)
+        {
+            if (sbParams.length() > 0)
+            {
+                sbParams.append(", ");
+            }
+            sbParams.append(oClass.getCanonicalName());
+        }
+
+        return sbParams.toString();
+    }
+
+    /**
      * Method to invoke an operation on a port using reflection.
      *
      * Information found at: http://download.oracle.com/docs/cd/E17409_01/javase/tutorial/reflect/member/methodInvocation.html
@@ -606,6 +628,12 @@ public class WebServiceProxyHelper {
     public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
             throws Exception {
         log.debug("Begin invokePort");
+
+        if (portObject == null)
+        {
+            log.error("portObject was null");
+        }
+        
         Object oResponse = null;
         int iRetryCount = getRetryAttempts();
         int iRetryDelay = getRetryDelay();
@@ -622,6 +650,7 @@ public class WebServiceProxyHelper {
                 while (i <= iRetryCount) {
                     try {
                         log.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName() + ": Try #" + i);
+                        log.debug("with parameters:" + listParameters(oMethod.getParameterTypes()));
                         oResponse = invokeTheMethod(oMethod, portObject, operationInput);
                         break;
                     } catch (javax.xml.ws.WebServiceException e) {

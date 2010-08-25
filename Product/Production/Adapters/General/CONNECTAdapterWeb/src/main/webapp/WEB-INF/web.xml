@@ -532,7 +532,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdapterComponentXDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.adapter.component.response.AdapterComponentXDRResponse</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.AdapterComponentXDRResponse</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterComponentXDRResponse</servlet-name>
@@ -548,7 +548,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdapterComponentXDRRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.adapter.component.request.AdapterComponentXDRRequest</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentXDRRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterComponentXDRRequest</servlet-name>
