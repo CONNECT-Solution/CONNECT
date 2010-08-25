@@ -3810,9 +3810,9 @@
               linecount="0"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl"
-              linecount="6"
+              linecount="13"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
