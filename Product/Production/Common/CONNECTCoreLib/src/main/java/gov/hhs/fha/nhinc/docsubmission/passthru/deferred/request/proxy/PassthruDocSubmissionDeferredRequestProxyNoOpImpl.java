@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.xdr.async.request.proxy;
+package gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -11,13 +11,13 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  *
  * @author Neil Webb
  */
-public class NhinXDRRequestNoOpImpl implements NhinXDRRequestProxy
+public class PassthruDocSubmissionDeferredRequestProxyNoOpImpl implements PassthruDocSubmissionDeferredRequestProxy
 {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhinXDRRequestNoOpImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem)
     {
-        log.debug("In provideAndRegisterDocumentSetB for NhinXDRRequestNoOpImpl.");
+        log.debug("Using NoOp Implementation for Passthru Doc Submission Deferred Request Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);

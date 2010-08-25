@@ -14,6 +14,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.lift.file.manager.LiFTFileManager;
 import gov.hhs.fha.nhinc.lift.payload.builder.LiFTPayloadBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -21,8 +23,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
-import gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestObjectFactory;
-import gov.hhs.fha.nhinc.xdr.async.request.proxy.NhinXDRRequestProxy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.ArrayList;
@@ -136,8 +136,8 @@ public class EntityDocSubmissionDeferredRequestOrchImpl {
 
         auditLogger.auditXDR(provideAndRegisterRequestRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-        NhinXDRRequestObjectFactory factory = new NhinXDRRequestObjectFactory();
-        NhinXDRRequestProxy proxy = factory.getNhinXDRRequestProxy();
+        PassthruDocSubmissionDeferredRequestProxyObjectFactory factory = new PassthruDocSubmissionDeferredRequestProxyObjectFactory();
+        PassthruDocSubmissionDeferredRequestProxy proxy = factory.getPassthruDocSubmissionDeferredRequestProxy();
 
         log.debug("Calling NHIN proxy");
         XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
