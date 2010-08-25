@@ -19,7 +19,7 @@ public class EntityDocSubmissionDeferredRequestProxyObjectFactory extends Compon
         return CONFIG_FILE_NAME;
     }
 
-    public EntityDocSubmissionDeferredRequestProxy getEntityXDRDeferredReqProxy() {
+    public EntityDocSubmissionDeferredRequestProxy getEntityDocSubmissionDeferredReqProxy() {
         return getBean(BEAN_NAME, EntityDocSubmissionDeferredRequestProxy.class);
     }
 }
