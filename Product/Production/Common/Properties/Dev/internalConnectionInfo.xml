@@ -147,12 +147,12 @@
       <service>
         <name>nhincproxyxdrrequestsecured</name>
         <description>NHIN Proxy XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrresponsesecured</name>
         <description>NHIN Proxy XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
 
       <!-- Begin Doc Retrieve deferred service end points -->
@@ -702,7 +702,7 @@
       <service>
         <name>nhincproxyxdrresponse</name>
         <description>NHIN Proxy XDR Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>entityxdrresponsesecured</name>
@@ -970,15 +970,15 @@
         <description>NHINC PROXY XDR</description>
         <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/ProxyXDRSecured_Service</endpointURL>
       </service>
-      <service>
+       <service>
         <name>nhincproxyxdrrequestsecured</name>
         <description>NHIN Proxy XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrresponsesecured</name>
         <description>NHIN Proxy XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>nhincproxyauditquerysecured</name>
@@ -1463,7 +1463,7 @@
       <service>
         <name>nhincproxyxdrresponse</name>
         <description>NHIN Proxy XDR Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>entityxdrresponsesecured</name>
@@ -1831,15 +1831,15 @@
         <description>NHINC PROXY XDR</description>
         <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/ProxyXDRSecured_Service</endpointURL>
       </service>
-      <service>
+       <service>
         <name>nhincproxyxdrrequestsecured</name>
         <description>NHIN Proxy XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrresponsesecured</name>
         <description>NHIN Proxy XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>nhincproxyauditquerysecured</name>
@@ -2304,7 +2304,7 @@
       <service>
         <name>nhincproxyxdrresponse</name>
         <description>NHIN Proxy XDR Response</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
       </service>
       <service>
         <name>entityxdrresponsesecured</name>

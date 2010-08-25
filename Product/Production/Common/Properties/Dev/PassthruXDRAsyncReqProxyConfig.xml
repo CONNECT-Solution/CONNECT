@@ -3,8 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="passthruxdrasyncreq" class="gov.hhs.fha.nhinc.passthru.xdr.async.request.proxy.PassthruXDRAsyncReqNoOpImpl"/> -->
+    <!-- <bean id="passthruxdrasyncreq" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyNoOpImpl"/> -->
+    
+    <!-- Java Web-service implementation -->
+     <bean id="passthruxdrasyncreq" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyJavaImpl"/> 
 	
-	<!-- Web-service implementation -->
-     <bean id="passthruxdrasyncreq" class="gov.hhs.fha.nhinc.passthru.xdr.async.request.proxy.PassthruXDRAsyncReqWebServiceProxy"/> 
+	<!-- Unsecure Web-service implementation -->
+  <!--   <bean id="passthruxdrasyncreq" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl"/> -->
+     
+	<!-- Secure Web-service implementation -->
+   <!--  <bean id="passthruxdrasyncreq" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyWebServiceSecuredImpl"/> -->
 </beans>
