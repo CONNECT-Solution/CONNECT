@@ -73,8 +73,32 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhincProxyPatientDiscoverySecuredAsyncReq">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReq</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
+      <service-name>NhincProxyPatientDiscoverySecuredAsyncReq</service-name>
+      <port-name>NhincProxyPatientDiscoverySecuredAsyncReqPortType</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncreq</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
     <service name="NhincProxyPatientDiscoverySecuredAsyncResp">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.response.NhincProxyPatientDiscoverySecuredAsyncResp</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoverySecuredAsyncResp</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
       <service-name>NhincProxyPatientDiscoverySecuredAsyncResp</service-name>
@@ -128,54 +152,6 @@
       <service-name>ProxyXDRSecured_Service</service-name>
       <port-name>ProxyXDRSecured_Port</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="NhincProxyXDRRequestSecured">
-      <implementation-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.NhincProxyXDRRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredRequest.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyXDRSecuredRequest.wsdl</local-wsdl-file>
-      <service-name>ProxyXDRSecuredAsyncRequest_Service</service-name>
-      <port-name>ProxyXDRSecuredAsyncRequest_Port</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.request</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="NhincProxyXDRResponseSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredResponse.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyXDRSecuredResponse.wsdl</local-wsdl-file>
-      <service-name>ProxyXDRSecuredAsyncResponse_Service</service-name>
-      <port-name>ProxyXDRSecuredAsyncResponse_Port</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -433,13 +409,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-	<service name="NhincProxyPatientDiscoveryDeferredRequestSecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
-      <service-name>NhincProxyPatientDiscoverySecuredAsyncReq</service-name>
-      <port-name>NhincProxyPatientDiscoverySecuredAsyncReqPortType</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncreq</package-name>
+    <service name="PassthruDocSubmissionDeferredRequestSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyXDRSecuredRequest.wsdl</local-wsdl-file>
+      <service-name>ProxyXDRSecuredAsyncRequest_Service</service-name>
+      <port-name>ProxyXDRSecuredAsyncRequest_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.request</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -457,13 +433,37 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="NhincProxyPatientDiscoveryDeferredRequestUnsecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestUnsecured</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyPatientDiscoveryAsyncReq.wsdl</local-wsdl-file>
-      <service-name>NhincProxyPatientDiscoveryAsyncReq</service-name>
-      <port-name>NhincProxyPatientDiscoveryAsyncReqPortType</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncreq</package-name>
+    <service name="PassthruDocSubmissionDeferredResponseUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyXDRResponse.wsdl</local-wsdl-file>
+      <service-name>ProxyXDRAsyncResponse_Service</service-name>
+      <port-name>ProxyXDRAsyncResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxyxdr.async.response</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="PassthruDocSubmissionDeferredResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyXDRSecuredResponse.wsdl</local-wsdl-file>
+      <service-name>ProxyXDRSecuredAsyncResponse_Service</service-name>
+      <port-name>ProxyXDRSecuredAsyncResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.response</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

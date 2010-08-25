@@ -24,11 +24,7 @@ public class PassthruDocSubmissionDeferredRequestUnsecured {
     private WebServiceContext context;
 
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        request.setNhinTargetSystem(provideAndRegisterAsyncReqRequest.getNhinTargetSystem());
-        request.setProvideAndRegisterDocumentSetRequest(provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest());
-
-        return new NhincProxyXDRRequestSecuredImpl().provideAndRegisterDocumentSetBRequest(request, provideAndRegisterAsyncReqRequest.getAssertion());
+        return new PassthruDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, context);
     }
 
 }

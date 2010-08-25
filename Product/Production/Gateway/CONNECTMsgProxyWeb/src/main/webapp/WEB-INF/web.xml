@@ -148,21 +148,14 @@
         <servlet-name>NhincSubjectDiscoverySecured</servlet-name>
         <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
-        <servlet-name>NhincProxyXDRSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</servlet-class>
+        <servlet-name>PassthruDocSubmissionDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhincProxyXDRSecured</servlet-name>
-        <url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyXDRRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.NhincProxyXDRRequestSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyXDRRequestSecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyXDRRequestSecured</url-pattern>
+        <servlet-name>PassthruDocSubmissionDeferredRequestSecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestSecured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured</servlet-name>
@@ -172,14 +165,24 @@
         <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured</servlet-name>
         <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
-        <servlet-name>NhincProxyXDRResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecured</servlet-class>
+        <servlet-name>PassthruDocSubmissionDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhincProxyXDRResponseSecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyXDRResponseSecured</url-pattern>
+        <servlet-name>PassthruDocSubmissionDeferredResponseSecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseSecured</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>PassthruDocSubmissionDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PassthruDocSubmissionDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>NhincAuditQueryProxy</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</servlet-class>
@@ -222,7 +225,7 @@
         <servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
     </servlet-mapping>
-        
+
 	<!-- End Nhinc proxy Document retrieve deferred services-->
 
     <servlet>
@@ -289,12 +292,12 @@
             <url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>NhincProxyXDRRequestSecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyXDRRequestSecured</url-pattern>
+            <web-resource-name>PassthruDocSubmissionDeferredRequestSecured</web-resource-name>
+            <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>NhincProxyXDRResponseSecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyXDRResponseSecured</url-pattern>
+            <web-resource-name>PassthruDocSubmissionDeferredResponseSecured</web-resource-name>
+            <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>NhincAuditQueryProxy</web-resource-name>
@@ -330,4 +333,5 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-</web-app>
+
+    </web-app>
