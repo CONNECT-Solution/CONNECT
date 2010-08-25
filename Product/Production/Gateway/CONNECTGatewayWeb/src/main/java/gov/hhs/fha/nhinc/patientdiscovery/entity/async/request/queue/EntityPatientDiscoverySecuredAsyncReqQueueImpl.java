@@ -91,12 +91,8 @@ public class EntityPatientDiscoverySecuredAsyncReqQueueImpl {
 
             PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
             PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRespProxy();
-            ProxyPRPAIN201306UVProxyRequestType msg = new ProxyPRPAIN201306UVProxyRequestType();
-            msg.setAssertion(assertion);
-            msg.setNhinTargetSystem(targetSystem);
-            msg.setPRPAIN201306UV02(respMsg);
 
-            resp = proxy.proxyProcessPatientDiscoveryAsyncResp(msg, assertion, targetSystem);
+            resp = proxy.proxyProcessPatientDiscoveryAsyncResp(respMsg, assertion, targetSystem);
 
         }
 
