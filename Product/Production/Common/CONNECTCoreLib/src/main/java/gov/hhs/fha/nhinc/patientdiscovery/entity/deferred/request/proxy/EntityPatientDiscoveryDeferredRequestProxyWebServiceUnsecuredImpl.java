@@ -83,7 +83,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl i
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(target);
                 request.setPRPAIN201305UV02(message);
-                String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME);
+                String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_SERVICE_NAME);
                 EntityPatientDiscoveryAsyncReqPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
                 if (port != null)
