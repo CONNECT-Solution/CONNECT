@@ -2,9 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	 
 	<!-- Default facade implementation -->
-    <!-- <bean id="passthrupatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqNoOpImpl"/> -->
+    <!-- <bean id="passthrupatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyNoOpImpl"/> -->
 	
-	<!-- Web-service implementation -->
-     <bean id="passthrupatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.passthru.patientdiscovery.async.request.proxy.PassthruPatientDiscoveryAsyncReqWebServiceProxy"/> 
+	<!-- Default java implementation -->
+    <!--<bean id="passthrupatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyJavaImpl"/> -->
+    
+	<!-- Web-service Secured implementation -->
+     <bean id="passthrupatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl"/> 
+  
+    <!-- Web-service Unsecured implementation -->
+    <!--  <bean id="passthrupatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl"/>-->
 </beans>

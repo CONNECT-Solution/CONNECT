@@ -4,11 +4,13 @@ import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 
 @WebService(serviceName = "EntityPatientDiscoverySecuredAsyncReq", portName = "EntityPatientDiscoverySecuredAsyncReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncreq.EntityPatientDiscoverySecuredAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredRequestSecured/EntityPatientDiscoverySecuredAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled=true)
 public class EntityPatientDiscoveryDeferredRequestSecured
 {
 

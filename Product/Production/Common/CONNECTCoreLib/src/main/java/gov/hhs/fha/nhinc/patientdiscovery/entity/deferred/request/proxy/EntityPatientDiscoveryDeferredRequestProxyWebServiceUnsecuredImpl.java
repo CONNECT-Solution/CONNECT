@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -9,6 +10,7 @@ import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryDeferredRequestProxy {
@@ -70,16 +72,17 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl i
         return cachedService;
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request)
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType target)
     {
         log.debug("Begin processPatientDiscoveryAsyncReq");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
         try
         {
-            if (request != null)
-            {
-                AssertionType assertion = request.getAssertion();
+                RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+                request.setAssertion(assertion);
+                request.setNhinTargetCommunities(target);
+                request.setPRPAIN201305UV02(message);
                 String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME);
                 EntityPatientDiscoveryAsyncReqPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
@@ -90,10 +93,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl i
                 {
                     log.error("EntityPatientDiscoverySecuredAsyncReqPortType is null");
                 }
-            } else
-            {
-                log.error("RespondingGatewayPRPAIN201305UV02RequestType is null");
-            }
+
         } catch (Exception ex)
         {
             log.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);

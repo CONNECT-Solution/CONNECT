@@ -115,16 +115,14 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
         };
 
-        RespondingGatewayPRPAIN201305UV02SecuredRequestType request = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
         AssertionType assertion = new AssertionType();
-        request.setNhinTargetCommunities(new NhinTargetCommunitiesType());
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-        request.setPRPAIN201305UV02(msg);
 
-        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(request, assertion);
+        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(msg, assertion, targets);
 
         assertNotNull(result);
         TestHelper.assertAckMsgEquals("Success", result);
@@ -190,16 +188,14 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
         };
 
-        RespondingGatewayPRPAIN201305UV02SecuredRequestType request = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
         AssertionType assertion = new AssertionType();
-        request.setNhinTargetCommunities(new NhinTargetCommunitiesType());
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-        request.setPRPAIN201305UV02(msg);
 
-        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(request, assertion);
+        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(msg, assertion, targets);
 
         assertNotNull(result);
         TestHelper.assertAckMsgEquals("No Targets Found", result);
@@ -272,16 +268,14 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
         };
 
-        RespondingGatewayPRPAIN201305UV02SecuredRequestType request = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
         AssertionType assertion = new AssertionType();
-        request.setNhinTargetCommunities(new NhinTargetCommunitiesType());
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-        request.setPRPAIN201305UV02(msg);
 
-        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(request, assertion);
+        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(msg, assertion, targets);
 
         assertNotNull(result);
         TestHelper.assertAckMsgEquals("Policy Failed", result);

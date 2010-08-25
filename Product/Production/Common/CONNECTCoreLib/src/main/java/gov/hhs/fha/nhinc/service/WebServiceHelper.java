@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.service;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import java.lang.reflect.InvocationTargetException;
@@ -83,11 +84,33 @@ public class WebServiceHelper
      * @param webOrchObject The instance of the object.
      * @param operationInput The input parameter for the method.
      * @param assertion The assertion object as extracted from the web context
+     * @param targets The NHIN target communities
      * @return The return value of the method.
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod(Method oMethod, Object webOrchObject, Object operationInput, Object assertion)
+    protected Object invokeTheMethod(Method oMethod, Object webOrchObject,
+            Object operationInput, AssertionType assertion, Object targets)
+            throws IllegalAccessException, InvocationTargetException
+    {
+        return oMethod.invoke(webOrchObject, operationInput, assertion, targets);
+    }
+
+    /**
+     * This method is used to invoke a method using reflection.  This method's
+     * primary purpose is to allow us to override this for unit testing purposes
+     * and simualate an execption to test that code.
+     *
+     * @param oMethod The reflection method object.
+     * @param webOrchObject The instance of the object.
+     * @param operationInput The input parameter for the method.
+     * @param assertion The assertion object as extracted from the web context
+     * @return The return value of the method.
+     * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
+     * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
+     */
+    protected Object invokeTheMethod(Method oMethod, Object webOrchObject,
+            Object operationInput, AssertionType assertion)
             throws IllegalAccessException, InvocationTargetException
     {
         return oMethod.invoke(webOrchObject, operationInput, assertion);
@@ -125,7 +148,9 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass, String methodName, Object operationInput, WebServiceContext context) throws Exception
+    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass, 
+            String methodName, Object operationInput, Object targets,
+            WebServiceContext context) throws Exception
     {
 
         Object oResponse = null;
@@ -148,14 +173,15 @@ public class WebServiceHelper
             populateAssertionWithRelatesToList(assertion, contextRelatesTo);
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput + " and assertion " + assertion);
-            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
+            log.debug("Invoke " + webOrchClass + "." + methodName + " with " +
+                    operationInput + " assertion " + assertion + " and " + targets);
+            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion, targets);
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
                     "This assumes that the method should have exactly one request " +
-                    "argument and the assertion object. " +
+                    "argument the assertion object and nhin targets. " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
@@ -193,7 +219,9 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass, String methodName, AssertionType assertion, Object operationInput, WebServiceContext context) throws Exception
+    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass, 
+            String methodName, Object operationInput, AssertionType assertion,
+            Object targets, WebServiceContext context) throws Exception
     {
 
         Object oResponse = null;
@@ -213,8 +241,9 @@ public class WebServiceHelper
             populateAssertionWithRelatesToList(assertion, contextRelatesTo);
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput + " and assertion " + assertion);
-            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
+            log.debug("Invoke " + webOrchClass + "." + methodName + " with " +
+                    operationInput + " assertion " + assertion + " and " + targets);
+            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion, targets);
 
         } catch (IllegalArgumentException e)
         {
@@ -257,7 +286,9 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureDeferredResponseWebService(Object webOrchObject, Class webOrchClass, String methodName, Object operationInput, WebServiceContext context) throws Exception
+    public Object invokeSecureDeferredResponseWebService(Object webOrchObject, 
+            Class webOrchClass, String methodName, Object operationInput,
+            WebServiceContext context) throws Exception
     {
 
         Object oResponse = null;
@@ -281,7 +312,8 @@ public class WebServiceHelper
             }
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput + " and assertion " + assertion);
+            log.debug("Invoke " + webOrchClass + "." + methodName + " with " +
+                    operationInput + " and assertion " + assertion);
             oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
 
         } catch (IllegalArgumentException e)
@@ -325,7 +357,9 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeDeferredResponseWebService(Object webOrchObject, Class webOrchClass, String methodName, AssertionType assertion, Object operationInput, WebServiceContext context) throws Exception
+    public Object invokeDeferredResponseWebService(Object webOrchObject, 
+            Class webOrchClass, String methodName, AssertionType assertion,
+            Object operationInput, WebServiceContext context) throws Exception
     {
 
         Object oResponse = null;

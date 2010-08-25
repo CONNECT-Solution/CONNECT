@@ -9,7 +9,6 @@
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     <import location="EntityAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
     <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
-
     <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
     <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>
     <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
@@ -29,7 +28,6 @@
     <import location="EntityXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response"/>
     <import location="EntityPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreqqueue"/>
     <import location="EntityPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp"/>
-    <import location="NhincProxyPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq"/>
     <import location="NhincProxyPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp"/>
 </definitions>
 

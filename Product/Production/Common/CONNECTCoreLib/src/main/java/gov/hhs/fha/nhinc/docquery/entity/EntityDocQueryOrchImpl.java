@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifiersType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
@@ -47,7 +48,8 @@ public class EntityDocQueryOrchImpl
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType request, AssertionType assertion)
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targets)
     {
         log.debug("Entering EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
 
@@ -56,14 +58,17 @@ public class EntityDocQueryOrchImpl
         boolean isTargeted = false;
 
         DocQueryAuditLog auditLog = createAuditLog();
+        RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
+        request.setAdhocQueryRequest(adhocQueryRequest);
+        request.setNhinTargetCommunities(targets);
         auditDocQueryRequest(request, assertion, auditLog);
 
         try
         {
             DocQueryAggregator aggregator = createDocQueryAggregator();
 
-            if (request.getNhinTargetCommunities() != null &&
-                    NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity()))
+            if (targets != null &&
+                    NullChecker.isNotNullish(targets.getNhinTargetCommunity()))
             {
                 isTargeted = true;
             }
@@ -71,7 +76,7 @@ public class EntityDocQueryOrchImpl
             // Obtain all the URLs for the targets being sent to
             try
             {
-                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
             } catch (ConnectionManagerException ex)
             {
                 log.error("Failed to obtain target URLs");
@@ -79,11 +84,11 @@ public class EntityDocQueryOrchImpl
             }
 
             // Validate that the message is not null
-            if (request.getAdhocQueryRequest() != null &&
-                    request.getAdhocQueryRequest().getAdhocQuery() != null &&
-                    NullChecker.isNotNullish(request.getAdhocQueryRequest().getAdhocQuery().getSlot()))
+            if (adhocQueryRequest != null &&
+                    adhocQueryRequest.getAdhocQuery() != null &&
+                    NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot()))
             {
-                List<SlotType1> slotList = request.getAdhocQueryRequest().getAdhocQuery().getSlot();
+                List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
 
                 List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
@@ -102,7 +107,7 @@ public class EntityDocQueryOrchImpl
 
                     String transactionId = startTransaction(aggregator, subjectIds);
 
-                    sendQueryMessages(transactionId, correlationsResult, request.getAdhocQueryRequest(), assertion);
+                    sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion);
 
                     response = retrieveDocQueryResults(aggregator, transactionId);
                 } else

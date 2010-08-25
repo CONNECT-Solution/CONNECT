@@ -1,11 +1,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 
@@ -40,7 +42,9 @@ class EntityPatientDiscoveryDeferredRequestImpl
         {
             if (request != null)
             {
-                response = (MCCIIN000002UV01) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(), "processPatientDiscoveryAsyncReq", request, context);
+                PRPAIN201305UV02 msg = request.getPRPAIN201305UV02();
+                NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
+                response = (MCCIIN000002UV01) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(), "processPatientDiscoveryAsyncReq", msg, targets, context);
             } else
             {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass() + ".processPatientDiscoveryAsyncReq).  The input parameter is null.");
@@ -64,11 +68,10 @@ class EntityPatientDiscoveryDeferredRequestImpl
         {
             if (request != null)
             {
-                RespondingGatewayPRPAIN201305UV02SecuredRequestType secureRequest = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
-                secureRequest.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
-                secureRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
+                PRPAIN201305UV02 msg = request.getPRPAIN201305UV02();
+                NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
-                response = (MCCIIN000002UV01) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(), "processPatientDiscoveryAsyncReq", assertIn, secureRequest, context);
+                response = (MCCIIN000002UV01) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(), "processPatientDiscoveryAsyncReq", msg, assertIn, targets, context);
             } else
             {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass() + ".processPatientDiscoveryAsyncReq).  The input parameter is null.");

@@ -985,30 +985,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="NhincProxyPatientDiscoveryAsyncReq">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoveryAsyncReq</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyPatientDiscoveryAsyncReq.wsdl</local-wsdl-file>
-      <service-name>NhincProxyPatientDiscoveryAsyncReq</service-name>
-      <port-name>NhincProxyPatientDiscoveryAsyncReqPortType</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncreq</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="AdapterXDRSecuredRequestError">
       <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecuredError.wsdl</wsdl-url>

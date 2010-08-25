@@ -106,7 +106,7 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxysubjectdiscoverysecured</name>
@@ -414,7 +414,7 @@
             <service>
                 <name>nhincproxypatientdiscoveryasyncreq</name>
                 <description>NHINC Proxy Patient Discovery Async Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumer</name>
@@ -666,7 +666,7 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxysubjectdiscoverysecured</name>
@@ -994,7 +994,7 @@
             <service>
                 <name>nhincproxypatientdiscoveryasyncreq</name>
                 <description>NHINC Proxy Patient Discovery Async Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
             </service>
 			<service>
 				<name>adapternotificationconsumer</name>
@@ -1226,7 +1226,7 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxysubjectdiscoverysecured</name>
@@ -1544,7 +1544,7 @@
 			<service>
                 <name>nhincproxypatientdiscoveryasyncreq</name>
                 <description>NHINC Proxy Patient Discovery Async Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
             </service>
            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->

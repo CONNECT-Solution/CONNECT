@@ -127,7 +127,7 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncresp</name>
@@ -549,7 +549,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Async Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
@@ -935,12 +935,12 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncresp</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Response</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxysubjectdiscoverysecured</name>
@@ -1357,7 +1357,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Async Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
@@ -1746,7 +1746,7 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncresp</name>
@@ -2183,7 +2183,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Async Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>
@@ -2601,7 +2601,7 @@
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Secured Async Request</description>
-				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncReqSecured</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoverysecuredasyncresp</name>
@@ -3028,7 +3028,7 @@
 			<service>
 				<name>nhincproxypatientdiscoveryasyncreq</name>
 				<description>NHINC Proxy Patient Discovery Async Request</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncReq</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxypatientdiscoveryasyncresp</name>

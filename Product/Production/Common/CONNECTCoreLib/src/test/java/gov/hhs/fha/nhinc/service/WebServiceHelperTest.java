@@ -72,15 +72,27 @@ public class WebServiceHelperTest
     /**
      * This method is used to test out some of the dynamic invocaton methods.
      *
-     * @param x an integer.
-     * @param y an integer.
+     * @param operationInput The input parameter for the method.
+     * @param assertion The assertion object as extracted from the web context
+     * @param targets The NHIN target communities
      * @param a result.
      */
-    public Integer helperMethod2(Integer x, AssertionType y)
+    public Integer helperMethod2(Integer operationInput, AssertionType assertion, Integer targets)
     {
-        return x;
+        return operationInput * targets;
     }
 
+    /**
+     * This method is used to test out some of the dynamic invocaton methods.
+     *
+     * @param operationInput The input parameter for the method.
+     * @param assertion The assertion object as extracted from the web context
+     * @param a result.
+     */
+    public Integer helperMethod3(Integer operationInput, AssertionType assertion)
+    {
+        return operationInput;
+    }
     /**
      * Test the create logger method.
      */
@@ -255,10 +267,10 @@ public class WebServiceHelperTest
                 {
                 }
             };
-            Integer oResponse = (Integer) oHelper.invokeSecureWebService(this, this.getClass(), "helperMethod2", new Integer(100), mockWebServiceContext);
+            Integer oResponse = (Integer) oHelper.invokeSecureWebService(this, this.getClass(), "helperMethod2", new Integer(10), new Integer(20), mockWebServiceContext);
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
-            assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+            assertEquals("Incorrect value returned.", 200, oResponse.intValue());
 
         } catch (Exception ex)
         {
@@ -327,10 +339,10 @@ public class WebServiceHelperTest
                 {
                 }
             };
-            Integer oResponse = (Integer) oHelper.invokeUnsecureWebService(this, this.getClass(), "helperMethod2", oHelper.getSamlAssertion(mockWebServiceContext), new Integer(100), mockWebServiceContext);
+            Integer oResponse = (Integer) oHelper.invokeUnsecureWebService(this, this.getClass(), "helperMethod2", new Integer(10), oHelper.getSamlAssertion(mockWebServiceContext), new Integer(20), mockWebServiceContext);
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
-            assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+            assertEquals("Incorrect value returned.", 200, oResponse.intValue());
 
         } catch (Exception ex)
         {
@@ -400,10 +412,10 @@ public class WebServiceHelperTest
                 {
                 }
             };
-            Integer oResponse = (Integer) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "helperMethod2", new Integer(100), mockWebServiceContext);
+            Integer oResponse = (Integer) oHelper.invokeSecureDeferredResponseWebService(this, this.getClass(), "helperMethod3", new Integer(10), mockWebServiceContext);
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
-            assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+            assertEquals("Incorrect value returned.", 10, oResponse.intValue());
 
         } catch (Exception ex)
         {
