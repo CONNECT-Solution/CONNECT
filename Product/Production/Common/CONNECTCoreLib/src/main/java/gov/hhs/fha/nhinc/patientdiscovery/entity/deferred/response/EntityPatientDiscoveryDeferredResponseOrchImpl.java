@@ -23,7 +23,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import org.hl7.v3.II;
-import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 
 /**
  *
@@ -146,12 +145,8 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl
 
         PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
         PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRespProxy();
-        ProxyPRPAIN201306UVProxyRequestType msg = new ProxyPRPAIN201306UVProxyRequestType();
-        msg.setAssertion(request.getAssertion());
-        msg.setNhinTargetSystem(oTargetSystemType);
-        msg.setPRPAIN201306UV02(request.getPRPAIN201306UV02());
 
-        resp = proxy.proxyProcessPatientDiscoveryAsyncResp(msg, request.getAssertion(), oTargetSystemType);
+        resp = proxy.proxyProcessPatientDiscoveryAsyncResp(request.getPRPAIN201306UV02(), request.getAssertion(), oTargetSystemType);
 
         return resp;
     }

@@ -11,7 +11,7 @@ import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201306UVProxySecuredRequestType;
 
 /**
@@ -86,7 +86,7 @@ public class PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl impl
         return cachedService;
     }
 
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(ProxyPRPAIN201306UVProxyRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem)
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem)
     {
         log.debug("Begin PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl.proxyProcessPatientDiscoveryAsyncResp(...)");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
@@ -105,11 +105,8 @@ public class PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl impl
             if (NullChecker.isNotNullish(url))
             {
                 ProxyPRPAIN201306UVProxySecuredRequestType securedRequest = new ProxyPRPAIN201306UVProxySecuredRequestType();
-                if (request != null)
-                {
-                    securedRequest.setNhinTargetSystem(targetSystem);
-                    securedRequest.setPRPAIN201306UV02(request.getPRPAIN201306UV02());
-                }
+                securedRequest.setNhinTargetSystem(targetSystem);
+                securedRequest.setPRPAIN201306UV02(request);
                 NhincProxyPatientDiscoverySecuredAsyncRespPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
                 response = (MCCIIN000002UV01) oProxyHelper.invokePort(port, NhincProxyPatientDiscoverySecuredAsyncRespPortType.class, "proxyProcessPatientDiscoveryAsyncResp", securedRequest);
             }

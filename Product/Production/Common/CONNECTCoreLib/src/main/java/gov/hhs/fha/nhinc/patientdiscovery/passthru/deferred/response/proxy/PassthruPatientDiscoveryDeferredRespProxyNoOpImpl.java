@@ -5,7 +5,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
@@ -26,7 +26,7 @@ public class PassthruPatientDiscoveryDeferredRespProxyNoOpImpl implements Passth
         return LogFactory.getLog(getClass());
     }
 
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest, AssertionType assertion, NhinTargetSystemType targetSystem)
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem)
     {
         log.debug("Begin PassthruPatientDiscoveryDeferredRespProxyNoOpImpl.proxyProcessPatientDiscoveryAsyncResp(...)");
         return new MCCIIN000002UV01();

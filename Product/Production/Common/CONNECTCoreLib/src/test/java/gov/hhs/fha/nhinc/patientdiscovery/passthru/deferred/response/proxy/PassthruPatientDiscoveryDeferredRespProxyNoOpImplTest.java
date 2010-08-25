@@ -3,7 +3,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,11 +42,11 @@ public class PassthruPatientDiscoveryDeferredRespProxyNoOpImplTest {
     @Test
     public void testProxyProcessPatientDiscoveryAsyncResp() {
         System.out.println("proxyProcessPatientDiscoveryAsyncResp");
-        ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest = new ProxyPRPAIN201306UVProxyRequestType();
+        PRPAIN201306UV02 request = new PRPAIN201306UV02();
         PassthruPatientDiscoveryDeferredRespProxyNoOpImpl instance = new PassthruPatientDiscoveryDeferredRespProxyNoOpImpl();
         AssertionType assertion = null;
         NhinTargetSystemType targetSystem = null;
-        MCCIIN000002UV01 result = instance.proxyProcessPatientDiscoveryAsyncResp(proxyProcessPatientDiscoveryAsyncRespRequest, assertion, targetSystem);
+        MCCIIN000002UV01 result = instance.proxyProcessPatientDiscoveryAsyncResp(request, assertion, targetSystem);
 
         assertNotNull(result);
     }

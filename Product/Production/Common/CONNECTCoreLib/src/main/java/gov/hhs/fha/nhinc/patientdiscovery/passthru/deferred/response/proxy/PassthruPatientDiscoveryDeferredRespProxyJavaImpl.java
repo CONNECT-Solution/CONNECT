@@ -7,7 +7,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 
 /**
  *
@@ -28,15 +27,10 @@ public class PassthruPatientDiscoveryDeferredRespProxyJavaImpl implements Passth
     }
 
 
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest, AssertionType assertion, NhinTargetSystemType targetSystem)
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem)
     {
         log.debug("Begin PassthruPatientDiscoveryDeferredRespProxyJavaImpl.processPatientDiscoveryAsyncResp(...)");
         MCCIIN000002UV01 response = null;
-        PRPAIN201306UV02 request = null;
-        if(proxyProcessPatientDiscoveryAsyncRespRequest != null)
-        {
-            request = proxyProcessPatientDiscoveryAsyncRespRequest.getPRPAIN201306UV02();
-        }
         response = new PassthruPatientDiscoveryDeferredRespOrchImpl().proxyProcessPatientDiscoveryAsyncResp(request, assertion, targetSystem);
         log.debug("End PassthruPatientDiscoveryDeferredRespProxyJavaImpl.processPatientDiscoveryAsyncResp(...)");
         return response;
