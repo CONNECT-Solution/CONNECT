@@ -74,7 +74,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyPatientDiscoverySecuredAsyncReq">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.async.request.NhincProxyPatientDiscoverySecuredAsyncReq</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
       <service-name>NhincProxyPatientDiscoverySecuredAsyncReq</service-name>

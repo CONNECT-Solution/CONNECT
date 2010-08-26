@@ -150,6 +150,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>NhincProxyXDRSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyXDRSecured</servlet-name>
+        <url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>PassthruDocSubmissionDeferredRequestSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured</servlet-class>
     </servlet>
