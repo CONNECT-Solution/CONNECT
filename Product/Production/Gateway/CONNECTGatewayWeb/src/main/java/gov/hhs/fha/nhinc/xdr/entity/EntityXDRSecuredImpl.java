@@ -14,6 +14,8 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
+import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxy;
 import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxyObjectFactory;
 import javax.xml.ws.WebServiceContext;
@@ -167,8 +169,8 @@ public class EntityXDRSecuredImpl {
         AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         log.debug("ack: " + ack.getMessage());
 
-        NhinXDRProxyObjectFactory factory = new NhinXDRProxyObjectFactory();
-        NhinXDRProxy proxy = factory.getNhinXDRProxy();
+        NhinDocSubmissionProxyObjectFactory factory = new NhinDocSubmissionProxyObjectFactory();
+        NhinDocSubmissionProxy proxy = factory.getNhinDocSubmissionProxy();
 
         response = proxy.provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
 
