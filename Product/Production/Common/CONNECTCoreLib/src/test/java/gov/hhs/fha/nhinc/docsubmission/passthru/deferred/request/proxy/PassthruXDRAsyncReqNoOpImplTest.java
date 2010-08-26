@@ -3,10 +3,12 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.passthru.xdr.async.request.proxy;
+package gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,10 +47,10 @@ public class PassthruXDRAsyncReqNoOpImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetBAsyncRequest() {
         System.out.println("testProvideAndRegisterDocumentSetBAsyncRequest");
-        RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest = null;
-        PassthruXDRAsyncReqNoOpImpl instance = new PassthruXDRAsyncReqNoOpImpl();
+        ProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest = null;
+        PassthruDocSubmissionDeferredRequestProxyNoOpImpl instance = new PassthruDocSubmissionDeferredRequestProxyNoOpImpl();
 
-        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterAsyncReqRequest);
+        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, new AssertionType(), new NhinTargetSystemType());
         assertNotNull(result);
     }
 
