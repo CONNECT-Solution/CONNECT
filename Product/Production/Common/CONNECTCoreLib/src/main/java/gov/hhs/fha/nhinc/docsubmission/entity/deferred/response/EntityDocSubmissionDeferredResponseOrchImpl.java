@@ -93,15 +93,11 @@ public class EntityDocSubmissionDeferredResponseOrchImpl {
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         response.setMessage(regResp);
 
-        auditLogger.auditNhinXDRResponseRequest(provideAndRegisterResponseRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
         PassthruDocSubmissionDeferredResponseProxyObjectFactory factory = new PassthruDocSubmissionDeferredResponseProxyObjectFactory();
         PassthruDocSubmissionDeferredResponseProxy proxy = factory.getPassthruDocSubmissionDeferredResponseProxy();
 
         log.debug("Calling NHIN Proxy");
         response = proxy.provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest.getRegistryResponse(), assertion, provideAndRegisterResponseRequest.getNhinTargetSystem());
-
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
 
         log.debug("End provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         return response;

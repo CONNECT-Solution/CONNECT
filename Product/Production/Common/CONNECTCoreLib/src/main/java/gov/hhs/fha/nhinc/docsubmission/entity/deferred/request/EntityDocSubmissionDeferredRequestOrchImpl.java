@@ -134,15 +134,11 @@ public class EntityDocSubmissionDeferredRequestOrchImpl {
     {
         log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
 
-        auditLogger.auditXDR(provideAndRegisterRequestRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
         PassthruDocSubmissionDeferredRequestProxyObjectFactory factory = new PassthruDocSubmissionDeferredRequestProxyObjectFactory();
         PassthruDocSubmissionDeferredRequestProxy proxy = factory.getPassthruDocSubmissionDeferredRequestProxy();
 
         log.debug("Calling NHIN proxy");
         XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
-
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
 
         log.debug("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
         return response;
