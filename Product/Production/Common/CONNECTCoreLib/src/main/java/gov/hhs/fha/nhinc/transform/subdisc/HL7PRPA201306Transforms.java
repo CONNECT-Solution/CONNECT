@@ -40,7 +40,7 @@ public class HL7PRPA201306Transforms {
         result.setITSVersion(HL7Constants.ITS_VERSION);
         result.setId(HL7MessageIdGenerator.GenerateHL7MessageId(receiverOID));
         result.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
-        result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV"));
+        result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV02"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("P"));
         result.setProcessingModeCode(HL7DataTransformHelper.CSFactory("R"));
         result.setAcceptAckCode(HL7DataTransformHelper.CSFactory("AL"));

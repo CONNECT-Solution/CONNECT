@@ -73,7 +73,7 @@ public class HL7Parser201306 {
 
         II interactionId = new II();
         interactionId.setRoot("2.16.840.1.113883.1.6");
-        interactionId.setExtension("PRPA_IN201306UV");
+        interactionId.setExtension("PRPA_IN201306UV02");
         msg.setInteractionId(interactionId);
 
         CS processingCode = new CS();
