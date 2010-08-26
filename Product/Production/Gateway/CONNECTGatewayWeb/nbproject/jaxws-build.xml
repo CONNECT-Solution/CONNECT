@@ -242,25 +242,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubjectdiscoverysecured"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincSubjectDiscoverySecured"/>
     </target>
-    <target name="wsimport-service-EntityXDRSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityXDRSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityXDRSecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityXDRSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/wsdl/EntityXDRSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/wsdl/EntityXDRSecured.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityXDRSecured"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityXDRSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRSecured">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/wsdl/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-EntityXDRSecured" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincentityxdrsecured"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityXDRSecured"/>
-    </target>
     <target name="wsimport-service-NhincProxyXDRSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRSecured"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRSecured/wsdl/NhincProxyXDRSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -1040,5 +1021,43 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitypatientdiscoveryasyncresp"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoveryDeferredResponseUnsecured"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-EntityDocRetrieveSecured, wsimport-service-EntityNotifySecured, wsimport-service-EntitySubscribeSecuredService, wsimport-service-EntityUnsubscribeSecuredService, wsimport-service-GatewaySubscriptionReferenceRepository, wsimport-service-GatewaySubscriptionRepository, wsimport-service-HiemSubscriptionRepositoryUtilService, wsimport-service-AdapterSubjectDiscovery, wsimport-service-EntityPatientDiscoverySecured, wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-EntitySubjectDiscoverySecured, wsimport-service-NhincSubjectDiscoverySecured, wsimport-service-EntityXDRSecured, wsimport-service-NhincProxyXDRSecured, wsimport-service-NhincProxyXDRRequestSecured, wsimport-service-NhincProxyXDRResponseSecured, wsimport-service-AdapterXDRRequest, wsimport-service-AdapterXDRResponse, wsimport-service-AdapterPatientDiscoveryAsyncReqQueue, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncReq, wsimport-service-EntityDocQuerySecured, wsimport-service-AdapterAuditQueryService, wsimport-service-EntityAuditLogQuery, wsimport-service-NhincAuditQueryProxy, wsimport-service-EntityPatientDiscoveryUnsecured, wsimport-service-AdapterXDRRequestError, wsimport-service-PatientCorrelationServiceSecured, wsimport-service-GatewayLiftManager, wsimport-service-PatientCorrelationFacadeDteService, wsimport-service-AuditRepository, wsimport-service-EntityAdministrativeDistribution, wsimport-service-EntityAdministrativeDistributionSecured, wsimport-service-NhinAdministrativeDistribution, wsimport-service-EntityDocRetrieveDeferredReq, wsimport-service-EntityDocRetrieveDeferredReqSecured, wsimport-service-EntityDocQueryDeferredReq, wsimport-service-EntityDocQueryDeferredReqSecured, wsimport-service-EntityDocRetrieveDeferredResp, wsimport-service-EntityDocRetrieveDeferredRespSecured, wsimport-service-EntityDocQueryDeferredResponseUnsecured, wsimport-service-EntityDocQueryDeferredResponseSecured, wsimport-service-PatientCorrelationServiceUnsecured, wsimport-service-EntityDocQueryUnsecured, wsimport-service-AuditRepositoryManagerService, wsimport-service-EntityPatientDiscoveryDeferredRequestUnsecured, wsimport-service-EntityPatientDiscoveryDeferredRequestSecured, wsimport-service-EntityPatientDiscoveryDeferredReqQueueUnsecured, wsimport-service-EntityPatientDiscoveryDeferredReqQueueSecured, wsimport-service-EntityDocSubmissionDeferredRequestSecured, wsimport-service-EntityDocSubmissionDeferredRequestUnsecured, wsimport-service-EntityDocSubmissionDeferredResponseSecured, wsimport-service-EntityDocSubmissionDeferredResponseUnsecured, wsimport-service-EntityPatientDiscoveryDeferredResponseSecured, wsimport-service-EntityPatientDiscoveryDeferredResponseUnsecured"/>
+    <target name="wsimport-service-EntityDocSubmissionUnsecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionUnsecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionUnsecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionUnsecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocSubmissionUnsecured/wsdl/EntityXDR.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocSubmissionUnsecured/wsdl/EntityXDR.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionUnsecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionUnsecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocSubmissionUnsecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocSubmissionUnsecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityDocSubmissionUnsecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincentityxdr"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionUnsecured"/>
+    </target>
+    <target name="wsimport-service-EntityDocSubmissionSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionSecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocSubmissionSecured/wsdl/EntityXDRSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocSubmissionSecured/wsdl/EntityXDRSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocSubmissionSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocSubmissionSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityDocSubmissionSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincentityxdrsecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocSubmissionSecured"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-EntityDocRetrieveSecured, wsimport-service-EntityNotifySecured, wsimport-service-EntitySubscribeSecuredService, wsimport-service-EntityUnsubscribeSecuredService, wsimport-service-GatewaySubscriptionReferenceRepository, wsimport-service-GatewaySubscriptionRepository, wsimport-service-HiemSubscriptionRepositoryUtilService, wsimport-service-AdapterSubjectDiscovery, wsimport-service-EntityPatientDiscoverySecured, wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-EntitySubjectDiscoverySecured, wsimport-service-NhincSubjectDiscoverySecured, wsimport-service-NhincProxyXDRSecured, wsimport-service-NhincProxyXDRRequestSecured, wsimport-service-NhincProxyXDRResponseSecured, wsimport-service-AdapterXDRRequest, wsimport-service-AdapterXDRResponse, wsimport-service-AdapterPatientDiscoveryAsyncReqQueue, wsimport-service-NhincProxyPatientDiscoverySecuredAsyncReq, wsimport-service-EntityDocQuerySecured, wsimport-service-AdapterAuditQueryService, wsimport-service-EntityAuditLogQuery, wsimport-service-NhincAuditQueryProxy, wsimport-service-EntityPatientDiscoveryUnsecured, wsimport-service-AdapterXDRRequestError, wsimport-service-PatientCorrelationServiceSecured, wsimport-service-GatewayLiftManager, wsimport-service-PatientCorrelationFacadeDteService, wsimport-service-AuditRepository, wsimport-service-EntityAdministrativeDistribution, wsimport-service-EntityAdministrativeDistributionSecured, wsimport-service-NhinAdministrativeDistribution, wsimport-service-EntityDocRetrieveDeferredReq, wsimport-service-EntityDocRetrieveDeferredReqSecured, wsimport-service-EntityDocQueryDeferredReq, wsimport-service-EntityDocQueryDeferredReqSecured, wsimport-service-EntityDocRetrieveDeferredResp, wsimport-service-EntityDocRetrieveDeferredRespSecured, wsimport-service-EntityDocQueryDeferredResponseUnsecured, wsimport-service-EntityDocQueryDeferredResponseSecured, wsimport-service-PatientCorrelationServiceUnsecured, wsimport-service-EntityDocQueryUnsecured, wsimport-service-AuditRepositoryManagerService, wsimport-service-EntityPatientDiscoveryDeferredRequestUnsecured, wsimport-service-EntityPatientDiscoveryDeferredRequestSecured, wsimport-service-EntityPatientDiscoveryDeferredReqQueueUnsecured, wsimport-service-EntityPatientDiscoveryDeferredReqQueueSecured, wsimport-service-EntityDocSubmissionDeferredRequestSecured, wsimport-service-EntityDocSubmissionDeferredRequestUnsecured, wsimport-service-EntityDocSubmissionDeferredResponseSecured, wsimport-service-EntityDocSubmissionDeferredResponseUnsecured, wsimport-service-EntityPatientDiscoveryDeferredResponseSecured, wsimport-service-EntityPatientDiscoveryDeferredResponseUnsecured, wsimport-service-EntityDocSubmissionUnsecured, wsimport-service-EntityDocSubmissionSecured"/>
 </project>

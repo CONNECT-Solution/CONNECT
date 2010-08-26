@@ -266,7 +266,12 @@
       <service>
         <name>entityxdrsecured</name>
         <description>Entity XDR Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+      </service>
+	  <service>
+        <name>entityxdr</name>
+        <description>Entity XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
       </service>
       <service>
         <name>patientcorrelation</name>
@@ -1091,7 +1096,12 @@
       <service>
         <name>entityxdrsecured</name>
         <description>Entity XDR Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+      </service>
+	  <service>
+        <name>entityxdr</name>
+        <description>Entity XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
       </service>
       <service>
         <name>patientcorrelation</name>
@@ -1927,22 +1937,25 @@
         <description>NHIN Doc Retrieve Deferred Response Secured</description>
         <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredResponseSecured</endpointURL>
       </service>
-        <service>
-            <name>adaptercomponentdocretrievedeferredrequest</name>
-            <description>Adapter Component Doc Retrieve Deferred Request</description>
-            <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveReqService</endpointURL>
-        </service>
-        <service>
-            <name>adaptercomponentdocretrievedeferredresponse</name>
-            <description>Adapter Component Doc Retrieve Deferred Response</description>
-            <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveRespService</endpointURL>
-        </service>
-
-
+      <service>
+        <name>adaptercomponentdocretrievedeferredrequest</name>
+        <description>Adapter Component Doc Retrieve Deferred Request</description>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveReqService</endpointURL>
+      </service>
+      <service>
+        <name>adaptercomponentdocretrievedeferredresponse</name>
+        <description>Adapter Component Doc Retrieve Deferred Response</description>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveRespService</endpointURL>
+      </service>
       <service>
         <name>entityxdrsecured</name>
         <description>Entity XDR Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+      </service>
+	  <service>
+        <name>entityxdr</name>
+        <description>Entity XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
       </service>
       <service>
         <name>patientcorrelation</name>

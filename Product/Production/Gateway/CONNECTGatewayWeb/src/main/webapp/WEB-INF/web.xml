@@ -213,12 +213,20 @@
         <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>EntityXDRSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecured</servlet-class>
+        <servlet-name>EntityDocSubmissionSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionSecured</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EntityXDRSecured</servlet-name>
-        <url-pattern>/EntityService/EntityXDRSecured</url-pattern>
+        <servlet-name>EntityDocSubmissionSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocSubmissionSecured</url-pattern>
+    </servlet-mapping>
+	<servlet>
+        <servlet-name>EntityDocSubmissionUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocSubmissionUnsecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocSubmissionUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdapterXDRRequestError</servlet-name>
@@ -409,8 +417,8 @@
             <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>EntityXDRSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityXDRSecured</url-pattern>
+            <web-resource-name>EntityDocSubmissionSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocSubmissionSecured</url-pattern>
         </web-resource-collection>
     <!-- Start: XDR Request and Response services-->
         <web-resource-collection>

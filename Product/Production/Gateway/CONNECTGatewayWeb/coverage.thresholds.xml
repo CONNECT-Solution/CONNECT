@@ -205,6 +205,21 @@
               linecount="19"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionImpl"
+              linecount="40"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionSecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionUnsecured"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestImpl"
               linecount="14"
@@ -463,16 +478,6 @@
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.subscription.repository.util.HiemSubscriptionRepositoryUtilServiceImpl"
               linecount="9"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecured"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="32" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecuredImpl"
-              linecount="85"
               linerate="80"
               linesexecuted="0"/>
 </thresholds>

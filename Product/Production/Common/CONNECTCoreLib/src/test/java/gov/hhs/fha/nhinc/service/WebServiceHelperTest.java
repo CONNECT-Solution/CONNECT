@@ -18,6 +18,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.runner.RunWith;
 import org.apache.commons.logging.Log;
+import org.jmock.Expectations;
 
 @RunWith(JMock.class)
 public class WebServiceHelperTest
@@ -137,6 +138,13 @@ public class WebServiceHelperTest
                     return mockLog;
                 }
             };
+
+            context.checking(new Expectations()
+            {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                }
+            });
 
             Method oMethod = oHelper.getMethod(this.getClass(), "helperMethod");
             assertNotNull("getMethod failed", oMethod);

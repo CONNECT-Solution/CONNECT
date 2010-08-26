@@ -123,10 +123,15 @@
                 <description>Adapter Component XDR </description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
             </service>                 
-			<service>
+            <service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+            </service>
+	        <service>
+                <name>entityxdr</name>
+                <description>Entity XDR</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>

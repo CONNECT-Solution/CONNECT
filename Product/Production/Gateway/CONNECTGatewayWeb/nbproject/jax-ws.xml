@@ -289,30 +289,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="EntityXDRSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.entity.EntityXDRSecured</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecured.wsdl</wsdl-url>
-      <local-wsdl-file>EntityXDRSecured.wsdl</local-wsdl-file>
-      <service-name>EntityXDRSecured_Service</service-name>
-      <port-name>EntityXDRSecured_Port</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="NhincProxyXDRSecured">
       <implementation-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecured.wsdl</wsdl-url>
@@ -1280,6 +1256,54 @@
       <service-name>EntityPatientDiscoveryAsyncResp</service-name>
       <port-name>EntityPatientDiscoveryAsyncRespPortSoap</port-name>
       <package-name>gov.hhs.fha.nhinc.entitypatientdiscoveryasyncresp</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocSubmissionUnsecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionUnsecured</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDR.wsdl</local-wsdl-file>
+      <service-name>EntityXDR_Service</service-name>
+      <port-name>EntityXDR_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdr</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocSubmissionSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionSecured</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRSecured.wsdl</local-wsdl-file>
+      <service-name>EntityXDRSecured_Service</service-name>
+      <port-name>EntityXDRSecured_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

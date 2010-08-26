@@ -63,6 +63,7 @@ public class WebServiceHelper
         // these are specifically for web services - we are fine because
         // the method names are unique there.
         //---------------------------------------------------------------
+        log.debug("Locating reflection method " + webOrchClass + "." + methodName);
         Method[] oaMethod = webOrchClass.getDeclaredMethods();
         for (Method oMethod : oaMethod)
         {
@@ -85,14 +86,38 @@ public class WebServiceHelper
      * @param operationInput The input parameter for the method.
      * @param assertion The assertion object as extracted from the web context
      * @param targets The NHIN target communities
+     * @param urlInfo The url information
      * @return The return value of the method.
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod(Method oMethod, Object webOrchObject,
+    protected Object invokeTheMethod4(Method oMethod, Object webOrchObject,
+            Object operationInput, AssertionType assertion, Object targets, Object urlInfo)
+            throws IllegalAccessException, InvocationTargetException
+    {
+        log.debug("Invoke with " + operationInput + " assertion " + assertion + " targets " + targets + " url " + urlInfo);
+        return oMethod.invoke(webOrchObject, operationInput, assertion, targets, urlInfo);
+    }
+
+    /**
+     * This method is used to invoke a method using reflection.  This method's
+     * primary purpose is to allow us to override this for unit testing purposes
+     * and simualate an execption to test that code.
+     *
+     * @param oMethod The reflection method object.
+     * @param webOrchObject The instance of the object.
+     * @param operationInput The input parameter for the method.
+     * @param assertion The assertion object as extracted from the web context
+     * @param targets The NHIN target communities
+     * @return The return value of the method.
+     * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
+     * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
+     */
+    protected Object invokeTheMethod3(Method oMethod, Object webOrchObject,
             Object operationInput, AssertionType assertion, Object targets)
             throws IllegalAccessException, InvocationTargetException
     {
+        log.debug("Invoke with " + operationInput + " assertion " + assertion + " targets " + targets);
         return oMethod.invoke(webOrchObject, operationInput, assertion, targets);
     }
 
@@ -109,10 +134,11 @@ public class WebServiceHelper
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod(Method oMethod, Object webOrchObject,
+    protected Object invokeTheMethod2(Method oMethod, Object webOrchObject,
             Object operationInput, AssertionType assertion)
             throws IllegalAccessException, InvocationTargetException
     {
+        log.debug("Invoke with " + operationInput + " assertion " + assertion);
         return oMethod.invoke(webOrchObject, operationInput, assertion);
     }
 
@@ -128,9 +154,10 @@ public class WebServiceHelper
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod(Method oMethod, Object webOrchObject, Object operationInput)
+    protected Object invokeTheMethod1(Method oMethod, Object webOrchObject, Object operationInput)
             throws IllegalAccessException, InvocationTargetException
     {
+        log.debug("Invoke with " + operationInput);
         return oMethod.invoke(webOrchObject, operationInput);
     }
 
@@ -144,13 +171,65 @@ public class WebServiceHelper
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
      * @param operationInput The parameters for the web orchestrator method
+     * @param targets The nhin targets
      * @param context The web service context used to initialize the assertion
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass, 
+    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass,
             String methodName, Object operationInput, Object targets,
             WebServiceContext context) throws Exception
+    {
+        Integer numParam = new Integer(3);
+        return handleInvokeSecureWebService(webOrchObject, webOrchClass,
+                methodName, operationInput, targets, null, context, numParam);
+    }
+
+    /**
+     * This method will establish the context logging, create the Assertion
+     * object including SAML information and the WS-Addressing messageId and
+     * relatesTo information, invoke the orchestration method, and then clear
+     * the logging context.
+     *
+     * @param webOrchObject The instance of the web orchestrator
+     * @param webOrchClass The class for the web orchestrator
+     * @param methodName The web orchestrator method to call
+     * @param operationInput The parameters for the web orchestrator method
+     * @param targets The nhin targets
+     * @param urlInfo The URL information
+     * @param context The web service context used to initialize the assertion
+     * @return The response object from the web orchestrator invocation
+     * @throws Exception Any exceptions are passed back up.
+     */
+    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass,
+            String methodName, Object operationInput, Object targets, Object urlInfo,
+            WebServiceContext context) throws Exception
+    {
+        Integer numParam = new Integer(4);
+        return handleInvokeSecureWebService(webOrchObject, webOrchClass,
+                methodName, operationInput, targets, urlInfo, context, numParam);
+    }
+
+    /**
+     * This method will establish the context logging, create the Assertion
+     * object including SAML information and the WS-Addressing messageId and
+     * relatesTo information, invoke the orchestration method, and then clear
+     * the logging context.
+     *
+     * @param webOrchObject The instance of the web orchestrator
+     * @param webOrchClass The class for the web orchestrator
+     * @param methodName The web orchestrator method to call
+     * @param operationInput The parameters for the web orchestrator method
+     * @param targets The nhin targets
+     * @param urlInfo The URL information
+     * @param context The web service context used to initialize the assertion
+     * @param numParam Allows control over the number of parameters in the invocation
+     * @return The response object from the web orchestrator invocation
+     * @throws Exception Any exceptions are passed back up.
+     */
+    private Object handleInvokeSecureWebService(Object webOrchObject, Class webOrchClass,
+            String methodName, Object operationInput, Object targets, Object urlInfo,
+            WebServiceContext context, Integer numParam) throws Exception
     {
 
         Object oResponse = null;
@@ -173,15 +252,18 @@ public class WebServiceHelper
             populateAssertionWithRelatesToList(assertion, contextRelatesTo);
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " +
-                    operationInput + " assertion " + assertion + " and " + targets);
-            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion, targets);
+
+            if (numParam == 4)
+            {
+                oResponse = invokeTheMethod4(oMethod, webOrchObject, operationInput, assertion, targets, urlInfo);
+            } else
+            {
+                oResponse = invokeTheMethod3(oMethod, webOrchObject, operationInput, assertion, targets);
+            }
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request " +
-                    "argument the assertion object and nhin targets. " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
@@ -215,13 +297,68 @@ public class WebServiceHelper
      * @param methodName The web orchestrator method to call
      * @param assertion Assertion is not pulled from the contex in the unsecure scenario
      * @param operationInput The parameters for the web orchestrator method
+     * @param targets The nhin targets
      * @param context The web service context used to initialize the assertion
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass, 
+    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass,
             String methodName, Object operationInput, AssertionType assertion,
             Object targets, WebServiceContext context) throws Exception
+    {
+        Integer numParam = new Integer(3);
+        return handleInvokeUnsecureWebService(webOrchObject, webOrchClass,
+                methodName, operationInput, assertion, targets, null, context, numParam);
+    }
+
+    /**
+     * This method will establish the context logging, create the Assertion
+     * object including SAML information and the WS-Addressing messageId and
+     * relatesTo information, invoke the orchestration method, and then clear
+     * the logging context.
+     *
+     * @param webOrchObject The instance of the web orchestrator
+     * @param webOrchClass The class for the web orchestrator
+     * @param methodName The web orchestrator method to call
+     * @param assertion Assertion is not pulled from the contex in the unsecure scenario
+     * @param operationInput The parameters for the web orchestrator method
+     * @param targets The nhin targets
+     * @param urlInfo The URL information
+     * @param context The web service context used to initialize the assertion
+     * @return The response object from the web orchestrator invocation
+     * @throws Exception Any exceptions are passed back up.
+     */
+    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass,
+            String methodName, Object operationInput, AssertionType assertion,
+            Object targets, Object urlInfo, WebServiceContext context) throws Exception
+    {
+        Integer numParam = new Integer(4);
+        return handleInvokeUnsecureWebService(webOrchObject, webOrchClass,
+                methodName, operationInput, assertion, targets, urlInfo, context, numParam);
+
+    }
+
+    /**
+     * This method will establish the context logging, create the Assertion
+     * object including SAML information and the WS-Addressing messageId and
+     * relatesTo information, invoke the orchestration method, and then clear
+     * the logging context.
+     *
+     * @param webOrchObject The instance of the web orchestrator
+     * @param webOrchClass The class for the web orchestrator
+     * @param methodName The web orchestrator method to call
+     * @param assertion Assertion is not pulled from the contex in the unsecure scenario
+     * @param operationInput The parameters for the web orchestrator method
+     * @param targets The nhin targets
+     * @param urlInfo The URL information
+     * @param context The web service context used to initialize the assertion
+     * @param numParam The number of paramteters in the invocation
+     * @return The response object from the web orchestrator invocation
+     * @throws Exception Any exceptions are passed back up.
+     */
+    private Object handleInvokeUnsecureWebService(Object webOrchObject, Class webOrchClass,
+            String methodName, Object operationInput, AssertionType assertion, Object targets,
+            Object urlInfo, WebServiceContext context, Integer numParam) throws Exception
     {
 
         Object oResponse = null;
@@ -241,15 +378,18 @@ public class WebServiceHelper
             populateAssertionWithRelatesToList(assertion, contextRelatesTo);
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " +
-                    operationInput + " assertion " + assertion + " and " + targets);
-            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion, targets);
+
+            if (numParam == 4)
+            {
+                oResponse = invokeTheMethod4(oMethod, webOrchObject, operationInput, assertion, targets, urlInfo);
+            } else
+            {
+                oResponse = invokeTheMethod3(oMethod, webOrchObject, operationInput, assertion, targets);
+            }
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request " +
-                    "argument and the assertion object. " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
@@ -286,7 +426,7 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureDeferredResponseWebService(Object webOrchObject, 
+    public Object invokeSecureDeferredResponseWebService(Object webOrchObject,
             Class webOrchClass, String methodName, Object operationInput,
             WebServiceContext context) throws Exception
     {
@@ -312,15 +452,12 @@ public class WebServiceHelper
             }
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " +
-                    operationInput + " and assertion " + assertion);
-            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput, assertion);
+
+            oResponse = invokeTheMethod2(oMethod, webOrchObject, operationInput, assertion);
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request " +
-                    "argument and the assertion object. " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
@@ -357,7 +494,7 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeDeferredResponseWebService(Object webOrchObject, 
+    public Object invokeDeferredResponseWebService(Object webOrchObject,
             Class webOrchClass, String methodName, AssertionType assertion,
             Object operationInput, WebServiceContext context) throws Exception
     {
@@ -380,13 +517,11 @@ public class WebServiceHelper
             }
 
             Method oMethod = getMethod(webOrchClass, methodName);
-            log.debug("Invoke " + webOrchClass + "." + methodName + " with " + operationInput);
-            oResponse = invokeTheMethod(oMethod, webOrchObject, operationInput);
+            oResponse = invokeTheMethod1(oMethod, webOrchObject, operationInput);
 
         } catch (IllegalArgumentException e)
         {
             String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "This assumes that the method should have exactly one request argument " +
                     "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;

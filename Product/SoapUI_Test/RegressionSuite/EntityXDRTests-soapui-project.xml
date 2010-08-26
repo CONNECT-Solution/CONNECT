@@ -16681,7 +16681,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:endpoint>
+      <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="tns:ProvideAndRegisterDocumentSet-b" name="ProvideAndRegisterDocumentSet-b" bindingOperationName="ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
@@ -24232,7 +24232,7 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           <con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings/>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:endpoint>
+            <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body>
@@ -26607,7 +26607,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-XDREntity</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityXDR_Service</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-AuditLogQuery</con:name>
