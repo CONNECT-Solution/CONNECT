@@ -3543,7 +3543,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:part>
     </con:definitionCache>
     <con:endpoints>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</con:endpoint>
+      <con:endpoint>${#Project#Endpoint-NhhincXDRResponse}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncResponse</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="tns:ProvideAndRegisterDocumentSet-bAsyncResponse" name="ProvideAndRegisterDocumentSet-bAsyncResponse" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
@@ -11885,7 +11885,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-NhhincXDRResponse}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
@@ -13621,19 +13621,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:58:55Z</con:value>
+          <con:value>2010-08-27T19:14:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:08:55Z</con:value>
+          <con:value>2010-08-27T19:24:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:58:55</con:value>
+          <con:value>08/27/2010 19:14:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13664,7 +13664,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-NhhincXDRResponse}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
@@ -15400,19 +15400,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:59:07Z</con:value>
+          <con:value>2010-08-27T19:14:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:09:07Z</con:value>
+          <con:value>2010-08-27T19:24:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:59:07</con:value>
+          <con:value>08/27/2010 19:14:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15449,7 +15449,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-NhhincXDRResponse}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
@@ -15952,19 +15952,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-11T00:59:09Z</con:value>
+          <con:value>2010-08-27T19:14:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-11T01:09:09Z</con:value>
+          <con:value>2010-08-27T19:24:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/11/2010 00:59:09</con:value>
+          <con:value>08/27/2010 19:14:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-10T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -15972,7 +15972,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Aug 11 01:04:09 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserFri Aug 27 19:19:41 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15992,7 +15992,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-NhhincXDRResponse</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>PatientId</con:name>
@@ -16020,7 +16020,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-NhincProxyXDRRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>NHINGatewayHost</con:name>
@@ -16036,11 +16036,15 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:value>
+      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalHCDescription</con:name>
       <con:value>XDRAsyncTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-NhincXDRResponse</con:name>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'NHINCReceivingXDRAsyncResponseTests-soapui-project.properties')
