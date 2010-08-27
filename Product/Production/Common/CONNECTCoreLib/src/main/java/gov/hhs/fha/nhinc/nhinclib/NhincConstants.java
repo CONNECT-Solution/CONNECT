@@ -318,6 +318,8 @@ public class NhincConstants {
     public static final String NHINC_PROXY_XDR_SECURED_SERVICE_NAME = "nhincproxyxdrsecured";
     public static final String ADAPTER_XDR_SERVICE_NAME = "adapterxdr";
     public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
+    public static final String ADAPTER_COMPONENT_XDR_SERVICE_NAME = "adaptercomponentxdr";
+    public static final String ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME = "adaptercomponentxdrsecured";
     public static final String NHINC_XDR_SERVICE_NAME = "serviceXDR";
     public static final String ENTITY_XDR_REQUEST_SERVICE_NAME = "entityxdrrequest";
     public static final String ENTITY_XDR_REQUEST_SECURED_SERVICE_NAME = "entityxdrrequestsecured";

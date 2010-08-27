@@ -6,22 +6,14 @@ package gov.hhs.fha.nhinc.docsubmission.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.nhincadapterxdrsecured.AdapterXDRSecuredPortType;
-import gov.hhs.fha.nhinc.nhincadapterxdrsecured.AdapterXDRSecuredService;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -39,11 +31,9 @@ public class NhinDocSubmissionOrchImpl {
     public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
     public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
     private static Log log = null;
-    private static AdapterXDRSecuredService securedAdapterService = null;
 
     public NhinDocSubmissionOrchImpl() {
         log = createLogger();
-        securedAdapterService = createAdapterService();
     }
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
@@ -81,40 +71,14 @@ public class NhinDocSubmissionOrchImpl {
     {
         log.debug("begin forwardToAgency()");
 
-        String url = "";
         RegistryResponseType response = null;
 
-        url = getUrl();
+        AdapterDocSubmissionProxyObjectFactory factory = new AdapterDocSubmissionProxyObjectFactory();
+        AdapterDocSubmissionProxy proxy = factory.getAdapterDocSubmissionProxy();
 
-        if (NullChecker.isNotNullish(url)) {
-            AdapterXDRSecuredPortType port = getPort(url);
-
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADAPTER_XDR_ACTION);
-
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            response = port.provideAndRegisterDocumentSetb(body);
-
-        } else {
-            log.error("The URL for service: " + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME + " is null");
-        }
+        response = proxy.provideAndRegisterDocumentSetB(body, assertion);
 
         return response;
-    }
-
-    protected String getUrl() {
-        String url = null;
-
-        try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME);
-            log.error(ex.getMessage());
-        }
-
-
-        return url;
     }
 
     protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion, String senderHCID, String receiverHCID) {
@@ -127,10 +91,7 @@ public class NhinDocSubmissionOrchImpl {
         return policyChecker.checkXDRRequestPolicy(newRequest, assertion,senderHCID ,receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
 
     }
-    protected AdapterXDRSecuredService createAdapterService()
-    {
-        return new AdapterXDRSecuredService();
-    }
+    
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
@@ -158,12 +119,5 @@ public class NhinDocSubmissionOrchImpl {
 
         return result;
     }
-    private AdapterXDRSecuredPortType getPort(String url) {
-        AdapterXDRSecuredPortType port = securedAdapterService.getAdapterXDRSecuredPort();
-
-        log.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
-        return port;
-    }
+   
 }
