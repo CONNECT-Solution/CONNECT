@@ -25933,15 +25933,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:27Z</con:value>
+          <con:value>2010-08-27T19:19:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:27Z</con:value>
+          <con:value>2010-08-27T19:29:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:27</con:value>
+          <con:value>08/27/2010 19:19:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -26687,15 +26687,15 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:28Z</con:value>
+          <con:value>2010-08-27T19:19:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:28Z</con:value>
+          <con:value>2010-08-27T19:29:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:28</con:value>
+          <con:value>08/27/2010 19:19:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -26707,7 +26707,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Inbound UserFri Aug 27 16:05:28 UTC 2010</con:value>
+          <con:value>XDR Inbound UserFri Aug 27 19:24:04 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -28733,15 +28733,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:29Z</con:value>
+          <con:value>2010-08-27T19:19:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:29Z</con:value>
+          <con:value>2010-08-27T19:29:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:29</con:value>
+          <con:value>08/27/2010 19:19:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -29294,15 +29294,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:30Z</con:value>
+          <con:value>2010-08-27T19:19:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:30Z</con:value>
+          <con:value>2010-08-27T19:29:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:30</con:value>
+          <con:value>08/27/2010 19:19:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -29842,15 +29842,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:31Z</con:value>
+          <con:value>2010-08-27T19:19:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:31Z</con:value>
+          <con:value>2010-08-27T19:29:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:31</con:value>
+          <con:value>08/27/2010 19:19:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -30390,15 +30390,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:32Z</con:value>
+          <con:value>2010-08-27T19:19:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:32Z</con:value>
+          <con:value>2010-08-27T19:29:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:32</con:value>
+          <con:value>08/27/2010 19:19:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -30934,15 +30934,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:33Z</con:value>
+          <con:value>2010-08-27T19:19:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:33Z</con:value>
+          <con:value>2010-08-27T19:29:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:33</con:value>
+          <con:value>08/27/2010 19:19:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -31478,15 +31478,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T16:00:34Z</con:value>
+          <con:value>2010-08-27T19:19:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T16:10:34Z</con:value>
+          <con:value>2010-08-27T19:29:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 16:00:34</con:value>
+          <con:value>08/27/2010 19:19:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
