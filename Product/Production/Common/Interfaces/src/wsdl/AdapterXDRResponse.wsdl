@@ -35,7 +35,7 @@
         </operation>
     </portType>
     <binding name="AdapterXDRResponse_Binding" type="tns:AdapterXDRResponse_PortType">
-        <wsaws:UsingAddressing/>
+        <!-- <wsaws:UsingAddressing/> -->
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProvideAndRegisterDocumentSet-bResponse">
             <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>

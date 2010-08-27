@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request;
 
 import java.sql.Blob;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.NhinDocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
@@ -171,14 +165,11 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     protected XDRAcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         getLogger().debug("Entering forwardToAgency");
 
-        AdapterXDRRequestProxyObjectFactory factory = new AdapterXDRRequestProxyObjectFactory();
+        AdapterDocSubmissionDeferredRequestProxyObjectFactory factory = new AdapterDocSubmissionDeferredRequestProxyObjectFactory();
 
-        AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();
+        AdapterDocSubmissionDeferredRequestProxy proxy = factory.getAdapterDocSubmissionDeferredRequestProxy();
 
-        AdapterProvideAndRegisterDocumentSetSecuredRequestType oRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
-        oRequest.setProvideAndRegisterDocumentSetRequest(body);
-
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(oRequest, assertion);
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, null, assertion);
 
         getLogger().debug("Exiting forwardToAgency");
 
@@ -186,17 +177,11 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     protected XDRAcknowledgementType sendErrorToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String errMsg) {
-        AdapterProvideAndRegisterDocumentSetRequestErrorType adapterReq = new AdapterProvideAndRegisterDocumentSetRequestErrorType();
 
-        AdapterXDRRequestErrorProxyObjectFactory factory = new AdapterXDRRequestErrorProxyObjectFactory();
-        AdapterXDRRequestErrorProxy proxy = factory.getAdapterXDRRequestErrorProxy();
+        AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory factory = new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory();
+        AdapterDocSubmissionDeferredRequestErrorProxy proxy = factory.getAdapterDocSubmissionDeferredRequestErrorProxy();
 
-        adapterReq.setAssertion(assertion);
-        adapterReq.setProvideAndRegisterDocumentSetRequest(body);
-        adapterReq.setErrorMsg(errMsg);
-
-
-        XDRAcknowledgementType adapterResp = proxy.provideAndRegisterDocumentSetBRequestError(adapterReq);
+        XDRAcknowledgementType adapterResp = proxy.provideAndRegisterDocumentSetBRequestError(body, errMsg, assertion);
 
         return adapterResp;
     }

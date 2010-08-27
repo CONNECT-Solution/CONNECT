@@ -658,10 +658,15 @@
       </service>
       <!-- Start: XDR Request and Response service definitions-->
       <!-- XDR Request -->
+	  <service>
+		<name>adapterxdrrequest</name>
+		<description>Adapter Component XDR Request Unsecured</description>
+		<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+	  </service>
       <service>
         <name>adapterxdrrequestsecured</name>
         <description>Adapter Component XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>adaptercomponentxdrrequest</name>
@@ -676,12 +681,12 @@
       <service>
         <name>adapterxdrsecuredasyncreqerror</name>
         <description>Adapter Component XDR Request Error Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestErrorSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdrrequesterror</name>
         <description>Adapter Component XDR RequestError</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
       </service>
       <service>
         <name>nhincliftmanager</name>
@@ -707,12 +712,12 @@
       <service>
         <name>adapterxdrresponsesecured</name>
         <description>Adapter Component XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdrresponse</name>
         <description>Adapter Component XDR Response</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrresponse</name>
@@ -1434,10 +1439,15 @@
       </service>
       <!-- Start: XDR Request and Response service definitions-->
       <!-- XDR Request -->
+	  <service>
+		<name>adapterxdrrequest</name>
+		<description>Adapter Component XDR Request Unsecured</description>
+		<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+	  </service>
       <service>
         <name>adapterxdrrequestsecured</name>
         <description>Adapter Component XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>adaptercomponentxdrrequest</name>
@@ -1452,12 +1462,12 @@
       <service>
         <name>adapterxdrsecuredasyncreqerror</name>
         <description>Adapter Component XDR Request Error Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestErrorSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdrrequesterror</name>
         <description>Adapter Component XDR RequestError</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
       </service>
       <service>
         <name>nhincliftmanager</name>
@@ -1483,12 +1493,12 @@
       <service>
         <name>adapterxdrresponsesecured</name>
         <description>Adapter Component XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdrresponse</name>
         <description>Adapter Component XDR Response</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrresponse</name>
@@ -2279,10 +2289,15 @@
       </service>
       <!-- Start: XDR Request and Response service definitions-->
       <!-- XDR Request -->
+	  <service>
+		<name>adapterxdrrequest</name>
+		<description>Adapter Component XDR Request Unsecured</description>
+		<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+	</service>
       <service>
         <name>adapterxdrrequestsecured</name>
         <description>Adapter Component XDR Request Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
       </service>
       <service>
         <name>adaptercomponentxdrrequest</name>
@@ -2297,12 +2312,12 @@
       <service>
         <name>adapterxdrsecuredasyncreqerror</name>
         <description>Adapter Component XDR Request Error Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestErrorSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdrrequesterror</name>
         <description>Adapter Component XDR RequestError</description>
-        <endpointURL>http://localhost:8080/CONNECTGateway/AdapterService/AdapterXDRRequestError_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
       </service>
       <service>
         <name>nhincliftmanager</name>
@@ -2328,12 +2343,12 @@
       <service>
         <name>adapterxdrresponsesecured</name>
         <description>Adapter Component XDR Response Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdrresponse</name>
         <description>Adapter Component XDR Response</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrresponse</name>

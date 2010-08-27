@@ -1,15 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.lift.proxy;
 
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestNoOpImpl;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.FailedLiftTransactionRequestType;
@@ -34,7 +27,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import org.jmock.Mockery;
@@ -63,8 +55,8 @@ public class GatewayLiftManagerProxyJavaImplTest
     final Socket mockSocket = context.mock(Socket.class);
     final Blob mockBlob = context.mock(Blob.class);
     final InputStream mockInputStream = context.mock(InputStream.class);
-    final AdapterXDRRequestProxy mockAdapterProxy = context.mock(AdapterXDRRequestProxy.class);
-    final AdapterXDRRequestErrorProxy mockErrorProxy = context.mock(AdapterXDRRequestErrorProxy.class);
+    final AdapterDocSubmissionDeferredRequestProxy mockAdapterProxy = context.mock(AdapterDocSubmissionDeferredRequestProxy.class);
+    final AdapterDocSubmissionDeferredRequestErrorProxy mockErrorProxy = context.mock(AdapterDocSubmissionDeferredRequestErrorProxy.class);
 
     public GatewayLiftManagerProxyJavaImplTest()
     {
@@ -1834,7 +1826,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(1).of(mockAdapterProxy).provideAndRegisterDocumentSetBRequest(with(any(AdapterProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)));
+                    exactly(1).of(mockAdapterProxy).provideAndRegisterDocumentSetBRequest(with(any(ProvideAndRegisterDocumentSetRequestType.class)),with(any(String.class)), with(any(AssertionType.class)));
                 }
             });
             GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
@@ -1864,7 +1856,7 @@ public class GatewayLiftManagerProxyJavaImplTest
                 }
 
                 @Override
-                protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+                protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxyObject()
                 {
                     return mockAdapterProxy;
                 }
@@ -1923,7 +1915,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             }
 
             @Override
-            protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+            protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxyObject()
             {
                 return mockAdapterProxy;
             }
@@ -1978,7 +1970,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             }
 
             @Override
-            protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+            protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxyObject()
             {
                 return mockAdapterProxy;
             }
@@ -2039,7 +2031,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             }
 
             @Override
-            protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+            protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxyObject()
             {
                 return mockAdapterProxy;
             }
@@ -2070,7 +2062,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             context.checking(new Expectations()
             {
                 {
-                    exactly(1).of(mockErrorProxy).provideAndRegisterDocumentSetBRequestError(with(any(AdapterProvideAndRegisterDocumentSetRequestErrorType.class)));
+                    exactly(1).of(mockErrorProxy).provideAndRegisterDocumentSetBRequestError(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(String.class)), with(any(AssertionType.class)));
                 }
             });
             GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
@@ -2100,7 +2092,7 @@ public class GatewayLiftManagerProxyJavaImplTest
                 }
 
                 @Override
-                protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+                protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxyObject()
                 {
                     return mockErrorProxy;
                 }
@@ -2159,7 +2151,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             }
 
             @Override
-            protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+            protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxyObject()
             {
                 return mockErrorProxy;
             }
@@ -2213,7 +2205,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             }
 
             @Override
-            protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+            protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxyObject()
             {
                 return mockErrorProxy;
             }
@@ -2274,7 +2266,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             }
 
             @Override
-            protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+            protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxyObject()
             {
                 return mockErrorProxy;
             }
@@ -2306,7 +2298,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             {
                 {
                     exactly(1).of(mockDAO).deleteRecord(with(any(GatewayLiftMsgRecord.class)));
-                    exactly(1).of(mockAdapterProxy).provideAndRegisterDocumentSetBRequest(with(any(AdapterProvideAndRegisterDocumentSetSecuredRequestType.class)), with(any(AssertionType.class)));
+                    exactly(1).of(mockAdapterProxy).provideAndRegisterDocumentSetBRequest(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(String.class)), with(any(AssertionType.class)));
                 }
             });
             GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
@@ -2374,7 +2366,7 @@ public class GatewayLiftManagerProxyJavaImplTest
                 }
 
                 @Override
-                protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+                protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxyObject()
                 {
                     return mockAdapterProxy;
                 }
@@ -2631,7 +2623,7 @@ public class GatewayLiftManagerProxyJavaImplTest
             {
                 {
                     exactly(1).of(mockDAO).deleteRecord(with(any(GatewayLiftMsgRecord.class)));
-                    exactly(1).of(mockErrorProxy).provideAndRegisterDocumentSetBRequestError(with(any(AdapterProvideAndRegisterDocumentSetRequestErrorType.class)));
+                    exactly(1).of(mockErrorProxy).provideAndRegisterDocumentSetBRequestError(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(String.class)), with(any(AssertionType.class)));
                 }
             });
             GatewayLiftManagerProxyJavaImpl oImpl = new GatewayLiftManagerProxyJavaImpl()
@@ -2699,7 +2691,7 @@ public class GatewayLiftManagerProxyJavaImplTest
                 }
 
                 @Override
-                protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+                protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxyObject()
                 {
                     return mockErrorProxy;
                 }

@@ -4,8 +4,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response;
 
-import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxy;
-import gov.hhs.fha.nhinc.adapter.xdr.async.response.proxy.AdapterXDRResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.NhinDocSubmissionUtils;
@@ -130,9 +130,9 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
     protected XDRAcknowledgementType forwardToAgency(RegistryResponseType body, AssertionType assertion) {
         getLogger().debug("Entering forwardToAgency");
 
-        AdapterXDRResponseProxyObjectFactory factory = new AdapterXDRResponseProxyObjectFactory();
+        AdapterDocSubmissionDeferredResponseProxyObjectFactory factory = new AdapterDocSubmissionDeferredResponseProxyObjectFactory();
 
-        AdapterXDRResponseProxy proxy = factory.getAdapterXDRResponseProxy();
+        AdapterDocSubmissionDeferredResponseProxy proxy = factory.getAdapterDocSubmissionDeferredResponseProxy();
 
         XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBResponse(body, assertion);
 

@@ -3,8 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestNoOpImpl"/> -->
+    <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyNoOpImpl"/> -->
 	
-	<!-- Web-service implementation -->
-     <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestWebServiceProxy"/> 
+	<!-- Secured Web-service implementation -->
+    <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl"/> -->
+	
+	<!-- Unsecured Web-service implementation -->
+    <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl"/>
+	
+	<!-- Java implementation -->
+    <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyJavaImpl"/> -->
 </beans>

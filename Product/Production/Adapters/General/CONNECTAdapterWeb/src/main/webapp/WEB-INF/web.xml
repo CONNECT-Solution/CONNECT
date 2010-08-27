@@ -515,20 +515,52 @@
 
     <!-- Start: XDR Request and Response services-->
     <servlet>
+        <servlet-name>AdapterXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRRequest</servlet-name>
+        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequest</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AdapterXDRRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterXDRRequestSecured</servlet-name>
-        <url-pattern>/AdapterXDRRequestSecured_Service</url-pattern>
+        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRRequestError</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRRequestError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRRequestError</servlet-name>
+        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestError</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRSecuredRequestError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
+        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRResponse</servlet-name>
+        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredResponse</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdapterXDRResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterXDRResponseSecured</servlet-name>
-        <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredResponseSecured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdapterComponentXDRResponse</servlet-name>
@@ -537,14 +569,6 @@
     <servlet-mapping>
         <servlet-name>AdapterComponentXDRResponse</servlet-name>
         <url-pattern>/AdapterComponentXDRResponse_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
-        <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdapterComponentXDRRequest</servlet-name>
@@ -683,17 +707,16 @@
         <!-- Start: XDR Request and Response services-->
         <web-resource-collection>
             <web-resource-name>AdapterXDRRequestSecured</web-resource-name>
-            <url-pattern>/AdapterXDRRequestSecured_Service</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterXDRResponseSecured</web-resource-name>
-            <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+            <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterXDRSecuredRequestError</web-resource-name>
-            <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
+            <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</url-pattern>
         </web-resource-collection>
-
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRResponseSecured</web-resource-name>
+            <url-pattern>/AdapterService/AdapterDocSubmissionDeferredResponseSecured</url-pattern>
+        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterDocSubmissionSecured</web-resource-name>
             <url-pattern>/AdapterDocSubmissionSecured</url-pattern>

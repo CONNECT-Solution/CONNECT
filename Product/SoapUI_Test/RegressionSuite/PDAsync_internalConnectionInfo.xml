@@ -503,15 +503,15 @@
 			</service>
             <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
+			<service>
+				<name>adapterxdrrequest</name>
+				<description>Adapter Component XDR Request Unsecured</description>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+			</service>
             <service>
                 <name>adapterxdrrequestsecured</name>
                 <description>Adapter Component XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
-            </service>
-            <service>
-                <name>adapterxdrrequest</name>
-                <description>Adapter Component XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
 			<service>
 				<name>nhincproxyxdrrequest</name>
@@ -532,12 +532,12 @@
             <service>
                 <name>adapterxdrresponsesecured</name>
                 <description>Adapter Component XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
             </service>
 			<service>
 				<name>nhincproxyxdrresponse</name>
@@ -1018,15 +1018,15 @@
 			</service>
            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
+			<service>
+				<name>adapterxdrrequest</name>
+				<description>Adapter Component XDR Request Unsecured</description>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+			</service>
             <service>
                 <name>adapterxdrrequestsecured</name>
                 <description>Adapter Component XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
-            </service>
-            <service>
-                <name>adapterxdrrequest</name>
-                <description>Adapter Component XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
 			<service>
 				<name>nhincproxyxdrrequest</name>
@@ -1047,12 +1047,12 @@
             <service>
                 <name>adapterxdrresponsesecured</name>
                 <description>Adapter Component XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
             </service>
 			<service>
 				<name>nhincproxyxdrresponse</name>
@@ -1561,15 +1561,15 @@
             </service>
            <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
+			<service>
+				<name>adapterxdrrequest</name>
+				<description>Adapter Component XDR Request Unsecured</description>
+				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+			</service>
             <service>
                 <name>adapterxdrrequestsecured</name>
                 <description>Adapter Component XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
-            </service>
-            <service>
-                <name>adapterxdrrequest</name>
-                <description>Adapter Component XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
 			<service>
 				<name>nhincproxyxdrrequest</name>
@@ -1590,12 +1590,12 @@
             <service>
                 <name>adapterxdrresponsesecured</name>
                 <description>Adapter Component XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
             </service>
 			<service>
 				<name>nhincproxyxdrresponse</name>

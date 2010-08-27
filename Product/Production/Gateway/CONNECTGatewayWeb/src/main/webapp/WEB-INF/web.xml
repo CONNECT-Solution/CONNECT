@@ -229,14 +229,6 @@
         <url-pattern>/EntityService/EntityDocSubmissionUnsecured</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AdapterXDRRequestError</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.xdr.async.request.error.AdapterXDRRequestError</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRRequestError</servlet-name>
-        <url-pattern>/AdapterService/AdapterXDRRequestError_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured</servlet-class>
     </servlet>

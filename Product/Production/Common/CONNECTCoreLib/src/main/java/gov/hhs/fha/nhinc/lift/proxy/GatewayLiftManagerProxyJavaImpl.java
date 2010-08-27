@@ -1,13 +1,10 @@
 package gov.hhs.fha.nhinc.lift.proxy;
 
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxy;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.error.proxy.AdapterXDRRequestErrorProxyObjectFactory;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
-import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionResponseType;
 import gov.hhs.fha.nhinc.gateway.lift.StartLiftTransactionRequestType;
 import gov.hhs.fha.nhinc.gateway.lift.CompleteLiftTransactionResponseType;
@@ -40,7 +37,6 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,7 +44,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 
@@ -511,10 +506,10 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
      * 
      * @return The handle to the AdapterXDRRequest proxy object.
      */
-    protected AdapterXDRRequestProxy getAdapterXDRRequestProxyObject()
+    protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxyObject()
     {
-        AdapterXDRRequestProxyObjectFactory oFactory = new AdapterXDRRequestProxyObjectFactory();
-        AdapterXDRRequestProxy oAdapterXDRRequestService = oFactory.getAdapterXDRRequestProxy();
+        AdapterDocSubmissionDeferredRequestProxyObjectFactory oFactory = new AdapterDocSubmissionDeferredRequestProxyObjectFactory();
+        AdapterDocSubmissionDeferredRequestProxy oAdapterXDRRequestService = oFactory.getAdapterDocSubmissionDeferredRequestProxy();
         return oAdapterXDRRequestService;
     }
 
@@ -523,10 +518,10 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
      *
      * @return The handle to the AdapterXDRRequest proxy object.
      */
-    protected AdapterXDRRequestErrorProxy getAdapterXDRRequestErrorProxyObject()
+    protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxyObject()
     {
-        AdapterXDRRequestErrorProxyObjectFactory oFactory = new AdapterXDRRequestErrorProxyObjectFactory();
-        AdapterXDRRequestErrorProxy oAdapterXDRRequestErrorService = oFactory.getAdapterXDRRequestErrorProxy();
+        AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory oFactory = new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory();
+        AdapterDocSubmissionDeferredRequestErrorProxy oAdapterXDRRequestErrorService = oFactory.getAdapterDocSubmissionDeferredRequestErrorProxy();
         return oAdapterXDRRequestErrorService;
     }
 
@@ -624,12 +619,8 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
             throw new JAXBException(sErrorMessage, e);
         }
 
-        AdapterProvideAndRegisterDocumentSetSecuredRequestType oRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
-        oRequest.setProvideAndRegisterDocumentSetRequest(oMessage);
-        oRequest.setUrl(sFileURI);
-
-        AdapterXDRRequestProxy oAdapterXDRRequestService = getAdapterXDRRequestProxyObject();
-        XDRAcknowledgementType oAck = oAdapterXDRRequestService.provideAndRegisterDocumentSetBRequest(oRequest, oAssertion);
+        AdapterDocSubmissionDeferredRequestProxy oAdapterXDRRequestService = getAdapterDocSubmissionDeferredRequestProxyObject();
+        XDRAcknowledgementType oAck = oAdapterXDRRequestService.provideAndRegisterDocumentSetBRequest(oMessage, sFileURI, oAssertion);
 
         // not sure what to do with the ACK at this point.  The message already went back to the initiating gateway when we
         // queued the request.  So at this point we will do nothing with it.
@@ -675,13 +666,8 @@ public class GatewayLiftManagerProxyJavaImpl implements GatewayLiftManagerProxy
             throw new JAXBException(sErrorMessage, e);
         }
 
-        AdapterProvideAndRegisterDocumentSetRequestErrorType oRequest = new AdapterProvideAndRegisterDocumentSetRequestErrorType();
-        oRequest.setProvideAndRegisterDocumentSetRequest(oMessage);
-        oRequest.setErrorMsg(sLiftErrorMessage);
-        oRequest.setAssertion(oAssertion);
-
-        AdapterXDRRequestErrorProxy oAdapterXDRRequestErrorService = getAdapterXDRRequestErrorProxyObject();
-        XDRAcknowledgementType oAck = oAdapterXDRRequestErrorService.provideAndRegisterDocumentSetBRequestError(oRequest);
+        AdapterDocSubmissionDeferredRequestErrorProxy oAdapterXDRRequestErrorService = getAdapterDocSubmissionDeferredRequestErrorProxyObject();
+        XDRAcknowledgementType oAck = oAdapterXDRRequestErrorService.provideAndRegisterDocumentSetBRequestError(oMessage, sLiftErrorMessage, oAssertion);
 
         // not sure what to do with the ACK at this point.  The message already went back to the initiating gateway when we
         // queued the request.  So at this point we will do nothing with it.

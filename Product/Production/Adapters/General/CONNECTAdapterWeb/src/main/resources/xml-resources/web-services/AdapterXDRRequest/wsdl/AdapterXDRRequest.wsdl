@@ -36,7 +36,7 @@
     </portType>
     <binding name="AdapterXDRRequest_Binding" type="tns:AdapterXDRRequest_PortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsaws:UsingAddressing/>
+        <!-- <wsaws:UsingAddressing/> -->
         <operation name="ProvideAndRegisterDocumentSet-bRequest">
             <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
             <input>
