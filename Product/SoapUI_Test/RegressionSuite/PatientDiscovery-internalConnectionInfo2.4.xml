@@ -6,7 +6,7 @@
     <description>DoD Description</description>
     <states>
       <state>
-        <name>US-FL</name>
+        <name>US-TX</name>
       </state>
     </states>
     <services>
@@ -1700,10 +1700,7 @@
     <description>Interface Test Harness</description>
     <states>
       <state>
-        <name>US-FL</name>
-      </state>
-      <state>
-        <name>US-VA</name>
+        <name>US-CA</name>
       </state>
     </states>
     <services>
