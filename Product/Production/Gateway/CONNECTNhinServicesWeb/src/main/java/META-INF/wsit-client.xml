@@ -7,7 +7,7 @@
  >
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
-    <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>
+    <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentxdrsecured"/>
     <import location="AdapterDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerysecured"/>
     <import location="AdapterDocQueryDeferredRequestErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured"/>
     <import location="AdapterDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured"/>
@@ -30,4 +30,5 @@
     <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
     <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
+    <import location="AdapterXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrsecured"/>
 </definitions>
