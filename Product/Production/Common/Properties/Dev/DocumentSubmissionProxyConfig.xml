@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- Default facade implementation -->
+  <!-- <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyNoOpImpl"/> -->
+  <!-- Default java implementation -->
+ <!-- <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyJavaImpl"/> -->
+  <!-- Web-service Secured implementation -->
+  <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceSecuredImpl"/>
+  <!-- Web-service UnSecured implementation -->
+  <!--  <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceUnsecuredImpl"/>-->
+  
+  <!-- Default facade implementation -->
+  <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyNoOpImpl"/> -->
+  <!-- Default java implementation -->
+ <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyJavaImpl"/> -->
+  <!-- Web-service Secured implementation -->
+ <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceSecuredImpl"/> -->
+  <!-- Web-service UnSecured implementation -->
+    <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl"/>
+  
+</beans>

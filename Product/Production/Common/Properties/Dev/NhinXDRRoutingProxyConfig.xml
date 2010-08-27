@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		
 	<!-- Reference implementation -->
-     <bean id="reference" class="gov.hhs.nhinc.xdr.routing.ConnectReference"/> 
+     <bean id="reference" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.ConnectReference"/> 
      
-     <bean id="chiep" class="gov.hhs.nhinc.xdr.routing.CHiep"/> 
+     <bean id="chiep" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.CHiep"/> 
 </beans>

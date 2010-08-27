@@ -256,12 +256,22 @@
       <service>
         <name>adapterxdrsecured</name>
         <description>Adapter Component XDR Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocSubmissionSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdr</name>
         <description>Adapter Component XDR </description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocSubmissionUnsecured</endpointURL>
+      </service>
+      <service>
+        <name>adaptercomponentxdrsecured</name>
+        <description>Adapter Component XDR Secured</description>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentDocSubmissionSecured</endpointURL>
+      </service>
+      <service>
+        <name>adaptercomponentxdr</name>
+        <description>Adapter Component XDR </description>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocSubmissionUnsecured</endpointURL>
       </service>
       <service>
         <name>entityxdrsecured</name>
@@ -1083,17 +1093,27 @@
         </service>
 
 
-      <service>
-        <name>adapterpxdrsecured</name>
+       <service>
+        <name>adapterxdrsecured</name>
         <description>Adapter Component XDR Secured</description>
-        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocSubmissionSecured</endpointURL>
       </service>
       <service>
         <name>adapterxdr</name>
         <description>Adapter Component XDR </description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocSubmissionUnsecured</endpointURL>
       </service>
        <service>
+        <name>adaptercomponentxdrsecured</name>
+        <description>Adapter Component XDR Secured</description>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentDocSubmissionSecured</endpointURL>
+      </service>
+      <service>
+        <name>adaptercomponentxdr</name>
+        <description>Adapter Component XDR </description>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocSubmissionUnsecured</endpointURL>
+      </service>
+      <service>
         <name>entityxdrsecured</name>
         <description>Entity XDR Secured</description>
         <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
