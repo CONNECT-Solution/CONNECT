@@ -1856,6 +1856,36 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionOrchImpl"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionOrchImpl"
+              linecount="31"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.Config"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0.05"/>
+   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.ConfigurationManager"
+              linecount="46"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.RoutingConfig"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="104" branchrate="80" branchsexecuted="0.46"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.XDRHelper"
+              linecount="210"
+              linerate="80"
+              linesexecuted="1.09"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentDocSubmissionRequestOrchImpl"
               linecount="8"
               linerate="80"
@@ -1913,6 +1943,86 @@
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl"
               linecount="41"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyJavaImpl"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyNoOpImpl"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceSecuredImpl"
+              linecount="37"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl"
+              linecount="44"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.CHiep"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.ConnectReference"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.XDRRouting"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyJavaImpl"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyNoOpImpl"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceSecuredImpl"
+              linecount="37"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceUnsecuredImpl"
+              linecount="44"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
@@ -2020,9 +2130,9 @@
               linecount="41"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl"
-              linecount="66"
+              linecount="45"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="54" branchrate="80" branchsexecuted="0"
