@@ -555,15 +555,40 @@
         <url-pattern>/AdapterComponentXDRRequest_Service</url-pattern>
     </servlet-mapping>
 
-    
+    <servlet>
+        <servlet-name>AdapterDocSubmissionSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocSubmissionSecured</servlet-name>
+        <url-pattern>/AdapterDocSubmissionSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocSubmissionUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocSubmissionUnsecured</servlet-name>
+        <url-pattern>/AdapterDocSubmissionUnsecured</url-pattern>
+    </servlet-mapping>
 
-    
 
-
-    
-
-
-    
+    <servlet>
+        <servlet-name>AdapterComponentDocSubmissionSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocSubmissionSecured</servlet-name>
+        <url-pattern>/AdapterComponentDocSubmissionSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentDocSubmissionUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocSubmissionUnsecured</servlet-name>
+        <url-pattern>/AdapterComponentDocSubmissionUnsecured</url-pattern>
+    </servlet-mapping>
 
 
 
@@ -667,6 +692,15 @@
         <web-resource-collection>
             <web-resource-name>AdapterXDRSecuredRequestError</web-resource-name>
             <url-pattern>/AdapterXDRRequestErrorSecured_Service</url-pattern>
+        </web-resource-collection>
+
+        <web-resource-collection>
+            <web-resource-name>AdapterDocSubmissionSecured</web-resource-name>
+            <url-pattern>/AdapterDocSubmissionSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterComponentDocSubmissionSecured</web-resource-name>
+            <url-pattern>/AdapterComponentDocSubmissionSecured</url-pattern>
         </web-resource-collection>
         <!-- End: XDR Request and Response services-->
 

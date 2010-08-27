@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.proxy.
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRImpl;
+import gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -42,8 +42,8 @@ public class AdapterXDRRequestSecuredImpl {
         return ack;
     }
 
-    protected AdapterComponentXDRImpl getAdapterComponentXDRImpl() {
-        return new AdapterComponentXDRImpl();
+    protected AdapterComponentDocSubmissionImpl getAdapterComponentXDRImpl() {
+        return new AdapterComponentDocSubmissionImpl();
     }
 
     protected Log getLogger() {

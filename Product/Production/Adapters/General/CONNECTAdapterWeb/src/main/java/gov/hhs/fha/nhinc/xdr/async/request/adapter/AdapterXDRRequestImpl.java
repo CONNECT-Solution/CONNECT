@@ -12,8 +12,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocu
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
-import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
+//import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
+//import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -21,7 +21,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
-import gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRImpl;
+import gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +40,7 @@ public class AdapterXDRRequestImpl {
     private static Log log = null;
     private static EntityXDRSecuredAsyncResponseService entityXDRSecuredResponseService = null;
     public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
-    private static AdapterXDRService adapterXDRService = null;
+  //  private static AdapterXDRService adapterXDRService = null;
 
     public AdapterXDRRequestImpl() {
         log = createLogger();
@@ -49,23 +49,23 @@ public class AdapterXDRRequestImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         getLogger().debug("Begin provideAndRegisterDocumentSetBRequest()");
 
-        WebServiceHelper oHelper = new WebServiceHelper();
-        RegistryResponseType response = new RegistryResponseType();
-
-        try
-        {
-            if (body != null && body.getProvideAndRegisterDocumentSetRequest() != null)
-            {
-                response = (RegistryResponseType) oHelper.invokeDeferredResponseWebService(this, this.getClass(), "callAdapterComponentXDR", body.getAssertion(), body.getProvideAndRegisterDocumentSetRequest(), context);
-            } else
-            {
-                getLogger().error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  The input parameter is null.");
-            }
-        } catch (Exception e)
-        {
-            getLogger().error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
-        }
+//        WebServiceHelper oHelper = new WebServiceHelper();
+//        RegistryResponseType response = new RegistryResponseType();
+//
+//        try
+//        {
+//            if (body != null && body.getProvideAndRegisterDocumentSetRequest() != null)
+//            {
+//                response = (RegistryResponseType) oHelper.invokeDeferredResponseWebService(this, this.getClass(), "callAdapterComponentXDR", body.getAssertion(), body.getProvideAndRegisterDocumentSetRequest(), context);
+//            } else
+//            {
+//                getLogger().error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  The input parameter is null.");
+//            }
+//        } catch (Exception e)
+//        {
+//            getLogger().error("Failed to call the web orchestration (" + this.getClass() + ".callAdapterComponentXDR).  An unexpected exception occurred.  " +
+//                    "Exception: " + e.getMessage(), e);
+//        }
 
 
         //TODO: Call the XDR Response service asynchronously
@@ -80,8 +80,8 @@ public class AdapterXDRRequestImpl {
         return ack;
     }
 
-    protected AdapterComponentXDRImpl getAdapterComponentXDRImpl() {
-        return new AdapterComponentXDRImpl();
+    protected AdapterComponentDocSubmissionImpl getAdapterComponentXDRImpl() {
+        return new AdapterComponentDocSubmissionImpl();
     }
 
     protected Log getLogger() {
@@ -97,31 +97,31 @@ public class AdapterXDRRequestImpl {
         return assertion;
     }
 
-    protected RegistryResponseType callAdapterComponentXDR(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
-
-        getLogger().debug("Calling AdapterComponentXDRImpl");
-
-        AdapterProvideAndRegisterDocumentSetRequestType adapterComponentXDRRequest = new AdapterProvideAndRegisterDocumentSetRequestType();
-
-        adapterComponentXDRRequest.setAssertion(assertion);
-        adapterComponentXDRRequest.setProvideAndRegisterDocumentSetRequest(body);
-
-        RegistryResponseType registryResponse = null;
-
-        String adapterComponentXDRUrl = getAdapterComponentXDRUrl();
-
-        if (NullChecker.isNotNullish(adapterComponentXDRUrl)) {
-            AdapterXDRPortType port = getAdapterXDRPort(adapterComponentXDRUrl);
-
-            registryResponse = port.provideAndRegisterDocumentSetb(adapterComponentXDRRequest);
-
-        } else {
-            getLogger().error("The URL for service: " + NhincConstants.ADAPTER_XDR_SERVICE_NAME + " is null");
-        }
-
-        return registryResponse;
-
-    }
+//    protected RegistryResponseType callAdapterComponentXDR(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+//
+//        getLogger().debug("Calling AdapterComponentXDRImpl");
+//
+//        AdapterProvideAndRegisterDocumentSetRequestType adapterComponentXDRRequest = new AdapterProvideAndRegisterDocumentSetRequestType();
+//
+//        adapterComponentXDRRequest.setAssertion(assertion);
+//        adapterComponentXDRRequest.setProvideAndRegisterDocumentSetRequest(body);
+//
+//        RegistryResponseType registryResponse = null;
+//
+//        String adapterComponentXDRUrl = getAdapterComponentXDRUrl();
+//
+//        if (NullChecker.isNotNullish(adapterComponentXDRUrl)) {
+//            AdapterXDRPortType port = getAdapterXDRPort(adapterComponentXDRUrl);
+//
+//            registryResponse = port.provideAndRegisterDocumentSetb(adapterComponentXDRRequest);
+//
+//        } else {
+//            getLogger().error("The URL for service: " + NhincConstants.ADAPTER_XDR_SERVICE_NAME + " is null");
+//        }
+//
+//        return registryResponse;
+//
+//    }
 
     /**
      *
@@ -250,22 +250,22 @@ public class AdapterXDRRequestImpl {
         return url;
     }
 
-    protected AdapterXDRPortType getAdapterXDRPort(String url) {
-
-        AdapterXDRPortType port = getAdapterXDRService().getAdapterXDRPort();
-
-        getLogger().info("Setting endpoint address to Adapter XDR Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
-        return port;
-    }
-
-    protected AdapterXDRService getAdapterXDRService() {
-        if (adapterXDRService == null) {
-            return new AdapterXDRService();
-        } else {
-            return adapterXDRService;
-        }
-
-    }
+//    protected AdapterXDRPortType getAdapterXDRPort(String url) {
+//
+//        AdapterXDRPortType port = getAdapterXDRService().getAdapterXDRPort();
+//
+//        getLogger().info("Setting endpoint address to Adapter XDR Service to " + url);
+//        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+//
+//        return port;
+//    }
+//
+//    protected AdapterXDRService getAdapterXDRService() {
+//        if (adapterXDRService == null) {
+//            return new AdapterXDRService();
+//        } else {
+//            return adapterXDRService;
+//        }
+//
+//    }
 }

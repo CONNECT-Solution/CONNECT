@@ -28,6 +28,7 @@
     <import location="EntityPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreqqueue"/>
     <import location="EntityPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp"/>
     <import location="NhincProxyPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp"/>
+    <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentxdrsecured"/>
 </definitions>
 
 
