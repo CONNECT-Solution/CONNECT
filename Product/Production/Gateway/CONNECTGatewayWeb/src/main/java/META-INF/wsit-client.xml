@@ -53,6 +53,7 @@
     <import location="AdapterDocRetrieveDeferredReqSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured"/>
     <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
     <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
+    <import location="NhincProxyXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"/>
     <import location="NhincProxyXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request"/>
 	<import location="NhincProxyXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response"/>
 
