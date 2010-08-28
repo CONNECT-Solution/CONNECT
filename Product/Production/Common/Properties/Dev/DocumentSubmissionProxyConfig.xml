@@ -20,5 +20,14 @@
  <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceSecuredImpl"/> -->
   <!-- Web-service UnSecured implementation -->
     <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl"/>
+    
+    <!-- Default facade implementation -->
+  <!-- <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyNoOpImpl"/> -->
+  <!-- Default java implementation -->
+  <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyJavaImpl"/> 
+  <!-- Web-service Secured implementation -->
+ <!-- <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceSecuredImpl"/> -->
+  <!-- Web-service UnSecured implementation -->
+  <!--  <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceUnsecuredImpl"/> -->
   
 </beans>

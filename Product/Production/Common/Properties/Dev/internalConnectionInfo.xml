@@ -142,7 +142,12 @@
       <service>
         <name>nhincproxyxdrsecured</name>
         <description>NHINC PROXY XDR</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/ProxyXDRSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionSecured</endpointURL>
+      </service>
+      <service>
+        <name>nhincproxyxdr</name>
+        <description>NHINC PROXY XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
       </service>
       <service>
         <name>nhincproxyxdrrequestsecured</name>
@@ -988,7 +993,17 @@
       <service>
         <name>nhincproxyxdrsecured</name>
         <description>NHINC PROXY XDR</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/ProxyXDRSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionSecured</endpointURL>
+      </service>
+      <service>
+        <name>nhincproxyxdr</name>
+        <description>NHINC PROXY XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
+      </service>
+      <service>
+        <name>nhincproxyxdr</name>
+        <description>NHINC PROXY XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
       </service>
        <service>
         <name>nhincproxyxdrrequestsecured</name>
@@ -1869,7 +1884,12 @@
       <service>
         <name>nhincproxyxdrsecured</name>
         <description>NHINC PROXY XDR</description>
-        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/ProxyXDRSecured_Service</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionSecured</endpointURL>
+      </service>
+      <service>
+        <name>nhincproxyxdr</name>
+        <description>NHINC PROXY XDR</description>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
       </service>
        <service>
         <name>nhincproxyxdrrequestsecured</name>
