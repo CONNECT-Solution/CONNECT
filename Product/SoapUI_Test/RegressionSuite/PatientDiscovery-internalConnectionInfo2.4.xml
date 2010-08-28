@@ -834,10 +834,7 @@
     <description>DoD Description</description>
     <states>
       <state>
-        <name>US-NY</name>
-      </state>
-      <state>
-        <name>US-VA</name>
+        <name>US-NC</name>
       </state>
     </states>
     <services>
