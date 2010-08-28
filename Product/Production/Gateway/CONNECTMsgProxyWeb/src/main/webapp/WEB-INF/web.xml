@@ -149,14 +149,10 @@
         <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>NhincProxyXDRSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyXDRSecured</servlet-name>
-        <url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
-    </servlet-mapping>
+    
+
+    
+
 
     <servlet>
         <servlet-name>PassthruDocSubmissionDeferredRequestSecured</servlet-name>
@@ -234,6 +230,24 @@
         <servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PassthruDocSubmissionSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PassthruDocSubmissionSecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocSubmissionSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PassthruDocSubmissionUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PassthruDocSubmissionUnsecured</servlet-name>
+        <url-pattern>/EntityService/PassthruDocSubmissionUnsecured</url-pattern>
+    </servlet-mapping>
+
 
 	<!-- End Nhinc proxy Document retrieve deferred services-->
 
@@ -297,8 +311,8 @@
             <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>NhincProxyXDRSecured</web-resource-name>
-            <url-pattern>/EntityService/ProxyXDRSecured_Service</url-pattern>
+            <web-resource-name>PassthruDocSubmissionSecured</web-resource-name>
+            <url-pattern>/EntityService/PassthruDocSubmissionSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>PassthruDocSubmissionDeferredRequestSecured</web-resource-name>

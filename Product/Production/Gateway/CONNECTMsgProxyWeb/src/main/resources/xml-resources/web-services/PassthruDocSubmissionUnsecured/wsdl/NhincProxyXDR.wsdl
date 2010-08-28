@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NhincProxyXDR" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr">
+	<documentation>IHE XDR Document Repository</documentation>
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+		</xsd:schema>
+		<!--	Importing all schemas within one seems to confuse some parsers
+      and code-generation tools (and may be invalid)
+    <xsd:schema elementFormDefault="qualified">
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+        schemaLocation="../schema/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+    </xsd:schema>
+    -->
+	</types>
+	<message name="ProvideAndRegisterDocumentSet-b_Message">
+		<documentation>Provide and Register Document Set</documentation>
+		<part name="body" element="nccommonproxy:RespondingGateway_ProvideAndRegisterDocumentSetRequest"/>
+	</message>
+	<message name="ProvideAndRegisterDocumentSet-bResponse_Message">
+		<documentation>Provide And Register Document Set Response</documentation>
+		<part name="body" element="rs:RegistryResponse"/>
+	</message>
+	<portType name="ProxyXDR_PortType">
+		<operation name="ProvideAndRegisterDocumentSet-b">
+			<input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:ProvideAndRegisterDocumentSet-b"/>
+			<output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
+		</operation>
+	</portType>
+	<binding name="ProxyXDR_Binding" type="tns:ProxyXDR_PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ProvideAndRegisterDocumentSet-b">
+			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ProxyXDR_Service">
+		<port name="ProxyXDR_Port" binding="tns:ProxyXDR_Binding">
+			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyXDR"/>
+		</port>
+	</service>
+</definitions>
