@@ -30,7 +30,7 @@
 	</message>
 	<portType name="ProxyXDR_PortType">
 		<operation name="ProvideAndRegisterDocumentSet-b">
-			<input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-b"/>
+			<input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:ProvideAndRegisterDocumentSet-b"/>
 			<output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
 		</operation>
 	</portType>

@@ -30,7 +30,7 @@
 	</message>
 	<portType name="ProxyXDRSecured_PortType">
 		<operation name="ProvideAndRegisterDocumentSet-b">
-			<input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-b"/>
+			<input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:ProvideAndRegisterDocumentSet-b"/>
 			<output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
 		</operation>
 	</portType>
@@ -58,7 +58,6 @@
 		<wsp:ExactlyOne>
 			<wsp:All>
 				<wsoma:OptimizedMimeSerialization/>
-				<wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
 				<sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
 				<sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
 				<sp:TransportBinding>
