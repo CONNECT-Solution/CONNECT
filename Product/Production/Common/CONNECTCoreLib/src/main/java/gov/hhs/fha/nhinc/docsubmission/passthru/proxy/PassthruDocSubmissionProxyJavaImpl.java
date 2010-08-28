@@ -22,6 +22,7 @@ public class PassthruDocSubmissionProxyJavaImpl implements PassthruDocSubmission
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using Java Implementation for Passthru Doc Submission Service");
+        
         return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(request, assertion, targetSystem);
     }
 

@@ -8,8 +8,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
@@ -19,6 +17,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxy;
 
 public class EntityDocSubmissionOrchImpl
 {
@@ -171,10 +171,8 @@ public class EntityDocSubmissionOrchImpl
         log.debug("ack: " + ack.getMessage());
 
         // Core Refactor will create these
-        //PassthruDocSubmissionProxyObjectFactory factory = new PassthruDocSubmissionProxyObjectFactory();
-        //PassthruDocSubmissionProxy proxy = patientDiscoveryFactory.getPassthruDocSubmissionProxy();
-        NhinDocSubmissionProxyObjectFactory factory = new NhinDocSubmissionProxyObjectFactory();
-        NhinDocSubmissionProxy proxy = factory.getNhinDocSubmissionProxy();
+        PassthruDocSubmissionProxyObjectFactory factory = new PassthruDocSubmissionProxyObjectFactory();
+        PassthruDocSubmissionProxy proxy = factory.getPassthruDocSubmissionProxy();
 
         log.debug("Invoking " + proxy + ".provideAndRegisterDocumentSetB with " + body.getProvideAndRegisterDocumentSetRequest()
                 + " assertion: " + assertion + " and target " + body.getNhinTargetSystem());
