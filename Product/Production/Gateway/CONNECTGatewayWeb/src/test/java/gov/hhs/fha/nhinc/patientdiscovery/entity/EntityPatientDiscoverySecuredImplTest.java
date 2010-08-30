@@ -34,7 +34,7 @@ public class EntityPatientDiscoverySecuredImplTest
     final Log mockLog = context.mock(Log.class);
     final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
     final AssertionType mockAssertion = context.mock(AssertionType.class);
-    final EntityPatientDiscoveryProcessor mockProcessor = context.mock(EntityPatientDiscoveryProcessor.class);
+    final EntityPatientDiscoveryOrchImpl mockProcessor = context.mock(EntityPatientDiscoveryOrchImpl.class);
     final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
 
     @Test
@@ -81,7 +81,7 @@ public class EntityPatientDiscoverySecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockProcessor;
                 }
@@ -93,7 +93,7 @@ public class EntityPatientDiscoverySecuredImplTest
                 }
             });
 
-            EntityPatientDiscoveryProcessor processor = pdSecuredImpl.getEntityPatientDiscoveryProcessor();
+            EntityPatientDiscoveryOrchImpl processor = pdSecuredImpl.getEntityPatientDiscoveryProcessor();
             assertNotNull("EntityPatientDiscoveryProcessor was null", processor);
         }
         catch(Throwable t)
@@ -147,7 +147,7 @@ public class EntityPatientDiscoverySecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockProcessor;
                 }
@@ -189,7 +189,7 @@ public class EntityPatientDiscoverySecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockProcessor;
                 }
@@ -231,7 +231,7 @@ public class EntityPatientDiscoverySecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockProcessor;
                 }
@@ -273,7 +273,7 @@ public class EntityPatientDiscoverySecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return null;
                 }

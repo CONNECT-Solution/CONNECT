@@ -26,9 +26,9 @@ public class EntityPatientDiscoverySecuredImpl
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
     {
-        return new EntityPatientDiscoveryProcessor();
+        return new EntityPatientDiscoveryOrchImpl();
     }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context)
@@ -49,7 +49,7 @@ public class EntityPatientDiscoverySecuredImpl
         {
             AssertionType assertion = extractAssertion(context);
 
-            EntityPatientDiscoveryProcessor processor = getEntityPatientDiscoveryProcessor();
+            EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if(processor != null)
             {
                 response = processor.respondingGatewayPRPAIN201305UV02(request, assertion);

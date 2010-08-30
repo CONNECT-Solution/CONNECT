@@ -23,9 +23,9 @@ public class EntityPatientDiscoveryUnsecuredImpl
         return LogFactory.getLog(getClass());
     }
 
-    protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
     {
-        return new EntityPatientDiscoveryProcessor();
+        return new EntityPatientDiscoveryOrchImpl();
     }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request)
@@ -38,7 +38,7 @@ public class EntityPatientDiscoveryUnsecuredImpl
         }
         else
         {
-            EntityPatientDiscoveryProcessor processor = getEntityPatientDiscoveryProcessor();
+            EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if(processor != null)
             {
                 response = processor.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request, respondingGatewayPRPAIN201305UV02Request.getAssertion());

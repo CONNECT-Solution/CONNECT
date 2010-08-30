@@ -29,7 +29,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
         }
     };
     final Log mockLog = context.mock(Log.class);
-    final EntityPatientDiscoveryProcessor mockEntityPatientDiscoveryProcessor = context.mock(EntityPatientDiscoveryProcessor.class);
+    final EntityPatientDiscoveryOrchImpl mockEntityPatientDiscoveryProcessor = context.mock(EntityPatientDiscoveryOrchImpl.class);
     final PRPAIN201305UV02 mockPdMessage = context.mock(PRPAIN201305UV02.class);
     final AssertionType mockAssertion = context.mock(AssertionType.class);
     final NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);
@@ -78,7 +78,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockEntityPatientDiscoveryProcessor;
                 }
@@ -90,7 +90,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                 }
             });
 
-            EntityPatientDiscoveryProcessor processor = pdUnsecuredImpl.getEntityPatientDiscoveryProcessor();
+            EntityPatientDiscoveryOrchImpl processor = pdUnsecuredImpl.getEntityPatientDiscoveryProcessor();
             assertNotNull("EntityPatientDiscoveryProcessor was null", processor);
         }
         catch(Throwable t)
@@ -114,7 +114,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockEntityPatientDiscoveryProcessor;
                 }
@@ -156,7 +156,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return mockEntityPatientDiscoveryProcessor;
                 }
@@ -195,7 +195,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
                     return null;
                 }
@@ -237,9 +237,9 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                     return mockLog;
                 }
                 @Override
-                protected EntityPatientDiscoveryProcessor getEntityPatientDiscoveryProcessor()
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
-                    EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+                    EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
                     {
                         @Override
                         public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
