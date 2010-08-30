@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.response;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -10,7 +10,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredRespJavaImpl implements EntityDocRetrieveDeferredRespProxy
+public class EntityDocRetrieveDeferredRespProxyJavaImpl implements EntityDocRetrieveDeferredRespProxy
 {
 
     /**

@@ -19,7 +19,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  *
  * @author Sai Valluripalli
  */
-public class NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl implements NhincProxyDocRetrieveDeferredReqProxy {
+public class NhincProxyDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements NhincProxyDocRetrieveDeferredReqProxy {
 
     private Log log = null;
     private boolean debugEnable = false;
@@ -34,7 +34,7 @@ public class NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl implements Nh
     /**
      * default constructor
      */
-    public NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl() {
+    public NhincProxyDocRetrieveDeferredReqProxyWebServiceSecuredImpl() {
         log = createLogger();
         debugEnable = log.isDebugEnabled();
         oProxyHelper = createWebServiceProxyHelper();

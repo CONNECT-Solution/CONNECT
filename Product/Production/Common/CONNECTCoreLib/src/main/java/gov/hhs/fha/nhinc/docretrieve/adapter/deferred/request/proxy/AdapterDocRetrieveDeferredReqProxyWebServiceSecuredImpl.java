@@ -90,14 +90,6 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
         log.debug("Begin sendToAdapter");
         DocRetrieveAcknowledgementType response = null;
 
-        //
-        // All we are allowed to return is a success message, so we will set it up here.
-        //
-        response = new DocRetrieveAcknowledgementType();
-        RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
-        response.setMessage(regResp);
-
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
             AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
@@ -110,7 +102,7 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
                 request.setRetrieveDocumentSetRequest(body);
 
-                oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
+                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
             }
         } catch (Exception ex) {
             log.error("Error calling crossGatewayRetrieveRequest: " + ex.getMessage(), ex);

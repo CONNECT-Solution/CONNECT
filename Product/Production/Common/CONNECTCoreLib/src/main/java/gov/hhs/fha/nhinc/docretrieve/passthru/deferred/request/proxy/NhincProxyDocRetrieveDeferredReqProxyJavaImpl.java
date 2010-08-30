@@ -10,7 +10,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
  *
  * @author Sai Valluripalli
  */
-public class NhincProxyDocRetrieveDeferredReqJavaImpl implements NhincProxyDocRetrieveDeferredReqProxy
+public class NhincProxyDocRetrieveDeferredReqProxyJavaImpl implements NhincProxyDocRetrieveDeferredReqProxy
 {
     /**
      *

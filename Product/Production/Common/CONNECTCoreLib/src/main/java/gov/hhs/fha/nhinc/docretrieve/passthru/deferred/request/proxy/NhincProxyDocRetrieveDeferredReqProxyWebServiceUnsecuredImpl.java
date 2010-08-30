@@ -19,7 +19,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  *
  * @author Sai Valluripalli
  */
-public class NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl implements NhincProxyDocRetrieveDeferredReqProxy {
+public class NhincProxyDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl implements NhincProxyDocRetrieveDeferredReqProxy {
 
     private Log log = null;
     private boolean debugEnabled = false;
@@ -34,7 +34,7 @@ public class NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl implements 
     /**
      * default constructor
      */
-    public NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl() {
+    public NhincProxyDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         debugEnabled = log.isDebugEnabled();
         oProxyHelper = createWebServiceProxyHelper();
@@ -109,7 +109,7 @@ public class NhincProxyDocRetrieveDeferredReqUnsecuredWebServiceImpl implements 
                 log.debug("Obtained service - creating port.");
             }
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocRetrieveDeferredRequestPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.response;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
@@ -6,7 +6,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredRespObjectFactory extends ComponentProxyObjectFactory {
+public class EntityDocRetrieveDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
     private static final String BEAN_NAME_ENTITY_DOCRETRIEVE_DEFERRED_RESPONSE = "entitydocretrievedeferredresp";
 

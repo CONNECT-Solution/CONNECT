@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;

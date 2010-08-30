@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -10,7 +10,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
  * Java implementation for Entity Document retrieve deferred unsecured request webservice call
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredReqJavaImpl implements EntityDocRetrieveDeferredReqProxy {
+public class EntityDocRetrieveDeferredReqProxyJavaImpl implements EntityDocRetrieveDeferredReqProxy {
 
     /**
      * 

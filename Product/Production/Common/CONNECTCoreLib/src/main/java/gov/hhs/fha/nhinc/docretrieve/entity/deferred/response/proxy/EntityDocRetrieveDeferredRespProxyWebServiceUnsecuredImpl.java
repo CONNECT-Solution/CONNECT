@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.response;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -18,7 +18,7 @@ import javax.xml.ws.Service;
  *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements EntityDocRetrieveDeferredRespProxy {
+public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implements EntityDocRetrieveDeferredRespProxy {
 
     private Log log = null;
     private boolean debugEnabled = false;
@@ -33,7 +33,7 @@ public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements Ent
     /**
      * default constructor
      */
-    public EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl() {
+    public EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         debugEnabled = log.isDebugEnabled();
         oProxyHelper = createWebServiceProxyHelper();
@@ -102,7 +102,7 @@ public class EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl implements Ent
                 log.debug("Obtained service - creating port.");
             }
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrieveDeferredResponsePortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

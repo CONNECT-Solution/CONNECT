@@ -7,10 +7,9 @@ package gov.hhs.fha.nhinc.docquery.passthru.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.passthru.deferred.request.*;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
@@ -27,11 +26,11 @@ import static org.junit.Assert.*;
  *
  * @author patlollav
  */
-public class PassthruDocQueryDeferredRequestUnsecuredTest {
+public class PassthruDocQueryDeferredRequestSecuredImplTest {
 
     private Mockery mockery = null;
-
-    public PassthruDocQueryDeferredRequestUnsecuredTest() {
+    
+    public PassthruDocQueryDeferredRequestSecuredImplTest() {
     }
 
     @BeforeClass
@@ -49,6 +48,7 @@ public class PassthruDocQueryDeferredRequestUnsecuredTest {
                 setImposteriser(ClassImposteriser.INSTANCE);
             }
         };
+
     }
 
     @After
@@ -56,23 +56,22 @@ public class PassthruDocQueryDeferredRequestUnsecuredTest {
     }
 
     /**
-     * Test of crossGatewayQueryRequest method, of class PassthruDocQueryDeferredRequestUnsecured.
+     * Test of crossGatewayQueryRequest method, of class PassthruDocQueryDeferredRequestSecured.
      */
     @Test
-    public void testCrossGatewayQueryRequestHappyPath() {
+    public void testCrossGatewayQueryRequest() {
         System.out.println("crossGatewayQueryRequest -- Happy Path");
 
         final Log mockLogger = mockery.mock(Log.class);
         final PassthruDocQueryDeferredRequestOrchImpl mockNhincDocQueryDeferredRequestOrchImpl = mockery.mock(PassthruDocQueryDeferredRequestOrchImpl.class);
 
-        final RespondingGatewayCrossGatewayQueryRequestType mockCrossGatewayQueryRequest = mockery.mock(RespondingGatewayCrossGatewayQueryRequestType.class);
+        final RespondingGatewayCrossGatewayQuerySecuredRequestType mockCrossGatewayQueryRequest = mockery.mock(RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
         final AssertionType mockAssertion = mockery.mock(AssertionType.class);
-        final DocQueryAuditLog mockDocQueryAuditLog = mockery.mock(DocQueryAuditLog.class);
-        final AdhocQueryRequest mockAdhocQueryRequest = mockery.mock(AdhocQueryRequest.class);
-        final NhinTargetSystemType mockTarget = mockery.mock(NhinTargetSystemType.class);
+        final WebServiceContext mockContext = mockery.mock(WebServiceContext.class);
 
 
-        PassthruDocQueryDeferredRequestUnsecured instance = new PassthruDocQueryDeferredRequestUnsecured(){
+        PassthruDocQueryDeferredRequestSecuredImpl instance = new PassthruDocQueryDeferredRequestSecuredImpl(){
+
             protected Log getLogger(){
                 return mockLogger;
             }
@@ -81,29 +80,31 @@ public class PassthruDocQueryDeferredRequestUnsecuredTest {
             protected PassthruDocQueryDeferredRequestOrchImpl getPassthruDocQueryDeferredRequestOrchImpl() {
                 return mockNhincDocQueryDeferredRequestOrchImpl;
             }
+
+            @Override
+            protected AssertionType extractAssertion(WebServiceContext context) {
+                return mockAssertion;
+            }
+
+
         };
 
         mockery.checking(new Expectations() {
             {
-                allowing(mockLogger).isDebugEnabled();
-                will(returnValue(true));
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockCrossGatewayQueryRequest).getAdhocQueryRequest();
-                will(returnValue(mockAdhocQueryRequest));
-                one(mockCrossGatewayQueryRequest).getAssertion();
-                will(returnValue(mockAssertion));
-                one(mockCrossGatewayQueryRequest).getNhinTargetSystem();
-                will(returnValue(mockTarget));
                 one(mockAssertion).setMessageId(with(any(String.class)));
+                one(mockCrossGatewayQueryRequest).getAdhocQueryRequest();
+                one(mockCrossGatewayQueryRequest).getNhinTargetSystem();
                 one(mockNhincDocQueryDeferredRequestOrchImpl).crossGatewayQueryRequest(with(any(AdhocQueryRequest.class)), with(any(AssertionType.class)),
                         with(any(NhinTargetSystemType.class)));
                 will(returnValue(new DocQueryAcknowledgementType()));
-                
+
             }
         });
 
-        DocQueryAcknowledgementType result = instance.crossGatewayQueryRequest(mockCrossGatewayQueryRequest);
+        DocQueryAcknowledgementType result = instance.crossGatewayQueryRequest(mockCrossGatewayQueryRequest, null);
         assertNotNull(result);
     }
 
+ 
 }

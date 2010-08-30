@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.response;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -18,7 +18,7 @@ import javax.xml.ws.Service;
  *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredRespSecuredWebServiceImpl implements EntityDocRetrieveDeferredRespProxy {
+public class EntityDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements EntityDocRetrieveDeferredRespProxy {
 
     private Log log = null;
     private boolean debugEnabled = false;
@@ -33,7 +33,7 @@ public class EntityDocRetrieveDeferredRespSecuredWebServiceImpl implements Entit
     /**
      * default constructor
      */
-    public EntityDocRetrieveDeferredRespSecuredWebServiceImpl() {
+    public EntityDocRetrieveDeferredRespProxyWebServiceSecuredImpl() {
         log = createLogger();
         debugEnabled = log.isDebugEnabled();
         oProxyHelper = createWebServiceProxyHelper();

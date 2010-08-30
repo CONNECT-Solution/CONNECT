@@ -6,7 +6,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  *
  * @author Sai Valluripalli
  */
-public class NhincProxyDocRetrieveDeferredReqObjectFactory extends ComponentProxyObjectFactory {
+public class NhincProxyDocRetrieveDeferredReqProxyObjectFactory extends ComponentProxyObjectFactory {
 
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";
     private static final String BEAN_NAME_NHINCPROXY_DOCRETRIEVE_DEFERRED_REQUEST = "nhincproxydocretrievedeferredreq";

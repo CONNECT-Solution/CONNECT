@@ -1,9 +1,9 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrieveDeferredRequestPortType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveDeferredRequestSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -16,32 +16,32 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * Entity Doc Retrieve Deferred Request unsecured webservice implementation call
+ *
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl implements EntityDocRetrieveDeferredReqProxy {
+public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements EntityDocRetrieveDeferredReqProxy {
 
     private Log log = null;
     private boolean enableDebug = false;
     private WebServiceProxyHelper oProxyHelper = null;
     private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocretrieve";
-    private static final String SERVICE_LOCAL_PART = "EntityDocRetrieveDeferredRequest";
-    private static final String PORT_LOCAL_PART = "EntityDocRetrieveDeferredRequestPortSoap";
-    private static final String WSDL_FILE = "EntityDocRetrieveDeferredReq.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocretrieve:CrossGatewayRetrieveRequestMessage";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocretrievesecured";
+    private static final String SERVICE_LOCAL_PART = "EntityDocRetrieveDeferredRequestSecured";
+    private static final String PORT_LOCAL_PART = "EntityDocRetrieveDeferredRequestSecuredPortSoap";
+    private static final String WSDL_FILE = "EntityDocRetrieveDeferredReqSecured.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveRequestMessage";
 
     /**
      * default constructor
      */
-    public EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl() {
+    public EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl() {
         log = createLogger();
         enableDebug = log.isDebugEnabled();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
     /**
-     *
+     * 
      * @return WebServiceProxyHelper
      */
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -49,11 +49,11 @@ public class EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl implements Enti
     }
 
     /**
-     * Creating logger instance
+     * create logger instance
      * @return Log
      */
     protected Log createLogger() {
-        return (log != null) ? log : LogFactory.getLog(this.getClass());
+        return log = (log != null) ? log : LogFactory.getLog(this.getClass());
     }
 
     /**
@@ -65,13 +65,14 @@ public class EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl implements Enti
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
         if (enableDebug) {
-            log.debug("Begin unsecure implementation of Entity Doc retrieve Request unsecured");
+            log.debug("Begin EntityDocRetrieveDeferredReqSecuredWebServiceImpl.crossGatewayRetrieveRequest ");
         }
         DocRetrieveAcknowledgementType ack = null;
         String url = null;
+
         try {
-            url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST);
-            EntityDocRetrieveDeferredRequestPortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
+            url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST);
+            EntityDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
             if (message == null) {
                 log.error("Message was null");
             } else if (assertion == null) {
@@ -81,21 +82,22 @@ public class EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl implements Enti
             } else if (port == null) {
                 log.error("port was null");
             } else {
-                RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-                request.setAssertion(assertion);
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
                 request.setNhinTargetCommunities(target);
                 request.setRetrieveDocumentSetRequest(message);
-                ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, EntityDocRetrieveDeferredRequestPortType.class, "crossGatewayRetrieveRequest", request);
+                ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, EntityDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
             }
+
         } catch (Exception e) {
-            log.error("Unable to retrieve endpoint for service name '" + NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST + "' " + e.getMessage());
+            log.error("Error: Failed to retrieve url for service: '" + NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST + "' ");
+            log.error(e.getMessage());
             ack = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
             ack.setMessage(regResp);
         }
         if (enableDebug) {
-            log.debug("End unsecure implementation of Entity Doc retrieve Request unsecured");
+            log.debug("End EntityDocRetrieveDeferredReqSecuredWebServiceImpl.crossGatewayRetrieveRequest ");
         }
         return ack;
     }
@@ -106,15 +108,15 @@ public class EntityDocRetrieveDeferredReqUnsecuredWebServiceImpl implements Enti
      * @param serviceAction
      * @param wsAddressingAction
      * @param assertion
-     * @return EntityDocRetrieveDeferredRequestPortType
+     * @return EntityDocRetrieveDeferredRequestSecuredPortType
      */
-    protected EntityDocRetrieveDeferredRequestPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
-        EntityDocRetrieveDeferredRequestPortType port = null;
+    protected EntityDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+        EntityDocRetrieveDeferredRequestSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrieveDeferredRequestPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrieveDeferredRequestSecuredPortType.class);
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");

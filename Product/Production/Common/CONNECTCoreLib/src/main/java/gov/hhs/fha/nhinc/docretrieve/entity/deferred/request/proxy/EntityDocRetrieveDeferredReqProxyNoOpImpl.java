@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.docretrieve.entity.proxy.deferred.request;
+package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -13,7 +13,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * The idea of this class is to provide a very fast - testable implementation of the service.
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredReqNoOpImpl implements EntityDocRetrieveDeferredReqProxy
+public class EntityDocRetrieveDeferredReqProxyNoOpImpl implements EntityDocRetrieveDeferredReqProxy
 {
     /**
      * 
