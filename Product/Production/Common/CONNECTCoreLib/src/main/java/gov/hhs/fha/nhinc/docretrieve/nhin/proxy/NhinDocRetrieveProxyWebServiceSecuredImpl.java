@@ -10,6 +10,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import javax.xml.ws.Service;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,6 +92,17 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         {
             log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  " +
                       "Exception: " + e.getMessage(), e);
+            RegistryResponseType regResp = new RegistryResponseType();
+
+            regResp.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+
+            RegistryError registryError = new RegistryError();
+            registryError.setCodeContext("Processing Adapter Doc Query document retrieve");
+            registryError.setErrorCode("XDSRepostoryError");
+            registryError.setSeverity("Error");
+            regResp.getRegistryErrorList().getRegistryError().add(registryError);
+            response.setRegistryResponse(regResp);
+            
         }
 
         return response;

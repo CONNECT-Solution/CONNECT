@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.PlaceHolder"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0.02"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.reident.proxy.AdapterReidentProxy"
               linecount="0"
               linerate="80"
@@ -1017,7 +1012,7 @@
               linesexecuted="0"/>
    <threshold branchcount="14" branchrate="80" branchsexecuted="0.01"
               class="gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl"
-              linecount="38"
+              linecount="45"
               linerate="80"
               linesexecuted="0.11"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -1662,7 +1657,7 @@
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl"
-              linecount="38"
+              linecount="46"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

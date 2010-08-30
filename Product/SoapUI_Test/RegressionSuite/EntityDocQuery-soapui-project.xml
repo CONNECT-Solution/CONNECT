@@ -3973,19 +3973,19 @@ if(gatewayBakFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-05-13T00:00:00Z</con:value>
+          <con:value>2010-08-30T20:54:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-05-13T15:34:00Z</con:value>
+          <con:value>2010-08-30T21:04:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/13/2010 00:00:00</con:value>
+          <con:value>08/30/2010 20:54:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-06-12T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3994,7 +3994,7 @@ if(gatewayBakFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00">
       <con:settings/>
       <con:testStep type="properties" name="Test Case Properties" disabled="true">
         <con:settings/>
@@ -4695,7 +4695,7 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -4720,19 +4720,19 @@ if(gatewayBakFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-05-13T00:00:00Z</con:value>
+          <con:value>2010-08-30T20:56:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-05-13T15:34:02Z</con:value>
+          <con:value>2010-08-30T21:06:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/13/2010 00:00:00</con:value>
+          <con:value>08/30/2010 20:56:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-06-12T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5411,19 +5411,19 @@ if(gatewayBakFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-05-13T00:00:00Z</con:value>
+          <con:value>2010-08-30T20:56:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-05-13T15:34:04Z</con:value>
+          <con:value>2010-08-30T21:06:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/13/2010 00:00:00</con:value>
+          <con:value>08/30/2010 20:56:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-06-12T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6112,19 +6112,19 @@ if(gatewayBakFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-05-13T00:00:00Z</con:value>
+          <con:value>2010-08-30T20:56:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-05-13T15:34:06Z</con:value>
+          <con:value>2010-08-30T21:06:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/13/2010 00:00:00</con:value>
+          <con:value>08/30/2010 20:56:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-06-12T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6813,19 +6813,19 @@ if(gatewayBakFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-05-13T00:00:00Z</con:value>
+          <con:value>2010-08-30T20:56:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-05-13T15:34:07Z</con:value>
+          <con:value>2010-08-30T21:06:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/13/2010 00:00:00</con:value>
+          <con:value>08/30/2010 20:56:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-06-12T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

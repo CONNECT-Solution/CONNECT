@@ -9,6 +9,8 @@ import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -104,6 +106,14 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            RegistryErrorList registryErrorList = new RegistryErrorList();
+
+            RegistryError registryError = new RegistryError();
+            registryError.setCodeContext("Processing Adapter Doc Query document query");
+            registryError.setErrorCode("XDSRepostoryError");
+            registryError.setSeverity("Error");
+            registryErrorList.getRegistryError().add(registryError);
+            response.setRegistryErrorList(registryErrorList);
         }
         return response;
     }
