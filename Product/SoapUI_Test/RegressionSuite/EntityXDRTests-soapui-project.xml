@@ -16681,7 +16681,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+      <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="tns:ProvideAndRegisterDocumentSet-b" name="ProvideAndRegisterDocumentSet-b" bindingOperationName="ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
@@ -20289,7 +20289,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           <con:interface>EntityXDR_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
           <con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType="">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
@@ -20431,6 +20433,14 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PSYCHOTHERAPY</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
             <!--Optional:-->
@@ -20737,6 +20747,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               </con:configuration>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -21551,7 +21563,7 @@ assert(XacmlAttributeCount=="1");
 
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
-def ExpectedValue='Execute';
+def ExpectedValue='action';
 //log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
@@ -22231,19 +22243,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:05:40Z</con:value>
+          <con:value>2010-08-27T19:20:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:15:40Z</con:value>
+          <con:value>2010-08-27T19:30:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:05:40</con:value>
+          <con:value>08/27/2010 19:20:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -22272,7 +22284,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           <con:interface>EntityXDR_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
           <con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType="">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
@@ -22414,6 +22428,14 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PSYCHOTHERAPY</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
             <!--Optional:-->
@@ -22711,6 +22733,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -23525,7 +23549,7 @@ assert(XacmlAttributeCount=="1");
 
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
-def ExpectedValue='Execute';
+def ExpectedValue='action';
 //log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
@@ -24205,19 +24229,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:05:46Z</con:value>
+          <con:value>2010-08-27T19:20:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:15:46Z</con:value>
+          <con:value>2010-08-27T19:30:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:05:46</con:value>
+          <con:value>08/27/2010 19:20:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24230,9 +24254,11 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           <con:interface>EntityXDR_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
           <con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType="">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body>
@@ -24678,6 +24704,8 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -24686,19 +24714,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:05:52Z</con:value>
+          <con:value>2010-08-27T19:22:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:15:52Z</con:value>
+          <con:value>2010-08-27T19:32:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:05:52</con:value>
+          <con:value>08/27/2010 19:22:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24714,7 +24742,7 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
-def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTest/DocumentRepositoryXDR_Service";
+def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service";
 def mockXDRURL = "http://" + mockHost + ":11230/mockXDR";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
@@ -24729,7 +24757,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
           <con:interface>EntityXDR_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
           <con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType="">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
@@ -25177,6 +25207,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
               </con:configuration>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -25214,19 +25246,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:05:55Z</con:value>
+          <con:value>2010-08-27T19:22:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:15:55Z</con:value>
+          <con:value>2010-08-27T19:32:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:05:55</con:value>
+          <con:value>08/27/2010 19:22:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -25242,7 +25274,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
-def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTest/DocumentRepositoryXDR_Service";
+def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service";
 def mockXDRURL = "http://" + mockHost + ":11230/mockXDR";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
@@ -25257,7 +25289,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
           <con:interface>EntityXDR_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
           <con:request name="EntiityRequestMsg - XDR" outgoingWss="" incomingWss="" wssPasswordType="">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
@@ -25705,6 +25739,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
               </con:configuration>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -25738,19 +25774,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:05:57Z</con:value>
+          <con:value>2010-08-27T19:25:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:15:57Z</con:value>
+          <con:value>2010-08-27T19:35:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:05:57</con:value>
+          <con:value>08/27/2010 19:25:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26495,19 +26531,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-10T15:05:59Z</con:value>
+          <con:value>2010-08-27T19:20:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-10T15:15:59Z</con:value>
+          <con:value>2010-08-27T19:30:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/10/2010 15:05:59</con:value>
+          <con:value>08/27/2010 19:20:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-09T00:00:00Z</con:value>
+          <con:value>2010-09-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -26515,7 +26551,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Inbound UserTue Aug 10 15:10:59 UTC 2010</con:value>
+          <con:value>XDR Inbound UserFri Aug 27 19:25:49 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
