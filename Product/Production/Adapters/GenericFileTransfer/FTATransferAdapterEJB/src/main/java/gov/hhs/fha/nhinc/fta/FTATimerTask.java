@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.fta;
 
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfiguration;
@@ -37,9 +32,6 @@ import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPo
  *
  * @author dunnek
  */
-
-
-
 public class FTATimerTask  {
     private static Log log = LogFactory.getLog(FTATimerTask.class);
     private FTAConfiguration ftaConfig = null;

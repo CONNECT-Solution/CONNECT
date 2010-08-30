@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<!-- 
-
+ 
 		OASIS takes no position regarding the validity or scope of any 
 		intellectual property or other rights that might be claimed to 
 		pertain to the implementation or use of the technology described 
@@ -56,7 +56,8 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
    name="AdapterSubscriptionManagement" 
    targetNamespace="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement">
@@ -218,7 +219,7 @@
     </wsdl:operation>
   </wsdl:portType>
   
-  <wsdl:binding name="AdapterNotificationProducerBindingSoap11" 
+  <wsdl:binding name="AdapterNotificationProducerBindingSoap" 
                 type="tns:AdapterNotificationProducerPortType">
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -288,10 +289,10 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  
-  <wsdl:binding name="AdapterSubscriptionManagerBindingSoap11" 
+
+  <wsdl:binding name="AdapterSubscriptionManagerBindingSoap"
                 type="tns:AdapterSubscriptionManagerPortType">
-    <soap:binding style="document" 
+    <soap:binding style="document"
                   transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="Unsubscribe">
       <soap:operation soapAction="urn:Unsubscribe"/>
@@ -301,8 +302,8 @@
       <wsdl:output name="UnsubscribeResponse">
         <soap:body use="literal"/>
       </wsdl:output>
-   
-<!--   
+
+<!--
       <wsdl:fault name="ResourceUnknownFault">
         <soap:fault name="ResourceUnknownFault" use="literal"/>
       </wsdl:fault>
@@ -312,18 +313,18 @@
 -->
     </wsdl:operation>
   </wsdl:binding>
-  
+
   <wsdl:service name="AdapterNotificationProducer">
-    <wsdl:port name="AdapterNotificationProducerPortSoap11" 
-               binding="tns:AdapterNotificationProducerBindingSoap11">
+    <wsdl:port name="AdapterNotificationProducerPortSoap" 
+               binding="tns:AdapterNotificationProducerBindingSoap">
       <soap:address 
          location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterNotificationProducer"/>
     </wsdl:port>
   </wsdl:service>
   
   <wsdl:service name="AdapterSubscriptionManager">
-    <wsdl:port name="AdapterSubscriptionManagerPortSoap11" 
-               binding="tns:AdapterSubscriptionManagerBindingSoap11">
+    <wsdl:port name="AdapterSubscriptionManagerPortSoap" 
+               binding="tns:AdapterSubscriptionManagerBindingSoap">
       <soap:address 
          location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterSubscriptionManager"/>
     </wsdl:port>

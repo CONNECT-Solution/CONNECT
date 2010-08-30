@@ -47,7 +47,7 @@
     </target>
     <target name="wsimport-client-clean-EntityNotificationConsumer" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitynotificationconsumer"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitynotificationconsumer"/>
     </target>
     <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured"/>
@@ -64,7 +64,7 @@
     </target>
     <target name="wsimport-client-clean-EntityNotificationConsumerSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitynotificationconsumer"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitynotificationconsumersecured"/>
     </target>
     <target name="wsimport-service-AdapterFTAService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterFTAService"/>
@@ -152,7 +152,7 @@
     </target>
     <target name="wsimport-service-clean-AdapterFTAServiceSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterFTAServiceSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapternotificationconsumer"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapternotificationconsumersecured"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntityNotificationConsumer, wsimport-client-EntityNotificationConsumerSecured"/>
     <target name="wsimport-service-generate" depends="wsimport-service-AdapterFTAService, wsimport-service-AdapterSubcriptionManagement, wsimport-service-AdapterSubscriptionManagementSecured, wsimport-service-AdapterFTAServiceSecured, wsimport-init"/>

@@ -53,7 +53,7 @@
    xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntityNotificationConsumerSecured" 
@@ -101,9 +101,9 @@
         </wsdl:operation>
     </wsdl:portType>
 
-    <wsdl:binding name="EntityNotificationConsumerSecuredBindingSoap11"
+    <wsdl:binding name="EntityNotificationConsumerSecuredBindingSoap"
                 type="tns:EntityNotificationConsumerSecuredPortType">
-        <wsp1:PolicyReference URI="#EntityNotificationConsumerSecuredBindingSoap11Policy"/>
+        <wsp1:PolicyReference URI="#EntityNotificationConsumerSecuredBindingSoapPolicy"/>
         <soap:binding style="document"
                   transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="NotifySubscribersOfDocument">
@@ -127,8 +127,8 @@
     </wsdl:binding>
 
     <wsdl:service name="EntityNotificationConsumerSecured">
-        <wsdl:port name="EntityNotificationConsumerSecuredPortSoap11"
-               binding="tns:EntityNotificationConsumerSecuredBindingSoap11">
+        <wsdl:port name="EntityNotificationConsumerSecuredPortSoap"
+               binding="tns:EntityNotificationConsumerSecuredBindingSoap">
             <soap:address
          location=
             "https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationConsumerSecured"/>
@@ -145,7 +145,7 @@
         <plnk:role name="EntityNotificationConsumerSecuredPortTypeRole"
                portType="tns:EntityNotificationConsumerSecuredPortType"/>
     </plnk:partnerLinkType>
-    <wsp1:Policy wsu:Id="EntityNotificationConsumerSecuredBindingSoap11Policy">
+    <wsp1:Policy wsu:Id="EntityNotificationConsumerSecuredBindingSoapPolicy">
         <wsp1:ExactlyOne>
             <wsp1:All>
                 <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>

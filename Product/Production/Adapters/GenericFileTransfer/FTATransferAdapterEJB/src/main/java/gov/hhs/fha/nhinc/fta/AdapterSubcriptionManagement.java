@@ -1,23 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.fta;
 
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
+
 /**
  *
- * @author dunnek
+ * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterNotificationProducer", portName = "AdapterNotificationProducerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", wsdlLocation = "META-INF/wsdl/AdapterSubcriptionManagement/AdapterSubscriptionManagement.wsdl")
+@WebService(serviceName = "AdapterNotificationProducer", portName = "AdapterNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", wsdlLocation = "META-INF/wsdl/AdapterSubcriptionManagement/AdapterSubscriptionManagement.wsdl")
 @Stateless
 public class AdapterSubcriptionManagement implements AdapterNotificationProducerPortType {
+
     private static Log log = LogFactory.getLog(AdapterSubcriptionManagement.class);
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType subscribeRequest) {
@@ -25,9 +22,9 @@ public class AdapterSubcriptionManagement implements AdapterNotificationProducer
 
         log.info("Received Subscribe Request: " + subscribeRequest);
 
-        
+
         return response;
-        
+
     }
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeDocumentRequestType subscribeDocumentRequest) {
@@ -37,7 +34,7 @@ public class AdapterSubcriptionManagement implements AdapterNotificationProducer
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeCdcBioPackage(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeCdcBioPackageRequestType subscribeCdcBioPackageRequest) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Deprecated");
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
 }

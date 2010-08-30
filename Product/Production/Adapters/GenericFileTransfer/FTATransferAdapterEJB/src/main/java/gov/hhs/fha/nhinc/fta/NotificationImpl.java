@@ -1,4 +1,5 @@
 package gov.hhs.fha.nhinc.fta;
+
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.NotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfigurationHelper;

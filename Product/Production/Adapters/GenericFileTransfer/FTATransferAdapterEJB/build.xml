@@ -28,4 +28,9 @@
 		</filelist>
 	</path>
 
+        <path id="jar.libs">
+		<filelist dir="${root.project.directory.path}">
+			<file name="${project.CONNECTCommonTypesLib.dist.file}" />
+		</filelist>
+	</path>
 </project>

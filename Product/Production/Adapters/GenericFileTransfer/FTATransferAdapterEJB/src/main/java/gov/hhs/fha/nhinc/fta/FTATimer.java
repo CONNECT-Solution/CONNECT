@@ -1,18 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.fta;
+
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfiguration;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfigurationHelper;
-import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAChannel;
-import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAElement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 /**
  *
  * @author dunnek
@@ -24,7 +16,7 @@ public class FTATimer extends Thread
 
     private static Log log = LogFactory.getLog(FTATimer.class);
     private static final int FTA_REFRESH_DURATION_DEFAULT = 1800;
-    private static final String FTA_REFRESH_DURATION_PROPERTY = "FTARefreshDuration";
+    //private static final String FTA_REFRESH_DURATION_PROPERTY = "FTARefreshDuration";
     private int m_iDurationSeconds = FTA_REFRESH_DURATION_DEFAULT;
 
     private static FTAConfiguration config = null;
