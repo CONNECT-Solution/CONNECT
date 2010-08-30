@@ -59,81 +59,33 @@
   </target>
 
   <target name="Build.PublishZip.Release.Properties">
-    <property name="Properties.Properties.Directory" value="Blue"/>
-    <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
-    <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
+    <property name="Properties.Base.Dir" value="${Common.Directory.Production.Path}\Common\Properties\"/>
 
-    <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
-        <include name="*\**" />
-      </fileset>
-    </zip>
+    <foreach item="Folder" property="Properties.Dir">
+      <in>
+        <items basedir="${Properties.Base.Dir}">
+          <include name="*"/>
+          <exclude name="${Properties.Base.Dir}"/>
+        </items>
+      </in>
+      <do>
+        <echo message="${Properties.Dir}"/>
+        <property name="Properties.Dir.Name" value="${path::get-file-name-without-extension(Properties.Dir)}"/>
+        <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Dir.Name}_${CCNetLabel}.zip"/>
+        <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
 
-    <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+        <zip zipfile="${Properties.Zip.FilePath}">
+          <fileset basedir="${Properties.Base.Dir}\${Properties.Dir.Name}\" >
+            <include name="*\**" />
+          </fileset>
+        </zip>
 
-    <call target="Publish.Link" />
+        <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
+        <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
-    <property name="Properties.Properties.Directory" value="Green"/>
-    <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
-    <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
-
-    <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
-        <include name="*\**" />
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    <call target="Publish.Link" />
-
-    <property name="Properties.Properties.Directory" value="Red"/>
-    <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
-    <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
-
-    <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
-        <include name="*\**" />
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    <call target="Publish.Link" />
-
-    <property name="Properties.Properties.Directory" value="Orange"/>
-    <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
-    <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
-
-    <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
-        <include name="*\**" />
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    <call target="Publish.Link" />
-
-    <property name="Properties.Properties.Directory" value="Conformance"/>
-    <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
-    <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
-
-    <zip zipfile="${Properties.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\${Properties.Properties.Directory}\" >
-        <include name="*\**" />
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    <call target="Publish.Link" />
-
+        <call target="Publish.Link" />
+      </do>
+    </foreach>
   </target>
 
   <target name="Build.PublishZip.ESCs.Installers">
@@ -231,7 +183,7 @@
     <call target="Publish.Link" />
 
   </target>
-  
+
   <target name="Common.FindBuild">
     <strings id="builds"/>
 

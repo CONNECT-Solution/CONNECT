@@ -163,7 +163,6 @@
         <string value='GlassFish.Deploy'/>
       </tasknames>
     </waitforexit>
-
   </target>
 
   <target name="GlassFish.SetUp">
