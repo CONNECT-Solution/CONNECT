@@ -16,10 +16,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  * @author dunnek
  */
-public class EntityDocRetrieveJavaImpl implements EntityDocRetrieveProxy{
+public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy{
     private static org.apache.commons.logging.Log log = null;
     
-    public EntityDocRetrieveJavaImpl()
+    public EntityDocRetrieveProxyJavaImpl()
     {
         log = createLogger();
     }

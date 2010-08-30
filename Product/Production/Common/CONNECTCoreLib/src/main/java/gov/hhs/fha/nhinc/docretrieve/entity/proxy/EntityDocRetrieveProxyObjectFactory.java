@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author dunnek
  */
 
-public class EntityDocRetrieveObjectFactory extends ComponentProxyObjectFactory
+public class EntityDocRetrieveProxyObjectFactory extends ComponentProxyObjectFactory
 {
     private static final String CONFIG_FILE_NAME = "EntityDocRetProxyConfig.xml";
     private static final String BEAN_NAME_MPI = "entitydocret";

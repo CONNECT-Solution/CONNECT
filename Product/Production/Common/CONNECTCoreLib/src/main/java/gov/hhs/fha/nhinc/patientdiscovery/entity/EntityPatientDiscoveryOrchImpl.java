@@ -30,11 +30,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  *
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryProcessor {
+public class EntityPatientDiscoveryOrchImpl {
 
     private Log log = null;
 
-    public EntityPatientDiscoveryProcessor() {
+    public EntityPatientDiscoveryOrchImpl() {
         log = createLogger();
     }
 

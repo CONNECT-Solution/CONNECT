@@ -15,10 +15,10 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author dunnek
  */
-public class EntityDocRetrieveNoOpImpl implements EntityDocRetrieveProxy{
+public class EntityDocRetrieveProxyNoOpImpl implements EntityDocRetrieveProxy{
     private static org.apache.commons.logging.Log log = null;
 
-    public EntityDocRetrieveNoOpImpl()
+    public EntityDocRetrieveProxyNoOpImpl()
     {
         log = createLogger();
     }

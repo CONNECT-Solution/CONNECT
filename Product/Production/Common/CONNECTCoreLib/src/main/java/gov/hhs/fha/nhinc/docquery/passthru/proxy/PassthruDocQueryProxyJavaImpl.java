@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.docquery.passthru.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
@@ -22,7 +22,7 @@ public class PassthruDocQueryProxyJavaImpl implements PassthruDocQueryProxy {
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Using Java Implementation for Passthru Doc Query Service");
-        return new NhincProxyDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion, target);
+        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion, target);
     }
 
 }

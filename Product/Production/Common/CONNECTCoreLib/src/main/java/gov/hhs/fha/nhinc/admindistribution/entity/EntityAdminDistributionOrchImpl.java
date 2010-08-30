@@ -7,7 +7,6 @@ package gov.hhs.fha.nhinc.admindistribution.entity;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
-import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -147,10 +146,6 @@ public class EntityAdminDistributionOrchImpl {
     protected NhincAdminDistProxy getNhincAdminDist()
     {
         return new NhincAdminDistObjectFactory().getNhincAdminDistProxy();
-    }
-    protected boolean isServiceEnabled()
-    {
-        return new AdminDistributionHelper().isServiceEnabled();
     }
 
 }

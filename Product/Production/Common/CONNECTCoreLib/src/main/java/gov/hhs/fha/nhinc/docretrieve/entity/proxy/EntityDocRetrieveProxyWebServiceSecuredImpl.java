@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author dunnek
  */
-public class EntityDocRetrieveSecuredWebServiceImpl implements EntityDocRetrieveProxy
+public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRetrieveProxy
 {
     private static Service cachedService = null;
     private static EntityDocRetrieveSecured service = null;
@@ -40,7 +40,7 @@ public class EntityDocRetrieveSecuredWebServiceImpl implements EntityDocRetrieve
 
     private static org.apache.commons.logging.Log log = null;
 
-    public EntityDocRetrieveSecuredWebServiceImpl()
+    public EntityDocRetrieveProxyWebServiceSecuredImpl()
     {
         log = createLogger();
         service = getWebService();

@@ -22,8 +22,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
  *
  * @author JHOPPESC
  */
-public class NhincProxyDocQueryOrchImpl {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhincProxyDocQueryOrchImpl.class);
+public class PassthruDocQueryOrchImpl {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocQueryOrchImpl.class);
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
