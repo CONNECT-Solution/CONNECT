@@ -59,7 +59,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -90,7 +90,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -126,7 +126,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -162,7 +162,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -198,7 +198,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -238,7 +238,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -278,7 +278,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -310,7 +310,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -346,7 +346,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -381,7 +381,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -452,7 +452,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -521,7 +521,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -586,7 +586,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -652,7 +652,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -728,7 +728,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -765,7 +765,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -805,7 +805,7 @@ public class EntityPatientDiscoveryProcessorTest
     {
         try
         {
-            EntityPatientDiscoveryProcessor processor = new EntityPatientDiscoveryProcessor()
+            EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
             {
                 @Override
                 protected Log createLogger()
