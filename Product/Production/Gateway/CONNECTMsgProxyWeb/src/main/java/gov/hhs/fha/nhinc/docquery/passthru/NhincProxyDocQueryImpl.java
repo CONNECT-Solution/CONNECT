@@ -6,7 +6,7 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 
@@ -22,7 +22,7 @@ public class NhincProxyDocQueryImpl {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion (context, body.getAssertion());
 
-        return new NhincProxyDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), body.getAssertion(), body.getNhinTargetSystem());
+        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), body.getAssertion(), body.getNhinTargetSystem());
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context) {
@@ -30,7 +30,7 @@ public class NhincProxyDocQueryImpl {
         AdhocQueryResponse response = new AdhocQueryResponse();
         AssertionType assertion = getAssertion (context, null);
         
-        return new NhincProxyDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion, body.getNhinTargetSystem());
+        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion, body.getNhinTargetSystem());
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
