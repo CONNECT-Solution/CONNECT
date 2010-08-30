@@ -9,25 +9,13 @@
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     <import location="EntityAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
     <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
-    <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
-    <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>
     <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
     <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
-    <import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
-    <import location="EntityPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"/>
     <import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
     <import location="NhincProxyNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"/>
     <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>
     <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"/>
-    <import location="NhincProxyXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"/>
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
-    <import location="NhincProxyXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request"/>
-    <import location="NhincProxyXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response"/>
-    <import location="EntityXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request"/>
-    <import location="EntityXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response"/>
-    <import location="EntityPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreqqueue"/>
-    <import location="EntityPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp"/>
-    <import location="NhincProxyPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp"/>
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentxdrsecured"/>
 </definitions>
 

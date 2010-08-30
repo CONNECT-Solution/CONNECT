@@ -223,11 +223,6 @@
         <url-pattern>/AdapterPolicyEngineOrchestrator</url-pattern>
     </servlet-mapping>
 
-
-
-
-
-
     <servlet>
         <servlet-name>AdapterPEPService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService</servlet-class>
@@ -292,6 +287,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>MpiManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</servlet-class>
     </servlet>
@@ -300,14 +304,6 @@
         <url-pattern>/AdapterMpiManagerService</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>AdapterComponentMpiSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentMpiSecured</servlet-name>
-        <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
@@ -495,24 +491,6 @@
         <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>NhincProxyXDRRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyXDRRequest</servlet-name>
-        <url-pattern>/EntityProxyService/NhincProxyXDRRequest</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>NhincProxyXDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyXDRResponse</servlet-name>
-        <url-pattern>/EntityProxyService/NhincProxyXDRResponse</url-pattern>
-    </servlet-mapping>
-
     <!-- Start: XDR Request and Response services-->
     <servlet>
         <servlet-name>AdapterXDRRequest</servlet-name>
@@ -613,8 +591,6 @@
         <servlet-name>AdapterComponentDocSubmissionUnsecured</servlet-name>
         <url-pattern>/AdapterComponentDocSubmissionUnsecured</url-pattern>
     </servlet-mapping>
-
-
 
     <servlet>
         <servlet-name>AdapterComponentRedactionEngine</servlet-name>

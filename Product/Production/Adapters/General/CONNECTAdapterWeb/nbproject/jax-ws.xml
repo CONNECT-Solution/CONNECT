@@ -770,7 +770,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterXDRRequestSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequestSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequestSecured.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequestSecured_Service</service-name>
@@ -794,7 +794,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterXDRResponseSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponseSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponseSecured.wsdl</local-wsdl-file>
       <service-name>AdapterXDRResponseSecured_Service</service-name>
@@ -818,7 +818,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterXDRResponse">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponse</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponse</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponse.wsdl</local-wsdl-file>
       <service-name>AdapterXDRResponse_Service</service-name>
@@ -842,7 +842,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterXDRRequest">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequest</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequest_Service</service-name>
@@ -890,7 +890,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterXDRSecuredRequestError">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.error.adapter.AdapterXDRSecuredRequestError</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRSecuredRequestError</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecuredError.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequestSecuredError.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequestErrorSecured_Service</service-name>
@@ -1772,30 +1772,6 @@
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
           <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </client>
-    <client name="AdapterMpiSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterMpiSecured.wsdl</local-wsdl-file>
-      <package-name>gov.hhs.fha.nhinc.adaptermpi</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
