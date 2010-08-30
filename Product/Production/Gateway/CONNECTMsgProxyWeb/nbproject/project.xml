@@ -56,6 +56,10 @@
                 <library>
                     <file>${file.reference.objenesis-1.0.jar}</file>
                 </library>
+                <library>
+                    <file>${libs.jaxws21.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>

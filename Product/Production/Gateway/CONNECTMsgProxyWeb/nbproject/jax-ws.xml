@@ -50,7 +50,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyPatientDiscoverySecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscoverySecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyPatientDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyPatientDiscoverySecured</service-name>
@@ -482,7 +482,7 @@
       </wsimport-options>
     </service>
     <service name="PassthruDocSubmissionSecured">
-      <implementation-class>gov.hhs.fha.nhinc.xdr.proxy.NhincProxyXDRSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionSecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRSecured.wsdl</local-wsdl-file>
       <service-name>ProxyXDRSecured_Service</service-name>
@@ -507,4 +507,5 @@
     </service>
   </services>
   <clients/>
+  <jsr109>false</jsr109>
 </jax-ws>
