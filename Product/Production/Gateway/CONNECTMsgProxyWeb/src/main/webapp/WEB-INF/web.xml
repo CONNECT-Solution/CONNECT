@@ -102,7 +102,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscoverySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
@@ -110,7 +110,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscovery</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscovery</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
@@ -157,9 +157,9 @@
         <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
     </servlet-mapping>
 
+    
 
-
-
+    
 
 
     <servlet>
@@ -238,7 +238,7 @@
         <servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
     </servlet-mapping>
-
+    
     <servlet>
         <servlet-name>PassthruDocSubmissionSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionSecured</servlet-class>

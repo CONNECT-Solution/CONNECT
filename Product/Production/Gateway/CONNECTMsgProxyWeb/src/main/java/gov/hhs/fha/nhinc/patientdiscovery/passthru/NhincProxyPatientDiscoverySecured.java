@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 
 import javax.jws.WebService;
 import javax.annotation.Resource;

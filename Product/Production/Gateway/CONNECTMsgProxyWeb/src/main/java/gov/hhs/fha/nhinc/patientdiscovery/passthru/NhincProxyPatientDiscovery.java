@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;

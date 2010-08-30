@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
