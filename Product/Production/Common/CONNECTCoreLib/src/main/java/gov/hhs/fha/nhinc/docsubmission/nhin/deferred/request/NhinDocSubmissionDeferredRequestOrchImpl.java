@@ -100,6 +100,7 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
         }
         else {
             getLogger().warn("Document Submission Request Service is not enabled");
+            result = sendErrorToAgency(body, assertion, "Policy Check Failed");
         }
         ack = getXDRAuditLogger().auditAcknowledgement(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
 
