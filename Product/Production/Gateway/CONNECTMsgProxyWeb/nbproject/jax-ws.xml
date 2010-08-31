@@ -50,7 +50,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyPatientDiscoverySecured">
-      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscoverySecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyPatientDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>NhincProxyPatientDiscoverySecured</service-name>
