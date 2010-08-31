@@ -131,37 +131,37 @@
               linerate="80"
               linesexecuted="0.05"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistributionOrchImpl"
               linecount="12"
               linerate="80"
               linesexecuted="0.12"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistJavaImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyJavaImpl"
               linecount="9"
               linerate="80"
               linesexecuted="0.08"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistNoOpImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyNoOpImpl"
               linecount="7"
               linerate="80"
               linesexecuted="0.06"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistObjectFactory"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory"
               linecount="6"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistSecuredWebServiceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceSecuredImpl"
               linecount="46"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistUnsecuredWebServiceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceUnsecuredImpl"
               linecount="40"
               linerate="80"
               linesexecuted="0"/>
@@ -171,92 +171,92 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistJavaImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyJavaImpl"
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistNoOpImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyNoOpImpl"
               linecount="2"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistObjectFactory"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyObjectFactory"
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistSecuredWebServiceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyWebServiceSecuredImpl"
               linecount="34"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistUnsecuredWebServiceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyWebServiceUnsecuredImpl"
               linecount="42"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0.1"
-              class="gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistOrchImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl"
               linecount="52"
               linerate="80"
               linesexecuted="0.35"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistNoOpImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyNoOpImpl"
               linecount="7"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistObjectFactory"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyObjectFactory"
               linecount="4"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistSecuredWebServiceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl"
               linecount="39"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0.01"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl"
               linecount="13"
               linerate="80"
               linesexecuted="0.1"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyJavaImpl"
               linecount="9"
               linerate="80"
               linesexecuted="0.07"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistNoOpImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyNoOpImpl"
               linecount="7"
               linerate="80"
               linesexecuted="0.06"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistObjectFactory"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyObjectFactory"
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0.01"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistSecuredWebserviceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl"
               linecount="47"
               linerate="80"
               linesexecuted="0.12"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0.01"
-              class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistUnsecuredWebserviceImpl"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceUnsecuredImpl"
               linecount="41"
               linerate="80"
               linesexecuted="0.15"/>
@@ -390,9 +390,9 @@
               linecount="12"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor"
-              linecount="24"
+              linecount="15"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
