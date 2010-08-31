@@ -367,7 +367,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterauthentication</name>
