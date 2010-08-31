@@ -23,14 +23,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class HibernateAccessor
 {
-    private static Log log = LogFactory.getLog(HibernateAccessor.class);
-    private static final String CRLF = System.getProperty("line.separator");
     private static String m_sPropertyFileDir = "";
-    private static final String m_sFailedPathMessage = "Failed to load Hibernate Directory.  " +
-            "Unable to determine the path to the configuration files.  " +
-            "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location " +
-            "of your CONNECT configuration files.";
-    private static boolean m_bFailedToLoadEnvVar = false;
 
     static
     {
