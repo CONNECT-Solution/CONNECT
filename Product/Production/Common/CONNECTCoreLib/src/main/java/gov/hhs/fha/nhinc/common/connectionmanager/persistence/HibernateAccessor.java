@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -33,31 +34,7 @@ public class HibernateAccessor
 
     static
     {
-        //
-        // This is a duplication of what is in the PropertyAccessor class and should
-        // be replaced by a call to the PropertyAccessor.getPropertyFileLocation().
-        // The reason we can't do that right now is because NhincCommonLib, which is where
-        // PropertyAccessor lives, is dependent on NhincCommonDAO, which is where this code lives.
-        //
-        m_sPropertyFileDir = System.getProperty("nhinc.properties.dir");
-
-        if(m_sPropertyFileDir == null) {
-            log.warn("The runtime property nhinc.properties.dir is not set!!!  " +
-                    "Looking for the environment variable NHINC_PROPERTIES_DIR as a fall back.  " +
-                    "Please set the runtime nhinc.properties.dir system property in your configuration files.");
-            m_sPropertyFileDir = System.getenv("NHINC_PROPERTIES_DIR");
-            if(m_sPropertyFileDir == null) {
-                m_bFailedToLoadEnvVar = true;
-                log.error(m_sFailedPathMessage);
-            }
-        }
-
-        //
-        // Set it up so that we always have a "/" at the end - in case
-        //------------------------------------------------------------
-        if (m_sPropertyFileDir.endsWith(File.separator) == false) {
-            m_sPropertyFileDir = m_sPropertyFileDir + File.separator;
-        }
+        m_sPropertyFileDir = PropertyAccessor.getPropertyFileLocation();
     }
 
     public static File getHibernateFile(String hibernateFileName)
@@ -79,10 +56,7 @@ public class HibernateAccessor
     private static boolean checkEnvVarSet()
         throws Exception
     {
-        if (m_bFailedToLoadEnvVar)
-        {
-            throw new Exception(m_sFailedPathMessage);
-        }
+        PropertyAccessor.checkEnvVarSet();
 
         return true;            // We only get here if the env variable was loaded.
     }
