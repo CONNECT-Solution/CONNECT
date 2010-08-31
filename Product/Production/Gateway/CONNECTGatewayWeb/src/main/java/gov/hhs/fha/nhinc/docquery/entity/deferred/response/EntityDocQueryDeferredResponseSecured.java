@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "EntityDocQueryDeferredResponseSecured", portName = "EntityDocQueryDeferredResponseSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocquerydeferredresponsesecured.EntityDocQueryDeferredResponseSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponsesecured", wsdlLocation = "WEB-INF/wsdl/EntityDocQueryDeferredResponseSecured/EntityDocQueryDeferredResponseSecured.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@Addressing(enabled=true)
 public class EntityDocQueryDeferredResponseSecured {
     @Resource
     private WebServiceContext context;

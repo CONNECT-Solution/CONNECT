@@ -6,6 +6,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQ
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  * This is an Entity service for Document Query Deferred Request message
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
             targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest",
             wsdlLocation = "WEB-INF/wsdl/EntityDocQueryDeferredReq/EntityDocQueryDeferredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled=true)
 public class EntityDocQueryDeferredReq extends EntityDocQueryDeferredReqImpl {
 
   @Resource
