@@ -55,7 +55,7 @@ public class AdapterAdminDistNoOpImplTest {
         final EDXLDistribution body = null;
 
 
-        AdapterAdminDistNoOpImpl instance = new AdapterAdminDistNoOpImpl()
+        AdapterAdminDistributionProxyNoOpImpl instance = new AdapterAdminDistributionProxyNoOpImpl()
 {
 
             @Override

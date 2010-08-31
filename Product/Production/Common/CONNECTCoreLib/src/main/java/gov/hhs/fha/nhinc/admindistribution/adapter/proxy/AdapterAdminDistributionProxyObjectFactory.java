@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  *
  * @author dunnek
  */
-public class AdapterAdminDistObjectFactory  extends ComponentProxyObjectFactory{
+public class AdapterAdminDistributionProxyObjectFactory  extends ComponentProxyObjectFactory{
 
 
     private static final String CONFIG_FILE_NAME = "AdapterAdminDistProxyConfig.xml";
@@ -20,13 +20,13 @@ public class AdapterAdminDistObjectFactory  extends ComponentProxyObjectFactory{
     {
         return CONFIG_FILE_NAME;
     }
-    public AdapterAdminDistProxy getAdapterAdminDistProxy() {
+    public AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
         log.debug("Begin getAdapterAdminDistProxy()");
 
-        AdapterAdminDistProxy result = null;
+        AdapterAdminDistributionProxy result = null;
         
         log.debug("Getting bean");
-        return getBean(BEAN_NAME_ADAPTER_ADMIN_DIST, AdapterAdminDistProxy.class);
+        return getBean(BEAN_NAME_ADAPTER_ADMIN_DIST, AdapterAdminDistributionProxy.class);
         
     }
 }

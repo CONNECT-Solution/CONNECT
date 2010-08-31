@@ -40,7 +40,7 @@ public class AdapterAdminDistJavaImplTest {
         final EDXLDistribution body = new EDXLDistribution();
 
 
-        AdapterAdminDistJavaImpl instance = new AdapterAdminDistJavaImpl()
+        AdapterAdminDistributionProxyJavaImpl instance = new AdapterAdminDistributionProxyJavaImpl()
 {
 
             @Override

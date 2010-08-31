@@ -53,7 +53,7 @@ public class AdapterAdminDistOrchImplTest {
         body.setDistributionID(stringValue);
         body.setSenderID(stringValue);
         
-        AdapterAdminDistOrchImpl instance = new AdapterAdminDistOrchImpl()
+        AdapterAdminDistributionOrchImpl instance = new AdapterAdminDistributionOrchImpl()
         {
             @Override
             protected Log createLogger()

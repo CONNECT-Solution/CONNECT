@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.admindistribution.nhin;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
-import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistProxy;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
@@ -49,7 +49,7 @@ public class NhinAdminDistOrchImplTest {
 
        System.out.println("testSendAlertMessage_ServiceEnabled");
         final Log mockLogger = context.mock(Log.class);
-        final AdapterAdminDistProxy mockAdapter = context.mock(AdapterAdminDistProxy.class);
+        final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
 
         final EDXLDistribution body = new EDXLDistribution();
@@ -67,7 +67,7 @@ public class NhinAdminDistOrchImplTest {
             }
         };
         
-        NhinAdminDistOrchImpl instance = new NhinAdminDistOrchImpl()
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
         {
 
             @Override
@@ -80,7 +80,7 @@ public class NhinAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
             {
                 return mockAdapter;
             }
@@ -133,7 +133,7 @@ public class NhinAdminDistOrchImplTest {
 
        System.out.println("testSendAlertMessage_NoSleep");
         final Log mockLogger = context.mock(Log.class);
-        final AdapterAdminDistProxy mockAdapter = context.mock(AdapterAdminDistProxy.class);
+        final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
 
         final EDXLDistribution body = new EDXLDistribution();
@@ -151,7 +151,7 @@ public class NhinAdminDistOrchImplTest {
             }
         };
 
-        NhinAdminDistOrchImpl instance = new NhinAdminDistOrchImpl()
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
         {
 
             @Override
@@ -164,7 +164,7 @@ public class NhinAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
             {
                 return mockAdapter;
             }
@@ -214,7 +214,7 @@ public class NhinAdminDistOrchImplTest {
 
        System.out.println("testSendAlertMessage_Null");
         final Log mockLogger = context.mock(Log.class);
-        final AdapterAdminDistProxy mockAdapter = context.mock(AdapterAdminDistProxy.class);
+        final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
 
         final EDXLDistribution body = new EDXLDistribution();
@@ -232,7 +232,7 @@ public class NhinAdminDistOrchImplTest {
             }
         };
 
-        NhinAdminDistOrchImpl instance = new NhinAdminDistOrchImpl()
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
         {
 
             @Override
@@ -245,7 +245,7 @@ public class NhinAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
             {
                 return mockAdapter;
             }
@@ -296,7 +296,7 @@ public class NhinAdminDistOrchImplTest {
 
        System.out.println("testSendAlertMessage_ServiceDisabled");
         final Log mockLogger = context.mock(Log.class);
-        final AdapterAdminDistProxy mockAdapter = context.mock(AdapterAdminDistProxy.class);
+        final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
 
         final EDXLDistribution body = new EDXLDistribution();
@@ -314,7 +314,7 @@ public class NhinAdminDistOrchImplTest {
             }
         };
 
-        NhinAdminDistOrchImpl instance = new NhinAdminDistOrchImpl()
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
         {
 
             @Override
@@ -327,7 +327,7 @@ public class NhinAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
             {
                 return mockAdapter;
             }
@@ -380,7 +380,7 @@ public class NhinAdminDistOrchImplTest {
 
        System.out.println("testSendAlertMessage_PolicyFail");
         final Log mockLogger = context.mock(Log.class);
-        final AdapterAdminDistProxy mockAdapter = context.mock(AdapterAdminDistProxy.class);
+        final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
 
         final EDXLDistribution body = new EDXLDistribution();
@@ -398,7 +398,7 @@ public class NhinAdminDistOrchImplTest {
             }
         };
 
-        NhinAdminDistOrchImpl instance = new NhinAdminDistOrchImpl()
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
         {
 
             @Override
@@ -411,7 +411,7 @@ public class NhinAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
             {
                 return mockAdapter;
             }

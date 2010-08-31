@@ -20,8 +20,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
-import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistProxy;
-import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 /**
@@ -139,13 +139,13 @@ public class EntityAdminDistributionOrchImpl {
     protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,NhinTargetSystemType target)
     {
         log.debug("begin sendToNhinProxy");
-        NhincAdminDistProxy nhincAdminDist = getNhincAdminDist();
+        PassthruAdminDistributionProxy nhincAdminDist = getNhincAdminDist();
 
         nhincAdminDist.sendAlertMessage(newRequest.getEDXLDistribution(), assertion, target);
     }
-    protected NhincAdminDistProxy getNhincAdminDist()
+    protected PassthruAdminDistributionProxy getNhincAdminDist()
     {
-        return new NhincAdminDistObjectFactory().getNhincAdminDistProxy();
+        return new PassthruAdminDistributionProxyObjectFactory().getNhincAdminDistProxy();
     }
 
 }

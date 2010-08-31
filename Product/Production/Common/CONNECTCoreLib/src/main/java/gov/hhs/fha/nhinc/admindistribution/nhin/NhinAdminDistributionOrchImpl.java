@@ -7,8 +7,8 @@ package gov.hhs.fha.nhinc.admindistribution.nhin;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
-import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistObjectFactory;
-import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistProxy;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -22,8 +22,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
-import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistProxy;
-import gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -33,10 +33,10 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
  *
  * @author dunnek
  */
-public class NhinAdminDistOrchImpl {
+public class NhinAdminDistributionOrchImpl {
     private Log log = null;
 
-    public NhinAdminDistOrchImpl()
+    public NhinAdminDistributionOrchImpl()
     {
         log = createLogger();
     }
@@ -92,13 +92,13 @@ public class NhinAdminDistOrchImpl {
         this.getAdapterAdminDistProxy().sendAlertMessage(body, assertion);
 
     }
-    protected AdapterAdminDistProxy getAdapterAdminDistProxy()
+    protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
     {
         return this.getAdminFactory().getAdapterAdminDistProxy();
     }
-    protected AdapterAdminDistObjectFactory getAdminFactory()
+    protected AdapterAdminDistributionProxyObjectFactory getAdminFactory()
     {
-        return new AdapterAdminDistObjectFactory();
+        return new AdapterAdminDistributionProxyObjectFactory();
     }
     protected AdminDistributionAuditLogger getLogger()
     {

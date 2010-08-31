@@ -5,9 +5,10 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc;
 
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistObjectFactory;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistProxy;
+import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -49,7 +50,7 @@ public class NhincAdminDistOrchImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        final NhinAdminDistProxy mockNhin = context.mock(NhinAdminDistProxy.class);
+        final NhinAdminDistributionProxy mockNhin = context.mock(NhinAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
         
         final EDXLDistribution body = null;
@@ -57,7 +58,7 @@ public class NhincAdminDistOrchImplTest {
         final NhinTargetSystemType target = null;
         Exception unsupported = null;
 
-        NhincAdminDistOrchImpl instance = new NhincAdminDistOrchImpl()
+        PassthruAdminDistributionOrchImpl instance = new PassthruAdminDistributionOrchImpl()
         {
 
             @Override
@@ -70,7 +71,7 @@ public class NhincAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected NhinAdminDistProxy getNhinProxy()
+            protected NhinAdminDistributionProxy getNhinProxy()
             {
                 return mockNhin;
             }

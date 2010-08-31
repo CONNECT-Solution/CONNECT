@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
 
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyNoOpImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
@@ -49,7 +50,7 @@ public class NhincAdminDistNoOpImplTest {
         EDXLDistribution body = null;
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
-        NhincAdminDistNoOpImpl instance = new NhincAdminDistNoOpImpl()
+        PassthruAdminDistributionProxyNoOpImpl instance = new PassthruAdminDistributionProxyNoOpImpl()
 {
 
             @Override

@@ -7,28 +7,25 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistribution;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.BindingProvider;
 /**
  *
  * @author dunnek
  */
-public class AdapterAdminDistUnsecuredWebServiceImpl implements AdapterAdminDistProxy{
+public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements AdapterAdminDistributionProxy{
     private Log log = null;
     static AdapterAdministrativeDistribution adapterService = null;
-    public AdapterAdminDistUnsecuredWebServiceImpl()
+    public AdapterAdminDistributionProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
         adapterService = getWebService();
@@ -60,7 +57,7 @@ public class AdapterAdminDistUnsecuredWebServiceImpl implements AdapterAdminDist
             oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
 
             try
-            { 
+            {
                 getWebServiceProxyHelper().invokePort(port, AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
             }
             catch(Exception ex)
@@ -92,10 +89,10 @@ public class AdapterAdminDistUnsecuredWebServiceImpl implements AdapterAdminDist
 
         String target = helper.getLocalCommunityId();
 
-        
+
         if (target != null) {
             try {
-               
+
                 url = ConnectionManagerCache.getEndpointURLByServiceName(target, NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME);

@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
 
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -55,7 +56,7 @@ public class NhincAdminDistSecuredWebserviceImplTest {
         final NhinTargetSystemType target = null;
         Exception unsupported = null;
 
-        NhincAdminDistSecuredWebserviceImpl instance = new NhincAdminDistSecuredWebserviceImpl()
+        PassthruAdminDistributionProxyWebServiceSecuredImpl instance = new PassthruAdminDistributionProxyWebServiceSecuredImpl()
 {
 
             @Override

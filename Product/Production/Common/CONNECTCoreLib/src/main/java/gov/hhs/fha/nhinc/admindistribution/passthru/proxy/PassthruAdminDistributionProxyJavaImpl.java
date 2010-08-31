@@ -3,20 +3,21 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
+package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 /**
  *
  * @author dunnek
  */
-public class NhinAdminDistNoOpImpl implements NhinAdminDistProxy{
+public class PassthruAdminDistributionProxyJavaImpl implements PassthruAdminDistributionProxy{
    private Log log = null;
 
-    public NhinAdminDistNoOpImpl()
+    public PassthruAdminDistributionProxyJavaImpl()
     {
         log = createLogger();
     }
@@ -26,6 +27,12 @@ public class NhinAdminDistNoOpImpl implements NhinAdminDistProxy{
     }
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target)
     {
-        log.info("begin send alert");
+        log.info("begin sendAlert");
+        this.getNhincAdminDistImpl().sendAlertMessage(body, assertion, target);
+
+    }
+    protected PassthruAdminDistributionOrchImpl getNhincAdminDistImpl()
+    {
+        return new PassthruAdminDistributionOrchImpl();
     }
 }

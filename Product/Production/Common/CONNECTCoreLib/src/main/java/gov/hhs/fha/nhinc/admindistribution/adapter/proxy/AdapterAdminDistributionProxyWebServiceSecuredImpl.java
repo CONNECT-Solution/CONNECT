@@ -10,30 +10,21 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMes
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistribution;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Map;
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import javax.xml.namespace.QName;
 /**
  *
  * @author dunnek
  */
-public class AdapterAdminDistSecuredWebServiceImpl implements AdapterAdminDistProxy{
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapteradmindistribution";
+public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements AdapterAdminDistributionProxy{
+   private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapteradmindistribution";
     private static final String SERVICE_LOCAL_PART = "Adapter_AdministrativeDistributionSecured";
     private static final String PORT_LOCAL_PART = "Adapter_AdministrativeDistributionSecured_PortType";
     private static final String WSDL_FILE = "AdapterAdminDistSecured.wsdl";
@@ -43,7 +34,7 @@ public class AdapterAdminDistSecuredWebServiceImpl implements AdapterAdminDistPr
     private static AdapterAdministrativeDistributionSecured adapterService = null;
     private static Service cachedService = null;
 
-    public AdapterAdminDistSecuredWebServiceImpl()
+    public AdapterAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
         adapterService = getWebService();
@@ -88,7 +79,7 @@ public class AdapterAdminDistSecuredWebServiceImpl implements AdapterAdminDistPr
         String url = null;
         AdminDistributionHelper helper = getHelper();
         String target = helper.getLocalCommunityId();
-        
+
         url = helper.getUrl(target, NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME);
 
         if (NullChecker.isNotNullish(url))
@@ -106,7 +97,7 @@ public class AdapterAdminDistSecuredWebServiceImpl implements AdapterAdminDistPr
 
 
             try
-            { 
+            {
                 getWebServiceProxyHelper().invokePort(port, AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
             }
             catch(Exception ex)

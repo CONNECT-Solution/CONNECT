@@ -11,7 +11,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  *
  * @author dunnek
  */
-public interface AdapterAdminDistProxy {
+public interface AdapterAdminDistributionProxy {
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion);
 

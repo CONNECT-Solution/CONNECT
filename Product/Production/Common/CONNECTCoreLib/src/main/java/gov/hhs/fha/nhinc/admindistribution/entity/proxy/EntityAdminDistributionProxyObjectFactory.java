@@ -10,7 +10,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  *
  * @author dunnek
  */
-public class EntityAdminDistObjectFactory extends ComponentProxyObjectFactory{
+public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory{
     private static final String CONFIG_FILE_NAME = "EntityAdminDistProxyConfig.xml";
     private static final String BEAN_NAME_AUDIT_REPOSITORY = "entityadmindist";
 
@@ -25,8 +25,8 @@ public class EntityAdminDistObjectFactory extends ComponentProxyObjectFactory{
      *
      * @return AdapterAuditQueryProxy instance
      */
-    public EntityAdminDistProxy getAdapterAuditQueryProxy() {
-        return getBean(BEAN_NAME_AUDIT_REPOSITORY, EntityAdminDistProxy.class);
+    public EntityAdminDistributionProxy getAdapterAuditQueryProxy() {
+        return getBean(BEAN_NAME_AUDIT_REPOSITORY, EntityAdminDistributionProxy.class);
     }
 
 }

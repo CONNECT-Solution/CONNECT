@@ -5,7 +5,8 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyJavaImpl;
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
@@ -48,12 +49,12 @@ public class NhincAdminDistJavaImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        final NhincAdminDistOrchImpl mockImpl = context.mock(NhincAdminDistOrchImpl.class);
+        final PassthruAdminDistributionOrchImpl mockImpl = context.mock(PassthruAdminDistributionOrchImpl.class);
         final EDXLDistribution body = null;
         final AssertionType assertion = null;
         final NhinTargetSystemType target = null;
         
-        NhincAdminDistJavaImpl instance = new NhincAdminDistJavaImpl()
+        PassthruAdminDistributionProxyJavaImpl instance = new PassthruAdminDistributionProxyJavaImpl()
 {
 
             @Override
@@ -61,7 +62,7 @@ public class NhincAdminDistJavaImplTest {
                 return mockLogger;
             }
             @Override
-            protected NhincAdminDistOrchImpl getNhincAdminDistImpl()
+            protected PassthruAdminDistributionOrchImpl getNhincAdminDistImpl()
             {
                 return mockImpl;
             }

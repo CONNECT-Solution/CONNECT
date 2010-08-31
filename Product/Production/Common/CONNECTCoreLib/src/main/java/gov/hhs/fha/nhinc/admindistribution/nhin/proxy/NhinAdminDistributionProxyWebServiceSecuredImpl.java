@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author dunnek
  */
-public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
+public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy{
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinadmindistribution";
@@ -49,7 +49,7 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
     private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 
     static RespondingGatewayAdministrativeDistribution nhinService = new RespondingGatewayAdministrativeDistribution();
-    public NhinAdminDistSecuredWebServiceImpl()
+    public NhinAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
     }
@@ -66,14 +66,14 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
         String url = null;
         AdminDistributionHelper helper = getHelper();
         url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
-        
+
         if (NullChecker.isNotNullish(url))
         {
             RespondingGatewayAdministrativeDistributionPortType port = getPort(url, assertion);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
-            
+
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             try
@@ -86,10 +86,10 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
                 log.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                         "Exception: " + ex.getMessage(), ex);
             }
-            
 
-            
-            
+
+
+
         }
 
 
@@ -98,14 +98,14 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion)
     {
         WebServiceProxyHelper proxyHelper =getWebServiceProxyHelper();
-        
+
         RespondingGatewayAdministrativeDistributionPortType port = null;
         Service cacheService = getService(WSDL_FILE,NAMESPACE_URI, SERVICE_LOCAL_PART);
         if (cacheService != null)
         {
             log.debug("Obtained service - creating port.");
             port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayAdministrativeDistributionPortType.class);
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);            
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
          }
         else
         {

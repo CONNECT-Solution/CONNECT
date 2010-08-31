@@ -11,6 +11,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
  *
  * @author dunnek
  */
-public interface NhinAdminDistProxy {
+public interface NhinAdminDistributionProxy {
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target);
 }

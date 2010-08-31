@@ -12,7 +12,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
  *
  * @author dunnek
  */
-public interface EntityAdminDistProxy {
+public interface EntityAdminDistributionProxy {
     
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target);
 }

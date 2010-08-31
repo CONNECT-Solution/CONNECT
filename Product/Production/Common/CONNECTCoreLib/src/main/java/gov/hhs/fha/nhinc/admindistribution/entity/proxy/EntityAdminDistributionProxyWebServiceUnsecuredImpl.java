@@ -2,39 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
 
+package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import java.util.Map;
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-
 /**
  *
  * @author dunnek
  */
-public class EntityAdminDistUnsecuredWebServiceImpl {
-
+public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entityadmindistribution";
     private static final String SERVICE_LOCAL_PART = "AdministrativeDistribution_Service";
     private static final String PORT_LOCAL_PART = "AdministrativeDistribution_PortType";
@@ -45,7 +33,7 @@ public class EntityAdminDistUnsecuredWebServiceImpl {
     private static Service cachedService = null;
     private WebServiceProxyHelper proxyHelper = null;
 
-    public EntityAdminDistUnsecuredWebServiceImpl() {
+    public EntityAdminDistributionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         service = getWebService();
         proxyHelper = getWebServiceProxyHelper();
@@ -128,4 +116,5 @@ public class EntityAdminDistUnsecuredWebServiceImpl {
         }
         return cachedService;
     }
+
 }

@@ -9,36 +9,31 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-import javax.xml.namespace.QName;
 
 /**
  *
  * @author dunnek
  */
-public class EntityAdminDistSecuredWebServiceImpl {
+public class EntityAdminDistributionProxyWebServiceSecuredImpl {
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entityadmindistribution";
     private static final String SERVICE_LOCAL_PART = "AdministrativeDistributionSecured_Service";
     private static final String PORT_LOCAL_PART = "AdministrativeDistributionSecured_PortType";
     private static final String WSDL_FILE = "EntityAdminDistSecured.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessage_Message";
-    
+
     private Log log = null;
     static AdministrativeDistributionSecuredService service = null;
-    public EntityAdminDistSecuredWebServiceImpl()
+    public EntityAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
         service = getWebService();
@@ -67,8 +62,8 @@ public class EntityAdminDistSecuredWebServiceImpl {
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
     {
         log.debug("begin sendAlert()");
-       
-        
+
+
         AdminDistributionHelper helper = new AdminDistributionHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);
@@ -82,7 +77,7 @@ public class EntityAdminDistSecuredWebServiceImpl {
 
             WebServiceProxyHelper webServiceHelper = new WebServiceProxyHelper();
             webServiceHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.ADMIN_DIST_ACTION, WS_ADDRESSING_ACTION, assertion);;
-            
+
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
