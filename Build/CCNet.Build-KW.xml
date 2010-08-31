@@ -134,7 +134,7 @@
     </sourcecontrol>
     <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
-      <serverUri>tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
+      <serverUri>&CCNet.Server.Remoting.Url;</serverUri>
     </labeller>
     <tasks>
       <modificationWriter>
@@ -248,7 +248,7 @@
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Performance -D:GlassFish.Domain.Templates.File.Path=GlassFish.NonFIPS.Domain.Templates.File.Path -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Performance -D:GlassFish.Domain.Templates.File.Path=GlassFish.NonFIPS.Performance.Domain.Templates.File.Path -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Performance.Test</target>
         </targetList>
