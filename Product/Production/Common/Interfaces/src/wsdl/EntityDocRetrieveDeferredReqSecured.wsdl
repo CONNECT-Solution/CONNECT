@@ -45,9 +45,11 @@
     <portType name="EntityDocRetrieveDeferredRequestSecuredPortType">
         <operation name="CrossGatewayRetrieveRequest">
             <input name="CrossGatewayRetrieveRequestMessage"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+                   message="tns:CrossGatewayRetrieveRequestMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveRequestMessage"/>
             <output name="CrossGatewayRetrieveAcknowledgementMessage"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 

@@ -9,6 +9,7 @@
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    name="EntityDocQuery" 
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocquery">
   <documentation>Entity Document Query</documentation>
@@ -33,9 +34,11 @@
   <portType name="EntityDocQueryPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
-             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
+             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage"
+             wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest"/>
       <output name="RespondingGateway_CrossGatewayQueryResponse"
-              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" />
+              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage"
+             wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryResponse"/>
     </operation>
   </portType>
   

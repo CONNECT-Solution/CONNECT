@@ -9,6 +9,7 @@
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    name="NhincProxyDocQuery" 
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquery">
   <documentation>Nhinc Proxy Document Query</documentation>
@@ -33,9 +34,11 @@
   <portType name="NhincProxyDocQueryPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
-             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
+             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage"
+             wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquery:RespondingGateway_CrossGatewayQueryRequestMessage"/>
       <output name="RespondingGateway_CrossGatewayQueryResponse"
-              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" />
+              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage"
+              wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquery:RespondingGateway_CrossGatewayQueryResponseMessage"/>
     </operation>
   </portType>
   

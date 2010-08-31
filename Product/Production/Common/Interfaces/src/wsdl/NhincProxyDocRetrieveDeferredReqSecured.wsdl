@@ -45,9 +45,11 @@
     <portType name="NhincProxyDocRetrieveDeferredRequestSecuredPortType">
         <operation name="CrossGatewayRetrieveRequest">
             <input name="CrossGatewayRetrieveRequest"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+                   message="tns:CrossGatewayRetrieveRequestMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredrequest:CrossGatewayRetrieveRequestMessage"/>
             <output name="CrossGatewayRetrieveAcknowledgement"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredrequest:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 

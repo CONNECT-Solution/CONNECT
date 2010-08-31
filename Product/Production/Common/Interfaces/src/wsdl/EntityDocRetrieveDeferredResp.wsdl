@@ -12,6 +12,7 @@
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    name="EntityDocRetrieveDeferredResponse"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocretrieve">
     <documentation>Entity document retrieve deferred response</documentation>
@@ -37,9 +38,11 @@
     <portType name="EntityDocRetrieveDeferredResponsePortType">
         <operation name="CrossGatewayRetrieveResponse">
             <input name="CrossGatewayRetrieveResponseMessage"
-                   message="tns:CrossGatewayRetrieveResponseMessage" />
+                   message="tns:CrossGatewayRetrieveResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrieve:CrossGatewayRetrieveResponseMessage"/>
             <output name="CrossGatewayRetrieveAcknowledgement"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrieve:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 

@@ -9,6 +9,7 @@
    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    xmlns:dq="http://www.hhs.gov/healthit/nhin"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    name="NhincProxyDocQueryDeferredResponse"
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse">
   <documentation>Nhinc Proxy Document Query Deferred Response</documentation>
@@ -33,9 +34,11 @@
   <portType name="NhincProxyDocQueryDeferredResponsePortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
-             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" />
+             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage"
+             wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest" />
       <output name="RespondingGateway_CrossGatewayQueryResponse"
-              message="tns:AcknowledgementMessage" />
+              message="tns:AcknowledgementMessage"
+              wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryResponse"/>
     </operation>
   </portType>
   <binding name="NhincProxyDocQueryDeferredResponseBindingSoap" type="tns:NhincProxyDocQueryDeferredResponsePortType">
