@@ -5,22 +5,11 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhin;
 
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistObjectFactory;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.apache.commons.logging.Log;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -52,7 +41,7 @@ public class NhinAdministrativeDistributionTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final EDXLDistribution body = new EDXLDistribution();
-        final NhinAdminDistOrchImpl mockImpl = context.mock(NhinAdminDistOrchImpl.class);
+        final NhinAdminDistributionOrchImpl mockImpl = context.mock(NhinAdminDistributionOrchImpl.class);
         final AssertionType assertion = new AssertionType();
 
         body.setSenderID("test");
@@ -64,7 +53,7 @@ public class NhinAdministrativeDistributionTest {
             {
                 return  assertion;
             }
-            protected NhinAdminDistOrchImpl getNhinImpl()
+            protected NhinAdminDistributionOrchImpl getNhinImpl()
             {
                 return mockImpl;
             }

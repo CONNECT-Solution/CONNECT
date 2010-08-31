@@ -35,9 +35,9 @@ public class NhinAdministrativeDistribution {
     {
         return SamlTokenExtractor.GetAssertion(context);
     }
-    protected NhinAdminDistOrchImpl getNhinImpl()
+    protected NhinAdminDistributionOrchImpl getNhinImpl()
     {
-        return new NhinAdminDistOrchImpl();
+        return new NhinAdminDistributionOrchImpl();
     }
 
 }
