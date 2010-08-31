@@ -12166,10 +12166,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             <con:endpoint>${#Project#Endpoint-DeferredDocQuery}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-InitiatingGWreceivesResponse" testCase="Response passes Policy Check">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -14086,19 +14086,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-13T18:33:05Z</con:value>
+          <con:value>2010-08-31T13:12:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-13T18:43:05Z</con:value>
+          <con:value>2010-08-31T13:22:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/13/2010 18:33:05</con:value>
+          <con:value>08/31/2010 13:12:53</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-12T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14133,10 +14133,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             <con:endpoint>${#Project#Endpoint-DeferredDocQuery}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-InitiatingGWreceivesResponse" testCase="Response fails Policy Check">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -16053,19 +16053,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-13T18:33:06Z</con:value>
+          <con:value>2010-08-31T13:13:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-13T18:43:06Z</con:value>
+          <con:value>2010-08-31T13:23:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/13/2010 18:33:06</con:value>
+          <con:value>08/31/2010 13:13:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-12T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16106,10 +16106,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery
             <con:endpoint>${#Project#Endpoint-DeferredDocQuery}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-InitiatingGWreceivesResponse" testCase="Response fails Service Enabled Check">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -16542,19 +16542,19 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-13T18:33:06Z</con:value>
+          <con:value>2010-08-31T13:13:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-13T18:43:06Z</con:value>
+          <con:value>2010-08-31T13:23:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/13/2010 18:33:06</con:value>
+          <con:value>08/31/2010 13:13:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-12T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16595,10 +16595,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryDeferre
             <con:endpoint>${#Project#Endpoint-DeferredDocQuery}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-InitiatingGWreceivesResponse" testCase="Response in Passthrough Mode">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -17031,19 +17031,19 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryDeferre
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-13T18:33:07Z</con:value>
+          <con:value>2010-08-31T13:13:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-13T18:43:07Z</con:value>
+          <con:value>2010-08-31T13:23:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/13/2010 18:33:07</con:value>
+          <con:value>08/31/2010 13:13:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-12T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17083,10 +17083,10 @@ context.testCase.setPropertyValue('UserId',"${DDQUserID}${nowDate}1");</script>
             <con:endpoint>${#Project#Endpoint-DeferredDocQuery}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-InitiatingGWreceivesResponse" testCase="Response - Audit Log">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -17760,19 +17760,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-13T18:33:07Z</con:value>
+          <con:value>2010-08-31T13:13:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-13T18:43:07Z</con:value>
+          <con:value>2010-08-31T13:23:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/13/2010 18:33:07</con:value>
+          <con:value>08/31/2010 13:13:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-12T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -17780,7 +17780,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DeferredDQFri Aug 13 18:38:07 UTC 20101</con:value>
+          <con:value>DeferredDQTue Aug 31 13:18:08 UTC 20101</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17915,7 +17915,17 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     sql.close()
   }
 }</con:afterLoadScript>
-  <con:wssContainer/>
+  <con:wssContainer>
+    <con:outgoing>
+      <con:name>WSOUTSAML</con:name>
+      <con:entry type="Timestamp">
+        <con:configuration>
+          <timeToLive>300</timeToLive>
+          <strictTimestamp>true</strictTimestamp>
+        </con:configuration>
+      </con:entry>
+    </con:outgoing>
+  </con:wssContainer>
   <con:databaseConnectionContainer/>
   <con:reporting>
     <con:reportTemplates/>
