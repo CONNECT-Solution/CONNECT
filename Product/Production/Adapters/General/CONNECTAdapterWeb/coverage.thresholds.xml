@@ -76,12 +76,12 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistribution"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution"
               linecount="4"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistributionSecured"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistributionSecured"
               linecount="6"
               linerate="80"
               linesexecuted="0"/>
@@ -210,16 +210,6 @@
               linecount="9"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuery"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="12" branchrate="80" branchsexecuted="0.06"
-              class="gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryImpl"
-              linecount="43"
-              linerate="80"
-              linesexecuted="0.15"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryImpl"
               linecount="7"
@@ -678,16 +668,6 @@
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.subdisc.proxy.NhincProxySubjectDiscoveryImpl"
               linecount="37"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.xdr.proxy.ProxyXDR"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.xdr.proxy.ProxyXDRImpl"
-              linecount="32"
               linerate="80"
               linesexecuted="0"/>
 </thresholds>

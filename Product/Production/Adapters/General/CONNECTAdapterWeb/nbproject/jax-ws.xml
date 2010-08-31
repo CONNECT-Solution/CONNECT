@@ -962,7 +962,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterAdministrativeDistributionSecured">
-      <implementation-class>gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistributionSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistributionSecured</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDistSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAdminDistSecured.wsdl</local-wsdl-file>
       <service-name>Adapter_AdministrativeDistributionSecured</service-name>
@@ -986,7 +986,7 @@
       </wsimport-options>
     </service>
     <service name="AdapterAdministrativeDistribution">
-      <implementation-class>gov.hhs.fha.nhinc.admindist.adapter.AdapterAdministrativeDistribution</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDist.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAdminDist.wsdl</local-wsdl-file>
       <service-name>Adapter_AdministrativeDistribution</service-name>

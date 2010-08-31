@@ -3,10 +3,9 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindist.adapter;
+package gov.hhs.fha.nhinc.admindistribution.adapter;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -33,9 +32,9 @@ public class AdapterAdministrativeDistributionSecured {
         getImpl().sendAlertMessage(body.getEDXLDistribution(),assertion);
 
     }
-    protected AdapterAdminDistOrchImpl getImpl()
+    protected AdapterAdminDistributionOrchImpl getImpl()
     {
-        return new AdapterAdminDistOrchImpl();
+        return new AdapterAdminDistributionOrchImpl();
     }
 
 }
