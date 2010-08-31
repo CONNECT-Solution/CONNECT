@@ -13,6 +13,7 @@
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    name="NhincProxyDocRetrieveDeferredRequest"
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest">
     <documentation>Nhinc Proxy document retrieve deferred request</documentation>
@@ -38,9 +39,11 @@
     <portType name="NhincProxyDocRetrieveDeferredRequestPortType">
         <operation name="CrossGatewayRetrieveRequest">
             <input name="CrossGatewayRetrieveRequest"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+                   message="tns:CrossGatewayRetrieveRequestMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest:CrossGatewayRetrieveRequestMessage"/>
             <output name="CrossGatewayRetrieveAcknowledgement"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  *
@@ -15,8 +16,9 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "NhincProxyDocQueryDeferredRequestSecured", portName = "NhincProxyDocQueryDeferredRequestSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequestsecured.NhincProxyDocQueryDeferredRequestSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured", wsdlLocation = "WEB-INF/wsdl/PassthruDocQueryDeferredRequestSecured/NhincProxyDocQueryDeferredRequestSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class PassthruDocQueryDeferredRequestSecured
-{
+@Addressing(enabled=true)
+public class PassthruDocQueryDeferredRequestSecured {
+
     @Resource
     private WebServiceContext context;
 
