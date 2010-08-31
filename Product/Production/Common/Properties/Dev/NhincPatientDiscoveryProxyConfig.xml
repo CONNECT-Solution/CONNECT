@@ -3,14 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
-    <!-- <bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryNoOpImpl"/> -->
+    <!-- <bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyNoOpImpl"/> -->
 
 	<!-- Java implementation -->
-    <bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyJavaImpl"/>
+    <bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyJavaImpl"/>
 	
 	<!-- Web-service implementation secured -->
-     <!--<bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyWebServiceSecuredImpl"/>  -->
+     <!--<bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyWebServiceSecuredImpl"/>  -->
 	 
 	<!-- Web-service implementation unsecured -->
-     <!--<bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyWebServiceUnsecuredImpl"/>  -->
+     <!--<bean id="nhincproxypatientdiscovery" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl"/>  -->
 </beans>
