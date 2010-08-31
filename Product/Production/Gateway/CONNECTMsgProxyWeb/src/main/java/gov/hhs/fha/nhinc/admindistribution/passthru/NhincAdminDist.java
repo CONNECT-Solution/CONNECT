@@ -3,15 +3,10 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindist.nhinc;
+package gov.hhs.fha.nhinc.admindistribution.passthru;
 
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -24,8 +19,8 @@ public class NhincAdminDist {
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType body) {
             getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion(), body.getNhinTargetSystem());
     }
-    public NhincAdminDistOrchImpl getNhincImpl()
+    public PassthruAdminDistributionOrchImpl getNhincImpl()
     {
-        return new NhincAdminDistOrchImpl();
+        return new PassthruAdminDistributionOrchImpl();
     }
 }

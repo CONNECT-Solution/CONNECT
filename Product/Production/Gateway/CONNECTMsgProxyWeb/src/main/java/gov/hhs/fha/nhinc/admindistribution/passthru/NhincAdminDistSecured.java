@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindist.nhinc;
+package gov.hhs.fha.nhinc.admindistribution.passthru;
 
-import gov.hhs.fha.nhinc.admindistribution.nhinc.NhincAdminDistOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.annotation.Resource;
@@ -33,8 +32,8 @@ public class NhincAdminDistSecured {
     {
         return SamlTokenExtractor.GetAssertion(context);
     }
-    public NhincAdminDistOrchImpl getNhincImpl()
+    public PassthruAdminDistributionOrchImpl getNhincImpl()
     {
-        return new NhincAdminDistOrchImpl();
+        return new PassthruAdminDistributionOrchImpl();
     }
 }
