@@ -3,13 +3,15 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
+package gov.hhs.fha.nhinc.admindistribution.passthru;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl;
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -27,10 +29,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
  *
  * @author dunnek
  */
-public class NhincAdminDistSecuredWebserviceImplTest {
+public class NhincAdminDistOrchImplTest {
 
     private Mockery context;
-    public NhincAdminDistSecuredWebserviceImplTest() {
+    public NhincAdminDistOrchImplTest() {
     }
 
     @Before
@@ -48,39 +50,39 @@ public class NhincAdminDistSecuredWebserviceImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
-        final NhincAdminDistSecuredService mockService = context.mock(NhincAdminDistSecuredService.class);
+        final NhinAdminDistributionProxy mockNhin = context.mock(NhinAdminDistributionProxy.class);
+        final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
         
-        EDXLDistribution body = null;
-        AssertionType assertion = null;
+        final EDXLDistribution body = null;
+        final AssertionType assertion = null;
         final NhinTargetSystemType target = null;
         Exception unsupported = null;
 
-        PassthruAdminDistributionProxyWebServiceSecuredImpl instance = new PassthruAdminDistributionProxyWebServiceSecuredImpl()
-{
+        PassthruAdminDistributionOrchImpl instance = new PassthruAdminDistributionOrchImpl()
+        {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
             @Override
-            protected AdminDistributionHelper getHelper() {
-                return mockHelper;
+            protected AdminDistributionAuditLogger getLogger()
+            {
+                return mockAuditLogger;
             }
             @Override
-            protected NhincAdminDistSecuredService getWebService()
+            protected NhinAdminDistributionProxy getNhinProxy()
             {
-                return mockService;
+                return mockNhin;
             }
-        };
+         };
         context.checking(new Expectations() {
 
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockService).getNhincAdminDistSecuredPortType();
-                allowing(mockHelper).getLocalCommunityId();
-                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)));
+                allowing(mockAuditLogger).auditNhincAdminDist(body, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                allowing(mockNhin).sendAlertMessage(body, assertion, target);
                 will(returnValue(null));
             }
         });
@@ -93,9 +95,9 @@ public class NhincAdminDistSecuredWebserviceImplTest {
         {
             unsupported = ex;
         }
-        
-        context.assertIsSatisfied();
 
+        context.assertIsSatisfied();
+        assertNull(unsupported);
     }
 
 }

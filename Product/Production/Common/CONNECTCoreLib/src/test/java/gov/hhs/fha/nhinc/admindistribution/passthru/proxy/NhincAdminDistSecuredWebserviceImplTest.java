@@ -3,13 +3,13 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
+package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceUnsecuredImpl;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistService;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredService;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -27,10 +27,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
  *
  * @author dunnek
  */
-public class NhincAdminDistUnsecuredWebserviceImplTest {
+public class NhincAdminDistSecuredWebserviceImplTest {
 
     private Mockery context;
-    public NhincAdminDistUnsecuredWebserviceImplTest() {
+    public NhincAdminDistSecuredWebserviceImplTest() {
     }
 
     @Before
@@ -49,14 +49,14 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
         final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
-        final NhincAdminDistService mockService = context.mock(NhincAdminDistService.class);
+        final NhincAdminDistSecuredService mockService = context.mock(NhincAdminDistSecuredService.class);
         
         EDXLDistribution body = null;
         AssertionType assertion = null;
-        NhinTargetSystemType target = null;
+        final NhinTargetSystemType target = null;
         Exception unsupported = null;
 
-        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl()
+        PassthruAdminDistributionProxyWebServiceSecuredImpl instance = new PassthruAdminDistributionProxyWebServiceSecuredImpl()
 {
 
             @Override
@@ -68,7 +68,7 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
                 return mockHelper;
             }
             @Override
-            protected NhincAdminDistService getWebService()
+            protected NhincAdminDistSecuredService getWebService()
             {
                 return mockService;
             }
@@ -78,10 +78,9 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockService).getNhincAdminDistPortType();
+                allowing(mockService).getNhincAdminDistSecuredPortType();
                 allowing(mockHelper).getLocalCommunityId();
                 allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)));
-
                 will(returnValue(null));
             }
         });
@@ -94,7 +93,7 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
         {
             unsupported = ex;
         }
-
+        
         context.assertIsSatisfied();
 
     }

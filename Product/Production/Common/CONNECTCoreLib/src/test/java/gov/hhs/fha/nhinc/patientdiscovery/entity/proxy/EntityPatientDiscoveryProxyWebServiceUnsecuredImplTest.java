@@ -320,7 +320,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                 }
             });
             String url = "url";
-            EntityPatientDiscoveryPortType port = sut.getPort(url);
+            EntityPatientDiscoveryPortType port = sut.getPort(url, "action", "action", mockAssertion);
             assertNull("Port was not null", port);
         }
         catch(Throwable t)
@@ -369,7 +369,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return "";
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url)
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -414,7 +414,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return "";
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url)
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -460,7 +460,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return "";
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url)
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -506,7 +506,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return "";
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url)
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
                 {
                     return mockPort;
                 }
@@ -552,7 +552,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
                     return "";
                 }
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url)
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
                 {
                     return null;
                 }

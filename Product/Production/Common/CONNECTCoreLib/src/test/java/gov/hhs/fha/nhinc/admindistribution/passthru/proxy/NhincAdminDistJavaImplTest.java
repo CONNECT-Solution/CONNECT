@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.nhinc.proxy;
+package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyNoOpImpl;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyJavaImpl;
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
@@ -21,12 +22,13 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 /**
+/**
  *
  * @author dunnek
  */
-public class NhincAdminDistNoOpImplTest {
+public class NhincAdminDistJavaImplTest {
     private Mockery context;
-    public NhincAdminDistNoOpImplTest() {
+    public NhincAdminDistJavaImplTest() {
     }
 
     @Before
@@ -47,15 +49,22 @@ public class NhincAdminDistNoOpImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        EDXLDistribution body = null;
-        AssertionType assertion = null;
-        NhinTargetSystemType target = null;
-        PassthruAdminDistributionProxyNoOpImpl instance = new PassthruAdminDistributionProxyNoOpImpl()
+        final PassthruAdminDistributionOrchImpl mockImpl = context.mock(PassthruAdminDistributionOrchImpl.class);
+        final EDXLDistribution body = null;
+        final AssertionType assertion = null;
+        final NhinTargetSystemType target = null;
+        
+        PassthruAdminDistributionProxyJavaImpl instance = new PassthruAdminDistributionProxyJavaImpl()
 {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
+            }
+            @Override
+            protected PassthruAdminDistributionOrchImpl getNhincAdminDistImpl()
+            {
+                return mockImpl;
             }
         };
         context.checking(new Expectations() {
@@ -63,6 +72,7 @@ public class NhincAdminDistNoOpImplTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
+                allowing(mockImpl).sendAlertMessage(body, assertion, target);
                 will(returnValue(null));
             }
         });

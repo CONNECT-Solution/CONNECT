@@ -3,15 +3,13 @@
  * and open the template in the editor.
  */
 
-package gov.hhs.fha.nhinc.admindistribution.nhinc;
+package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyObjectFactory;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceUnsecuredImpl;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistService;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -29,10 +27,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
  *
  * @author dunnek
  */
-public class NhincAdminDistOrchImplTest {
+public class NhincAdminDistUnsecuredWebserviceImplTest {
 
     private Mockery context;
-    public NhincAdminDistOrchImplTest() {
+    public NhincAdminDistUnsecuredWebserviceImplTest() {
     }
 
     @Before
@@ -50,39 +48,40 @@ public class NhincAdminDistOrchImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        final NhinAdminDistributionProxy mockNhin = context.mock(NhinAdminDistributionProxy.class);
-        final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
+        final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
+        final NhincAdminDistService mockService = context.mock(NhincAdminDistService.class);
         
-        final EDXLDistribution body = null;
-        final AssertionType assertion = null;
-        final NhinTargetSystemType target = null;
+        EDXLDistribution body = null;
+        AssertionType assertion = null;
+        NhinTargetSystemType target = null;
         Exception unsupported = null;
 
-        PassthruAdminDistributionOrchImpl instance = new PassthruAdminDistributionOrchImpl()
-        {
+        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl()
+{
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
             @Override
-            protected AdminDistributionAuditLogger getLogger()
-            {
-                return mockAuditLogger;
+            protected AdminDistributionHelper getHelper() {
+                return mockHelper;
             }
             @Override
-            protected NhinAdminDistributionProxy getNhinProxy()
+            protected NhincAdminDistService getWebService()
             {
-                return mockNhin;
+                return mockService;
             }
-         };
+        };
         context.checking(new Expectations() {
 
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockAuditLogger).auditNhincAdminDist(body, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-                allowing(mockNhin).sendAlertMessage(body, assertion, target);
+                allowing(mockService).getNhincAdminDistPortType();
+                allowing(mockHelper).getLocalCommunityId();
+                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)));
+
                 will(returnValue(null));
             }
         });
@@ -97,7 +96,7 @@ public class NhincAdminDistOrchImplTest {
         }
 
         context.assertIsSatisfied();
-        assertNull(unsupported);
+
     }
 
 }
