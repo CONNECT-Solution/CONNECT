@@ -4,12 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<!-- Default implementation -->
-    <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistSecuredWebServiceImpl"/> 
+    <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceSecuredImpl"/> 
      
      <!--
-			 <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistJavaImpl"/> 
-		    <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdminDistNoOpImpl"/> 
-			<bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistSecuredWebServiceImpl"/> 
-			<bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistWebServiceImpl"/> 
+			 <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyJavaImpl"/> 
+		    <bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyNoOpImpl"/> 
+			<bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceSecuredImpl"/> 
+			<bean id="adapteradmindist" class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceUnsecuredImpl"/> 
 	-->
 </beans>

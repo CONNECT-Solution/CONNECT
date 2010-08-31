@@ -4,11 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<!-- Default implementation -->
-       <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl"/> 
+       <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyJavaImpl"/> 
      
      <!--
-		 <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistNoOpImpl"/> 
- 	    <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistJavaImpl"/> 
-       <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.nhinc.proxy.NhincAdminDistUnsecuredWebserviceImpl"/> 
+		 <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyNoOpImpl"/> 
+ 	    <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyJavaImpl"/> 
+        <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceUnsecuredImpl"/> 
+        <bean id="nhincadmindist" class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl"/> 
 -->
 </beans>
