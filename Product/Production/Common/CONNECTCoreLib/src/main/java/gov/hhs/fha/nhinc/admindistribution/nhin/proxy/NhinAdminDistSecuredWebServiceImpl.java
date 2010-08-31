@@ -46,7 +46,7 @@ public class NhinAdminDistSecuredWebServiceImpl implements NhinAdminDistProxy{
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_AdministrativeDistribution";
     private static final String PORT_LOCAL_PART = "RespondingGateway_AdministrativeDistribution_PortType";
     private static final String WSDL_FILE = "NhinAdminDist.wsdl";
-    private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":SendAlertMessage_Message";
+    private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 
     static RespondingGatewayAdministrativeDistribution nhinService = new RespondingGatewayAdministrativeDistribution();
     public NhinAdminDistSecuredWebServiceImpl()

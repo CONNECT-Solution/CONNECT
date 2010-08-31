@@ -34,6 +34,7 @@ public class EntityAdminDistSecuredWebServiceImpl {
     private static final String SERVICE_LOCAL_PART = "AdministrativeDistributionSecured_Service";
     private static final String PORT_LOCAL_PART = "AdministrativeDistributionSecured_PortType";
     private static final String WSDL_FILE = "EntityAdminDistSecured.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessage_Message";
     
     private Log log = null;
     static AdministrativeDistributionSecuredService service = null;
@@ -50,7 +51,7 @@ public class EntityAdminDistSecuredWebServiceImpl {
     {
         return LogFactory.getLog(getClass());
     }
-    protected AdministrativeDistributionSecuredPortType getPort(String url) {
+    protected AdministrativeDistributionSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
         AdministrativeDistributionSecuredPortType port = service.getAdministrativeDistributionSecuredPortType();
 
         log.info("Setting endpoint address to Entity Administrative DIstribution Service to " + url);
@@ -74,13 +75,13 @@ public class EntityAdminDistSecuredWebServiceImpl {
 
         if (NullChecker.isNotNullish(url))
         {
-            AdministrativeDistributionSecuredPortType port = getPort(url);
+            AdministrativeDistributionSecuredPortType port = getPort(url, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
 
             WebServiceProxyHelper webServiceHelper = new WebServiceProxyHelper();
-            webServiceHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
+            webServiceHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.ADMIN_DIST_ACTION, WS_ADDRESSING_ACTION, assertion);;
             
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 

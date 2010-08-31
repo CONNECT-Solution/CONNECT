@@ -35,6 +35,7 @@ public class NhincAdminDistUnsecuredWebserviceImpl implements NhincAdminDistProx
     private static final String SERVICE_LOCAL_PART = "NhincAdminDistService";
     private static final String PORT_LOCAL_PART = "NhincAdminDist_PortType";
     private static final String WSDL_FILE = "NhincAdminDist.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessage_Message";
     
     public NhincAdminDistUnsecuredWebserviceImpl()
     {
@@ -73,7 +74,7 @@ public class NhincAdminDistUnsecuredWebserviceImpl implements NhincAdminDistProx
         }
         return cachedService;
     }
-    protected NhincAdminDistPortType getPort(String url)
+    protected NhincAdminDistPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
     {
         NhincAdminDistPortType port = null;
         Service cacheService = getService(WSDL_FILE,NAMESPACE_URI, SERVICE_LOCAL_PART);
@@ -81,7 +82,7 @@ public class NhincAdminDistUnsecuredWebserviceImpl implements NhincAdminDistProx
         {
             log.debug("Obtained service - creating port.");
             port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistPortType.class);
-            proxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
+            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         }
         else
         {
@@ -99,14 +100,14 @@ public class NhincAdminDistUnsecuredWebserviceImpl implements NhincAdminDistProx
 
         if (NullChecker.isNotNullish(url))
         {
-            NhincAdminDistPortType port = getPort(url);
+            NhincAdminDistPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
             RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
             message.setAssertion(assertion);
             message.setEDXLDistribution(body);
             message.setNhinTargetSystem(target);
             try
             {
-                proxyHelper.invokePort(port, RespondingGatewaySendAlertMessageType.class, "sendAlertMessage", message);
+                proxyHelper.invokePort(port, NhincAdminDistPortType.class, "sendAlertMessage", message);
             }
             catch(Exception ex)
             {

@@ -32,9 +32,11 @@ public class NhincAdminDistSecuredWebserviceImpl implements NhincAdminDistProxy{
     private static Service cachedService = null;
     
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincadmindistribution";
-    private static final String SERVICE_LOCAL_PART = "NhincAdminDistService";
-    private static final String PORT_LOCAL_PART = "NhincAdminDist_PortType";
-    private static final String WSDL_FILE = "NhincAdminDist.wsdl";
+    private static final String SERVICE_LOCAL_PART = "NhincAdminDistSecuredService";
+    private static final String PORT_LOCAL_PART = "NhincAdminDistSecured_PortType";
+    private static final String WSDL_FILE = "NhincAdminDistSecured.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessageSecured_Message";
+
     public NhincAdminDistSecuredWebserviceImpl()
     {
         log = createLogger();
@@ -72,7 +74,7 @@ public class NhincAdminDistSecuredWebserviceImpl implements NhincAdminDistProxy{
         }
         return cachedService;
     }
-    protected NhincAdminDistSecuredPortType getPort(String url)
+    protected NhincAdminDistSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
     {
         NhincAdminDistSecuredPortType port = null;
         Service cacheService = getService(WSDL_FILE,NAMESPACE_URI, SERVICE_LOCAL_PART);
@@ -82,7 +84,7 @@ public class NhincAdminDistSecuredWebserviceImpl implements NhincAdminDistProxy{
             port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistSecuredPortType.class);
 
             WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
-            proxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
         {
@@ -99,7 +101,7 @@ public class NhincAdminDistSecuredWebserviceImpl implements NhincAdminDistProxy{
 
         if (NullChecker.isNotNullish(url))
         {
-            NhincAdminDistSecuredPortType port = getPort(url);
+            NhincAdminDistSecuredPortType port = getPort(url, NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
             RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
 
             message.setEDXLDistribution(body);
