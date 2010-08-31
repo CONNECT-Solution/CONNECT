@@ -5,19 +5,13 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
-	<import location="EntityDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocquery"/>
-	<import location="EntityPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq"/>
-	<import location="EntityXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured"/>
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
-    <import location="AdapterDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerysecured"/>
-    <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
     <import location="NhinAuditLogQuery.xml" namespace="http://services.nhin.com/wsdl/auditlogquery"/>
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
-    <import location="AdapterPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"/>
     <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
     <import location="NhinPatientDiscovery.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
@@ -25,16 +19,8 @@
     <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
     <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
     <import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/>
-    <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>
     <import location="NhinXDRDeferredRequest.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="NhinXDRDeferredResponse.xml" namespace="urn:ihe:iti:xdr:2007"/>
-    <import location="AdapterXDRRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
-    <import location="AdapterXDRRequestSecuredError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecurederror"/>
-    <import location="AdapterXDRResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"/>
     <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
@@ -50,12 +36,8 @@
 	<import location="NhincProxyDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredresponse"/>
 	<import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
 	<import location="NhincProxyPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp"/>
-    <import location="AdapterDocRetrieveDeferredReqSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured"/>
-    <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
-    <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
     <import location="NhincProxyXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"/>
     <import location="NhincProxyXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request"/>
 	<import location="NhincProxyXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response"/>
-
 	<import location="NhincProxyPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq"/>
 </definitions>
