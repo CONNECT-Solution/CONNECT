@@ -28,7 +28,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_Retrieve_Service";
     private static final String PORT_LOCAL_PART = "RespondingGateway_Retrieve_Port_Soap";
     private static final String WSDL_FILE = "NhinDocRetrieve.wsdl";
-    private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":" + "CrossGatewayRetrieve_Message";
+    // NOTE: The WS_ADDRESSING_ACTION does not match the pattern defined. BUT it does match the .wsdl
+    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayRetrieve";
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 

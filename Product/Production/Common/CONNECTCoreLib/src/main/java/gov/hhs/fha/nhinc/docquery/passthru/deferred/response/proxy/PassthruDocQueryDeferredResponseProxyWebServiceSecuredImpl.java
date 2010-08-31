@@ -30,7 +30,7 @@ public class PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl implemen
     private static final String SERVICE_LOCAL_PART = "NhincProxyDocQueryDeferredResponseSecured";
     private static final String PORT_LOCAL_PART = "NhincProxyDocQueryDeferredResponseSecuredPortSoap";
     private static final String WSDL_FILE = "NhincProxyDocQueryDeferredResponseSecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured:RespondingGateway_CrossGatewayQueryResponseSecuredMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured:RespondingGateway_CrossGatewayQueryResponseSecured";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl()

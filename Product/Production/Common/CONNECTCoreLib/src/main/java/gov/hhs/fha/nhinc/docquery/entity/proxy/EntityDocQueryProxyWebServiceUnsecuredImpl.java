@@ -20,7 +20,7 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
     private static final String SERVICE_LOCAL_PART = "EntityDocQuery";
     private static final String PORT_LOCAL_PART = "EntityDocQueryPortSoap";
     private static final String WSDL_FILE = "EntityDocQuery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequestMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocQueryProxyWebServiceUnsecuredImpl() {

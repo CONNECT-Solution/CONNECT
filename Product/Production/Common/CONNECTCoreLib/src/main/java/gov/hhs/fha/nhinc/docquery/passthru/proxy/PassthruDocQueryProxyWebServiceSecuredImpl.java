@@ -29,7 +29,7 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
     private static final String SERVICE_LOCAL_PART = "NhincProxyDocQuerySecured";
     private static final String PORT_LOCAL_PART = "NhincProxyDocQuerySecuredPortSoap";
     private static final String WSDL_FILE = "NhincProxyDocQuerySecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryRequestMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquery:RespondingGateway_CrossGatewayQueryRequestMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PassthruDocQueryProxyWebServiceSecuredImpl() {

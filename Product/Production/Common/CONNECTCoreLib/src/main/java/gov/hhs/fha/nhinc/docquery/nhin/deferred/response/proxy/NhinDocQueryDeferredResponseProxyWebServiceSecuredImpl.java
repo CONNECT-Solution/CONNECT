@@ -29,7 +29,8 @@ public class NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl implements N
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_QueryDeferredResponse_Service";
     private static final String PORT_LOCAL_PART = "RespondingGateway_QueryDeferredResponse_Port_Soap";
     private static final String WSDL_FILE = "NhinDocQueryDeferredResponse.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:xds-b:2007:Deferred:CrossGatewayQueryResponse";
+    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:Deferred:CrossGatewayQueryResponse";
+
     private WebServiceProxyHelper oProxyHelper = null;
 
     public NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl()

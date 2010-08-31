@@ -31,7 +31,7 @@ public class EntityDocQueryDeferredRequestProxyWebServiceUnsecuredImpl implement
     private static final String SERVICE_LOCAL_PART = "EntityDocQueryDeferredRequest";
     private static final String PORT_LOCAL_PART = "EntityDocQueryDeferredRequestPortSoap";
     private static final String WSDL_FILE = "EntityDocQueryDeferredRequest.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest:RespondingGateway_CrossGatewayQueryRequestMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest:RespondingGateway_CrossGatewayQueryRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocQueryDeferredRequestProxyWebServiceUnsecuredImpl() {
