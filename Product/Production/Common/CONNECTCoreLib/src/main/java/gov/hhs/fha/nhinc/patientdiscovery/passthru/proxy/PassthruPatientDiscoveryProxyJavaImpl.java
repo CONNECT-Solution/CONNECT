@@ -1,0 +1,41 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy;
+
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincPatientDiscoveryOrchImpl;
+import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
+
+/**
+ *
+ * @author mflynn02
+ */
+public class PassthruPatientDiscoveryProxyJavaImpl implements PassthruPatientDiscoveryProxy {
+   private Log log = null;
+
+    public PassthruPatientDiscoveryProxyJavaImpl()
+    {
+        log = createLogger();
+    }
+    protected Log createLogger()
+    {
+        return LogFactory.getLog(getClass());
+    }
+    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target) {
+        log.debug("Entering NhincPatientDiscoveryProxyJavaImpl.PRPAIN201305UV");
+
+        ProxyPRPAIN201305UVProxySecuredRequestType secureRequest = new ProxyPRPAIN201305UVProxySecuredRequestType();
+        secureRequest.setPRPAIN201305UV02(body);
+        secureRequest.setNhinTargetSystem(target);
+        return new NhincPatientDiscoveryOrchImpl().proxyPRPAIN201305UV(secureRequest, assertion);
+    }
+}
