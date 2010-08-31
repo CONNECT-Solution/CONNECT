@@ -75,18 +75,18 @@
   <!-- Default facade implementation -->
   <!-- <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyNoOpImpl"/> -->
   <!-- Default java implementation -->
-  <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyJavaImpl"/> 
+ <!-- <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyJavaImpl"/> -->
   <!-- Web-service Secured implementation -->
-  <!--  <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceSecuredImpl"/>-->
+    <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceSecuredImpl"/>
   <!-- Web-service UnSecured implementation -->
   <!--  <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/>-->
   
   <!-- Default facade implementation -->
   <!-- <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyNoOpImpl"/> -->
   <!-- Default java implementation -->
-  <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyJavaImpl"/> 
+ <!-- <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyJavaImpl"/> -->
   <!-- Web-service Secured implementation -->
-  <!--  <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceSecuredImpl"/>-->
+   <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceSecuredImpl"/>
   <!-- Web-service UnSecured implementation -->
   <!--  <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceUnsecuredImpl"/>-->
 </beans>

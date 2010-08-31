@@ -8,22 +8,22 @@
 	<!-- No Op Implementation -->
          <!-- <bean id="entitydocretrievedeferredreq" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy.EntityDocRetrieveDeferredReqProxyNoOpImpl"/> -->
 	<!-- Java Implementation -->
-         <bean id="entitydocretrievedeferredreq" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy.EntityDocRetrieveDeferredReqProxyJavaImpl"/>
+    <!--     <bean id="entitydocretrievedeferredreq" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy.EntityDocRetrieveDeferredReqProxyJavaImpl"/> -->
 	<!-- Unsecured Web-service implementation -->
          <!-- <bean id="entitydocretrievedeferredreq" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy.EntityDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl"/> -->
 	<!-- Secured Web-service implementation -->
-         <!-- <bean id="entitydocretrievedeferredreq" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy.EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl"/>-->
+         <bean id="entitydocretrievedeferredreq" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy.EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl"/>
 
 
     <!-- ============================================  Entity Doc Retrieve Deferred Response  ================================================= -->
     <!-- Default facade implementation -->
          <!-- <bean id="entitydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy.EntityDocRetrieveDeferredRespProxyNoOpImpl"/> -->
 	<!-- Default java implementation -->
-         <bean id="entitydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy.EntityDocRetrieveDeferredRespProxyJavaImpl"/>
+     <!--    <bean id="entitydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy.EntityDocRetrieveDeferredRespProxyJavaImpl"/> -->
 	<!-- Web-service Unsecured implementation -->
          <!-- <bean id="entitydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy.EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl"/> -->
 	<!-- Web-service Secured implementation -->
-         <!-- <bean id="entitydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy.EntityDocRetrieveDeferredRespProxyWebServiceSecuredImpl"/>-->
+         <bean id="entitydocretrievedeferredresp" class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.proxy.EntityDocRetrieveDeferredRespProxyWebServiceSecuredImpl"/>
 
 
     <!-- ============================================  Nhinc Doc Retrieve Deferred Request  ================================================= -->

@@ -6,12 +6,12 @@
     <!-- <bean id="passthrudocretrieve" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyNoOpImpl"/> -->
 	
 	<!-- Unsecured web service implementation -->
-    <bean id="passthrudocretrieve" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceUnsecuredImpl"/>
+  <!--  <bean id="passthrudocretrieve" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceUnsecuredImpl"/> -->
 	
 	<!-- Secured web service implementation -->
     <!-- <bean id="passthrudocretrieve" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceSecuredImpl"/> -->
 	
 	<!-- Java implementation -->
-    <!-- <bean id="passthrudocretrieve" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyJavaImpl"/> -->
+     <bean id="passthrudocretrieve" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyJavaImpl"/> 
     
 </beans>

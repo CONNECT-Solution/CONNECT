@@ -6,10 +6,10 @@
     <!-- <bean id="patientcorrelation" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyNoOpImpl"/> -->
     
     <!-- Default facade implementation -->
-    <bean id="patientcorrelation" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyJavaImpl"/> 
+   <!-- <bean id="patientcorrelation" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyJavaImpl"/> -->
     
     <!-- Web service secure patient correlation implementation -->
-   <!--  <bean id="patientcorrelation" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceSecuredImpl"/> -->
+     <bean id="patientcorrelation" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceSecuredImpl"/> 
     
 	<!-- Web service unsecure patient correlation implementation -->
  <!--   <bean id="patientcorrelation" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceUnsecuredImpl"/> -->

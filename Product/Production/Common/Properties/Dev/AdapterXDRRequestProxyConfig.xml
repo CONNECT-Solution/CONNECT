@@ -6,10 +6,10 @@
     <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyNoOpImpl"/> -->
 	
 	<!-- Secured Web-service implementation -->
-    <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl"/> -->
+     <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl"/> 
 	
 	<!-- Unsecured Web-service implementation -->
-    <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl"/>
+   <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl"/>-->
 	
 	<!-- Java implementation -->
     <!-- <bean id="adapterxdrrequest" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyJavaImpl"/> -->

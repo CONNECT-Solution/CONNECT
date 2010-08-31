@@ -6,12 +6,12 @@
     <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyNoOpImpl"/> -->
 	
 	<!-- Unsecured Web-service implementation -->
-    <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl"/> 
+  <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl"/> -->
 
 	<!-- Secured Web-service implementation -->
     <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl"/> -->
 
 	<!-- Java implementation -->
-    <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl"/> -->
+     <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl"/> 
 
 </beans>

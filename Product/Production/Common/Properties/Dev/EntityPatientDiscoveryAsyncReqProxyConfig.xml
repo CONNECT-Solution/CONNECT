@@ -6,7 +6,7 @@
     <!-- <bean id="entitypatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyNoOpImpl"/> -->
 	
 	<!-- Default java implementation -->
-    <!--<bean id="entitypatientdiscoveryasyncreq" class=""gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyJavaImpl"/> 
+   <!-- <bean id="entitypatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyJavaImpl"/> -->
     
 	<!-- Web-service Secured implementation -->
      <bean id="entitypatientdiscoveryasyncreq" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl"/> 

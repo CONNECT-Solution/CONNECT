@@ -4,5 +4,5 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<!-- Default implementation -->
-     <bean id="entityadmindist" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistJavaImpl"/> 
+     <bean id="entityadmindist" class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistSecuredWebServiceImpl"/> 
 </beans>

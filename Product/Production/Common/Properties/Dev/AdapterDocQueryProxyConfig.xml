@@ -6,11 +6,11 @@
     <!-- <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyNoOpImpl"/> -->
     
     <!-- Java implementation -->
-     <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl"/> 
+   <!--  <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl"/> -->
 	
 	<!-- Unsecured Web-service implementation -->
    <!--  <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceUnsecuredImpl"/> -->
      
 	<!-- Secured Web-service implementation -->
-  <!--   <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl"/> -->
+     <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl"/> 
 </beans>

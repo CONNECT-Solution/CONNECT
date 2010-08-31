@@ -4,23 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
   <!-- Default facade implementation -->
-  <!-- <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-  <!--<bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl"/>-->
-  <!-- Web-service UnSecured implementation -->
-  <!--  <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceUnsecuredImpl"/>-->
-
-
-  <!-- Default facade implementation -->
-  <!-- <bean id="adaptercomponentdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.component.proxy.AdapterComponentDocQueryProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adaptercomponentdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.component.proxy.AdapterComponentDocQueryProxyJavaImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-  <!--<bean id="adaptercomponentdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.component.proxy.AdapterComponentDocQueryProxyWebServiceUnsecuredImpl"/>-->
-
-  <!-- Default facade implementation -->
   <!-- <bean id="nhindocquery" class="gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyNoOpImpl"/> -->
   <!-- Web-service Secured implementation -->
   <bean id="nhindocquery" class="gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl"/> 
@@ -28,9 +11,9 @@
   <!-- Default facade implementation -->
   <!-- <bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyNoOpImpl"/> -->
   <!-- Default java implementation -->
-  <bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyJavaImpl"/> 
+ <!--<bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyJavaImpl"/> -->
   <!-- Web-service Secured implementation -->
-  <!--  <bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceSecuredImpl"/>-->
+    <bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceSecuredImpl"/>
   <!-- Web-service UnSecured implementation -->
   <!--  <bean id="entitydocquery" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl"/>-->
   

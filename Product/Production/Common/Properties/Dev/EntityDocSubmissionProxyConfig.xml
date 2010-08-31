@@ -6,7 +6,7 @@
     <!-- <bean id="entitydocsubmission" class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyNoOpImpl"/> -->
 	
 	<!-- Default java implementation -->
-    <!--<bean id="entitydocsubmission" class=""gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyJavaImpl"/> 
+   <!-- <bean id="entitydocsubmission" class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyJavaImpl"/> -->
     
 	<!-- Web-service Secured implementation -->
      <bean id="entitydocsubmission" class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyWebServiceSecuredImpl"/> 
