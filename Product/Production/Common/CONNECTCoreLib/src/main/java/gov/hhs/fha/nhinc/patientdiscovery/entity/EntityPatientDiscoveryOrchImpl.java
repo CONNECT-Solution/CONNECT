@@ -8,8 +8,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
@@ -153,8 +153,8 @@ public class EntityPatientDiscoveryOrchImpl {
         log.debug("Entering getResponseFromCommunities");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
         PRPAIN201306UV02 resultFromNhin = null;
-        NhincPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new NhincPatientDiscoveryProxyObjectFactory();
-        NhincPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
+        PassthruPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryProxyObjectFactory();
+        PassthruPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
 
         CMUrlInfos urlInfoList = getEndpoints(request.getNhinTargetCommunities());
 

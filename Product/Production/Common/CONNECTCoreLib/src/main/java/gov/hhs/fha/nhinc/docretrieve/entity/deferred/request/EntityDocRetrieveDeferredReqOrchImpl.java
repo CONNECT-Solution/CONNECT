@@ -14,8 +14,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
-import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.NhincProxyDocRetrieveDeferredReqProxyObjectFactory;
-import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.NhincProxyDocRetrieveDeferredReqProxy;
+import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.PassthruDocRetrieveDeferredReqProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.PassthruDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
@@ -89,8 +89,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                     if (debugEnabled) {
                                 log.debug("Creating NHIN doc retrieve proxy");
                             }
-                    NhincProxyDocRetrieveDeferredReqProxyObjectFactory objFactory = new NhincProxyDocRetrieveDeferredReqProxyObjectFactory();
-                    NhincProxyDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
+                    PassthruDocRetrieveDeferredReqProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredReqProxyObjectFactory();
+                    PassthruDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
                     for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
                         if (isPolicyValid(nhinDocRequest, assertion, urlInfo.getHcid())) {
                             // Call NHIN proxy

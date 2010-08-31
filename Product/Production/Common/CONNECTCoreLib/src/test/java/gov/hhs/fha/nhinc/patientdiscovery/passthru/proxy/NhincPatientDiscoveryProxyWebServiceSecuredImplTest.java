@@ -44,7 +44,7 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
     public void testCreateLogger() {
         try
         {
-            NhincPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhincPatientDiscoveryProxyWebServiceSecuredImpl()
+            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -72,7 +72,7 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
     public void testGetService() {
         try
         {
-            NhincPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhincPatientDiscoveryProxyWebServiceSecuredImpl()
+            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -104,7 +104,7 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
     {
         try
         {
-            NhincPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhincPatientDiscoveryProxyWebServiceSecuredImpl()
+            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl()
             {
                 @Override
                 protected Log createLogger()

@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.NhincPatientDiscoveryProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxy;
 
 /**
  *
@@ -29,7 +29,7 @@ public class NhincPatientDiscoveryProxyObjectFactoryTest {
         }
     };
     final Log mockLog = context.mock(Log.class);
-    final NhincPatientDiscoveryProxy mockProxy = context.mock(NhincPatientDiscoveryProxy.class);
+    final PassthruPatientDiscoveryProxy mockProxy = context.mock(PassthruPatientDiscoveryProxy.class);
     final ApplicationContext appContext = new FileSystemXmlApplicationContext() {
 
         @Override
@@ -48,7 +48,7 @@ public class NhincPatientDiscoveryProxyObjectFactoryTest {
         try
         {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
-            NhincPatientDiscoveryProxyObjectFactory proxyFactory = new NhincPatientDiscoveryProxyObjectFactory()
+            PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory()
             {
                 @Override
                 protected Log createLogger()
@@ -83,7 +83,7 @@ public class NhincPatientDiscoveryProxyObjectFactoryTest {
     public void testGetNhincPatientDiscoveryProxyHappy()     {
         try
         {
-            NhincPatientDiscoveryProxyObjectFactory proxyFactory = new NhincPatientDiscoveryProxyObjectFactory()
+            PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory()
             {
                 @Override
                 protected Log createLogger()
@@ -96,7 +96,7 @@ public class NhincPatientDiscoveryProxyObjectFactoryTest {
                     return type.cast(mockProxy);
                 }
             };
-            NhincPatientDiscoveryProxy proxy = proxyFactory.getNhincPatientDiscoveryProxy();
+            PassthruPatientDiscoveryProxy proxy = proxyFactory.getNhincPatientDiscoveryProxy();
             assertNotNull("NhincPatientDiscoveryProxy was null", proxy);
         }
         catch(Throwable t)
