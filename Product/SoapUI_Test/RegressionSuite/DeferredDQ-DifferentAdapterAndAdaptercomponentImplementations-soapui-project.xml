@@ -16605,10 +16605,10 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
             <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-Different adapter and adaptercomponent implementations" testCase="No-op adapter and adaptercomponent">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -17041,19 +17041,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-24T18:13:09Z</con:value>
+          <con:value>2010-08-31T13:09:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-24T18:23:09Z</con:value>
+          <con:value>2010-08-31T13:19:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/24/2010 18:13:09</con:value>
+          <con:value>08/31/2010 13:09:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-23T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -18106,10 +18106,10 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
             <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-Different adapter and adaptercomponent implementations" testCase="Java adapter and adaptercomponent">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -18542,19 +18542,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-24T18:13:12Z</con:value>
+          <con:value>2010-08-31T13:09:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-24T18:23:12Z</con:value>
+          <con:value>2010-08-31T13:19:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/24/2010 18:13:12</con:value>
+          <con:value>08/31/2010 13:09:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-23T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -19607,10 +19607,10 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
             <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
-      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
+      <add:Action>urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse:RespondingGateway_CrossGatewayQueryRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
+      <add:To>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</add:To>
    </soap:Header>
    <soap:Body projectName="DeferredDQ-Different adapter and adaptercomponent implementations" testCase="Unsecured webservice">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -20043,19 +20043,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-24T18:13:14Z</con:value>
+          <con:value>2010-08-31T13:09:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-24T18:23:14Z</con:value>
+          <con:value>2010-08-31T13:19:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/24/2010 18:13:14</con:value>
+          <con:value>08/31/2010 13:09:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-23T00:00:00Z</con:value>
+          <con:value>2010-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
