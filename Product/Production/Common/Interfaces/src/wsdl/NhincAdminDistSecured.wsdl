@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Registry Actor -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
   xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
@@ -23,14 +23,14 @@
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
         </xsd:schema>
     </types>
-    <message name="SendAlertMessage_Message">
+    <message name="SendAlertMessageSecured_Message">
         <documentation>Send Alert Message</documentation>
         <part name="body" element="nccommonproxy:RespondingGateway_SendAlertMessageSecured"/>
     </message>
     <portType name="NhincAdminDistSecured_PortType">
         <operation name="SendAlertMessage">
-            <input message="tns:SendAlertMessage_Message"
-				wsaw:Action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/>
+            <input message="tns:SendAlertMessageSecured_Message"
+		wsaw:Action="urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessageSecured_Message"/>
         </operation>
     </portType>
     <binding name="NhincAdminDistSecured_Binding_Soap12" type="tns:NhincAdminDistSecured_PortType">
