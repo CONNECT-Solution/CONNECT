@@ -27,6 +27,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
     private static final String SERVICE_LOCAL_PART = "EntityPatientDiscovery";
     private static final String PORT_LOCAL_PART = "EntityPatientDiscoveryPortSoap";
     private static final String WSDL_FILE = "EntityPatientDiscovery.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage";
+
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
@@ -68,49 +70,10 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
     }
 
     /**
-     * This method retrieves and initializes the port.
-     *
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected EntityPatientDiscoveryPortType getPort(String url)
-    {
-        EntityPatientDiscoveryPortType port = null;
-        Service service = getService();
-        if (service != null)
-        {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityPatientDiscoveryPortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
-        }
-        else
-        {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    /**
      * Retrieve the service class for this web service.
      *
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest, AssertionType assertion, NhinTargetCommunitiesType targetCommunities)
     {
@@ -120,7 +83,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
         try
         {
             String url = getEndpointURL();
-            EntityPatientDiscoveryPortType port = getPort(url);
+            EntityPatientDiscoveryPortType port = getPort(url, NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
 
             if(pdRequest == null)
             {
@@ -155,6 +118,41 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
 
         log.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
+    }
+    /**
+     * This method retrieves and initializes the port.
+     *
+     * @param url The URL for the web service.
+     * @return The port object for the web service.
+     */
+    protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+        EntityPatientDiscoveryPortType port = null;
+        Service service = getService();
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
+
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityPatientDiscoveryPortType.class);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
+        return port;
+    }
+
+    /**
+     * Retrieve the service class for this web service.
+     *
+     * @return The service class for this web service.
+     */
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
+                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 
 }

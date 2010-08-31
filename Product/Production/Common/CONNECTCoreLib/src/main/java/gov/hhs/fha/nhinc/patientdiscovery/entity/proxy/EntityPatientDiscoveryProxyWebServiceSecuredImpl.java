@@ -27,7 +27,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
     private static final String SERVICE_LOCAL_PART = "EntityPatientDiscoverySecured";
     private static final String PORT_LOCAL_PART = "EntityPatientDiscoverySecuredPortSoap";
     private static final String WSDL_FILE = "EntityPatientDiscoverySecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "hl7:RespondingGateway_PRPA_IN201305UV02Request";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured:RespondingGateway_PRPA_IN201305UV02RequestMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryProxyWebServiceSecuredImpl()
@@ -86,7 +86,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityPatientDiscoverySecuredPortType.class);
-            oProxyHelper.initializePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
         {
