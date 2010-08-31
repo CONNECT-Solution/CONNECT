@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.fta;
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
@@ -12,6 +13,7 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterNotificationProducer", portName = "AdapterNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", wsdlLocation = "META-INF/wsdl/AdapterSubcriptionManagement/AdapterSubscriptionManagement.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Stateless
 public class AdapterSubcriptionManagement implements AdapterNotificationProducerPortType {
 

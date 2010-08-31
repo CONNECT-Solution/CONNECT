@@ -31,6 +31,7 @@
         <path id="jar.libs">
 		<filelist dir="${root.project.directory.path}">
 			<file name="${project.CONNECTCommonTypesLib.dist.file}" />
+                        <file name="${project.FTAConfigManager.dist.file}" />
 		</filelist>
 	</path>
 </project>

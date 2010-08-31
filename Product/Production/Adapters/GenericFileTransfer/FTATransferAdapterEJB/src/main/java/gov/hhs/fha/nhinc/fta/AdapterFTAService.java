@@ -3,12 +3,14 @@ package gov.hhs.fha.nhinc.fta;
 import gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumerPortType;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
 /**
  *
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterNotificationConsumer", portName = "AdapterNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapternotificationconsumer", wsdlLocation = "META-INF/wsdl/AdapterFTAService/AdapterNotificationConsumer.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Stateless
 public class AdapterFTAService implements AdapterNotificationConsumerPortType {
 
