@@ -1,9 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
 import org.hl7.v3.TSExplicit;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package gov.hhs.fha.nhinc.policyengine.orchestrator;
+package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator;
 
 /**
  * This exception is thrown when an error occurs within the AdapterPolicyEngineOrchestrator.

@@ -1,18 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.CDHelper;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.CSHelper;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.Configuration;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.Constants;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.CreationTimeHelper;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.IIHelper;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.InteractionIdHelper;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.SenderReceiverHelperMCCIMT000300UV01;
-import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.helpers.UniqueIdHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.CDHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.CSHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.Configuration;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.Constants;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.CreationTimeHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.IIHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.InteractionIdHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.SenderReceiverHelperMCCIMT000300UV01;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.UniqueIdHelper;
 import java.util.List;
 import org.hl7.v3.*;
 import javax.xml.bind.JAXBElement;
