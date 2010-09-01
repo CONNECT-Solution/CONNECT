@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="EntityDocRetrieveDeferred" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl">
       <con:part>
-        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl</con:url>
+        <con:url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocumentRetrieveDeferredRequest.wsdl</con:url>
         <con:content><![CDATA[<!--Entity Document Retrieve Deferred Request-->
 <definitions name="EntityDocRetrieveDeferredRequest" targetNamespace="urn:gov:hhs:fha:nhinc:entitydocretrieve" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:entitydocretrieve" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:dr="http://www.hhs.gov/healthit/nhin" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonentity">
   <documentation>Entity document retrieve deferred request</documentation>

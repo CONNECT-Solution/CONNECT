@@ -3,7 +3,7 @@
   <services>
     <service name="AdapterSubscriptionService">
       <implementation-class>gov.hhs.fha.nhinc.adaptersubscription.AdapterSubscriptionService</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubscriptionManagement.wsdl</local-wsdl-file>
       <service-name>AdapterNotificationProducer</service-name>
       <port-name>AdapterNotificationProducerPortSoap11</port-name>

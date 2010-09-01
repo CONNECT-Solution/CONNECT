@@ -329,7 +329,7 @@ The current prefix is ${CCNet.LabelPrefix}.
 			</filterchain>
 		</replace>
 		
-		<xmlquery query='/cruisecontrol/project/@name' file='${BranchCommon.Directory.Build.Path}\CCNET.build.xml' id='CCNetProjects' />
+		<xmlquery query='/cruisecontrol/project/@name' file='${BranchCommon.Directory.Build.Path}\CCNet.build31.xml' id='CCNetProjects' />
 
     <loopthrough property='CCNetProjectName'>
       <items>
@@ -338,14 +338,14 @@ The current prefix is ${CCNet.LabelPrefix}.
       <do>
 
         <xmlpeek
-          file='${BranchCommon.Directory.Build.Path}\CCNET.build.xml'
+          file='${BranchCommon.Directory.Build.Path}\CCNet.build31.xml'
           property='ProjectLabelPrefix.Exists'
           xpath='boolean(/cruisecontrol/project[@name = "${CCNetProjectName}"]/labeller/prefix)'
         />
 
         <if test='${ProjectLabelPrefix.Exists}'>
           <xmlpeek 
-            file='${BranchCommon.Directory.Build.Path}\CCNET.build.xml'
+            file='${BranchCommon.Directory.Build.Path}\CCNet.build31.xml'
             property='ProjectLabelPrefix'
             xpath='/cruisecontrol/project[@name = "${CCNetProjectName}"]/labeller/prefix'
           />
@@ -406,7 +406,7 @@ The current prefix is ${CCNet.LabelPrefix}.
               <regex input='${ProjectInitialVersion}' pattern="(?'CCNetProjectLabelPrefix'.*?)\d+$"/>
 
               <xmlpoke 
-                file="${BranchCommon.Directory.Build.Path}\CCNET.build.xml" 
+                file="${BranchCommon.Directory.Build.Path}\CCNet.build31.xml" 
                 value="${CCNetProjectLabelPrefix}" 
                 xpath='/cruisecontrol/project[@name = "${CCNetProjectName}"]/labeller/prefix'
               />
@@ -531,7 +531,7 @@ It is currently set to ${CCNet.LabelPrefix}.
       </filterchain>
     </replace>
 
-    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\CCNET.build.xml' id='CCNetProjects' />
+    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\CCNet.build31.xml' id='CCNetProjects' />
 
     <loopthrough property='CCNetProjectName'>
       <items>
@@ -540,14 +540,14 @@ It is currently set to ${CCNet.LabelPrefix}.
       <do>
 
         <xmlpeek
-          file='${Common.Directory.Build.Path}\CCNET.build.xml'
+          file='${Common.Directory.Build.Path}\CCNet.build31.xml'
           property='ProjectLabelPrefix.Exists'
           xpath='boolean(/cruisecontrol/project[@name = "${CCNetProjectName}"]/labeller/prefix)'
         />
 
         <if test='${ProjectLabelPrefix.Exists}'>
           <xmlpeek
-            file='${Common.Directory.Build.Path}\CCNET.build.xml'
+            file='${Common.Directory.Build.Path}\CCNet.build31.xml'
             property='ProjectLabelPrefix'
             xpath='/cruisecontrol/project[@name = "${CCNetProjectName}"]/labeller/prefix'
           />
@@ -579,7 +579,7 @@ Please note that you don't have to change it.
             </ifthenelse>
 
             <xmlpoke
-              file="${Common.Directory.Build.Path}\CCNET.build.xml"
+              file="${Common.Directory.Build.Path}\CCNet.build31.xml"
               value="${CCNetProject.LabelPrefix}"
               xpath='/cruisecontrol/project[@name = "${CCNetProjectName}"]/labeller/prefix'
             />

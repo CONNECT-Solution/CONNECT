@@ -17,7 +17,7 @@
     </target>
     <target name="wsimport-client-EntityDocQuery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityDocQuery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocQuery" destdir="${build.generated.dir}/jax-wsCache/EntityDocQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityDocQuery/wsdl/EntityDocQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocQuery" destdir="${build.generated.dir}/jax-wsCache/EntityDocQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityDocQuery/wsdl/EntityDocQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntityDocQuery/wsdl/EntityDocQuery.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntityDocQuery"/>
         </wsimport>
@@ -33,7 +33,7 @@
     </target>
     <target name="wsimport-client-EntityDocRetrieve" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityDocRetrieve"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/EntityDocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityDocRetrieve/wsdl/EntityDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/EntityDocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityDocRetrieve/wsdl/EntityDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntityDocRetrieve/wsdl/EntityDocRetrieve.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntityDocRetrieve"/>
         </wsimport>

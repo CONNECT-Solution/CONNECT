@@ -4,7 +4,7 @@
   </services>
   <clients>
     <client name="AdapterCommonDataLayer">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl</wsdl-url>
       <local-wsdl-file>AdapterCommonDataLayer.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapter.commondatalayer</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -20,7 +20,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

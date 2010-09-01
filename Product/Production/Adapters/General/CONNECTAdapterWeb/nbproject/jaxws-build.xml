@@ -17,7 +17,7 @@
     </target>
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
         </wsimport>
@@ -33,7 +33,7 @@
     </target>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
         </wsimport>
@@ -49,7 +49,7 @@
     </target>
     <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
         </wsimport>
@@ -65,7 +65,7 @@
     </target>
     <target name="wsimport-client-NhincProxySubjectDiscoverySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxySubjectDiscoverySecured/wsdl/NhincProxySubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxySubjectDiscoverySecured/wsdl/NhincProxySubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxySubjectDiscoverySecured/wsdl/NhincProxySubjectDiscoverySecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured"/>
         </wsimport>
@@ -81,7 +81,7 @@
     </target>
     <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured" destdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityNotificationConsumerSecured/wsdl/EntityNotificationConsumerSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured" destdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityNotificationConsumerSecured/wsdl/EntityNotificationConsumerSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntityNotificationConsumerSecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumerSecured"/>
         </wsimport>
@@ -97,7 +97,7 @@
     </target>
     <target name="wsimport-client-EntitySubscriptionManagementSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntitySubscriptionManagementSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntitySubscriptionManagementSecured" destdir="${build.generated.dir}/jax-wsCache/EntitySubscriptionManagementSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntitySubscriptionManagementSecured/wsdl/EntitySubscriptionManagementSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntitySubscriptionManagementSecured" destdir="${build.generated.dir}/jax-wsCache/EntitySubscriptionManagementSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntitySubscriptionManagementSecured/wsdl/EntitySubscriptionManagementSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntitySubscriptionManagementSecured/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntitySubscriptionManagementSecured"/>
         </wsimport>
@@ -113,7 +113,7 @@
     </target>
     <target name="wsimport-client-NhincProxyNotificationConsumerSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyNotificationConsumerSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyNotificationConsumerSecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyNotificationConsumerSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyNotificationConsumerSecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyNotificationConsumerSecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyNotificationConsumerSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyNotificationConsumerSecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyNotificationConsumerSecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyNotificationConsumerSecured"/>
         </wsimport>
@@ -129,7 +129,7 @@
     </target>
     <target name="wsimport-client-NhincProxySubscriptionManagementSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxySubscriptionManagementSecured"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxySubscriptionManagementSecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxySubscriptionManagementSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxySubscriptionManagementSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxySubscriptionManagementSecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxySubscriptionManagementSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxySubscriptionManagementSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxySubscriptionManagementSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincProxySubscriptionManagementSecured"/>
         </wsimport>

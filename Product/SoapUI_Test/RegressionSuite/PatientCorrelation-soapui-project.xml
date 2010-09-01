@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="PatientCorrelation" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="PatientCorrelationBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation}PatientCorrelationBinding" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="PatientCorrelationBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation}PatientCorrelationBinding" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl">
       <con:part>
-        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl</con:url>
+        <con:url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl</con:url>
         <con:content><![CDATA[<definitions name="PatientCorrelation" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ncpc="urn:gov:hhs:fha:nhinc:common:patientcorrelation" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:hl7="urn:hl7-org:v3" xmlns:pc="urn:hl7-org:v3">
   <types>
     <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation">
@@ -40797,7 +40797,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Add multiple #1</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -41246,7 +41246,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Add multiple #2</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -41693,7 +41693,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Simple Retrieve</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -42141,7 +42141,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Simple Retrieve - multi repo</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -42606,7 +42606,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Multiple results</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -43053,7 +43053,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Retrieve with empty repository</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -43491,7 +43491,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Retrieve with no results</worksheet>
               <cell>A1</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -43950,7 +43950,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Expirations</worksheet>
               <cell>A3</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -44268,7 +44268,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Expirations</worksheet>
               <cell>A2</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -44586,7 +44586,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Expirations</worksheet>
               <cell>A3</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -45090,7 +45090,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Expirations</worksheet>
               <cell>A2</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -45594,7 +45594,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Expirations</worksheet>
               <cell>A4</cell>
               <ignoreEmpty>false</ignoreEmpty>
@@ -46094,7 +46094,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
         <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:dataSource type="Excel">
             <con:configuration>
-              <file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
+              <file>C:/Projects/NHINC/3.1/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
               <worksheet>Expirations</worksheet>
               <cell>A2</cell>
               <ignoreEmpty>false</ignoreEmpty>

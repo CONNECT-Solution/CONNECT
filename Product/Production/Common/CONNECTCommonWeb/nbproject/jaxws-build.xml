@@ -17,7 +17,7 @@
     </target>
     <target name="wsimport-client-NhinUddiAPIV3" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3" destdir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhinUddiAPIV3/wsdl/NhinUddiAPIV3.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3" destdir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhinUddiAPIV3/wsdl/NhinUddiAPIV3.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl" xnocompile="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhinUddiAPIV3/wsdl/NhinUddiAPIV3.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3"/>
         </wsimport>

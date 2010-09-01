@@ -14,7 +14,7 @@
     <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer"/>
         <property name="wsdl-EntityNotificationConsumer" location="xml-resources/web-service-references/EntityNotificationConsumer/wsdl/EntityNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer" destdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer" destdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/nhinc/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true">
             <depends file="${wsdl-EntityNotificationConsumer}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer"/>
         </wsimport>

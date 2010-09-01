@@ -1,5 +1,5 @@
-<!ENTITY HostName                              'build.connectopensource.org'>
-<!ENTITY Integration.Server.Host.Name          'inttest1.connectopensource.org'>
+<!ENTITY HostName                              'build31.connectopensource.org'>
+<!ENTITY Integration.Server.Host.Name          'inttest31.connectopensource.org'>
 <!ENTITY Integration2.Server.Host.Name         'inttest2.connectopensource.org'>
 <!ENTITY Integration3.Server.Host.Name         'inttest3.connectopensource.org'>
 <!ENTITY ConnectBlue.Server.Host.Name          'ConnectBlue31.fedsconnect.org'>
@@ -10,7 +10,7 @@
 <!ENTITY EmailHost                             '172.16.50.25'>
 
 <!ENTITY ProjectName                           'NHINC'>
-<!ENTITY ProjectCodeLineName                   'Current'>
+<!ENTITY ProjectCodeLineName                   '3.1'>
 <!ENTITY ProjectFullName                       'NHIN_CONNECT'>
 
 <!ENTITY Common.Directory.Product.Name         'Product'>

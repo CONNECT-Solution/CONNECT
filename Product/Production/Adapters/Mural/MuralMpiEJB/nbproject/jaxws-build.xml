@@ -21,7 +21,7 @@
     <target name="wsimport-client-PatientEJB" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/PatientEJB"/>
         <property name="wsdl-PatientEJB" location="${meta.inf}/xml-resources/web-service-references/PatientEJB/wsdl/PatientEJB.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/PatientEJB" destdir="${build.generated.dir}/jax-wsCache/PatientEJB" wsdl="${wsdl-PatientEJB}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/PatientEJB.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/PatientEJB" destdir="${build.generated.dir}/jax-wsCache/PatientEJB" wsdl="${wsdl-PatientEJB}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/PatientEJB.wsdl" xnocompile="true">
             <depends file="${wsdl-PatientEJB}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/PatientEJB"/>
         </wsimport>

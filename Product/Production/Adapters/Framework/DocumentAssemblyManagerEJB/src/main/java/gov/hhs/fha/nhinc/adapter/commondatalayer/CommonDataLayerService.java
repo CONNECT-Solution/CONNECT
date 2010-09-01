@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "CommonDataLayerService", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl")
+@WebServiceClient(name = "CommonDataLayerService", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl")
 public class CommonDataLayerService
     extends Service
 {
@@ -30,9 +30,9 @@ public class CommonDataLayerService
         try {
             URL baseUrl;
             baseUrl = gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getResource(".");
-            url = new URL(baseUrl, "file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl");
+            url = new URL(baseUrl, "file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         COMMONDATALAYERSERVICE_WSDL_LOCATION = url;

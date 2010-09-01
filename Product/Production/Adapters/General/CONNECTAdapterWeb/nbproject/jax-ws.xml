@@ -3,7 +3,7 @@
   <services>
     <service name="DocumentRegistryService">
       <implementation-class>gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRegistry.wsdl</local-wsdl-file>
       <service-name>DocumentRegistry_Service</service-name>
       <port-name>DocumentRegistry_Port_Soap</port-name>
@@ -27,7 +27,7 @@
     </service>
     <service name="DocumentRepositoryService">
       <implementation-class>gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRepository.wsdl</local-wsdl-file>
       <service-name>DocumentRepository_Service</service-name>
       <port-name>DocumentRepository_Port_Soap</port-name>
@@ -51,7 +51,7 @@
     </service>
     <service name="AdapterDocQuerySecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQuerySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuerySecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocQuerySecured</service-name>
       <port-name>AdapterDocQuerySecuredPortSoap</port-name>
@@ -75,7 +75,7 @@
     </service>
     <service name="AdapterDocRetrieveSecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveSecured</service-name>
       <port-name>AdapterDocRetrieveSecuredPortSoap11</port-name>
@@ -99,7 +99,7 @@
     </service>
     <service name="AdapterAuthenticationService">
       <implementation-class>gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuthentication.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterAuthentication.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAuthentication.wsdl</local-wsdl-file>
       <service-name>AdapterAuthentication</service-name>
       <port-name>AdapterAuthenticationPortSoap11</port-name>
@@ -123,7 +123,7 @@
     </service>
     <service name="AdapterPolicyEngineSecured">
       <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngineSecured.wsdl</local-wsdl-file>
       <service-name>AdapterPolicyEngineSecured</service-name>
       <port-name>AdapterPolicyEngineSecuredPortSoap11</port-name>
@@ -147,7 +147,7 @@
     </service>
     <service name="AdapterPolicyEngineOrchestrator">
       <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngineOrchestrator.wsdl</local-wsdl-file>
       <service-name>AdapterPolicyEngineOrchestrator</service-name>
       <port-name>AdapterPolicyEngineOrchestratorPortSoap11</port-name>
@@ -171,7 +171,7 @@
     </service>
     <service name="AdapterPolicyEngineTransform">
       <implementation-class>gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransform.adapterpolicyengine.AdapterPolicyEngineTransform</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineTransform.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineTransform.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngineTransform.wsdl</local-wsdl-file>
       <service-name>AdapterPolicyEngineTransform</service-name>
       <port-name>AdapterPolicyEngineTransformPortSoap11</port-name>
@@ -195,7 +195,7 @@
     </service>
     <service name="AdapterPEPService">
       <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPEP.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPEP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPEP.wsdl</local-wsdl-file>
       <service-name>AdapterPEP</service-name>
       <port-name>AdapterPEPPortSoap11</port-name>
@@ -219,7 +219,7 @@
     </service>
     <service name="AdapterPIPService">
       <implementation-class>gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPIP.wsdl</local-wsdl-file>
       <service-name>AdapterPIP</service-name>
       <port-name>AdapterPIPPortSoap</port-name>
@@ -243,7 +243,7 @@
     </service>
     <service name="AdapterDocProvideAndRegisterservice">
       <implementation-class>gov.hhs.fha.nhinc.docprovideandregister.AdapterDocProvideAndRegisterservice</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocProvideAndRegister.wsdl</local-wsdl-file>
       <service-name>AdapterDocProvideAndRegisterService</service-name>
       <port-name>AdapterDocProvideAndRegisterPortTypeBindingPortSoap11</port-name>
@@ -267,7 +267,7 @@
     </service>
     <service name="AdapterSecuredAuditLogQuery">
       <implementation-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterSecuredAuditLogQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuerySaml.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuerySaml.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAuditLogQuerySaml.wsdl</local-wsdl-file>
       <service-name>AdapterAuditLogQuerySamlService</service-name>
       <port-name>AdapterAuditLogQuerySamlPortTypeBindingPort</port-name>
@@ -291,7 +291,7 @@
     </service>
     <service name="AdapterReidentification">
       <implementation-class>gov.hhs.fha.nhinc.adapter.reidentification.AdapterReidentification</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterReidentification.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterReidentification.wsdl</wsdl-url>
       <local-wsdl-file>AdapterReidentification.wsdl</local-wsdl-file>
       <service-name>AdapterReidentification</service-name>
       <port-name>AdapterReidentificationBindingSoap11</port-name>
@@ -315,7 +315,7 @@
     </service>
     <service name="AdapterMpiSecured">
       <implementation-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpiSecured.wsdl</local-wsdl-file>
       <service-name>AdapterMpiSecuredService</service-name>
       <port-name>AdapterMpiSecuredPortType</port-name>
@@ -339,7 +339,7 @@
     </service>
     <service name="AdapterMpi">
       <implementation-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpi.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterMpi.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpi.wsdl</local-wsdl-file>
       <service-name>AdapterMpiService</service-name>
       <port-name>AdapterMpiPort</port-name>
@@ -363,7 +363,7 @@
     </service>
     <service name="AdapterComponentMpi">
       <implementation-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentMpi.wsdl</local-wsdl-file>
       <service-name>AdapterComponentMpiService</service-name>
       <port-name>AdapterComponentMpiPort</port-name>
@@ -387,7 +387,7 @@
     </service>
     <service name="AdapterComponentMpiSecured">
       <implementation-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentSecuredMpi.wsdl</local-wsdl-file>
       <service-name>AdapterComponentMpiSecuredService</service-name>
       <port-name>AdapterComponentMpiSecuredPort</port-name>
@@ -411,7 +411,7 @@
     </service>
     <service name="AdapterPatientDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoverySecured</service-name>
       <port-name>AdapterPatientDiscoverySecuredPortSoap11</port-name>
@@ -435,7 +435,7 @@
     </service>
     <service name="AdapterSubjectDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubjectDiscoverySecured.wsdl</local-wsdl-file>
       <service-name>AdapterSubjectDiscoverySecured</service-name>
       <port-name>AdapterSubjectDiscoverySecuredPortSoap11</port-name>
@@ -459,7 +459,7 @@
     </service>
     <service name="EntityAuditQuery">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>EntityAuditLogQuery.wsdl</local-wsdl-file>
       <service-name>EntityAuditLogQuery</service-name>
       <port-name>EntityAuditLogQueryPortSoap11</port-name>
@@ -483,7 +483,7 @@
     </service>
     <service name="ProxyAuditQuery">
       <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditQuery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyAuditLogQuery.wsdl</local-wsdl-file>
       <service-name>NhincProxyAuditLogQuery</service-name>
       <port-name>NhincProxyAuditLogQueryPortSoap11</port-name>
@@ -507,7 +507,7 @@
     </service>
     <service name="EntityNotifyService">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl</wsdl-url>
       <local-wsdl-file>EntityNotificationConsumer.wsdl</local-wsdl-file>
       <service-name>EntityNotificationConsumer</service-name>
       <port-name>EntityNotificationConsumerPortSoap11</port-name>
@@ -531,7 +531,7 @@
     </service>
     <service name="EntitySubscribeService">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagement.wsdl</local-wsdl-file>
       <service-name>EntityNotificationProducer</service-name>
       <port-name>EntityNotificationProducerPortSoap11</port-name>
@@ -555,7 +555,7 @@
     </service>
     <service name="EntityUnsubscribeService">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeService</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagement.wsdl</local-wsdl-file>
       <service-name>EntitySubscriptionManager</service-name>
       <port-name>EntitySubscriptionManagerPortSoap11</port-name>
@@ -579,7 +579,7 @@
     </service>
     <service name="ProxyHiemNotify">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotify</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyNotificationConsumer.wsdl</local-wsdl-file>
       <service-name>NhincProxyNotificationConsumer</service-name>
       <port-name>NhincProxyNotificationConsumerPortSoap11</port-name>
@@ -603,7 +603,7 @@
     </service>
     <service name="ProxyHiemSubscribe">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribe</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagement.wsdl</local-wsdl-file>
       <service-name>NhincProxyNotificationProducer</service-name>
       <port-name>NhincProxyNotificationProducerPortSoap11</port-name>
@@ -627,7 +627,7 @@
     </service>
     <service name="ProxyHiemUnsubscribe">
       <implementation-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribe</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagement.wsdl</local-wsdl-file>
       <service-name>NhincProxySubscriptionManager</service-name>
       <port-name>NhincProxySubscriptionManagerPortSoap11</port-name>
@@ -651,7 +651,7 @@
     </service>
     <service name="EntitySubjectDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.subdisc.entity.EntitySubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubjectDiscovery.wsdl</local-wsdl-file>
       <service-name>EntitySubjectDiscovery</service-name>
       <port-name>EntitySubjectDiscoveryPortSoap11</port-name>
@@ -675,7 +675,7 @@
     </service>
     <service name="NhincProxySubjectDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.subdisc.proxy.NhincProxySubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubjectDiscovery.wsdl</local-wsdl-file>
       <service-name>NhincProxySubjectDiscovery</service-name>
       <port-name>NhincProxySubjectDiscoveryPortSoap11</port-name>
@@ -699,7 +699,7 @@
     </service>
     <service name="MpiManager">
       <implementation-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiManager.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpiManager.wsdl</local-wsdl-file>
       <service-name>AdapterMpiManagerService</service-name>
       <port-name>AdapterMpiManagerPortTypeBindingPort</port-name>
@@ -723,7 +723,7 @@
     </service>
     <service name="NhincProxyXDRRequest">
       <implementation-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequest</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRRequest.wsdl</local-wsdl-file>
       <service-name>ProxyXDRAsyncRequest_Service</service-name>
       <port-name>ProxyXDRAsyncRequest_Port</port-name>
@@ -747,7 +747,7 @@
     </service>
     <service name="NhincProxyXDRResponse">
       <implementation-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyXDRResponse.wsdl</local-wsdl-file>
       <service-name>ProxyXDRAsyncResponse_Service</service-name>
       <port-name>ProxyXDRAsyncResponse_Port</port-name>
@@ -771,7 +771,7 @@
     </service>
     <service name="AdapterXDRRequestSecured">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequestSecured.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequestSecured_Service</service-name>
       <port-name>AdapterXDRRequestSecured_Port_Soap</port-name>
@@ -795,7 +795,7 @@
     </service>
     <service name="AdapterXDRResponseSecured">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponseSecured.wsdl</local-wsdl-file>
       <service-name>AdapterXDRResponseSecured_Service</service-name>
       <port-name>AdapterXDRResponseSecured_Port_Soap</port-name>
@@ -819,7 +819,7 @@
     </service>
     <service name="AdapterXDRResponse">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponse</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRResponse.wsdl</local-wsdl-file>
       <service-name>AdapterXDRResponse_Service</service-name>
       <port-name>AdapterXDRResponse_Port</port-name>
@@ -843,7 +843,7 @@
     </service>
     <service name="AdapterXDRRequest">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequest_Service</service-name>
       <port-name>AdapterXDRRequest_Port</port-name>
@@ -867,7 +867,7 @@
     </service>
     <service name="AdapterPatientDiscoverySecuredAsyncReqQueue">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReqQueue.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoverySecuredAsyncReqQueue</service-name>
       <port-name>AdapterPatientDiscoverySecuredAsyncReqQueuePortSoap</port-name>
@@ -891,7 +891,7 @@
     </service>
     <service name="AdapterXDRSecuredRequestError">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRSecuredRequestError</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecuredError.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecuredError.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRRequestSecuredError.wsdl</local-wsdl-file>
       <service-name>AdapterXDRRequestErrorSecured_Service</service-name>
       <port-name>AdapterXDRRequestErrorSecured_Port_Soap</port-name>
@@ -915,7 +915,7 @@
     </service>
     <service name="AdapterComponentXDRRequest">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentXDRRequest</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDRRequest.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDRRequest_Service</service-name>
       <port-name>AdapterXDRRequest_Port</port-name>
@@ -939,7 +939,7 @@
     </service>
     <service name="AdapterComponentXDRResponse">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.AdapterComponentXDRResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDRResponse.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDRResponse_Service</service-name>
       <port-name>AdapterComponentXDRResponse_Port</port-name>
@@ -963,7 +963,7 @@
     </service>
     <service name="AdapterAdministrativeDistributionSecured">
       <implementation-class>gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistributionSecured</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDistSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDistSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAdminDistSecured.wsdl</local-wsdl-file>
       <service-name>Adapter_AdministrativeDistributionSecured</service-name>
       <port-name>Adapter_AdministrativeDistributionSecured_PortType</port-name>
@@ -987,7 +987,7 @@
     </service>
     <service name="AdapterAdministrativeDistribution">
       <implementation-class>gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution</implementation-class>
-      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDist.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/nhinc/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterAdminDist.wsdl</wsdl-url>
       <local-wsdl-file>AdapterAdminDist.wsdl</local-wsdl-file>
       <service-name>Adapter_AdministrativeDistribution</service-name>
       <port-name>Adapter_AdministrativeDistribution_PortType</port-name>
@@ -1011,7 +1011,7 @@
     </service>
     <service name="AdapterDocQueryDeferredRequestUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQueryDeferredRequest.wsdl</local-wsdl-file>
       <service-name>AdapterDocQueryDeferredRequest</service-name>
       <port-name>AdapterDocQueryDeferredRequestPortSoap</port-name>
@@ -1035,7 +1035,7 @@
     </service>
     <service name="AdapterDocQueryDeferredRequestSecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQueryDeferredRequestSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocQueryDeferredRequestSecured</service-name>
       <port-name>AdapterDocQueryDeferredRequestSecuredPortSoap</port-name>
@@ -1059,7 +1059,7 @@
     </service>
     <service name="AdapterDocQueryDeferredResponseUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQueryDeferredResponse.wsdl</local-wsdl-file>
       <service-name>AdapterDocQueryDeferredResponse</service-name>
       <port-name>AdapterDocQueryDeferredResponsePortSoap</port-name>
@@ -1083,7 +1083,7 @@
     </service>
     <service name="AdapterDocQueryDeferredResponseSecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredResponseSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredResponseSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQueryDeferredResponseSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocQueryDeferredResponseSecured</service-name>
       <port-name>AdapterDocQueryDeferredResponseSecuredPortSoap</port-name>
@@ -1107,7 +1107,7 @@
     </service>
     <service name="AdapterPatientDiscovery">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscovery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscovery.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscovery</service-name>
       <port-name>AdapterPatientDiscoveryPortSoap</port-name>
@@ -1131,7 +1131,7 @@
     </service>
     <service name="AdapterComponentDocQueryDeferredRequestUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.AdapterComponentDocQueryDeferredRequestUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocQueryDeferredRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocQueryDeferredRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocQueryDeferredRequest.wsdl</local-wsdl-file>
       <service-name>AdapterComponentDocQueryDeferredRequest</service-name>
       <port-name>AdapterComponentDocQueryDeferredRequestPortSoap</port-name>
@@ -1155,7 +1155,7 @@
     </service>
     <service name="AdapterComponentDocQueryDeferredResponseUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.AdapterComponentDocQueryDeferredResponseUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocQueryDeferredResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocQueryDeferredResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocQueryDeferredResponse.wsdl</local-wsdl-file>
       <service-name>AdapterComponentDocQueryDeferredResponse</service-name>
       <port-name>AdapterComponentDocQueryDeferredResponsePortSoap</port-name>
@@ -1179,7 +1179,7 @@
     </service>
     <service name="AdapterDocQueryDeferredRequestErrorUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.AdapterDocQueryDeferredRequestErrorUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestError.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestError.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQueryDeferredRequestError.wsdl</local-wsdl-file>
       <service-name>AdapterDocQueryDeferredRequestError</service-name>
       <port-name>AdapterDocQueryDeferredRequestErrorPortSoap</port-name>
@@ -1203,7 +1203,7 @@
     </service>
     <service name="AdapterDocQueryDeferredRequestErrorSecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.AdapterDocQueryDeferredRequestErrorSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestErrorSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestErrorSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQueryDeferredRequestErrorSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocQueryDeferredRequestErrorSecured</service-name>
       <port-name>AdapterDocQueryDeferredRequestErrorSecuredPortSoap</port-name>
@@ -1227,7 +1227,7 @@
     </service>
     <service name="AdapterDocQueryUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuery.wsdl</local-wsdl-file>
       <service-name>AdapterDocQuery</service-name>
       <port-name>AdapterDocQueryPortSoap</port-name>
@@ -1251,7 +1251,7 @@
     </service>
     <service name="AdapterDocRetrieveDeferredRequestUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.AdapterDocRetrieveDeferredRequestUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReq.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReq.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveDeferredReq.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveDeferredRequest</service-name>
       <port-name>AdapterDocRetrieveDeferredRequestPortSoap</port-name>
@@ -1275,7 +1275,7 @@
     </service>
     <service name="AdapterDocRetrieveDeferredRequestSecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.AdapterDocRetrieveDeferredRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveDeferredReqSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveDeferredRequestSecured</service-name>
       <port-name>AdapterDocRetrieveDeferredRequestSecuredPortSoap</port-name>
@@ -1299,7 +1299,7 @@
     </service>
     <service name="AdapterDocRetrieveDeferredRequestErrorUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredRequestErrorUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReqError.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReqError.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveDeferredReqError.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveDeferredRequestErrorService</service-name>
       <port-name>AdapterDocRetrieveRequestErrorPortSoap</port-name>
@@ -1323,7 +1323,7 @@
     </service>
     <service name="AdapterDocRetrieveDeferredRequestErrorSecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredRequestErrorSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReqErrorSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredReqErrorSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveDeferredReqErrorSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveDeferredRequestErrorSecuredService</service-name>
       <port-name>AdapterDocRetrieveDeferredRequestErrorSecuredPortSoap</port-name>
@@ -1347,7 +1347,7 @@
     </service>
     <service name="AdapterDocRetrieveDeferredResponseUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredResp.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredResp.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveDeferredResp.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveDeferredResponse</service-name>
       <port-name>AdapterDocRetrieveDeferredResponsePortSoap</port-name>
@@ -1371,7 +1371,7 @@
     </service>
     <service name="AdapterDocRetrieveDeferredResponseSecured">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredRespSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveDeferredRespSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveDeferredRespSecured.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieveDeferredResponseSecured</service-name>
       <port-name>AdapterDocRetrieveDeferredResponseSecuredPortSoap</port-name>
@@ -1395,7 +1395,7 @@
     </service>
     <service name="AdapterDocRetrieve">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieve</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieve.wsdl</local-wsdl-file>
       <service-name>AdapterDocRetrieve</service-name>
       <port-name>AdapterDocRetrievePortSoap</port-name>
@@ -1419,7 +1419,7 @@
     </service>
     <service name="AdapterComponentDocRetrieveDeferredRequest">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.AdapterComponentDocRetrieveDeferredRequest</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRetrieveDeferredRequest.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRetrieveDeferredRequest.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRetrieveDeferredRequest.wsdl</local-wsdl-file>
       <service-name>AdapterComponentDocRetrieveReqService</service-name>
       <port-name>AdapterComponentDocRetrieveReqPortSoap</port-name>
@@ -1443,7 +1443,7 @@
     </service>
     <service name="AdapterComponentDocRetrieveDeferredResponse">
       <implementation-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.AdapterComponentDocRetrieveDeferredResponse</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocumentRetrieveDeferredResponse.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocumentRetrieveDeferredResponse.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocumentRetrieveDeferredResponse.wsdl</local-wsdl-file>
       <service-name>AdapterComponentDocRetrieveResponseService</service-name>
       <port-name>AdapterComponentDocRetrieveResponsePortSoap</port-name>
@@ -1467,7 +1467,7 @@
     </service>
     <service name="AdapterPatientDiscoveryUnsecuredAsyncReqQueue">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryUnsecuredAsyncReqQueue</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReqQueue.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReqQueue.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoveryAsyncReqQueue.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoveryAsyncReqQueue</service-name>
       <port-name>AdapterPatientDiscoveryAsyncReqQueuePortSoap</port-name>
@@ -1491,7 +1491,7 @@
     </service>
     <service name="AdapterPatientDiscoveryDeferredRequestUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoveryAsyncReq.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoveryAsyncReq</service-name>
       <port-name>AdapterPatientDiscoveryAsyncReqPortSoap</port-name>
@@ -1515,7 +1515,7 @@
     </service>
     <service name="AdapterPatientDiscoveryDeferredRequestSecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReq.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoverySecuredAsyncReq</service-name>
       <port-name>AdapterPatientDiscoverySecuredAsyncReqPortSoap</port-name>
@@ -1539,7 +1539,7 @@
     </service>
     <service name="AdapterPatientDiscoveryDeferredRequestErrorUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoveryAsyncReqError.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoveryAsyncReqError</service-name>
       <port-name>AdapterPatientDiscoveryAsyncReqErrorPortSoap</port-name>
@@ -1563,7 +1563,7 @@
     </service>
     <service name="AdapterPatientDiscoveryDeferredRequestErrorSecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncReqError.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoverySecuredAsyncReqError</service-name>
       <port-name>AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap</port-name>
@@ -1587,7 +1587,7 @@
     </service>
     <service name="AdapterPatientDiscoveryDeferredResponseSecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecuredAsyncResp.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoverySecuredAsyncResp</service-name>
       <port-name>AdapterPatientDiscoverySecuredAsyncRespPortSoap</port-name>
@@ -1611,7 +1611,7 @@
     </service>
     <service name="AdapterPatientDiscoveryDeferredResponseUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncResp.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoveryAsyncResp.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoveryAsyncResp.wsdl</local-wsdl-file>
       <service-name>AdapterPatientDiscoveryAsyncResp</service-name>
       <port-name>AdapterPatientDiscoveryAsyncRespPortSoap</port-name>
@@ -1635,7 +1635,7 @@
     </service>
     <service name="AdapterComponentDocSubmissionUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDR.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDR_Service</service-name>
       <port-name>AdapterComponentXDR_Port</port-name>
@@ -1659,7 +1659,7 @@
     </service>
     <service name="AdapterComponentDocSubmissionSecured">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentXDRSecured.wsdl</local-wsdl-file>
       <service-name>AdapterComponentXDRSecured_Service</service-name>
       <port-name>AdapterComponentXDRSecured_Port</port-name>
@@ -1683,7 +1683,7 @@
     </service>
     <service name="AdapterDocSubmissionUnsecured">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDR.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDR.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDR.wsdl</local-wsdl-file>
       <service-name>AdapterXDR_Service</service-name>
       <port-name>AdapterXDR_Port</port-name>
@@ -1707,7 +1707,7 @@
     </service>
     <service name="AdapterDocSubmissionSecured">
       <implementation-class>gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionSecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterXDRSecured.wsdl</local-wsdl-file>
       <service-name>AdapterXDRSecured_Service</service-name>
       <port-name>AdapterXDRSecured_Port</port-name>
@@ -1732,7 +1732,7 @@
   </services>
   <clients>
     <client name="EntityAuditLogQuerySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityAuditLogQuerySecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:entityauditlogquerysaml</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1747,7 +1747,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1756,7 +1756,7 @@
       </wsimport-options>
     </client>
     <client name="NhincProxyAuditLogQuerySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyAuditLogQuerySecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1771,7 +1771,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1780,7 +1780,7 @@
       </wsimport-options>
     </client>
     <client name="EntitySubjectDiscoverySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubjectDiscoverySecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:entitysubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1795,7 +1795,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1804,7 +1804,7 @@
       </wsimport-options>
     </client>
     <client name="NhincProxySubjectDiscoverySecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubjectDiscoverySecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1819,7 +1819,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1828,7 +1828,7 @@
       </wsimport-options>
     </client>
     <client name="EntityNotificationConsumerSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntityNotificationConsumerSecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:entitynotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1843,7 +1843,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1852,7 +1852,7 @@
       </wsimport-options>
     </client>
     <client name="EntitySubscriptionManagementSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>EntitySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1867,7 +1867,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1876,7 +1876,7 @@
       </wsimport-options>
     </client>
     <client name="NhincProxyNotificationConsumerSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxyNotificationConsumerSecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1891,7 +1891,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -1900,7 +1900,7 @@
       </wsimport-options>
     </client>
     <client name="NhincProxySubscriptionManagementSecured">
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincProxySubscriptionManagementSecured.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -1915,7 +1915,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

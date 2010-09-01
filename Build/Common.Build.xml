@@ -77,8 +77,8 @@
   <property name="CCNet.Directory.Logs.MessageFile.Path" value="${CCNet.Directory.Logs.Path}\LogMessages.txt"/>
 
   <strings id="CCNet.Project.Files">
-    <string value="CCNet.build.xml"/>
-    <string value="CCNet.inttest1.xml"/>
+    <string value="CCNet.build31.xml"/>
+    <string value="CCNet.inttest31.xml"/>
     <string value="CCNet.inttest2.xml"/>
     <string value="CCNet.inttest3.xml"/>
     <string value="CCNet.build-kw.xml"/>    

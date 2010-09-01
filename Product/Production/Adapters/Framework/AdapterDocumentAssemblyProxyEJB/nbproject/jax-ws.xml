@@ -3,7 +3,7 @@
   <services>
     <service name="AdapterDocumentAssembly">
       <implementation-class>gov.hhs.fha.nhinc.documentassembly.AdapterDocumentAssembly</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl</wsdl-url>
       <local-wsdl-file>DocumentAssembly.wsdl</local-wsdl-file>
       <service-name>DocumentAssembly</service-name>
       <port-name>DocumentAssemblyPortSoap</port-name>
@@ -28,7 +28,7 @@
   </services>
   <clients>
     <client name="DocumentManager">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
       <local-wsdl-file>DocumentManager.wsdl</local-wsdl-file>
       <package-name>ihe.iti.xds_b._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -43,7 +43,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsimport-option-value>
+          <wsimport-option-value>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

@@ -4,7 +4,7 @@
   </services>
   <clients>
     <client name="DocumentManager">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl</wsdl-url>
       <local-wsdl-file>DocumentManager.wsdl</local-wsdl-file>
       <package-name>ihe:iti:xds-b:2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -29,7 +29,7 @@
       </wsimport-options>
     </client>
     <client name="EntityDocQuery">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocQuery.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:entitydocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -53,7 +53,7 @@
       </wsimport-options>
     </client>
     <client name="EntityDocRetrieve">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>EntityDocRetrieve.wsdl</local-wsdl-file>
       <package-name>gov:hhs:fha:nhinc:entitydocretrieve</package-name>
       <catalog-file>catalog.xml</catalog-file>
@@ -77,7 +77,7 @@
       </wsimport-options>
     </client>
     <client name="DocViewerRequestServicesService">
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocViewerRequestServicesService.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocViewerRequestServicesService.wsdl</wsdl-url>
       <local-wsdl-file>DocViewerRequestServicesService.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.universalclient.ws</package-name>
       <catalog-file>catalog.xml</catalog-file>
