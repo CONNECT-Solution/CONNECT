@@ -11,7 +11,7 @@
 			<xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
 		</xsd:schema>
 	</types>
-	<message name="RespondingGateway_CrossGatewayQueryRequestMessage">
+	<message name="RespondingGateway_CrossGatewayQueryRequestSecuredMessage">
 		<part name="body" element="nccommonproxy:RespondingGateway_CrossGatewayQuerySecuredRequest"/>
 	</message>
 	<message name="RespondingGateway_CrossGatewayQueryResponseMessage">
@@ -19,7 +19,7 @@
 	</message>
 	<portType name="NhincProxyDocQuerySecuredPortType">
 		<operation name="RespondingGateway_CrossGatewayQuery">
-			<input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:RespondingGateway_CrossGatewayQueryRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryRequestMessage"/>
+			<input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:RespondingGateway_CrossGatewayQueryRequestSecuredMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryRequestSecuredMessage"/>
 			<output name="RespondingGateway_CrossGatewayQueryResponse" message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryResponseMessage"/>
 		</operation>
 	</portType>
