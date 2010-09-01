@@ -190,7 +190,6 @@
         <jvm-options>-XX:NewRatio=2</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.server.gcInterval=3600000</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.client.gcInterval=3600000</jvm-options>
-        <jvm-options>-Xms1400m</jvm-options>
         <jvm-options>-Xmx1400m</jvm-options>
         <jvm-options>-XX:MaxPermSize=132m</jvm-options>
         <jvm-options>-XX:PermSize=132m</jvm-options>
