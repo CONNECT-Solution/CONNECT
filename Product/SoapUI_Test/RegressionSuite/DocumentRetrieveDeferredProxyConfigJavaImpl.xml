@@ -108,7 +108,7 @@
     <!-- Default facade implementation -->
          <!-- <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyNoOpImpl"/> -->
 	<!-- Default java implementation -->
-          <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.component.adapter.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyJavaImpl"/>
+          <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyJavaImpl"/>
 	<!-- Web-service UnSecured implementation -->
           <!-- <bean id="adaptercomponentdocretrievedeferredrequest" class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.proxy.AdapterComponentDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl"/> -->
 </beans>
