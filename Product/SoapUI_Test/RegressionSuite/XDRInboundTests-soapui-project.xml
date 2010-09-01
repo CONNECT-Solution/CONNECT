@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="XDRInbound-Tests" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="XDRInbound-Tests" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProxyXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -27201,13 +27201,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               </con:configuration>
             </con:assertion>
             <con:assertion type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns10:RegistryResponse[1]/ns10:RegistryErrorList[1]/ns10:RegistryError[1]/@errorCode</path>
-                <content>CONNECTPolicyCheckFailed</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns10:RegistryResponse[1]/ns10:RegistryErrorList[1]/ns10:RegistryError[1]/@errorCode</path><content>CONNECTPolicyCheckFailed </content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion type="XPath Match">
               <con:configuration>
@@ -28733,15 +28728,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T00:24:29Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T00:34:29Z</con:value>
+          <con:value>2010-09-01T00:55:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 00:24:29</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -31734,7 +31729,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
-    <con:parameters/>
+    <con:xmlTemplates/><con:parameters/>
   </con:reporting>
   <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
