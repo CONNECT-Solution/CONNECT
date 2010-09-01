@@ -25933,19 +25933,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:30Z</con:value>
+          <con:value>2010-09-01T00:24:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:30Z</con:value>
+          <con:value>2010-09-01T00:34:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:30</con:value>
+          <con:value>09/01/2010 00:24:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26687,19 +26687,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:31Z</con:value>
+          <con:value>2010-09-01T00:24:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:31Z</con:value>
+          <con:value>2010-09-01T00:34:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:31</con:value>
+          <con:value>09/01/2010 00:24:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -26707,7 +26707,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Inbound UserTue Aug 31 12:45:31 UTC 2010</con:value>
+          <con:value>XDR Inbound UserWed Sep 01 00:29:26 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -27202,8 +27202,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
             </con:assertion>
             <con:assertion type="XPath Match">
               <con:configuration>
-                <path>declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns4:RegistryResponse[1]/ns4:RegistryErrorList[1]/ns4:RegistryError[1]/@errorCode</path>
+                <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns10:RegistryResponse[1]/ns10:RegistryErrorList[1]/ns10:RegistryError[1]/@errorCode</path>
                 <content>CONNECTPolicyCheckFailed</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -28733,19 +28733,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:41:27Z</con:value>
+          <con:value>2010-09-01T00:24:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:51:27Z</con:value>
+          <con:value>2010-09-01T00:34:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:41:27</con:value>
+          <con:value>09/01/2010 00:24:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29294,19 +29294,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:40Z</con:value>
+          <con:value>2010-09-01T00:24:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:40Z</con:value>
+          <con:value>2010-09-01T00:34:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:40</con:value>
+          <con:value>09/01/2010 00:24:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -29842,19 +29842,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:41Z</con:value>
+          <con:value>2010-09-01T00:24:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:41Z</con:value>
+          <con:value>2010-09-01T00:34:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:41</con:value>
+          <con:value>09/01/2010 00:24:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -30390,19 +30390,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:42Z</con:value>
+          <con:value>2010-09-01T00:24:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:42Z</con:value>
+          <con:value>2010-09-01T00:34:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:42</con:value>
+          <con:value>09/01/2010 00:24:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -30934,19 +30934,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:43Z</con:value>
+          <con:value>2010-09-01T00:24:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:43Z</con:value>
+          <con:value>2010-09-01T00:34:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:43</con:value>
+          <con:value>09/01/2010 00:24:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -31478,19 +31478,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T12:40:44Z</con:value>
+          <con:value>2010-09-01T00:24:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T12:50:44Z</con:value>
+          <con:value>2010-09-01T00:34:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 12:40:44</con:value>
+          <con:value>09/01/2010 00:24:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
