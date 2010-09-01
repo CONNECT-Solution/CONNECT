@@ -16,8 +16,8 @@
 
 	<!-- No-op Implementation -->
 	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyPermitNoOpImpl" id="adapterpolicyengineorchestrator" name="adapterpolicyengineorchestratornoop"> 
-		<meta key="impltype" value="noop"/>
-		<meta key="default" value="true"/>
+		<!--<meta key="impltype" value="noop"/>
+		<meta key="default" value="true"/>-->
 	</bean> 
 
 	<!-- No-op deny Implementation -->
@@ -26,12 +26,12 @@
 
 	<!-- Java Implementation -->
 	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyJavaImpl" id="adapterpolicyengineorchestratorjava" name="adapterpolicyengineorchestratorjava"> 
-		<meta key="impltype" value="java"/>
+		<!--<meta key="impltype" value="java"/>-->
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
 	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl" id="adapterpolicyengineorchestratorwsunsecured" name="adapterpolicyengineorchestratorwsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
+		<!--<meta key="impltype" value="wsunsecured"/>-->
 	</bean> 
 
 </beans>
