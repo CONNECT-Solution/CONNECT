@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="soapui-project-conf.xsd">
+  <!-- 1 Result -->
+  <test name="PatientDiscovery(1tx1r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(1tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="50">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(1tx100r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="100">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(1tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(2tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="2" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(10tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="10" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery(25tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="25" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">GALLOW</property>
+      <property name="PatientDiscovery.Patient.FamilyName">YOUNGER</property>
+      <property name="PatientDiscovery.ExpectedResultCount">1</property>
+    </testProperties>
+  </test>
+  <!-- No Results -->
+  <test name="PatientDiscovery-NoResults(1tx1r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="1">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery-NoResults(1tx50r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="50">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery-NoResults(1tx100r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="100">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery-NoResults(1tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="1" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery-NoResults(2tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="2" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery-NoResults(10tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="10" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+  <test name="PatientDiscovery-NoResults(25tx10r)" testcase="Nhin.PatientDiscovery" numberOfThreads="25" numberOfIteration="10">
+    <testProperties filename="PatientDiscoveryLoadtest-soapui-project.properties">
+      <property name="PatientDiscovery.Patient.GivenName">UNKNOWN</property>
+      <property name="PatientDiscovery.Patient.FamilyName">UNKNOWN</property>
+      <property name="PatientDiscovery.ExpectedResultCount">0</property>
+    </testProperties>
+  </test>
+</tests>

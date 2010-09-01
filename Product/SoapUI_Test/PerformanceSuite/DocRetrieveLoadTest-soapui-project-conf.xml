@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DocQueryLoadTest-soapui-project-conf.xsd">
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="soapui-project-conf.xsd">
   <test name="DocRetrieve-OneDocument(1tx1r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="1">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
@@ -10,7 +10,7 @@
   </test>
 
   <test name="DocRetrieve-OneDocument(1tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="50">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
@@ -18,7 +18,7 @@
     </testProperties>
   </test>
   <test name="DocRetrieve-OneDocument(2tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="2" numberOfIteration="50">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
@@ -26,7 +26,7 @@
     </testProperties>
   </test>
   <test name="DocRetrieve-OneDocument(5tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="5" numberOfIteration="50">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
@@ -34,7 +34,7 @@
     </testProperties>
   </test>
   <test name="DocRetrieve-OneDocument(10tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="10" numberOfIteration="50">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
@@ -42,16 +42,16 @@
     </testProperties>
   </test>
   <test name="DocRetrieve-OneDocument(25tx50r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="25" numberOfIteration="50">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
       <property name="DocRetrieve.ExpectedSizeOfDocuments">35000</property>
     </testProperties>
   </test>
-  
+
   <test name="DocRetrieve-OneDocument(1tx1000r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="1000">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">1.123402.11111</property>
@@ -59,15 +59,15 @@
     </testProperties>
   </test>
   <test name="DocRetrieve-NoDocument(1tx1000r)" testcase="Nhin.DocRetrieve.SingleDocument" numberOfThreads="1" numberOfIteration="1000">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId">x</property>
     </testProperties>
   </test>
-  
+
   <test name="DocRetrieve-SequentialRequestsForMultipleDocuments(1tx50r)" testcase="Nhin.DocRetrieve.SequentialRequestsForMultipleDocuments" numberOfThreads="1" numberOfIteration="20">
-    <testProperties filename="LSC-soapui-project.properties">
+    <testProperties filename="DocRetrieveLoadTest-soapui-project.properties">
       <property name="DocRetrieve.HomeCommunityId">${#Project#Endpoint-HomeCommunityId}</property>  
       <property name="DocRetrieve.RepositoryId">1</property>
       <property name="DocRetrieve.DocumentId-1">1.123409.44444</property>
