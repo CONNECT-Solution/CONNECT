@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryTestsForUDDI" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="DocQueryTestsForUDDI" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -7435,15 +7435,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:08Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:08Z</con:value>
+          <con:value>2010-09-01T02:10:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:08</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -8406,15 +8406,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:38:56Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:48:56Z</con:value>
+          <con:value>2010-09-01T02:10:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:38:56</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -8829,15 +8829,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:38:57Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:48:57Z</con:value>
+          <con:value>2010-09-01T02:10:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:38:57</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -9266,15 +9266,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:38:58Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:48:58Z</con:value>
+          <con:value>2010-09-01T02:10:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:38:58</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10251,15 +10251,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:38:58Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:48:58Z</con:value>
+          <con:value>2010-09-01T02:11:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:38:58</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10706,15 +10706,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:38:59Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:48:59Z</con:value>
+          <con:value>2010-09-01T02:11:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:38:59</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -11694,15 +11694,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:38:59Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:48:59Z</con:value>
+          <con:value>2010-09-01T02:11:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:38:59</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -12180,15 +12180,15 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:00Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:00Z</con:value>
+          <con:value>2010-09-01T02:11:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:00</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -12582,15 +12582,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:00Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:00Z</con:value>
+          <con:value>2010-09-01T02:11:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:00</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -13000,15 +13000,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:01Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:01Z</con:value>
+          <con:value>2010-09-01T02:11:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:01</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -13480,15 +13480,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:01Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:01Z</con:value>
+          <con:value>2010-09-01T02:11:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:01</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -14516,15 +14516,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:02Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:02Z</con:value>
+          <con:value>2010-09-01T02:11:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:02</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -14915,15 +14915,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:02Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:02Z</con:value>
+          <con:value>2010-09-01T02:11:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:02</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -15377,15 +15377,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:03Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:03Z</con:value>
+          <con:value>2010-09-01T02:11:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:03</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -15855,15 +15855,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:03Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:03Z</con:value>
+          <con:value>2010-09-01T02:11:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:03</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -16343,14 +16343,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               </con:configuration>
             </con:assertion>
             <con:assertion type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>6</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -16914,15 +16909,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:04Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:04Z</con:value>
+          <con:value>2010-09-01T02:19:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:04</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -17923,15 +17918,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:05Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:05Z</con:value>
+          <con:value>2010-09-01T02:11:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:05</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -18989,15 +18984,15 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:39:06Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:49:06Z</con:value>
+          <con:value>2010-09-01T02:11:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:39:06</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -19408,7 +19403,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
-    <con:parameters/>
+    <con:xmlTemplates/><con:parameters/>
   </con:reporting>
   <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
