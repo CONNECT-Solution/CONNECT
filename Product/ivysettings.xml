@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
   <settings defaultResolver="chain" />
-  <caches defaultCacheDir="${ivy.cache.dir}">
-    <cache basedir="${ivy.project.cache.dir}" name="project-cache" />
+  <caches defaultCacheDir="${ivy.settings.dir}/../ivy-cache">
+    <cache basedir="${ivy.settings.dir}/../ivy-project-cache" name="project-cache" />
   </caches>
   <resolvers>
     <filesystem name="local-adapters-framework" m2compatible="true" local="true" cache="project-cache">
