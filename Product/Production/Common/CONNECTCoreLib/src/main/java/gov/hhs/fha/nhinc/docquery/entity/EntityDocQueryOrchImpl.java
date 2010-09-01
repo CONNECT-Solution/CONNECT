@@ -89,6 +89,7 @@ public class EntityDocQueryOrchImpl
                     NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot()))
             {
                 List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
+                String localAA = new EntityDocQueryHelper().getLocalAssigningAuthority(slotList);
 
                 List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
@@ -107,7 +108,7 @@ public class EntityDocQueryOrchImpl
 
                     String transactionId = startTransaction(aggregator, subjectIds);
 
-                    sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion);
+                    sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion, localAA);
 
                     response = retrieveDocQueryResults(aggregator, transactionId);
                 } else
@@ -191,11 +192,11 @@ public class EntityDocQueryOrchImpl
         return sHomeCommunity;
     }
 
-    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion)
+    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion, String localAA)
     {
         for (QualifiedSubjectIdentifierType subId : correlationsResult)
         {
-            DocQuerySender querySender = new DocQuerySender(transactionId, assertion, subId, queryRequest, localAssigningAuthorityId);
+            DocQuerySender querySender = new DocQuerySender(transactionId, assertion, subId, queryRequest, localAA);
             querySender.sendMessage();
         }
     }

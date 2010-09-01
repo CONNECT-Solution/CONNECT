@@ -89,8 +89,7 @@ public class DocQuerySender {
         String assigningAuthority = oSubjectId.getAssigningAuthorityIdentifier();
         EntityDocQueryHelper helper = new EntityDocQueryHelper();
 
-        List<SlotType1> slotList = oOriginalQueryRequest.getAdhocQuery().getSlot();
-        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(assigningAuthority, helper.getLocalAssigningAuthority(slotList), sLocalHomeCommunity);
+        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(assigningAuthority, sLocalAssigningAuthorityId, sLocalHomeCommunity);
         String sTargetHomeCommunityId = null;
         if (targetCommunity != null) {
             targetSystem.setHomeCommunity(targetCommunity);

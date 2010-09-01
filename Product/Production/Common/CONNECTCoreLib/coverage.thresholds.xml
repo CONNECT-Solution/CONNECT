@@ -822,7 +822,7 @@
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.DocQuerySender"
-              linecount="98"
+              linecount="97"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="62" branchrate="80" branchsexecuted="0"
@@ -832,7 +832,7 @@
               linesexecuted="0"/>
    <threshold branchcount="40" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl"
-              linecount="127"
+              linecount="128"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="22" branchrate="80" branchsexecuted="0"
