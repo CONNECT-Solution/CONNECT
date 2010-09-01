@@ -13744,7 +13744,9 @@ log.info documentID + " " + msgDocID</scriptText>
           <con:interface>EntityAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Log Query">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -13970,7 +13972,7 @@ log.info documentID + " " + msgDocID</scriptText>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-        <urn:nhinTargetCommunities>
+        <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:list/>
                <urn1:region>${#Project#Region1}</urn1:region>
@@ -13982,7 +13984,7 @@ log.info documentID + " " + msgDocID</scriptText>
                   <urn1:name>${#Project#hc1description}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
+         </urn:NhinTargetCommunities>
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -14000,6 +14002,8 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -14018,27 +14022,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-01T01:14:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:30Z</con:value>
+          <con:value>2010-09-01T01:24:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/01/2010 01:14:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:30 UTC 20101</con:value>
+          <con:value>DocQueryWed Sep 01 01:19:24 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/01/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14401,7 +14405,9 @@ log.info documentID + " " + msgDocID</scriptText>
           <con:interface>EntityAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Log Query">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -14627,7 +14633,7 @@ log.info documentID + " " + msgDocID</scriptText>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetCommunities>
+         <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
                   <urn1:description/>
@@ -14637,7 +14643,7 @@ log.info documentID + " " + msgDocID</scriptText>
                <urn1:list/>
                <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
+         </urn:NhinTargetCommunities>
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -14655,6 +14661,8 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -14673,27 +14681,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-01T01:14:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:33Z</con:value>
+          <con:value>2010-09-01T01:24:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/01/2010 01:14:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:33 UTC 20101</con:value>
+          <con:value>DocQueryWed Sep 01 01:19:44 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/01/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19298,7 +19306,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
   <con:properties>
     <con:property>
       <con:name>Endpoint-DocQuery</con:name>
-      <con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value>
+      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalPatientID</con:name>
