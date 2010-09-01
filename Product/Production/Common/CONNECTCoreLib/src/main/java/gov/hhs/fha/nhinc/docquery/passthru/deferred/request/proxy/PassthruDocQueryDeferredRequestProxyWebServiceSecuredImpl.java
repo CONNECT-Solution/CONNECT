@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequestsecured.NhincProxyDocQueryDeferredRequestSecuredPortType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -113,10 +113,6 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceSecuredImpl implement
             {
                 getLogger().error("AssertionType is null");
             }
-            else if(target == null)
-            {
-                getLogger().error("NhinTargetCommunitiesType is null");
-            }
             else if(port == null)
             {
                 getLogger().error("port was null");
@@ -126,7 +122,7 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceSecuredImpl implement
                 RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
                 request.setAdhocQueryRequest(msg);
 
-                response = (DocQueryAcknowledgementType)getWebServiceProxyHelper().invokePort(port, NhincProxyDocQueryDeferredRequestSecuredPortType.class, METHOD_NAME, msg);
+                response = (DocQueryAcknowledgementType)getWebServiceProxyHelper().invokePort(port, NhincProxyDocQueryDeferredRequestSecuredPortType.class, METHOD_NAME, request);
             }
         }
         catch (Exception ex)
