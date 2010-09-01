@@ -108,10 +108,6 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
             {
                 getLogger().error("AssertionType was null");
             }
-            else if(target == null)
-            {
-                getLogger().error("NhinTargetCommunitiesType was null");
-            }
             else if(port == null)
             {
                 getLogger().error("port was null");

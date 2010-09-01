@@ -112,6 +112,10 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl impleme
             {
                 getLogger().error("AssertionType is null");
             }
+            else if(target == null)
+            {
+                getLogger().error("target is null");
+            }
             else if(port == null)
             {
                 getLogger().error("port was null");
@@ -121,6 +125,7 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl impleme
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
+                request.setNhinTargetSystem(target);
 
                 response = (DocQueryAcknowledgementType)getWebServiceProxyHelper().invokePort(port, NhincProxyDocQueryDeferredRequestPortType.class, METHOD_NAME, request);
             }
