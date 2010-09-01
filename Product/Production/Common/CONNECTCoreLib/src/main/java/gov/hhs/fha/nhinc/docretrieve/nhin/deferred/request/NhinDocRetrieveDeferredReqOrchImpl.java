@@ -46,8 +46,8 @@ public class NhinDocRetrieveDeferredReqOrchImpl extends NhinDocRetrieveDeferred 
 
         try {
             String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
-            if (isServiceEnabled()) {
-                if (isInPassThroughMode()) {
+            if (isServiceEnabled(NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_KEY)) {
+                if (isInPassThroughMode(NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY)) {
                     response = sendDocRetrieveDeferredRequestToAgency(body, assertion);
                 } else {
                     response = serviceDocRetrieveInternal(body, assertion, homeCommunityId);

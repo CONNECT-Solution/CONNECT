@@ -56,14 +56,14 @@ public class NhinDocRetrieveDeferred {
      *
      * @return True is returned if the service is enabled, false is returned if it is not enabled.
      */
-    protected boolean isServiceEnabled() {
+    protected boolean isServiceEnabled(String property) {
         boolean serviceEnabled = false;
         try {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                                                                 NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_KEY);
+                                                                 property);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " +
-                    NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_KEY +
+                    property +
                     " from property file " + NhincConstants.GATEWAY_PROPERTY_FILE + ": " + ex.getMessage(), ex);
         }
 
@@ -131,16 +131,16 @@ public class NhinDocRetrieveDeferred {
      *
      * @return  True if "pass through" mode is enabled and false if it is not.
      */
-    protected boolean isInPassThroughMode() {
+    protected boolean isInPassThroughMode(String property) {
         boolean passThroughModeEnabled = false;
 
         try {
             passThroughModeEnabled =
                     PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                                                        NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY);
+                                                        property);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " +
-                    NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY +
+                    property +
                     " from property file " + NhincConstants.GATEWAY_PROPERTY_FILE + ": " + ex.getMessage(), ex);
         }
 

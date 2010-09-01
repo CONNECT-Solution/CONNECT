@@ -143,7 +143,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
         PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(request);
 
         PatientCorrelationProxy proxy = new PatientCorrelationProxyObjectFactory().getPatientCorrelationProxy();
-        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(patCorrelationRequest, request.getAssertion());
+        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(patCorrelationRequest, new AssertionType());
 
         if (response != null &&
                 response.getPRPAIN201310UV02() != null &&

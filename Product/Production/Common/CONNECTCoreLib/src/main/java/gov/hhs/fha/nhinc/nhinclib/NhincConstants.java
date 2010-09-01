@@ -405,6 +405,8 @@ public class NhincConstants {
     public static final String DOCRETRIEVE_DEFERRED_ACTION = "docretrievedeferred";
     public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_KEY = "serviceDocumentRetrieveDeferredReq";
     public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredReqPassthrough";
+    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_KEY = "serviceDocumentRetrieveDeferredResp";
+    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredRespPassthrough";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "entitydocretrievedeferredrequest";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "entitydocretrievedeferredrequestsecured";
     public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "nhincproxydocretrievedeferredrequest";
