@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EntityXDRTests" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="EntityXDRTests" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProxyXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -26515,13 +26515,8 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
-count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
-                <content>3</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
+count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -26531,19 +26526,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:20:49Z</con:value>
+          <con:value>2010-09-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T19:30:49Z</con:value>
+          <con:value>2010-09-01T04:27:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:20:49</con:value>
+          <con:value>09/01/2010 00:00:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2010-10-01T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -26551,7 +26546,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Inbound UserFri Aug 27 19:25:49 UTC 2010</con:value>
+          <con:value>XDR Inbound UserWed Sep 01 04:22:38 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26780,7 +26775,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
-    <con:parameters/>
+    <con:xmlTemplates/><con:parameters/>
   </con:reporting>
   <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
