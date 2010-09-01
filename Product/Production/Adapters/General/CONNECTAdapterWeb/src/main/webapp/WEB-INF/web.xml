@@ -601,9 +601,30 @@
         <url-pattern>/AdapterComponentRedactionService</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdapterAdministrativeDistribution</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterAdministrativeDistribution</servlet-name>
+        <url-pattern>/AdapterAdministrativeDistribution</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterAdministrativeDistributionSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistributionSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterAdministrativeDistributionSecured</servlet-name>
+        <url-pattern>/AdapterAdministrativeDistributionSecured</url-pattern>
+    </servlet-mapping>
+
     <!-- End: XDR Request and Response services-->
 
     <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AdapterAdministrativeDistributionSecured</web-resource-name>
+            <url-pattern>/AdapterAdministrativeDistributionSecured</url-pattern>
+        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterDocRetrieveDeferredRespSecured</web-resource-name>
             <url-pattern>/AdapterDocRetrieveDeferredRespSecured</url-pattern>
