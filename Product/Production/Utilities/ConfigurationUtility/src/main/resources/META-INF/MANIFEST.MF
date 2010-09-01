@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: gov.hhs.fha.nhinc.util.config.app.ConfigurationUtilApp
+Class-Path: CONNECTCoreLib.jar commons-logging-1.1.1.jar log4j-1.2.15.jar spring.jar
