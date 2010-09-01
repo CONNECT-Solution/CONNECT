@@ -834,18 +834,24 @@
       <service>
         <name>adapteradmindistsecured</name>
         <description>Administrative Distribution Service</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/Adapter_AdministrativeDistributionSecured</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAdministrativeDistributionSecured</endpointURL>
       </service>
       <service>
-        <name>adapteradmindistsecured</name>
+        <name>adapteradmindist</name>
         <description>Administrative Distribution Service</description>
-        <endpointURL>http://localhost:8080/CONNECTAdapter/Adapter_AdministrativeDistribution</endpointURL>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAdministrativeDistribution</endpointURL>
       </service>
       <service>
-        <name>nhinadmindist</name>
+        <name>nhincadmindistsecured</name>
         <description>Administrative Distribution Service</description>
-        <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
       </service>
+      <service>
+        <name>nhincadmindist</name>
+        <description>Administrative Distribution Service</description>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
+      </service>
+
     </services>
   </internalConnectionInfo>
   <internalConnectionInfo>
@@ -1736,6 +1742,26 @@
         <name>entitydocquerydeferredrequestsecured</name>
         <description>Secured Entity Doc Query Deferred Request </description>
         <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
+      </service>
+          <service>
+        <name>adapteradmindistsecured</name>
+        <description>Administrative Distribution Service</description>
+        <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAdministrativeDistributionSecured</endpointURL>
+      </service>
+      <service>
+        <name>adapteradmindist</name>
+        <description>Administrative Distribution Service</description>
+        <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAdministrativeDistribution</endpointURL>
+      </service>
+      <service>
+        <name>nhincadmindistsecured</name>
+        <description>Administrative Distribution Service</description>
+        <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+      </service>
+      <service>
+        <name>nhincadmindist</name>
+        <description>Administrative Distribution Service</description>
+        <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
       </service>
     </services>
   </internalConnectionInfo>
