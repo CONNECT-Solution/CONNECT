@@ -3,16 +3,35 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
        
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {nhinhiemsubscribe,nhinhiemnotify}</description>
+
 	<!-- NHIN HIEM Subscribe -->
-	<!-- No-op implementation -->
-	<!-- <bean id="nhinhiemsubscribe" class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeNoOpImpl"/> -->
-	<!-- Web service implementation -->
-	<bean id="nhinhiemsubscribe" class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy"/>
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribe" name="nhinhiemsubscribewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
 	
-<!-- NHIN HIEM Notify -->
-	<!-- No-op implementation -->
-	<!-- <bean id="nhinhiemnotify" class="gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyNoOpImpl"/> -->
-	<!-- Web service implementation -->
-	<bean id="nhinhiemnotify" class="gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyWebServiceProxy"/>
+	<!-- NHIN HIEM Notify -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyWebServiceProxy" id="nhinhiemnotify" name="nhinhiemnotifywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
 	
 </beans>

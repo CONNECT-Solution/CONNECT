@@ -2,9 +2,22 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	<!-- Default facade implementation -->
-	<!-- <bean id="entitysubjectdiscovery" class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryNoOpImpl"/> -->
-	
-	<!-- Web-service implementation -->
-	<bean id="entitysubjectdiscovery" class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryWebServiceProxy"/> 
+
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {entitysubjectdiscovery}</description>
+
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryNoOpImpl" id="entitysubjectdiscoverynoop" name="entitysubjectdiscoverynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryWebServiceProxy" id="entitysubjectdiscovery" name="entitysubjectdiscoverywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
 </beans>

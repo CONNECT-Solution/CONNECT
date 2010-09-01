@@ -8,15 +8,30 @@
 	default-lazy-init="true" in the "beans" element. This is done to allow the use of a master configuration
 	file without requireing all of the project libraries to be loaded to run a single component. -->
 
-	<!-- Default AdapterPIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyNoOpImpl"/> -->
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adapterpip}</description>
 
-	<!-- Default AdapterPIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl"/> -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl" id="adapterpipnoop" name="adapterpipnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
 
-	<!-- Java Adapter PIP implementation -->
-	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyJavaImpl"/>
+	<!-- No-op deny Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyNoOpImpl" id="adapterpipnoopdeny" name="adapterpipnoopdeny"> 
+	</bean> 
 
-	<!-- Web service adapter PIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyWebServiceUnsecuredImpl"/> -->
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyJavaImpl" id="adapterpip" name="adapterpipjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyWebServiceUnsecuredImpl" id="adapterpipwsunsecured" name="adapterpipwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
 </beans>

@@ -3,18 +3,63 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        default-lazy-init="true"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	<!-- Default facade implementation -->
-    <!-- <bean id="hiemsubscribeadapter" class="gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterNoOpImpl"/> -->
-	
-	<!-- Web-service implementation -->
-    <bean id="hiemsubscribeadapter" class="gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterWebServiceProxy"/>
 
-    <!-- Default facade implementation -->
-    <!-- <bean id="hiemnotifyadapter" class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterNoOpImpl"/> -->
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {hiemsubscribeadapter,hiemnotifyadapter,hiemunsubscribeadapter}</description>
 
-	<!-- Web-service implementation -->
-    <bean id="hiemnotifyadapter" class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterWebServiceProxy"/>
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterNoOpImpl" id="hiemsubscribeadapternoop" name="hiemsubscribeadapternoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
 
-	<!-- Web-service implementation -->
-    <bean id="hiemunsubscribeadapter" class="gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterWebServiceProxy"/>
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterWebServiceProxySecured" id="hiemsubscribeadapterwssecured" name="hiemsubscribeadapterwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterWebServiceProxy" id="hiemsubscribeadapter" name="hiemsubscribeadapterwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+  	<!-- ******************************************************************** -->
+
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterNoOpImpl" id="hiemnotifyadapternoop" name="hiemnotifyadapternoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterWebServiceProxySecured" id="hiemnotifyadapterwssecured" name="hiemnotifyadapterwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterWebServiceProxy" id="hiemnotifyadapter" name="hiemnotifyadapterwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+  	<!-- ******************************************************************** -->
+
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterNoOpImpl" id="hiemunsubscribeadapternoop" name="hiemunsubscribeadapternoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterWebServiceProxySecured" id="hiemunsubscribeadapterwssecured" name="hiemunsubscribeadapterwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterWebServiceProxy" id="hiemunsubscribeadapter" name="hiemunsubscribeadapterwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
 </beans>

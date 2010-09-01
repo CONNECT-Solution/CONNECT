@@ -3,31 +3,78 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-  <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceSecuredImpl"/>
-  <!-- Web-service UnSecured implementation -->
-  <!--  <bean id="adapterdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceUnsecuredImpl"/>-->
-  
-  <!-- Default facade implementation -->
-  <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
- <!-- <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceSecuredImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-    <bean id="adaptercomponentdocsubmission" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl"/>
-    
-    <!-- Default facade implementation -->
-  <!-- <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
-  <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyJavaImpl"/> 
-  <!-- Web-service Secured implementation -->
- <!-- <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceSecuredImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-  <!--  <bean id="passthrudocsubmission" class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceUnsecuredImpl"/> -->
-  
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adapterdocsubmission,adaptercomponentdocsubmission,passthrudocsubmission}</description>
+
+	<!-- adapterdocsubmission -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyNoOpImpl" id="adapterdocsubmissionnoop" name="adapterdocsubmissionnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyJavaImpl" id="adapterdocsubmissionjava" name="adapterdocsubmissionjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceSecuredImpl" id="adapterdocsubmission" name="adapterdocsubmissionwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyWebServiceUnsecuredImpl" id="adapterdocsubmissionwsunsecured" name="adapterdocsubmissionwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+  	<!-- ******************************************************************** -->
+	<!-- adaptercomponentdocsubmission -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyNoOpImpl" id="adaptercomponentdocsubmissionnoop" name="adaptercomponentdocsubmissionnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyJavaImpl" id="adaptercomponentdocsubmissionjava" name="adaptercomponentdocsubmissionjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceSecuredImpl" id="adaptercomponentdocsubmissionwssecured" name="adaptercomponentdocsubmissionwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl" id="adaptercomponentdocsubmission" name="adaptercomponentdocsubmissionwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+  	<!-- ******************************************************************** -->
+	<!-- passthrudocsubmission -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyNoOpImpl" id="passthrudocsubmissionnoop" name="passthrudocsubmissionnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyJavaImpl" id="passthrudocsubmission" name="passthrudocsubmissionjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceSecuredImpl" id="passthrudocsubmissionwssecured" name="passthrudocsubmissionwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceUnsecuredImpl" id="passthrudocsubmissionwsunsecured" name="passthrudocsubmissionwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
 </beans>

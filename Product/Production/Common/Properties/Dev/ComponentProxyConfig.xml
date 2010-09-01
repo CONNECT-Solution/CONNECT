@@ -8,25 +8,48 @@
 	default-lazy-init="true" in the "beans" element. This is done to allow the use of a master configuration
 	file without requireing all of the project libraries to be loaded to run a single component. -->
 
-	<!-- Default AdapterPIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyNoOpImpl"/> -->
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adapterpip,adapterpep}</description>
 
-	<!-- Default AdapterPIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyOptInNoOpImpl"/> -->
+	<!-- ADAPTER PIP -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyOptInNoOpImpl" id="adapterpipnoop" name="adapterpipnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
 
-	<!-- Java Adapter PIP implementation -->
-	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPJavaProxy"/>
+	<!-- No-op deny Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyNoOpImpl" id="adapterpipnoopdeny" name="adapterpipnoopdeny"> 
+	</bean> 
 
-	<!-- Default Permit AdapterPEP implementation -->
-	<bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyNoOpImpl"/>
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPJavaProxy" id="adapterpip" name="adapterpipjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
 
-	<!-- Default Deny AdapterPEP implementation -->
-	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyDenyNoOpImpl"/> -->
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPWebServiceProxy" id="adapterpipwsunsecured" name="adapterpipwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
 
-	<!-- Java Adapter PEP implementation -->
-	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPJavaProxy"/> -->
+	
+	<!-- ADAPTER PEP -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyNoOpImpl" id="adapterpep" name="adapterpepnoop"> 
+		<meta key="impltype" value="noop"/>
+		<meta key="default" value="true"/>
+	</bean> 
 
-	<!-- Web service adapter PIP implementation -->
-	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPWebServiceProxy"/> -->
+	<!-- No-op deny Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyDenyNoOpImpl" id="adapterpepnoopdeny" name="adapterpepnoopdeny"> 
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPJavaProxy" id="adapterpepjava" name="adapterpepjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
 
 </beans>

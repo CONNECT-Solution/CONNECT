@@ -3,90 +3,224 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="adapterdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adapterdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-   <bean id="adapterdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyWebServiceSecuredImpl"/>
-  <!-- Web-service UnSecured implementation -->
-  <!--  <bean id="adapterdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/>-->
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adapterdocquerydeferredresponse,adapterdocquerydeferredrequest,adaptercomponentdocquerydeferredresponse,adaptercomponentdocquerydeferredrequest,adapterdocquerydeferredrequesterror,nhindocquerydeferredrequest,nhindocquerydeferredresponse,passthrudocquerydeferredrequest,passthrudocquerydeferredresponse,entitydocquerydeferredresponse,entitydocquerydeferredrequest}</description>
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="adapterdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adapterdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-   <bean id="adapterdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl"/>
-  <!-- Web-service UnSecured implementation -->
-  <!-- <bean id="adapterdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyWebServiceUnsecuredImpl"/> -->
+	<!-- adapterdocquerydeferredresponse -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyNoOpImpl" id="adapterdocquerydeferredresponsenoop" name="adapterdocquerydeferredresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="adaptercomponentdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.proxy.AdapterComponentDocQueryDeferredResponseProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adaptercomponentdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.proxy.AdapterComponentDocQueryDeferredResponseProxyJavaImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-    <bean id="adaptercomponentdocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.proxy.AdapterComponentDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/>
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyJavaImpl" id="adapterdocquerydeferredresponsejava" name="adapterdocquerydeferredresponsejava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="adaptercomponentdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
-  <!--<bean id="adaptercomponentdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyJavaImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-   <bean id="adaptercomponentdocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl"/> 
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyWebServiceSecuredImpl" id="adapterdocquerydeferredresponse" name="adapterdocquerydeferredresponsewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="adapterdocquerydeferredrequesterror" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="adapterdocquerydeferredrequesterror" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-   <bean id="adapterdocquerydeferredrequesterror" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl"/> 
-  <!-- Web-service UnSecured implementation -->
-  <!-- <bean id="adapterdocquerydeferredrequesterror" class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyWebServiceUnsecuredImpl"/> -->
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy.AdapterDocQueryDeferredResponseProxyWebServiceUnsecuredImpl" id="adapterdocquerydeferredresponsewsunsecured" name="adapterdocquerydeferredresponsewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="nhindocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxyNoOpImpl"/> -->
-  <!-- Web-service Secured implementation -->
-  <bean id="nhindocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl"/> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="nhindocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxyNoOpImpl"/> -->
-  <!-- Web-service Secured implementation -->
-  <bean id="nhindocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl"/> 
+	<!-- adapterdocquerydeferredrequest -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyNoOpImpl" id="adapterdocquerydeferredrequestnoop" name="adapterdocquerydeferredrequestnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="passthrudocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
-  <bean id="passthrudocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyJavaImpl"/> 
-  <!-- Web-service Secured implementation -->
-  <!-- <bean id="passthrudocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyWebServiceSecuredImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-  <!-- <bean id="passthrudocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl"/> -->
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyJavaImpl" id="adapterdocquerydeferredrequestjava" name="adapterdocquerydeferredrequestjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
-  <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyJavaImpl"/> 
-  <!-- Web-service Secured implementation -->
-  <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl"/> -->
-  <!-- Web-service UnSecured implementation -->
-  <!-- <bean id="passthrudocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/> -->
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl" id="adapterdocquerydeferredrequest" name="adapterdocquerydeferredrequestwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
 
-  <!-- Default facade implementation -->
-  <!-- <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-    <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceSecuredImpl"/>
-  <!-- Web-service UnSecured implementation -->
-  <!--  <bean id="entitydocquerydeferredresponse" class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceUnsecuredImpl"/>-->
-  
-  <!-- Default facade implementation -->
-  <!-- <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyNoOpImpl"/> -->
-  <!-- Default java implementation -->
- <!-- <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyJavaImpl"/> -->
-  <!-- Web-service Secured implementation -->
-   <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceSecuredImpl"/>
-  <!-- Web-service UnSecured implementation -->
-  <!--  <bean id="entitydocquerydeferredrequest" class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceUnsecuredImpl"/>-->
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQueryDeferredRequestProxyWebServiceUnsecuredImpl" id="adapterdocquerydeferredrequestwsunsecured" name="adapterdocquerydeferredrequestwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+	<!-- adaptercomponentdocquerydeferredresponse -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.proxy.AdapterComponentDocQueryDeferredResponseProxyNoOpImpl" id="adaptercomponentdocquerydeferredresponsenoop" name="adaptercomponentdocquerydeferredresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.proxy.AdapterComponentDocQueryDeferredResponseProxyJavaImpl" id="adaptercomponentdocquerydeferredresponsejava" name="adaptercomponentdocquerydeferredresponsejava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.proxy.AdapterComponentDocQueryDeferredResponseProxyWebServiceUnsecuredImpl" id="adaptercomponentdocquerydeferredresponse" name="adaptercomponentdocquerydeferredresponsewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- adaptercomponentdocquerydeferredrequest -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyNoOpImpl" id="adaptercomponentdocquerydeferredrequestnoop" name="adaptercomponentdocquerydeferredrequestnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyJavaImpl" id="adaptercomponentdocquerydeferredrequestjava" name="adaptercomponentdocquerydeferredrequestjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy.AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl" id="adaptercomponentdocquerydeferredrequest" name="adaptercomponentdocquerydeferredrequestwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- adapterdocquerydeferredrequesterror -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyNoOpImpl" id="adapterdocquerydeferredrequesterrornoop" name="adapterdocquerydeferredrequesterrornoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyJavaImpl" id="adapterdocquerydeferredrequesterrorjava" name="adapterdocquerydeferredrequesterrorjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyWebServiceSecuredImpl" id="adapterdocquerydeferredrequesterror" name="adapterdocquerydeferredrequesterrorwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.proxy.AdapterDocQueryDeferredRequestErrorProxyWebServiceUnsecuredImpl" id="adapterdocquerydeferredrequesterrorwsunsecured" name="adapterdocquerydeferredrequesterrorwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+	<!-- nhindocquerydeferredrequest -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxyNoOpImpl" id="nhindocquerydeferredrequestnoop" name="nhindocquerydeferredrequestnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy.NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl" id="nhindocquerydeferredrequest" name="nhindocquerydeferredrequestwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+
+	<!-- nhindocquerydeferredresponse -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxyNoOpImpl" id="nhindocquerydeferredresponsenoop" name="nhindocquerydeferredresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl" id="nhindocquerydeferredresponse" name="nhindocquerydeferredresponsewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- passthrudocquerydeferredrequest -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyNoOpImpl" id="passthrudocquerydeferredrequestnoop" name="passthrudocquerydeferredrequestnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyJavaImpl" id="passthrudocquerydeferredrequest" name="passthrudocquerydeferredrequestjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyWebServiceSecuredImpl" id="passthrudocquerydeferredrequestwssecured" name="passthrudocquerydeferredrequestwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl" id="passthrudocquerydeferredrequestwsunsecured" name="passthrudocquerydeferredrequestwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+	<!-- passthrudocquerydeferredresponse -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyNoOpImpl" id="passthrudocquerydeferredresponsenoop" name="passthrudocquerydeferredresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyJavaImpl" id="passthrudocquerydeferredresponse" name="passthrudocquerydeferredresponsejava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl" id="passthrudocquerydeferredresponsewssecured" name="passthrudocquerydeferredresponsewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceUnsecuredImpl" id="passthrudocquerydeferredresponsewsunsecured" name="passthrudocquerydeferredresponsewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+	<!-- entitydocquerydeferredresponse -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyNoOpImpl" id="entitydocquerydeferredresponsenoop" name="entitydocquerydeferredresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyJavaImpl" id="entitydocquerydeferredresponsejava" name="entitydocquerydeferredresponsejava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceSecuredImpl" id="entitydocquerydeferredresponse" name="entitydocquerydeferredresponsewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy.EntityDocQueryDeferredResponseProxyWebServiceUnsecuredImpl" id="entitydocquerydeferredresponsewsunsecured" name="entitydocquerydeferredresponsewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+	<!-- entitydocquerydeferredrequest -->
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyNoOpImpl" id="entitydocquerydeferredrequestnoop" name="entitydocquerydeferredrequestnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyJavaImpl" id="entitydocquerydeferredrequestjava" name="entitydocquerydeferredrequestjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceSecuredImpl" id="entitydocquerydeferredrequest" name="entitydocquerydeferredrequestwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.proxy.EntityDocQueryDeferredRequestProxyWebServiceUnsecuredImpl" id="entitydocquerydeferredrequestwsunsecured" name="entitydocquerydeferredrequestwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
 </beans>

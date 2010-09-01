@@ -2,16 +2,32 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	<!-- Default facade implementation -->
-    <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyNoOpImpl"/> -->
-	
-	<!-- Unsecured Web-service implementation -->
-  <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl"/> -->
 
-	<!-- Secured Web-service implementation -->
-    <!-- <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl"/> -->
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {passthrupatientdiscoverydeferredresp}</description>
 
-	<!-- Java implementation -->
-     <bean id="passthrupatientdiscoverydeferredresp" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl"/> 
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyNoOpImpl" id="passthrupatientdiscoverydeferredrespnoop" name="passthrupatientdiscoverydeferredrespnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl" id="passthrupatientdiscoverydeferredresp" name="passthrupatientdiscoverydeferredrespjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl" id="passthrupatientdiscoverydeferredrespwssecured" name="passthrupatientdiscoverydeferredrespwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl" id="passthrupatientdiscoverydeferredrespwsunsecured" name="passthrupatientdiscoverydeferredrespwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
 
 </beans>

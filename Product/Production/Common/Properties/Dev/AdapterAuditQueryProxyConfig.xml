@@ -2,9 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	<!-- Default facade implementation -->
-    <!-- <bean id="adapterauditquery" class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryProxyNoOpImpl"/> -->
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adapterauditquery}</description>
+
+	<!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryProxyNoOpImpl" id="adapterauditquerynoop" name="adapterauditquerynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
 	
-	<!-- Web-service implementation -->
-     <bean id="adapterauditquery" class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryWebServiceProxy"/> 
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryWebServiceProxy" id="adapterauditquery" name="adapterauditquerywsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
 </beans>
