@@ -1,12 +1,9 @@
 package gov.hhs.fha.nhinc.hiem.nhin.notify;
 
-import com.sun.xml.ws.security.opt.impl.util.SOAPUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.io.ByteArrayOutputStream;
 import java.util.Collections;
 import java.util.Set;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
