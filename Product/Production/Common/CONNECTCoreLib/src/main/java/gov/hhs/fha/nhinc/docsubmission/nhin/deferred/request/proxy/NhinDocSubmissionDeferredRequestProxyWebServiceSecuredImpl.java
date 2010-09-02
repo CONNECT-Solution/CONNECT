@@ -87,7 +87,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
         try
         {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+            String url = oProxyHelper.getUrlFromTargetSystem(targetSystem,NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
             XDRDeferredRequestPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(request == null)

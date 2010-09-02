@@ -87,7 +87,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
         try
         {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_XDR_SERVICE_NAME);
+            String url = oProxyHelper.getUrlFromTargetSystem(targetSystem, NhincConstants.NHINC_XDR_SERVICE_NAME);
             DocumentRepositoryXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(request == null)
