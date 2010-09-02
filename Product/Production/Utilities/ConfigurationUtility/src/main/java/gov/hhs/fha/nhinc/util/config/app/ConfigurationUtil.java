@@ -31,7 +31,6 @@ class ConfigurationUtil
     private static final String BEANS_ELEMENT_BEAN = "bean";
     private static final String BEANS_ELEMENT_DESCRIPTION = "description";
     private static final String BEAN_ATTRIBUTE_ID = "id";
-//    private static final String BEAN_ATTRIBUTE_NAME = "name";
     private static final String BEAN_ELEMENT_META = "meta";
     private static final String META_ATTRIBUTE_KEY = "key";
     private static final String META_ATTRIBUTE_VALUE = "value";
@@ -106,7 +105,6 @@ class ConfigurationUtil
         if((beanNames == null) || beanNames.isEmpty())
         {
         	log.info("No beans enabled for processing - exiting");
-//            throw new ConfigurationUtilException("No bean names found. Bean names should be in the description element enclosed in braces e.g. {mybean} or {mybean1,mybean2}");
         }
         else
         {
@@ -155,8 +153,6 @@ class ConfigurationUtil
         for(Element beanElement : beanElements)
         {
             String beanIdAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_ID);
-//            String beanNameAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_NAME);
-//            if((beanIdAttr == null) || (beanNameAttr == null))
             if((beanIdAttr == null) || (beanIdAttr.length() < 1))
             {
                 throw new ConfigurationUtilException("Invalid bean configuration for type (" + beanName + ") with id: " + beanIdAttr);
@@ -193,8 +189,6 @@ class ConfigurationUtil
         for(Element beanElement : beanElements)
         {
             String beanIdAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_ID);
-//            String beanNameAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_NAME);
-//            if((beanIdAttr == null) || (beanNameAttr == null))
             if((beanIdAttr == null) ||(beanIdAttr.length() < 1))
             {
                 throw new ConfigurationUtilException("Bean did not contain an id attribute value");
