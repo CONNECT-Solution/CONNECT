@@ -15,9 +15,8 @@
 	<description>Beans included in this file: {adapterpolicyengineorchestrator}</description>
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyPermitNoOpImpl" id="adapterpolicyengineorchestrator" name="adapterpolicyengineorchestratornoop"> 
-		<!--<meta key="impltype" value="noop"/>
-		<meta key="default" value="true"/>-->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyPermitNoOpImpl" id="adapterpolicyengineorchestratornoop" name="adapterpolicyengineorchestratornoop"> 
+		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- No-op deny Implementation -->
@@ -25,13 +24,14 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyJavaImpl" id="adapterpolicyengineorchestratorjava" name="adapterpolicyengineorchestratorjava"> 
-		<!--<meta key="impltype" value="java"/>-->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyJavaImpl" id="adapterpolicyengineorchestrator" name="adapterpolicyengineorchestratorjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
 	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl" id="adapterpolicyengineorchestratorwsunsecured" name="adapterpolicyengineorchestratorwsunsecured"> 
-		<!--<meta key="impltype" value="wsunsecured"/>-->
+		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 
 </beans>
