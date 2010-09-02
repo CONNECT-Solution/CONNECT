@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="AuditLogQueryTestsforUDDI" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl">
       <con:part>
-        <con:url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</con:url>
+        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</con:url>
         <con:content><![CDATA[<definitions name="EntityAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:entityauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:entityauditlogquery" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://services.nhin.com/wsdl/auditlogquery">
@@ -3564,11 +3564,11 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAuditLogQueryPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincauditlogquery}NhincAuditLogQueryPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAuditLogQueryPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincauditlogquery}NhincAuditLogQueryPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl">
       <con:part>
-        <con:url>file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl</con:url>
+        <con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl</con:url>
         <con:content><![CDATA[<definitions name="NhincAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincauditlogquery" xmlns:audit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
   <types>
     <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincauditlogquery">
@@ -7015,11 +7015,11 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl">
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl">
       <con:part>
-        <con:url>file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl</con:url>
+        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl</con:url>
         <con:content><![CDATA[<!--NHINC Proxy Document Query WSDL-->
 <definitions name="NhincProxyDocQuery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquery" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
   <documentation>Nhinc Proxy Document Query</documentation>
