@@ -71,6 +71,24 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
+  <!ENTITY RegressionTestBuilding '<projectFilter
+                serverUri="&Integration2.Server.Remoting.Url;"
+                project="&ProjectName;-&ProjectCodeLineName;-Regression-Test">
+             <exclusionFilters>
+               <activities>
+                 <activity>Building</activity>
+               </activities>
+             </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY RegressionTestFailed '<projectFilter
+               serverUri="&Integration2.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Regression-Test">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>  
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
@@ -84,6 +102,7 @@
         <projectFilters>
           &ReleaseBuilding;
           &ValidationTestBuilding;
+          &RegressionTestBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -92,6 +111,7 @@
         <projectFilters>
           &ReleaseBuilding;
           &ValidationTestBuilding;
+          &RegressionTestBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -137,6 +157,7 @@
         <projectFilters>
           &ScriptsBuilding;
           &ValidationTestBuilding;
+          &RegressionTestBuilding;
           &DevFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -146,6 +167,7 @@
         <projectFilters>
           &ScriptsBuilding;
           &ValidationTestBuilding;
+          &RegressionTestBuilding;
           &DevFailed;
         </projectFilters>
       </projectForceFilter>
@@ -255,6 +277,7 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
+          &RegressionTestBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -264,6 +287,7 @@
           &ScriptsBuilding;
           &ReleaseBuilding;
           &ReleaseFailed;
+          &RegressionTestBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -333,5 +357,106 @@
         <buildTimeoutSeconds>300</buildTimeoutSeconds>
       </nant>
     </publishers>
-  </project>    
+  </project>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Regression-Test">
+    <webURL>&Integration.Dashboard.Url;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter>
+        <trigger
+          type="projectTrigger"
+          serverUri="&Integration.Server.Remoting.Url;"
+          project="&ProjectName;-&ProjectCodeLineName;-Release"
+        >
+          <triggerStatus>Success</triggerStatus>
+          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
+        </trigger>
+        <projectFilters>
+          &ScriptsBuilding;
+          &ReleaseBuilding;
+          &ReleaseFailed;
+          &ValidationTestBuilding;
+          &ValidationTestFailed;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &ScriptsBuilding;
+          &ReleaseBuilding;
+          &ReleaseFailed;
+          &ValidationTestBuilding;
+          &ValidationTestFailed;
+        </projectFilters>
+      </projectForceFilter>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+    <sourcecontrol type="filtered">
+      <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <webUrlBuilder type="websvn">
+          <url>&Subversion.Repo.Url;{0}</url>
+        </webUrlBuilder>
+      </sourceControlProvider>
+    </sourcecontrol>
+    <labeller type="remoteProjectLabeller">
+      <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
+      <serverUri>&Integration.Server.Remoting.Url;</serverUri>
+    </labeller>
+    <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Regression-Test</path>
+      </modificationWriter>
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger</logger>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-D:GlassFish.Domain.Templates.File.Path=GlassFish.NonFIPS.Domain.Templates.File.Path -listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>Regression.Test</target>
+        </targetList>
+
+        <buildTimeoutSeconds>7200</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Regression-Test\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Regression-Test\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Regression-Test\AntLogs\*.xml</file>
+        </files>
+      </merge>
+      <xmllogger />
+      &email;
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
+    </publishers>
+  </project>
 </cruisecontrol>
