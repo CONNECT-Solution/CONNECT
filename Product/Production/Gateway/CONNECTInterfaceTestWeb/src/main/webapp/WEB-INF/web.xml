@@ -109,14 +109,10 @@
         <url-pattern>/NhinService/XDRRequestServiceTestHelper</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>NhinXDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinXDRResponse</servlet-name>
-        <url-pattern>/NhinService/XDRResponseServiceTestHelper</url-pattern>
-    </servlet-mapping>
+    
+
+    
+
 
     <security-constraint>
         <web-resource-collection>
