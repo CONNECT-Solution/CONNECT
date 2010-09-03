@@ -7,6 +7,7 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
     </testProperties>
   </test>
+<!--
   <test name="DocQuery-NoResults(1tx50r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
@@ -56,7 +57,7 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">0</property>
     </testProperties>
   </test>
-
+-->
   <test name="DocQuery-OneResult(1tx1r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
@@ -64,6 +65,7 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">1</property>
     </testProperties>
   </test>
+<!--  
   <test name="DocQuery-OneResult(1tx50r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
@@ -113,119 +115,121 @@
       <property name="DocQuery.ExpectedNumberOfDocuments">1</property>
     </testProperties>
   </test>
-
+-->
   <test name="DocQuery-ThreeResults(1tx1r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
+<!--  
   <test name="DocQuery-ThreeResults(1tx50r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
   <test name="DocQuery-ThreeResults(1tx100r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="100">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
   <test name="DocQuery-ThreeResults(1tx10r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
   <test name="DocQuery-ThreeResults(2tx10r)" testcase="Nhin.DocQuery" numberOfThreads="2" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
   <test name="DocQuery-ThreeResults(5tx10r)" testcase="Nhin.DocQuery" numberOfThreads="5" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
   <test name="DocQuery-ThreeResults(10tx10r)" testcase="Nhin.DocQuery" numberOfThreads="10" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
   <test name="DocQuery-ThreeResults(25tx10r)" testcase="Nhin.DocQuery" numberOfThreads="25" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
-      <property name="DocQuery.PatientId">N600001</property>
+      <property name="DocQuery.PatientId">D123401</property>
       <property name="DocQuery.ExpectedNumberOfDocuments">3</property>
     </testProperties>
   </test>
-
+-->
   <test name="DocQuery-ManyResults(1tx1r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="1">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
+<!--
   <test name="DocQuery-ManyResults(1tx50r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="50">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
   <test name="DocQuery-ManyResults(1tx100r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="100">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
   <test name="DocQuery-ManyResults(1tx10r)" testcase="Nhin.DocQuery" numberOfThreads="1" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
   <test name="DocQuery-ManyResults(2tx10r)" testcase="Nhin.DocQuery" numberOfThreads="2" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
   <test name="DocQuery-ManyResults(5tx10r)" testcase="Nhin.DocQuery" numberOfThreads="5" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
   <test name="DocQuery-ManyResults(10tx10r)" testcase="Nhin.DocQuery" numberOfThreads="10" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
   <test name="DocQuery-ManyResults(25tx10r)" testcase="Nhin.DocQuery" numberOfThreads="25" numberOfIteration="10">
     <testProperties filename="DocQueryLoadTest-soapui-project.properties">
       <property name="DocQuery.PatientAssigningAuthority">1.1.1</property>
       <property name="DocQuery.PatientId">D123407</property>
-      <property name="DocQuery.ExpectedNumberOfDocuments">15</property>
+      <property name="DocQuery.ExpectedNumberOfDocuments">20</property>
     </testProperties>
   </test>
-
+-->
 </tests>
