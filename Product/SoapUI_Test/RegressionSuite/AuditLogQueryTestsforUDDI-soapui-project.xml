@@ -11176,27 +11176,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:57:23Z</con:value>
+          <con:value>2010-09-03T15:19:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:52:24 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:05 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12075,27 +12075,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:22Z</con:value>
+          <con:value>2010-09-03T15:19:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:22 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:07 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12728,27 +12728,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:24Z</con:value>
+          <con:value>2010-09-03T15:19:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:25 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:09 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13361,27 +13361,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:28Z</con:value>
+          <con:value>2010-09-03T15:19:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:28 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:12 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13462,7 +13462,9 @@ context.testCase.setPropertyValue('UserId',"DocQuery${nowDate}1");</script>
           <con:interface>NhincProxyDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings/>
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
@@ -13733,6 +13735,8 @@ assert (documentID == msgDocID);
 log.info documentID + " " + msgDocID</scriptText>
               </con:configuration>
             </con:assertion>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
@@ -13972,7 +13976,7 @@ log.info documentID + " " + msgDocID</scriptText>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-        <urn:NhinTargetCommunities>
+        <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:list/>
                <urn1:region>${#Project#Region1}</urn1:region>
@@ -13984,7 +13988,7 @@ log.info documentID + " " + msgDocID</scriptText>
                   <urn1:name>${#Project#hc1description}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
+         </urn:nhinTargetCommunities>
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -14022,27 +14026,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:14:24Z</con:value>
+          <con:value>2010-09-03T15:09:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:24:24Z</con:value>
+          <con:value>2010-09-03T15:19:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:14:24</con:value>
+          <con:value>09/03/2010 15:09:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-10-01T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryWed Sep 01 01:19:24 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:13 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>10/01/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -14633,7 +14637,7 @@ log.info documentID + " " + msgDocID</scriptText>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:NhinTargetCommunities>
+         <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
                   <urn1:description/>
@@ -14643,7 +14647,7 @@ log.info documentID + " " + msgDocID</scriptText>
                <urn1:list/>
                <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
+         </urn:nhinTargetCommunities>
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -14681,27 +14685,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T01:14:43Z</con:value>
+          <con:value>2010-09-03T15:09:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T01:24:43Z</con:value>
+          <con:value>2010-09-03T15:19:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 01:14:43</con:value>
+          <con:value>09/03/2010 15:09:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-10-01T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryWed Sep 01 01:19:44 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:15 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>10/01/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15336,27 +15340,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:36Z</con:value>
+          <con:value>2010-09-03T15:19:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:36 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:18 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16000,27 +16004,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:39Z</con:value>
+          <con:value>2010-09-03T15:19:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:39 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:20 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16655,27 +16659,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:41Z</con:value>
+          <con:value>2010-09-03T15:19:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:42 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:22 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17310,27 +17314,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:44Z</con:value>
+          <con:value>2010-09-03T15:19:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:44 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:24 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17965,27 +17969,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:46Z</con:value>
+          <con:value>2010-09-03T15:19:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:46 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:26 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18619,27 +18623,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:48Z</con:value>
+          <con:value>2010-09-03T15:19:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:49 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:27 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -19274,27 +19278,27 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-04-29T00:00:00Z</con:value>
+          <con:value>2010-09-03T15:09:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-04-29T15:58:51Z</con:value>
+          <con:value>2010-09-03T15:19:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/29/2010 00:00:00</con:value>
+          <con:value>09/03/2010 15:09:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-05-29T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DocQueryThu Apr 29 15:53:51 UTC 20101</con:value>
+          <con:value>DocQueryFri Sep 03 15:14:29 UTC 20101</con:value>
         </con:property>
         <con:property>
           <con:name>date</con:name>
-          <con:value>05/29/2010 00:00:00</con:value>
+          <con:value>10/03/2010 00:00:00</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
