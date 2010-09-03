@@ -1,7 +1,12 @@
+/*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *  
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *  
+ */
 package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 
 import com.sun.identity.saml2.common.SAML2Exception;
-import com.sun.identity.xacml.client.XACMLRequestProcessor;
 import com.sun.identity.xacml.common.XACMLException;
 import com.sun.identity.xacml.context.Action;
 import com.sun.identity.xacml.context.Attribute;
@@ -20,6 +25,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdReq
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
+import gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyObjectFactory;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -49,8 +56,6 @@ public class AdapterPEPImpl {
     private static Log log = LogFactory.getLog(AdapterPEPImpl.class);
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
-    private static final String PROPERTY_FILE_KEY_PDP_ENTITY = "PdpEntityName";
-    private static final String OPENSSO_PEP_NAME = "ConnectOpenSSOPepEntity";
     private static final String DEFAULT_PURPOSE_TEXT = "Purpose for Use code not provided";
     private static final String VALID_PURPOSE = "PUBLICHEALTH";
     private static final String VALID_USER_ROLE_CODE = "307969004";
@@ -142,11 +147,11 @@ public class AdapterPEPImpl {
             Request pdpRequest = null;
             try {
                 pdpRequest = createPdpRequest(checkPolicyRequest, assertion);
-                String pdpSelection = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_PDP_ENTITY);
-                String pdpEntity = pdpSelection.trim() + "PdpEntity";
-                String pepEntity = OPENSSO_PEP_NAME;
-                log.debug("Submit request for pdp entity: " + pdpEntity + " & pep entity: " + pepEntity);
-                Response pdpResponse = XACMLRequestProcessor.getInstance().processRequest(pdpRequest, pdpEntity, pepEntity);
+                
+                AdapterPDPProxyObjectFactory pdpProxyFactory = new AdapterPDPProxyObjectFactory(); 
+                AdapterPDPProxy pdpProxy = pdpProxyFactory.getAdapterPDPProxy();
+                Response pdpResponse = pdpProxy.processPDPRequest(pdpRequest);
+                
                 log.debug("PDP Response: " + pdpResponse.toXMLString());
 
                 boolean isPermitted = false;

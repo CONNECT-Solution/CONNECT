@@ -12,11 +12,12 @@
 	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
-	<description>Beans included in this file: {adapterpip}</description>
+	<!-- Config file switching disabled <description>Beans included in this file: {adapterpip}</description> -->
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl" id="adapterpipnoop" name="adapterpipnoop"> 
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl" id="adapterpip" name="adapterpipnoop"> 
 		<meta key="impltype" value="noop"/>
+		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- No-op deny Implementation -->
@@ -24,9 +25,8 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyJavaImpl" id="adapterpip" name="adapterpipjava"> 
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyJavaImpl" id="adapterpipjava" name="adapterpipjava"> 
 		<meta key="impltype" value="java"/>
-		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->

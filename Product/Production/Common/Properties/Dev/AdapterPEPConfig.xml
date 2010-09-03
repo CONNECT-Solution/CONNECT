@@ -15,9 +15,8 @@
 	<description>Beans included in this file: {adapterpep}</description>
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyNoOpImpl" id="adapterpep" name="adapterpepnoop"> 
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyNoOpImpl" id="adapterpepnoop" name="adapterpepnoop"> 
 		<meta key="impltype" value="noop"/>
-		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Default Deny AdapterPEP implementation -->
@@ -25,8 +24,9 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyJavaImpl" id="adapterpepjava" name="adapterpepjava"> 
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyJavaImpl" id="adapterpep" name="adapterpepjava"> 
 		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->

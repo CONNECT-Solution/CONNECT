@@ -31,7 +31,6 @@ class ConfigurationUtil
     private static final String BEANS_ELEMENT_BEAN = "bean";
     private static final String BEANS_ELEMENT_DESCRIPTION = "description";
     private static final String BEAN_ATTRIBUTE_ID = "id";
-    private static final String BEAN_ATTRIBUTE_NAME = "name";
     private static final String BEAN_ELEMENT_META = "meta";
     private static final String META_ATTRIBUTE_KEY = "key";
     private static final String META_ATTRIBUTE_VALUE = "value";
@@ -84,8 +83,9 @@ class ConfigurationUtil
      * @param sourceDocument Source XML document
      * @param implType Target implementation type
      */
-    private void updateDocument(Document sourceDocument, BeanImplementationType implType)
+    private boolean updateDocument(Document sourceDocument, BeanImplementationType implType)
     {
+    	boolean updated = false;
         log.debug("Begin updateDocument(...)");
         if(sourceDocument == null)
         {
@@ -93,7 +93,7 @@ class ConfigurationUtil
         }
         if(implType == null)
         {
-            throw new ConfigurationUtilException("Source document was null.");
+            throw new ConfigurationUtilException("Bean implementation type was null.");
         }
 
         Element beansElement = sourceDocument.getDocumentElement();
@@ -104,14 +104,19 @@ class ConfigurationUtil
         List<String> beanNames = getBeanNames(beansElement);
         if((beanNames == null) || beanNames.isEmpty())
         {
-            throw new ConfigurationUtilException("No bean names found. Bean names should be in the description element enclosed in braces e.g. {mybean} or {mybean1,mybean2}");
+        	log.info("No beans enabled for processing - exiting");
         }
-        log.debug("Bean count: " + beanNames.size());
-        for(String beanName : beanNames)
+        else
         {
-            processBeanType(beanName, beansElement, implType);
+	        log.debug("Bean count: " + beanNames.size());
+	        for(String beanName : beanNames)
+	        {
+	            processBeanType(beanName, beansElement, implType);
+	        }
+	        updated = true;
         }
         log.debug("end updateDocument(...)");
+        return updated;
     }
 
     private boolean saveConfigFile(File sourceFile, Document updatedDocument) throws IOException, TransformerConfigurationException, TransformerException
@@ -148,8 +153,7 @@ class ConfigurationUtil
         for(Element beanElement : beanElements)
         {
             String beanIdAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_ID);
-            String beanNameAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_NAME);
-            if((beanIdAttr == null) || (beanNameAttr == null))
+            if((beanIdAttr == null) || (beanIdAttr.length() < 1))
             {
                 throw new ConfigurationUtilException("Invalid bean configuration for type (" + beanName + ") with id: " + beanIdAttr);
             }
@@ -185,10 +189,9 @@ class ConfigurationUtil
         for(Element beanElement : beanElements)
         {
             String beanIdAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_ID);
-            String beanNameAttr = beanElement.getAttribute(BEAN_ATTRIBUTE_NAME);
-            if((beanIdAttr == null) || (beanNameAttr == null))
+            if((beanIdAttr == null) ||(beanIdAttr.length() < 1))
             {
-                throw new ConfigurationUtilException("Invalid bean configuration for type (" + beanName + ") with id: " + beanIdAttr);
+                throw new ConfigurationUtilException("Bean did not contain an id attribute value");
             }
             String metaType = getMetadataValue(beanElement);
             boolean currentBeanMatch = implType.implementationType().equals(metaType);
@@ -197,9 +200,9 @@ class ConfigurationUtil
 
             if((!currentBeanMatch) && currentBeanEnabled)
             {
-                // Reset the bean id to the value provided in the name attribute of the bean.
+                // Reset the bean id to the bean name with the implementation type appended.
                 log.debug("Reset the bean id to the value provided in the name attribute of the bean.");
-                beanElement.setAttribute(BEAN_ATTRIBUTE_ID, beanNameAttr);
+                beanElement.setAttribute(BEAN_ATTRIBUTE_ID, (beanName + metaType));
             }
         }
 
@@ -262,7 +265,13 @@ class ConfigurationUtil
                     log.debug("Found bean element.");
                     Element beanElement = (Element)workingNode;
                     String beanId = beanElement.getAttribute(BEAN_ATTRIBUTE_ID);
-                    if((beanId != null) && (beanId.startsWith(beanName)))
+                    String implType = getMetadataValue(beanElement);
+                    String currentBeanName = beanId;
+                    if((beanId != null) && (implType != null) && beanId.endsWith(implType))
+                    {
+                    	currentBeanName = beanId.substring(0, beanId.indexOf(implType));
+                    }
+                    if(beanName.equals(currentBeanName))
                     {
                         log.debug("Found matching bean with id: " + beanId);
                         beans.add(beanElement);
@@ -273,7 +282,7 @@ class ConfigurationUtil
 
         return beans;
     }
-
+    
     private List<String> getBeanNames(Element beansElement)
     {
         List<String> beanNames = new ArrayList<String>();
@@ -305,14 +314,17 @@ class ConfigurationUtil
                                 if(workingBeanNames != null)
                                 {
                                     workingBeanNames = workingBeanNames.trim();
-                                    String[] beanNamesArray = workingBeanNames.split(",");
-                                    if(beanNamesArray != null)
+                                    if(workingBeanNames.length() > 0)
                                     {
-                                        for(String beanName : beanNamesArray)
+                                        String[] beanNamesArray = workingBeanNames.split(",");
+                                        if(beanNamesArray != null)
                                         {
-                                            if(beanName != null)
+                                            for(String beanName : beanNamesArray)
                                             {
-                                                beanNames.add(beanName.trim());
+                                                if(beanName != null)
+                                                {
+                                                    beanNames.add(beanName.trim());
+                                                }
                                             }
                                         }
                                     }

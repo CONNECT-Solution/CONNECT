@@ -1,4 +1,10 @@
 /*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *  
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *  
+ */
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -87,7 +93,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
         try
         {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+            String url = oProxyHelper.getUrlFromTargetSystem(targetSystem,NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
             XDRDeferredRequestPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(request == null)
