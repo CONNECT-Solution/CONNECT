@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EntityXDRTests" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="EntityXDRTests" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProxyXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl">
-      <con:part>
-        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl</con:url>
-        <con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
+    
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
 <definitions name="NhincProxyXDR" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <documentation>IHE XDR Document Repository</documentation>
   <types>
@@ -36,7 +34,7 @@
   </message>
   <portType name="ProxyXDR_PortType">
     <operation name="ProvideAndRegisterDocumentSet-b">
-      <input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-b"/>
+      <input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:ProvideAndRegisterDocumentSet-b"/>
       <output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
     </operation>
   </portType>
@@ -57,12 +55,7 @@
       <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyXDR"/>
     </port>
   </service>
-</definitions>]]></con:content>
-        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -119,12 +112,7 @@
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -658,12 +646,7 @@
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
-        <con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -794,12 +777,7 @@
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
-        <con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -882,12 +860,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -1014,12 +987,7 @@
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -1424,12 +1392,7 @@
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\gateway\SamlTokenData.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
   <xsd:complexType name="SamlTokenDataType">
     <xsd:sequence>
       <xsd:element name="action" type="xsd:string"></xsd:element>
@@ -1454,12 +1417,7 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="SamlTokenData" type="tns:SamlTokenDataType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonProxy.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonProxy.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -1467,6 +1425,7 @@
   <xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../../ihe/auditmessage.xsd"/>
   <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd"/>
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription" schemaLocation="../common/Subscription.xsd"/>
+  <xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
   <!--====================================================================
          Document Query Schemas.
          ====================================================================-->
@@ -1485,6 +1444,21 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_CrossGatewayQuerySecuredRequest" type="tns:RespondingGateway_CrossGatewayQuerySecuredRequestType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType">
+    <xsd:sequence>
+      <xsd:element ref="query:AdhocQueryResponse"/>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseSecuredType">
+    <xsd:sequence>
+      <xsd:element ref="query:AdhocQueryResponse"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayQueryResponseSecured" type="tns:RespondingGateway_CrossGatewayQueryResponseSecuredType"/>
   <!--====================================================================
          Document Retrieve Schemas.
          ====================================================================-->
@@ -1503,6 +1477,21 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredRequest" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredRequestType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveResponseType">
+    <xsd:sequence>
+      <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayRetrieveResponse" type="tns:RespondingGateway_CrossGatewayRetrieveResponseType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredResponseType">
+    <xsd:sequence>
+      <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredResponse" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredResponseType"/>
   <!--====================================================================
          Audit Log Schemas.
          ====================================================================-->
@@ -1579,14 +1568,14 @@
     <xsd:sequence>
       <xsd:element name="assertion" type="nccommon:AssertionType"/>
       <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"></xsd:element>
+      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
   <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequestType">
     <xsd:sequence>
       <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"></xsd:element>
+      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequestType"/>
@@ -1594,23 +1583,33 @@
     <xsd:sequence>
       <xsd:element name="assertion" type="nccommon:AssertionType"/>
       <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-      <xsd:element name="RegistryResponse" type="rs:RegistryResponseType"></xsd:element>
+      <xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequestType"/>
   <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType">
     <xsd:sequence>
       <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-      <xsd:element name="RegistryResponse" type="rs:RegistryResponseType"></xsd:element>
+      <xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+    <xsd:sequence>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+      <xsd:element ref="edxlde:EDXLDistribution"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
+  <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+    <xsd:sequence>
+      <xsd:element ref="edxlde:EDXLDistribution"/>
+      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -1656,7 +1655,8 @@
       <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
       <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
       <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
-      <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="relatesToList" type="xsd:string" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -1870,12 +1870,14 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
-        <con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+  <xsd:complexType name="UrlInfoType">
+    <xsd:sequence>
+      <xsd:element name="url" type="xsd:string"/>
+      <xsd:element name="id" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UrlInfo" type="tns:UrlInfoType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -2013,12 +2015,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
-        <con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -2417,12 +2414,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -2830,12 +2822,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
-        <con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -2957,12 +2944,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsrf/bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -3016,12 +2998,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3148,12 +3125,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Subscription.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -3443,12 +3415,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="MessageTypes" type="tns:MessageTypesType"></xsd:element>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -3473,12 +3440,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -3515,12 +3477,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -3555,11 +3512,112 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-    </con:definitionCache>
-    <con:endpoints>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/edxl-de.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0CD" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+  <xsd:element name="EDXLDistribution">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="distributionID" type="xsd:string"/>
+        <xsd:element name="senderID" type="xsd:string"/>
+        <xsd:element name="dateTimeSent" type="xsd:dateTime"/>
+        <xsd:element name="distributionStatus" type="statusValues"/>
+        <xsd:element name="distributionType" type="typeValues"/>
+        <xsd:element name="combinedConfidentiality" type="xsd:string"/>
+        <xsd:element name="language" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="senderRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="recipientRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="keyword" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="distributionReference" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="explicitAddress" type="valueSchemeType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="targetArea" type="targetAreaType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="contentObject" type="contentObjectType" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation/>
+  <xsd:annotation/>
+  <xsd:complexType name="contentObjectType">
+    <xsd:sequence>
+      <xsd:element name="contentDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="contentKeyword" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="incidentID" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="incidentDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="originatorRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="consumerRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="confidentiality" type="xsd:string" minOccurs="0"/>
+      <xsd:choice>
+        <xsd:element name="nonXMLContent" type="nonXMLContentType"/>
+        <xsd:element name="xmlContent" type="xmlContentType"/>
+      </xsd:choice>
+      <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="nonXMLContentType">
+    <xsd:sequence>
+      <xsd:element name="mimeType" type="xsd:string"/>
+      <xsd:element name="size" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="digest" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="uri" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="contentData" type="xsd:base64Binary" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="xmlContentType">
+    <xsd:sequence>
+      <xsd:element name="keyXMLContent" type="anyXMLType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="embeddedXMLContent" type="anyXMLType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="anyXMLType">
+    <xsd:sequence>
+      <xsd:any namespace="##other" processContents="lax" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax"/>
+  </xsd:complexType>
+  <xsd:complexType name="valueListType">
+    <xsd:sequence>
+      <xsd:element name="valueListUrn" type="xsd:string"/>
+      <xsd:element name="value" type="xsd:string" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="valueSchemeType">
+    <xsd:sequence>
+      <xsd:element name="explicitAddressScheme" type="xsd:string"/>
+      <xsd:element name="explicitAddressValue" type="xsd:string" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="targetAreaType">
+    <xsd:sequence>
+      <xsd:element name="circle" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="polygon" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="country" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="subdivision" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="locCodeUN" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="statusValues">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="Actual"/>
+      <xsd:enumeration value="Exercise"/>
+      <xsd:enumeration value="System"/>
+      <xsd:enumeration value="Test"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeValues">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="Report"/>
+      <xsd:enumeration value="Update"/>
+      <xsd:enumeration value="Cancel"/>
+      <xsd:enumeration value="Request"/>
+      <xsd:enumeration value="Response"/>
+      <xsd:enumeration value="Dispatch"/>
+      <xsd:enumeration value="Ack"/>
+      <xsd:enumeration value="Error"/>
+      <xsd:enumeration value="SensorConfiguration"/>
+      <xsd:enumeration value="SensorControl"/>
+      <xsd:enumeration value="SensorStatus"/>
+      <xsd:enumeration value="SensorDetection"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints>
       <con:endpoint>http://localhost:${NhincHttpPort}/NhincConnect/NhincProxyXDR</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyXDR</con:endpoint>
     </con:endpoints>
@@ -13088,10 +13146,8 @@ This document and the information contained herein is provided on an "AS IS" bas
   </con:interface>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl">
-      <con:part>
-        <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl</con:url>
-        <con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
+    
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
 <definitions name="NhincEntityXDR" targetNamespace="urn:gov:hhs:fha:nhinc:nhincentityxdr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr" xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
   <documentation>IHE XDR Document Repository</documentation>
   <types>
@@ -13142,12 +13198,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR"/>
     </port>
   </service>
-</definitions>]]></con:content>
-        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -13204,12 +13255,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -13743,12 +13789,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
-        <con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -13879,12 +13920,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
-        <con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -13967,12 +14003,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -14099,12 +14130,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
-        <con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -14509,12 +14535,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\gateway\SamlTokenData.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
   <xsd:complexType name="SamlTokenDataType">
     <xsd:sequence>
       <xsd:element name="action" type="xsd:string"></xsd:element>
@@ -14539,12 +14560,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="SamlTokenData" type="tns:SamlTokenDataType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonEntity.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonEntity.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -14555,6 +14571,7 @@ This document and the information contained herein is provided on an "AS IS" bas
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../../../schemas/ebRS/rim.xsd"/>
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" schemaLocation="../../../schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd"/>
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" schemaLocation="../../../schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd"/>
+  <xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../schemas/ebRS/edxl-de.xsd"/>
   <!--====================================================================
          Document Query Schemas.
          ====================================================================-->
@@ -14566,6 +14583,21 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType">
+    <xsd:sequence>
+      <xsd:element ref="query:AdhocQueryResponse"/>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseSecuredType">
+    <xsd:sequence>
+      <xsd:element ref="query:AdhocQueryResponse"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayQueryResponseSecured" type="tns:RespondingGateway_CrossGatewayQueryResponseSecuredType"/>
   <xsd:complexType name="RespondingGateway_CrossGatewayQuerySecuredRequestType">
     <xsd:sequence>
       <xsd:element ref="query:AdhocQueryRequest"/>
@@ -14580,9 +14612,32 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:sequence>
       <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
       <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_CrossGatewayRetrieveRequest" type="tns:RespondingGateway_CrossGatewayRetrieveRequestType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredRequestType">
+    <xsd:sequence>
+      <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredRequest" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredRequestType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveResponseType">
+    <xsd:sequence>
+      <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayRetrieveResponse" type="tns:RespondingGateway_CrossGatewayRetrieveResponseType"/>
+  <xsd:complexType name="RespondingGateway_CrossGatewayRetrieveSecuredResponseType">
+    <xsd:sequence>
+      <xsd:element ref="ihe:RetrieveDocumentSetResponse"/>
+      <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_CrossGatewayRetrieveSecuredResponse" type="tns:RespondingGateway_CrossGatewayRetrieveSecuredResponseType"/>
   <!--====================================================================
          Audit Log Schemas.
          ====================================================================-->
@@ -14697,39 +14752,51 @@ This document and the information contained herein is provided on an "AS IS" bas
   <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetRequestType">
     <xsd:sequence>
       <xsd:element name="assertion" type="nccommon:AssertionType"/>
-      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"></xsd:element>
+      <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+      <xsd:element name="url" type="nccommon:UrlInfoType" minOccurs="0" maxOccurs="1"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
   <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequestType">
     <xsd:sequence>
-      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"></xsd:element>
+      <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+      <xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
+      <xsd:element name="url" type="nccommon:UrlInfoType" minOccurs="0" maxOccurs="1"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequestType"/>
   <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetResponseRequestType">
     <xsd:sequence>
       <xsd:element name="assertion" type="nccommon:AssertionType"/>
-      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+      <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
       <xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequestType"/>
   <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType">
     <xsd:sequence>
-      <xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+      <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
       <xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+  <xsd:complexType name="RespondingGateway_SendAlertMessageType">
+    <xsd:sequence>
+      <xsd:element name="assertion" type="nccommon:AssertionType"/>
+      <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+      <xsd:element ref="edxlde:EDXLDistribution"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_SendAlertMessage" type="tns:RespondingGateway_SendAlertMessageType"/>
+  <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
+    <xsd:sequence>
+      <xsd:element ref="edxlde:EDXLDistribution"/>
+      <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -14775,7 +14842,8 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
       <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
       <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
-      <xsd:element name="asyncMessageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="relatesToList" type="xsd:string" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -14989,12 +15057,14 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
-        <con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+  <xsd:complexType name="UrlInfoType">
+    <xsd:sequence>
+      <xsd:element name="url" type="xsd:string"/>
+      <xsd:element name="id" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UrlInfo" type="tns:UrlInfoType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -15132,12 +15202,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
-        <con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -15536,12 +15601,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -15949,12 +16009,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
-        <con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -16076,12 +16131,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsrf/bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -16135,12 +16185,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -16267,12 +16312,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Subscription.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -16562,12 +16602,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="MessageTypes" type="tns:MessageTypesType"></xsd:element>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -16592,12 +16627,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -16634,12 +16664,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-      <con:part>
-        <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
-        <con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -16674,11 +16699,112 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content>
-        <con:type>http://www.w3.org/2001/XMLSchema</con:type>
-      </con:part>
-    </con:definitionCache>
-    <con:endpoints>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/edxl-de.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0CD" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+  <xsd:element name="EDXLDistribution">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="distributionID" type="xsd:string"/>
+        <xsd:element name="senderID" type="xsd:string"/>
+        <xsd:element name="dateTimeSent" type="xsd:dateTime"/>
+        <xsd:element name="distributionStatus" type="statusValues"/>
+        <xsd:element name="distributionType" type="typeValues"/>
+        <xsd:element name="combinedConfidentiality" type="xsd:string"/>
+        <xsd:element name="language" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="senderRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="recipientRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="keyword" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="distributionReference" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="explicitAddress" type="valueSchemeType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="targetArea" type="targetAreaType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="contentObject" type="contentObjectType" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:annotation/>
+  <xsd:annotation/>
+  <xsd:complexType name="contentObjectType">
+    <xsd:sequence>
+      <xsd:element name="contentDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="contentKeyword" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="incidentID" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="incidentDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="originatorRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="consumerRole" type="valueListType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="confidentiality" type="xsd:string" minOccurs="0"/>
+      <xsd:choice>
+        <xsd:element name="nonXMLContent" type="nonXMLContentType"/>
+        <xsd:element name="xmlContent" type="xmlContentType"/>
+      </xsd:choice>
+      <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="nonXMLContentType">
+    <xsd:sequence>
+      <xsd:element name="mimeType" type="xsd:string"/>
+      <xsd:element name="size" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="digest" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="uri" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="contentData" type="xsd:base64Binary" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="xmlContentType">
+    <xsd:sequence>
+      <xsd:element name="keyXMLContent" type="anyXMLType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="embeddedXMLContent" type="anyXMLType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="anyXMLType">
+    <xsd:sequence>
+      <xsd:any namespace="##other" processContents="lax" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax"/>
+  </xsd:complexType>
+  <xsd:complexType name="valueListType">
+    <xsd:sequence>
+      <xsd:element name="valueListUrn" type="xsd:string"/>
+      <xsd:element name="value" type="xsd:string" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="valueSchemeType">
+    <xsd:sequence>
+      <xsd:element name="explicitAddressScheme" type="xsd:string"/>
+      <xsd:element name="explicitAddressValue" type="xsd:string" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="targetAreaType">
+    <xsd:sequence>
+      <xsd:element name="circle" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="polygon" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="country" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="subdivision" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="locCodeUN" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="statusValues">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="Actual"/>
+      <xsd:enumeration value="Exercise"/>
+      <xsd:enumeration value="System"/>
+      <xsd:enumeration value="Test"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeValues">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="Report"/>
+      <xsd:enumeration value="Update"/>
+      <xsd:enumeration value="Cancel"/>
+      <xsd:enumeration value="Request"/>
+      <xsd:enumeration value="Response"/>
+      <xsd:enumeration value="Dispatch"/>
+      <xsd:enumeration value="Ack"/>
+      <xsd:enumeration value="Error"/>
+      <xsd:enumeration value="SensorConfiguration"/>
+      <xsd:enumeration value="SensorControl"/>
+      <xsd:enumeration value="SensorStatus"/>
+      <xsd:enumeration value="SensorDetection"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints>
       <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR</con:endpoint>
       <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
@@ -20262,7 +20388,1508 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:testSuite name="EntityXDRTests TestSuite">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRepositoryXDR_Binding" type="wsdl" bindingName="{urn:ihe:iti:xdr:2007}DocumentRepositoryXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
+<definitions name="DocumentRepositoryXDR" targetNamespace="urn:ihe:iti:xdr:2007" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:ihe:iti:xdr:2007" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <documentation>IHE XDR Document Repository</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+    </xsd:schema>
+    <!--Importing all schemas within one seems to confuse some parsers
+      and code-generation tools (and may be invalid)
+    <xsd:schema elementFormDefault="qualified">
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+        schemaLocation="../schema/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+    </xsd:schema>-->
+  </types>
+  <message name="RetrieveDocumentSet_Message">
+    <documentation>Retrieve Document Set</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+  </message>
+  <message name="RetrieveDocumentSetResponse_Message">
+    <documentation>Retrieve Document Set Response</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+  </message>
+  <message name="ProvideAndRegisterDocumentSet-b_Message">
+    <documentation>Provide and Register Document Set</documentation>
+    <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+  </message>
+  <message name="ProvideAndRegisterDocumentSet-bResponse_Message">
+    <documentation>Provide And Register Document Set Response</documentation>
+    <part name="body" element="rs:RegistryResponse"/>
+  </message>
+  <portType name="DocumentRepositoryXDR_PortType">
+    <operation name="DocumentRepository_RetrieveDocumentSet">
+      <input message="tns:RetrieveDocumentSet_Message" wsaw:Action="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
+      <output message="tns:RetrieveDocumentSetResponse_Message" wsaw:Action="urn:ihe:iti:xdr:2007:RetrieveDocumentSetResponse"/>
+    </operation>
+    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+      <input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+      <output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse"/>
+    </operation>
+  </portType>
+  <binding name="DocumentRepositoryXDR_Binding" type="tns:DocumentRepositoryXDR_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
+    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+      <soap:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+      <input>
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Output_Policy"/>
+      </output>
+    </operation>
+    <operation name="DocumentRepository_RetrieveDocumentSet">
+      <soap:operation soapAction="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
+      <input>
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Output_Policy"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="DocumentRepositoryXDR_Service">
+    <port name="DocumentRepositoryXDR_Port_Soap" binding="tns:DocumentRepositoryXDR_Binding">
+      <soap:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
+    </port>
+  </service>
+  <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization/>
+        <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+        <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+        <sp:TransportBinding>
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:RequireClientCertificate/>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict/>
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens>
+          <wsp:Policy>
+            <sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssSamlV20Token11/>
+              </wsp:Policy>
+            </sp:SamlToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11>
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier/>
+            <sp:MustSupportRefIssuerSerial/>
+            <sp:RequireSignatureConfirmation/>
+          </wsp:Policy>
+        </sp:Wss11>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_Soap_Input_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization/>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_Soap_Output_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization/>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+<schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+  <annotation>
+    <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
+  </annotation>
+  <!--Import the rim.xsd file with XML schema mappaing from RIM-->
+  <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
+  <complexType name="RegistryRequestType">
+    <annotation>
+      <documentation xml:lang="en">Base type for all ebXML Registry requests</documentation>
+    </annotation>
+    <sequence>
+      <!--every request may be extended using Slots.-->
+      <element maxOccurs="1" minOccurs="0" name="RequestSlotList" type="rim:SlotListType"/>
+    </sequence>
+    <attribute name="id" type="anyURI" use="optional"/>
+    <!--Comment may be used by requestor to describe the request. Used in VersionInfo.comment-->
+    <attribute name="comment" type="string" use="optional"/>
+  </complexType>
+  <element name="RegistryRequest" type="tns:RegistryRequestType"/>
+  <element name="RegistryErrorList">
+    <annotation>
+      <documentation xml:lang="en">The RegistryErrorList is derived from the ErrorList element from the ebXML Message Service Specification</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" ref="tns:RegistryError"/>
+      </sequence>
+      <attribute name="highestSeverity" type="rim:referenceURI" use="optional"/>
+    </complexType>
+  </element>
+  <element name="RegistryError">
+    <complexType>
+      <simpleContent>
+        <extension base="string">
+          <attribute name="codeContext" type="string" use="required"/>
+          <attribute name="errorCode" type="string" use="required"/>
+          <attribute default="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" name="severity" type="rim:referenceURI"/>
+          <attribute name="location" type="string" use="optional"/>
+        </extension>
+      </simpleContent>
+    </complexType>
+  </element>
+  <complexType name="RegistryResponseType">
+    <annotation>
+      <documentation xml:lang="en">Base type for all ebXML Registry responses</documentation>
+    </annotation>
+    <sequence>
+      <!--every response may be extended using Slots.-->
+      <element maxOccurs="1" minOccurs="0" name="ResponseSlotList" type="rim:SlotListType"/>
+      <element minOccurs="0" ref="tns:RegistryErrorList"/>
+    </sequence>
+    <attribute name="status" type="rim:referenceURI" use="required"/>
+    <!--id is the request if for the request for which this is a response-->
+    <attribute name="requestId" type="anyURI" use="optional"/>
+  </complexType>
+  <element name="RegistryResponse" type="tns:RegistryResponseType"/>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+<schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+  <annotation>
+    <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
+  </annotation>
+  <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../www.w3.org/2001/xml.xsd"/>
+  <!--Begin information model mapping from ebRIM.-->
+  <!--Define Data Types-->
+  <simpleType name="referenceURI">
+    <annotation>
+      <documentation xml:lang="en">referenceURI is used by reference attributes within RIM.
+        Each attribute of type referenceURI references a RegistryObject with
+        specified URI as id.</documentation>
+    </annotation>
+    <restriction base="anyURI"/>
+  </simpleType>
+  <simpleType name="String4">
+    <restriction base="string">
+      <maxLength value="4"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="String8">
+    <restriction base="string">
+      <maxLength value="8"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="String16">
+    <restriction base="string">
+      <maxLength value="16"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="String32">
+    <restriction base="string">
+      <maxLength value="32"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="ShortName">
+    <restriction base="string">
+      <maxLength value="64"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="LongName">
+    <restriction base="string">
+      <maxLength value="256"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="FreeFormText">
+    <restriction base="string">
+      <maxLength value="1024"/>
+    </restriction>
+  </simpleType>
+  <complexType name="InternationalStringType">
+    <sequence maxOccurs="unbounded" minOccurs="0">
+      <element ref="tns:LocalizedString"/>
+    </sequence>
+  </complexType>
+  <element name="InternationalString" type="tns:InternationalStringType"/>
+  <element name="Name" type="tns:InternationalStringType"/>
+  <element name="Description" type="tns:InternationalStringType"/>
+  <complexType name="LocalizedStringType">
+    <attribute ref="xml:lang" default="en-US"/>
+    <attribute default="UTF-8" name="charset"/>
+    <attribute name="value" type="tns:FreeFormText" use="required"/>
+  </complexType>
+  <element name="LocalizedString" type="tns:LocalizedStringType"/>
+  <complexType name="SlotType1">
+    <sequence>
+      <element maxOccurs="1" minOccurs="1" ref="tns:ValueList"/>
+    </sequence>
+    <attribute name="name" type="tns:LongName" use="required"/>
+    <!--slotType value MUST reference a ClassificationNode in the canonical DataType scheme-->
+    <attribute name="slotType" type="tns:referenceURI" use="optional"/>
+  </complexType>
+  <element name="Slot" type="tns:SlotType1"/>
+  <complexType name="ValueListType">
+    <sequence maxOccurs="unbounded" minOccurs="0">
+      <element ref="tns:Value"/>
+    </sequence>
+  </complexType>
+  <element name="ValueList" type="tns:ValueListType"/>
+  <element name="Value" type="tns:LongName"/>
+  <complexType name="SlotListType">
+    <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" ref="tns:Slot"/>
+    </sequence>
+  </complexType>
+  <element name="SlotList" type="tns:SlotListType"/>
+  <complexType name="IdentifiableType">
+    <annotation>
+      <documentation xml:lang="en">Common base type for all types that have unique identity.     
+        If id is provided and is not in proper URN syntax then it is used for
+        linkage within document and is ignored by the registry. In this case the
+        registry generates a UUID URN for id attribute.
+        id must not be null when object is retrieved from the registry.</documentation>
+    </annotation>
+    <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" ref="tns:Slot"/>
+    </sequence>
+    <attribute name="id" type="anyURI" use="required"/>
+    <!--home attribute is required only for remote ObjectRef-->
+    <attribute name="home" type="anyURI" use="optional"/>
+  </complexType>
+  <element name="Identifiable" type="tns:IdentifiableType"/>
+  <complexType name="ObjectRefType">
+    <annotation>
+      <documentation xml:lang="en">Use to reference an Object by its id.
+        Specifies the id attribute of the object as its id attribute.
+        id attribute in ObjectAttributes is exactly the same syntax and semantics as
+        id attribute in RegistryObject.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:IdentifiableType">
+        <!--When true and is a remote ObjectRef then the registry must create a replica for this ObjectRef-->
+        <attribute default="false" name="createReplica" type="boolean"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ObjectRefListType">
+    <sequence maxOccurs="unbounded" minOccurs="0">
+      <element ref="tns:ObjectRef"/>
+    </sequence>
+  </complexType>
+  <element name="ObjectRefList" type="tns:ObjectRefListType"/>
+  <element name="ObjectRef" type="tns:ObjectRefType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="RegistryObjectType">
+    <complexContent>
+      <extension base="tns:IdentifiableType">
+        <sequence maxOccurs="1" minOccurs="0">
+          <element maxOccurs="1" minOccurs="0" ref="tns:Name"/>
+          <element maxOccurs="1" minOccurs="0" ref="tns:Description"/>
+          <element maxOccurs="1" minOccurs="0" name="VersionInfo" type="tns:VersionInfoType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:Classification"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ExternalIdentifier"/>
+        </sequence>
+        <attribute name="lid" type="anyURI" use="optional"/>
+        <attribute name="objectType" type="tns:referenceURI" use="optional"/>
+        <attribute name="status" type="tns:referenceURI" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="RegistryObject" type="tns:RegistryObjectType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="RegistryObjectListType">
+    <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" ref="tns:Identifiable"/>
+    </sequence>
+  </complexType>
+  <element name="RegistryObjectList" type="tns:RegistryObjectListType"/>
+  <complexType name="AssociationType1">
+    <annotation>
+      <documentation xml:lang="en">Association is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.
+        An Association specifies references to two previously submitted
+        registry entrys.
+        The sourceObject is id of the sourceObject in association
+        The targetObject is id of the targetObject in association</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <attribute name="associationType" type="tns:referenceURI" use="required"/>
+        <attribute name="sourceObject" type="tns:referenceURI" use="required"/>
+        <attribute name="targetObject" type="tns:referenceURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Association" type="tns:AssociationType1" substitutionGroup="tns:Identifiable"/>
+  <complexType name="AuditableEventType">
+    <annotation>
+      <documentation xml:lang="en">An Event that forms an audit trail in ebXML Registry.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <!--List of all objects that have been effected by this event-->
+          <element maxOccurs="1" minOccurs="1" name="affectedObjects" type="tns:ObjectRefListType"/>
+        </sequence>
+        <attribute name="eventType" type="tns:referenceURI" use="required"/>
+        <attribute name="timestamp" type="dateTime" use="required"/>
+        <attribute name="user" type="tns:referenceURI" use="required"/>
+        <attribute name="requestId" type="tns:referenceURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AuditableEvent" type="tns:AuditableEventType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ClassificationType">
+    <annotation>
+      <documentation xml:lang="en">Classification is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.
+        A Classification specifies references to two registry entrys.
+        The classifiedObject is id of the Object being classified.
+        The classificationNode is id of the ClassificationNode classying the object</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <attribute name="classificationScheme" type="tns:referenceURI" use="optional"/>
+        <attribute name="classifiedObject" type="tns:referenceURI" use="required"/>
+        <attribute name="classificationNode" type="tns:referenceURI" use="optional"/>
+        <attribute name="nodeRepresentation" type="tns:LongName" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Classification" type="tns:ClassificationType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ClassificationNodeType">
+    <annotation>
+      <documentation xml:lang="en">ClassificationNode is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.
+        ClassificationNode is used to submit a Classification tree to the Registry.
+        The parent attribute is the id to the parent node. code is an optional code value for a ClassificationNode
+        often defined by an external taxonomy (e.g. NAICS)</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ClassificationNode"/>
+        </sequence>
+        <attribute name="parent" type="tns:referenceURI" use="optional"/>
+        <attribute name="code" type="tns:LongName" use="optional"/>
+        <attribute name="path" type="string" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ClassificationNode" type="tns:ClassificationNodeType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ClassificationSchemeType">
+    <annotation>
+      <documentation xml:lang="en">ClassificationScheme is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ClassificationNode"/>
+        </sequence>
+        <attribute name="isInternal" type="boolean" use="required"/>
+        <attribute name="nodeType" type="tns:referenceURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ClassificationScheme" type="tns:ClassificationSchemeType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ExternalIdentifierType">
+    <annotation>
+      <documentation xml:lang="en">ExternalIdentifier is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <attribute name="registryObject" type="tns:referenceURI" use="required"/>
+        <attribute name="identificationScheme" type="tns:referenceURI" use="required"/>
+        <attribute name="value" type="tns:LongName" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ExternalIdentifier" type="tns:ExternalIdentifierType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ExternalLinkType">
+    <annotation>
+      <documentation xml:lang="en">ExternalLink is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <attribute name="externalURI" type="anyURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ExternalLink" type="tns:ExternalLinkType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ExtrinsicObjectType">
+    <annotation>
+      <documentation xml:lang="en">ExtrinsicObject is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="ContentVersionInfo" type="tns:VersionInfoType"/>
+        </sequence>
+        <attribute default="application/octet-stream" name="mimeType" type="tns:LongName"/>
+        <attribute default="false" name="isOpaque" type="boolean"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--Following element decl nneds to be lower case but using upper camel case for backward compatibility-->
+  <element name="ExtrinsicObject" type="tns:ExtrinsicObjectType" substitutionGroup="tns:Identifiable"/>
+  <element name="Address" type="tns:PostalAddressType"/>
+  <complexType name="OrganizationType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:Address"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:TelephoneNumber"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:EmailAddress"/>
+        </sequence>
+        <attribute name="parent" type="tns:referenceURI"/>
+        <attribute name="primaryContact" type="tns:referenceURI" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Organization" type="tns:OrganizationType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="PersonNameType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <attribute name="firstName" type="tns:ShortName" use="optional"/>
+    <attribute name="middleName" type="tns:ShortName" use="optional"/>
+    <attribute name="lastName" type="tns:ShortName" use="optional"/>
+  </complexType>
+  <element name="PersonName" type="tns:PersonNameType"/>
+  <complexType name="EmailAddressType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <attribute name="address" type="tns:ShortName" use="required"/>
+    <attribute name="type" type="tns:String32" use="optional"/>
+  </complexType>
+  <element name="EmailAddress" type="tns:EmailAddressType"/>
+  <complexType name="PostalAddressType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <attribute name="city" type="tns:ShortName" use="optional"/>
+    <attribute name="country" type="tns:ShortName" use="optional"/>
+    <attribute name="postalCode" type="tns:ShortName" use="optional"/>
+    <attribute name="stateOrProvince" type="tns:ShortName" use="optional"/>
+    <attribute name="street" type="tns:ShortName" use="optional"/>
+    <attribute name="streetNumber" type="tns:String32" use="optional"/>
+  </complexType>
+  <element name="PostalAddress" type="tns:PostalAddressType"/>
+  <complexType name="VersionInfoType">
+    <attribute name="versionName" type="tns:String16" use="optional" default="1.1"/>
+    <attribute name="comment" type="string" use="optional"/>
+  </complexType>
+  <complexType name="RegistryPackageType">
+    <annotation>
+      <documentation xml:lang="en">RegistryPackage is the mapping of the same named interface in ebRIM.
+        It extends RegistryObject.
+        A RegistryPackage is a named collection of objects.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" ref="tns:RegistryObjectList"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="RegistryPackage" type="tns:RegistryPackageType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ServiceType">
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ServiceBinding"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Service" type="tns:ServiceType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="ServiceBindingType">
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:SpecificationLink"/>
+        </sequence>
+        <attribute name="service" type="tns:referenceURI" use="required"/>
+        <attribute name="accessURI" type="anyURI" use="optional"/>
+        <attribute name="targetBinding" type="tns:referenceURI" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ServiceBinding" type="tns:ServiceBindingType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="SpecificationLinkType">
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" ref="tns:UsageDescription"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:UsageParameter"/>
+        </sequence>
+        <attribute name="serviceBinding" type="tns:referenceURI" use="required"/>
+        <attribute name="specificationObject" type="tns:referenceURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="SpecificationLink" type="tns:SpecificationLinkType" substitutionGroup="tns:Identifiable"/>
+  <element name="UsageDescription" type="tns:InternationalStringType"/>
+  <element name="UsageParameter" type="tns:FreeFormText"/>
+  <complexType name="TelephoneNumberType">
+    <annotation>
+      <documentation xml:lang="en">TelephoneNumber is the mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <attribute name="areaCode" type="tns:String8" use="optional"/>
+    <attribute name="countryCode" type="tns:String8" use="optional"/>
+    <attribute name="extension" type="tns:String8" use="optional"/>
+    <attribute name="number" type="tns:String16" use="optional"/>
+    <attribute name="phoneType" type="tns:String32" use="optional"/>
+  </complexType>
+  <element name="TelephoneNumber" type="tns:TelephoneNumberType"/>
+  <complexType name="TelephoneNumberListType">
+    <sequence>
+      <element maxOccurs="unbounded" minOccurs="0" ref="tns:TelephoneNumber"/>
+    </sequence>
+  </complexType>
+  <complexType name="PersonType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:Address"/>
+          <!--PersonName is optional because it is not needed in SAML Profile 
+          when an external IdentityProvider is used.-->
+          <element maxOccurs="1" minOccurs="0" ref="tns:PersonName"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:TelephoneNumber"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:EmailAddress"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Person" type="tns:PersonType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="UserType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:PersonType"></extension>
+    </complexContent>
+  </complexType>
+  <element name="User" type="tns:UserType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="RegistryType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <attribute name="operator" type="tns:referenceURI" use="required"/>
+        <attribute name="specificationVersion" type="string" use="required"/>
+        <attribute default="P1D" name="replicationSyncLatency" type="duration" use="optional"/>
+        <attribute default="P1D" name="catalogingLatency" type="duration" use="optional"/>
+        <attribute name="conformanceProfile" use="optional" default="registryLite">
+          <simpleType>
+            <restriction base="NCName">
+              <enumeration value="registryFull"/>
+              <enumeration value="registryLite"/>
+            </restriction>
+          </simpleType>
+        </attribute>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Registry" type="tns:RegistryType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="FederationType">
+    <annotation>
+      <documentation xml:lang="en">Mapping of the same named interface in ebRIM.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <attribute default="P1D" name="replicationSyncLatency" type="duration" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Federation" type="tns:FederationType" substitutionGroup="tns:Identifiable"/>
+  <complexType name="AdhocQueryType">
+    <annotation>
+      <documentation xml:lang="en">A registry query.
+      A QueryExpression child element is not required when invoking a stored query.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element ref="tns:QueryExpression" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AdhocQuery" type="tns:AdhocQueryType" substitutionGroup="tns:RegistryObject"/>
+  <complexType name="QueryExpressionType" mixed="true">
+    <sequence>
+      <!--MAY be any query language syntax supported. 
+      MUST support FilterQuery. SHOULD support SQLQuery-->
+      <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+    <attribute name="queryLanguage" type="tns:referenceURI" use="required"/>
+  </complexType>
+  <element name="QueryExpression" type="tns:QueryExpressionType"/>
+  <complexType name="NotificationType">
+    <annotation>
+      <documentation>Notification of registry events.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <!--May contain ObjectRefs and RegistryObjects-->
+          <element maxOccurs="1" minOccurs="1" ref="tns:RegistryObjectList"/>
+        </sequence>
+        <attribute name="subscription" type="tns:referenceURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Notification" type="tns:NotificationType"/>
+  <element name="Action" type="tns:ActionType"/>
+  <complexType name="SubscriptionType">
+    <annotation>
+      <documentation xml:lang="en">A Subscription for specified Events in an ebXML V3+ registry.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:RegistryObjectType">
+        <sequence>
+          <element ref="tns:Action" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+        <!--Ref to a AdhocQueryType instance-->
+        <attribute name="selector" type="tns:referenceURI" use="required"/>
+        <attribute name="startTime" type="dateTime" use="optional"/>
+        <attribute name="endTime" type="dateTime" use="optional"/>
+        <attribute name="notificationInterval" type="duration" use="optional" default="P1D"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Subscription" type="tns:SubscriptionType" substitutionGroup="tns:Identifiable"/>
+  <complexType abstract="true" name="ActionType">
+    <annotation>
+      <documentation>Abstract Base type for all types of Actions.</documentation>
+    </annotation>
+  </complexType>
+  <complexType name="NotifyActionType">
+    <annotation>
+      <documentation xml:lang="en">Abstract Base type for all types of Notify Actions</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="tns:ActionType">
+        <attribute default="urn:oasis:names:tc:ebxml-regrep:NotificationOptionType:ObjectRefs" type="tns:referenceURI" name="notificationOption"/>
+        <attribute name="endPoint" type="anyURI" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
+   http://www.w3.org/TR/REC-xml for information about this namespace.
+
+    This schema document describes the XML namespace, in a form
+    suitable for import by other schema documents.  
+
+    Note that local names in this namespace are intended to be defined
+    only by the World Wide Web Consortium or its subgroups.  The
+    following names are currently defined in this namespace and should
+    not be used with conflicting semantics by any Working Group,
+    specification, or document instance:
+
+    base (as an attribute name): denotes an attribute whose value
+         provides a URI to be used as the base for interpreting any
+         relative URIs in the scope of the element on which it
+         appears; its value is inherited.  This name is reserved
+         by virtue of its definition in the XML Base specification.
+
+    id   (as an attribute name): denotes an attribute whose value
+         should be interpreted as if declared to be of type ID.
+         This name is reserved by virtue of its definition in the
+         xml:id specification.
+
+    lang (as an attribute name): denotes an attribute whose value
+         is a language code for the natural language of the content of
+         any element; its value is inherited.  This name is reserved
+         by virtue of its definition in the XML specification.
+  
+    space (as an attribute name): denotes an attribute whose
+         value is a keyword indicating what whitespace processing
+         discipline is intended for the content of the element; its
+         value is inherited.  This name is reserved by virtue of its
+         definition in the XML specification.
+
+    Father (in any context at all): denotes Jon Bosak, the chair of 
+         the original XML Working Group.  This name is reserved by 
+         the following decision of the W3C XML Plenary and 
+         XML Coordination groups:
+
+             In appreciation for his vision, leadership and dedication
+             the W3C XML Plenary on this 10th day of February, 2000
+             reserves for Jon Bosak in perpetuity the XML name
+             xml:Father</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>This schema defines attributes and an attribute group
+        suitable for use by
+        schemas wishing to allow xml:base, xml:lang, xml:space or xml:id
+        attributes on elements they define.
+
+        To enable this, such a schema must import this schema
+        for the XML namespace, e.g. as follows:
+        &lt;schema . . .>
+         . . .
+         &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+                    schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+
+        Subsequently, qualified reference to any of the attributes
+        or the group defined below will have the desired effect, e.g.
+
+        &lt;type . . .>
+         . . .
+         &lt;attributeGroup ref="xml:specialAttrs"/>
+ 
+         will define a type which will schema-validate an instance
+         element with any of those attributes</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>In keeping with the XML Schema WG's standard versioning
+   policy, this schema document will persist at
+   http://www.w3.org/2007/08/xml.xsd.
+   At the date of issue it can also be found at
+   http://www.w3.org/2001/xml.xsd.
+   The schema document at that URI may however change in the future,
+   in order to remain compatible with the latest version of XML Schema
+   itself, or with the XML namespace itself.  In other words, if the XML
+   Schema or XML namespaces change, the version of this document at
+   http://www.w3.org/2001/xml.xsd will change
+   accordingly; the version at
+   http://www.w3.org/2007/08/xml.xsd will not change.</xs:documentation>
+  </xs:annotation>
+  <xs:attribute name="lang">
+    <xs:annotation>
+      <xs:documentation>Attempting to install the relevant ISO 2- and 3-letter
+         codes as the enumerated possible values is probably never
+         going to be a realistic possibility.  See
+         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry
+         at http://www.iana.org/assignments/lang-tag-apps.htm for
+         further information.
+
+         The union allows for the 'un-declaration' of xml:lang with
+         the empty string.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:language">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value=""/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="space">
+    <xs:simpleType>
+      <xs:restriction base="xs:NCName">
+        <xs:enumeration value="default"/>
+        <xs:enumeration value="preserve"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="base" type="xs:anyURI">
+    <xs:annotation>
+      <xs:documentation>See http://www.w3.org/TR/xmlbase/ for
+                     information about this attribute.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="id" type="xs:ID">
+    <xs:annotation>
+      <xs:documentation>See http://www.w3.org/TR/xml-id/ for
+                     information about this attribute.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attributeGroup name="specialAttrs">
+    <xs:attribute ref="xml:base"/>
+    <xs:attribute ref="xml:lang"/>
+    <xs:attribute ref="xml:space"/>
+    <xs:attribute ref="xml:id"/>
+  </xs:attributeGroup>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+  <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
+  <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
+  <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
+  <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../ebRS/query.xsd"/>
+  <xs:complexType name="RetrieveDocumentSetRequestType">
+    <xs:sequence>
+      <xs:element name="DocumentRequest" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="HomeCommunityId" type="rim:LongName" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>This corresponds to the home attribute of the Identifiable class in regrep RIM (regrep-rim-3.0-os.pdf, page 20)</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="RepositoryUniqueId" type="rim:LongName">
+              <xs:annotation>
+                <xs:documentation>This is the XDSDocumentEntry.repositoryUniqueId attribute in the XDS metadata</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentUniqueId" type="rim:LongName">
+              <xs:annotation>
+                <xs:documentation>This is the XDSDocumentEntry.uniqueId attribute in the XDS metadata</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RetrieveDocumentSetResponseType">
+    <xs:sequence>
+      <xs:element ref="rs:RegistryResponse"/>
+      <xs:sequence minOccurs="0">
+        <xs:element name="DocumentResponse" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HomeCommunityId" type="rim:LongName" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>This corresponds to the home attribute of the Identifiable class in regrep RIM (regrep-rim-3.0-os.pdf, page 20)</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="RepositoryUniqueId" type="rim:LongName">
+                <xs:annotation>
+                  <xs:documentation>This is the XDSDocumentEntry.repositoryUniqueId attribute in the XDS metadata</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="DocumentUniqueId" type="rim:LongName">
+                <xs:annotation>
+                  <xs:documentation>This is the XDSDocumentEntry.uniqueId attribute in the XDS metadata</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="mimeType" type="rim:LongName"/>
+              <xs:element name="Document" type="xs:base64Binary"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RetrieveDocumentSetRequest" type="RetrieveDocumentSetRequestType"/>
+  <xs:element name="RetrieveDocumentSetResponse" type="RetrieveDocumentSetResponseType"/>
+  <xs:complexType name="ProvideAndRegisterDocumentSetRequestType">
+    <xs:sequence>
+      <xs:element ref="lcm:SubmitObjectsRequest"/>
+      <xs:sequence minOccurs="0">
+        <xs:element name="Document" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:base64Binary">
+                <xs:attribute name="id" type="xs:anyURI" use="required">
+                  <xs:annotation>
+                    <xs:documentation>This corresponds to the ExtrinsicObject id in the eb RIM metadata a provides a linkage between the actual document data and its metadata</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+<schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
+  <annotation>
+    <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
+  </annotation>
+  <!--Import the rim.xsd file with XML schema mappaing from RIM-->
+  <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
+  <!--Import the rs.xsd file with XML schema for base rs related schema-->
+  <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="rs.xsd"/>
+  <element name="SubmitObjectsRequest">
+    <annotation>
+      <documentation xml:lang="en">The SubmitObjectsRequest allows one to submit a list of RegistryObject elements. Each RegistryEntry element provides metadata for a single submitted object.  Note that the repository item being submitted is in a separate document that is not in this DTD. The ebXML Messaging Services Specfication defines packaging, for submission, of the metadata of a repository item with the repository item itself. The value of the id attribute of the ExtrinsicObject element must be the same as the xlink:href attribute within the Reference element within the Manifest element of the MessageHeader.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element ref="rim:RegistryObjectList"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="UpdateObjectsRequest">
+    <annotation>
+      <documentation xml:lang="en">The UpdateObjectsRequest allows one to update a list of RegistryObject elements. Each RegistryEntry element provides metadata for a single submitted object.  Note that the repository item being submitted is in a separate document that is not in this DTD. The ebXML Messaging Services Specfication defines packaging, for submission, of the metadata of a repository item with the repository item itself. The value of the id attribute of the ExtrinsicObject element must be the same as the xlink:href attribute within the Reference element within the Manifest element of the MessageHeader.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element ref="rim:RegistryObjectList"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="ApproveObjectsRequest">
+    <annotation>
+      <documentation xml:lang="en">The ObjectRefList and AdhocQuery identify the list of
+        objects being approved.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element ref="rim:AdhocQuery" minOccurs="0" maxOccurs="1"/>
+            <element ref="rim:ObjectRefList" minOccurs="0" maxOccurs="1"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="DeprecateObjectsRequest">
+    <annotation>
+      <documentation xml:lang="en">The ObjectRefList and AdhocQuery identify the list of
+        objects being deprecated.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element ref="rim:AdhocQuery" minOccurs="0" maxOccurs="1"/>
+            <element ref="rim:ObjectRefList" minOccurs="0" maxOccurs="1"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="UndeprecateObjectsRequest">
+    <annotation>
+      <documentation xml:lang="en">The ObjectRefList is the list of
+        refs to the registry entrys being un-deprecated.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element ref="rim:AdhocQuery" minOccurs="0" maxOccurs="1"/>
+            <element ref="rim:ObjectRefList" minOccurs="0" maxOccurs="1"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="RemoveObjectsRequest">
+    <annotation>
+      <documentation xml:lang="en">The ObjectRefList is the list of
+        refs to the registry entrys being removed</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element ref="rim:AdhocQuery" minOccurs="0" maxOccurs="1"/>
+            <element ref="rim:ObjectRefList" minOccurs="0" maxOccurs="1"/>
+          </sequence>
+          <attribute name="deletionScope" default="urn:oasis:names:tc:ebxml-regrep:DeletionScopeType:DeleteAll" type="rim:referenceURI" use="optional"/>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="RelocateObjectsRequest">
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" ref="rim:AdhocQuery"/>
+            <element maxOccurs="1" minOccurs="1" name="SourceRegistry" type="rim:ObjectRefType"/>
+            <element maxOccurs="1" minOccurs="1" name="DestinationRegistry" type="rim:ObjectRefType"/>
+            <element maxOccurs="1" minOccurs="1" name="OwnerAtSource" type="rim:ObjectRefType"/>
+            <element maxOccurs="1" minOccurs="1" name="OwnerAtDestination" type="rim:ObjectRefType"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="AcceptObjectsRequest">
+    <!--The ObjectRefList must only contain local ObjectRefs such that they do not specify home attribute-->
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <attribute name="correlationId" type="anyURI" use="required"/>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
+  <!--Import the rim.xsd file with XML schema mappaing from RIM-->
+  <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
+  <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="rs.xsd"/>
+  <complexType name="ResponseOptionType">
+    <attribute default="RegistryObject" name="returnType">
+      <simpleType>
+        <restriction base="NCName">
+          <enumeration value="ObjectRef"/>
+          <enumeration value="RegistryObject"/>
+          <enumeration value="LeafClass"/>
+          <enumeration value="LeafClassWithRepositoryItem"/>
+        </restriction>
+      </simpleType>
+    </attribute>
+    <attribute default="false" name="returnComposedObjects" type="boolean"/>
+  </complexType>
+  <element name="ResponseOption" type="tns:ResponseOptionType"/>
+  <element name="AdhocQueryRequest">
+    <annotation>
+      <documentation xml:lang="en">An Ad hoc query request specifies an ad hoc query.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryRequestType">
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" ref="tns:ResponseOption"/>
+            <element ref="rim:AdhocQuery"/>
+          </sequence>
+          <attribute default="false" name="federated" type="boolean" use="optional"/>
+          <attribute name="federation" type="anyURI" use="optional"/>
+          <attribute default="0" name="startIndex" type="integer"/>
+          <attribute default="-1" name="maxResults" type="integer"/>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="AdhocQueryResponse">
+    <annotation>
+      <documentation xml:lang="en">The response includes a RegistryObjectList which has zero or more
+        RegistryObjects that match the query specified in AdhocQueryRequest.</documentation>
+    </annotation>
+    <complexType>
+      <complexContent>
+        <extension base="rs:RegistryResponseType">
+          <sequence>
+            <element ref="rim:RegistryObjectList"/>
+          </sequence>
+          <attribute default="0" name="startIndex" type="integer"/>
+          <attribute name="totalResultCount" type="integer" use="optional"/>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <complexType name="FilterQueryType" abstract="true">
+    <sequence>
+      <element maxOccurs="1" minOccurs="0" name="PrimaryFilter" type="tns:FilterType"/>
+    </sequence>
+  </complexType>
+  <complexType name="BranchType" abstract="true">
+    <complexContent>
+      <extension base="tns:FilterQueryType"></extension>
+    </complexContent>
+  </complexType>
+  <complexType name="InternationalStringBranchType">
+    <complexContent>
+      <extension base="tns:BranchType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="LocalizedStringFilter" type="tns:FilterType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SlotBranchType">
+    <complexContent>
+      <extension base="tns:BranchType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RegistryObjectQueryType">
+    <complexContent>
+      <extension base="tns:FilterQueryType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="SlotBranch" type="tns:SlotBranchType"/>
+          <element maxOccurs="1" minOccurs="0" name="NameBranch" type="tns:InternationalStringBranchType"/>
+          <element maxOccurs="1" minOccurs="0" name="DescriptionBranch" type="tns:InternationalStringBranchType"/>
+          <element maxOccurs="1" minOccurs="0" name="VersionInfoFilter" type="tns:FilterType"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ClassificationQuery"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ExternalIdentifierQuery"/>
+          <element maxOccurs="1" minOccurs="0" name="ObjectTypeQuery" type="tns:ClassificationNodeQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="StatusQuery" type="tns:ClassificationNodeQueryType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="SourceAssociationQuery" type="tns:AssociationQueryType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="TargetAssociationQuery" type="tns:AssociationQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="RegistryObjectQuery" type="tns:RegistryObjectQueryType"/>
+  <complexType name="AssociationQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="AssociationTypeQuery" type="tns:ClassificationNodeQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="SourceObjectQuery" type="tns:RegistryObjectQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="TargetObjectQuery" type="tns:RegistryObjectQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AssociationQuery" type="tns:AssociationQueryType"/>
+  <complexType name="AuditableEventQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="AffectedObjectQuery" type="tns:RegistryObjectQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="EventTypeQuery" type="tns:ClassificationNodeQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="UserQuery" type="tns:UserQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AuditableEventQuery" type="tns:AuditableEventQueryType"/>
+  <complexType name="ClassificationQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" ref="tns:ClassificationSchemeQuery"/>
+          <element maxOccurs="1" minOccurs="0" name="ClassifiedObjectQuery" type="tns:RegistryObjectQueryType"/>
+          <element maxOccurs="1" minOccurs="0" ref="tns:ClassificationNodeQuery"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ClassificationQuery" type="tns:ClassificationQueryType"/>
+  <complexType name="ClassificationNodeQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="ParentQuery" type="tns:RegistryObjectQueryType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="ChildrenQuery" type="tns:ClassificationNodeQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ClassificationNodeQuery" type="tns:ClassificationNodeQueryType"/>
+  <complexType name="ClassificationSchemeQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="ChildrenQuery" type="tns:ClassificationNodeQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="NodeTypeQuery" type="tns:ClassificationNodeQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ClassificationSchemeQuery" type="tns:ClassificationSchemeQueryType"/>
+  <complexType name="ExternalIdentifierQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" ref="tns:RegistryObjectQuery"/>
+          <element maxOccurs="1" minOccurs="0" name="IdentificationSchemeQuery" type="tns:ClassificationSchemeQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ExternalIdentifierQuery" type="tns:ExternalIdentifierQueryType"/>
+  <complexType name="ExternalLinkQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ExternalLinkQuery" type="tns:ExternalLinkQueryType"/>
+  <complexType name="ExtrinsicObjectQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="ContentVersionInfoFilter" type="tns:FilterType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ExtrinsicObjectQuery" type="tns:ExtrinsicObjectQueryType"/>
+  <complexType name="OrganizationQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="AddressFilter" type="tns:FilterType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="TelephoneNumberFilter" type="tns:FilterType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="EmailAddressFilter" type="tns:FilterType"/>
+          <element maxOccurs="1" minOccurs="0" name="ParentQuery" type="tns:OrganizationQueryType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="ChildOrganizationQuery" type="tns:OrganizationQueryType"/>
+          <element maxOccurs="1" minOccurs="0" name="PrimaryContactQuery" type="tns:PersonQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="OrganizationQuery" type="tns:OrganizationQueryType"/>
+  <complexType name="RegistryPackageQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType"></extension>
+    </complexContent>
+  </complexType>
+  <element name="RegistryPackageQuery" type="tns:RegistryPackageQueryType"/>
+  <complexType name="ServiceQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:ServiceBindingQuery"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ServiceQuery" type="tns:ServiceQueryType"/>
+  <complexType name="ServiceBindingQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" ref="tns:ServiceQuery"/>
+          <element maxOccurs="unbounded" minOccurs="0" ref="tns:SpecificationLinkQuery"/>
+          <element maxOccurs="1" minOccurs="0" name="TargetBindingQuery" type="tns:ServiceBindingQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ServiceBindingQuery" type="tns:ServiceBindingQueryType"/>
+  <complexType name="SpecificationLinkQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="UsageDescriptionBranch" type="tns:InternationalStringBranchType"/>
+          <element maxOccurs="1" minOccurs="0" ref="tns:ServiceBindingQuery"/>
+          <element maxOccurs="1" minOccurs="0" name="SpecificationObjectQuery" type="tns:RegistryObjectQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="SpecificationLinkQuery" type="tns:SpecificationLinkQueryType"/>
+  <complexType name="PersonQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="AddressFilter" type="tns:FilterType"/>
+          <element maxOccurs="1" minOccurs="0" name="PersonNameFilter" type="tns:FilterType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="TelephoneNumberFilter" type="tns:FilterType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="EmailAddressFilter" type="tns:FilterType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="PersonQuery" type="tns:PersonQueryType"/>
+  <complexType name="UserQueryType">
+    <complexContent>
+      <extension base="tns:PersonQueryType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="UserQuery" type="tns:UserQueryType"/>
+  <complexType name="RegistryQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="OperatorQuery" type="tns:OrganizationQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="RegistryQuery" type="tns:RegistryQueryType"/>
+  <complexType name="FederationQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="FederationQuery" type="tns:FederationQueryType"/>
+  <complexType name="AdhocQueryQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="QueryExpressionBranch" type="tns:QueryExpressionBranchType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AdhocQueryQuery" type="tns:AdhocQueryQueryType"/>
+  <complexType name="QueryExpressionBranchType">
+    <complexContent>
+      <extension base="tns:BranchType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="QueryLanguageQuery" type="tns:ClassificationNodeQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="NotificationQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" ref="tns:RegistryObjectQuery"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="NotificationQuery" type="tns:NotificationQueryType"/>
+  <complexType name="SubscriptionQueryType">
+    <complexContent>
+      <extension base="tns:RegistryObjectQueryType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="SelectorQuery" type="tns:AdhocQueryQueryType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="SubscriptionQuery" type="tns:SubscriptionQueryType"/>
+  <!--The Filter type hierarchy-->
+  <complexType name="FilterType">
+    <attribute default="false" name="negate" type="boolean"/>
+  </complexType>
+  <element abstract="true" name="Filter" type="tns:FilterType"/>
+  <complexType name="CompoundFilterType">
+    <complexContent>
+      <extension base="tns:FilterType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="LeftFilter" type="tns:FilterType"/>
+          <element maxOccurs="1" minOccurs="1" name="RightFilter" type="tns:FilterType"/>
+        </sequence>
+        <attribute name="logicalOperator" use="required">
+          <simpleType>
+            <restriction base="NCName">
+              <enumeration value="AND"/>
+              <enumeration value="OR"/>
+            </restriction>
+          </simpleType>
+        </attribute>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="CompoundFilter" type="tns:CompoundFilterType"/>
+  <complexType name="SimpleFilterType" abstract="true">
+    <complexContent>
+      <extension base="tns:FilterType">
+        <attribute name="domainAttribute" type="string" use="required"/>
+        <attribute name="comparator" use="required">
+          <simpleType>
+            <restriction base="NCName">
+              <enumeration value="LE"/>
+              <enumeration value="LT"/>
+              <enumeration value="GE"/>
+              <enumeration value="GT"/>
+              <enumeration value="EQ"/>
+              <enumeration value="NE"/>
+              <enumeration value="Like"/>
+              <enumeration value="NotLike"/>
+            </restriction>
+          </simpleType>
+        </attribute>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BooleanFilterType">
+    <complexContent>
+      <extension base="tns:SimpleFilterType">
+        <attribute name="value" type="boolean" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="BooleanFilter" type="tns:BooleanFilterType"/>
+  <complexType name="IntegerFilterType">
+    <complexContent>
+      <extension base="tns:SimpleFilterType">
+        <attribute name="value" type="integer" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="IntegerFilter" type="tns:IntegerFilterType"/>
+  <complexType name="FloatFilterType">
+    <complexContent>
+      <extension base="tns:SimpleFilterType">
+        <attribute name="value" type="float" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="FloatFilter" type="tns:FloatFilterType"/>
+  <complexType name="DateTimeFilterType">
+    <complexContent>
+      <extension base="tns:SimpleFilterType">
+        <attribute name="value" type="dateTime" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="DateTimeFilter" type="tns:DateTimeFilterType"/>
+  <complexType name="StringFilterType">
+    <complexContent>
+      <extension base="tns:SimpleFilterType">
+        <attribute name="value" type="string" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="StringFilter" type="tns:StringFilterType"/>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
+  <xsd:complexType name="SamlTokenDataType">
+    <xsd:sequence>
+      <xsd:element name="action" type="xsd:string"></xsd:element>
+      <xsd:element name="resource" type="xsd:string"></xsd:element>
+      <xsd:element name="purposeForUseRoleCode" type="xsd:string"></xsd:element>
+      <xsd:element name="purposeForUseCodeSystem" type="xsd:string"></xsd:element>
+      <xsd:element name="purposeForUseCodeSystemName" type="xsd:string"></xsd:element>
+      <xsd:element name="purposeForUseDisplayName" type="xsd:string"></xsd:element>
+      <xsd:element name="userFirstName" type="xsd:string"></xsd:element>
+      <xsd:element name="userMiddleName" type="xsd:string"></xsd:element>
+      <xsd:element name="userLastName" type="xsd:string"></xsd:element>
+      <xsd:element name="userName" type="xsd:string"></xsd:element>
+      <xsd:element name="userOrganization" type="xsd:string"></xsd:element>
+      <xsd:element name="userRoleCode" type="xsd:string"></xsd:element>
+      <xsd:element name="userRoleCodeSystem" type="xsd:string"></xsd:element>
+      <xsd:element name="userRoleCodeSystemName" type="xsd:string"></xsd:element>
+      <xsd:element name="userRoleCodeDisplayName" type="xsd:string"></xsd:element>
+      <xsd:element name="expirationDate" type="xsd:string"></xsd:element>
+      <xsd:element name="signDate" type="xsd:string"></xsd:element>
+      <xsd:element name="contentReference" type="xsd:string"></xsd:element>
+      <xsd:element name="content" type="xsd:base64Binary"></xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlTokenData" type="tns:SamlTokenDataType"/>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/XDR_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:xdr:2007:RetrieveDocumentSet" name="DocumentRepository_RetrieveDocumentSet" bindingOperationName="DocumentRepository_RetrieveDocumentSet" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="EntityXDRTests TestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Policy Check mock Deny" searchProperties="true" id="1b2294ce-104b-4cd3-840e-647955e13e7b">
@@ -22243,19 +23870,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:20:13Z</con:value>
+          <con:value>2010-09-03T18:39:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T19:30:13Z</con:value>
+          <con:value>2010-09-03T18:49:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:20:13</con:value>
+          <con:value>09/03/2010 18:39:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24229,19 +25856,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:20:14Z</con:value>
+          <con:value>2010-09-03T18:39:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T19:30:14Z</con:value>
+          <con:value>2010-09-03T18:49:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:20:14</con:value>
+          <con:value>09/03/2010 18:39:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -24714,42 +26341,40 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:22:05Z</con:value>
+          <con:value>2010-09-03T18:39:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T19:32:05Z</con:value>
+          <con:value>2010-09-03T18:49:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:22:05</con:value>
+          <con:value>09/03/2010 18:39:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Error message from mock NHINC" searchProperties="true" id="4f6537aa-52b1-417f-beb6-f55988114985">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Error message from mock NHINC" searchProperties="true" id="4f6537aa-52b1-417f-beb6-f55988114985" disabled="true">
       <con:settings/>
       <con:testStep type="groovy" name="Modify InternalConnectionInfo For NHINC Mock">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service";
-def mockXDRURL = "http://" + mockHost + ":11230/mockXDR";
+def mockXDRURL = "https://" + mockHost + ":11222/mockXDR";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceXDR", XDRServiceURL, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr", mockXDRURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceXDR", mockXDRURL, context, log)
+//FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr", mockXDRURL, context, log)</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="EntiityRequestMsg - XDR">
         <con:settings/>
@@ -25217,21 +26842,23 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
       <con:testStep type="mockresponse" name="nhincXDRMock">
         <con:settings/>
         <con:config xsi:type="con:MockResponseStep" startStep="EntiityRequestMsg - XDR" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>ProxyXDR_Binding</con:interface>
-          <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
+          <con:interface>DocumentRepositoryXDR_Binding</con:interface>
+          <con:operation>DocumentRepository_ProvideAndRegisterDocumentSet-b</con:operation>
           <con:path>/mockXDR</con:path>
           <con:port>11230</con:port>
           <con:timeout>30000</con:timeout>
-          <con:response>
-            <con:settings/>
-            <con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
-   <S:Body>
-      <ns7:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:ihe:iti:xds-b:2007" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ns6="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns10="http://nhinc.services.com/schema/auditmessage" xmlns:ns11="http://www.w3.org/2005/08/addressing" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns14="http://docs.oasis-open.org/wsn/t-1" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns16="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
-         <ns7:RegistryErrorList highestSeverity="ERROR">
-            <ns7:RegistryError severity="ERROR" errorCode="XDSMissingDocument" codeContext="Document Id: Document01 exists in metadata with no corresponding attached document"/>
-         </ns7:RegistryErrorList>
-      </ns7:RegistryResponse>
-   </S:Body>
+          <con:response outgoingWss="WSOUTSAML" encoding="">
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@encode_attachments">true</con:setting><con:setting id="WsdlSettings@enable-mtom">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@force_mtom">false</con:setting></con:settings>
+            <con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Header>
+      <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
+      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse</Action>
+      <MessageID xmlns="http://www.w3.org/2005/08/addressing">uuid:6fff9294-3737-4c66-a627-cc6dd5863c42</MessageID>
+      <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">a13eafb9-ec9e-46cd-9e92-9a19be79b9e8</RelatesTo>
+   </S:Header>
+   <S:Body>
+      <ns4:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:ihe:iti:xds-b:2007" xmlns:ns7="urn:gov:hhs:fha:nhinc:gateway:samltokendata"/>
+   </S:Body>
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -25246,24 +26873,24 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:22:09Z</con:value>
+          <con:value>2010-09-02T18:34:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T19:32:09Z</con:value>
+          <con:value>2010-09-02T18:44:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:22:09</con:value>
+          <con:value>09/02/2010 18:34:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2010-10-02T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success message from mock NHINC" searchProperties="true" id="7ab026d6-4438-498b-af6c-4e08d85df3b6">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success message from mock NHINC" searchProperties="true" id="7ab026d6-4438-498b-af6c-4e08d85df3b6" disabled="true">
       <con:settings/>
       <con:testStep type="groovy" name="Modify InternalConnectionInfo For NHINC Mock">
         <con:settings/>
@@ -26258,7 +27885,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="tns:ProvideAndRegisterDocumentSet-b"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -26518,7 +28145,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
               <con:configuration><path>declare namespace ns16='http://nhinc.services.com/schema/auditmessage';
 count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -26526,19 +28153,19 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><conte
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-09-01T00:00:00Z</con:value>
+          <con:value>2010-09-03T18:39:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-09-01T04:27:38Z</con:value>
+          <con:value>2010-09-03T18:49:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/01/2010 00:00:00</con:value>
+          <con:value>09/03/2010 18:39:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-10-01T00:00:00Z</con:value>
+          <con:value>2010-10-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -26546,7 +28173,7 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path><conte
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Inbound UserWed Sep 01 04:22:38 UTC 2010</con:value>
+          <con:value>XDR Inbound UserFri Sep 03 18:44:37 UTC 2010</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -26712,7 +28339,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     sql.close()
   }
 }</con:afterLoadScript>
-  <con:wssContainer/>
+  <con:wssContainer><con:outgoing><con:name>WSOUTSAML</con:name><con:entry type="Timestamp"><con:configuration><timeToLive>300</timeToLive><strictTimestamp>true</strictTimestamp></con:configuration></con:entry></con:outgoing></con:wssContainer>
   <con:databaseConnectionContainer/>
   <con:reporting>
     <con:reportTemplates/>
