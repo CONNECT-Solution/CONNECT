@@ -38,6 +38,7 @@
     <call target="GlassFish.Update.log4.properties"/>
     <call target="GlassFish.Update.NHIN.properties"/>
     <call target="GlassFish.Update.Certificates"/>
+    <call target="GlassFish.Update.OpenSSO"/>
   </target>
 
 
@@ -216,6 +217,20 @@
     </ifnot>
   </target>
 
+  <target name="GlassFish.Update.OpenSSO">
+    <property name="OpenSSO.Tag.FileName" value="OpenSSO.09-07-2010.opensso.tag"/>
+    <property name="GlassFish.LibPath" value="${GlassFish.Lib.Directory.Path}"/>
+
+    <ifnot test="${file::exists(GlassFish.LibPath + '\' + OpenSSO.Tag.FileName)}">
+      <copy todir="${GlassFish.Lib.Directory.Path}" overwrite="True">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\OpenSSO">
+          <include name="openssoclientsdk.jar"/>
+        </fileset>
+      </copy>
+      <echo message="" file="${GlassFish.LibPath}\${OpenSSO.Tag.FileName}"/>
+    </ifnot>
+  </target>
+  
   <target name="GlassFish.DownloadAndInstall">
     <ask answer="Answer"
            question="It looks like ${GlassFish.Install.FriendlyName} is not installed.  This software is required.  Do you wish to install the software?"
