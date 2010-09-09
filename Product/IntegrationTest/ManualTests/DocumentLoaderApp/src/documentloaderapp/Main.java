@@ -4,8 +4,9 @@
  */
 package documentloaderapp;
 
-import gov.hhs.fha.nhinc.repository.model.Document;
-import gov.hhs.fha.nhinc.repository.service.DocumentService;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
+
 import java.util.Date;
 
 /**
