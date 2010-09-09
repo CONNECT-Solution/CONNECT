@@ -366,7 +366,7 @@
         <trigger
           type="projectTrigger"
           serverUri="&Integration.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Release"
+          project="&ProjectName;-&ProjectCodeLineName;-Validation-Test"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
