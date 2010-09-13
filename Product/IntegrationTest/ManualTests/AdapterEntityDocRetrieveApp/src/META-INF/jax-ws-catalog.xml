@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" uri="wsdl/EntityDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonEntity.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/nhinc/common/NhincCommonEntity.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ebRS/rs.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ebRS/rim.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ebRS/lcm.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ebRS/query.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/nhinc/common/NhincCommon.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ihe/auditmessage.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/b-2.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Subscription.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/nhinc/common/Subscription.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/edxl-de.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/ebRS/edxl-de.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/xmlsoap.org/addressing.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsrf/bf-2.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/docs.oasis-open.org/wsrf/bf-2.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/t-1.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/docs.oasis-open.org/wsn/t-1.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd" uri="xml-resources/web-service-references/EntityDocRetrieve/schemas/nhinc/common/Cdc.xsd"/>
+</catalog>
+
