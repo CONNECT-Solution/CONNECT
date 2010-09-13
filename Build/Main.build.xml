@@ -39,7 +39,6 @@
         <description>Begin Clean Up Actions</description>
         <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
-        <call target="Ant.Dev.Clean"/>
 
         <description>Begin Compile Actions</description>
         <asyncexec taskname="Checkstyle" program="${Tools.NAnt.Exe}" failonerror="False">
