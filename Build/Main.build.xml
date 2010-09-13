@@ -42,14 +42,6 @@
         <call target="Ant.Dev.Clean"/>
 
         <description>Begin Compile Actions</description>
-        <asyncexec taskname="Simian" program="${Tools.NAnt.Exe}" failonerror="False">
-          <arg line="-buildfile:${Package.Simian.Directory.Path}\Simian.Runner.xml" />
-          <arg line='@"${Common.PropertiesFile}"' />
-          <arg line="Simian.Run"/>
-          <arg line="-logger:NAnt.Core.XmlLogger"/>
-          <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
-        </asyncexec>
-
         <asyncexec taskname="Checkstyle" program="${Tools.NAnt.Exe}" failonerror="False">
           <arg line="-buildfile:${Package.Checkstyle.Directory.Path}\Checkstyle.Runner.xml" />
           <arg line='@"${Common.PropertiesFile}"' />
@@ -87,7 +79,6 @@
         <description>Begin Post Build Actions</description>
         <waitforexit>
           <tasknames>
-            <string value="Simian"/>
             <string value="Checkstyle"/>
           </tasknames>
         </waitforexit>
