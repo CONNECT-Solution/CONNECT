@@ -2,13 +2,13 @@ cd \projects\NHINC\Current\Product\Production\Gateway\CONNECTLiFTClientApp\RunFr
 copy C:\projects\NHINC\Current\Product\Production\Gateway\CONNECTLiFTClientApp\dist\debug\CONNECTLiFTClientApp.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCoreLib\dist\debug\CONNECTCoreLib.jar .
 copy C:\projects\NHINC\Current\Product\Production\Common\CONNECTCommonTypesLib\dist\debug\CONNECTCommonTypesLib.jar .
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequest.wsdl
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestError.wsdl
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestSecured.wsdl
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestSecuredError.wsdl
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRResponse.wsdl
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRResponseSecured.wsdl
-copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\NhincComponentLiftManager.wsdl
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequest.wsdl .
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestError.wsdl .
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestSecured.wsdl .
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRRequestSecuredError.wsdl .
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRResponse.wsdl .
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\AdapterXDRResponseSecured.wsdl .
+copy C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\wsdl\NhincComponentLiftManager.wsdl .
 copy C:\projects\NHINC\Current\ThirdParty\log4j\commons-logging-1.1.1.jar .
 copy C:\projects\NHINC\Current\ThirdParty\SpringFramework\spring.jar .
 copy C:\projects\NHINC\Current\ThirdParty\log4j\log4j-1.2.15.jar .
@@ -25,20 +25,21 @@ copy C:\projects\NHINC\Current\ThirdParty\HibernateLibraries\jta.jar .
 copy C:\projects\NHINC\Current\ThirdParty\MySQLDB\mysql-connector-java-5.1.8-bin.jar .
 copy C:\projects\NHINC\Current\ThirdParty\C3PO\c3p0-0.9.1.2.jar .
 copy C:\projects\NHINC\Current\ThirdParty\XStream\xstream-1.3.jar .
-copy C:\projects\NHINC\Current\ThirdParty\XStream\cglib-nodep-2.1_3.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\dom4j-1.6.1.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\jdom-1.0.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\jettison-1.0-RC2.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\joda-time-1.5.1.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\stax-1.2.0.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\stax-api-1.0.1.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\wstx-asl-3.2.3.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\xml-writer-0.2.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\xom-1.1.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\xpp3_min-1.1.4c.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\xstream-1.3.jar
-copy C:\projects\NHINC\Current\ThirdParty\XStream\xstream-benchmark-1.3.jar
-copy C:\projects\NHINC\Current\ThirdParty\Xerces\resolver.jar
-copy C:\projects\NHINC\Current\ThirdParty\Xerces\serializer.jar
-copy C:\projects\NHINC\Current\ThirdParty\Xerces\xercesImpl.jar
-copy C:\projects\NHINC\Current\ThirdParty\Xerces\xml-apis.jar
+copy C:\projects\NHINC\Current\ThirdParty\XStream\cglib-nodep-2.1_3.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\dom4j-1.6.1.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\jdom-1.0.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\jettison-1.0-RC2.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\joda-time-1.5.1.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\stax-1.2.0.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\stax-api-1.0.1.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\wstx-asl-3.2.3.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\xml-writer-0.2.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\xom-1.1.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\xpp3_min-1.1.4c.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\xstream-1.3.jar .
+copy C:\projects\NHINC\Current\ThirdParty\XStream\xstream-benchmark-1.3.jar .
+copy C:\projects\NHINC\Current\ThirdParty\Xerces\resolver.jar .
+copy C:\projects\NHINC\Current\ThirdParty\Xerces\serializer.jar .
+copy C:\projects\NHINC\Current\ThirdParty\Xerces\xercesImpl.jar .
+copy C:\projects\NHINC\Current\ThirdParty\Xerces\xml-apis.jar .
+copy C:\projects\NHINC\Current\ThirdParty\Metro\webservices-rt.jar .

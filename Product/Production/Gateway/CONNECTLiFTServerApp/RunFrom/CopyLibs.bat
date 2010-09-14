@@ -15,3 +15,4 @@ copy C:\projects\NHINC\Current\ThirdParty\HibernateLibraries\jdbc2_0-stdext.jar 
 copy C:\projects\NHINC\Current\ThirdParty\HibernateLibraries\jta.jar .
 copy C:\projects\NHINC\Current\ThirdParty\MySQLDB\mysql-connector-java-5.1.8-bin.jar .
 copy C:\projects\NHINC\Current\ThirdParty\C3PO\c3p0-0.9.1.2.jar .
+copy C:\projects\NHINC\Current\ThirdParty\Metro\webservices-rt.jar .
