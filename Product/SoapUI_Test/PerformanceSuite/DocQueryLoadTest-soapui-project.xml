@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryLoadTest" resourceRoot="${projectDir}" soapui-version="3.5.1" defaultScriptLanguage="Groovy" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="DocQueryLoadTest" resourceRoot="${projectDir}" soapui-version="3.6" defaultScriptLanguage="Groovy" xmlns:con="http://eviware.com/soapui/config">
   <con:settings>
     <con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.LoadTestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="TestSuite" value="DocQueryLoadTestSuite"/>
@@ -61,7 +61,7 @@ k2=v2"/>
   <con:entry key="Endpoint" value=""/>
 </xml-fragment>]]></con:setting>
   </con:settings>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="Doc Query (nhin)" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}RespondingGateway_Query_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="RespondingGateway_Query_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}RespondingGateway_Query_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>https://localhost:${HttpsDefaultPort}/RespondingGateway_Query_Service</con:endpoint>
@@ -329,7 +329,7 @@ k2=v2"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Doc Query (proxy to nhin)" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://exttestgw3.fedsconnect.org:8080/CONNECTAdapter/NhincProxyDocQuery</con:endpoint>
@@ -842,7 +842,7 @@ k2=v2"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Doc Query (entity)" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
@@ -860,7 +860,7 @@ k2=v2"/>
       <con:testStep type="request" name="doc query">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>Doc Query (proxy to nhin)</con:interface>
+          <con:interface>NhincProxyDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="doc query" outgoingWss="" incomingWss="" wssPasswordType="" timeout="300000">
             <con:settings>
@@ -1339,47 +1339,27 @@ log.info("end test case start up");</con:setupScript>
       <con:value>http://${#Project#Endpoint-HostName}:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
     </con:property>
   </con:properties>
-  <con:afterLoadScript>log.info("begin project start up");
+  <con:afterLoadScript>log.info("start Project Load Script");
+loadProperties(new File(new File(project.path).parent, 'DocQueryLoadTest-soapui-project.properties'))
+loadProperties(new File(new File(project.path).parent, 'endpoints.properties'))
+log.info("end Project Load Script");
 
-log.info("load properties from file");
-def propertiesFile = new File(new File(project.path).parent, 'DocQueryLoadTest-soapui-project.properties');
-
-if (propertiesFile.exists()) {
-     def count=0;
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-          count=count+1;
-		log.info("setting property " + key + "=" + value);
-		project.setPropertyValue(key, value);
-	}
-	log.info("loaded " + count + " values");
-}
-log.info("load properties from file complete");
-
-log.info("load properties from endpoint file");
-propertiesFile = new File(new File(project.path).parent, 'endpoints.properties');
-
-if (propertiesFile.exists()) {
-     def count=0;
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-          count=count+1;
-		log.info("setting property " + key + "=" + value);
-		project.setPropertyValue(key, value);
-	}
-	log.info("loaded " + count + " values");
-}
-log.info("load properties from endpoint file complete");
-
-log.info("end project start up");</con:afterLoadScript>
+void loadProperties(File propertiesFile) {
+  log.info('start loadProperties(' + propertiesFile.path + ')')
+  if (propertiesFile.exists()) {
+    def count=1
+    def props = new Properties()
+    props.load(new FileReader(propertiesFile))
+    props.each { key, value ->
+            log.info((count++) + '. setting property ' + key + '=' + value)
+            project.setPropertyValue(key, value)
+    }
+  } else {
+    log.warn(propertiesFile.path + ' does not exist !!!')
+  }
+  log.info('end loadProperties(' + propertiesFile.path + ')')
+}</con:afterLoadScript>
   <con:wssContainer>
-    <con:crypto>
-      <con:source>../../../../../../Sun/AppServer/domains/domain1/config/keystore.jks</con:source>
-      <con:password>changeit</con:password>
-      <con:defaultAlias>s1as</con:defaultAlias>
-    </con:crypto>
     <con:outgoing>
       <con:name>SAMLOUTWSS</con:name>
       <con:entry type="Timestamp">
