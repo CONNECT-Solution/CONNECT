@@ -130,11 +130,11 @@
 			<input message="ihe:storeDynamicDocument_Message" wsaw:Action="urn:ihe:iti:2007:StoreDynamicDocument"/>
 			<output message="ihe:storeDynamicDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:StoreDynamicDocumentResponse"/>
 		</operation>
-		<!--<operation name="DocumentManager_archiveDynamicDocument">
+		<operation name="DocumentManager_archiveDynamicDocument">
 			<input message="ihe:archiveDynamicDocument_Message" wsaw:Action="urn:ihe:iti:2007:ArchiveDynamicDocument"/>
 			<output message="ihe:archiveDynamicDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:ArchiveDynamicDocumentResponse"/>
 		</operation>
-			<operation name="DocumentManager_queryInboundRepository">
+		<!--	<operation name="DocumentManager_queryInboundRepository">
 			<input message="ihe:queryInboundRepository_Message" wsaw:Action="urn:ihe:iti:2007:QueryInboundRepository"/>
 			<output message="ihe:queryDynamicDocumentArchiveResponse_Message" wsaw:Action="urn:ihe:iti:2007:QueryInboundRepositoryResponse"/>
 		</operation>
@@ -192,7 +192,7 @@
 				<soap:body use="literal"/>
 			</output>
 		</operation>
-	<!--	<operation name="DocumentManager_archiveDynamicDocument">
+		<operation name="DocumentManager_archiveDynamicDocument">
 			<soap:operation soapAction="urn:ihe:iti:2007:ArchiveDynamicDocument"/>
 			<input>
 				<soap:body use="literal"/>
@@ -201,7 +201,7 @@
 				<soap:body use="literal"/>
 			</output>
 		</operation>
-			<operation name="DocumentManager_queryInboundRepository">
+	<!--		<operation name="DocumentManager_queryInboundRepository">
 			<soap:operation soapAction="urn:ihe:iti:2007:QueryInboundRepository"/>
 			<input>
 				<soap:body use="literal"/>

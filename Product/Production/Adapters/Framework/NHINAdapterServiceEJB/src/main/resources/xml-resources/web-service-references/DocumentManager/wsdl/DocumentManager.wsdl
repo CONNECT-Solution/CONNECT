@@ -1,49 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for a Document Manager -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
-	xmlns="http://schemas.xmlsoap.org/wsdl/" 
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-	xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" 
-    xmlns:hl7="urn:hl7-org:v3"
-	xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
-    targetNamespace="urn:ihe:iti:xds-b:2007"
-	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
-    name="DocumentManager">
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:hl7="urn:hl7-org:v3" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:docmgr="urn:gov:hhs:fha:nhinc:common:docmgr" targetNamespace="urn:ihe:iti:xds-b:2007" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="DocumentManager">
 	<documentation>Document Manager</documentation>
 	<types>
-        <xsd:schema elementFormDefault="qualified"
-            targetNamespace="urn:ihe:iti:xds-b:2007"
-            xmlns:ihe="urn:ihe:iti:xds-b:2007">
-            <!-- Include the message schema -->
-            <xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-        </xsd:schema>
-		<xsd:schema elementFormDefault="qualified"
-			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-			xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:ihe:iti:xds-b:2007" xmlns:ihe="urn:ihe:iti:xds-b:2007">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
 			<!-- Include the message schema -->
 			<xsd:include schemaLocation="../schemas/ebRS/query.xsd"/>
 		</xsd:schema>
-		<xsd:schema elementFormDefault="qualified"
-			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
-			xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
 			<!-- Include the message schema -->
 			<xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
 		</xsd:schema>
-		<xsd:schema elementFormDefault="qualified"
-			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
-			xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
 			<!-- Include the message schema -->
 			<xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
 		</xsd:schema>
 		<!-- While no elements are directly used from this schema in the WSDL, it needs to be present here in order for
 		code generating toolkits to work properly -->
-		<xsd:schema elementFormDefault="qualified"
-			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
-			xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
 			<!-- Include the message schema -->
 			<xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:docmgr" schemaLocation="../schemas/nhinc/common/DocManager.xsd"/>
 		</xsd:schema>
 	</types>
 	<message name="queryDynamicDocumentArchive_Message">
@@ -54,30 +37,30 @@
 		<documentation>Registry Stored Query Response</documentation>
 		<part name="body" element="query:AdhocQueryResponse"/>
 	</message>
-    <message name="retrieveDynamicDocument_Message">
-        <documentation>Retrieve Document Set</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
-    </message>
-    <message name="retrieveDynamicDocumentResponse_Message">
-        <documentation>Retrieve Document Set Response</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
-    </message>
-    <message name="storeDynamicDocument_Message">
-        <documentation>Provide and Register Document Set</documentation>
-        <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
-    </message>
-    <message name="storeDynamicDocumentResponse_Message">
-        <documentation>Provide And Register Document Set Response</documentation>
-        <part name="body" element="rs:RegistryResponse"/>
-    </message>
-    <message name="archiveDynamicDocument_Message">
-        <documentation>Retrieve Document Set</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
-    </message>
-    <message name="archiveDynamicDocumentResponse_Message">
-        <documentation>Provide And Register Document Set Response</documentation>
-        <part name="body" element="rs:RegistryResponse"/>
-    </message>
+	<message name="retrieveDynamicDocument_Message">
+		<documentation>Retrieve Document Set</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+	</message>
+	<message name="retrieveDynamicDocumentResponse_Message">
+		<documentation>Retrieve Document Set Response</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+	</message>
+	<message name="storeDynamicDocument_Message">
+		<documentation>Provide and Register Document Set</documentation>
+		<part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+	</message>
+	<message name="storeDynamicDocumentResponse_Message">
+		<documentation>Provide And Register Document Set Response</documentation>
+		<part name="body" element="rs:RegistryResponse"/>
+	</message>
+	<message name="archiveDynamicDocument_Message">
+		<documentation>Retrieve Document Set</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+	</message>
+	<message name="archiveDynamicDocumentResponse_Message">
+		<documentation>Provide And Register Document Set Response</documentation>
+		<part name="body" element="rs:RegistryResponse"/>
+	</message>
 	<message name="queryInboundRepository_Message">
 		<documentation>Registry Stored Query</documentation>
 		<part name="body" element="query:AdhocQueryRequest"/>
@@ -86,22 +69,22 @@
 		<documentation>Registry Stored Query Response</documentation>
 		<part name="body" element="query:AdhocQueryResponse"/>
 	</message>
-    <message name="retrieveInboundDocument_Message">
-        <documentation>Retrieve Document Set</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
-    </message>
-    <message name="retrieveInboundDocumentResponse_Message">
-        <documentation>Retrieve Document Set Response</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
-    </message>
-    <message name="storeInboundDocument_Message">
-        <documentation>Provide and Register Document Set</documentation>
-        <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
-    </message>
-    <message name="storeInboundDocumentResponse_Message">
-        <documentation>Provide And Register Document Set Response</documentation>
-        <part name="body" element="rs:RegistryResponse"/>
-    </message>
+	<message name="retrieveInboundDocument_Message">
+		<documentation>Retrieve Document Set</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+	</message>
+	<message name="retrieveInboundDocumentResponse_Message">
+		<documentation>Retrieve Document Set Response</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+	</message>
+	<message name="storeInboundDocument_Message">
+		<documentation>Provide and Register Document Set</documentation>
+		<part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+	</message>
+	<message name="storeInboundDocumentResponse_Message">
+		<documentation>Provide And Register Document Set Response</documentation>
+		<part name="body" element="rs:RegistryResponse"/>
+	</message>
 	<message name="queryPolicyRepository_Message">
 		<documentation>Registry Stored Query</documentation>
 		<part name="body" element="query:AdhocQueryRequest"/>
@@ -110,88 +93,78 @@
 		<documentation>Registry Stored Query Response</documentation>
 		<part name="body" element="query:AdhocQueryResponse"/>
 	</message>
-    <message name="retrievePolicy_Message">
-        <documentation>Retrieve Document Set</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
-    </message>
-    <message name="retrievePolicyResponse_Message">
-        <documentation>Retrieve Document Set Response</documentation>
-        <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
-    </message>
-    <message name="storePolicy_Message">
-        <documentation>Provide and Register Document Set</documentation>
-        <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
-    </message>
-    <message name="storePolicyResponse_Message">
-        <documentation>Provide And Register Document Set Response</documentation>
-        <part name="body" element="rs:RegistryResponse"/>
-    </message>
+	<message name="retrievePolicy_Message">
+		<documentation>Retrieve Document Set</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+	</message>
+	<message name="retrievePolicyResponse_Message">
+		<documentation>Retrieve Document Set Response</documentation>
+		<part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+	</message>
+	<message name="storePolicy_Message">
+		<documentation>Provide and Register Document Set</documentation>
+		<part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+	</message>
+	<message name="storePolicyResponse_Message">
+		<documentation>Provide And Register Document Set Response</documentation>
+		<part name="body" element="rs:RegistryResponse"/>
+	</message>
+	<message name="generateUniqueIdRequestMessage">
+		<documentation>Generate unique id for documents</documentation>
+		<part name="request" element="docmgr:GenerateUniqueIdRequest"/>
+	</message>
+	<message name="generateUniqueIdResponseMessage">
+		<documentation>Generate unique id for documents</documentation>
+		<part name="response" element="docmgr:GenerateUniqueIdResponse"/>
+	</message>
 	<portType name="DocumentManager_PortType">
-        <operation name="DocumentManager_queryDynamicDocumentArchive">
-			<input message="ihe:queryDynamicDocumentArchive_Message"
-				wsaw:Action="urn:ihe:iti:2007:QueryDynamicDocumentArchive"/>
-			<output message="ihe:queryDynamicDocumentArchiveResponse_Message"
-				wsaw:Action="urn:ihe:iti:2007:QueryDynamicDocumentArchiveResponse"/>
+		<operation name="DocumentManager_queryDynamicDocumentArchive">
+			<input message="ihe:queryDynamicDocumentArchive_Message" wsaw:Action="urn:ihe:iti:2007:QueryDynamicDocumentArchive"/>
+			<output message="ihe:queryDynamicDocumentArchiveResponse_Message" wsaw:Action="urn:ihe:iti:2007:QueryDynamicDocumentArchiveResponse"/>
 		</operation>
-        <operation name="DocumentManager_retrieveDynamicDocument">
-            <input message="ihe:retrieveDynamicDocument_Message"
-                wsaw:Action="urn:ihe:iti:2007:RetrieveDynamicDocument"/>
-            <output message="ihe:retrieveDynamicDocumentResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:RetrieveDynamicDocumentResponse"/>
-        </operation>
-        <operation name="DocumentManager_storeDynamicDocument">
-            <input message="ihe:storeDynamicDocument_Message"
-                wsaw:Action="urn:ihe:iti:2007:StoreDynamicDocument"/>
-            <output message="ihe:storeDynamicDocumentResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:StoreDynamicDocumentResponse"/>
-        </operation>
-        <operation name="DocumentManager_archiveDynamicDocument">
-            <input message="ihe:archiveDynamicDocument_Message"
-                wsaw:Action="urn:ihe:iti:2007:ArchiveDynamicDocument"/>
-            <output message="ihe:archiveDynamicDocumentResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:ArchiveDynamicDocumentResponse"/>
-        </operation>
-        <operation name="DocumentManager_queryInboundRepository">
-			<input message="ihe:queryInboundRepository_Message"
-				wsaw:Action="urn:ihe:iti:2007:QueryInboundRepository"/>
-			<output message="ihe:queryDynamicDocumentArchiveResponse_Message"
-				wsaw:Action="urn:ihe:iti:2007:QueryInboundRepositoryResponse"/>
+		<operation name="DocumentManager_retrieveDynamicDocument">
+			<input message="ihe:retrieveDynamicDocument_Message" wsaw:Action="urn:ihe:iti:2007:RetrieveDynamicDocument"/>
+			<output message="ihe:retrieveDynamicDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:RetrieveDynamicDocumentResponse"/>
 		</operation>
-        <operation name="DocumentManager_retrieveInboundDocument">
-            <input message="ihe:retrieveInboundDocument_Message"
-                wsaw:Action="urn:ihe:iti:2007:RetrieveInboundDocument"/>
-            <output message="ihe:retrieveInboundDocumentResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:RetrieveInboundDocumentResponse"/>
-        </operation>
-        <operation name="DocumentManager_storeInboundDocument">
-            <input message="ihe:storeInboundDocument_Message"
-                wsaw:Action="urn:ihe:iti:2007:StoreInboundDocument"/>
-            <output message="ihe:storeInboundDocumentResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:StoreInboundDocumentResponse"/>
-        </operation>
-        <operation name="DocumentManager_queryPolicyRepository">
-			<input message="ihe:queryPolicyRepository_Message"
-				wsaw:Action="urn:ihe:iti:2007:QueryPolicyRepository"/>
-			<output message="ihe:queryPolicyRepositoryResponse_Message"
-				wsaw:Action="urn:ihe:iti:2007:QueryPolicyRepositoryResponse"/>
+		<operation name="DocumentManager_storeDynamicDocument">
+			<input message="ihe:storeDynamicDocument_Message" wsaw:Action="urn:ihe:iti:2007:StoreDynamicDocument"/>
+			<output message="ihe:storeDynamicDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:StoreDynamicDocumentResponse"/>
 		</operation>
-        <operation name="DocumentManager_retrievePolicy">
-            <input message="ihe:retrievePolicy_Message"
-                wsaw:Action="urn:ihe:iti:2007:RetrievePolicy"/>
-            <output message="ihe:retrievePolicyResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:RetrievePolicyResponse"/>
-        </operation>
-        <operation name="DocumentManager_storePolicy">
-            <input message="ihe:storePolicy_Message"
-                wsaw:Action="urn:ihe:iti:2007:StorePolicy"/>
-            <output message="ihe:storePolicyResponse_Message"
-                wsaw:Action="urn:ihe:iti:2007:StorePolicyResponse"/>
-        </operation>
+		<operation name="DocumentManager_archiveDynamicDocument">
+			<input message="ihe:archiveDynamicDocument_Message" wsaw:Action="urn:ihe:iti:2007:ArchiveDynamicDocument"/>
+			<output message="ihe:archiveDynamicDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:ArchiveDynamicDocumentResponse"/>
+		</operation>
+		<!--	<operation name="DocumentManager_queryInboundRepository">
+			<input message="ihe:queryInboundRepository_Message" wsaw:Action="urn:ihe:iti:2007:QueryInboundRepository"/>
+			<output message="ihe:queryDynamicDocumentArchiveResponse_Message" wsaw:Action="urn:ihe:iti:2007:QueryInboundRepositoryResponse"/>
+		</operation>
+		<operation name="DocumentManager_retrieveInboundDocument">
+			<input message="ihe:retrieveInboundDocument_Message" wsaw:Action="urn:ihe:iti:2007:RetrieveInboundDocument"/>
+			<output message="ihe:retrieveInboundDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:RetrieveInboundDocumentResponse"/>
+		</operation>
+		<operation name="DocumentManager_storeInboundDocument">
+			<input message="ihe:storeInboundDocument_Message" wsaw:Action="urn:ihe:iti:2007:StoreInboundDocument"/>
+			<output message="ihe:storeInboundDocumentResponse_Message" wsaw:Action="urn:ihe:iti:2007:StoreInboundDocumentResponse"/>
+		</operation>
+		<operation name="DocumentManager_queryPolicyRepository">
+			<input message="ihe:queryPolicyRepository_Message" wsaw:Action="urn:ihe:iti:2007:QueryPolicyRepository"/>
+			<output message="ihe:queryPolicyRepositoryResponse_Message" wsaw:Action="urn:ihe:iti:2007:QueryPolicyRepositoryResponse"/>
+		</operation>
+		<operation name="DocumentManager_retrievePolicy">
+			<input message="ihe:retrievePolicy_Message" wsaw:Action="urn:ihe:iti:2007:RetrievePolicy"/>
+			<output message="ihe:retrievePolicyResponse_Message" wsaw:Action="urn:ihe:iti:2007:RetrievePolicyResponse"/>
+		</operation>
+		<operation name="DocumentManager_storePolicy">
+			<input message="ihe:storePolicy_Message" wsaw:Action="urn:ihe:iti:2007:StorePolicy"/>
+			<output message="ihe:storePolicyResponse_Message" wsaw:Action="urn:ihe:iti:2007:StorePolicyResponse"/>
+		</operation> -->
+		<operation name="GenerateUniqueId">
+			<input message="ihe:generateUniqueIdRequestMessage" wsaw:Action="urn:ihe:iti:2007:GenerateUniqueIdRequest"/>
+			<output message="ihe:generateUniqueIdResponseMessage" wsaw:Action="urn:ihe:iti:2007:GenerateUniqueIdResponse"/>
+		</operation>
 	</portType>
-	<binding name="DocumentManager_Binding_Soap"
-             type="ihe:DocumentManager_PortType">
-	 <soap:binding style="document"
-                        transport="http://schemas.xmlsoap.org/soap/http"/>
+	<binding name="DocumentManager_Binding_Soap" type="ihe:DocumentManager_PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="DocumentManager_queryDynamicDocumentArchive">
 			<soap:operation soapAction="urn:ihe:iti:2007:QueryDynamicDocumentArchive"/>
 			<input>
@@ -201,34 +174,34 @@
 				<soap:body use="literal"/>
 			</output>
 		</operation>
-        <operation name="DocumentManager_retrieveDynamicDocument">
-            <soap:operation soapAction="urn:ihe:iti:2007:RetrieveDynamicDocument"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="DocumentManager_storeDynamicDocument">
-            <soap:operation soapAction="urn:ihe:iti:2007:StoreDynamicDocument"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="DocumentManager_archiveDynamicDocument">
-            <soap:operation soapAction="urn:ihe:iti:2007:ArchiveDynamicDocument"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-		<operation name="DocumentManager_queryInboundRepository">
+		<operation name="DocumentManager_retrieveDynamicDocument">
+			<soap:operation soapAction="urn:ihe:iti:2007:RetrieveDynamicDocument"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentManager_storeDynamicDocument">
+			<soap:operation soapAction="urn:ihe:iti:2007:StoreDynamicDocument"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentManager_archiveDynamicDocument">
+			<soap:operation soapAction="urn:ihe:iti:2007:ArchiveDynamicDocument"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	<!--		<operation name="DocumentManager_queryInboundRepository">
 			<soap:operation soapAction="urn:ihe:iti:2007:QueryInboundRepository"/>
 			<input>
 				<soap:body use="literal"/>
@@ -237,24 +210,24 @@
 				<soap:body use="literal"/>
 			</output>
 		</operation>
-        <operation name="DocumentManager_retrieveInboundDocument">
-            <soap:operation soapAction="urn:ihe:iti:2007:RetrieveInboundDocument"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="DocumentManager_storeInboundDocument">
-            <soap:operation soapAction="urn:ihe:iti:2007:StoreInboundDocument"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
+		<operation name="DocumentManager_retrieveInboundDocument">
+			<soap:operation soapAction="urn:ihe:iti:2007:RetrieveInboundDocument"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentManager_storeInboundDocument">
+			<soap:operation soapAction="urn:ihe:iti:2007:StoreInboundDocument"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
 		<operation name="DocumentManager_queryPolicyRepository">
 			<soap:operation soapAction="urn:ihe:iti:2007:QueryPolicyRepository"/>
 			<input>
@@ -264,30 +237,37 @@
 				<soap:body use="literal"/>
 			</output>
 		</operation>
-        <operation name="DocumentManager_storePolicy">
-            <soap:operation soapAction="urn:ihe:iti:2007:StorePolicy"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="DocumentManager_retrievePolicy">
-            <soap:operation soapAction="urn:ihe:iti:2007:RetrievePolicy"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
+		<operation name="DocumentManager_storePolicy">
+			<soap:operation soapAction="urn:ihe:iti:2007:StorePolicy"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentManager_retrievePolicy">
+			<soap:operation soapAction="urn:ihe:iti:2007:RetrievePolicy"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation> -->
+		<operation name="GenerateUniqueId">
+			<soap:operation soapAction="urn:ihe:iti:2007:GenerateUniqueId"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
 	</binding>
 	<service name="DocumentManager_Service">
-		<port name="DocumentManager_Port_Soap"
-              binding="ihe:DocumentManager_Binding_Soap">
-			<soap:address 
-               location="http://localhost:${NhincHttpPort}/DocumentManager/DocumentManager_Service"/>
+		<port name="DocumentManager_Port_Soap" binding="ihe:DocumentManager_Binding_Soap">
+			<soap:address location="http://localhost:${NhincHttpPort}/DocumentManager/DocumentManager_Service"/>
 		</port>
 	</service>
 </definitions>

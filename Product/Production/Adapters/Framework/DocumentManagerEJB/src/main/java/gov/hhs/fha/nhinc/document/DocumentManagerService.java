@@ -32,11 +32,11 @@ public class DocumentManagerService implements DocumentManagerPortType {
         return new DocumentManagerImpl().documentManagerStoreDynamicDocument(body);
     }
 
-  /**  public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerArchiveDynamicDocument(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+   public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerArchiveDynamicDocument(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return new DocumentManagerImpl().documentManagerArchiveDynamicDocument(body);
     }
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentManagerQueryInboundRepository(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
+   /**  public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentManagerQueryInboundRepository(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
         return new DocumentManagerImpl().documentManagerQueryInboundRepository(body);
     }
 
