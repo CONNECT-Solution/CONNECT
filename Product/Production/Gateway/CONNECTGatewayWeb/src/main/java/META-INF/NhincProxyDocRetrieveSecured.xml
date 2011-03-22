@@ -97,33 +97,33 @@
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
         <vprop:query>resource</vprop:query>
   </vprop:propertyAlias>
-  <!-- Define purposeForUseRoleCode property on each receiving message -->
-  <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="tns:purposeForUseRoleCode"
+  <!-- Define purposeOfUseRoleCode property on each receiving message -->
+  <vprop:property name="purposeOfUseRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeOfUseRoleCode"
      messageType="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseRoleCode</vprop:query>
+        <vprop:query>purposeOfUseRoleCode</vprop:query>
   </vprop:propertyAlias>
-  <!-- Define purposeForUseCodeSystem property on each receiving message -->
-  <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="tns:purposeForUseCodeSystem"
+  <!-- Define purposeOfUseCodeSystem property on each receiving message -->
+  <vprop:property name="purposeOfUseCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeOfUseCodeSystem"
      messageType="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystem</vprop:query>
+        <vprop:query>purposeOfUseCodeSystem</vprop:query>
   </vprop:propertyAlias>
-  <!-- Define purposeForUseCodeSystemName property on each receiving message -->
-  <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="tns:purposeForUseCodeSystemName"
+  <!-- Define purposeOfUseCodeSystemName property on each receiving message -->
+  <vprop:property name="purposeOfUseCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeOfUseCodeSystemName"
      messageType="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+        <vprop:query>purposeOfUseCodeSystemName</vprop:query>
   </vprop:propertyAlias>
-  <!-- Define purposeForUseDisplayName property on each receiving message -->
-  <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
-  <vprop:propertyAlias propertyName="tns:purposeForUseDisplayName"
+  <!-- Define purposeOfUseDisplayName property on each receiving message -->
+  <vprop:property name="purposeOfUseDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeOfUseDisplayName"
      messageType="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage" part="body"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseDisplayName</vprop:query>
+        <vprop:query>purposeOfUseDisplayName</vprop:query>
   </vprop:propertyAlias>
   <!-- Define userFirstName property on each receiving message -->
   <vprop:property name="userFirstName" type="xsd:string"/>

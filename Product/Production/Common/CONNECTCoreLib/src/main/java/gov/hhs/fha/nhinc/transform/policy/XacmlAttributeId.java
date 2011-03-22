@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -30,10 +30,10 @@ public class XacmlAttributeId {
     public static final String UserRoleCodeSystem = "urn:gov:hhs:fha:nhinc:user-role-code-system";
     public static final String UserRoleCodeSystemName = "urn:gov:hhs:fha:nhinc:user-role-code-system-name";
     public static final String UserRoleCodeDiplayName = "urn:gov:hhs:fha:nhinc:user-role-description";
-    public static final String PurposeForUseCode = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
-    public static final String PurposeForUseCodeSystem = "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system";
-    public static final String PurposeForUseCodeSystemName = "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name";
-    public static final String PurposeForUseCodeDisplayName = "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name";
+    public static final String PurposeOfUseCode = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String PurposeOfUseCodeSystem = "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system";
+    public static final String PurposeOfUseCodeSystemName = "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name";
+    public static final String PurposeOfUseCodeDisplayName = "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name";
     public static final String AuthzDecisionStatementDecision = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision";
     public static final String AuthzDecisionStatementResource = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource";
     public static final String AuthzDecisionStatementAction = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action";
@@ -48,5 +48,5 @@ public class XacmlAttributeId {
     public static final String SignatureKeyModulus = "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-modulus";
     public static final String SignatureKeyExponent = "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-exponent";
     public static final String SignatureValue = "urn:gov:hhs:fha:nhinc:saml-signature-value";
-    
+
 }

@@ -24,6 +24,9 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import com.sun.xml.wss.impl.callback.*;
 import com.sun.xml.wss.saml.*;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -104,6 +107,8 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static Element svAssertion;
     private static Element hokAssertion20;
     private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
+
+    private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
     static {
         //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
@@ -511,7 +516,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeForUse
+     * UserRole, and PurposeOfUse
      * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of all Attribute statements
@@ -627,11 +632,20 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         try {
-            // Add the PurposeForUse Attribute
+            /*
+             * Gateway-347 - Support for both values will remain until NHIN Specs updated
+             * Determine whether to use PurposeOfUse or PuposeForUse
+             */
+            String purposeAttributeValueName = "hl7:PurposeOfUse";
+            if (isPurposeForUseEnabled()) {
+                purposeAttributeValueName = "hl7:PurposeForUse";
+            }
+
+            // Add the Purpose Of/For Use Attribute Value
             List attributeValues4 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
-            final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeForUse");
+            final Element purpose = document.createElementNS(HL7_NS, purposeAttributeValueName);
             elemPFUAttr.appendChild(purpose);
 
             purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
@@ -680,6 +694,25 @@ public class SamlCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler.addAssertStatements() -- End");
         return statements;
 
+    }
+
+    /**
+     * Returns boolean condition on whether PurposeForUse is enabled
+     * @return The PurposeForUse enabled setting
+     */
+    private boolean isPurposeForUseEnabled() {
+        boolean match = false;
+        try {
+            // Use CONNECT utility class to access gateway.properties
+            String purposeForUseEnabled = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+            if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
+                match = true;
+            }
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+        return match;
     }
 
     /**

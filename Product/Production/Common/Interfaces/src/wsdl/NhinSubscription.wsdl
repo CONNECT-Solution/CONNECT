@@ -384,83 +384,83 @@
         <vprop:query>resource</vprop:query>
     </vprop:propertyAlias>
 
-  <!-- Define purposeForUseRoleCode property on each receiving message -->
-    <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseRoleCode"
+  <!-- Define purposeOfUseRoleCode property on each receiving message -->
+    <vprop:property name="purposeOfUseRoleCode" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseRoleCode"
      messageType="wsntw:UnsubscribeRequest" part="UnsubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseRoleCode</vprop:query>
+        <vprop:query>purposeOfUseRoleCode</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseRoleCode"
+    <vprop:property name="purposeOfUseRoleCode" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseRoleCode"
      messageType="wsntw:Notify" part="Notify"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseRoleCode</vprop:query>
+        <vprop:query>purposeOfUseRoleCode</vprop:query>
     </vprop:propertyAlias>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseRoleCode"
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseRoleCode"
      messageType="wsntw:SubscribeRequest" part="SubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseRoleCode</vprop:query>
+        <vprop:query>purposeOfUseRoleCode</vprop:query>
     </vprop:propertyAlias>
   
-  <!-- Define purposeForUseCodeSystem property on each receiving message -->
-    <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseCodeSystem"
+  <!-- Define purposeOfUseCodeSystem property on each receiving message -->
+    <vprop:property name="purposeOfUseCodeSystem" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseCodeSystem"
      messageType="wsntw:UnsubscribeRequest" part="UnsubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystem</vprop:query>
+        <vprop:query>purposeOfUseCodeSystem</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseCodeSystem"
+    <vprop:property name="purposeOfUseCodeSystem" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseCodeSystem"
      messageType="wsntw:Notify" part="Notify"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystem</vprop:query>
+        <vprop:query>purposeOfUseCodeSystem</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseCodeSystem"
+    <vprop:property name="purposeOfUseCodeSystem" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseCodeSystem"
      messageType="wsntw:SubscribeRequest" part="SubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystem</vprop:query>
+        <vprop:query>purposeOfUseCodeSystem</vprop:query>
     </vprop:propertyAlias>
 
-  <!-- Define purposeForUseCodeSystemName property on each receiving message -->
-    <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseCodeSystemName"
+  <!-- Define purposeOfUseCodeSystemName property on each receiving message -->
+    <vprop:property name="purposeOfUseCodeSystemName" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseCodeSystemName"
      messageType="wsntw:UnsubscribeRequest" part="UnsubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+        <vprop:query>purposeOfUseCodeSystemName</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseCodeSystemName"
+    <vprop:property name="purposeOfUseCodeSystemName" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseCodeSystemName"
      messageType="wsntw:Notify" part="Notify"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+        <vprop:query>purposeOfUseCodeSystemName</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseCodeSystemName"
+    <vprop:property name="purposeOfUseCodeSystemName" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseCodeSystemName"
      messageType="wsntw:SubscribeRequest" part="SubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+        <vprop:query>purposeOfUseCodeSystemName</vprop:query>
     </vprop:propertyAlias>
 
-  <!-- Define purposeForUseDisplayName property on each receiving message -->
-    <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseDisplayName"
+  <!-- Define purposeOfUseDisplayName property on each receiving message -->
+    <vprop:property name="purposeOfUseDisplayName" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseDisplayName"
      messageType="wsntw:UnsubscribeRequest" part="UnsubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseDisplayName</vprop:query>
+        <vprop:query>purposeOfUseDisplayName</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseDisplayName"
+    <vprop:property name="purposeOfUseDisplayName" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseDisplayName"
      messageType="wsntw:Notify" part="Notify"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseDisplayName</vprop:query>
+        <vprop:query>purposeOfUseDisplayName</vprop:query>
     </vprop:propertyAlias>
-    <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
-    <vprop:propertyAlias propertyName="wsntw:purposeForUseDisplayName"
+    <vprop:property name="purposeOfUseDisplayName" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="wsntw:purposeOfUseDisplayName"
      messageType="wsntw:SubscribeRequest" part="SubscribeRequest"
      sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
-        <vprop:query>purposeForUseDisplayName</vprop:query>
+        <vprop:query>purposeOfUseDisplayName</vprop:query>
     </vprop:propertyAlias>
   
   <!-- Define userFirstName property on each receiving message -->

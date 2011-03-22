@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
@@ -55,7 +55,7 @@ public class AssertionHelper {
 //        }
 
 
-        //PurposeForUseHelper.appendPurposeForUse(policyRequest, assertion);
+        //PurposeOfUseHelper.appendPurposeOfUse(policyRequest, assertion);
 
         if (assertion != null) {
             appendAuthnStatementAuthnInstant(policyRequest, assertion);
@@ -72,10 +72,10 @@ public class AssertionHelper {
             appendUserRoleCodeSystem(policyRequest, assertion);
             appendUserRoleCodeSystemName(policyRequest, assertion);
             appendUserRoleCodeDiplayName(policyRequest, assertion);
-            appendPurposeForUseCode(policyRequest, assertion);
-            appendPurposeForUseCodeSystem(policyRequest, assertion);
-            appendPurposeForUseCodeSystemName(policyRequest, assertion);
-            appendPurposeForUseCodeDisplayName(policyRequest, assertion);
+            appendPurposeOfUseCode(policyRequest, assertion);
+            appendPurposeOfUseCodeSystem(policyRequest, assertion);
+            appendPurposeOfUseCodeSystemName(policyRequest, assertion);
+            appendPurposeOfUseCodeDisplayName(policyRequest, assertion);
             appendAuthzDecisionStatementDecision(policyRequest, assertion);
             appendAuthzDecisionStatementResource(policyRequest, assertion);
             appendAuthzDecisionStatementAction(policyRequest, assertion);
@@ -551,18 +551,18 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendPurposeForUseCode(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending PurposeForUseCode");
+    private void appendPurposeOfUseCode(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending PurposeOfUseCode");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeForUseCode;
+        String attributeId = XacmlAttributeId.PurposeOfUseCode;
         String dataType = Constants.DataTypeString;
-        String attributeValue = extractPurposeForUseCode(assertion);
+        String attributeValue = extractPurposeOfUseCode(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending PurposeForUseCode");
+        log.debug("end appending PurposeOfUseCode");
     }
 
-    private String extractPurposeForUseCode(AssertionType assertion) {
+    private String extractPurposeOfUseCode(AssertionType assertion) {
         String value = null;
         if ((assertion != null) && (assertion.getPurposeOfDisclosureCoded() != null)) {
             value = assertion.getPurposeOfDisclosureCoded().getCode();
@@ -571,18 +571,18 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendPurposeForUseCodeSystem(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending PurposeForUseCodeSystem");
+    private void appendPurposeOfUseCodeSystem(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending PurposeOfUseCodeSystem");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeForUseCodeSystem;
+        String attributeId = XacmlAttributeId.PurposeOfUseCodeSystem;
         String dataType = Constants.DataTypeString;
-        String attributeValue = extractPurposeForUseCodeSystem(assertion);
+        String attributeValue = extractPurposeOfUseCodeSystem(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending PurposeForUseCodeSystem");
+        log.debug("end appending PurposeOfUseCodeSystem");
     }
 
-    private String extractPurposeForUseCodeSystem(AssertionType assertion) {
+    private String extractPurposeOfUseCodeSystem(AssertionType assertion) {
         String value = null;
         if ((assertion != null) && (assertion.getPurposeOfDisclosureCoded() != null)) {
             value = assertion.getPurposeOfDisclosureCoded().getCodeSystem();
@@ -591,18 +591,18 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendPurposeForUseCodeSystemName(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending PurposeForUseCodeSystemName");
+    private void appendPurposeOfUseCodeSystemName(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending PurposeOfUseCodeSystemName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeForUseCodeSystemName;
+        String attributeId = XacmlAttributeId.PurposeOfUseCodeSystemName;
         String dataType = Constants.DataTypeString;
-        String attributeValue = extractPurposeForUseCodeSystemName(assertion);
+        String attributeValue = extractPurposeOfUseCodeSystemName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending PurposeForUseCodeSystemName");
+        log.debug("end appending PurposeOfUseCodeSystemName");
     }
 
-    private String extractPurposeForUseCodeSystemName(AssertionType assertion) {
+    private String extractPurposeOfUseCodeSystemName(AssertionType assertion) {
         String value = null;
         if ((assertion != null) && (assertion.getPurposeOfDisclosureCoded() != null)) {
             value = assertion.getPurposeOfDisclosureCoded().getCodeSystemName();
@@ -611,18 +611,18 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendPurposeForUseCodeDisplayName(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending PurposeForUseCodeDisplayName");
+    private void appendPurposeOfUseCodeDisplayName(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending PurposeOfUseCodeDisplayName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeForUseCodeDisplayName;
+        String attributeId = XacmlAttributeId.PurposeOfUseCodeDisplayName;
         String dataType = Constants.DataTypeString;
-        String attributeValue = extractPurposeForUseCodeDisplayName(assertion);
+        String attributeValue = extractPurposeOfUseCodeDisplayName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending PurposeForUseCodeDisplayName");
+        log.debug("end appending PurposeOfUseCodeDisplayName");
     }
 
-    private String extractPurposeForUseCodeDisplayName(AssertionType assertion) {
+    private String extractPurposeOfUseCodeDisplayName(AssertionType assertion) {
         String value = null;
         if ((assertion != null) && (assertion.getPurposeOfDisclosureCoded() != null)) {
             value = assertion.getPurposeOfDisclosureCoded().getDisplayName();

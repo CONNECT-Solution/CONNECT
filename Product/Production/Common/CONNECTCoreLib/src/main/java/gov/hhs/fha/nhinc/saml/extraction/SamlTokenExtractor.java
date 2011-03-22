@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -229,8 +229,8 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * The Subject element contains the user identification information.  It is 
-     * expected to follow an X509 format, but in the case that this is not 
+     * The Subject element contains the user identification information.  It is
+     * expected to follow an X509 format, but in the case that this is not
      * proven out it will save the entire contents as being the userid.
      * @param assertType The saml assertion type being read from
      * @param assertOut The Assertion element being written to
@@ -279,11 +279,11 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * Extracts the value of the UID object identifier of the X509 formatted 
-     * content.  This method uses Sun proprietary classes to determine if the 
-     * X509 is properly formed and to extract the value of the UID. The current 
-     * specification for the string representation of a distinguished name is 
-     * defined in <a href="http://www.ietf.org/rfc/rfc2253.txt">RFC 2253</a>. 
+     * Extracts the value of the UID object identifier of the X509 formatted
+     * content.  This method uses Sun proprietary classes to determine if the
+     * X509 is properly formed and to extract the value of the UID. The current
+     * specification for the string representation of a distinguished name is
+     * defined in <a href="http://www.ietf.org/rfc/rfc2253.txt">RFC 2253</a>.
      * @param in509 The X509 formatted string
      * @return The extracted userid value, null if not defined.
      */
@@ -313,11 +313,11 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * This method is responsible to extract the information from both the 
-     * AttributeStatements as found in the main Assertion element as well as the 
-     * AttributeStatements found in the Evidence element.  The permitted names 
-     * of the Attributes in the Assertion element are: UserRole, PurposeForUse, 
-     * UserName, UserOrganization. The permitted names of the Attributes in the 
+     * This method is responsible to extract the information from both the
+     * AttributeStatements as found in the main Assertion element as well as the
+     * AttributeStatements found in the Evidence element.  The permitted names
+     * of the Attributes in the Assertion element are: UserRole, PurposeOfUse,
+     * UserName, UserOrganization. The permitted names of the Attributes in the
      * Evidence element are: AccessConsentPolicy and InstanceAccessConsentPolicy
      * @param statement The attribute statement to be extracted
      * @param assertOut The Assertion element being written to
@@ -427,10 +427,10 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * The value of the UserName attribute is assumed to be a user's name in 
-     * plain text.  The name parts are extracted in this method as the first 
-     * word constitutes the first name, the last word constitutes the last name 
-     * and all other text in between these words constitute the middle name. 
+     * The value of the UserName attribute is assumed to be a user's name in
+     * plain text.  The name parts are extracted in this method as the first
+     * word constitutes the first name, the last word constitutes the last name
+     * and all other text in between these words constitute the middle name.
      * @param attrib The Attribute that has the user name as its value
      * @param assertOut The Assertion element being written to
      */
@@ -497,11 +497,11 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * The value of the UserRole and PurposeForUse attributes are formatted 
-     * according to the specifications of an nhin:CodedElement.  This method 
-     * parses that expected structure to obtain the code, codeSystem, 
+     * The value of the UserRole and PurposeOfUse attributes are formatted
+     * according to the specifications of an nhin:CodedElement.  This method
+     * parses that expected structure to obtain the code, codeSystem,
      * codeSystemName, and the displayName attributes of that element.
-     * @param attrib The Attribute that has the UserRole or PurposeForUse as its 
+     * @param attrib The Attribute that has the UserRole or PurposeOfUse as its
      * value
      * @param assertOut The Assertion element being written to
      * @param codeId Identifies which coded element this is parsing
@@ -630,7 +630,7 @@ public class SamlTokenExtractor {
                     (contents.size() > 0)) {
                 for (JAXBElement jaxElem1 : contents) {
                     // When you look at the actual XML string, it looks as follows:
-                    // 		<saml2:AuthnContext>
+                    //      <saml2:AuthnContext>
                     //          <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</saml2:AuthnContextClassRef>
                     //      </saml2:AuthnContext>
                     // This implies that we should see under the AuthnContext tag another tag.  But for some reason the
@@ -669,9 +669,9 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * The Authorization Decision Statement is used to convey a form authorizing 
-     * access to medical records.  It may embed the binary content of the 
-     * authorization form as well describing the conditions of its validity.  
+     * The Authorization Decision Statement is used to convey a form authorizing
+     * access to medical records.  It may embed the binary content of the
+     * authorization form as well describing the conditions of its validity.
      * This method saves off all values associated with this Evidence.
      * @param authzState The authorization decision element
      * @param assertOut The Assertion element being written to
@@ -802,8 +802,8 @@ public class SamlTokenExtractor {
     }
 
     /**
-     * This method extracts the dates of validity for the Evidence's 
-     * authorization form.  These dates are contained in the Conditions element 
+     * This method extracts the dates of validity for the Evidence's
+     * authorization form.  These dates are contained in the Conditions element
      * and are written out to the storage file by this method.
      * @param assertOut The Assertion element being written to
      * @param conditions The Evidence's Conditions element

@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -30,10 +30,10 @@ public class NhincConstants {
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
-    public static final String PURPOSE_CODE_PROP = "purposeForUseRoleCode";
-    public static final String PURPOSE_SYST_PROP = "purposeForUseCodeSystem";
-    public static final String PURPOSE_SYST_NAME_PROP = "purposeForUseCodeSystemName";
-    public static final String PURPOSE_DISPLAY_PROP = "purposeForUseDisplayName";
+    public static final String PURPOSE_CODE_PROP = "purposeOfUseRoleCode";
+    public static final String PURPOSE_SYST_PROP = "purposeOfUseCodeSystem";
+    public static final String PURPOSE_SYST_NAME_PROP = "purposeOfUseCodeSystemName";
+    public static final String PURPOSE_DISPLAY_PROP = "purposeOfUseDisplayName";
     public static final String USER_FIRST_PROP = "userFirstName";
     public static final String USER_MIDDLE_PROP = "userMiddleName";
     public static final String USER_LAST_PROP = "userLastName";
@@ -375,6 +375,7 @@ public class NhincConstants {
     public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASYNCMSGS_REPOSITORY = "AsyncMsgs.hibernate.cfg.xml";
     public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
+    public static final String HIBERNATE_PATIENTDB_REPOSITORY = "patientdb.hibernate.cfg.xml";
     //LiFT Constants
     public static final String LIFT_MANAGER_SERVICE_NAME = "nhincliftmanager";
     public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";

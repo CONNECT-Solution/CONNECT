@@ -9,13 +9,13 @@
             </xsd:element>
             <xsd:element name="resource" type="xsd:string">
             </xsd:element>
-            <xsd:element name="purposeForUseRoleCode" type="xsd:string">
+            <xsd:element name="purposeOfUseRoleCode" type="xsd:string">
             </xsd:element>
-            <xsd:element name="purposeForUseCodeSystem" type="xsd:string">
+            <xsd:element name="purposeOfUseCodeSystem" type="xsd:string">
             </xsd:element>
-            <xsd:element name="purposeForUseCodeSystemName" type="xsd:string">
+            <xsd:element name="purposeOfUseCodeSystemName" type="xsd:string">
             </xsd:element>
-            <xsd:element name="purposeForUseDisplayName" type="xsd:string">
+            <xsd:element name="purposeOfUseDisplayName" type="xsd:string">
             </xsd:element>
             <xsd:element name="userFirstName" type="xsd:string">
             </xsd:element>

@@ -4991,7 +4991,7 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.transform.policy.PurposeForUseHelper"
+              class="gov.hhs.fha.nhinc.transform.policy.PurposeOfUseHelper"
               linecount="16"
               linerate="80"
               linesexecuted="0"/>

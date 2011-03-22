@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -24,7 +24,7 @@ public class SubjectHelper {
     public static final String SubjectCategory = "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
 //    private static final String UserAttributeId = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
     public static final String UserRoleAttributeId = "urn:gov:hhs:fha:nhinc:user-role-code";
-    public static final String PurposeAttributeId = "urn:gov:hhs:fha:nhinc:purpose-for-use";
+    public static final String PurposeAttributeId = "urn:gov:hhs:fha:nhinc:purpose-of-use";
     public static final String UserHomeCommunityAttributeId = "urn:gov:hhs:fha:nhinc:home-community-id";
 
     public SubjectType subjectFactory(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {

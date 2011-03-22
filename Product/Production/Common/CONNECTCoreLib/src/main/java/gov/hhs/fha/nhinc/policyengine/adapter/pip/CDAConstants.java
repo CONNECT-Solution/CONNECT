@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -93,10 +93,10 @@ public class CDAConstants
     public static final String USER_ROLE_CD_SYSTEM = "UserRoleCodeSystem";
     public static final String USER_ROLE_CD_SYSTEM_NAME = "UserRoleCodeSystemName";
     public static final String USER_ROLE_DISPLAY_NAME = "UserRoleDisplayName";
-    public static final String PURPOSE_FOR_USE_ROLE_CD = "PurposeForUseRoleCode";
-    public static final String PURPOSE_FOR_USE_CODE_SYSTEM = "PurposeForUseCodeSystem";
-    public static final String PURPOSE_FOR_USE_CODE_SYSTEM_NAME = "PurposeForUseCodeSystemName";
-    public static final String PURPOSE_FOR_USE_DISPLAY_NAME = "PurposeForUseDisplayName";
+    public static final String PURPOSE_FOR_USE_ROLE_CD = "PurposeOfUseRoleCode";
+    public static final String PURPOSE_FOR_USE_CODE_SYSTEM = "PurposeOfUseCodeSystem";
+    public static final String PURPOSE_FOR_USE_CODE_SYSTEM_NAME = "PurposeOfUseCodeSystemName";
+    public static final String PURPOSE_FOR_USE_DISPLAY_NAME = "PurposeOfUseDisplayName";
     public static final String ACCESS_POLICY_CONSENT = "AccessPolicyConsent";
     public static final String INSTANCE_ACCESS_POLICY_CONSENT = "InstanceAccessPolicyConsent";
     public static final String SubscribeeCommunityList_PROPFILE_NAME = "SubscribeeCommunityList";
