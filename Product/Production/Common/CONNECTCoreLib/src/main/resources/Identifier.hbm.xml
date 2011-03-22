@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : Identifier.hbm.xml
+    Created on : March 21, 2011, 10:29 PM
+    Author     : richard.ettema
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping>
+    <class name="gov.hhs.fha.nhinc.patientdb.model.Identifier" table="identifier">
+
+        <id name="identifierId">
+            <generator class="native"/>
+        </id>
+
+        <many-to-one column="patientId" insert="false" name="patient" update="false"/>
+    
+        <property name="id" column="id"/>
+    
+        <property name="organizationId" column="organizationId"/>
+
+    </class>
+</hibernate-mapping>

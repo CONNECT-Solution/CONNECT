@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : Patient.hbm.xml
+    Created on : March 21, 2011, 10:29 PM
+    Author     : richard.ettema
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping>
+    <class name="gov.hhs.fha.nhinc.patientdb.model.Patient" table="patient">
+
+        <id name="patientId">
+            <generator class="native"/>
+        </id>
+
+        <property name="dateOfBirth" column="dateOfBirth"/>
+    
+        <property name="gender" column="gender"/>
+    
+        <property name="ssn" column="ssn"/>
+    
+        <bag name="addressess" inverse="true">
+            <key column="patientId"/>
+            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Address"/>
+        </bag>
+
+        <bag name="identifierss" inverse="true">
+            <key column="patientId"/>
+            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Identifier"/>
+        </bag>
+
+        <bag name="personnamess" inverse="true">
+            <key column="patientId"/>
+            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Personname"/>
+        </bag>
+
+        <bag name="phonenumberss" inverse="true">
+            <key column="patientId"/>
+            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Phonenumber"/>
+        </bag>
+
+    </class>
+</hibernate-mapping>

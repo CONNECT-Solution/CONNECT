@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : Address.hbm.xml
+    Created on : March 21, 2011, 10:29 PM
+    Author     : richard.ettema
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping>
+    <class name="gov.hhs.fha.nhinc.patientdb.model.Address" table="address">
+
+        <id name="addressId">
+            <generator class="native"/>
+        </id>
+    
+        <many-to-one column="patientId" insert="false" name="patient" update="false"/>
+    
+        <property name="street1" column="street1"/>
+    
+        <property name="street2" column="street2"/>
+    
+        <property name="city" column="city"/>
+    
+        <property name="state" column="state"/>
+    
+        <property name="postal" column="postal"/>
+
+    </class>
+</hibernate-mapping>
