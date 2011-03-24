@@ -21,11 +21,11 @@ import org.hl7.v3.PRPAIN201305UV02;
  *
  * @author Jon Hoppesch
  */
-public class PatientChecker {
+public class PatientChecker implements AdapterComponentMpiChecker {
 
     private static Log log = LogFactory.getLog(PatientChecker.class);
 
-    public static PRPAIN201306UV02 FindPatient(PRPAIN201305UV02 query) {
+    public PRPAIN201306UV02 FindPatient(PRPAIN201305UV02 query) {
         log.debug("Entering PatientChecker.FindPatient method...");
         PRPAIN201306UV02 result = null;
 
