@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.patientdb.model;
 import java.util.List;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,42 +21,34 @@ public class Patient implements Serializable {
      * Attribute patientId.
      */
     private Long patientId;
-
     /**
      * Attribute dateOfBirth.
      */
     private Timestamp dateOfBirth;
-
     /**
      * Attribute gender.
      */
     private String gender;
-
     /**
      * Attribute ssn.
      */
     private String ssn;
-
     /**
      * List of Addresses
      */
-    private List<Address> addressess = null;
-
+    private List<Address> addresses = null;
     /**
      * List of Identifiers
      */
-    private List<Identifier> identifierss = null;
-
+    private List<Identifier> identifiers = null;
     /**
      * List of Personnames
      */
-    private List<Personname> personnamess = null;
-
+    private List<Personname> personnames = null;
     /**
      * List of Phonenumbers
      */
-    private List<Phonenumber> phonenumberss = null;
-
+    private List<Phonenumber> phonenumbers = null;
 
     /**
      * @return patientId
@@ -116,55 +109,68 @@ public class Patient implements Serializable {
     /**
      * Get the list of Addresses
      */
-     public List<Address> getAddressess() {
-        return this.addressess;
-     }
+    public List<Address> getAddresses() {
+        if (this.addresses == null) {
+            this.addresses = new ArrayList<Address>();
+        }
+        return this.addresses;
+    }
 
     /**
      * Set the list of Addresses
      */
-     public void setAddressess(List<Address> addressess) {
-        this.addressess = addressess;
-     }
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
     /**
      * Get the list of Identifiers
      */
-     public List<Identifier> getIdentifierss() {
-        return this.identifierss;
-     }
+    public List<Identifier> getIdentifiers() {
+        if (this.identifiers == null) {
+            this.identifiers = new ArrayList<Identifier>();
+        }
+        return this.identifiers;
+    }
 
     /**
      * Set the list of Identifiers
      */
-     public void setIdentifierss(List<Identifier> identifierss) {
-        this.identifierss = identifierss;
-     }
+    public void setIdentifiers(List<Identifier> identifiers) {
+        this.identifiers = identifiers;
+    }
+
     /**
      * Get the list of Personnames
      */
-     public List<Personname> getPersonnamess() {
-        return this.personnamess;
-     }
+    public List<Personname> getPersonnames() {
+        if (this.personnames == null) {
+            this.personnames = new ArrayList<Personname>();
+        }
+        return this.personnames;
+    }
 
     /**
      * Set the list of Personnames
      */
-     public void setPersonnamess(List<Personname> personnamess) {
-        this.personnamess = personnamess;
-     }
+    public void setPersonnames(List<Personname> personnames) {
+        this.personnames = personnames;
+    }
+
     /**
      * Get the list of Phonenumbers
      */
-     public List<Phonenumber> getPhonenumberss() {
-        return this.phonenumberss;
-     }
+    public List<Phonenumber> getPhonenumbers() {
+        if (this.phonenumbers == null) {
+            this.phonenumbers = new ArrayList<Phonenumber>();
+        }
+        return this.phonenumbers;
+    }
 
     /**
      * Set the list of Phonenumbers
      */
-     public void setPhonenumberss(List<Phonenumber> phonenumberss) {
-        this.phonenumberss = phonenumberss;
-     }
-
-
+    public void setPhonenumbers(List<Phonenumber> phonenumbers) {
+        this.phonenumbers = phonenumbers;
+    }
 }
