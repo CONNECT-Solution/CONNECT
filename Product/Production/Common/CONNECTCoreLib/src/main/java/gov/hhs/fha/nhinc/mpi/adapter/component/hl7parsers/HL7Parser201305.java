@@ -4,13 +4,8 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
-//import gov.hhs.fha.nhinc.mpi.*;
 import gov.hhs.fha.nhinc.mpilib.*;
 import java.util.List;
 import java.io.Serializable;
@@ -219,6 +214,131 @@ public class HL7Parser201305 {
         return ids;
     }
 
+    public static Address ExtractPersonAddress(PRPAMT201306UV02ParameterList params) {
+        log.debug("Entering HL7Parser201305.ExtractPersonAddress method...");
+
+        Address address = null;
+
+        if (params.getPatientAddress() != null &&
+                params.getPatientAddress().size() > 0 &&
+                params.getPatientAddress().get(0) != null) {
+            PRPAMT201306UV02PatientAddress patientAddress = params.getPatientAddress().get(0);
+
+            if (patientAddress.getValue() != null &&
+                    patientAddress.getValue().size() > 0 &&
+                    patientAddress.getValue().get(0) != null) {
+                ADExplicit adExplicit = patientAddress.getValue().get(0);
+
+                List<Serializable> choice = adExplicit.getContent();
+
+                log.info("choice.size()=" + choice.size());
+
+                Iterator<Serializable> iterSerialObjects = choice.iterator();
+
+                int addressLineCounter = 0;
+                AdxpExplicitStreetAddressLine addressLine1 = null;
+                AdxpExplicitStreetAddressLine addressLine2 = null;
+                AdxpExplicitCity city = null;
+                AdxpExplicitState state = null;
+                AdxpExplicitPostalCode postalCode = null;
+
+                while (iterSerialObjects.hasNext()) {
+                    log.info("in iterSerialObjects.hasNext() loop");
+
+                    Serializable contentItem = iterSerialObjects.next();
+
+                    if (contentItem instanceof JAXBElement) {
+                        log.info("contentItem is JAXBElement");
+
+                        JAXBElement oJAXBElement = (JAXBElement) contentItem;
+
+                        if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine) {
+                            addressLineCounter++;
+                            if (addressLineCounter == 1) {
+                                addressLine1 = new AdxpExplicitStreetAddressLine();
+                                addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
+                                log.info("found addressLine1 element; content=" + addressLine1.getContent());
+                                if (address == null) address = new Address();
+                                address.setStreet1(addressLine1.getContent());
+                            }
+                            if (addressLineCounter == 2) {
+                                addressLine2 = new AdxpExplicitStreetAddressLine();
+                                addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
+                                log.info("found addressLine2 element; content=" + addressLine2.getContent());
+                                if (address == null) address = new Address();
+                                address.setStreet2(addressLine2.getContent());
+                            }
+                        }
+                        else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
+                            city = new AdxpExplicitCity();
+                            city = (AdxpExplicitCity) oJAXBElement.getValue();
+                            log.info("found city element; content=" + city.getContent());
+                            if (address == null) address = new Address();
+                            address.setCity(city.getContent());
+                        }
+                        else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
+                            state = new AdxpExplicitState();
+                            state = (AdxpExplicitState) oJAXBElement.getValue();
+                            log.info("found state element; content=" + state.getContent());
+                            if (address == null) address = new Address();
+                            address.setState(state.getContent());
+                        }
+                        else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
+                            postalCode = new AdxpExplicitPostalCode();
+                            postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
+                            log.info("found postalCode element; content=" + postalCode.getContent());
+                            if (address == null) address = new Address();
+                            address.setZip(postalCode.getContent());
+                        }
+                        else {
+                            log.info("other address part=" + (ADXPExplicit) oJAXBElement.getValue());
+                        }
+                    } else {
+                        log.info("contentItem is other");
+                    }
+                }
+
+            }
+        }
+
+        return address;
+    }
+
+    public static String ExtractTelecom(PRPAMT201306UV02ParameterList params) {
+        log.debug("Entering HL7Parser201305.ExtractTelecom method...");
+
+        String telecom = null;
+
+        // Extract the telecom (phone number) from the query parameters - Assume only one was specified
+        if (params.getPatientTelecom() != null &&
+                params.getPatientTelecom().size() > 0 &&
+                params.getPatientTelecom().get(0) != null) {
+            PRPAMT201306UV02PatientTelecom patientTelecom = params.getPatientTelecom().get(0);
+
+            if (patientTelecom.getValue() != null &&
+                    patientTelecom.getValue().size() > 0 &&
+                    patientTelecom.getValue().get(0) != null) {
+                TELExplicit telecomValue = patientTelecom.getValue().get(0);
+                log.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
+                telecom = telecomValue.getValue();
+                if (telecom != null) {
+                    if (!telecom.startsWith("tel:")) {
+                        // telecom is not valid without tel: prefix
+                        telecom = null;
+                        log.info("Found patientTelecom in query parameters is not in the correct uri format");
+                    }
+                }
+            } else {
+                log.info("message does not contain a patientTelecom");
+            }
+        } else {
+            log.info("message does not contain a patientTelecom");
+        }
+
+        log.debug("Exiting HL7Parser201305.ExtractTelecom method...");
+        return telecom;
+    }
+
     public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(
             org.hl7.v3.PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
@@ -277,6 +397,18 @@ public class HL7Parser201305 {
 
             Identifiers ids = ExtractPersonIdentifiers(params);
             mpiPatient.setIdentifiers(ids);
+
+            Address address = ExtractPersonAddress(params);
+            if (address != null) {
+                mpiPatient.getAddresses().add(address);
+            }
+
+            String telecom = ExtractTelecom(params);
+            if (telecom != null) {
+                PhoneNumber phoneNumber = new PhoneNumber();
+                phoneNumber.setPhoneNumber(telecom);
+                mpiPatient.getPhoneNumbers().add(phoneNumber);
+            }
         } else {
             mpiPatient = null;
         }
