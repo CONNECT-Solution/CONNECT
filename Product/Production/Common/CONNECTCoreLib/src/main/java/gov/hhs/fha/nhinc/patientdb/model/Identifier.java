@@ -91,4 +91,19 @@ public class Identifier implements Serializable {
         this.organizationId = organizationId;
     }
 
+    // Helper getter methods
+
+    /**
+     * @return hl7UniquePatientId
+     */
+    public String getHl7UniquePatientId() {
+        String hl7UniquePatientId = "";
+
+        if (this.id != null && this.organizationId != null) {
+            hl7UniquePatientId = this.id + "^^^&" + this.organizationId + "&ISO";
+        }
+
+        return hl7UniquePatientId;
+    }
+
 }
