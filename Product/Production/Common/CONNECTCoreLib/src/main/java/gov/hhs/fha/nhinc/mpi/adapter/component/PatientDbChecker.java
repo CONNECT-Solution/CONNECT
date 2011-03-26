@@ -8,6 +8,8 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7DbParser201305;
 import gov.hhs.fha.nhinc.patientdb.model.*;
+import gov.hhs.fha.nhinc.patientdb.service.MpiDbService;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
@@ -31,6 +33,8 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
         } else {
             Patient sourcePatient = HL7DbParser201305.ExtractMpiPatientFromQueryParams(queryParams);
             log.info("perform patient lookup in mpi db");
+            MpiDbService service = MpiDbService.GetMpiInstance();
+            List<Patient> patientList = service.findAllPatients(sourcePatient);
 
 //            log.info("source patient check 1 [" + sourcePatient.toString()+ "]");
 //            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient);
