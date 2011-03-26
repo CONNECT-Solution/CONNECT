@@ -143,6 +143,70 @@ public class PatientDAO {
         return foundRecord;
     }
 
+
+     /**
+     * Fetch all the matching patients from all the community and all assigning authorities
+     * on a known id.
+     * @param Patient
+     * @return Patient
+     */
+    public List<Patient> findAllPatients(Patient patient) {
+        log.debug("PatientDAO.findAllPatients() - Begin");
+
+        if (patient.getPatientId() == null) {
+            log.info("-- PatientId Parameter is required for Patient Query --");
+            log.debug("PatientDAO.findAllPatients() - End");
+            return null;
+        }
+
+        Session session = null;
+        List<Patient> queryList = null;
+        List<Patient> patientsList = new ArrayList<Patient>();
+       // Patient foundRecord = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            log.info("Reading Record...");
+            Long param1 = patient.getPatientId();
+            String param2 = patient.getGender();
+            Timestamp param3 = patient.getDateOfBirth();
+            String param4 = patient.getPersonnames().get(0).getFirstName();
+            String param5 = patient.getPersonnames().get(0).getLastName();
+
+            String sql ="SELECT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid " +
+                         " FROM patientdb.patient p " +
+                         " INNER JOIN patientdb.identifier i ON p.patientId = " +param1 +
+                         " INNER JOIN patientdb.personname n ON p.patientId = " +param1 + 
+                         " WHERE p.gender = '" +param2 + "' +  AND p.dateOfBirth = '" +param3+ "' " +
+                         " AND n.firstname = '"+param4+"' " +
+                         " AND n.lastname =  '"+ param5+"' " +
+                         " ORDER BY i.id, i.organizationid ";
+            // Build the criteria
+            log.debug("-- PatientId Parameter is required for Patient Query --"+sql);
+             queryList = session.createSQLQuery(sql).list();
+            //queryList = aCriteria.list();
+            
+             for(Patient pd : queryList ){
+                patientsList.add(pd);
+             }
+
+            /*if (queryList != null && queryList.size() > 0) {
+                foundRecord = queryList.get(0);
+            }*/
+
+        } catch (Exception e) {
+            log.error("Exception during read occured due to :" + e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        log.debug("PatientDAO.findAllPatients() - End");
+        return patientsList;
+    }
+
     /**
      * Update a single <code>Patient</code> record.
      * @param patientRecord
