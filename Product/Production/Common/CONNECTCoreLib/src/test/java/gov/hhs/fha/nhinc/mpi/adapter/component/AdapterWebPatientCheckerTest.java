@@ -63,8 +63,8 @@ public class AdapterWebPatientCheckerTest {
         Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "M", "March 1, 1956", patId);
 
         PRPAIN201306UV02 expResult = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
-
-        PRPAIN201306UV02 result = PatientChecker.FindPatient(query);
+        PatientChecker checker = new PatientChecker();
+        PRPAIN201306UV02 result = checker.FindPatient(query);
 
         // Verify the messages match
         TestHelper.AssertPatientIdsAreSame(expResult, result);
@@ -80,7 +80,8 @@ public class AdapterWebPatientCheckerTest {
         subjectId.setRoot("2.16.840.1.113883.3.200");
         subjectId.setExtension("1239");
         PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Anderson", "M", "March 1, 1956", subjectId);
-        PRPAIN201306UV02 result = PatientChecker.FindPatient(query);
+        PatientChecker checker = new PatientChecker();
+        PRPAIN201306UV02 result = checker.FindPatient(query);
         assertNull(result);
     }
 }
