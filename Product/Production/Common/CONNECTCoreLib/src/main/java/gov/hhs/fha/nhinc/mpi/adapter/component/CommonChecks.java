@@ -7,18 +7,12 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.mpilib.Patients;
-import gov.hhs.fha.nhinc.patientdb.model.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author rayj
  */
 public class CommonChecks {
-
-    // MPI XML Checks
 
     public static boolean isSingleSearchResult(Patients patients) {
         return ((patients != null) && (patients.size() == 1));
@@ -29,33 +23,6 @@ public class CommonChecks {
     }
 
     public static boolean isZeroSearchResult(Patients patients) {
-        return ((patients == null) || (patients.size() == 0));
-    }
-
-    // MPI DB Checks
-
-    public static boolean isSinglePerAASearchResult(List<Patient> patients) {
-        boolean result = true;
-
-        Map testMap = new HashMap();
-        if (patients != null) {
-            for (Patient patient : patients) {
-                if (patient.getIdentifiers() != null &&
-                        patient.getIdentifiers().size() > 0 &&
-                        patient.getIdentifiers().get(0) != null) {
-                    String orgId = patient.getIdentifiers().get(0).getOrganizationId();
-                    if (testMap.containsKey(orgId)) {
-                        result = false;
-                        break;
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public static boolean isZeroPerAASearchResult(List<Patient> patients) {
         return ((patients == null) || (patients.size() == 0));
     }
 
