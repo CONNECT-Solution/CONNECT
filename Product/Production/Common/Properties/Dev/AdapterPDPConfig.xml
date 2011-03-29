@@ -17,7 +17,12 @@
 	<!-- No-op Implementation -->
 	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyNoopImpl" id="adapterpdp" name="adapterpdpnoop"> 
 		<meta key="impltype" value="noop"/>
-	</bean> 
+	</bean>
+	
+	<!-- Java Implementation of policyengine as per XACML specification-->
+	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyJavaImpl" id="adapterpdpjava" name="adapterpdpjava"> 
+			<meta key="impltype" value="java"/>
+	</bean>
 
 	<!-- OpenSSO Client Implementation -->
 	<bean class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyOpenSSOClientImpl" id="adapterpdpopenssoclient" name="adapterpdpopenssoclient"> 
