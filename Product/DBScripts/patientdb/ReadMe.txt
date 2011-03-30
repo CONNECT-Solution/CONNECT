@@ -1,6 +1,3 @@
-#####################################################################
-# AEGIS.net, Inc. - CONNECT 3.2 - MiniMPIDB - Patient DB Schema
-#####################################################################
 Step 1 - Place the patientdb.sql file in c:\temp folder
 Step 2 - Goto MySQL / bin folder using command prompt
 Step 3 - execute the below step to install patientdb schema to your MySql database
