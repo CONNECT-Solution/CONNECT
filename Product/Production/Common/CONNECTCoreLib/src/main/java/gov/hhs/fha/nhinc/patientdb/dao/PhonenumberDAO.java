@@ -228,7 +228,7 @@ public class PhonenumberDAO {
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
-            aCriteria.add(Expression.eq("patientId", patientId));
+            aCriteria.add(Expression.eq("patient.patientId", patientId));
 
             queryList = aCriteria.list();
         } catch (Exception e) {

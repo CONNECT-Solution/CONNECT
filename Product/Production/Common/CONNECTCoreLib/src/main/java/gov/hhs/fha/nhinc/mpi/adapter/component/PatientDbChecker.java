@@ -52,7 +52,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
 
                     // At lease one match found, generate response checking for duplicates within each AA
                     log.debug("At lease one match found, generate response checking for duplicates");
-                    //result = HL7DbParser201306.BuildMessageFromMpiPatients(patientList, query);
+                    result = HL7DbParser201306.BuildMessageFromMpiPatients(patientList, query);
                 } else {
                     // No matches found, generate appropriate empty response
                     log.debug("No matches found, generate appropriate empty response");

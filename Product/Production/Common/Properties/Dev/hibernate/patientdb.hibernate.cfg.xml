@@ -13,12 +13,8 @@
 
 <hibernate-configuration>
 <session-factory>
-      <property name="hibernate.connection.driver_class">
-
-com.mysql.jdbc.Driver</property>
-      <property name="hibernate.connection.url">
-
-jdbc:mysql:///auditrepo</property>
+      <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+      <property name="hibernate.connection.url">jdbc:mysql:///patientdb</property>
       <property name="hibernate.connection.username">nhincuser</property>
       <property name="hibernate.connection.password">nhincpass</property>
       <property name="show_sql">true</property>

@@ -228,7 +228,7 @@ public class AddressDAO {
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Address.class);
 
-            aCriteria.add(Expression.eq("patientId", patientId));
+            aCriteria.add(Expression.eq("patient.patientId", patientId));
 
             queryList = aCriteria.list();
         } catch (Exception e) {
