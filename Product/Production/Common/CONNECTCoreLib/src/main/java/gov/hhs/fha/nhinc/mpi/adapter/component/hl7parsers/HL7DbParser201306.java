@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.*;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
@@ -30,10 +31,9 @@ public class HL7DbParser201306 {
     private static Log log = LogFactory.getLog(HL7Parser201306.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
-    private static final String DEFAULT_AA_OID = "1.1";
 
-    public static PRPAIN201306UV02 BuildMessageFromMpiPatient(List<Patient> patients, PRPAIN201305UV02 query) {
-        log.debug("Entering HL7Parser201306.BuildMessageFromMpiPatient method...");
+    public static PRPAIN201306UV02 BuildMessageFromMpiPatients(List<Patient> patients, PRPAIN201305UV02 query) {
+        log.debug("Entering HL7Parser201306.BuildMessageFromMpiPatients method...");
 
         PRPAIN201306UV02 msg = new PRPAIN201306UV02();
 
@@ -43,8 +43,10 @@ public class HL7DbParser201306 {
         II id = new II();
         try {
             id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
-        } catch (Exception e) {
-            id.setRoot(DEFAULT_AA_OID);
+        } catch (PropertyAccessException e) {
+            log.error("PropertyAccessException - Default Assigning Authority property not defined in adapter.properties", e);
+            // CONNECT environment corrupt; return error response
+            //return BuildMessageForError(<ERROR_CODE>, query);
         }
         id.setExtension(MessageIdGenerator.GenerateMessageId());
         msg.setId(id);
@@ -122,25 +124,28 @@ public class HL7DbParser201306 {
 
         controlActProcess.setQueryAck(createQueryAck(query));
 
-        MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
-        authorOrPerformer.setTypeCode(XParticipationAuthorPerformer.AUT);
-
-        COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
-        II id = new II();
-        try {
-            id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
-        } catch (Exception e) {
-            id.setRoot(DEFAULT_AA_OID);
-        }
-        assignedDevice.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
-        assignedDevice.getId().add(id);
-
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
-        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
-
-        authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
-
-        controlActProcess.getAuthorOrPerformer().add(authorOrPerformer);
+        // ========== TO BE REMOVED ==========
+//        MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
+//        authorOrPerformer.setTypeCode(XParticipationAuthorPerformer.AUT);
+//
+//        COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
+//        II id = new II();
+//        try {
+//            id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
+//        } catch (PropertyAccessException e) {
+//            log.error("PropertyAccessException - Default Assigning Authority property not defined in adapter.properties", e);
+//            // CONNECT environment corrupt; return error response
+//            //return BuildMessageForError(<ERROR_CODE>, query);
+//        }
+//        assignedDevice.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
+//        assignedDevice.getId().add(id);
+//
+//        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
+//        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
+//
+//        authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
+//
+//        controlActProcess.getAuthorOrPerformer().add(authorOrPerformer);
 
         return controlActProcess;
     }

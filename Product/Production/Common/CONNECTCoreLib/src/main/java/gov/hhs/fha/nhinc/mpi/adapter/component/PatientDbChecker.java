@@ -7,8 +7,10 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7DbParser201305;
+import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7DbParser201306;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.*;
-import gov.hhs.fha.nhinc.patientdb.service.MpiDbService;
+import gov.hhs.fha.nhinc.patientdb.service.PatientService;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,29 +34,50 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
             log.error("no query parameters were supplied");
         } else {
             Patient sourcePatient = HL7DbParser201305.ExtractMpiPatientFromQueryParams(queryParams);
-            log.info("perform patient lookup in mpi db");
-            MpiDbService service = MpiDbService.GetMpiInstance();
-            List<Patient> patientList = service.findAllPatients(sourcePatient);
 
-//            log.info("source patient check 1 [" + sourcePatient.toString()+ "]");
-//            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient);
-//            if (CommonChecks.isZeroSearchResult(searchResults)) {
-//                log.info("patient not found in MPI");
-//                result = null;
-//            } else if (CommonChecks.isMultipleSearchResult(searchResults)) {
-//                log.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
-//                result = null;
-//            } else {
-//                log.info("single patient found in MPI");
-//                Patient searchResultPatient = searchResults.get(0);
-//                log.info("Found patient " + searchResultPatient.toString());
-//
-//                result = HL7Parser201306.BuildMessageFromMpiPatient (searchResultPatient, query);
-//            }
+            // Check for required NHIN query parameters
+            if (!isNhinRequiredParamsFound(sourcePatient)) {
+                // Not all required NHIN query parameters found, generate appropriate empty response
+                log.debug("Not all required NHIN query parameters found, generate appropriate empty response");
+            } else {
+                // Minimum required NHIN query parameters found, perform find
+                PatientService patientService = PatientService.getPatientService();
+                List<Patient> patientList = patientService.findPatients(sourcePatient);
+
+                if (patientList != null && patientList.size() > 0) {
+                    int counter = 0;
+                    for (Patient patient : patientList) {
+                        log.debug("patientList[" + counter + "] = " + patient.toString());
+                    }
+
+                    // At lease one match found, generate response checking for duplicates within each AA
+                    log.debug("At lease one match found, generate response checking for duplicates");
+                    //result = HL7DbParser201306.BuildMessageFromMpiPatients(patientList, query);
+                } else {
+                    // No matches found, generate appropriate empty response
+                    log.debug("No matches found, generate appropriate empty response");
+                }
+            }
         }
 
         log.debug("Exiting PatientDbChecker.FindPatient method...");
         return result;
     }
 
+    private boolean isNhinRequiredParamsFound(Patient sourcePatient) {
+        boolean result = false;
+
+        if (sourcePatient != null &&
+                sourcePatient.getPersonnames() != null &&
+                sourcePatient.getPersonnames().size() > 0 &&
+                sourcePatient.getPersonnames().get(0) != null &&
+                NullChecker.isNotNullish(sourcePatient.getPersonnames().get(0).getFirstName()) &&
+                NullChecker.isNotNullish(sourcePatient.getPersonnames().get(0).getLastName()) &&
+                NullChecker.isNotNullish(sourcePatient.getGender()) &&
+                sourcePatient.getDateOfBirth() != null) {
+            result = true;
+        }
+
+        return result;
+    }
 }

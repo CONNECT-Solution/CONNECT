@@ -7,6 +7,7 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 import gov.hhs.fha.nhinc.patientdb.model.*;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.util.List;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -61,23 +62,37 @@ public class HL7DbParser201305 {
 
         Timestamp birthDate = null;
 
-        // Extract the birth time from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectBirthTime() != null &&
-                params.getLivingSubjectBirthTime().size() > 0 &&
-                params.getLivingSubjectBirthTime().get(0) != null) {
-            PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
+        try {
+            // Extract the birth time from the query parameters - Assume only one was specified
+            if (params.getLivingSubjectBirthTime() != null &&
+                    params.getLivingSubjectBirthTime().size() > 0 &&
+                    params.getLivingSubjectBirthTime().get(0) != null) {
+                PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
-            if (birthTime.getValue() != null &&
-                    birthTime.getValue().size() > 0 &&
-                    birthTime.getValue().get(0) != null) {
-                IVLTSExplicit birthday = birthTime.getValue().get(0);
-                log.info("Found birthTime in query parameters = " + birthday.getValue());
-                //birthDate = birthday.getValue();
+                if (birthTime.getValue() != null &&
+                        birthTime.getValue().size() > 0 &&
+                        birthTime.getValue().get(0) != null) {
+                    IVLTSExplicit birthday = birthTime.getValue().get(0);
+                    log.info("Found birthTime in query parameters = " + birthday.getValue());
+                    UTCDateUtil utcDateUtil = new UTCDateUtil();
+                    // Check date string length
+                    if (birthday.getValue().length() == 8) {
+                        birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(), UTCDateUtil.DATE_ONLY_FORMAT, null).getTime());
+                    } else if (birthday.getValue().length() > 8) {
+                        birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(), UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
+                    } else {
+                        log.info("message does not contain a valid formatted birthtime");
+                    }
+                } else {
+                    log.info("message does not contain a birthtime");
+                }
             } else {
                 log.info("message does not contain a birthtime");
             }
-        } else {
-            log.info("message does not contain a birthtime");
+        }
+        catch (Exception e) {
+            log.error("Exception parsing birth date: ", e);
+            return null;
         }
 
         log.debug("Exiting HL7DbParser201305.ExtractBirthdate method...");
@@ -493,8 +508,10 @@ public class HL7DbParser201305 {
         Patient mpiDbPatient = new Patient();
 
         if (params != null) {
+            log.debug("Populating mpiDbPatient from QueryParams...");
 
             mpiDbPatient.setPersonnames(ExtractPersonnames(params));
+
             mpiDbPatient.setGender(ExtractGender(params));
 
             mpiDbPatient.setDateOfBirth(ExtractBirthdate(params));
@@ -506,7 +523,10 @@ public class HL7DbParser201305 {
             mpiDbPatient.setAddresses(ExtractPersonAddresses(params));
 
             mpiDbPatient.setPhonenumbers(ExtractTelecoms(params));
+
+            log.debug("mpiDbPatient is " + mpiDbPatient.toString());
         } else {
+            log.debug("QueryParams empty or null...");
             mpiDbPatient = null;
         }
 

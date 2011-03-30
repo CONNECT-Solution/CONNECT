@@ -19,21 +19,20 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Neil Webb
  */
-public class UTCDateUtil
-{
-    private static final String DATE_FORMAT_UTC = "yyyyMMddHHmmss";
-    private static final String DATE_FORMAT_FULL = DATE_FORMAT_UTC + "Z";
-    private static final String TIME_ZONE_UTC = "UTC";
+public class UTCDateUtil {
 
+    public static final String DATE_ONLY_FORMAT = "yyyyMMdd";
+    public static final String DATE_FORMAT_UTC = "yyyyMMddHHmmss";
+    public static final String DATE_FORMAT_FULL = DATE_FORMAT_UTC + "Z";
+
+    private static final String TIME_ZONE_UTC = "UTC";
     private Log log = null;
 
-    public UTCDateUtil()
-    {
+    public UTCDateUtil() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -44,8 +43,7 @@ public class UTCDateUtil
      * @param dateString Date string to parse
      * @return Parsed date
      */
-    public Date parseUTCDateOptionalTimeZone(String dateString)
-    {
+    public Date parseUTCDateOptionalTimeZone(String dateString) {
         return parseDate(dateString, DATE_FORMAT_FULL, TimeZone.getTimeZone(TIME_ZONE_UTC));
     }
 
@@ -55,8 +53,7 @@ public class UTCDateUtil
      * @param sourceDate Date to
      * @return
      */
-    public String formatUTCDate(Date sourceDate)
-    {
+    public String formatUTCDate(Date sourceDate) {
         return formatDate(sourceDate, DATE_FORMAT_UTC);
     }
 
@@ -67,30 +64,23 @@ public class UTCDateUtil
      * @param dateFormat Format of the date to be parsed
      * @return Returns the Date object for the given string and format.
      */
-    private Date parseDate(String dateString, String dateFormat, TimeZone timeZone)
-    {
+    public Date parseDate(String dateString, String dateFormat, TimeZone timeZone) {
         // Candidate to move to a super class for other format types
-        if(log.isDebugEnabled())
-        {
-            log.debug("Parsing (" + dateString + ") using format string (" + dateFormat + 
-                ") and time zone (" + ((timeZone == null) ? "none" : timeZone.getDisplayName()) +
-                ").");
+        if (log.isDebugEnabled()) {
+            log.debug("Parsing (" + dateString + ") using format string (" + dateFormat +
+                    ") and time zone (" + ((timeZone == null) ? "none" : timeZone.getDisplayName()) +
+                    ").");
         }
         Date parsed = null;
-        if ((dateString != null) && (dateFormat != null))
-        {
-            try
-            {
+        if ((dateString != null) && (dateFormat != null)) {
+            try {
                 String formatString = prepareDateFormatString(dateFormat, dateString);
                 DateFormat formatter = createDateFormatter(formatString, timeZone);
                 parsed = formatter.parse(dateString);
-                if(parsed != null)
-                {
+                if (parsed != null) {
                     log.debug("Date parsed successfully");
                 }
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
             }
         }
@@ -104,16 +94,13 @@ public class UTCDateUtil
      * @param timeZone Optional time zone. Not used if null.
      * @return Prepared date formatter
      */
-    private DateFormat createDateFormatter(String formatString, TimeZone timeZone)
-    {
+    private DateFormat createDateFormatter(String formatString, TimeZone timeZone) {
         // Candidate to move to a super class for other format types
-        if(NullChecker.isNullish(formatString))
-        {
+        if (NullChecker.isNullish(formatString)) {
             throw new IllegalArgumentException("Date format string is required to create a date formatter");
         }
         DateFormat formatter = new SimpleDateFormat(formatString);
-        if(timeZone != null)
-        {
+        if (timeZone != null) {
             formatter.setTimeZone(timeZone);
         }
         return formatter;
@@ -128,34 +115,26 @@ public class UTCDateUtil
      * @param dateString Date string to be parsed (ex. 19990205)
      * @return Modified format string based on the date string length (ex. yyyyMMdd)
      */
-    private String prepareDateFormatString(String dateFormat, String dateString)
-    {
+    private String prepareDateFormatString(String dateFormat, String dateString) {
         // Candidate to move to a super class for other format types
         String formatString = dateFormat;
-        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length()))
-        {
+        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length())) {
             formatString = dateFormat.substring(0, dateString.length());
-            if(log.isDebugEnabled())
-            {
+            if (log.isDebugEnabled()) {
                 log.debug("New dateFormat: " + dateFormat);
             }
         }
         return formatString;
     }
 
-    private String formatDate(Date sourceDate, String formatString)
-    {
+    private String formatDate(Date sourceDate, String formatString) {
         // Candidate to move to a super class for other format types
         String formatted = "";
-        if (sourceDate != null)
-        {
-            try
-            {
+        if (sourceDate != null) {
+            try {
                 DateFormat dateFormatter = createDateFormatter(formatString, TimeZone.getTimeZone(TIME_ZONE_UTC));
                 formatted = dateFormatter.format(sourceDate);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.warn("Failed to format a date (" + ((sourceDate == null) ? "null" : sourceDate.toString()) + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
             }
         }

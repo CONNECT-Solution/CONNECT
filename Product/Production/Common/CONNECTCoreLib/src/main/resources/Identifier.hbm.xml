@@ -7,17 +7,17 @@
     Description:
         Purpose of the document follows.
 -->
-<hibernate-mapping>
-    <class name="gov.hhs.fha.nhinc.patientdb.model.Identifier" table="identifier">
+<hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
+    <class name="Identifier" table="identifier">
 
         <id name="identifierId">
             <generator class="native"/>
         </id>
 
-        <many-to-one column="patientId" insert="false" name="patient" update="false"/>
-    
+        <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
+
         <property name="id" column="id"/>
-    
+
         <property name="organizationId" column="organizationId"/>
 
     </class>

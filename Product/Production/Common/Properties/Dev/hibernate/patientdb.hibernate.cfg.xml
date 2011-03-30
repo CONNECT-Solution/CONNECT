@@ -41,10 +41,10 @@ jdbc:mysql:///auditrepo</property>
        <!-- DEPRECATED very expensive property name="c3p0.validate>-->
 
       <!-- Mapping files -->
+      <mapping resource="Patient.hbm.xml"/>
       <mapping resource="Address.hbm.xml"/>
       <mapping resource="Identifier.hbm.xml"/>
-      <mapping resource="Patient.hbm.xml"/>
-      <mapping resource="PersonName.hbm.xml"/>
-      <mapping resource="PhoneNumber.hbm.xml"/>
+      <mapping resource="Personname.hbm.xml"/>
+      <mapping resource="Phonenumber.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

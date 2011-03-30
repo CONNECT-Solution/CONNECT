@@ -7,10 +7,14 @@
 package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import java.sql.Timestamp;
 
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
@@ -22,8 +26,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.criterion.Expression;
+import org.hibernate.Query;
 
 /**
  * PatientDAO Class provides methods to query and update Patient Data to/from MySQL Database using Hibernate
@@ -32,9 +36,7 @@ import org.hibernate.criterion.Expression;
 public class PatientDAO {
 
     private static Log log = LogFactory.getLog(PatientDAO.class);
-
     private static PatientDAO patientDAO = new PatientDAO();
-
     private static final String ALLOW_SSN_QUERY = "mpi.db.allow.ssn.query";
 
     /**
@@ -143,70 +145,6 @@ public class PatientDAO {
         return foundRecord;
     }
 
-
-     /**
-     * Fetch all the matching patients from all the community and all assigning authorities
-     * on a known id.
-     * @param Patient
-     * @return Patient
-     */
-    public List<Patient> findAllPatients(Patient patient) {
-        log.debug("PatientDAO.findAllPatients() - Begin");
-
-        if (patient.getPatientId() == null) {
-            log.info("-- PatientId Parameter is required for Patient Query --");
-            log.debug("PatientDAO.findAllPatients() - End");
-            return null;
-        }
-
-        Session session = null;
-        List<Patient> queryList = null;
-        List<Patient> patientsList = new ArrayList<Patient>();
-       // Patient foundRecord = null;
-        try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
-            log.info("Reading Record...");
-            Long param1 = patient.getPatientId();
-            String param2 = patient.getGender();
-            Timestamp param3 = patient.getDateOfBirth();
-            String param4 = patient.getPersonnames().get(0).getFirstName();
-            String param5 = patient.getPersonnames().get(0).getLastName();
-
-            String sql ="SELECT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid " +
-                         " FROM patientdb.patient p " +
-                         " INNER JOIN patientdb.identifier i ON p.patientId = " +param1 +
-                         " INNER JOIN patientdb.personname n ON p.patientId = " +param1 + 
-                         " WHERE p.gender = '" +param2 + "' +  AND p.dateOfBirth = '" +param3+ "' " +
-                         " AND n.firstname = '"+param4+"' " +
-                         " AND n.lastname =  '"+ param5+"' " +
-                         " ORDER BY i.id, i.organizationid ";
-            // Build the criteria
-            log.debug("-- PatientId Parameter is required for Patient Query --"+sql);
-             queryList = session.createSQLQuery(sql).list();
-            //queryList = aCriteria.list();
-            
-             for(Patient pd : queryList ){
-                patientsList.add(pd);
-             }
-
-            /*if (queryList != null && queryList.size() > 0) {
-                foundRecord = queryList.get(0);
-            }*/
-
-        } catch (Exception e) {
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
-        } finally {
-            // Flush and close session
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-        log.debug("PatientDAO.findAllPatients() - End");
-        return patientsList;
-    }
-
     /**
      * Update a single <code>Patient</code> record.
      * @param patientRecord
@@ -277,15 +215,210 @@ public class PatientDAO {
     // Patient Lookup / Search Methods
     // ===============================
 
+    /**
+     * Fetch all the matching patients from all the community and all assigning authorities
+     * on a known id.
+     * @param Patient
+     * @return Patient
+     */
+    public List<Patient> findPatients(Patient patient) {
+        log.debug("PatientDAO.findAllPatients() - Begin");
+
+        Session session = null;
+        List<Patient> patientsList = new ArrayList<Patient>();
+
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            log.info("Reading Records...");
+
+            // NHIN required query parameters
+            String gender = patient.getGender();
+            Timestamp dateOfBirth = patient.getDateOfBirth();
+            String firstName = patient.getPersonnames().get(0).getFirstName();
+            String lastName = patient.getPersonnames().get(0).getLastName();
+            // NHIN optional query parameters
+            String ssn = patient.getSsn();
+            String prefix = patient.getPersonnames().get(0).getPrefix();
+            String middleName = patient.getPersonnames().get(0).getMiddleName();
+            String suffix = patient.getPersonnames().get(0).getSuffix();
+
+            Address address = new Address();
+            if (patient.getAddresses() != null && patient.getAddresses().size() > 0) {
+                address = patient.getAddresses().get(0);
+            }
+            Phonenumber phonenumber = new Phonenumber();
+            if (patient.getPhonenumbers() != null && patient.getPhonenumbers().size() > 0) {
+                phonenumber = patient.getPhonenumbers().get(0);
+            }
+
+            // Build the select with query criteria
+            StringBuffer sqlSelect = new StringBuffer("SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
+            sqlSelect.append(" FROM patientdb.patient p");
+            sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
+            sqlSelect.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
+            if (address.getAddressId() != null) {
+                sqlSelect.append(" INNER JOIN patientdb.address a ON p.patientId = a.patientId");
+            }
+            if (phonenumber.getPhonenumberId() != null) {
+                sqlSelect.append(" INNER JOIN patientdb.phonenumber h ON p.patientId = h.patientId");
+            }
+            sqlSelect.append(" WHERE p.gender = ? AND p.dateOfBirth = ?");
+            sqlSelect.append(" AND n.firstname = ? AND n.lastname = ?");
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlSelect.append(" AND p.ssn = ?");
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlSelect.append(" AND n.prefix = ?");
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlSelect.append(" AND n.middleName = ?");
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlSelect.append(" AND n.suffix = ?");
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet1())) {
+                sqlSelect.append(" AND a.street1 = ?");
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet2())) {
+                sqlSelect.append(" AND a.street2 = ?");
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getCity())) {
+                sqlSelect.append(" AND a.city = ?");
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getState())) {
+                sqlSelect.append(" AND a.state = ?");
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getPostal())) {
+                sqlSelect.append(" AND a.postal = ?");
+            }
+            if (phonenumber.getPhonenumberId() != null && NullChecker.isNotNullish(phonenumber.getValue())) {
+                sqlSelect.append(" AND h.value = ?");
+            }
+            sqlSelect.append(" ORDER BY i.id, i.organizationid");
+
+            Query sqlQuery = session.createSQLQuery(sqlSelect.toString())
+                    .addScalar("patientId", Hibernate.LONG)
+                    .addScalar("dateOfBirth", Hibernate.TIMESTAMP)
+                    .addScalar("gender", Hibernate.STRING)
+                    .addScalar("ssn", Hibernate.STRING)
+                    .addScalar("id", Hibernate.STRING)
+                    .addScalar("organizationid", Hibernate.STRING)
+                    .setString(0, gender)
+                    .setTimestamp(1, dateOfBirth)
+                    .setString(2, firstName)
+                    .setString(3, lastName);
+
+            int iParam = 4;
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlQuery.setString(iParam, ssn);
+                iParam++;
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlQuery.setString(iParam, prefix);
+                iParam++;
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlQuery.setString(iParam, middleName);
+                iParam++;
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                sqlQuery.setString(iParam, suffix);
+                iParam++;
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet1())) {
+                sqlQuery.setString(iParam, address.getStreet1());
+                iParam++;
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet2())) {
+                sqlQuery.setString(iParam, address.getStreet2());
+                iParam++;
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getCity())) {
+                sqlQuery.setString(iParam, address.getCity());
+                iParam++;
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getState())) {
+                sqlQuery.setString(iParam, address.getState());
+                iParam++;
+            }
+            if (address.getAddressId() != null && NullChecker.isNotNullish(address.getPostal())) {
+                sqlQuery.setString(iParam, address.getPostal());
+                iParam++;
+            }
+            if (phonenumber.getPhonenumberId() != null && NullChecker.isNotNullish(phonenumber.getValue())) {
+                sqlQuery.setString(iParam, phonenumber.getValue());
+                iParam++;
+            }
+
+            log.debug("Final SQL Query is " + sqlQuery.getQueryString());
+
+            List<Object[]> result = sqlQuery.list();
+
+            if (result != null && result.size() > 0) {
+                Long[] patientIdArray = new Long[result.size()];
+                Timestamp[] dateOfBirthArray = new Timestamp[result.size()];
+                String[] genderArray = new String[result.size()];
+                String[] ssnArray = new String[result.size()];
+                String[] idArray = new String[result.size()];
+                String[] organizationIdArray = new String[result.size()];
+
+                int counter = 0;
+                for (Object[] row : result) {
+                    patientIdArray[counter] = (Long)row[0];
+                    dateOfBirthArray[counter] = (Timestamp)row[1];
+                    genderArray[counter] = row[2].toString();
+                    ssnArray[counter] = row[3].toString();
+                    idArray[counter] = row[4].toString();
+                    organizationIdArray[counter] = row[5].toString();
+                    counter++;
+                }
+
+                for (int i=0; i<patientIdArray.length; i++) {
+                    Patient patientData = new Patient();
+                    patientData.setPatientId(patientIdArray[i]);
+                    patientData.setDateOfBirth(dateOfBirthArray[i]);
+                    patientData.setGender(genderArray[i]);
+                    patientData.setSsn(ssnArray[i]);
+
+                    Identifier identifierData = new Identifier();
+                    identifierData.getPatient().setPatientId(patientIdArray[i]);
+                    identifierData.setId(idArray[i]);
+                    identifierData.setOrganizationId(organizationIdArray[i]);
+
+                    patientData.getIdentifiers().add(identifierData);
+
+                    // Populate demographic data
+                    patientData.setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                    patientData.setPersonnames(PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
+                    patientData.setPhonenumbers(PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
+
+                    patientsList.add(patientData);
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Exception during read occured due to : " + e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        log.debug("PatientDAO.findPatients() - End");
+        return patientsList;
+    }
+
     // ========================
     // Utility / Helper Methods
     // ========================
-
     /**
      * Return gateway property key perf.monitor.expected.errors value
      * @return String gateway property value
      */
-    private static boolean getAllowSSNQuery() {
+    private static boolean isAllowSSNQuery() {
         boolean result = false;
         try {
             // Use CONNECT utility class to access gateway.properties
@@ -302,5 +435,4 @@ public class PatientDAO {
         }
         return result;
     }
-
 }

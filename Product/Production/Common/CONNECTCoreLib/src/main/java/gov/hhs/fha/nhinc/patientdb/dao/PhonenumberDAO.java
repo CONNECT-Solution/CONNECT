@@ -199,4 +199,49 @@ public class PhonenumberDAO {
         log.debug("PhonenumberDAO.delete() - End");
     }
 
+    // =========================
+    //     Find DML Methods
+    // =========================
+
+    /**
+     * Read (Query) the database to get a <code>Phonenumber</code> record based
+     * on a known patientId.
+     * @param patientId
+     * @return List<Phonenumber>
+     */
+    public List<Phonenumber> findPatientPhonenumbers(Long patientId) {
+        log.debug("PhonenumberDAO.findPatientPhonenumbers() - Begin");
+
+        if (patientId == null) {
+            log.info("-- patientId Parameter is required for Phonenumber Query --");
+            log.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
+            return null;
+        }
+
+        Session session = null;
+        List<Phonenumber> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            log.info("Reading Record...");
+
+            // Build the criteria
+            Criteria aCriteria = session.createCriteria(Phonenumber.class);
+
+            aCriteria.add(Expression.eq("patientId", patientId));
+
+            queryList = aCriteria.list();
+        } catch (Exception e) {
+            log.error("Exception during read occured due to :" + e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        log.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
+        return queryList;
+    }
+
 }

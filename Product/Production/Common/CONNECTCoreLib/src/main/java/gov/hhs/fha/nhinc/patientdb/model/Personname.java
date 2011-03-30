@@ -20,9 +20,9 @@ public class Personname implements Serializable {
     private Long personnameId;
 
     /**
-     * Attribute patientId.
+     * Attribute patient.
      */
-    private Long patientId;
+    private Patient patient;
 
     /**
      * Attribute prefix.
@@ -65,17 +65,20 @@ public class Personname implements Serializable {
     }
 
     /**
-     * @return patientId
+     * @return patient
      */
-    public Long getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        if (this.patient == null) {
+            this.patient = new Patient();
+        }
+        return patient;
     }
 
     /**
-     * @param patientId new value for patientId
+     * @param patient new value for patient
      */
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     /**

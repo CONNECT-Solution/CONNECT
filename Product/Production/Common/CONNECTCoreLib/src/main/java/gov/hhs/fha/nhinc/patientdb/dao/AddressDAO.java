@@ -199,4 +199,49 @@ public class AddressDAO {
         log.debug("AddressDAO.delete() - End");
     }
 
+    // =========================
+    //     Find DML Methods
+    // =========================
+
+    /**
+     * Read (Query) the database to get all <code>Address</code> records based
+     * on a known patientId.
+     * @param patientId
+     * @return List<Address>
+     */
+    public List<Address> findPatientAddresses(Long patientId) {
+        log.debug("AddressDAO.readPatientAddresses() - Begin");
+
+        if (patientId == null) {
+            log.info("-- patientId Parameter is required for Address Query --");
+            log.debug("AddressDAO.readPatientAddresses() - End");
+            return null;
+        }
+
+        Session session = null;
+        List<Address> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            log.info("Reading Record...");
+
+            // Build the criteria
+            Criteria aCriteria = session.createCriteria(Address.class);
+
+            aCriteria.add(Expression.eq("patientId", patientId));
+
+            queryList = aCriteria.list();
+        } catch (Exception e) {
+            log.error("Exception during read occured due to :" + e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        log.debug("readPatientAddresses.read() - End");
+        return queryList;
+    }
+
 }

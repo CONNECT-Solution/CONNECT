@@ -7,23 +7,23 @@
     Description:
         Purpose of the document follows.
 -->
-<hibernate-mapping>
-    <class name="gov.hhs.fha.nhinc.patientdb.model.Address" table="address">
+<hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
+    <class name="Address" table="address">
 
         <id name="addressId">
             <generator class="native"/>
         </id>
-    
-        <many-to-one column="patientId" insert="false" name="patient" update="false"/>
-    
+
+        <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
+
         <property name="street1" column="street1"/>
-    
+
         <property name="street2" column="street2"/>
-    
+
         <property name="city" column="city"/>
-    
+
         <property name="state" column="state"/>
-    
+
         <property name="postal" column="postal"/>
 
     </class>

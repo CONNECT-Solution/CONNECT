@@ -173,4 +173,23 @@ public class Patient implements Serializable {
     public void setPhonenumbers(List<Phonenumber> phonenumbers) {
         this.phonenumbers = phonenumbers;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer output = new StringBuffer("");
+
+        int counter = 0;
+        for (Identifier identifier : this.getIdentifiers()) {
+            output.append("Identifer[").append(counter).append("] = '").append(identifier.getId()).append("^^^&").append(identifier.getOrganizationId()).append("&ISO'; ");
+        }
+
+        if (this.getPersonnames().size() > 0) {
+            output.append("Personname = '").append(this.getPersonnames().get(0).getLastName()).append(", ").append(this.getPersonnames().get(0).getFirstName()).append("'; ");
+        }
+
+        output.append("Gender = '").append(this.gender).append("'; ");
+        output.append("DateOfBirth = '").append(this.dateOfBirth);
+
+        return output.toString();
+    }
 }

@@ -199,4 +199,49 @@ public class PersonnameDAO {
         log.debug("PersonnameDAO.delete() - End");
     }
 
+    // =========================
+    //     Find DML Methods
+    // =========================
+
+    /**
+     * Read (Query) the database to get all <code>Personname</code> records based
+     * on a known patientId.
+     * @param patientId
+     * @return List<Personname>
+     */
+    public List<Personname> findPatientPersonnames(Long patientId) {
+        log.debug("PersonnameDAO.findPatientPersonnames() - Begin");
+
+        if (patientId == null) {
+            log.info("-- patientId Parameter is required for Personname Query --");
+            log.debug("PersonnameDAO.findPatientPersonnames() - End");
+            return null;
+        }
+
+        Session session = null;
+        List<Personname> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            log.info("Reading Record...");
+
+            // Build the criteria
+            Criteria aCriteria = session.createCriteria(Personname.class);
+
+            aCriteria.add(Expression.eq("patientId", patientId));
+
+            queryList = aCriteria.list();
+        } catch (Exception e) {
+            log.error("Exception during read occured due to :" + e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        log.debug("PersonnameDAO.findPatientPersonnames() - End");
+        return queryList;
+    }
+
 }

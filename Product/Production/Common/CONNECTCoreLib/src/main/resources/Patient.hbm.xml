@@ -7,8 +7,8 @@
     Description:
         Purpose of the document follows.
 -->
-<hibernate-mapping>
-    <class name="gov.hhs.fha.nhinc.patientdb.model.Patient" table="patient">
+<hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
+    <class name="Patient" table="patient">
 
         <id name="patientId">
             <generator class="native"/>
@@ -20,24 +20,24 @@
     
         <property name="ssn" column="ssn"/>
     
-        <bag name="addressess" inverse="true">
+        <bag name="addresses" inverse="true">
             <key column="patientId"/>
-            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Address"/>
+            <one-to-many class="Address"/>
         </bag>
 
-        <bag name="identifierss" inverse="true">
+        <bag name="identifiers" inverse="true">
             <key column="patientId"/>
-            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Identifier"/>
+            <one-to-many class="Identifier"/>
         </bag>
 
-        <bag name="personnamess" inverse="true">
+        <bag name="personnames" inverse="true">
             <key column="patientId"/>
-            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Personname"/>
+            <one-to-many class="Personname"/>
         </bag>
 
-        <bag name="phonenumberss" inverse="true">
+        <bag name="phonenumbers" inverse="true">
             <key column="patientId"/>
-            <one-to-many class="gov.hhs.fha.nhinc.patientdb.model.Phonenumber"/>
+            <one-to-many class="Phonenumber"/>
         </bag>
 
     </class>
