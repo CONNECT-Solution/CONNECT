@@ -10,6 +10,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -36,6 +38,8 @@ public class EntityPatientDiscoveryUnsecuredImpl
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request)
     {
+
+       log.debug("Begin EntityPatientDiscoveryUnsecuredImpl.respondingGatewayPRPAIN201305UV02...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
         if(respondingGatewayPRPAIN201305UV02Request == null)
@@ -54,6 +58,7 @@ public class EntityPatientDiscoveryUnsecuredImpl
                 log.warn("EntityPatientDiscoveryProcessor was null.");
             }
         }
+        log.debug("End EntityPatientDiscoveryUnsecuredImpl.respondingGatewayPRPAIN201305UV02...");
         return response;
     }
 

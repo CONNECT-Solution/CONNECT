@@ -13,6 +13,8 @@ import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import javax.xml.ws.soap.Addressing;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  *
  * @author Neil Webb
@@ -22,6 +24,8 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled=true)
 public class EntityPatientDiscoverySecured
 {
+    private static final Log log = LogFactory.getLog(EntityPatientDiscoverySecured.class);
+
     @Resource
     private WebServiceContext context;
 
@@ -37,6 +41,7 @@ public class EntityPatientDiscoverySecured
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request)
     {
+        log.debug("Begin EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
         EntityPatientDiscoverySecuredImpl serviceImpl = getEntityPatientDiscoverySecuredImpl();
@@ -44,6 +49,7 @@ public class EntityPatientDiscoverySecured
         {
             response =  serviceImpl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request, getWebServiceContext());
         }
+        log.debug("End EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
         return response;
     }
 
