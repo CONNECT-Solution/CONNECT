@@ -4,14 +4,9 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.saml.extraction;
 
-//import org.apache.xerces.dom.ElementNSImpl;
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
+import org.apache.xerces.dom.ElementNSImpl;
 import com.sun.xml.wss.SubjectAccessor;
 import com.sun.xml.wss.XWSSecurityException;
 import com.sun.xml.wss.impl.XWSSecurityRuntimeException;
@@ -507,7 +502,7 @@ public class SamlTokenExtractor {
      * @param codeId Identifies which coded element this is parsing
      */
     private static CeType extractNhinCodedElement(AttributeType attrib, String codeId) {
-        log.debug("Entering SamlTokenExtractor.parseNhinCodedElement...");
+        log.debug("Entering SamlTokenExtractor.extractNhinCodedElement...");
 
         CeType ce = new CeType();
         ce.setCode(EMPTY_STRING);
@@ -527,9 +522,6 @@ public class SamlTokenExtractor {
             NodeList nodelist = null;
             if (attrVals.get(0) instanceof ElementNSImpl) {
                 ElementNSImpl elem = (ElementNSImpl) attrVals.get(0);
-                nodelist = elem.getChildNodes();
-            } else if (attrVals.get(0) instanceof org.apache.xerces.dom.ElementNSImpl) {
-                org.apache.xerces.dom.ElementNSImpl elem = (org.apache.xerces.dom.ElementNSImpl) attrVals.get(0);
                 nodelist = elem.getChildNodes();
             } else {
                 log.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass() + " expected a ElementNSImpl");
