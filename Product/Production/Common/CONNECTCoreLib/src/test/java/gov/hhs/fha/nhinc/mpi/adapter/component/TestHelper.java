@@ -196,7 +196,7 @@ public class TestHelper {
 
         II interactionId = new II();
         interactionId.setRoot("2.16.840.1.113883.1.6");
-        interactionId.setExtension("PRPA_IN201305UV");
+        interactionId.setExtension("PRPA_IN201305UV02");
         msg.setInteractionId(id);
 
         CS processingCode = new CS();

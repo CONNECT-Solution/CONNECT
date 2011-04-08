@@ -42,7 +42,7 @@ public class HL7ParserTest {
       "<PRPA_IN201305UV02 ITSVersion=\"XML_1.0\" xmlns=\"urn:hl7-org:v3\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns3=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\">" +
       "   <id extension=\"-f6a0b28:121a183116b:-7f1a\" root=\"1.1\"/>                                                                                                                         " +
       "   <creationTime value=\"200962153243\"/>                                                                                                                                              " +
-      "   <interactionId extension=\"PRPA_IN201305UV\" root=\"2.16.840.1.113883.1.6\"/>                                                                                                       " +
+      "   <interactionId extension=\"PRPA_IN201305UV02\" root=\"2.16.840.1.113883.1.6\"/>                                                                                                       " +
       "   <processingCode code=\"P\"/>                                                                                                                                                        " +
       "   <processingModeCode code=\"R\"/>                                                                                                                                                    " +
       "   <acceptAckCode code=\"AL\"/>                                                                                                                                                        " +
