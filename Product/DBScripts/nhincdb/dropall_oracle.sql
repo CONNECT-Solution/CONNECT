@@ -10,6 +10,12 @@ DROP TABLE nhincuser.subscription;
 DROP TABLE nhincuser.asyncmsgrepo;
 DROP TABLE nhincuser.gateway_lift_message;
 DROP TABLE nhincuser.transfer_data;
+DROP TABLE nhincuser.patient;
+DROP TABLE nhincuser.identifier;
+DROP TABLE nhincuser.personname;
+DROP TABLE nhincuser.address;
+DROP TABLE nhincuser.phonenumber;
+DROP TABLE nhincuser.perfrepository;
 
 DROP SEQUENCE nhincuser.hibernate_sequence;
 

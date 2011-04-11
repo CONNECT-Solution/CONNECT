@@ -4,20 +4,20 @@ GRANT ALL PRIVILEGES to nhincuser;;
 
 
 CREATE TABLE nhincuser.agg_transaction (
-	TransactionId varchar2(32) NOT NULL,
-	ServiceType varchar2(64) NOT NULL,
-	TransactionStartTime DATE,
+    TransactionId varchar2(32) NOT NULL,
+    ServiceType varchar2(64) NOT NULL,
+    TransactionStartTime DATE,
   PRIMARY KEY(TransactionId)
 );
 
 CREATE TABLE nhincuser.agg_message_results (
-	MessageId VARCHAR2(32) NOT NULL,
-	TransactionId VARCHAR2(32) NOT NULL,
-	MessageKey VARCHAR2(1000) NOT NULL,
-	MessageOutTime DATE,
-	ResponseReceivedTime DATE,
-	ResponseMessageType VARCHAR2(100),
-	ResponseMessage BLOB,
+    MessageId VARCHAR2(32) NOT NULL,
+    TransactionId VARCHAR2(32) NOT NULL,
+    MessageKey VARCHAR2(1000) NOT NULL,
+    MessageOutTime DATE,
+    ResponseReceivedTime DATE,
+    ResponseMessageType VARCHAR2(100),
+    ResponseMessage BLOB,
   PRIMARY KEY (MessageId)
 );
 
@@ -30,19 +30,19 @@ CREATE TABLE nhincuser.aa_to_home_community_mapping (
 
 CREATE TABLE nhincuser.auditrepository
 (
-	id number NOT NULL,
-	audit_timestamp DATE,
-	eventId number NOT NULL,
-	userId varchar2(100),
-	participationTypeCode number,
-	participationTypeCodeRole number,
-	participationIDTypeCode varchar2(100),
-	receiverPatientId varchar2(100),
-	senderPatientId varchar2(100),
-	communityId varchar2(255),
-	messageType varchar2(100) NOT NULL,
-	message BLOB,
-	PRIMARY KEY (id)
+    id number NOT NULL,
+    audit_timestamp DATE,
+    eventId number NOT NULL,
+    userId varchar2(100),
+    participationTypeCode number,
+    participationTypeCodeRole number,
+    participationIDTypeCode varchar2(100),
+    receiverPatientId varchar2(100),
+    senderPatientId varchar2(100),
+    communityId varchar2(255),
+    messageType varchar2(100) NOT NULL,
+    message BLOB,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE nhincuser.document (
@@ -112,18 +112,18 @@ CREATE SEQUENCE nhincuser.hibernate_sequence;
 
 CREATE TABLE nhincuser.gateway_lift_message
 (
-	id number NOT NULL,
-	initialEntryTimestamp DATE NOT NULL,
-	messageState varchar2(32) NOT NULL,
-	processingStartTimestamp DATE,
-	producerProxyAddress varchar2(500) NOT NULL,
-	producerProxyPort number(5) NOT NULL,
-	fileNameToRetrieve varchar2(200) NOT NULL,
-	requestKeyGuid varchar2(64) NOT NULL,
-	messageType varchar2(100) NOT NULL,
-	message BLOB,
-	assertion BLOB,
-	PRIMARY KEY (id)
+    id number NOT NULL,
+    initialEntryTimestamp DATE NOT NULL,
+    messageState varchar2(32) NOT NULL,
+    processingStartTimestamp DATE,
+    producerProxyAddress varchar2(500) NOT NULL,
+    producerProxyPort number(5) NOT NULL,
+    fileNameToRetrieve varchar2(200) NOT NULL,
+    requestKeyGuid varchar2(64) NOT NULL,
+    messageType varchar2(100) NOT NULL,
+    message BLOB,
+    assertion BLOB,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE nhincuser.transfer_data
@@ -146,28 +146,89 @@ CREATE TABLE nhincuser.correlatedidentifiers (
 );
 
 CREATE TABLE nhincuser.subscription (
-	id varchar2(128) NOT NULL,
-	Subscriptionid varchar2(128),
-	SubscribeXML BLOB,
-	SubscriptionReferenceXML BLOB,
-	RootTopic BLOB,
-	ParentSubscriptionId varchar2(128),
-	ParentSubscriptionReferenceXML BLOB,
-	Consumer varchar2(128),
-	Producer varchar2(128),
-	PatientId varchar2(128),
-	PatientAssigningAuthority varchar2(128),
-	Targets BLOB,
-	CreationDate DATE,
+    id varchar2(128) NOT NULL,
+    Subscriptionid varchar2(128),
+    SubscribeXML BLOB,
+    SubscriptionReferenceXML BLOB,
+    RootTopic BLOB,
+    ParentSubscriptionId varchar2(128),
+    ParentSubscriptionReferenceXML BLOB,
+    Consumer varchar2(128),
+    Producer varchar2(128),
+    PatientId varchar2(128),
+    PatientAssigningAuthority varchar2(128),
+    Targets BLOB,
+    CreationDate DATE,
   PRIMARY KEY(id)
 );
 
 CREATE TABLE nhincuser.asyncmsgrepo (
-	MessageId varchar2(100) NOT NULL,
-	CreationTime DATE NOT NULL,
-	ServiceName varchar2(100),
-	MsgData BLOB,
-	PRIMARY KEY (MessageId)
+    MessageId varchar2(100) NOT NULL,
+    CreationTime DATE NOT NULL,
+    ServiceName varchar2(100),
+    MsgData BLOB,
+    PRIMARY KEY (MessageId)
 );
+
+
+CREATE TABLE nhincuser.patient (
+  patientId number(11) NOT NULL,
+  dateOfBirth DATE NULL,
+  gender CHAR(2) NULL,
+  ssn CHAR(9) NULL,
+  PRIMARY KEY (patientId)
+);
+
+CREATE TABLE nhincuser.identifier (
+  identifierId number(11) NOT NULL,
+  patientId number(11) NOT NULL,
+  id varchar2(64) NULL,
+  organizationId varchar2(64) NULL,
+  PRIMARY KEY (identifierId)
+);
+
+CREATE TABLE nhincuser.personname (
+  personnameId number(11) NOT NULL,
+  patientId number(11) NOT NULL,
+  prefix varchar2(64) NULL,
+  firstName varchar2(64) NULL,
+  middleName varchar2(64) NULL,
+  lastName varchar2(64) NULL,
+  suffix varchar2(64) NULL,
+  PRIMARY KEY (personnameId)
+);
+
+CREATE TABLE nhincuser.address (
+  addressId number(11) NOT NULL,
+  patientId number(11) NOT NULL,
+  street1 varchar2(128) NULL,
+  street2 varchar2(128) NULL,
+  city varchar2(128) NULL,
+  state varchar2(128) NULL,
+  postal varchar2(45) NULL,
+  PRIMARY KEY (addressId)
+);
+
+CREATE TABLE nhincuser.phonenumber (
+  phonenumberId number(11) NOT NULL,
+  patientId number(11) NOT NULL,
+  value varchar2(64) NULL,
+  PRIMARY KEY (phonenumberId)
+);
+
+
+CREATE TABLE nhincuser.perfrepository (
+  id number(11) NOT NULL,
+  starttime TIMESTAMP NULL,
+  stoptime TIMESTAMP NULL,
+  duration BIGINT NULL,
+  servicetype varchar2(45) NULL,
+  messagetype varchar2(10) NULL,
+  direction varchar2(10) NULL,
+  communityid varchar2(255) NULL,
+  status number(2) NULL DEFAULT 0,
+  PRIMARY KEY (id)
+);
+
 
 commit;
