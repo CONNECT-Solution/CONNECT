@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
@@ -35,15 +30,21 @@ import org.hl7.v3.MCCIMT000300UV01Sender;
  * @author Jon Hoppesch
  */
 public class HL7SenderTransforms {
-    
+
     private static Log log = LogFactory.getLog(HL7SenderTransforms.class);
 
-        public static MCCIMT000200UV01Sender createMCCIMT000200UV01Sender(String OID) {
+    /**
+     * Create sender element.  The passed OID will be used as the HL7 device application id
+     * and the organization home community id.
+     * @param OID
+     * @return sender
+     */
+    public static MCCIMT000200UV01Sender createMCCIMT000200UV01Sender(String OID) {
         MCCIMT000200UV01Sender sender = new MCCIMT000200UV01Sender();
 
         // Check the input parameter
         if (OID == null) {
-            OID="";
+            OID = "";
         }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
@@ -51,8 +52,8 @@ public class HL7SenderTransforms {
         MCCIMT000200UV01Device senderDevice = new MCCIMT000200UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender OID to 1.2.345.678.999");
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
+        log.debug("Setting sender device id (applicationId) to " + OID);
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
 
         MCCIMT000200UV01Agent agent = new MCCIMT000200UV01Agent();
@@ -76,13 +77,19 @@ public class HL7SenderTransforms {
 
         return sender;
     }
-    
+
+    /**
+     * Create sender element.  The passed OID will be used as the HL7 device application id
+     * and the organization home community id.
+     * @param OID
+     * @return sender
+     */
     public static MCCIMT000100UV01Sender createMCCIMT000100UV01Sender(String OID) {
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
 
         // Check the input parameter
         if (OID == null) {
-            OID="";
+            OID = "";
         }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
@@ -90,8 +97,8 @@ public class HL7SenderTransforms {
         MCCIMT000100UV01Device senderDevice = new MCCIMT000100UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender OID to 1.2.345.678.999");
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
+        log.debug("Setting sender device id (applicationId) to " + OID);
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
 
         MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
@@ -116,12 +123,18 @@ public class HL7SenderTransforms {
         return sender;
     }
 
-    static MCCIMT000300UV01Sender createMCCIMT000300UV01Sender(String OID) {
+    /**
+     * Create sender element.  The passed OID will be used as the HL7 device application id
+     * and the organization home community id.
+     * @param OID
+     * @return sender
+     */
+    public static MCCIMT000300UV01Sender createMCCIMT000300UV01Sender(String OID) {
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
 
         // Check the input parameter
         if (OID == null) {
-            OID="";
+            OID = "";
         }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
@@ -129,8 +142,8 @@ public class HL7SenderTransforms {
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender OID to 1.2.345.678.999");
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
+        log.debug("Setting sender device id (applicationId) to " + OID);
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
         MCCIMT000300UV01Organization org = new MCCIMT000300UV01Organization();
