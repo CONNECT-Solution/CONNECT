@@ -510,9 +510,9 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
+            protected List<II> getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
-                return mockListII.get(0);
+                return mockListII;
             }
 
             protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
@@ -562,9 +562,9 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
+            protected List<II> getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
-                return mockListII.get(0);
+                return mockListII;
             }
 
             protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
@@ -743,9 +743,9 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
+            protected List<II> getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
-                return mockListII.get(0);
+                return mockListII;
             }
 
         };
@@ -787,9 +787,9 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
+            protected List<II> getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
-                return mockListII.get(0);
+                return mockListII;
             }
 
         };
@@ -923,7 +923,7 @@ public class PatientDiscoveryTransformsTest {
         };
         context.checking(oExpectation);
 
-        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(null);
+        List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(null);
 
         context.assertIsSatisfied();
         Assert.assertNull(oExpectedResult);
@@ -952,7 +952,7 @@ public class PatientDiscoveryTransformsTest {
         context.checking(oExpectation);
 
         final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
-        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
 
         context.assertIsSatisfied();
         Assert.assertNull(oExpectedResult);
@@ -984,7 +984,7 @@ public class PatientDiscoveryTransformsTest {
         final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
 
-        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
 
         context.assertIsSatisfied();
         Assert.assertNull(oExpectedResult);
