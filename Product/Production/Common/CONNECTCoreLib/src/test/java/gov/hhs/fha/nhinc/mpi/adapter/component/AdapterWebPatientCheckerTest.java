@@ -61,8 +61,10 @@ public class AdapterWebPatientCheckerTest {
         patId.setId("1234");
         patId.setOrganizationId("2.16.840.1.113883.3.200");
         Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "M", "March 1, 1956", patId);
+        Patients patients = new Patients();
+        patients.add(patient);
 
-        PRPAIN201306UV02 expResult = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        PRPAIN201306UV02 expResult = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         PatientChecker checker = new PatientChecker();
         PRPAIN201306UV02 result = checker.FindPatient(query);
 

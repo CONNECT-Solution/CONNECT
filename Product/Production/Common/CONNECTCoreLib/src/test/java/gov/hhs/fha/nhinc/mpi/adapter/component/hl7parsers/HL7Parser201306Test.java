@@ -79,7 +79,10 @@ public class HL7Parser201306Test {
         patient.getName().setSuffix(expectedSuffix);
         patient.getName().setTitle(expectedTitle);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        Patients patients = new Patients();
+        patients.add(patient);
+
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PNExplicit pnResult = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().get(0);
@@ -120,8 +123,11 @@ public class HL7Parser201306Test {
         patient.getName().setTitle(expectedTitle);
 
         patient.getPhoneNumbers().add(new PhoneNumber("7031231234"));
+
+        Patients patients = new Patients();
+        patients.add(patient);
         
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue();
@@ -159,7 +165,10 @@ public class HL7Parser201306Test {
         patient.getPhoneNumbers().add(new PhoneNumber("7031231234"));
         patient.getPhoneNumbers().add(new PhoneNumber("2021231234"));
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        Patients patients = new Patients();
+        patients.add(patient);
+
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue();
@@ -204,8 +213,10 @@ public class HL7Parser201306Test {
         add.setZip("20151");
         patient.getAddresses().add(add);
         
+        Patients patients = new Patients();
+        patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue();
@@ -258,7 +269,11 @@ public class HL7Parser201306Test {
 
         patient.getAddresses().add(add);
         patient.getAddresses().add(add2);
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+
+        Patients patients = new Patients();
+        patients.add(patient);
+
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue();
@@ -293,8 +308,10 @@ public class HL7Parser201306Test {
 
         patient.getNames().add(new PersonName("lastname", "firstName"));
 
+        Patients patients = new Patients();
+        patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         assertEquals(2, result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().size());
