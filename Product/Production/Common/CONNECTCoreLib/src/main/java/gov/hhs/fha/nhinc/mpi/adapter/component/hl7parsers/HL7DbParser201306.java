@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Copyright 2011(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
@@ -81,11 +81,13 @@ public class HL7DbParser201306 {
         msg.setProcessingCode(processingCode);
 
         CS processingModeCode = new CS();
-        processingModeCode.setCode("R");
+        //processingModeCode.setCode("R");
+        processingModeCode.setCode("T");
         msg.setProcessingModeCode(processingModeCode);
 
         CS ackCode = new CS();
-        ackCode.setCode("AL");
+        //ackCode.setCode("AL");
+        ackCode.setCode("NE");
         msg.setAcceptAckCode(ackCode);
 
         msg.getAcknowledgement().add(createAck(query));
@@ -123,6 +125,9 @@ public class HL7DbParser201306 {
         }
 
         controlActProcess.setQueryAck(createQueryAck(query));
+
+        // Set original QueryByParameter in response
+        controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
 
         // ========== TO BE REMOVED ==========
 //        MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
@@ -164,18 +169,18 @@ public class HL7DbParser201306 {
         respCode.setCode("OK");
         result.setQueryResponseCode(respCode);
 
-        INT totalQuanity = new INT();
-        totalQuanity.setValue(BigInteger.valueOf(1));
-        result.setResultTotalQuantity(totalQuanity);
+//        INT totalQuanity = new INT();
+//        totalQuanity.setValue(BigInteger.valueOf(1));
+//        result.setResultTotalQuantity(totalQuanity);
 
-        INT currQuanity = new INT();
-        currQuanity.setValue(BigInteger.valueOf(1));
-        result.setResultCurrentQuantity(currQuanity);
+//        INT currQuanity = new INT();
+//        currQuanity.setValue(BigInteger.valueOf(1));
+//        result.setResultCurrentQuantity(currQuanity);
 
 
-        INT remainQuanity = new INT();
-        remainQuanity.setValue(BigInteger.valueOf(0));
-        result.setResultRemainingQuantity(remainQuanity);
+//        INT remainQuanity = new INT();
+//        remainQuanity.setValue(BigInteger.valueOf(0));
+//        result.setResultRemainingQuantity(remainQuanity);
 
         return result;
     }
@@ -224,6 +229,10 @@ public class HL7DbParser201306 {
         II id = new II();
         id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
         assignedEntity.getId().add(id);
+        CE ce = new CE();
+        ce.setCode("NotHealthDataLocator");
+        ce.setCodeSystem("1.3.6.1.4.1.19376.1.2.27.2");
+        assignedEntity.setCode(ce);
 
         return assignedEntity;
     }
@@ -332,6 +341,12 @@ public class HL7DbParser201306 {
     private static JAXBElement<PRPAMT201310UV02Person> createPatientPerson(Patient patient) {
         PRPAMT201310UV02Person person = new PRPAMT201310UV02Person();
 
+        // Set classCode
+        person.getClassCode().add("PSN");
+
+        // Set determinerCode
+        person.setDeterminerCode("INSTANCE");
+
         // Set the Subject Gender
         if (patient.getGender() != null &&
                 patient.getGender().length() > 0) {
@@ -396,6 +411,8 @@ public class HL7DbParser201306 {
             otherIds.getId().add(ssn);
 
             COCTMT150002UV01Organization scopingOrg = new COCTMT150002UV01Organization();
+            scopingOrg.setClassCode("ORG");
+            scopingOrg.setDeterminerCode("INSTANCE");
             II orgId = new II();
             orgId.setRoot(ssn.getRoot());
             scopingOrg.getId().add(orgId);
@@ -461,9 +478,17 @@ public class HL7DbParser201306 {
 
     private static MCCIMT000300UV01Receiver createReceiver(MCCIMT000100UV01Sender querySender) {
         MCCIMT000300UV01Receiver receiver = new MCCIMT000300UV01Receiver();
+        String app = null;
         String oid = null;
 
         receiver.setTypeCode(CommunicationFunctionType.RCV);
+
+        if (querySender.getDevice() != null &&
+                NullChecker.isNotNullish(querySender.getDevice().getId()) &&
+                querySender.getDevice().getId().get(0) != null &&
+                NullChecker.isNotNullish(querySender.getDevice().getId().get(0).getRoot())) {
+            app = querySender.getDevice().getId().get(0).getRoot();
+        }
 
         if (querySender.getDevice() != null &&
                 querySender.getDevice().getAsAgent() != null &&
@@ -479,8 +504,8 @@ public class HL7DbParser201306 {
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting receiver application to 1.2.345.678.999");
-        receiverDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
+        log.debug("Setting receiver device id (applicationId) to query sender's device id " +  app);
+        receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
         MCCIMT000300UV01Organization org = new MCCIMT000300UV01Organization();
@@ -506,12 +531,17 @@ public class HL7DbParser201306 {
 
     private static MCCIMT000300UV01Sender createSender(MCCIMT000100UV01Receiver queryReceiver) {
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
+        String app = null;
         String oid = null;
 
         sender.setTypeCode(CommunicationFunctionType.SND);
 
-        MCCIMT000300UV01Device device = new MCCIMT000300UV01Device();
-        device.setDeterminerCode("INSTANCE");
+        if (queryReceiver.getDevice() != null &&
+                NullChecker.isNotNullish(queryReceiver.getDevice().getId()) &&
+                queryReceiver.getDevice().getId().get(0) != null &&
+                NullChecker.isNotNullish(queryReceiver.getDevice().getId().get(0).getRoot())) {
+            app = queryReceiver.getDevice().getId().get(0).getRoot();
+        }
 
         if (queryReceiver.getDevice() != null &&
                 queryReceiver.getDevice().getAsAgent() != null &&
@@ -527,8 +557,8 @@ public class HL7DbParser201306 {
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender OID to 1.2.345.678.999");
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory("1.2.345.678.999"));
+        log.debug("Setting sender device id (applicationId) to query receiver's device id " +  app);
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
         MCCIMT000300UV01Organization org = new MCCIMT000300UV01Organization();
