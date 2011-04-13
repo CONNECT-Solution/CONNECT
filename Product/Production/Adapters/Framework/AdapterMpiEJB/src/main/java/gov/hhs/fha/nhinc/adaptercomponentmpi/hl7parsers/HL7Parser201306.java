@@ -4,13 +4,11 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import java.math.BigInteger;
 import java.util.TimeZone;
 import java.util.GregorianCalendar;
@@ -19,7 +17,6 @@ import java.util.GregorianCalendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
-
 
 /**
  *
@@ -30,7 +27,6 @@ public class HL7Parser201306 {
     private static Log log = LogFactory.getLog(HL7Parser201306.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
-    private static final String DEFAULT_AA_OID = "1.1";
 
     public static PRPAIN201306UV02 BuildMessageFromMpiPatient(PRPAMT201310UV02Patient patient, PRPAIN201305UV02 query) {
         log.debug("Entering HL7Parser201306.BuildMessageFromMpiPatient method...");
@@ -43,11 +39,12 @@ public class HL7Parser201306 {
         II id = new II();
         try {
            id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
+        } catch (PropertyAccessException e) {
+            log.error("PropertyAccessException - Default Assigning Authority property not defined in adapter.properties", e);
+            // CONNECT environment corrupt; return error response
+            //return BuildMessageForError(<ERROR_CODE>, query);
         }
-        catch (Exception e) {
-            id.setRoot(DEFAULT_AA_OID);
-        }
-           id.setExtension(MessageIdGenerator.GenerateMessageId());
+        id.setExtension(MessageIdGenerator.GenerateMessageId());
         msg.setId(id);
 
         // Set up the creation time string
@@ -80,11 +77,11 @@ public class HL7Parser201306 {
         msg.setProcessingCode(processingCode);
 
         CS processingModeCode = new CS();
-        processingModeCode.setCode("R");
+        processingModeCode.setCode("T");
         msg.setProcessingModeCode(processingModeCode);
 
         CS ackCode = new CS();
-        ackCode.setCode("AL");
+        ackCode.setCode("NE");
         msg.setAcceptAckCode(ackCode);
 
         msg.getAcknowledgement().add(createAck(query));
@@ -113,6 +110,9 @@ public class HL7Parser201306 {
         
         controlActProcess.setQueryAck(createQueryAck(query));
         
+        // Set original QueryByParameter in response
+        controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
+
         return controlActProcess;
     }
     
@@ -130,18 +130,17 @@ public class HL7Parser201306 {
         respCode.setCode("OK");
         result.setQueryResponseCode(respCode);
         
-        INT totalQuanity = new INT();
-        totalQuanity.setValue(BigInteger.valueOf(1));
-        result.setResultTotalQuantity(totalQuanity);
-        
-        INT currQuanity = new INT();
-        currQuanity.setValue(BigInteger.valueOf(1));
-        result.setResultCurrentQuantity(currQuanity);
-        
-        
-        INT remainQuanity = new INT();
-        remainQuanity.setValue(BigInteger.valueOf(0));
-        result.setResultRemainingQuantity(remainQuanity);
+//        INT totalQuanity = new INT();
+//        totalQuanity.setValue(BigInteger.valueOf(1));
+//        result.setResultTotalQuantity(totalQuanity);
+
+//        INT currQuanity = new INT();
+//        currQuanity.setValue(BigInteger.valueOf(1));
+//        result.setResultCurrentQuantity(currQuanity);
+
+//        INT remainQuanity = new INT();
+//        remainQuanity.setValue(BigInteger.valueOf(0));
+//        result.setResultRemainingQuantity(remainQuanity);
 
         return result;
     }
@@ -183,18 +182,17 @@ public class HL7Parser201306 {
         return result;
     }
     
-    private static COCTMT090003UV01AssignedEntity createAssignEntity (PRPAMT201310UV02Patient patient) {
-        COCTMT090003UV01AssignedEntity  assignedEntity = new COCTMT090003UV01AssignedEntity();
-        
+    private static COCTMT090003UV01AssignedEntity createAssignEntity(PRPAMT201310UV02Patient patient) {
+        COCTMT090003UV01AssignedEntity assignedEntity = new COCTMT090003UV01AssignedEntity();
+        assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         II id = new II();
-        try {
-           id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
-        }
-        catch (Exception e) {
-            id.setRoot(DEFAULT_AA_OID);
-        }
+        id.setRoot(patient.getId().get(0).getRoot());
         assignedEntity.getId().add(id);
-        
+        CE ce = new CE();
+        ce.setCode("NotHealthDataLocator");
+        ce.setCodeSystem("1.3.6.1.4.1.19376.1.2.27.2");
+        assignedEntity.setCode(ce);
+
         return assignedEntity;
     }
 
@@ -204,16 +202,6 @@ public class HL7Parser201306 {
         // Add in patient
         subject.setPatient(patient);
         
-        // Add in query parameters
-        // QueryByParameter was removed from 201306UV02 --- not sure of the impact.
-        //TODO: Resolve this.
-/*        if (query.getControlActProcess() != null &&
-                query.getControlActProcess().getQueryByParameter() != null &&
-                query.getControlActProcess().getQueryByParameter().getValue() != null) {
-           subject.setQueryByParameter(query.getControlActProcess().getQueryByParameter().getValue());
-
-        }
-*/
         return subject;
     }
 
@@ -235,7 +223,8 @@ public class HL7Parser201306 {
         receiver.setTypeCode(CommunicationFunctionType.RCV);
 
         MCCIMT000300UV01Device device = new MCCIMT000300UV01Device();
-        device.setDeterminerCode("INSTANCE");
+        device.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
+        device.setClassCode(EntityClassDevice.DEV);
 
         if (querySender.getDevice() != null &&
                 querySender.getDevice().getId() != null &&
@@ -255,7 +244,8 @@ public class HL7Parser201306 {
         sender.setTypeCode(CommunicationFunctionType.SND);
 
         MCCIMT000300UV01Device device = new MCCIMT000300UV01Device();
-        device.setDeterminerCode("INSTANCE");
+        device.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
+        device.setClassCode(EntityClassDevice.DEV);
 
         if (queryReceiver.getDevice() != null &&
                 queryReceiver.getDevice().getId() != null &&
