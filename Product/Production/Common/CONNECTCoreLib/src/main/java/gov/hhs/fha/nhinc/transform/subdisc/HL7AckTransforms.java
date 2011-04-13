@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -23,6 +19,12 @@ public class HL7AckTransforms {
 
     private static Log log = LogFactory.getLog(HL7AckTransforms.class);
 
+    /**
+     * Create acknowledgement message from patient discovery request.
+     * @param request
+     * @param ackMsgText
+     * @return ackMsg
+     */
     public static MCCIIN000002UV01 createAckFrom201305(PRPAIN201305UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
@@ -69,6 +71,12 @@ public class HL7AckTransforms {
         return ack;
     }
 
+    /**
+     * Create acknowledgement message from patient discovery response.
+     * @param request
+     * @param ackMsgText
+     * @return ackMsg
+     */
     public static MCCIIN000002UV01 createAckFrom201306(PRPAIN201306UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
@@ -115,6 +123,15 @@ public class HL7AckTransforms {
         return ack;
     }
 
+    /**
+     * Create acknowledgement message based on specific data values.
+     * @param localDeviceId
+     * @param origMsgId
+     * @param msgText
+     * @param senderOID
+     * @param receiverOID
+     * @return ackMsg
+     */
     public static MCCIIN000002UV01 createAckMessage(String localDeviceId, II origMsgId, String msgText, String senderOID, String receiverOID) {
         MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
 
@@ -154,6 +171,12 @@ public class HL7AckTransforms {
         return ackMsg;
     }
 
+    /**
+     * Create acknowledgement element based on specific data values.
+     * @param msgId
+     * @param msgText
+     * @return ack
+     */
     public static MCCIMT000200UV01Acknowledgement createAcknowledgement(II msgId, String msgText) {
         MCCIMT000200UV01Acknowledgement ack = new MCCIMT000200UV01Acknowledgement();
 
@@ -170,6 +193,11 @@ public class HL7AckTransforms {
         return ack;
     }
 
+    /**
+     * Create targetMessage element based on specific data values.
+     * @param msgId
+     * @return targetMsg
+     */
     public static MCCIMT000200UV01TargetMessage createTargetMessage(II msgId) {
         MCCIMT000200UV01TargetMessage targetMsg = new MCCIMT000200UV01TargetMessage();
 
@@ -181,6 +209,11 @@ public class HL7AckTransforms {
         return targetMsg;
     }
 
+    /**
+     * Create acknowledgementDetail element based on specific data values.
+     * @param msgText
+     * @return ackDetail
+     */
     public static MCCIMT000200UV01AcknowledgementDetail createAckDetail(String msgText) {
         MCCIMT000200UV01AcknowledgementDetail ackDetail = new MCCIMT000200UV01AcknowledgementDetail();
 
@@ -195,6 +228,5 @@ public class HL7AckTransforms {
         }
         return ackDetail;
     }
-
 
 }
