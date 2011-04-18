@@ -25,23 +25,27 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class PatientDiscovery201306Processor {
 
     private Log log = null;
-    
-    public PatientDiscovery201306Processor () {
+
+    public PatientDiscovery201306Processor() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * createNewRequest
+     * @param request
+     * @param targetCommunityId
+     * @return
+     */
     public PRPAIN201306UV02 createNewRequest(PRPAIN201306UV02 request, String targetCommunityId) {
         PRPAIN201306UV02 newRequest = new PRPAIN201306UV02();
         newRequest = request;
 
         if (request != null &&
                 NullChecker.isNotNullish(targetCommunityId)) {
-            //the new request will have the target community as the only receiver
             newRequest.getReceiver().clear();
             MCCIMT000300UV01Receiver oNewReceiver = HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(targetCommunityId);
             newRequest.getReceiver().add(oNewReceiver);
@@ -54,11 +58,17 @@ public class PatientDiscovery201306Processor {
         return newRequest;
     }
 
+    /**
+     * storeMapping Method to store AA and HCID mappings
+     * @param request
+     * @return
+     */
     public void storeMapping(PRPAIN201306UV02 request) {
         log.debug("Begin storeMapping");
         String hcid = getHcid(request);
-        String assigningAuthority = getAssigningAuthority(request);
-
+        log.debug("Begin storeMapping: hcid" + hcid);
+        String assigningAuthority = extractAAFrom201306(request);
+        log.debug("Begin storeMapping: assigningAuthority" + assigningAuthority);
         if (NullChecker.isNullish(hcid)) {
             log.warn("HCID null or empty. Mapping was not stored.");
         } else if (NullChecker.isNullish(assigningAuthority)) {
@@ -79,7 +89,7 @@ public class PatientDiscovery201306Processor {
 
     protected String getHcid(PRPAIN201306UV02 request) {
         String hcid = null;
-        
+
         if ((request != null) &&
                 (request.getSender() != null) &&
                 (request.getSender().getDevice() != null) &&
@@ -112,8 +122,28 @@ public class PatientDiscovery201306Processor {
         return assigningAuthority;
     }
 
-    protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO()
-    {
+    protected String extractAAFrom201306(PRPAIN201306UV02 msg) {
+        log.debug("Inside extractAAFrom201306");
+        String assigningAuthority = null;
+
+        if (msg != null &&
+                msg.getControlActProcess() != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject()) &&
+                msg.getControlActProcess().getSubject().get(0) != null &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+            assigningAuthority = msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
+            log.debug("Inside extractAAFrom201306 - assigningAuthority: " + assigningAuthority);
+        }
+        return assigningAuthority;
+    }
+
+    protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
         return new AssigningAuthorityHomeCommunityMappingDAO();
     }
 }

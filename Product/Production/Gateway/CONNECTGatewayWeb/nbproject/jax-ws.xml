@@ -1321,6 +1321,9 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityPatientDiscoveryDeferredReqQueueProcess">
+      <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcess</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
