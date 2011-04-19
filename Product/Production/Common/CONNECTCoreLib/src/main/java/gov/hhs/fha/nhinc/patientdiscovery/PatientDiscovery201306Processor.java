@@ -13,6 +13,8 @@ package gov.hhs.fha.nhinc.patientdiscovery;
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
@@ -67,23 +69,28 @@ public class PatientDiscovery201306Processor {
         log.debug("Begin storeMapping");
         String hcid = getHcid(request);
         log.debug("Begin storeMapping: hcid" + hcid);
-        String assigningAuthority = extractAAFrom201306(request);
-        log.debug("Begin storeMapping: assigningAuthority" + assigningAuthority);
-        if (NullChecker.isNullish(hcid)) {
-            log.warn("HCID null or empty. Mapping was not stored.");
-        } else if (NullChecker.isNullish(assigningAuthority)) {
-            log.warn("Assigning authority null or empty. Mapping was not stored.");
-        } else {
-            AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
-
-            if (mappingDao == null) {
-                log.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
+        List<String> assigningAuthorityIds = new ArrayList<String>();
+        assigningAuthorityIds = extractAAListFrom201306(request);
+        //String assigningAuthority = extractAAFrom201306(request);
+        for (String assigningAuthority : assigningAuthorityIds) {
+            log.debug("storeMapping: assigningAuthority" + assigningAuthority);
+            if (NullChecker.isNullish(hcid)) {
+                log.warn("HCID null or empty. Mapping was not stored.");
+            } else if (NullChecker.isNullish(assigningAuthority)) {
+                log.warn("Assigning authority null or empty. Mapping was not stored.");
             } else {
-                if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
-                    log.warn("Failed to store home community - assigning authority mapping");
+                AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
+
+                if (mappingDao == null) {
+                    log.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
+                } else {
+                    if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
+                        log.warn("Failed to store home community - assigning authority mapping, hcid: " + hcid + " assigningAuthority: " + assigningAuthority);
+                    }
                 }
             }
         }
+
         log.debug("End storeMapping");
     }
 
@@ -123,7 +130,7 @@ public class PatientDiscovery201306Processor {
     }
 
     protected String extractAAFrom201306(PRPAIN201306UV02 msg) {
-        log.debug("Inside extractAAFrom201306");
+        log.debug("Begin extractAAFrom201306");
         String assigningAuthority = null;
 
         if (msg != null &&
@@ -138,9 +145,43 @@ public class PatientDiscovery201306Processor {
                 NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
                 NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
             assigningAuthority = msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
-            log.debug("Inside extractAAFrom201306 - assigningAuthority: " + assigningAuthority);
+            log.debug("extractAAFrom201306 - assigningAuthority: " + assigningAuthority);
         }
         return assigningAuthority;
+    }
+
+    protected List<String> extractAAListFrom201306(PRPAIN201306UV02 msg) {
+        log.debug("Begin extractAAFrom201306");
+        List<String> assigningAuthorityIds = new ArrayList<String>();
+        String assigningAuthority = null;
+        int subjCount = 0;
+
+        if (msg != null &&
+                msg.getControlActProcess() != null &&
+                NullChecker.isNotNullish(msg.getControlActProcess().getSubject())) {
+            subjCount = msg.getControlActProcess().getSubject().size();
+        }
+        log.debug("storeMapping - Subject Count: " + subjCount);
+
+        for (int i = 0; i < subjCount; i++) {
+            assigningAuthority = null;
+            if (msg != null &&
+                    msg.getControlActProcess() != null &&
+                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject()) &&
+                    msg.getControlActProcess().getSubject().get(i) != null &&
+                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent() != null &&
+                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1() != null &&
+                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient() != null &&
+                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
+                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+                assigningAuthority = msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
+                log.debug("extractAAFrom201306 - assigningAuthority" + i + " :" + assigningAuthority);
+                assigningAuthorityIds.add(assigningAuthority);
+            }
+        }
+        return assigningAuthorityIds;
     }
 
     protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
