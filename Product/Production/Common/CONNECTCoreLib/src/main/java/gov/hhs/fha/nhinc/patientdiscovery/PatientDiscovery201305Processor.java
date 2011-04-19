@@ -37,6 +37,12 @@ public class PatientDiscovery201305Processor {
 
     private static Log log = LogFactory.getLog(PatientDiscovery201305Processor.class);
 
+    /**
+     * process201305
+     * @param request
+     * @param assertion
+     * @return org.hl7.PRPAIN201306UV02
+     */
     public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
@@ -77,7 +83,8 @@ public class PatientDiscovery201305Processor {
                 II requestPatId = providedPatientId(request);
                 if (requestPatId != null) {
                     // Create a patient correlation
-                    createPatientCorrelation(response, patIdOverride, assertion, request);
+                    //createPatientCorrelation(response, patIdOverride, assertion, request);
+                    createPatientCorrelation(response, assertion, request);
                 }
             } else {
                 log.error("Policy Check Failed");
@@ -187,6 +194,77 @@ public class PatientDiscovery201305Processor {
                 PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
 
                 patCorrelationProxy.addPatientCorrelation(request, assertion);
+            }
+        } else {
+            log.error("Null parameter passed to createPatientCorrelation method, no correlation created");
+        }
+    }
+
+    protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, AssertionType assertion, PRPAIN201305UV02 query) {
+        PRPAIN201301UV02 request = new PRPAIN201301UV02();
+        II localPatId = new II();
+        if (queryResult != null &&
+                assertion != null) {
+            int subjectsSize = 0;
+            if (queryResult.getControlActProcess() != null &&
+                    NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject())) {
+                subjectsSize = queryResult.getControlActProcess().getSubject().size();
+            }
+
+            for (int i = 0; i < subjectsSize; i++) {
+                localPatId = new II();
+                if (queryResult.getControlActProcess() != null &&
+                        NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject()) &&
+                        queryResult.getControlActProcess().getSubject().get(i) != null &&
+                        queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent() != null &&
+                        queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1() != null &&
+                        queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient() != null &&
+                        NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                        queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                        NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
+                        NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+                    localPatId.setExtension(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
+                    localPatId.setRoot(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
+                    log.debug("local AA " + i + ": " + localPatId.getRoot() + ", pId " + ": " + localPatId.getExtension());
+                }
+
+                if ((localPatId != null) &&
+                        (localPatId.getRoot() != null) &&
+                        (localPatId.getExtension() != null)) {
+
+                    request = HL7PRPA201301Transforms.createPRPA201301(query, localPatId.getRoot());
+
+                    if (request != null &&
+                            request.getControlActProcess() != null &&
+                            NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
+                            request.getControlActProcess().getSubject().get(0) != null &&
+                            request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                            request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                            request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                            NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+                        // Need to Switch patient ids so the sender and reciever match.  This is to avoid an exception by the Patient Correlation Component
+                        II remotePatient = request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0);
+                        request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
+                        request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localPatId);
+                        request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(remotePatient);
+                        log.debug("Local AA " + i + ": " + localPatId.getRoot() + ", pId: " + localPatId.getExtension());
+                        log.debug("Remote AA: " + remotePatient.getRoot() + ", pId: " + remotePatient.getExtension());
+
+                        if ((remotePatient != null) &&
+                                (remotePatient.getRoot() != null) &&
+                                (remotePatient.getExtension() != null)) {
+                            PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
+                            PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
+                            patCorrelationProxy.addPatientCorrelation(request, assertion);
+                        } else {
+                            log.error("Remote patient identifiers are null. Could not correlate the patient identifiers.");
+                        }
+                    } else {
+                        log.error("Request (PRPAIN201301UV02) or remote patient identifiers are null. Could not correlate the patient identifiers.");
+                    }
+                } else {
+                    log.error("Local patient identifiers are null. Could not correlate the patient identifiers.");
+                }
             }
         } else {
             log.error("Null parameter passed to createPatientCorrelation method, no correlation created");
