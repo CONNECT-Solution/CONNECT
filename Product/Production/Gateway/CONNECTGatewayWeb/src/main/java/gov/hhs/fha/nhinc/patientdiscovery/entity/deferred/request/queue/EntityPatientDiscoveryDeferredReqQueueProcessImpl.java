@@ -1,6 +1,8 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2011(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue;
 
@@ -15,6 +17,10 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessImpl {
     public EntityPatientDiscoveryDeferredReqQueueProcessImpl() {
     }
 
+    protected EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl getEntityPatientDiscoveryDeferredReqQueueProcessOrchImpl() {
+        return new EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl();
+    }
+
     /**
      * processPatientDiscoveryAsyncReqQueue Implementation method for processing request queues on reponding gateway
      * @param messageId
@@ -22,7 +28,7 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessImpl {
      */
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqQueue(String messageId) {
         MCCIIN000002UV01 mCCIIN000002UV01 = new MCCIIN000002UV01();
-        EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl entityPatientDiscoveryDeferredReqQueueProcessOrchImpl = new EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl();
+        EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl entityPatientDiscoveryDeferredReqQueueProcessOrchImpl = getEntityPatientDiscoveryDeferredReqQueueProcessOrchImpl();
         mCCIIN000002UV01 = entityPatientDiscoveryDeferredReqQueueProcessOrchImpl.processPatientDiscoveryAsyncReqQueue(messageId);
         return mCCIIN000002UV01;
     }
