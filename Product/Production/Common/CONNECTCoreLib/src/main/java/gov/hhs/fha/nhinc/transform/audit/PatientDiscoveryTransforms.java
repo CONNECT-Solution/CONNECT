@@ -179,13 +179,12 @@ public class PatientDiscoveryTransforms {
         addLogInfo("Entering transformPRPAIN201306ResponseToAuditMsg() method.");
         addLogInfo("******************************************************************");
 
-        // Check for required fields commented to allow valid response with no patient match to be logged
         //check to see that the required fields are not null
-//        boolean bRequiredFieldsAreNull = areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertion);
-//        if (bRequiredFieldsAreNull) {
-//            addLogError("One or more of the required fields needed to transform to an audit message request were null.");
-//            return null;
-//        } //else continue
+        boolean bRequiredFieldsAreNull = areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertion);
+        if (bRequiredFieldsAreNull) {
+            addLogError("One or more of the required fields needed to transform to an audit message request were null.");
+            return null;
+        } //else continue
 
         // Extract UserInfo from request assertion
         UserType oUserInfo = oAssertion.getUserInfo();
@@ -739,24 +738,21 @@ public class PatientDiscoveryTransforms {
         // Create Active Participant Section - comes from the UserType/UserInfo object which is checked earlier
 
         /* Assign AuditSourceIdentification */
+        /* If at least one patient match, test for complete unique patient id */
         List<II> oIIs = getHL7IdentitiersFromResponse(oPatientDiscoveryResponseMessage);
-        if (oIIs == null) {
-            addLogInfo("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
-            return true;
+        if (oIIs != null && oIIs.size() > 0) {
+            String sPatientId = oIIs.get(0).getExtension();
+            String sCommunityId = oIIs.get(0).getRoot();
+            if (sPatientId == null) {
+                addLogInfo("The patient id from the II.getExtension method from the response message's II object was null.");
+                return true;
+            } //else continue
+
+            if (sCommunityId == null) {
+                addLogInfo("The patient's assigning authority or community id from the response message's II object was null.");
+                return true;
+            }
         }
-
-        String sPatientId = oIIs.get(0).getExtension();
-        String sCommunityId = oIIs.get(0).getRoot();
-        if (sPatientId == null) {
-            addLogInfo("The patient id from the II.getExtension method from the response message's II object was null.");
-            return true;
-        } //else continue
-
-        if (sCommunityId == null) {
-            addLogInfo("The patient's assigning authority or community id from the response message's II object was null.");
-            return true;
-        }
-
 
         //AuditSourceIdentification - comes from the UserType/UserInfo object which is checked earlier
 
