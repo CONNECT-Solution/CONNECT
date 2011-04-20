@@ -1,8 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
@@ -1311,7 +1312,7 @@ public class PatientDiscovery201306ProcessorTest {
         String targetCommunityId = "3.3";
         PatientDiscovery201306Processor instance = new PatientDiscovery201306Processor();
         PRPAIN201306UV02 result = instance.createNewRequest(msg, targetCommunityId);
-        
+
         assertEquals(targetCommunityId, result.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
