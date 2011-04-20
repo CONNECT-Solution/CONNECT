@@ -4,17 +4,10 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.muralmpi;
 
 import com.sun.mdm.index.webservice.SearchPatientResult;
 import com.sun.mdm.index.webservice.PatientBean;
-import com.sun.mdm.index.webservice.EnterprisePatient;
-import com.sun.mdm.index.webservice.SystemPatient;
-import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
@@ -22,7 +15,6 @@ import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.EnExplicitFamily;
-import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.CE;
@@ -35,13 +27,11 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.util.List;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.Serializable;
 import java.util.Iterator;
 import javax.xml.bind.JAXBElement;
-import gov.hhs.fha.nhinc.muralmpi.PersonName;
 
 /**
  *
@@ -91,9 +81,6 @@ public class HL7Parser {
     }
 
     private static String convertMuralDateToHL7Date(String date) {
-        SimpleDateFormat hl7DateFormat = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat muralDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date dob;
         String result = convertFormattedDates(date, "MM/dd/yyyy", "yyyyMMdd");
 
         return result;
