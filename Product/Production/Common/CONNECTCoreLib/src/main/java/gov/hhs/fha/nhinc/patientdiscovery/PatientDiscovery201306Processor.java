@@ -85,7 +85,7 @@ public class PatientDiscovery201306Processor {
                     log.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
                 } else {
                     if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
-                        log.warn("Failed to store home community - assigning authority mapping, hcid: " + hcid + " assigningAuthority: " + assigningAuthority);
+                        log.warn("Failed to store home community - assigning authority mapping" );
                     }
                 }
             }
