@@ -560,6 +560,11 @@
               linecount="14"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl"
+              linecount="45"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue"
               linecount="2"

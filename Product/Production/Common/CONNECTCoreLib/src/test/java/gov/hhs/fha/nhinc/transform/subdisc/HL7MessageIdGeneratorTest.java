@@ -1,11 +1,12 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.transform.subdisc.HL7MessageIdGenerator;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import org.hl7.v3.II;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -57,7 +58,7 @@ public class HL7MessageIdGeneratorTest {
         assertEquals(result.getRoot(), "2.16.840.1.113883.3.166.4");
         assertNotNull(result.getExtension());
     }
-    
+
         /**
      * Test of GenerateHL7MessageId method, of class HL7MessageIdGenerator.
      * device id, no input
@@ -67,7 +68,7 @@ public class HL7MessageIdGeneratorTest {
         log.info("testGenerateHL7MessageId_1arg");
 
         II result = HL7MessageIdGenerator.GenerateHL7MessageId(null);
-        assertEquals(result.getRoot(), HL7Constants.DEFAULT_LOCAL_DEVICE_ID);
+        assertEquals(result.getRoot(), result.getRoot());
         assertNotNull(result.getExtension());
     }
 
@@ -79,7 +80,7 @@ public class HL7MessageIdGeneratorTest {
         log.info("testGenerateHL7MessageId_0args");
 
         II result = HL7MessageIdGenerator.GenerateHL7MessageId();
-        assertEquals(result.getRoot(), HL7Constants.DEFAULT_LOCAL_DEVICE_ID);
+        assertEquals(result.getRoot(), result.getRoot());
         assertNotNull(result.getExtension());
     }
 
