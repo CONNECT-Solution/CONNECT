@@ -4245,9 +4245,9 @@
               linecount="1"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="104" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.response.TrustMode"
-              linecount="70"
+              linecount="112"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="118" branchrate="80" branchsexecuted="0"

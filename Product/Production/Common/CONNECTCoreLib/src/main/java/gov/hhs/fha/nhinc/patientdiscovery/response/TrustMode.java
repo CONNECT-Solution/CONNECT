@@ -24,6 +24,9 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.ArrayList;
+import java.util.List;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 /**
  *
@@ -38,51 +41,113 @@ public class TrustMode implements ResponseMode {
         log = createLogger();
     }
 
+    /**
+     * Process Patient Discovery Response
+     * @param params
+     * @return response
+     */
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
-        log.debug("begin processResponse");
+        log.debug("Begin TrustMode.processResponse()...");
+        PRPAIN201306UV02 response = null;
 
+        if (params != null) {
+            response = params.response;
+            AssertionType assertion = params.assertion;
+            PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
-        PRPAIN201306UV02 response = params.response;
-        AssertionType assertion = params.assertion;
-        PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
+            List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+            if (response != null &&
+                    response.getControlActProcess() != null &&
+                    NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+                pRPAINSubjects = response.getControlActProcess().getSubject();
+                log.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
+            } else {
+                log.debug("processResponse - response/subjects is null");
+            }
 
-        if (requestHasLivingSubjectId(requestMsg)) {
-            try {
-                II localPatId = getPatientId(requestMsg);
-                II remotePatId = getPatientId(response);
+            II remotePatId = null;
+            II localPatId = getPatientId(requestMsg);
 
-                if (localPatId != null &&
-                        remotePatId != null) {
-                    sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
-                } else {
-                    log.error("One or more of the Patient Id values are null");
+            if (requestHasLivingSubjectId(requestMsg) &&
+                    localPatId != null) {
+                for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
+                    int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+                    log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
+
+                    if (pRPAINSubjectInd != 0) {
+                        response.getControlActProcess().getSubject().remove(pRPAINSubject);
+                        response.getControlActProcess().getSubject().add(0, pRPAINSubject);
+                    }
+
+                    try {
+                        remotePatId = getPatientId(response);
+                        if (remotePatId != null) {
+                            sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
+                        } else {
+                            log.error("One or more of the Patient Id values are null");
+                        }
+                    } catch (Exception ex) {
+                        log.error(ex.getMessage(), ex);
+                    }
                 }
-            } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
+            } else {
+                log.debug("Local Patient Id was not provided, no correlation will be attempted");
             }
         } else {
-            log.debug("Local Patient Id was not provided, no correlation will be attempted");
+            log.warn("processResponse - params is null");
         }
-
+        log.debug("End TrustMode.processResponse()...");
         return response;
     }
 
+    /**
+     * Process Patient Discovery Response
+     * @param response
+     * @param assertion
+     * @param localPatId
+     * @return response
+     */
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatId) {
         log.debug("begin processResponse");
+        if (response != null) {
+            if (localPatId != null) {
+                List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+                if (response.getControlActProcess() != null &&
+                        NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+                    pRPAINSubjects = response.getControlActProcess().getSubject();
+                    log.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
+                } else {
+                    log.debug("processResponse - response/subjects is null");
+                }
 
-        II remotePatId = getPatientId(response);
+                II remotePatId = null;
+                for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
+                    int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+                    log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
 
-        try {
-            if (localPatId != null &&
-                    remotePatId != null) {
-                sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
+                    if (pRPAINSubjectInd != 0) {
+                        response.getControlActProcess().getSubject().remove(pRPAINSubject);
+                        response.getControlActProcess().getSubject().add(0, pRPAINSubject);
+                    }
+
+                    try {
+                        remotePatId = getPatientId(response);
+                        if (remotePatId != null) {
+                            sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
+                        } else {
+                            log.error("One or more of the Patient Id values are null");
+                        }
+                    } catch (Exception ex) {
+                        log.error(ex.getMessage(), ex);
+                    }
+                }
             } else {
-                log.error("One or more of the Patient Id values are null");
+                log.debug("Local Patient Id was not provided, no correlation will be attempted");
             }
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+        } else {
+            log.warn("processResponse - response is null, no correlation will be attempted");
         }
-
+        log.debug("End TrustMode.processResponse()...");
         return response;
     }
 
@@ -124,7 +189,13 @@ public class TrustMode implements ResponseMode {
     }
 
     protected II getPatientId(PRPAIN201305UV02 request) {
-        return new PatientDiscovery201305Processor().extractPatientIdFrom201305(request);
+        II localPatId = null;
+        try {
+            localPatId = new PatientDiscovery201305Processor().extractPatientIdFrom201305(request);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
+        return localPatId;
     }
 
     protected II getPatientId(PRPAIN201306UV02 request) {
