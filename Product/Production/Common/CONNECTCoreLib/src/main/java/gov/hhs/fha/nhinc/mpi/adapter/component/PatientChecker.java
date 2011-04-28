@@ -10,11 +10,13 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201305;
 import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201306;
 import gov.hhs.fha.nhinc.mpilib.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 import org.hl7.v3.PRPAIN201305UV02;
+
 /**
  *
  * @author Jon Hoppesch
@@ -23,39 +25,11 @@ public class PatientChecker implements AdapterComponentMpiChecker {
 
     private static Log log = LogFactory.getLog(PatientChecker.class);
 
-//    public PRPAIN201306UV02 FindPatient(PRPAIN201305UV02 query) {
-//        log.debug("Entering PatientChecker.FindPatient method...");
-//        PRPAIN201306UV02 result = null;
-//
-//        PRPAMT201306UV02ParameterList queryParams = HL7Parser201305.ExtractHL7QueryParamsFromMessage(query);
-//
-//        if (queryParams == null) {
-//            log.error("no query parameters were supplied");
-//        } else {
-//            Patient sourcePatient = HL7Parser201305.ExtractMpiPatientFromQueryParams(queryParams);
-//            log.info("perform patient lookup in mpi");
-//
-//            log.info("source patient check 1 [" + sourcePatient.toString()+ "]");
-//            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient);
-//            if (CommonChecks.isZeroSearchResult(searchResults)) {
-//                log.info("patient not found in MPI");
-//                result = null;
-//            } else if (CommonChecks.isMultipleSearchResult(searchResults)) {
-//                log.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
-//                result = null;
-//            } else {
-//                log.info("single patient found in MPI");
-//                Patient searchResultPatient = searchResults.get(0);
-//                log.info("Found patient " + searchResultPatient.toString());
-//
-//                result = HL7Parser201306.BuildMessageFromMpiPatient (searchResultPatient, query);
-//            }
-//        }
-//
-//        log.debug("Exiting PatientChecker.FindPatient method...");
-//        return result;
-//    }
-
+    /**
+     * Find matching patients from mpi
+     * @param query request
+     * @return response
+     */
     public PRPAIN201306UV02 FindPatient(PRPAIN201305UV02 query) {
         log.debug("Entering PatientChecker.FindPatient method...");
         PRPAIN201306UV02 result = null;
@@ -70,60 +44,63 @@ public class PatientChecker implements AdapterComponentMpiChecker {
 
             log.info("source patient check 1 [" + sourcePatient.toString() + "]");
             Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient);
+            if (searchResults != null) {
+                log.debug("searchResults.size(): " + searchResults.size());
+            } else {
+                log.debug("No matching patient found");
+            }
 
-            String pId = "";
-            String aaId = "";
-            String uniquePatientId = "";
-            List<String> uniquePatientIds = new ArrayList<String>();
-            Patients filteredSearchResults = new Patients();
+            Patients filteredPatients = new Patients();
+            List<String> dupOrgIds = new ArrayList<String>();
             for (Patient patient : searchResults) {
-                pId = "";
-                aaId = "";
-                uniquePatientId = "";
-                if ((patient.getIdentifiers() != null) && (patient.getIdentifiers().size() > 0)) {
-                    pId = patient.getIdentifiers().get(0).getId();
-                    aaId = patient.getIdentifiers().get(0).getOrganizationId();
-                    uniquePatientId = pId + "^^^&" + aaId + "&ISO";
-                    log.debug("FindPatient - uniquePatientId: " + uniquePatientId);
-                    if (uniquePatientIds.size() > 0) {
-                        for (String str : uniquePatientIds) {
-                            if (uniquePatientId.equalsIgnoreCase(str)) {
-                                log.debug("Duplicate patient found in the same assigning authority");
-                            } else {
-                                filteredSearchResults.add(patient);
-                            }
+                if ((patient.getIdentifiers() != null) &&
+                        (patient.getIdentifiers().size() > 0) &&
+                        (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+
+                    for (Patient tempPatient : filteredPatients) {
+                        if ((tempPatient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(patient.getIdentifiers().get(0).getOrganizationId())) {
+                            dupOrgIds.add(patient.getIdentifiers().get(0).getOrganizationId());
                         }
-                    } else {
-                        filteredSearchResults.add(patient);
                     }
-                    uniquePatientIds.add(uniquePatientId);
+                    filteredPatients.add(patient);
                 }
             }
 
-            log.debug("filteredSearchResults.size(): " + filteredSearchResults.size());
-            /*if (CommonChecks.isZeroSearchResult(searchResults)) {
-                log.info("patient not found in MPI");
-                result = null;
-            } else if (CommonChecks.isMultipleSearchResult(searchResults)) {
-                log.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
-                result = null;
-            } else {
-                log.info("single patient found in MPI");
-                Patient searchResultPatient = searchResults.get(0);
-                log.info("Found patient " + searchResultPatient.toString());
+            if ((dupOrgIds != null) &&
+                    (dupOrgIds.size() > 0)) {
+                HashSet hashSet = new HashSet(dupOrgIds);
+                dupOrgIds = new ArrayList(hashSet);
+                log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): " + dupOrgIds.size());
+            }
 
-                result = HL7Parser201306.BuildMessageFromMpiPatient(searchResultPatient, query);
-            }*/
-            if (filteredSearchResults.size() > 0) {
-                result = HL7Parser201306.BuildMessageFromMpiPatient(filteredSearchResults, query);
+            for (Patient patient : searchResults) {
+                if ((patient.getIdentifiers() != null) &&
+                        (patient.getIdentifiers().size() > 0) &&
+                        (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+
+                    for (String str : dupOrgIds) {
+                        if ((patient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(str)) {
+                            filteredPatients.remove(patient);
+                        }
+                    }
+                }
+            }
+
+            if (filteredPatients != null) {
+                log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
+            } else {
+                log.debug("filteredPatients - No matching patients found");
+            }
+
+            if ((filteredPatients != null) &&
+                    (filteredPatients.size() > 0)) {
+                result = HL7Parser201306.BuildMessageFromMpiPatient(filteredPatients, query);
             } else {
                 result = null;
             }
-
         }
 
         log.debug("Exiting PatientChecker.FindPatient method...");
         return result;
     }
-
 }

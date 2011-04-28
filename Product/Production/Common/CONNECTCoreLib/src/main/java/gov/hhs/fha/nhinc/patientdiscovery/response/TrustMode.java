@@ -73,11 +73,9 @@ public class TrustMode implements ResponseMode {
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
                     log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
-
-                    if (pRPAINSubjectInd != 0) {
-                        response.getControlActProcess().getSubject().remove(pRPAINSubject);
-                        response.getControlActProcess().getSubject().add(0, pRPAINSubject);
-                    }
+                    
+                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0, pRPAINSubject);
+                    response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
                     try {
                         remotePatId = getPatientId(response);
@@ -89,6 +87,8 @@ public class TrustMode implements ResponseMode {
                     } catch (Exception ex) {
                         log.error(ex.getMessage(), ex);
                     }
+                    response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
+                    response.getControlActProcess().getSubject().set(0, subjReplaced);
                 }
             } else {
                 log.debug("Local Patient Id was not provided, no correlation will be attempted");
@@ -125,10 +125,8 @@ public class TrustMode implements ResponseMode {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
                     log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
 
-                    if (pRPAINSubjectInd != 0) {
-                        response.getControlActProcess().getSubject().remove(pRPAINSubject);
-                        response.getControlActProcess().getSubject().add(0, pRPAINSubject);
-                    }
+                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0, pRPAINSubject);
+                    response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
                     try {
                         remotePatId = getPatientId(response);
@@ -140,6 +138,9 @@ public class TrustMode implements ResponseMode {
                     } catch (Exception ex) {
                         log.error(ex.getMessage(), ex);
                     }
+                    
+                    response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
+                    response.getControlActProcess().getSubject().set(0, subjReplaced);
                 }
             } else {
                 log.debug("Local Patient Id was not provided, no correlation will be attempted");
