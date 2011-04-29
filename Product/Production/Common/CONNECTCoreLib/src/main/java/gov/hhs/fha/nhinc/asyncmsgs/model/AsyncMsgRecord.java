@@ -1,14 +1,9 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
+ * Copyright 2011(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.asyncmsgs.model;
 
 import java.sql.Blob;
@@ -16,17 +11,24 @@ import java.util.Date;
 
 /**
  *
- * @author JHOPPESC
+ * @author JHOPPESC, richard.ettema
  */
 public class AsyncMsgRecord {
+
     private Long Id = null;
     private String MessageId = null;
     private Date CreationTime = null;
+    private Date ResponseTime = null;
+    private Long Duration = null;
     private String ServiceName = null;
+    private String Direction = null;
+    private String CommunityId = null;
+    private String Status = null;
+    private String ResponseType = null;
     private Blob MsgData = null;
 
     public AsyncMsgRecord() {}
-    
+
     public Long getId () {
         return Id;
     }
@@ -51,12 +53,60 @@ public class AsyncMsgRecord {
         this.CreationTime = CreationTime;
     }
 
+    public Date getResponseTime () {
+        return ResponseTime;
+    }
+
+    public void setResponseTime (Date ResponseTime) {
+        this.ResponseTime = ResponseTime;
+    }
+
+    public Long getDuration () {
+        return Duration;
+    }
+
+    public void setDuration (Long Duration) {
+        this.Duration = Duration;
+    }
+
     public String getServiceName () {
         return ServiceName;
     }
 
     public void setServiceName (String ServiceName) {
         this.ServiceName = ServiceName;
+    }
+
+    public String getDirection () {
+        return Direction;
+    }
+
+    public void setDirection (String Direction) {
+        this.Direction = Direction;
+    }
+
+    public String getCommunityId () {
+        return CommunityId;
+    }
+
+    public void setCommunityId (String CommunityId) {
+        this.CommunityId = CommunityId;
+    }
+
+    public String getStatus () {
+        return Status;
+    }
+
+    public void setStatus (String Status) {
+        this.Status = Status;
+    }
+
+    public String getResponseType () {
+        return ResponseType;
+    }
+
+    public void setResponseType (String ResponseType) {
+        this.ResponseType = ResponseType;
     }
 
     public Blob getMsgData () {

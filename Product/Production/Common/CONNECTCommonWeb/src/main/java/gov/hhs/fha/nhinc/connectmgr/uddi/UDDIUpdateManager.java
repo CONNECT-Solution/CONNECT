@@ -7,7 +7,6 @@
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import javax.jws.WebService;
-import javax.servlet.ServletException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,17 +19,17 @@ public class UDDIUpdateManager {
 
     private static Log log = LogFactory.getLog(UDDIUpdateManager.class);
 
-    static {
-        //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
-        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-                new javax.net.ssl.HostnameVerifier() {
-
-                    public boolean verify(String hostname,
-                            javax.net.ssl.SSLSession sslSession) {
-                        return true;
-                    }
-                });
-    }
+//    static {
+//        //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
+//        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+//                new javax.net.ssl.HostnameVerifier() {
+//
+//                    public boolean verify(String hostname,
+//                            javax.net.ssl.SSLSession sslSession) {
+//                        return true;
+//                    }
+//                });
+//    }
 
     /**
      * Default constructor.

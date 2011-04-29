@@ -402,6 +402,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DeferredQueueManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeferredQueueManager</servlet-name>
+        <url-pattern>/DeferredQueueManager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>EntityAuditQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditQuery</servlet-class>
     </servlet>

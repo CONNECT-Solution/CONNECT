@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:common:deferredqueuemanager" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+    targetNamespace="urn:gov:hhs:fha:nhinc:common:deferredqueuemanager" 
+    elementFormDefault="qualified">
+        
+    <xsd:import schemaLocation="../common/NhincCommon.xsd" namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon"/>
+
+    <!--  The following schema is used in the DeferredQueueManager wsdl.  -->
+    
+    <!-- Currently there are no real operations on the WSDL.  A WSDL is needed so that this can 
+         be loaded into Glassfish as an ESB service.  But right now it will only have a timer
+         trigger.  Down the road there may be additional messages to handle against the Queue. -->
+    <xsd:complexType name="SuccessOrFailType">
+        <xsd:sequence>
+            <xsd:element name="success" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SuccessOrFail" type="tns:SuccessOrFailType"/>
+
+    <xsd:complexType name="DeferredQueueManagerNoopRequestType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DeferredQueueManagerNoopRequest" type="tns:DeferredQueueManagerNoopRequestType" />
+
+    <xsd:complexType name="DeferredQueueManagerNoopResponseType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DeferredQueueManagerNoopResponse" type="tns:DeferredQueueManagerNoopResponseType" />
+
+    <xsd:complexType name="DeferredQueueManagerForceProcessRequestType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DeferredQueueManagerForceProcessRequest" type="tns:DeferredQueueManagerForceProcessRequestType" />
+
+    <xsd:complexType name="DeferredQueueManagerForceProcessResponseType" >
+        <xsd:sequence>
+            <xsd:element name="successOrFail" type="tns:SuccessOrFailType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DeferredQueueManagerForceProcessResponse" type="tns:DeferredQueueManagerForceProcessResponseType" />
+
+</xsd:schema>
