@@ -204,12 +204,19 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON subscriptionrepository.* to nhincuser;
 -- begin asyncmsgs
 CREATE DATABASE asyncmsgs;
 
-CREATE TABLE asyncmsgs.asyncmsgrepo (
-        Id int(10) unsigned NOT NULL auto_increment,
+CREATE TABLE IF NOT EXISTS asyncmsgs.asyncmsgrepo (
+    Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     MessageId VARCHAR(100) NOT NULL,
     CreationTime DATETIME NOT NULL,
-    ServiceName VARCHAR(100),
-    MsgData LONGBLOB,
+    ResponseTime DATETIME NULL DEFAULT NULL,
+    Duration BIGINT NULL DEFAULT 0,
+    ServiceName VARCHAR(45) NULL DEFAULT NULL,
+    Direction VARCHAR(10) NULL DEFAULT NULL,
+    CommunityId VARCHAR(100) NULL DEFAULT NULL,
+    Status VARCHAR(45) NULL DEFAULT NULL,
+    ResponseType VARCHAR(10) NULL DEFAULT NULL,
+    Reserved VARCHAR(100) NULL DEFAULT NULL,
+    MsgData LONGBLOB NULL DEFAULT NULL,
     PRIMARY KEY (Id)
 );
 
