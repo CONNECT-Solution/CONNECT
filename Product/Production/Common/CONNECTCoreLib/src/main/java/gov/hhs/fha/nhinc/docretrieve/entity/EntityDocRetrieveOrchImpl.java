@@ -4,17 +4,11 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.docretrieve.entity;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocRetrieveRequestType;
@@ -39,32 +33,39 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
  * @author dunnek
  */
 public class EntityDocRetrieveOrchImpl {
+
     private static org.apache.commons.logging.Log log = null;
     private static final long SLEEP_MS = 1000;
     private static final long AGGREGATOR_TIMEOUT_MS = 40000;
-    public EntityDocRetrieveOrchImpl()
-    {
+
+    public EntityDocRetrieveOrchImpl() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion)
-    {
+
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @return <code>RetrieveDocumentSetResponseType</code>
+     */
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         RetrieveDocumentSetResponseType response = null;
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
         DocRetrieveAggregator aggregator = new DocRetrieveAggregator();
-        
-        auditLog.auditDocRetrieveRequest(body, assertion);
+        String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(body);
+        auditLog.auditDocRetrieveRequest(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         try {
             String transactionId = startTransaction(aggregator, body);
@@ -76,11 +77,11 @@ public class EntityDocRetrieveOrchImpl {
         }
 
         // Audit log - response
-        auditLog.auditResponse(response, assertion);
+        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         log.debug("End EntityDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
- 
+
     }
 
     private RetrieveDocumentSetResponseType retrieveDocRetrieveResults(DocRetrieveAggregator aggregator, String transactionId) {
@@ -125,14 +126,15 @@ public class EntityDocRetrieveOrchImpl {
         log.debug("End retrieveDocRetrieveResults");
         return response;
     }
+
     private boolean retrieveTimedOut(long startTime) {
         long timeout = startTime + AGGREGATOR_TIMEOUT_MS;
         return (timeout < System.currentTimeMillis());
     }
-    protected NhinDocRetrieveProxy getNhincDocRetreive()
-    {
+
+    protected NhinDocRetrieveProxy getNhincDocRetreive() {
         log.debug("Creating NHIN doc retrieve proxy");
-             
+
         return new NhinDocRetrieveProxyObjectFactory().getNhinDocRetrieveProxy();
     }
 
@@ -147,7 +149,6 @@ public class EntityDocRetrieveOrchImpl {
             nhinDocRequest.getDocumentRequest().add(docRequest);
             nhinDocRetrieveMsg.setNhinTargetSystem(buildHomeCommunity(docRequest.getHomeCommunityId()));
 
-
             if (isPolicyValid(nhinDocRequest, assertion, nhinDocRetrieveMsg.getNhinTargetSystem().getHomeCommunity())) {
                 // Create and start doc retrieve sender thread
                 DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, assertion);
@@ -159,8 +160,6 @@ public class EntityDocRetrieveOrchImpl {
         log.debug("End sendRetrieveMessages");
     }
 
-
-
     private String startTransaction(DocRetrieveAggregator aggregator, RetrieveDocumentSetRequestType body) {
         StartTransactionDocRetrieveRequestType docRetrieveStartTransaction = new StartTransactionDocRetrieveRequestType();
         docRetrieveStartTransaction.setRetrieveDocumentSetRequest(body);
@@ -169,6 +168,7 @@ public class EntityDocRetrieveOrchImpl {
         log.debug("Doc retrieve transaction id: " + transactionId);
         return transactionId;
     }
+
     private RetrieveDocumentSetResponseType createErrorResponse(String codeContext) {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         RegistryResponseType responseType = new RegistryResponseType();
@@ -183,6 +183,7 @@ public class EntityDocRetrieveOrchImpl {
         regErr.setSeverity("Error");
         return response;
     }
+
     private NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
@@ -213,5 +214,4 @@ public class EntityDocRetrieveOrchImpl {
         }
         return isValid;
     }
-
 }

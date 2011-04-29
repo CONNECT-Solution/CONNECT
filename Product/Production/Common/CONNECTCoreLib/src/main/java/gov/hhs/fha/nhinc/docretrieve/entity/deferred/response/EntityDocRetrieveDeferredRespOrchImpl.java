@@ -19,6 +19,7 @@ import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -62,14 +63,14 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
             log.debug("Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
         }
         DocRetrieveAcknowledgementType nhinResponse = null;
-        String homeCommunityId = null;
+        String homeCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(target);
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         try {
             if (null != response && (null != assertion) && (null != target)) {
-                auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion);
+                auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
                 CMUrlInfos urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
-                homeCommunityId = getHomeCommFromTarget(target);
+//                homeCommunityId = getHomeCommFromTarget(target);
                 //loop through the communities and send request if results were not null
                 if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
                     log.warn("No targets were found for the Document retrieve deferred Response service");
@@ -88,14 +89,13 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                         if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
                             // Call NHIN proxy
                             nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(response, assertion, oTargetSystem);
-                        }
-                        else {
+                        } else {
                             nhinResponse = buildRegistryErrorAck();
                         }
 
                     }
                 }
-                
+
             }
         } catch (Exception ex) {
             log.error(ex);

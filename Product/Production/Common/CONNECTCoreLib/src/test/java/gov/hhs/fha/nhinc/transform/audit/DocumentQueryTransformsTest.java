@@ -1,3 +1,9 @@
+/*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *
+ */
 package gov.hhs.fha.nhinc.transform.audit;
 
 import org.apache.commons.logging.Log;
@@ -82,7 +88,8 @@ public class DocumentQueryTransformsTest {
         
         HomeCommunityType home = new HomeCommunityType();
         home.setHomeCommunityId("2.16.840.1.113883.3.200");
-        home.setName("Federal - VA");
+        //home.setName("Federal - VA");
+        home.setName("2.16.840.1.113883.3.200");
         userInfo.setOrg(home);
         PersonNameType personName = new PersonNameType();
         personName.setFamilyName("Smith");
@@ -130,7 +137,7 @@ public class DocumentQueryTransformsTest {
             allowing (mockLog).info(with(any(String.class)));
         }});
 
-        LogEventRequestType result = transformer.transformDocQueryReq2AuditMsg(logMessage);
+        LogEventRequestType result = transformer.transformDocQueryReq2AuditMsg(logMessage, home.getHomeCommunityId());
              
         assertEquals(expResult.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
         assertEquals(expResult.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(),
@@ -214,7 +221,7 @@ public class DocumentQueryTransformsTest {
             allowing (mockLog).info(with(any(String.class)));
         }});
 
-        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage);
+        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage,expectedHomeCommunity);
              
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
         assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventActionCode());
@@ -316,7 +323,7 @@ public class DocumentQueryTransformsTest {
             allowing (mockLog).info(with(any(String.class)));
         }});
 
-        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage);
+        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage,expectedHomeCommunity);
 
         //result.getAuditMessage().getAuditSourceIdentification().
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());

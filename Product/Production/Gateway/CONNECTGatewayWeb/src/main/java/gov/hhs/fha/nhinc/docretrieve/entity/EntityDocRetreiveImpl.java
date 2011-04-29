@@ -37,6 +37,12 @@ public class EntityDocRetreiveImpl {
 
     return this.respondingGatewayCrossGatewayQuery(body, assertionWithId);
   }
+  /**
+   *  TODO : method name to be refactored to respondingGatewayCrossGatewayRetrieve??
+   * @param body
+   * @param assertion
+   * @return
+   */
   public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayQuery(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion)
   {
 

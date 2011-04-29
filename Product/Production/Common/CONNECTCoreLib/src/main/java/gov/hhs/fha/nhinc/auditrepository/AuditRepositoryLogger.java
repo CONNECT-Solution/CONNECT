@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.auditrepository;
 
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType;
@@ -85,8 +81,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
-
-
 
 /**
  *
@@ -342,6 +336,20 @@ public class AuditRepositoryLogger {
      */
     public LogEventRequestType logAdhocQuery(AdhocQueryMessageType message, String direction, String _interface) {
         log.debug("Entering AuditRepositoryLogger.logAdhocQuery(...)");
+        return logAdhocQuery(message, direction, _interface, null);
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a document query request
+     *
+     * @param message The Document Query Request message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param responseCommunityId
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logAdhocQuery(AdhocQueryMessageType message, String direction, String _interface, String responseCommunityId) {
+        log.debug("Entering AuditRepositoryLogger.logAdhocQuery(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -350,7 +358,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
 
-            auditMsg = new DocumentQueryTransforms().transformDocQueryReq2AuditMsg(logReqMsg);
+            auditMsg = new DocumentQueryTransforms().transformDocQueryReq2AuditMsg(logReqMsg, responseCommunityId);
         }
         log.debug("Exiting AuditRepositoryLogger.logAdhocQuery(...)");
 
@@ -415,6 +423,19 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQueryResult(AdhocQueryResponseMessageType message, String direction, String _interface) {
+        return this.logAdhocQueryResult(message, direction, _interface, null);
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a document query response
+     *
+     * @param message The Document Query Response message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param requestCommunityID
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logAdhocQueryResult(AdhocQueryResponseMessageType message, String direction, String _interface, String requestCommunityID) {
         log.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
         LogEventRequestType auditMsg = null;
 
@@ -424,19 +445,41 @@ public class AuditRepositoryLogger {
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
 
-            auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logReqMsg);
+            auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logReqMsg, requestCommunityID);
         }
         log.debug("Exiting AuditRepositoryLogger.logAdhocQueryResult(...)");
 
         return auditMsg;
     }
 
+    /**
+     * 
+     * @param acknowledgement
+     * @param assertion
+     * @param direction
+     * @param _interface
+     * @return
+     */
     public LogEventRequestType logAdhocQueryDeferredAck(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
+        return logAdhocQueryDeferredAck(acknowledgement, assertion, direction, _interface, null);
+    }
+
+    /**
+     * 
+     * @param acknowledgement
+     * @param assertion
+     * @param direction
+     * @param _interface
+     * @param requestCommunityID
+     * @return
+     */
+    public LogEventRequestType logAdhocQueryDeferredAck(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface, String requestCommunityID) {
         log.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
-            auditMsg = new DocumentQueryTransforms().transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, _interface);
+            auditMsg = new DocumentQueryTransforms().transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, _interface, requestCommunityID);
         }
         log.debug("Exiting AuditRepositoryLogger.logAdhocQueryResult(...)");
 
@@ -452,6 +495,20 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface) {
+
+        return logDocRetrieve(message, direction, _interface, null);
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a document retrieve request
+     *
+     * @param message The Document Retrieve Request message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param responseCommunityID
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface, String responseCommunityID) {
         log.debug("Entering AuditRepositoryLogger.logDocRetrieve(...)");
         LogEventRequestType auditMsg = null;
 
@@ -461,7 +518,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
 
-            auditMsg = DocumentRetrieveTransforms.transformDocRetrieveReq2AuditMsg(logReqMsg);
+            auditMsg = DocumentRetrieveTransforms.transformDocRetrieveReq2AuditMsg(logReqMsg, responseCommunityID);
         }
         log.debug("Exiting AuditRepositoryLogger.logDocRetrieve(...)");
 
@@ -477,6 +534,19 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction, String _interface) {
+        return logDocRetrieveResult(message, direction, _interface, null);
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a document retrieve response
+     *
+     * @param message The Document Retrieve Response message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param requestCommunityID
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction, String _interface, String requestCommunityID) {
         log.debug("Entering AuditRepositoryLogger.logDocRetrieveResult(...)");
         LogEventRequestType auditMsg = null;
 
@@ -486,7 +556,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
 
-            auditMsg = DocumentRetrieveTransforms.transformDocRetrieveResp2AuditMsg(logReqMsg);
+            auditMsg = DocumentRetrieveTransforms.transformDocRetrieveResp2AuditMsg(logReqMsg, requestCommunityID);
         }
         log.debug("Exiting AuditRepositoryLogger.logDocRetrieveResult(...)");
 
@@ -970,6 +1040,7 @@ public class AuditRepositoryLogger {
         getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
+
     public LogEventRequestType logEntityAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
         getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
 
@@ -983,6 +1054,7 @@ public class AuditRepositoryLogger {
         getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
+
     /**
      * This method will create the generic Audit Log Message from an Entity Patient Discovery Response
      *
@@ -1003,10 +1075,12 @@ public class AuditRepositoryLogger {
 
         return auditMsg;
     }
+
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, NhinTargetSystemType target, String direction) {
 
         return logNhincAdminDist(message, assertion, direction);
     }
+
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, String direction) {
         log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
@@ -1019,7 +1093,8 @@ public class AuditRepositoryLogger {
 
         return auditMsg;
     }
-    protected Log getLogger(){
+
+    protected Log getLogger() {
         return log;
     }
 
@@ -1043,5 +1118,4 @@ public class AuditRepositoryLogger {
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
-    
 }

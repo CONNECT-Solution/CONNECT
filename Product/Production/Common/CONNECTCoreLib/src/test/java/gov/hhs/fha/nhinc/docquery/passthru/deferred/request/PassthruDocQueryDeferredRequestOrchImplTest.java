@@ -90,10 +90,11 @@ public class PassthruDocQueryDeferredRequestOrchImplTest {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
+                allowing(mockTarget).getHomeCommunity();
                 one(mockDocQueryAuditLog).auditDQRequest(with(any(AdhocQueryRequest.class)), with(any(AssertionType.class)),
-                        with(any(String.class)), with(any(String.class)));
+                        with(any(String.class)), with(any(String.class)), with(any(String.class)));
                 one(mockDocQueryAuditLog).logDocQueryAck(with(any(DocQueryAcknowledgementType.class)), with(any(AssertionType.class)),
-                        with(any(String.class)), with(any(String.class)));
+                        with(any(String.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(null));
             }
         });

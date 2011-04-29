@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.transform.audit;
 
 import org.apache.commons.logging.Log;
@@ -25,17 +21,28 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.TimeZone;
+import javax.xml.datatype.DatatypeConfigurationException;
 
 /**
  *
  * @author MFLYNN02
+ * @author richard.ettema
  */
 public class AuditDataTransformHelper {
 
     private static Log log = LogFactory.getLog(AuditDataTransformHelper.class);
 
+    /**
+     * Create the <code>EventIdentificationType</code> for an audit log
+     * record.
+     * @param actionCode
+     * @param eventOutcome
+     * @param eventId
+     * @return <code>EventIdentificationType</code>
+     */
     public static EventIdentificationType createEventIdentification(String actionCode, Integer eventOutcome, CodedValueType eventId) {
         EventIdentificationType eventIdentification = new EventIdentificationType();
 
@@ -59,12 +66,19 @@ public class AuditDataTransformHelper {
                     today.get(java.util.GregorianCalendar.MILLISECOND),
                     0);
             eventIdentification.setEventDateTime(calendar);
-        } catch (Exception e) {
-            log.error("Exception when createing XMLGregorian Date");
+        } catch (DatatypeConfigurationException e) {
+            log.error("DatatypeConfigurationException when createing XMLGregorian Date");
+            log.error(" message: " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            log.error("ArrayIndexOutOfBoundsException when createing XMLGregorian Date");
             log.error(" message: " + e.getMessage());
         }
-        // TODO:  Set the Event Outcome Indicator
-        eventIdentification.setEventOutcomeIndicator(BigInteger.ZERO);
+        // Set the Event Outcome Indicator
+        BigInteger eventOutcomeBig = BigInteger.ZERO;
+        if (eventOutcome != null) {
+            eventOutcomeBig = new BigInteger(eventOutcome.toString());
+        }
+        eventIdentification.setEventOutcomeIndicator(eventOutcomeBig);
 
         // Set the Event Id
         eventIdentification.setEventID(eventId);
@@ -72,6 +86,15 @@ public class AuditDataTransformHelper {
         return eventIdentification;
     }
 
+    /**
+     * Create the event id <code>CodedValueType</code> for an audit log
+     * record.
+     * @param eventCode
+     * @param eventCodeSys
+     * @param eventCodeSysName
+     * @param dispName
+     * @return <code>CodedValueType</code>
+     */
     public static CodedValueType createEventId(String eventCode, String eventCodeSys, String eventCodeSysName, String dispName) {
         CodedValueType eventId = new CodedValueType();
 
@@ -90,32 +113,47 @@ public class AuditDataTransformHelper {
         return eventId;
     }
 
+    /**
+     * Create the <code>CodedValueType</code> for an audit log record.
+     * @param code
+     * @param codeSys
+     * @param codeSysName
+     * @param dispName
+     * @return <code>CodedValueType</code>
+     */
     public static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName, String dispName) {
         CodedValueType codeValueType = new CodedValueType();
 
-        // Set the Event Id Code
+        // Set the Code
         codeValueType.setCode(code);
 
-        // Set the Event Id Codesystem
+        // Set the Codesystem
         codeValueType.setCodeSystem(codeSys);
 
-        // Set the Event Id Codesystem Name
+        // Set the Codesystem Name
         codeValueType.setCodeSystemName(codeSysName);
 
-        // Set the Event Id Display Name
+        // Set the Display Name
         codeValueType.setDisplayName(dispName);
 
         return codeValueType;
     }
 
+    /**
+     * Create the <code>AuditMessageType.ActiveParticipant</code> for an audit
+     * log record.
+     * @param userInfo
+     * @param userIsReq
+     * @return <code>AuditMessageType.ActiveParticipant</code>
+     */
     public static AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo, Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         String ipAddr = null;
 
         try {
             ipAddr = InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (UnknownHostException ex) {
+            log.error("UnknownHostException thrown getting local host address.", ex);
             throw new RuntimeException();
         }
 
@@ -165,14 +203,23 @@ public class AuditDataTransformHelper {
         return participant;
     }
 
+    /**
+     * Create the <code>AuditMessageType.ActiveParticipant</code> for an audit
+     * log record.
+     * @param userId
+     * @param altUserId
+     * @param userName
+     * @param userIsReq
+     * @return <code>AuditMessageType.ActiveParticipant</code>
+     */
     public static AuditMessageType.ActiveParticipant createActiveParticipant(String userId, String altUserId, String userName, Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         String ipAddr = null;
 
         try {
             ipAddr = InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (UnknownHostException ex) {
+            log.error("UnknownHostException thrown getting local host address.", ex);
             throw new RuntimeException();
         }
 
@@ -203,6 +250,12 @@ public class AuditDataTransformHelper {
         return participant;
     }
 
+    /**
+     * Create an <code>AuditSourceIdentificationType</code> based on the user
+     * info for an audit log record.
+     * @param userInfo
+     * @return <code>AuditSourceIdentificationType</code>
+     */
     public static AuditSourceIdentificationType createAuditSourceIdentificationFromUser(UserType userInfo) {
         AuditSourceIdentificationType auditSrcId = new AuditSourceIdentificationType();
 
@@ -241,6 +294,13 @@ public class AuditDataTransformHelper {
         return auditSrcId;
     }
 
+    /**
+     * Create an <code>AuditSourceIdentificationType</code> based on the
+     * community id and name for an audit log record.
+     * @param communityId
+     * @param communityName
+     * @return <code>AuditSourceIdentificationType</code>
+     */
     public static AuditSourceIdentificationType createAuditSourceIdentification(String communityId, String communityName) {
         AuditSourceIdentificationType auditSrcId = new AuditSourceIdentificationType();
 
@@ -261,6 +321,12 @@ public class AuditDataTransformHelper {
         return auditSrcId;
     }
 
+    /**
+     * Create the <code>ParticipantObjectIdentificationType</code> based on the
+     * patient id for an audit log record.
+     * @param patientId
+     * @return <code>ParticipantObjectIdentificationType</code>
+     */
     public static ParticipantObjectIdentificationType createParticipantObjectIdentification(String patientId) {
         ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
 
@@ -283,6 +349,11 @@ public class AuditDataTransformHelper {
         return partObjId;
     }
 
+    /**
+     * Write out debug logging statements based on the given
+     * <code>AuditMessageType</code> message.
+     * @param message
+     */
     public static void logAuditMessage(AuditMessageType message) {
         log.debug("********** Audit Log Message ***********");
         log.debug("EventIdCode: " + message.getEventIdentification().getEventID().getCode());
@@ -323,7 +394,7 @@ public class AuditDataTransformHelper {
      * 
      * @param olExtId The list of external identifier objects to be searched.
      * @param sIdentScheme The identification scheme for the item being looked for.
-     * @return The ExternalIdentifierType matching the search criteria.
+     * @return The <code>ExternalIdentifierType</code> matching the search criteria.
      */
     public static ExternalIdentifierType findSingleExternalIdentifier(List<ExternalIdentifierType> olExtId, String sIdentScheme) {
         ExternalIdentifierType oExtId = null;
@@ -359,15 +430,15 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * This method creates a patient id formatted as 'patientid^^^^&communityId&ISO'
+     * This method creates a patient id formatted as 'patientid^^^^&assigningAuthId&ISO'
      * 
-     * @param communityId the communityId for the patient identifier
+     * @param assigningAuthId the assigningAuthId for the patient identifier
      * @param patientId the patientId for the patient
      * @return the properly formatted patientId.
      */
-    public static String createCompositePatientId(String communityId, String patientId) {
+    public static String createCompositePatientId(String assigningAuthId, String patientId) {
         String sValue = null;
-        sValue = patientId + "^^^&" + communityId + "&ISO";
+        sValue = patientId + "^^^&" + assigningAuthId + "&ISO";
         return sValue;
     }
 

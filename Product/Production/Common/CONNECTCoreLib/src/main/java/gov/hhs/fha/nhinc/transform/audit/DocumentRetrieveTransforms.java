@@ -4,11 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.transform.audit;
 
 import org.apache.commons.logging.Log;
@@ -39,7 +34,21 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class DocumentRetrieveTransforms {
     private static Log log = LogFactory.getLog(DocumentRetrieveTransforms.class);
 
+    /**
+     * 
+     * @param message
+     * @return <code>LogEventRequestType</code>
+     */
     public static LogEventRequestType transformDocRetrieveReq2AuditMsg(LogDocRetrieveRequestType message) {
+        return transformDocRetrieveReq2AuditMsg(message, null);
+    }
+    /**
+     *
+     * @param message
+     * @param responseCommunityID
+     * @return <code>LogEventRequestType</code>
+     */
+    public static LogEventRequestType transformDocRetrieveReq2AuditMsg(LogDocRetrieveRequestType message, String responseCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -75,7 +84,12 @@ public class DocumentRetrieveTransforms {
         }
 
         // Create Audit Source Identification Section
-        AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        AuditSourceIdentificationType auditSrcId = null;
+        if (responseCommunityID != null) {
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(responseCommunityID, responseCommunityID);
+        } else {
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        }
         auditMsg.getAuditSourceIdentification().add(auditSrcId);
 
         // Create Audit Source Identification Section
@@ -127,8 +141,22 @@ public class DocumentRetrieveTransforms {
         response.setAuditMessage(auditMsg);
         return response;
     }
-    
-    public static LogEventRequestType transformDocRetrieveResp2AuditMsg(LogDocRetrieveResultRequestType message) {
+
+    /**
+     * 
+     * @param message
+     * @return <code>LogEventRequestType</code>
+     */
+     public static LogEventRequestType transformDocRetrieveResp2AuditMsg(LogDocRetrieveResultRequestType message) {
+         return transformDocRetrieveResp2AuditMsg(message, null);
+     }
+    /**
+     *
+     * @param message
+     * @param  requestCommunityID
+     * @return <code>LogEventRequestType</code>
+     */
+    public static LogEventRequestType transformDocRetrieveResp2AuditMsg(LogDocRetrieveResultRequestType message, String requestCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -164,7 +192,12 @@ public class DocumentRetrieveTransforms {
         }
 
         // Create Audit Source Identification Section
-        AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        AuditSourceIdentificationType auditSrcId = null;
+        if (requestCommunityID != null) {
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(requestCommunityID, requestCommunityID);
+        } else {
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        }
         auditMsg.getAuditSourceIdentification().add(auditSrcId);
 
         // Create Audit Source Identification Section

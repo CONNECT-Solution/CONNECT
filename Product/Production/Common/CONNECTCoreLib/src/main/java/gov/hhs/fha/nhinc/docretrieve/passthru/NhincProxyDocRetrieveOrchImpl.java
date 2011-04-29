@@ -11,6 +11,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -23,40 +25,34 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Neil Webb
  */
-public class NhincProxyDocRetrieveOrchImpl
-{
+public class NhincProxyDocRetrieveOrchImpl {
+
     private Log log = null;
 
-    public NhincProxyDocRetrieveOrchImpl()
-    {
+    public NhincProxyDocRetrieveOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         RetrieveDocumentSetResponseType response = null;
-
+        String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(request);
         // Audit request message
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
-        auditLog.auditDocRetrieveRequest(request, assertion);
+        auditLog.auditDocRetrieveRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
-        try
-        {
+        try {
             log.debug("Creating NHIN doc retrieve proxy");
             NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
             NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
 
             log.debug("Calling doc retrieve proxy");
             response = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType responseType = new RegistryResponseType();
@@ -72,11 +68,9 @@ public class NhincProxyDocRetrieveOrchImpl
         }
 
         // Audit response message
-        auditLog.auditResponse(response, assertion);
+        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         log.debug("End NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;
     }
-
-
 }

@@ -606,8 +606,8 @@ public class PatientDiscoveryTransforms {
         return eventID;
     }
 
-    protected String getCompositePatientId(String sCommunityId, String sPatientId) {
-        sPatientId = AuditDataTransformHelper.createCompositePatientId(sCommunityId, sPatientId);
+    protected String getCompositePatientId(String sAssigningAuthId, String sPatientId) {
+        sPatientId = AuditDataTransformHelper.createCompositePatientId(sAssigningAuthId, sPatientId);
         return sPatientId;
     }
 

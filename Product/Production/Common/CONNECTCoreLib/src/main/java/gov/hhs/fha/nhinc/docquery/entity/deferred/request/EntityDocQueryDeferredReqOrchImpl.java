@@ -26,6 +26,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -48,7 +49,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
      * @param message
      * @param assertion
      * @param target
-     * @return
+     * @return <code>DocQueryAcknowledgementType</code>
      */
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
             AdhocQueryRequest message, AssertionType assertion, NhinTargetCommunitiesType target) {
@@ -57,8 +58,8 @@ public class EntityDocQueryDeferredReqOrchImpl {
         DocQueryAcknowledgementType nhincResponse = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         nhincResponse.setMessage(regResp);
-
-        getAuditLog().audit(message, assertion);
+        String responseCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(target);
+        getAuditLog().auditDQRequest(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         try {
             CMUrlInfos urlInfoList = getEndpoints(target);
@@ -94,8 +95,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                         getLog().error("The policy engine evaluated the request and denied the request.");
                                         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
                                     }
-                                }
-                                else {
+                                } else {
                                     getLog().error("Could not find home community for assigning authority " + subjectId.getAssigningAuthorityIdentifier());
                                     regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG);
                                 }

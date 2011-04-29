@@ -15,6 +15,8 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
@@ -22,25 +24,33 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  * @author Neil Webb
  */
-public class DocRetrieveAuditLog
-{
+public class DocRetrieveAuditLog {
+
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(DocRetrieveAuditLog.class);
+
+    /**
+     * @param auditMsg Log a document retrieve message received on the entity interface (entity or NHIN Proxy).
+     * @param assertion Assertion information
+     * @return Audit acknowledgement
+     */
+    public AcknowledgementType auditDocRetrieveRequest(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType auditMsg, AssertionType assertion) {
+
+        return auditDocRetrieveRequest(auditMsg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, HomeCommunityMap.getCommunitIdForRDRequest(auditMsg));
+    }
 
     /**
      *
      * @param auditMsg Log a document retrieve message received on the entity interface (entity or NHIN Proxy).
      * @param assertion Assertion information
+     * @param responseCommunityID
      * @return Audit acknowledgement
      */
-    public AcknowledgementType auditDocRetrieveRequest(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType auditMsg, AssertionType assertion)
-    {
+    public AcknowledgementType auditDocRetrieveRequest(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType auditMsg, AssertionType assertion, String direction, String _interface, String responseCommunityID) {
         log.debug("Entering DocRetrieveAuditLog.auditDocRetrieveRequest(...)");
         DocRetrieveMessageType auditRequestMsg = new DocRetrieveMessageType();
         auditRequestMsg.setRetrieveDocumentSetRequest(auditMsg);
         auditRequestMsg.setAssertion(assertion);
-
-        AcknowledgementType ack = logDocRetrieve(auditRequestMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion);
-
+        AcknowledgementType ack = logDocRetrieve(auditRequestMsg, direction, _interface, assertion, responseCommunityID);
         log.debug("Exiting DocRetrieveAuditLog.auditDocRetrieveRequest(...)");
         return ack;
     }
@@ -92,15 +102,25 @@ public class DocRetrieveAuditLog
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    private AcknowledgementType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface, AssertionType assertion)
-    {
+    private AcknowledgementType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface, AssertionType assertion) {
+        return logDocRetrieve(message, direction, _interface, assertion, null);
+    }
+
+    /**
+     * This method will log Document Retrieve Requests received/sent on a particular public interface
+     *
+     * @param message The Document Retrieve Request message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return An acknowledgement of whether or not the message was successfully logged.
+     */
+    private AcknowledgementType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface, AssertionType assertion, String responseCommunityID) {
         log.debug("Entering DocRetrieveAuditLog.logDocRetrieve(...)");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, _interface);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, _interface, responseCommunityID);
 
-        if (auditLogMsg != null)
-        {
+        if (auditLogMsg != null) {
             log.debug("Inside: DocRetrieveAuditLog.logDocRetrieve(...) - Creating AuditRepositoryProxyObjectFactory object.");
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
             log.debug("Inside: DocRetrieveAuditLog.logDocRetrieve(...) - calling AuditRepositoryProxyObjectFactory.getAuditRepositoryProxy(...)");
@@ -121,8 +141,20 @@ public class DocRetrieveAuditLog
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    public AcknowledgementType auditResponse(RetrieveDocumentSetResponseType message, AssertionType assertion)
-    {
+    public AcknowledgementType auditResponse(RetrieveDocumentSetResponseType message, AssertionType assertion) {
+        return auditResponse(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, null);
+    }
+
+    /**
+     * This method will log Document Query Responses received/sent on a particular public interface
+     *
+     * @param message The Document Query Response message to be audit logged.
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param requestCommunityID
+     * @return An acknowledgement of whether or not the message was successfully logged.
+     */
+    public AcknowledgementType auditResponse(RetrieveDocumentSetResponseType message, AssertionType assertion, String direction, String _interface, String requestCommunityID) {
         log.debug("Entering DocRetrieveAuditLog.auditResponse(...)");
         DocRetrieveResponseMessageType responseAudit = new DocRetrieveResponseMessageType();
         responseAudit.setRetrieveDocumentSetResponse(message);
@@ -130,7 +162,7 @@ public class DocRetrieveAuditLog
 
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(responseAudit, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(responseAudit, direction, _interface, requestCommunityID);
 
         if (auditLogMsg != null) {
             log.debug("Inside: DocRetrieveAuditLog.auditResponse(...) - Creating AuditRepositoryProxyObjectFactory object.");

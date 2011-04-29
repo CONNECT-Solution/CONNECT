@@ -52,7 +52,22 @@ public class DocumentQueryTransforms {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    /**
+     * 
+     * @param message LogAdhocQueryRequestType
+     * @return <code>LogEventRequestType</code>
+     */
     public LogEventRequestType transformDocQueryReq2AuditMsg(LogAdhocQueryRequestType message) {
+        return transformDocQueryReq2AuditMsg(message, null);
+    }
+
+    /**
+     * 
+     * @param message LogAdhocQueryRequestType
+     * @param responseCommunityID
+     * @return <code>LogEventRequestType</code>
+     */
+    public LogEventRequestType transformDocQueryReq2AuditMsg(LogAdhocQueryRequestType message, String responseCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -89,7 +104,13 @@ public class DocumentQueryTransforms {
         }
 
         // Create Audit Source Identification Section
-        AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        AuditSourceIdentificationType auditSrcId = null;
+        if (responseCommunityID != null) {
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(responseCommunityID, responseCommunityID);
+        } else {
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        }
+        
         auditMsg.getAuditSourceIdentification().add(auditSrcId);
 
         String patientId = "";
@@ -114,8 +135,7 @@ public class DocumentQueryTransforms {
             }
         }
         // Create Participation Object Identification Section
-        ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
-        partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        ParticipantObjectIdentificationType partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try {
@@ -142,7 +162,22 @@ public class DocumentQueryTransforms {
         return response;
     }
 
+    /**
+     *
+     * @param message
+     * @return <code>LogEventRequestType</code>
+     */
     public LogEventRequestType transformDocQueryResp2AuditMsg(LogAdhocQueryResultRequestType message) {
+        return transformDocQueryResp2AuditMsg(message, null);
+    }
+
+    /**
+     *
+     * @param message
+     * @param requestCommunityID
+     * @return <code>LogEventRequestType</code>
+     */
+    public LogEventRequestType transformDocQueryResp2AuditMsg(LogAdhocQueryResultRequestType message, String requestCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -214,7 +249,10 @@ public class DocumentQueryTransforms {
             // Home Community ID                      
             //-------------------
             String communityId = null;
-            if ((oExtObj != null) &&
+            if (requestCommunityID != null) {
+                communityId = requestCommunityID;
+                log.debug("=====>>>>> Create Audit Source Identification Section --> requestCommunityID is [" + requestCommunityID + "]");
+            } else if ((oExtObj != null) &&
                     (oExtObj.getHome() != null) &&
                     (oExtObj.getHome().length() > 0)) {
                 communityId = oExtObj.getHome();
@@ -270,10 +308,21 @@ public class DocumentQueryTransforms {
      * @param assertion
      * @param direction
      * @param _interface
-     * @param action
-     * @return LogEventRequestType
+     * @return <code>LogEventRequestType</code>
      */
     public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface) {
+        return transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, _interface,null);
+    }
+    /**
+     *
+     * @param acknowledgement
+     * @param assertion
+     * @param direction
+     * @param _interface
+     * @param action
+     * @return <code>LogEventRequestType</code>
+     */
+    public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface,String requestCommunityID) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -324,7 +373,12 @@ public class DocumentQueryTransforms {
         // Home Community ID
         //-------------------
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        AuditSourceIdentificationType auditSource = null;
+        if (requestCommunityID != null) {
+            auditSource = AuditDataTransformHelper.createAuditSourceIdentification(requestCommunityID, requestCommunityID);
+        } else {
+            auditSource = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(assertion.getUserInfo());
+        }
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -332,7 +386,6 @@ public class DocumentQueryTransforms {
         result.setInterface(_interface);
 
         return result;
-
     }
 
     /**
@@ -354,7 +407,6 @@ public class DocumentQueryTransforms {
 
             element = new JAXBElement<DocQueryAcknowledgementType>(xmlqname, DocQueryAcknowledgementType.class, acknowledgement);
 
-
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
         } catch (Exception e) {
@@ -363,24 +415,4 @@ public class DocumentQueryTransforms {
         }
     }
 
-    private AuditSourceIdentificationType getAuditSourceIdentificationType(UserType userInfo)
-    {
-        AuditSourceIdentificationType result;
-
-        String communityId = "";
-        String communityName = "";
-        if (userInfo != null && userInfo.getOrg() != null)
-        {
-            if (userInfo.getOrg().getHomeCommunityId() != null)
-            {
-                communityId = userInfo.getOrg().getHomeCommunityId();
-            }
-            if (userInfo.getOrg().getName() != null)
-            {
-                communityName = userInfo.getOrg().getName();
-            }
-        }
-        result = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
-        return result;
-    }
 }

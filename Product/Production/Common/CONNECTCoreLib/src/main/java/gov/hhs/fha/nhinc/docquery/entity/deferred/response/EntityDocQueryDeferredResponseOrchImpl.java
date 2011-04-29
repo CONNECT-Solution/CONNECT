@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -24,6 +20,7 @@ import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQu
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -42,9 +39,9 @@ public class EntityDocQueryDeferredResponseOrchImpl {
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         respAck.setMessage(regResp);
-
+        String responseCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
         // Audit the incoming Entity Message
-        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         try {
             CMUrlInfos urlInfoList = getEndpoints(targets);
@@ -83,9 +80,9 @@ public class EntityDocQueryDeferredResponseOrchImpl {
         return respAck;
     }
 
-    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface) {
+    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface, String responseCommunityId) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface);
+        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface, responseCommunityId);
 
         return ack;
     }

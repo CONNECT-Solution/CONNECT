@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
@@ -39,68 +40,59 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
  *
  * @author westberg
  */
-public class NhinDocRetrieveOrchImpl
-{
+public class NhinDocRetrieveOrchImpl {
 
     private static Log log = LogFactory.getLog(NhinDocRetrieveOrchImpl.class);
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion)
-    {
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @return <code>RetrieveDocumentSetResponseType</code>
+     */
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         RetrieveDocumentSetResponseType response = null;
-
+        String requestCommunityID = HomeCommunityMap.getCommunitIdForRDRequest(body);
         log.debug("Calling audit on doc retrieve request received from NHIN");
-        auditRequestMessage(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
+        auditRequestMessage(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityID);
 
-        try
-        {
+        try {
             String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
-            if (isServiceEnabled())
-            {
+            if (isServiceEnabled()) {
                 log.debug("Doc retrieve service is enabled. Procesing message");
-                if (isInPassThroughMode())
-                {
+                if (isInPassThroughMode()) {
                     log.debug("In passthrough mode. Sending adapter doc retrieve directly to adapter");
-                    response = sendDocRetrieveToAgency(body, assertion);
-                }
-                else
-                {
+                    response = sendDocRetrieveToAgency(body, assertion, requestCommunityID);
+                } else {
                     log.debug("Not in passthrough mode. Calling internal processing for adapter doc retrieve");
-                    response = serviceDocRetrieveInternal(body, assertion, homeCommunityId);
+                    response = serviceDocRetrieveInternal(body, assertion, homeCommunityId, requestCommunityID);
                 }
-            }
-            else
-            {
+            } else {
                 log.debug("Doc retrieve service is not enabled. returning an empty response");
                 response = createEmptyResponse(homeCommunityId);
             }
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error processing NHIN Doc Retrieve: " + t.getMessage(), t);
             response = createErrorResponse("Processing document retrieve message");
         }
 
         log.debug("Calling audit on doc retrieve response returned to NHIN");
-        auditResponseMessage(response, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion);
+        auditResponseMessage(response, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityID);
 
         log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
     }
 
-    private RetrieveDocumentSetResponseType serviceDocRetrieveInternal(RetrieveDocumentSetRequestType request, AssertionType assertion, String homeCommunityId)
-    {
+    private RetrieveDocumentSetResponseType serviceDocRetrieveInternal(RetrieveDocumentSetRequestType request, AssertionType assertion, String homeCommunityId, String requestCommunityID) {
         log.debug("Begin DocRetrieveImpl.serviceDocRetrieveInternal");
         RetrieveDocumentSetResponseType response = null;
 
-        if (checkPolicy(request, assertion))
-        {
+        if (checkPolicy(request, assertion)) {
             log.debug("Adapter doc query policy check successful");
-            response = sendDocRetrieveToAgency(request, assertion);
-        }
-        else
-        {
+            response = sendDocRetrieveToAgency(request, assertion, requestCommunityID);
+        } else {
             log.debug("Adapter doc query policy check failed");
             response = createEmptyResponse(homeCommunityId);
         }
@@ -109,13 +101,12 @@ public class NhinDocRetrieveOrchImpl
         return response;
     }
 
-    private RetrieveDocumentSetResponseType sendDocRetrieveToAgency(RetrieveDocumentSetRequestType request, AssertionType assertion)
-    {
+    private RetrieveDocumentSetResponseType sendDocRetrieveToAgency(RetrieveDocumentSetRequestType request, AssertionType assertion, String requestCommunityID) {
         log.debug("Begin DocRetrieveImpl.sendDocRetrieveToAgency");
         RetrieveDocumentSetResponseType response = null;
 
         log.debug("Calling audit log for doc retrieve request sent to adapter");
-        auditRequestMessage(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion);
+        auditRequestMessage(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, requestCommunityID);
 
         log.debug("Creating adapter doc retrieve proxy");
         AdapterDocRetrieveProxy proxy = new AdapterDocRetrieveProxyObjectFactory().getAdapterDocRetrieveProxy();
@@ -123,76 +114,62 @@ public class NhinDocRetrieveOrchImpl
         response = proxy.retrieveDocumentSet(request, assertion);
 
         log.debug("Calling audit log for doc retrieve response received from adapter");
-        auditResponseMessage(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion);
+        auditResponseMessage(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, requestCommunityID);
 
         log.debug("End DocRetrieveImpl.sendDocRetrieveToAgency");
         return response;
     }
 
-    private void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction, String connectInterface, AssertionType assertion)
-    {
+    private void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction, String connectInterface, AssertionType assertion, String requestCommunityID) {
         gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType();
         message.setRetrieveDocumentSetRequest(request);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, connectInterface);
-        if (auditLogMsg != null)
-        {
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, connectInterface, requestCommunityID);
+        if (auditLogMsg != null) {
             auditMessage(auditLogMsg, assertion);
         }
     }
 
-    private void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction, String connectInterface, AssertionType assertion)
-    {
+    private void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction, String connectInterface, AssertionType assertion, String requestCommunityID) {
         gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType();
         message.setRetrieveDocumentSetResponse(response);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message, direction, connectInterface);
-        if (auditLogMsg != null)
-        {
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message, direction, connectInterface, requestCommunityID);
+        if (auditLogMsg != null) {
             auditMessage(auditLogMsg, assertion);
         }
     }
 
-    private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion)
-    {
+    private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
         AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
         return proxy.auditLog(auditLogMsg, assertion);
     }
 
-    private boolean isServiceEnabled()
-    {
+    private boolean isServiceEnabled() {
         boolean serviceEnabled = false;
-        try
-        {
+        try {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY);
-        }
-        catch (PropertyAccessException ex)
-        {
+        } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY + " from property file " + NhincConstants.GATEWAY_PROPERTY_FILE + ": " + ex.getMessage(), ex);
         }
 
         return serviceEnabled;
     }
 
-    private boolean isInPassThroughMode()
-    {
+    private boolean isInPassThroughMode() {
         boolean passThroughModeEnabled = false;
-        try
-        {
+        try {
             passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY);
-        }
-        catch (PropertyAccessException ex)
-        {
+        } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY + " from property file " + NhincConstants.GATEWAY_PROPERTY_FILE + ": " + ex.getMessage(), ex);
         }
         return passThroughModeEnabled;
     }
 
-    private boolean checkPolicy(RetrieveDocumentSetRequestType message, AssertionType assertion)
-    {
+    private boolean checkPolicy(RetrieveDocumentSetRequestType message, AssertionType assertion) {
         boolean policyIsValid = false;
 
         //convert the request message to an object recognized by the policy engine
@@ -214,16 +191,14 @@ public class NhinDocRetrieveOrchImpl
         //check the policy engine's response, return true if response = permit
         if (policyResp.getResponse() != null &&
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
-        {
+                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
         return policyIsValid;
     }
 
-    private RetrieveDocumentSetResponseType createEmptyResponse(String homeCommunityId)
-    {
+    private RetrieveDocumentSetResponseType createEmptyResponse(String homeCommunityId) {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         RegistryResponseType responseType = new RegistryResponseType();
         response.setRegistryResponse(responseType);
@@ -234,8 +209,7 @@ public class NhinDocRetrieveOrchImpl
         return response;
     }
 
-    private RetrieveDocumentSetResponseType createErrorResponse(String codeContext)
-    {
+    private RetrieveDocumentSetResponseType createErrorResponse(String codeContext) {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         RegistryResponseType responseType = new RegistryResponseType();
         response.setRegistryResponse(responseType);

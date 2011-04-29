@@ -33,7 +33,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * Implementation class for Entity Document Retrieve Deferred request message
  * @author Sai Valluripalli
@@ -65,8 +64,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message,
-                                                                      AssertionType assertion,
-                                                                      NhinTargetCommunitiesType target) {
+            AssertionType assertion,
+            NhinTargetCommunitiesType target) {
         if (debugEnabled) {
             log.debug("Begin EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
         }
@@ -75,9 +74,9 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         try {
             if ((null != message) && (message.getDocumentRequest() != null) && (message.getDocumentRequest().size() > 0)) {
-                auditLog.auditDocRetrieveDeferredRequest(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,assertion);
                 DocumentRequest docRequest = message.getDocumentRequest().get(0);
                 homeCommunityId = docRequest.getHomeCommunityId();
+                auditLog.auditDocRetrieveDeferredRequest(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType nhinDocRetrieveMsg = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
                 // Set document request
                 RetrieveDocumentSetRequestType nhinDocRequest = new RetrieveDocumentSetRequestType();
@@ -93,8 +92,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 } else {
                     nhincResponse = new DocRetrieveAcknowledgementType();
                     if (debugEnabled) {
-                                log.debug("Creating NHIN doc retrieve proxy");
-                            }
+                        log.debug("Creating NHIN doc retrieve proxy");
+                    }
                     PassthruDocRetrieveDeferredReqProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredReqProxyObjectFactory();
                     PassthruDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
                     for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
@@ -106,7 +105,7 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                                 log.debug("Calling doc retrieve proxy");
                             }
                             nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion,
-                                                                                         oTargetSystem);
+                                    oTargetSystem);
                         } else {
                             nhincResponse = buildRegistryErrorAck();
                         }

@@ -33,30 +33,33 @@ import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryResponseType;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.HashMap;
 
-public class EntityDocQueryOrchImpl
-{
+public class EntityDocQueryOrchImpl {
 
     private Log log = null;
     private String localHomeCommunity = null;
-    private String localAssigningAuthorityId = null;
     private static final long SLEEP_MS = 1000;
     private static final long AGGREGATOR_TIMEOUT_MS = 40000;
 
-    public EntityDocQueryOrchImpl()
-    {
+    public EntityDocQueryOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    /**
+     *
+     * @param adhocQueryRequest
+     * @param assertion
+     * @param targets
+     * @return <code>AdhocQueryResponse</code>
+     */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targets)
-    {
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Entering EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = null;
@@ -67,47 +70,40 @@ public class EntityDocQueryOrchImpl
         RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
         request.setNhinTargetCommunities(targets);
-        auditDocQueryRequest(request, assertion, auditLog);
+        String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
+        auditDocQueryRequest(request, assertion, auditLog, targetHomeCommunityId);
 
-        try
-        {
+        try {
             DocQueryAggregator aggregator = createDocQueryAggregator();
 
             if (targets != null &&
-                    NullChecker.isNotNullish(targets.getNhinTargetCommunity()))
-            {
+                    NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
                 isTargeted = true;
             }
 
             // Obtain all the URLs for the targets being sent to
-            try
-            {
+            try {
                 urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
-            } catch (ConnectionManagerException ex)
-            {
-                log.error("Failed to obtain target URLs");
+            } catch (ConnectionManagerException ex) {
+                log.error("Failed to obtain target URLs", ex);
                 return null;
             }
 
             // Validate that the message is not null
             if (adhocQueryRequest != null &&
                     adhocQueryRequest.getAdhocQuery() != null &&
-                    NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot()))
-            {
+                    NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot())) {
                 List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
                 String localAA = new EntityDocQueryHelper().getLocalAssigningAuthority(slotList);
 
                 List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
                 // Make sure the valid results back
-                if (NullChecker.isNotNullish(correlationsResult))
-                {
+                if (NullChecker.isNotNullish(correlationsResult)) {
 
                     QualifiedSubjectIdentifiersType subjectIds = new QualifiedSubjectIdentifiersType();
-                    for (QualifiedSubjectIdentifierType subjectId : correlationsResult)
-                    {
-                        if (subjectId != null)
-                        {
+                    for (QualifiedSubjectIdentifierType subjectId : correlationsResult) {
+                        if (subjectId != null) {
                             subjectIds.getQualifiedSubjectIdentifier().add(subjectId);
                         }
                     }
@@ -117,56 +113,45 @@ public class EntityDocQueryOrchImpl
                     sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion, localAA);
 
                     response = retrieveDocQueryResults(aggregator, transactionId);
-                } else
-                {
+                } else {
                     log.error("No patient correlations found.");
                     response = createErrorResponse("No patient correlations found.");
                 }
-            } else
-            {
+            } else {
                 log.error("Incomplete doc query message");
                 response = createErrorResponse("Incomplete doc query message");
             }
-        } catch (Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error occured processing doc query on entity interface: " + t.getMessage(), t);
             response = createErrorResponse("Fault encountered processing internal document query");
         }
-        auditDocQueryResponse(response, assertion, auditLog);
+        auditDocQueryResponse(response, assertion, auditLog, targetHomeCommunityId);
         log.debug("Exiting EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
 
-    protected DocQueryAuditLog createAuditLog()
-    {
+    protected DocQueryAuditLog createAuditLog() {
         return new DocQueryAuditLog();
     }
 
-    protected DocQueryAggregator createDocQueryAggregator()
-    {
+    protected DocQueryAggregator createDocQueryAggregator() {
         return new DocQueryAggregator();
     }
 
-    private void auditDocQueryRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request, AssertionType assertion, DocQueryAuditLog auditLog)
-    {
-        if (auditLog != null)
-        {
-            auditLog.audit(request, assertion);
+    private void auditDocQueryRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request, AssertionType assertion, DocQueryAuditLog auditLog, String targetHomeCommunityId) {
+        if (auditLog != null) {
+            auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion, targetHomeCommunityId, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         }
     }
 
-    private void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog)
-    {
-        if (auditLog != null)
-        {
+    private void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog, String targetHomeCommunityId) {
+        if (auditLog != null) {
             AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
             auditMsg.setAdhocQueryResponse(response);
             auditMsg.setAssertion(assertion);
-            auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, targetHomeCommunityId);
         }
     }
-
-   
 
     protected boolean getPropertyBoolean(String sPropertiesFile, String sPropertyName) {
         boolean sPropertyValue = false;
@@ -178,37 +163,29 @@ public class EntityDocQueryOrchImpl
         return sPropertyValue;
     }
 
-    protected String getLocalHomeCommunityId()
-    {
+    protected String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
 
-        if (localHomeCommunity != null)
-        {
+        if (localHomeCommunity != null) {
             sHomeCommunity = localHomeCommunity;
-        } else
-        {
-            try
-            {
+        } else {
+            try {
                 sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            } catch (PropertyAccessException ex)
-            {
+            } catch (PropertyAccessException ex) {
                 log.error(ex.getMessage());
             }
         }
         return sHomeCommunity;
     }
 
-    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion, String localAA)
-    {
-        for (QualifiedSubjectIdentifierType subId : correlationsResult)
-        {
+    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion, String localAA) {
+        for (QualifiedSubjectIdentifierType subId : correlationsResult) {
             DocQuerySender querySender = new DocQuerySender(transactionId, assertion, subId, queryRequest, localAA);
             querySender.sendMessage();
         }
     }
 
-    private AdhocQueryResponse retrieveDocQueryResults(DocQueryAggregator aggregator, String transactionId)
-    {
+    private AdhocQueryResponse retrieveDocQueryResults(DocQueryAggregator aggregator, String transactionId) {
         log.debug("Begin retrieveDocQueryResults");
         AdhocQueryResponse response = null;
         boolean retrieveTimedOut = false;
@@ -220,39 +197,29 @@ public class EntityDocQueryOrchImpl
 
         // Loop until responses are received
         long startTime = System.currentTimeMillis();
-        while (response == null)
-        {
+        while (response == null) {
             GetAggResultsDocQueryResponseType aggResultsResponse = aggregator.getAggResults(aggResultsRequest);
             String retrieveStatus = aggResultsResponse.getStatus();
-            if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus))
-            {
+            if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus)) {
                 response = aggResultsResponse.getAdhocQueryResponse();
-            } else if (DocumentConstants.FAIL_TEXT.equals(retrieveStatus))
-            {
+            } else if (DocumentConstants.FAIL_TEXT.equals(retrieveStatus)) {
                 log.error("Document query aggregator reports failurt - returning error");
                 response = createErrorResponse("Processing internal document query");
-            } else
-            {
+            } else {
                 retrieveTimedOut = retrieveTimedOut(startTime);
-                if (retrieveTimedOut)
-                {
+                if (retrieveTimedOut) {
                     aggResultsRequest.setTimedOut(retrieveTimedOut);
                     aggResultsResponse = aggregator.getAggResults(aggResultsRequest);
-                    if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus))
-                    {
+                    if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus)) {
                         response = aggResultsResponse.getAdhocQueryResponse();
-                    } else
-                    {
+                    } else {
                         log.warn("Document query aggregation timeout - returning error.");
                         response = createErrorResponse("Processing internal document query - failure in timeout");
                     }
-                } else
-                {
-                    try
-                    {
+                } else {
+                    try {
                         Thread.sleep(SLEEP_MS);
-                    } catch (Throwable t)
-                    {
+                    } catch (Throwable t) {
                     }
                 }
             }
@@ -261,29 +228,25 @@ public class EntityDocQueryOrchImpl
         return response;
     }
 
-    private boolean retrieveTimedOut(long startTime)
-    {
+    private boolean retrieveTimedOut(long startTime) {
         long timeout = startTime + AGGREGATOR_TIMEOUT_MS;
         return (timeout < System.currentTimeMillis());
     }
 
-    private String startTransaction(DocQueryAggregator aggregator, QualifiedSubjectIdentifiersType subjectIds)
-    {
+    private String startTransaction(DocQueryAggregator aggregator, QualifiedSubjectIdentifiersType subjectIds) {
         StartTransactionDocQueryRequestType docQueryStartTransaction = new StartTransactionDocQueryRequestType();
         docQueryStartTransaction.setQualifiedPatientIdentifiers(subjectIds);
 
         HashMap<String, String> assigningAuthorityToHomeCommunityMap = new HashMap<String, String>();
         log.debug("Starting doc query transaction");
         String transactionId = aggregator.startTransaction(docQueryStartTransaction, assigningAuthorityToHomeCommunityMap);
-        if (log.isDebugEnabled())
-        {
+        if (log.isDebugEnabled()) {
             log.debug("Doc query transaction id: " + transactionId);
         }
         return transactionId;
     }
 
-    private AdhocQueryResponse createErrorResponse(String codeContext)
-    {
+    private AdhocQueryResponse createErrorResponse(String codeContext) {
         AdhocQueryResponse response = new AdhocQueryResponse();
 
         RegistryErrorList regErrList = new RegistryErrorList();
