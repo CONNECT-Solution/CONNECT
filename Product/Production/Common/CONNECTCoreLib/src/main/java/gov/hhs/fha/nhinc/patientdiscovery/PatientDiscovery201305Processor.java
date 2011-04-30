@@ -16,6 +16,8 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyO
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
@@ -23,6 +25,7 @@ import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 
 /**
@@ -94,9 +97,62 @@ public class PatientDiscovery201305Processor {
     }
 
     protected boolean checkPolicy(PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+        boolean isPermit = false;
         PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
 
-        return policyChecker.check201305Policy(response, patIdOverride, assertion);
+        //************************************************************************************************
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+            pRPAINSubjects = response.getControlActProcess().getSubject();
+            log.debug("checkPolicy - Before policy Check-Subjects size: " + pRPAINSubjects.size());
+        } else {
+            log.debug("checkPolicy - Before policy Check-response/subjects is null");
+        }
+
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
+            int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+            log.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
+
+            PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0, pRPAINSubject);
+            response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
+
+            if (policyChecker.check201305Policy(response, patIdOverride, assertion)) {
+                log.debug("checkPolicy -policy returns permit for patient: " + pRPAINSubjectInd);
+            } else {
+                log.debug("checkPolicy -policy returns deny for patient: " + pRPAINSubjectInd);
+                delPRPAINSubjects.add(pRPAINSubject);
+            }
+
+            response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
+            response.getControlActProcess().getSubject().set(0, subjReplaced);
+        }
+
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
+                NullChecker.isNotNullish(delPRPAINSubjects)) {
+            log.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size:" + delPRPAINSubjects.size());
+            response.getControlActProcess().getSubject().removeAll(delPRPAINSubjects);
+        }
+
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+            pRPAINSubjects = response.getControlActProcess().getSubject();
+            log.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
+            if (pRPAINSubjects.size() > 0) {
+                isPermit = true;
+            }
+        } else {
+            log.debug("checkPolicy - after policy Check-response/subjects is null");
+        }
+        //************************************************************************************************
+
+        //return policyChecker.check201305Policy(response, patIdOverride, assertion);
+        return isPermit;
     }
 
     protected PRPAIN201306UV02 createEmpty201306(String senderOID, String receiverOID, PRPAIN201305UV02 request) {

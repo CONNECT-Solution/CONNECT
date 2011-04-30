@@ -11,6 +11,8 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7DbParser201306;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.*;
 import gov.hhs.fha.nhinc.patientdb.service.PatientService;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,16 +45,56 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                 // Minimum required NHIN query parameters found, perform find
                 PatientService patientService = PatientService.getPatientService();
                 List<Patient> patientList = patientService.findPatients(sourcePatient);
-
+                
                 if (patientList != null && patientList.size() > 0) {
-                    int counter = 0;
+                    List<Patient> filteredPatients = new ArrayList<Patient>();
+                    List<String> dupOrgIds = new ArrayList<String>();
                     for (Patient patient : patientList) {
-                        log.debug("patientList[" + counter + "] = " + patient.toString());
+                        if ((patient.getIdentifiers() != null) &&
+                                (patient.getIdentifiers().size() > 0) &&
+                                (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+
+                            for (Patient tempPatient : filteredPatients) {
+                                if ((tempPatient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(patient.getIdentifiers().get(0).getOrganizationId())) {
+                                    dupOrgIds.add(patient.getIdentifiers().get(0).getOrganizationId());
+                                }
+                            }
+                            filteredPatients.add(patient);
+                        }
                     }
 
-                    // At lease one match found, generate response checking for duplicates within each AA
-                    log.debug("At lease one match found, generate response checking for duplicates");
-                    result = HL7DbParser201306.BuildMessageFromMpiPatients(patientList, query);
+                    if ((dupOrgIds != null) &&
+                            (dupOrgIds.size() > 0)) {
+                        HashSet hashSet = new HashSet(dupOrgIds);
+                        dupOrgIds = new ArrayList(hashSet);
+                        log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): " + dupOrgIds.size());
+                    }
+
+                    for (Patient patient : patientList) {
+                        if ((patient.getIdentifiers() != null) &&
+                                (patient.getIdentifiers().size() > 0) &&
+                                (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+
+                            for (String str : dupOrgIds) {
+                                if ((patient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(str)) {
+                                    filteredPatients.remove(patient);
+                                }
+                            }
+                        }
+                    }
+
+                    if (filteredPatients != null) {
+                        log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
+                    } else {
+                        log.debug("filteredPatients - No matching patients found");
+                    }
+
+                    if ((filteredPatients != null) &&
+                            (filteredPatients.size() > 0)) {
+                        result = HL7DbParser201306.BuildMessageFromMpiPatients(filteredPatients, query);
+                    } else {
+                        result = null;
+                    }
                 } else {
                     // No matches found, generate appropriate empty response
                     log.debug("No matches found, generate appropriate empty response");

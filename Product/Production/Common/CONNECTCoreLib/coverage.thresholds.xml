@@ -3130,9 +3130,9 @@
               linecount="39"
               linerate="80"
               linesexecuted="0.19"/>
-   <threshold branchcount="26" branchrate="0" branchsexecuted="0"
+   <threshold branchcount="58" branchrate="0" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.mpi.adapter.component.PatientDbChecker"
-              linecount="26"
+              linecount="44"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
