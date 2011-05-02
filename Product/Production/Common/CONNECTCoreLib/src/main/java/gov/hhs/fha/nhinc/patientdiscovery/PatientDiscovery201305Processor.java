@@ -13,20 +13,25 @@ import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
+import org.hl7.v3.MFMIMT700711UV01AuthorOrPerformer;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.hl7.v3.XParticipationAuthorPerformer;
 
 /**
  *
@@ -85,6 +90,7 @@ public class PatientDiscovery201305Processor {
                     //createPatientCorrelation(response, patIdOverride, assertion, request);
                     createPatientCorrelation(response, assertion, request);
                 }
+                response = addAuthorOrPerformer(response);
             } else {
                 log.error("Policy Check Failed");
                 response = createEmpty201306(senderOID, receiverOID, request);
@@ -484,5 +490,35 @@ public class PatientDiscovery201305Processor {
         }
 
         return oid;
+    }
+
+    private PRPAIN201306UV02 addAuthorOrPerformer(PRPAIN201306UV02 response) {
+        MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
+        authorOrPerformer.setTypeCode(XParticipationAuthorPerformer.AUT);
+
+        COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
+        II id = new II();
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
+                response.getControlActProcess().getSubject().get(0) != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+            id.setRoot(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
+        }
+        assignedDevice.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
+        assignedDevice.getId().add(id);
+
+        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
+
+        authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
+
+        response.getControlActProcess().getAuthorOrPerformer().add(authorOrPerformer);
+        return response;
     }
 }
