@@ -163,11 +163,21 @@ CREATE TABLE nhincuser.subscription (
 );
 
 CREATE TABLE nhincuser.asyncmsgrepo (
+    Id number(10) NOT NULL,
     MessageId varchar2(100) NOT NULL,
     CreationTime DATE NOT NULL,
-    ServiceName varchar2(100),
+    ResponseTime DATE,
+    Duration number(10),
+    ServiceName varchar2(45),
+    Direction varchar2(10),
+    CommunityId varchar2(100),
+    Status varchar2(45),
+    ResponseType varchar2(10),
+    Reserved varchar2(100),
     MsgData BLOB,
-    PRIMARY KEY (MessageId)
+    RspData BLOB,
+    AckData BLOB,
+    PRIMARY KEY (Id)
 );
 
 
