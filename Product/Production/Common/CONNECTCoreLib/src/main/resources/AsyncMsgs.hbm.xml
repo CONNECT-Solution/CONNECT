@@ -3,7 +3,7 @@
 <!--
     Document   : asyncmsgs.hbm.xml
     Created on : April 12, 2010
-    Updated on : April 28, 2011
+    Updated on : May 2, 2011
     Author     : jhoppesch, richard.ettema
     Description:
         Purpose of the document follows.
@@ -22,6 +22,9 @@
     <property column="CommunityId" length="100" name="CommunityId" not-null="false" type="string"/>
     <property column="Status" length="45" name="Status" not-null="false" type="string"/>
     <property column="ResponseType" length="10" name="ResponseType" not-null="false" type="string"/>
+    <property column="Reserved" length="100" name="CommunityId" not-null="false" type="string"/>
     <property column="MsgData" name="MsgData" not-null="false"/>
+    <property column="RspData" name="MsgData" not-null="false"/>
+    <property column="AckData" name="MsgData" not-null="false"/>
   </class>
 </hibernate-mapping>

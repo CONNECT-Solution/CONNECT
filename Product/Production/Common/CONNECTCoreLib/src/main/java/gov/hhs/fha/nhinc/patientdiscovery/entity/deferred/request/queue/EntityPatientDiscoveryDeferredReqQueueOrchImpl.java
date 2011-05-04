@@ -54,7 +54,7 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
     protected MCCIIN000002UV01 addPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
-        // TODO: Add code here to "process" the request and send a response out to the Nhin.
+        // "process" the request and send a response out to the Nhin.
         PatientDiscovery201305Processor msgProcessor = new PatientDiscovery201305Processor();
         PRPAIN201306UV02 resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
 

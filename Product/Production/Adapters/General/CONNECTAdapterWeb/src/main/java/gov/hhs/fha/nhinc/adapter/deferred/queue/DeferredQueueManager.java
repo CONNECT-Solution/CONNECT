@@ -6,7 +6,17 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessRequestType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsResponseType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRequestType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
+import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,9 +25,13 @@ import org.apache.commons.logging.LogFactory;
  * @author richard.ettema
  */
 @WebService(serviceName = "DeferredQueueManager", portName = "DeferredQueueManagerPort", endpointInterface = "gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:deferredqueuemanager", wsdlLocation = "WEB-INF/wsdl/DeferredQueueManager/DeferredQueueManager.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class DeferredQueueManager {
 
     private static Log log = LogFactory.getLog(DeferredQueueManager.class);
+
+    @Resource
+    private WebServiceContext context;
 
     /**
      * Default constructor.
@@ -32,9 +46,49 @@ public class DeferredQueueManager {
         }
     }
 
-    public gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredQueue(gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
-        DeferredQueueManagerHelper helper = new DeferredQueueManagerHelper();
-        return helper.forceProcessOnDeferredQueue(deferredQueueManagerForceProcessRequest);
+    /**
+     * Force the deferred queue process
+     * @param deferredQueueManagerForceProcessRequest
+     * @return deferredQueueManagerForceProcessResponse
+     */
+    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredQueue(DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
+        return new DeferredQueueManagerHelper().forceProcessOnDeferredQueue(deferredQueueManagerForceProcessRequest, context);
+    }
+
+    /**
+     * Force the deferred queue process on a specific request
+     * @param deferredQueueManagerForceProcessRequest
+     * @return deferredQueueManagerForceProcessResponse
+     */
+    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
+        return new DeferredQueueManagerHelper().forceProcessOnDeferredQueue(deferredQueueManagerForceProcessRequest, context);
+    }
+
+    /**
+     * Query for deferred queue records based on passed criteria
+     * @param queryDeferredQueueRequest
+     * @return queryDeferredQueueResponse
+     */
+    public QueryDeferredQueueResponseType queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest) {
+        return new DeferredQueueManagerHelper().queryDeferredQueue(queryDeferredQueueRequest, context);
+    }
+
+    /**
+     * Retrieve a deferred queue record based on passed criteria
+     * @param retrieveDeferredQueueRequest
+     * @return retrieveDeferredQueueResponse
+     */
+    public RetrieveDeferredQueueResponseType retrieveDeferredQueue(RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) {
+        return new DeferredQueueManagerHelper().retrieveDeferredQueue(retrieveDeferredQueueRequest, context);
+    }
+
+    /**
+     * Retrieve deferred queue statistics based on passed criteria
+     * @param queryDeferredQueueRequest
+     * @return deferredQueueStatisticsResponse
+     */
+    public DeferredQueueStatisticsResponseType deferredQueueStatistics(QueryDeferredQueueRequestType queryDeferredQueueRequest) {
+        return new DeferredQueueManagerHelper().deferredQueueStatistics(queryDeferredQueueRequest, context);
     }
 
 }

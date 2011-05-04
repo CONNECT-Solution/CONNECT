@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
@@ -67,7 +63,7 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl {
     }
 
     private boolean addEntryToDatabase(RespondingGatewayPRPAIN201305UV02RequestType request) {
-		log.debug("Begin AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl.RespondingGatewayPRPAIN201305UV02RequestType()...");
+        log.debug("Begin AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl.RespondingGatewayPRPAIN201305UV02RequestType()...");
         boolean result = false;
         try {
             List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
@@ -78,6 +74,21 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl {
             rec.setMessageId(request.getAssertion().getMessageId());
             rec.setCreationTime(new Date());
             rec.setServiceName(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            rec.setDirection(AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+            if (request.getPRPAIN201305UV02() != null &&
+                    request.getPRPAIN201305UV02().getSender() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                rec.setCommunityId(request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
+            }
+            rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD);
 
             rec.setMsgData(getBlobFromPRPAIN201305UV02RequestType(request));
             asyncMsgRecs.add(rec);
@@ -114,6 +125,4 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl {
         }
         return asyncMessage;
     }
-
-
 }

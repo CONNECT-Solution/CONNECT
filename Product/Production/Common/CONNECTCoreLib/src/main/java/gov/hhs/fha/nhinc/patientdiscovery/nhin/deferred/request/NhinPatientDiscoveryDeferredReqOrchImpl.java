@@ -34,7 +34,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class NhinPatientDiscoveryDeferredReqOrchImpl {
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryDeferredReqOrchImpl.class);
 
-     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         String ackMsg = "Success";
 

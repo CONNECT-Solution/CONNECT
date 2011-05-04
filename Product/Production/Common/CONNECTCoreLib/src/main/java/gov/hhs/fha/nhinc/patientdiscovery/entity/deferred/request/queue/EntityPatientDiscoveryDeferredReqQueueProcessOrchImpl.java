@@ -58,6 +58,10 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                         (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());
                     asyncMsgRecord = msgList.get(0);
+
+                    // Set queue status to processing
+                    asyncMsgRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_PROCESSING);
+                    instance.save(asyncMsgRecord);
                 } else {
                     log.info("msgList: is null");
                 }

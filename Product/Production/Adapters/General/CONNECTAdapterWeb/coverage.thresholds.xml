@@ -7,12 +7,12 @@
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager"
-              linecount="10"
+              linecount="13"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="26" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManagerHelper"
-              linecount="44"
+              linecount="123"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
@@ -618,6 +618,16 @@
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoverySecuredDeferredResponseImpl"
               linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.performancequery.entity.EntityPerformanceLogQuery"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.performancequery.entity.EntityPerformanceLogQueryImpl"
+              linecount="22"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

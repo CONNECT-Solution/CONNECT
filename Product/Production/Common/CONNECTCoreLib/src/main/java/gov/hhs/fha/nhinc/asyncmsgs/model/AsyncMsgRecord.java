@@ -25,7 +25,10 @@ public class AsyncMsgRecord {
     private String CommunityId = null;
     private String Status = null;
     private String ResponseType = null;
+    private String Reserved = null;
     private Blob MsgData = null;
+    private Blob RspData = null;
+    private Blob AckData = null;
 
     public AsyncMsgRecord() {}
 
@@ -109,12 +112,36 @@ public class AsyncMsgRecord {
         this.ResponseType = ResponseType;
     }
 
+    public String getReserved () {
+        return Reserved;
+    }
+
+    public void setReserved (String Reserved) {
+        this.Reserved = Reserved;
+    }
+
     public Blob getMsgData () {
         return MsgData;
     }
 
     public void setMsgData (Blob MsgData) {
         this.MsgData = MsgData;
+    }
+
+    public Blob getRspData () {
+        return RspData;
+    }
+
+    public void setRspData (Blob RspData) {
+        this.RspData = RspData;
+    }
+
+    public Blob getAckData () {
+        return AckData;
+    }
+
+    public void setAckData (Blob AckData) {
+        this.AckData = AckData;
     }
 
 }

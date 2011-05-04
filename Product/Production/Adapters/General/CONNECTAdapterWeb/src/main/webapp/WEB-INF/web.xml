@@ -420,6 +420,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EntityPerformanceLogQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.performancequery.entity.EntityPerformanceLogQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPerformanceLogQuery</servlet-name>
+        <url-pattern>/EntityPerformanceLogQuery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ProxyAuditQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditQuery</servlet-class>
     </servlet>
