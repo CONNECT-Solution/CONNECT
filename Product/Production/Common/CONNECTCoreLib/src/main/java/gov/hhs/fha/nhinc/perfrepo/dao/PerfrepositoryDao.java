@@ -6,13 +6,14 @@
  */
 package gov.hhs.fha.nhinc.perfrepo.dao;
 
+import gov.hhs.fha.nhinc.common.entityperformancelogquery.CountDataType;
+import gov.hhs.fha.nhinc.common.entityperformancelogquery.DetailDataType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.persistance.HibernateUtil;
-import gov.hhs.fha.nhinc.perfrepo.model.CountData;
-import gov.hhs.fha.nhinc.perfrepo.model.DetailData;
 import gov.hhs.fha.nhinc.perfrepo.model.Perfrepository;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
@@ -228,12 +229,12 @@ public class PerfrepositoryDao {
      * <p>This method does a query to the database to get the count statistic data from the
      * Performance Log records based on a datetime range.
      * <p>Please note: The returned List will always be populated with three(3) instances
-     * of the <code>CountData</code> class; one for each direction: Inbound, Outbound, Error
+     * of the <code>CountDataType</code> class; one for each direction: Inbound, Outbound, Error
      * @param beginTime
      * @param endTime
      * @return List
      */
-    public List<CountData> getPerfrepositoryCountRange(Timestamp beginTime, Timestamp endTime) {
+    public List<CountDataType> getPerfrepositoryCountRange(Timestamp beginTime, Timestamp endTime) {
         log.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - Begin");
 
         if (beginTime == null || endTime == null) {
@@ -243,7 +244,7 @@ public class PerfrepositoryDao {
         }
 
         Session session = null;
-        List<CountData> queryList = null;
+        List<CountDataType> queryList = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
@@ -267,20 +268,20 @@ public class PerfrepositoryDao {
                 }
 
                 // Initialize the three(3) count data directions
-                CountData inboundData = new CountData();
+                CountDataType inboundData = new CountDataType();
                 inboundData.setType(DIRECTION_INBOUND);
                 inboundData.setCount(new Long(0));
                 inboundData.setExpected(getPerfMonitorExpectedInbound());
-                CountData outboundData = new CountData();
+                CountDataType outboundData = new CountDataType();
                 outboundData.setType(DIRECTION_OUTBOUND);
                 outboundData.setCount(new Long(0));
                 outboundData.setExpected(getPerfMonitorExpectedOutbound());
-                CountData errorData = new CountData();
+                CountDataType errorData = new CountDataType();
                 errorData.setType(DIRECTION_ERROR);
                 errorData.setCount(new Long(0));
                 errorData.setExpected(getPerfMonitorExpectedErrors());
 
-                queryList = new ArrayList<CountData>();
+                queryList = new ArrayList<CountDataType>();
                 for (int i=0; i<directionArray.length; i++) {
                     if (directionArray[i].equalsIgnoreCase(DIRECTION_INBOUND)) {
                         inboundData.setCount(countvalArray[i]);
@@ -317,7 +318,7 @@ public class PerfrepositoryDao {
      * @param endTime
      * @return List
      */
-    public List<DetailData> getPerfrepositoryDetailRange(Timestamp beginTime, Timestamp endTime) {
+    public List<DetailDataType> getPerfrepositoryDetailRange(Timestamp beginTime, Timestamp endTime) {
         log.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - Begin");
 
         if (beginTime == null || endTime == null) {
@@ -327,7 +328,7 @@ public class PerfrepositoryDao {
         }
 
         Session session = null;
-        List<DetailData> queryList = null;
+        List<DetailDataType> queryList = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
@@ -349,7 +350,7 @@ public class PerfrepositoryDao {
                 String[] servicetypeArray = new String[result.size()];
                 String[] messagetypeArray = new String[result.size()];
                 String[] directionArray = new String[result.size()];
-                Double[] avgdurationArray = new Double[result.size()];
+                BigDecimal[] avgdurationArray = new BigDecimal[result.size()];
                 Long[] mindurationArray = new Long[result.size()];
                 Long[] maxdurationArray = new Long[result.size()];
                 Long[] countvalArray = new Long[result.size()];
@@ -358,22 +359,22 @@ public class PerfrepositoryDao {
                     servicetypeArray[counter] = row[0].toString();
                     messagetypeArray[counter] = row[1].toString();
                     directionArray[counter] = row[2].toString();
-                    avgdurationArray[counter] = new Double(row[3].toString());
+                    avgdurationArray[counter] = new BigDecimal(row[3].toString());
                     mindurationArray[counter] = new Long(row[4].toString());
                     maxdurationArray[counter] = new Long(row[5].toString());
                     countvalArray[counter] = new Long(row[6].toString());
                     counter++;
                 }
 
-                queryList = new ArrayList<DetailData>();
+                queryList = new ArrayList<DetailDataType>();
                 for (int i=0; i<directionArray.length; i++) {
-                    DetailData detailData = new DetailData();
-                    detailData.setServicetype(servicetypeArray[i]);
-                    detailData.setMessagetype(messagetypeArray[i]);
+                    DetailDataType detailData = new DetailDataType();
+                    detailData.setServiceType(servicetypeArray[i]);
+                    detailData.setMessageType(messagetypeArray[i]);
                     detailData.setDirection(directionArray[i]);
-                    detailData.setAvgduration(avgdurationArray[i]);
-                    detailData.setMinduration(mindurationArray[i]);
-                    detailData.setMaxduration(maxdurationArray[i]);
+                    detailData.setAvgDuration(avgdurationArray[i]);
+                    detailData.setMinDuration(mindurationArray[i]);
+                    detailData.setMaxDuration(maxdurationArray[i]);
                     detailData.setCount(countvalArray[i]);
                     queryList.add(detailData);
                 }
@@ -398,7 +399,7 @@ public class PerfrepositoryDao {
      * @param endTime
      * @return List
      */
-    public List<DetailData> getPerfrepositoryErrorRange(Timestamp beginTime, Timestamp endTime) {
+    public List<DetailDataType> getPerfrepositoryErrorRange(Timestamp beginTime, Timestamp endTime) {
         log.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - Begin");
 
         if (beginTime == null || endTime == null) {
@@ -408,7 +409,7 @@ public class PerfrepositoryDao {
         }
 
         Session session = null;
-        List<DetailData> queryList = null;
+        List<DetailDataType> queryList = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
@@ -430,7 +431,7 @@ public class PerfrepositoryDao {
                 String[] servicetypeArray = new String[result.size()];
                 String[] messagetypeArray = new String[result.size()];
                 String[] directionArray = new String[result.size()];
-                Double[] avgdurationArray = new Double[result.size()];
+                BigDecimal[] avgdurationArray = new BigDecimal[result.size()];
                 Long[] mindurationArray = new Long[result.size()];
                 Long[] maxdurationArray = new Long[result.size()];
                 Long[] countvalArray = new Long[result.size()];
@@ -439,22 +440,22 @@ public class PerfrepositoryDao {
                     servicetypeArray[counter] = row[0].toString();
                     messagetypeArray[counter] = row[1].toString();
                     directionArray[counter] = row[2].toString();
-                    avgdurationArray[counter] = new Double(row[3].toString());
+                    avgdurationArray[counter] = new BigDecimal(row[3].toString());
                     mindurationArray[counter] = new Long(row[4].toString());
                     maxdurationArray[counter] = new Long(row[5].toString());
                     countvalArray[counter] = new Long(row[6].toString());
                     counter++;
                 }
 
-                queryList = new ArrayList<DetailData>();
+                queryList = new ArrayList<DetailDataType>();
                 for (int i=0; i<directionArray.length; i++) {
-                    DetailData detailData = new DetailData();
-                    detailData.setServicetype(servicetypeArray[i]);
-                    detailData.setMessagetype(messagetypeArray[i]);
+                    DetailDataType detailData = new DetailDataType();
+                    detailData.setServiceType(servicetypeArray[i]);
+                    detailData.setMessageType(messagetypeArray[i]);
                     detailData.setDirection(directionArray[i]);
-                    detailData.setAvgduration(avgdurationArray[i]);
-                    detailData.setMinduration(mindurationArray[i]);
-                    detailData.setMaxduration(maxdurationArray[i]);
+                    detailData.setAvgDuration(avgdurationArray[i]);
+                    detailData.setMinDuration(mindurationArray[i]);
+                    detailData.setMaxDuration(maxdurationArray[i]);
                     detailData.setCount(countvalArray[i]);
                     queryList.add(detailData);
                 }

@@ -6,19 +6,16 @@
  */
 package gov.hhs.fha.nhinc.perfrepo;
 
+import gov.hhs.fha.nhinc.common.entityperformancelogquery.CountDataType;
+import gov.hhs.fha.nhinc.common.entityperformancelogquery.DetailDataType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.dao.PerfrepositoryDao;
-import gov.hhs.fha.nhinc.perfrepo.model.CountData;
-import gov.hhs.fha.nhinc.perfrepo.model.DetailData;
-import gov.hhs.fha.nhinc.perfrepo.model.PerformanceResponse;
 import gov.hhs.fha.nhinc.perfrepo.model.Perfrepository;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -143,28 +140,37 @@ public class PerformanceManager {
     }
 
     /*
-     * Rreturn performance summary and details for each gateway
+     * Return performance count data list for this gateway
      * @param beginTime
      * @param endTime
+     * @return countDataList
      */
-    public List<PerformanceResponse> getPerfrepositoryResponseSummaryDetails(Calendar  beginTime, Calendar  endTime) {
+    public List<CountDataType> getPerfrepositoryCountData(Calendar beginTime, Calendar endTime) {
 
-        log.debug("getPerfrepositoryResponseSummaryDetails() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
-        List<PerformanceResponse> perfResponseList = new ArrayList();
-        PerformanceResponse performanceResponse = new PerformanceResponse();
-        List<CountData> countDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance().getPerfrepositoryCountRange(new Timestamp(beginTime.getTimeInMillis()), new Timestamp(endTime.getTimeInMillis()));
-        List<DetailData> detailDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance().getPerfrepositoryDetailRange(new Timestamp(beginTime.getTimeInMillis()), new Timestamp(endTime.getTimeInMillis()));
+        log.debug("getPerfrepositoryCountData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
 
-        log.debug("Before set of data lists");
+        List<CountDataType> countDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance().getPerfrepositoryCountRange(new Timestamp(beginTime.getTimeInMillis()), new Timestamp(endTime.getTimeInMillis()));
 
-        performanceResponse.setCountDataList(countDataList);
-        performanceResponse.setDetailDataList(detailDataList);
+        log.debug("getPerfrepositoryCountData() method end");
 
-        perfResponseList.add(performanceResponse);
+        return countDataList;
+    }
 
-        log.debug("getPerfrepositoryResponseSummaryDetails() method end");
+    /*
+     * Return performance detail data list for this gateway
+     * @param beginTime
+     * @param endTime
+     * @return detailDataList
+     */
+    public List<DetailDataType> getPerfrepositoryDetailData(Calendar beginTime, Calendar endTime) {
 
-        return perfResponseList;
+        log.debug("getPerfrepositoryDetailData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
+
+        List<DetailDataType> detailDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance().getPerfrepositoryDetailRange(new Timestamp(beginTime.getTimeInMillis()), new Timestamp(endTime.getTimeInMillis()));
+
+        log.debug("getPerfrepositoryDetailData() method end");
+
+        return detailDataList;
     }
 
     /**
