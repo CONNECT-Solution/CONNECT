@@ -6,12 +6,15 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request;
 
+import java.sql.Blob;
+import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
+import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifiersType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
@@ -26,14 +29,22 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
 
 /**
  * Implementation class for Entity Document Query Deferred request message
@@ -85,6 +96,12 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                 if (targetCommunity != null &&
                                         NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
                                     if (checkPolicy(message, assertion, targetCommunity.getHomeCommunityId())) {
+                                        //add to the Request to the Initiator AsyncMsgs Table.
+                                        RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
+                                        respondingGatewayCrossGatewayQueryRequest.setAdhocQueryRequest(message);
+                                        respondingGatewayCrossGatewayQueryRequest.setAssertion(assertion);
+                                        addEntryToDatabase(respondingGatewayCrossGatewayQueryRequest);
+
                                         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
                                         targetSystem.setHomeCommunity(targetCommunity);
 
@@ -207,5 +224,58 @@ public class EntityDocQueryDeferredReqOrchImpl {
             }
         }
         return sHomeCommunity;
+    }
+
+     /**
+     *
+     * @param request
+     * @return void
+     */
+    protected void addEntryToDatabase(RespondingGatewayCrossGatewayQueryRequestType request) {
+        getLog().debug("EntityDocQueryDeferredReqOrchImpl :addEntryToDatabase : Begin");
+        List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
+        AsyncMsgRecord rec = new AsyncMsgRecord();
+        AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+
+        // Replace with message id from the assertion class
+        rec.setMessageId(request.getAssertion().getMessageId());
+        rec.setCreationTime(new Date());
+        rec.setServiceName(NhincConstants.DOC_QUERY_SERVICE_NAME);
+        rec.setMsgData(createBlob(request));
+        asyncMsgRecs.add(rec);
+
+        boolean result = instance.insertRecords(asyncMsgRecs);
+
+        if (result == false) {
+            getLog().error("Failed to insert asynchronous record in the database");
+        }
+        getLog().debug("EntityDocQueryDeferredReqOrchImpl :addEntryToDatabase : End ");
+    }
+     /**
+     *     
+     * @param request
+     * @return Blob
+     */
+    private Blob createBlob(RespondingGatewayCrossGatewayQueryRequestType request) {
+        Blob asyncMessage = null;
+        try {
+            getLog().debug("EntityDocQueryDeferredReqOrchImpl :createBlob : Begin");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonentity");
+            Marshaller marshaller = jc.createMarshaller();
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
+            JAXBElement<RespondingGatewayCrossGatewayQueryRequestType> oJaxbElement = factory.createRespondingGatewayCrossGatewayQueryRequest(request);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+            asyncMessage = Hibernate.createBlob(buffer);
+            getLog().debug("EntityDocQueryDeferredReqOrchImpl :createBlob : End");
+        } catch (Exception e) {
+            getLog().error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+        return asyncMessage;
     }
 }
