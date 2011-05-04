@@ -1324,6 +1324,9 @@
     <service name="EntityPatientDiscoveryDeferredReqQueueProcess">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcess</implementation-class>
     </service>
+    <service name="EntityDocQueryDeferredReqQueueProcess">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcess</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
