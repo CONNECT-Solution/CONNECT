@@ -404,6 +404,7 @@
     <servlet>
         <servlet-name>DeferredQueueManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeferredQueueManager</servlet-name>
