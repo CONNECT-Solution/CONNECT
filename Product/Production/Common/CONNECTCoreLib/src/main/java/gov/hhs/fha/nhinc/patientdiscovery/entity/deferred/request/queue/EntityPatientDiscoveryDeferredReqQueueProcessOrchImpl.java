@@ -60,7 +60,7 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                     asyncMsgRecord = msgList.get(0);
 
                     // Set queue status to processing
-                    asyncMsgRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_PROCESSING);
+                    asyncMsgRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
                     instance.save(asyncMsgRecord);
                 } else {
                     log.info("msgList: is null");

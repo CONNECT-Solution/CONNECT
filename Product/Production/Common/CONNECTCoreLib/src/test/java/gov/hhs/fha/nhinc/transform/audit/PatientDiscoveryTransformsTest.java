@@ -1276,7 +1276,7 @@ public class PatientDiscoveryTransformsTest {
         II msgId = new II();
         msgId.setExtension("12345");
         msgId.setRoot("2.2");
-        MCCIIN000002UV01 ackMsg = HL7AckTransforms.createAckMessage("1.1.1", msgId, "Success", "1.1", "2.2");
+        MCCIIN000002UV01 ackMsg = HL7AckTransforms.createAckMessage("1.1.1", msgId, "CA", "Success", "1.1", "2.2");
         AssertionType assertion = new AssertionType();
         UserType userInfo = getTestUserType();
         assertion.setUserInfo(userInfo);

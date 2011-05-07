@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -112,6 +113,27 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                     }
                 };
                 return auditLogger;
+            }
+
+            @Override
+            protected AsyncMessageProcessHelper createAsyncProcesser()
+            {
+                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper()
+                {
+
+                    @Override
+                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction)
+                    {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
+                    {
+                        return true;
+                    }
+                };
+                return processHelper;
             }
         };
 
@@ -265,6 +287,27 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                     }
                 };
                 return auditLogger;
+            }
+
+            @Override
+            protected AsyncMessageProcessHelper createAsyncProcesser()
+            {
+                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper()
+                {
+
+                    @Override
+                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction)
+                    {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
+                    {
+                        return true;
+                    }
+                };
+                return processHelper;
             }
         };
 

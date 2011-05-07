@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -43,6 +43,7 @@ public class PatientSaver {
         MCCIIN000002UV01 result = new MCCIIN000002UV01();
         String senderOID = null;
         String receiverOID = null;
+        String ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ACCEPT;
         String msgText = null;
         String localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
 
@@ -53,7 +54,7 @@ public class PatientSaver {
                 NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
             senderOID = message.getReceiver().get(0).getDevice().getId().get(0).getRoot();
         }
-        
+
         // Set the receiverOID in the Ack Message
         if (message.getSender() != null &&
                 message.getSender().getDevice() != null &&
@@ -61,7 +62,7 @@ public class PatientSaver {
                 NullChecker.isNotNullish(message.getSender().getDevice().getId().get(0).getRoot())) {
             receiverOID = message.getSender().getDevice().getId().get(0).getRoot();
         }
-        
+
         // Set the localDeviceId in the Ack Message
         try {
            localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
@@ -77,9 +78,11 @@ public class PatientSaver {
 
         if (patient == null) {
             log.warn(" no patient supplied");
+            ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ERROR;
             msgText = "Error: No Patient Supplied";
         } else if (sender == null) {
             log.warn(" no sender supplied");
+            ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ERROR;
             msgText = "Error: No Sender Supplied";
         } else {
             Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
@@ -93,8 +96,8 @@ public class PatientSaver {
                 log.info("patient not found in MPI");
                 if (CreatePatientIfDoesNotExist) {
                     log.info("creating patient");
-                    MpiDataAccess.SavePatient(sourcePatient);                    
-                    msgText = "Patient Successfully added to the MPI";                    
+                    MpiDataAccess.SavePatient(sourcePatient);
+                    msgText = "Patient Successfully added to the MPI";
                 } else {
                     log.info("patient not found in MPI - ignore");
                 }
@@ -108,8 +111,8 @@ public class PatientSaver {
                 msgText = "Warning: Patient already found in MPI.";
             }
         }
-        
-        result = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), msgText, senderOID, receiverOID);
+
+        result = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), ackTypeCode, msgText, senderOID, receiverOID);
 
         return result;
     }

@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.subjectdiscovery.nhin;
 
@@ -55,7 +55,7 @@ public class SubjectDiscoveryAckCreater {
             }
 
             // Create the ack message
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, HL7AckTransforms.ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID, receiverOID);
         }
 
         return ack;
@@ -93,7 +93,7 @@ public class SubjectDiscoveryAckCreater {
                 receiverOID = request.getPRPAIN201302UV02().getSender().getDevice().getId().get(0).getRoot();
             }
 
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, HL7AckTransforms.ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID, receiverOID);
         }
         return ack;
     }

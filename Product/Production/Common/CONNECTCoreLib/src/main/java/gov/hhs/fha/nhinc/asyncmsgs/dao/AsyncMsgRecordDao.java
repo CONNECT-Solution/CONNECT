@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.asyncmsgs.dao;
 
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -32,21 +33,29 @@ public class AsyncMsgRecordDao {
 
     private static Log log = LogFactory.getLog(AsyncMsgRecordDao.class);
 
-    public static final String QUEUE_DIRECTION_INBOUND = "IN";
-    public static final String QUEUE_DIRECTION_OUTBOUND = "OUT";
+    public static final String QUEUE_DIRECTION_INBOUND = "INBOUND";
+    public static final String QUEUE_DIRECTION_OUTBOUND = "OUTBOUND";
+
     public static final String QUEUE_RESPONSE_TYPE_AUTO = "AUTO";
     public static final String QUEUE_RESPONSE_TYPE_EXTERNAL = "EXTERNAL";
+
     public static final String QUEUE_STATUS_EXPIRED = "EXPIRED";
-    public static final String QUEUE_STATUS_PROCESSING = "PROCESSING";
+
+    public static final String QUEUE_STATUS_REQPROCESS = "REQPROCESS";
     public static final String QUEUE_STATUS_REQRCVD = "REQRCVD";
     public static final String QUEUE_STATUS_REQRCVDACK = "REQRCVDACK";
+    public static final String QUEUE_STATUS_REQRCVDERR = "REQRCVDERR";
     public static final String QUEUE_STATUS_REQSENT = "REQSENT";
     public static final String QUEUE_STATUS_REQSENTACK = "REQSENTACK";
+    public static final String QUEUE_STATUS_REQSENTERR = "REQSENTERR";
+
+    public static final String QUEUE_STATUS_RSPPROCESS = "RSPPROCESS";
     public static final String QUEUE_STATUS_RSPRCVD = "RSPRCVD";
     public static final String QUEUE_STATUS_RSPRCVDACK = "RSPRCVDACK";
-    public static final String QUEUE_STATUS_RSPREADY = "RSPREADY";
+    public static final String QUEUE_STATUS_RSPRCVDERR = "RSPRCVDERR";
     public static final String QUEUE_STATUS_RSPSENT = "RSPSENT";
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
+    public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
 
     /**
      * Query by Message Id.  This should return only one record.
@@ -202,8 +211,7 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.lt("CreationTime", timestamp));
                     criteria.add(Restrictions.or(
                             Restrictions.eq("Status", QUEUE_STATUS_REQRCVD),
-                            Restrictions.eq("Status", QUEUE_STATUS_REQRCVDACK)
-                            ));
+                            Restrictions.eq("Status", QUEUE_STATUS_REQRCVDACK)));
                     asyncMsgRecs = criteria.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
@@ -258,6 +266,94 @@ public class AsyncMsgRecordDao {
 
             if (log.isDebugEnabled()) {
                 log.debug("Completed database record retrieve for deferred queue manager processing. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+            }
+        } finally {
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (Throwable t) {
+                    log.error("Failed to close session: " + t.getMessage(), t);
+                }
+            }
+        }
+
+        return asyncMsgRecs;
+    }
+
+    /**
+     * Query by Message Id and Service Name.  This should return only one record.
+     *
+     * @param messageId
+     * @param serviceName
+     * @return matching records
+     */
+    public List<AsyncMsgRecord> queryByCriteria(QueryDeferredQueueRequestType queryCriteria) {
+        log.debug("Performing database record retrieve using AsyncMsgRecord instance to hold criteria.");
+
+        List<AsyncMsgRecord> asyncMsgRecs = null;
+        Session sess = null;
+
+        try {
+            SessionFactory fact = HibernateUtil.getSessionFactory();
+            if (fact != null) {
+                sess = fact.openSession();
+                if (sess != null) {
+                    // Instantiate Criteria class and populate based on non-null queryCriteria attributes
+                    boolean criteriaPopulated = false;
+                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
+
+                    if (queryCriteria.getCreationBeginTime() != null) {
+                        criteria.add(Restrictions.ge("CreationTime", queryCriteria.getCreationBeginTime()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getCreationEndTime() != null) {
+                        criteria.add(Restrictions.le("CreationTime", queryCriteria.getCreationEndTime()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getResponseBeginTime() != null) {
+                        criteria.add(Restrictions.ge("ResponseTime", queryCriteria.getResponseBeginTime()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getResponseEndTime() != null) {
+                        criteria.add(Restrictions.le("ResponseTime", queryCriteria.getResponseEndTime()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
+                        criteria.add(Restrictions.in("ServiceName", queryCriteria.getServiceName()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getDirection() != null) {
+                        criteria.add(Restrictions.eq("Direction", queryCriteria.getDirection()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getCommunityId() != null && queryCriteria.getCommunityId().size() > 0) {
+                        criteria.add(Restrictions.in("CommunityId", queryCriteria.getCommunityId()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getStatus() != null && queryCriteria.getStatus().size() > 0) {
+                        criteria.add(Restrictions.in("Status", queryCriteria.getStatus()));
+                        criteriaPopulated = true;
+                    }
+                    if (queryCriteria.getResponseType() != null) {
+                        criteria.add(Restrictions.eq("ResponseType", queryCriteria.getResponseType()));
+                        criteriaPopulated = true;
+                    }
+
+                    // If at least one queryCriteria value was populated, get the results
+                    if (criteriaPopulated) {
+                        asyncMsgRecs = criteria.list();
+                    } else {
+                        log.error("No query criteria defined.  At least one criteria value must be defined.");
+                    }
+                } else {
+                    log.error("Failed to obtain a session from the sessionFactory");
+                }
+            } else {
+                log.error("Session factory was null");
+            }
+
+            if (log.isDebugEnabled()) {
+                log.debug("Completed database record retrieve by criteria. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -407,7 +503,9 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Examine
+     * Examine all asyncmsgrepo records to determine if their creation time has
+     * expired based on the gateway async expiration settings.  All expired
+     * records will be updated with an expired status.
      */
     public void checkExpiration() {
         log.debug("AsyncMsgRecordDao.checkExpiration() - Begin");
@@ -467,4 +565,5 @@ public class AsyncMsgRecordDao {
 
         return expirationValue;
     }
+
 }

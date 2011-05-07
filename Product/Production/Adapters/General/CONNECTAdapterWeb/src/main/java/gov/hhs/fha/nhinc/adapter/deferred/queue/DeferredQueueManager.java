@@ -6,8 +6,9 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
-import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessRequestType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseType;
@@ -84,11 +85,11 @@ public class DeferredQueueManager {
 
     /**
      * Retrieve deferred queue statistics based on passed criteria
-     * @param queryDeferredQueueRequest
+     * @param deferredQueueStatisticsRequest
      * @return deferredQueueStatisticsResponse
      */
-    public DeferredQueueStatisticsResponseType deferredQueueStatistics(QueryDeferredQueueRequestType queryDeferredQueueRequest) {
-        return new DeferredQueueManagerHelper().deferredQueueStatistics(queryDeferredQueueRequest, context);
+    public DeferredQueueStatisticsResponseType deferredQueueStatistics(DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) {
+        return new DeferredQueueManagerHelper().deferredQueueStatistics(deferredQueueStatisticsRequest, context);
     }
 
 }

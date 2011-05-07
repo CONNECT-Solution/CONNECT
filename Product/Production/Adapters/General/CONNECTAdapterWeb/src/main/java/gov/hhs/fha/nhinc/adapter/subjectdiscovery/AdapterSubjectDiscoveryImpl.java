@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -33,7 +33,7 @@ public class AdapterSubjectDiscoveryImpl {
         II msgId = new II();
         String senderOID = null;
         String receiverOID = null;
-        
+
         if (request != null &&
                 request.getPRPAIN201301UV02() != null) {
             // Extract the message id
@@ -60,7 +60,7 @@ public class AdapterSubjectDiscoveryImpl {
                 receiverOID = request.getPRPAIN201301UV02().getSender().getDevice().getId().get(0).getRoot();
             }
 
-            ack = HL7AckTransforms.createAckMessage(null, msgId, AGENCY_ACK_MSG, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, HL7AckTransforms.ACK_TYPE_CODE_ACCEPT, AGENCY_ACK_MSG, senderOID, receiverOID);
         }
 
         return ack;
@@ -98,7 +98,7 @@ public class AdapterSubjectDiscoveryImpl {
                 receiverOID = request.getPRPAIN201302UV02().getSender().getDevice().getId().get(0).getRoot();
             }
 
-            ack = HL7AckTransforms.createAckMessage(null, msgId, AGENCY_ACK_MSG, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, HL7AckTransforms.ACK_TYPE_CODE_ACCEPT, AGENCY_ACK_MSG, senderOID, receiverOID);
         }
 
         return ack;

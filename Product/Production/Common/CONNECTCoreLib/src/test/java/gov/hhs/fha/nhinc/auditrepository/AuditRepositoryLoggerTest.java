@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 public class AuditRepositoryLoggerTest {
 
     // TODO: Tests reference other dependencies - move to integration test suite
-    
+
     public AuditRepositoryLoggerTest() {
     }
 
@@ -42,7 +42,7 @@ public class AuditRepositoryLoggerTest {
     public void tearDown() {
     }
 
-    
+
 
     /**
      * Test of logNhinPatientDiscAck method, of class AuditRepositoryLogger.
@@ -50,7 +50,7 @@ public class AuditRepositoryLoggerTest {
     @Test
     public void testLogNhinPatientDiscAckServiceEnabled() {
         System.out.println("testLogNhinPatientDiscAckServiceEnabled");
-        
+
         AuditRepositoryLogger instance = new AuditRepositoryLogger() {
             @Override
             protected boolean isServiceEnabled() {
@@ -61,13 +61,13 @@ public class AuditRepositoryLoggerTest {
         II msgId = new II();
         msgId.setExtension("12345");
         msgId.setRoot("2.2");
-        MCCIIN000002UV01 message = HL7AckTransforms.createAckMessage("1.1.1", msgId, "Success", "1.1", "2.2");
+        MCCIIN000002UV01 message = HL7AckTransforms.createAckMessage("1.1.1", msgId, "CA", "Success", "1.1", "2.2");
         AssertionType assertion = null;
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
-        
+
         LogEventRequestType result = instance.logNhinPatientDiscAck(message, assertion, direction, _interface);
-        
+
         assertNotNull(result);
         assertEquals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, result.getDirection());
         assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE, result.getInterface());
@@ -91,7 +91,7 @@ public class AuditRepositoryLoggerTest {
         II msgId = new II();
         msgId.setExtension("12345");
         msgId.setRoot("2.2");
-        MCCIIN000002UV01 message = HL7AckTransforms.createAckMessage("1.1.1", msgId, "Success", "1.1", "2.2");
+        MCCIIN000002UV01 message = HL7AckTransforms.createAckMessage("1.1.1", msgId, "CA", "Success", "1.1", "2.2");
         AssertionType assertion = null;
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;

@@ -123,7 +123,22 @@
     </xsd:complexType>
     <xsd:element name="RetrieveDeferredQueueResponse" type="tns:RetrieveDeferredQueueResponseType" />
 
-    <!--  Queue Statistics Response Types -->
+    <!--  Queue Statistics Request and Response Types -->
+    <xsd:complexType name="DeferredQueueStatisticsRequestType" >
+        <xsd:sequence>
+            <xsd:element name="creationBeginTime" type="xsd:date"/>
+            <xsd:element name="creationEndTime" type="xsd:date"/>
+            <xsd:element name="responseBeginTime" type="xsd:date"/>
+            <xsd:element name="responseEndTime" type="xsd:date"/>
+            <xsd:element name="serviceName" type="xsd:string" minOccurs="0" maxOccurs="100"/>
+            <xsd:element name="direction" type="xsd:string"/>
+            <xsd:element name="communityId" type="xsd:string" minOccurs="0" maxOccurs="1000"/>
+            <xsd:element name="status" type="xsd:string" minOccurs="0" maxOccurs="100"/>
+            <xsd:element name="responseType" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DeferredQueueStatisticsRequest" type="tns:DeferredQueueStatisticsRequestType" />
+
     <xsd:complexType name="DeferredQueueStatisticsResponseType" >
         <xsd:sequence>
             <xsd:element name="DeferredQueueStatisticsData" type="tns:DeferredQueueStatisticsDataType" minOccurs="0" maxOccurs="1000"/>

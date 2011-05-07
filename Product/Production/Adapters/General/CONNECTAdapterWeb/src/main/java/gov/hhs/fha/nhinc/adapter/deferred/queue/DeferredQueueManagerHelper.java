@@ -8,9 +8,10 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessRequestType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueRecordType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsDataType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
@@ -133,17 +134,17 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
-     * @param queryDeferredQueueRequest
+     * @param deferredQueueStatisticsRequest
      * @param context
      * @return deferredQueueStatisticsResponse
      */
-    public DeferredQueueStatisticsResponseType deferredQueueStatistics(QueryDeferredQueueRequestType queryDeferredQueueRequest, WebServiceContext context) {
+    public DeferredQueueStatisticsResponseType deferredQueueStatistics(DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest, WebServiceContext context) {
         DeferredQueueStatisticsResponseType oResponse = new DeferredQueueStatisticsResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
 
         try {
-            oResponse.getDeferredQueueStatisticsData().addAll(queryDeferredQueueStatistics(queryDeferredQueueRequest));
+            oResponse.getDeferredQueueStatisticsData().addAll(queryDeferredQueueStatistics(deferredQueueStatisticsRequest));
             oResponse.getSuccessOrFail().setSuccess(true);
         } catch (DeferredQueueException e) {
             String sErrorMessage = "Failed to query the Deferred Queue Statistics.  Error: " + e.getMessage();
@@ -328,11 +329,11 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to query for statistics
-     * @param queryDeferredQueueRequest
+     * @param deferredQueueStatisticsRequest
      * @return found list of queue statistics records
      * @throws DeferredQueueException
      */
-    private List<DeferredQueueStatisticsDataType> queryDeferredQueueStatistics(QueryDeferredQueueRequestType queryDeferredQueueRequest) throws DeferredQueueException {
+    private List<DeferredQueueStatisticsDataType> queryDeferredQueueStatistics(DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.queryDeferredQueueStatistics method - query deferred statistics.");
 
         List<DeferredQueueStatisticsDataType> response = new ArrayList<DeferredQueueStatisticsDataType>();

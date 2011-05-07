@@ -15,6 +15,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  *
@@ -50,4 +51,9 @@ public class AsyncMessageIdCreator {
 
         return requestContext;
     }
+
+    public static String generateMessageId() {
+        return UUID.randomUUID().toString();
+    }
+
 }

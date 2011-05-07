@@ -280,9 +280,14 @@
               linecount="24"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="44" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper"
+              linecount="93"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="118" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao"
-              linecount="214"
+              linecount="264"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4097,7 +4102,7 @@
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl"
-              linecount="37"
+              linecount="51"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="38" branchrate="80" branchsexecuted="0"
@@ -5260,11 +5265,11 @@
               linecount="1"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="104" branchrate="80" branchsexecuted="0.49"
+   <threshold branchcount="190" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms"
-              linecount="67"
+              linecount="101"
               linerate="80"
-              linesexecuted="0.62"/>
+              linesexecuted="0"/>
    <threshold branchcount="120" branchrate="80" branchsexecuted="0.02"
               class="gov.hhs.fha.nhinc.transform.subdisc.HL7ArrayTransforms"
               linecount="179"

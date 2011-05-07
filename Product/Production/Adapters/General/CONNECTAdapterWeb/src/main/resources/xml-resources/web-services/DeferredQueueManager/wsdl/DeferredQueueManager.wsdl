@@ -40,6 +40,9 @@
         <part name="RetrieveDeferredQueueResponse" element="defq:RetrieveDeferredQueueResponse"/>
     </message>
 
+    <message name="DeferredQueueStatisticsRequestMessage">
+        <part name="DeferredQueueStatisticsRequest" element="defq:DeferredQueueStatisticsRequest"/>
+    </message>
     <message name="DeferredQueueStatisticsResponseMessage">
         <part name="DeferredQueueStatisticsResponse" element="defq:DeferredQueueStatisticsResponse"/>
     </message>
@@ -62,7 +65,7 @@
             <output name="RetrieveDeferredQueueResponse" message="tns:RetrieveDeferredQueueResponseMessage"/>
         </operation>
         <operation name="DeferredQueueStatistics">
-            <input name="DeferredQueueStatisticsRequest" message="tns:QueryDeferredQueueRequestMessage"/>
+            <input name="DeferredQueueStatisticsRequest" message="tns:DeferredQueueStatisticsRequestMessage"/>
             <output name="DeferredQueueStatisticsResponse" message="tns:DeferredQueueStatisticsResponseMessage"/>
         </operation>
     </portType>

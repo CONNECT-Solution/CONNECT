@@ -110,8 +110,8 @@ public class HL7AckTransformsTest {
         String msgText = "Failure";
         String senderOID = "3.3";
         String receiverOID = "3.3";
-        
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, msgText, senderOID, receiverOID);
+
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, "CA", msgText, senderOID, receiverOID);
 
         assertNotNull(result);
         TestHelper.assertReceiverIdEquals(receiverOID, result);
@@ -131,7 +131,7 @@ public class HL7AckTransformsTest {
         msgId.setRoot("1.1");
         String msgText = "Neutral";
 
-        MCCIMT000200UV01Acknowledgement result = HL7AckTransforms.createAcknowledgement(msgId, msgText);
+        MCCIMT000200UV01Acknowledgement result = HL7AckTransforms.createAcknowledgement(msgId, "CA", msgText);
 
         assertNotNull(result);
         TestHelper.assertAckMsgIdEquals(msgId, result);
@@ -147,11 +147,11 @@ public class HL7AckTransformsTest {
         II msgId = new II();
         msgId.setExtension("7777");
         msgId.setRoot("8.8");
-        
+
         MCCIMT000200UV01TargetMessage result = HL7AckTransforms.createTargetMessage(msgId);
 
         assertNotNull(result);
-        TestHelper.assertAckMsgIdEquals(msgId, result);     
+        TestHelper.assertAckMsgIdEquals(msgId, result);
     }
 
     /**
@@ -161,9 +161,9 @@ public class HL7AckTransformsTest {
     public void testCreateAckDetail() {
         System.out.println("createAckDetail");
         String msgText = "Test";
-        
-        MCCIMT000200UV01AcknowledgementDetail result = HL7AckTransforms.createAckDetail(msgText);
-        
+
+        MCCIMT000200UV01AcknowledgementDetail result = HL7AckTransforms.createAckDetail("CA", msgText);
+
         assertNotNull(result);
         TestHelper.assertAckMsgEquals(msgText, result);
     }

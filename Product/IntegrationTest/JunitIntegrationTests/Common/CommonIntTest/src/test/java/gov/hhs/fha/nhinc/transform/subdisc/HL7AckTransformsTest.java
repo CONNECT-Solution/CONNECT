@@ -24,9 +24,10 @@ import org.apache.commons.logging.LogFactory;
 public class HL7AckTransformsTest {
 
     private static Log log = LogFactory.getLog(HL7AckTransformsTest.class);
-    
+
     private String localDeviceId = "2.16.840.1.113883.3.198.1";
     private II origMsgId = HL7DataTransformHelper.IIFactory("2.16.840.1.113883.3.200.1", "123456789");
+    private String ackTypeCode = "CA";
     private String msgText = "Success";
     private String senderOID = "2.16.840.1.113883.3.200";
     private String receiverOID = "2.16.840.1.113883.3.198";
@@ -55,9 +56,9 @@ public class HL7AckTransformsTest {
      */
     @Test
     public void testCreateAckMessage() {
-        log.info("testCreateAckMessage"); 
+        log.info("testCreateAckMessage");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, msgText, senderOID, receiverOID);
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, ackTypeCode, msgText, senderOID, receiverOID);
         assertEquals(result.getId().getRoot(), "2.16.840.1.113883.3.198.1");
         assertEquals(result.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
         assertEquals(result.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
@@ -65,7 +66,7 @@ public class HL7AckTransformsTest {
         assertEquals(result.getAcknowledgement().get(0).getTargetMessage().getId().getExtension(), "123456789");
         assertEquals(result.getAcknowledgement().get(0).getAcknowledgementDetail().get(0).getText().getContent().get(0), "Success");
     }
-    
+
     /**
      * Test of createAckMessage method, default local device id
      */
@@ -73,8 +74,8 @@ public class HL7AckTransformsTest {
     public void testCreateAckMessage_NoLocalDeviceId() {
         log.info("testCreateAckMessage_NoLocalDeviceId");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(null, origMsgId, msgText, senderOID, receiverOID);
-        
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(null, origMsgId, ackTypeCode, msgText, senderOID, receiverOID);
+
         assertEquals(result.getId().getRoot(), HL7Constants.DEFAULT_LOCAL_DEVICE_ID);
         assertEquals(result.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
         assertEquals(result.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
@@ -82,7 +83,7 @@ public class HL7AckTransformsTest {
         assertEquals(result.getAcknowledgement().get(0).getTargetMessage().getId().getExtension(), "123456789");
         assertEquals(result.getAcknowledgement().get(0).getAcknowledgementDetail().get(0).getText().getContent().get(0), "Success");
     }
-    
+
     /**
      * Test of createAckMessage method, no original message id
      */
@@ -90,15 +91,15 @@ public class HL7AckTransformsTest {
     public void testCreateAckMessage_NoOrigMsgId() {
         log.info("testCreateAckMessage_NoOrigMsgId");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, null, msgText, senderOID, receiverOID);
-        
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, null, ackTypeCode, msgText, senderOID, receiverOID);
+
         assertEquals(result.getId().getRoot(), "2.16.840.1.113883.3.198.1");
         assertEquals(result.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
         assertEquals(result.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
         assertNull(result.getAcknowledgement().get(0).getTargetMessage());
         assertEquals(result.getAcknowledgement().get(0).getAcknowledgementDetail().get(0).getText().getContent().get(0), "Success");
     }
-    
+
     /**
      * Test of createAckMessage method, no message text
      */
@@ -106,8 +107,8 @@ public class HL7AckTransformsTest {
     public void testCreateAckMessage_NoMsgText() {
         log.info("testCreateAckMessage_NoMsgText");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, null, senderOID, receiverOID);
-        
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, ackTypeCode, null, senderOID, receiverOID);
+
         assertEquals(result.getId().getRoot(), "2.16.840.1.113883.3.198.1");
         assertEquals(result.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
         assertEquals(result.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
@@ -115,7 +116,7 @@ public class HL7AckTransformsTest {
         assertEquals(result.getAcknowledgement().get(0).getTargetMessage().getId().getExtension(), "123456789");
         assertEquals(result.getAcknowledgement().get(0).getAcknowledgementDetail().size(), 0);
     }
-    
+
     /**
      * Test of createAckMessage method, no acknowledgement section
      */
@@ -123,14 +124,14 @@ public class HL7AckTransformsTest {
     public void testCreateAckMessage_NoAckSection() {
         log.info("testCreateAckMessage_NoAckSection");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, null, null, senderOID, receiverOID);
-        
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, null, null, null, senderOID, receiverOID);
+
         assertEquals(result.getId().getRoot(), "2.16.840.1.113883.3.198.1");
         assertEquals(result.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
         assertEquals(result.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.198");
         assertEquals(result.getAcknowledgement().size(), 0);
     }
-    
+
     /**
      * Test of createAckMessage method, no sender OID
      */
@@ -138,11 +139,11 @@ public class HL7AckTransformsTest {
     public void testCreateAckMessage_NoSenderOID() {
         log.info("testCreateAckMessage_NoSenderOID");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, msgText, null, receiverOID);
-        
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, ackTypeCode, msgText, null, receiverOID);
+
         assertNull(result);
     }
-    
+
     /**
      * Test of createAckMessage method, no receiver OID
      */
@@ -150,8 +151,8 @@ public class HL7AckTransformsTest {
     public void testCreateAckMessage_NoReceiverOID() {
         log.info("testCreateAckMessage_NoReceiverOID");
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, msgText, senderOID, null);
-        
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, ackTypeCode, msgText, senderOID, null);
+
         assertNull(result);
     }
 }
