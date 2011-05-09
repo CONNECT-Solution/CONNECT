@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers;
 
@@ -69,7 +69,7 @@ public class HL7Parser201306 {
 
         II interactionId = new II();
         interactionId.setRoot("2.16.840.1.113883.1.6");
-        interactionId.setExtension("PRPA_IN201306UV");
+        interactionId.setExtension("PRPA_IN201306UV02");
         msg.setInteractionId(interactionId);
 
         CS processingCode = new CS();
@@ -107,29 +107,29 @@ public class HL7Parser201306 {
         controlActProcess.setCode(code);
 
         controlActProcess.getSubject().add(createSubject(patient, query));
-        
+
         controlActProcess.setQueryAck(createQueryAck(query));
-        
+
         // Set original QueryByParameter in response
         controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
 
         return controlActProcess;
     }
-    
+
     private static MFMIMT700711UV01QueryAck createQueryAck(PRPAIN201305UV02 query) {
         MFMIMT700711UV01QueryAck  result = new MFMIMT700711UV01QueryAck();
-        
+
         if (query.getControlActProcess() != null &&
                 query.getControlActProcess().getQueryByParameter() != null &&
                 query.getControlActProcess().getQueryByParameter().getValue() != null &&
                 query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
            result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
         }
-        
+
         CS respCode = new CS();
         respCode.setCode("OK");
         result.setQueryResponseCode(respCode);
-        
+
 //        INT totalQuanity = new INT();
 //        totalQuanity.setValue(BigInteger.valueOf(1));
 //        result.setResultTotalQuantity(totalQuanity);
@@ -168,20 +168,20 @@ public class HL7Parser201306 {
         regEvent.setStatusCode(statusCode);
 
         regEvent.setSubject1(createSubject1(patient, query));
-        
+
         regEvent.setCustodian(createCustodian(patient));
-        
+
         return regEvent;
     }
-    
+
     private static MFMIMT700711UV01Custodian createCustodian (PRPAMT201310UV02Patient patient) {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
-        
+
         result.setAssignedEntity(createAssignEntity(patient));
-        
+
         return result;
     }
-    
+
     private static COCTMT090003UV01AssignedEntity createAssignEntity(PRPAMT201310UV02Patient patient) {
         COCTMT090003UV01AssignedEntity assignedEntity = new COCTMT090003UV01AssignedEntity();
         assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
@@ -201,7 +201,7 @@ public class HL7Parser201306 {
 
         // Add in patient
         subject.setPatient(patient);
-        
+
         return subject;
     }
 

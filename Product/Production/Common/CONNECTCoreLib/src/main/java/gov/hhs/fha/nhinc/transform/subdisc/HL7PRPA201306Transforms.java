@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -65,8 +65,8 @@ public class HL7PRPA201306Transforms {
         result.setControlActProcess(createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query, receiverAAID, receiverOID));
 
         return result;
-        
-        
+
+
 
     }
 
@@ -201,7 +201,7 @@ public class HL7PRPA201306Transforms {
 
         //set the detectedIssueEvent
         oControlActProcess.getReasonOf().add(createErrorReason(sErrorCode));
-        
+
         result.setControlActProcess(oControlActProcess);
 
         addLogDebug("*** Exiting createPRPA201306ForErrors() method ***");
@@ -392,7 +392,7 @@ public class HL7PRPA201306Transforms {
 
     private static PRPAMT201310UV02Subject createSubjectOf1() {
         PRPAMT201310UV02Subject result = new PRPAMT201310UV02Subject();
-        
+
         result.setQueryMatchObservation(createQueryMatch());
         return result;
     }
@@ -429,7 +429,7 @@ public class HL7PRPA201306Transforms {
 
         return assignedEntity;
     }
-    
+
     private MFMIMT700711UV01Reason createErrorReason(String sErrorCode)
     {
         MFMIMT700711UV01Reason oReason = new MFMIMT700711UV01Reason();
@@ -489,7 +489,7 @@ public class HL7PRPA201306Transforms {
     }
 
     protected II getHL7InteractionId() {
-        return HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV");
+        return HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV02");
     }
 
     protected II getHL7MessageId(String receiverOID) {
@@ -541,7 +541,7 @@ public class HL7PRPA201306Transforms {
     }
 
     protected boolean areIncommingRequiredPRPAIN201305FieldsNull(PRPAIN201305UV02 oRequest) {
-        
+
         //check receiverOID
         boolean bReceiverFieldsNull = areReceiverFieldsNull(oRequest);
         if (bReceiverFieldsNull)
@@ -615,7 +615,7 @@ public class HL7PRPA201306Transforms {
             return true;
         }
         //all fields are ok return false for null value check
-        return false; 
+        return false;
     }
 
     protected boolean areSenderFieldsNull(PRPAIN201305UV02 oRequest)
