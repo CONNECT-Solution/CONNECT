@@ -48,7 +48,7 @@ public class EntityDocQueryDeferredReqQueueProcessOrchImpl {
      * @return DocQueryAcknowledgementType
      */
     public DocQueryAcknowledgementType processDocQueryAsyncReqQueue(String messageId) {
-        log.info("Begin EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl.processDocQueryAsyncReqQueue()....");
+        log.info("Begin EntityDocQueryDeferredReqQueueProcessOrchImpl.processDocQueryAsyncReqQueue()....");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
       
         try {
