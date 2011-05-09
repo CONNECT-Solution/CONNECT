@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.saml.extraction;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -150,6 +146,7 @@ public class SamlTokenCreator {
                 log.error("Error: samlSendOperation input assertion AuthnStatement is null");
             }
             if (assertion.getSamlAuthzDecisionStatement() != null) {
+                requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "true");
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getAction())) {
                     requestContext.put(NhincConstants.ACTION_PROP, assertion.getSamlAuthzDecisionStatement().getAction());
                 }
@@ -195,7 +192,19 @@ public class SamlTokenCreator {
                     log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
                 }
             } else {
-                log.error("Error: samlSendOperation input assertion AuthzDecisionStatement is null");
+                requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "false");
+                log.info("AuthzDecisionStatement is null.  It will not be part of the SAML Assertion");
+            }
+
+            if (assertion.getSamlIssuer() != null) {
+                if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
+                }
+                if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP, assertion.getSamlIssuer().getIssuerFormat());
+                }
+            } else {
+                log.debug("samlSendOperation input assertion Saml Issuer is null");
             }
         } else {
             log.error("Error: samlSendOperation input assertion is null");

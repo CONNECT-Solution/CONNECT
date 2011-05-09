@@ -360,9 +360,9 @@
               linecount="7"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="220" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="226" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"
-              linecount="539"
+              linecount="545"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4755,11 +4755,11 @@
               linecount="63"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="104" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="110" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator"
-              linecount="107"
+              linecount="115"
               linerate="80"
-              linesexecuted="0.01"/>
+              linesexecuted="0"/>
    <threshold branchcount="232" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor"
               linecount="399"

@@ -52,6 +52,9 @@ public class NhincConstants {
     public static final String SUBJECT_LOCALITY_ADDR_PROP = "subjectLocalityAddress";
     public static final String SUBJECT_LOCALITY_DNS_PROP = "subjectLocalityDNS";
     public static final String AUTHZ_DECISION_PROP = "authzDecision";
+    public static final String AUTHZ_STATEMENT_EXISTS_PROP = "authzStatementExists";
+    public static final String ASSERTION_ISSUER_PROP = "assertionIssuer";
+    public static final String ASSERTION_ISSUER_FORMAT_PROP = "assertionIssuerFormat";
     public static final String EVIDENCE_ID_PROP = "evidenceAssertionId";
     public static final String EVIDENCE_INSTANT_PROP = "evidenceAssertionInstant";
     public static final String EVIDENCE_VERSION_PROP = "evidenceAssertionVersion";
