@@ -97,7 +97,7 @@
                         <sp:IncludeTimestamp/>
                         <sp:AlgorithmSuite>
                             <wsp:Policy>
-                                <sp:Basic128/>
+                                <sp:Basic256/>
                             </wsp:Policy>
                         </sp:AlgorithmSuite>
                     </wsp:Policy>

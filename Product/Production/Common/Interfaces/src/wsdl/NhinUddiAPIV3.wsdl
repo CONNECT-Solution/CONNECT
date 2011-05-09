@@ -11,7 +11,7 @@ xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
 targetNamespace="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3">
     <documentation>
-		NHIN Secured SOAP/HTTP binding for UDDI API V3.0 
+        NHIN Secured SOAP/HTTP binding for UDDI API V3.0 
     </documentation>
     <types>
         <xsd:schema targetNamespace="urn:uddi-org:api_v3_portType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -345,7 +345,7 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3">
                         <sp:IncludeTimestamp/>
                         <sp:AlgorithmSuite>
                             <wsp:Policy>
-                                <sp:Basic128/>
+                                <sp:Basic256/>
                             </wsp:Policy>
                         </sp:AlgorithmSuite>
                     </wsp:Policy>

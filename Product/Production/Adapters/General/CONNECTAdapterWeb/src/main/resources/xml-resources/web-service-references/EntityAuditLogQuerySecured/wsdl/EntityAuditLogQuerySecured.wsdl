@@ -16,7 +16,7 @@
     xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
-	>
+    >
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:entityauditlogquerysaml">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
@@ -52,7 +52,7 @@
             </output>
         </operation>
     </binding>
-	
+    
     <service name="EntityAuditLogQuerySamlService">
         <port name="EntityAuditLogQuerySamlPortTypeBindingPort" binding="tns:EntityAuditLogQuerySamlPortTypeBinding">
             <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/EntityAuditLogQuerySaml"/>
@@ -225,7 +225,7 @@ A partner link type characterizes the conversational relationship between two se
                         <sp:IncludeTimestamp/>
                         <sp:AlgorithmSuite>
                             <wsp:Policy>
-                                <sp:Basic128/>
+                                <sp:Basic256/>
                             </wsp:Policy>
                         </sp:AlgorithmSuite>
                     </wsp:Policy>

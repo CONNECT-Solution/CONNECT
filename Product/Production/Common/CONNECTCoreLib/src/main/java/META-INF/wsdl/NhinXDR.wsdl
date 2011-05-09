@@ -31,7 +31,7 @@
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
     </xsd:schema>
 
-    <!--	Importing all schemas within one seems to confuse some parsers
+    <!--    Importing all schemas within one seems to confuse some parsers
       and code-generation tools (and may be invalid)
     <xsd:schema elementFormDefault="qualified">
       <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
@@ -136,7 +136,7 @@
             <sp:IncludeTimestamp/>
             <sp:AlgorithmSuite>
               <wsp:Policy>
-                <sp:Basic128/>
+                <sp:Basic256/>
               </wsp:Policy>
             </sp:AlgorithmSuite>
           </wsp:Policy>

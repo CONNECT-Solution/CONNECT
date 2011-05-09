@@ -3,106 +3,106 @@
   Adapter Document Query Deferred Request Error Secured WSDL
   -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:dq="http://www.hhs.gov/healthit/nhin" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="AdapterDocQueryDeferredRequestErrorSecured" targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured">
-	<documentation>Adapter Document Query Deferred Request Error Secured</documentation>
-	<types>
-		<xsd:schema>
-			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
-			<xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
-			<xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
-			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
-		</xsd:schema>
-	</types>
-	<message name="RespondingGateway_CrossGatewayQueryRequestErrorMessage">
-		<part name="body" element="nccommonadapter:AdapterDocumentQueryDeferredRequestErrorSecured"/>
-	</message>
-	<message name="RespondingGateway_CrossGatewayQueryResponseMessage">
-		<part name="body" element="dq:DocQueryAcknowledgement"/>
-	</message>
-	<portType name="AdapterDocQueryDeferredRequestErrorSecuredPortType">
-		<operation name="RespondingGateway_CrossGatewayQuery">
-			<input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:RespondingGateway_CrossGatewayQueryRequestErrorMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryRequestErrorMessage"/>
-			<output name="RespondingGateway_CrossGatewayQueryResponse" message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryResponseMessage"/>
-		</operation>
-	</portType>
-	<binding name="AdapterDocQueryDeferredRequestErrorSecuredBindingSoap" type="tns:AdapterDocQueryDeferredRequestErrorSecuredPortType">
-		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
-		<operation name="RespondingGateway_CrossGatewayQuery">
-			<soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
-			<input name="RespondingGateway_CrossGatewayQueryRequest">
-				<soap:body use="literal"/>
-				<wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Input_Policy"/>
-			</input>
-			<output name="RespondingGateway_CrossGatewayQueryResponse">
-				<soap:body use="literal"/>
-				<wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Output_Policy"/>
-			</output>
-		</operation>
-	</binding>
-	<service name="AdapterDocQueryDeferredRequestErrorSecured">
-		<port name="AdapterDocQueryDeferredRequestErrorSecuredPortSoap" binding="tns:AdapterDocQueryDeferredRequestErrorSecuredBindingSoap">
-			<soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocQueryDeferredRequestSecured"/>
-		</port>
-	</service>
-	<wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
-		<wsp:ExactlyOne>
-			<wsp:All>
-				<wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
-				<sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-				<sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-				<sp:TransportBinding>
-					<wsp:Policy>
-						<sp:TransportToken>
-							<wsp:Policy>
-								<sp:HttpsToken>
-									<wsp:Policy>
-										<sp:RequireClientCertificate/>
-									</wsp:Policy>
-								</sp:HttpsToken>
-							</wsp:Policy>
-						</sp:TransportToken>
-						<sp:Layout>
-							<wsp:Policy>
-								<sp:Strict/>
-							</wsp:Policy>
-						</sp:Layout>
-						<sp:IncludeTimestamp/>
-						<sp:AlgorithmSuite>
-							<wsp:Policy>
-								<sp:Basic128/>
-							</wsp:Policy>
-						</sp:AlgorithmSuite>
-					</wsp:Policy>
-				</sp:TransportBinding>
-				<sp:EndorsingSupportingTokens>
-					<wsp:Policy>
-						<sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-							<wsp:Policy>
-								<sp:WssSamlV20Token11/>
-							</wsp:Policy>
-						</sp:SamlToken>
-					</wsp:Policy>
-				</sp:EndorsingSupportingTokens>
-				<sp:Wss11>
-					<wsp:Policy>
-						<sp:MustSupportRefKeyIdentifier/>
-						<sp:MustSupportRefIssuerSerial/>
-						<sp:RequireSignatureConfirmation/>
-					</wsp:Policy>
-				</sp:Wss11>
-			</wsp:All>
-		</wsp:ExactlyOne>
-	</wsp:Policy>
-	<wsp:Policy wsu:Id="RespondingGateway_Query_Binding_Soap_Input_Policy">
-		<wsp:ExactlyOne>
-			<wsp:All>
+    <documentation>Adapter Document Query Deferred Request Error Secured</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="RespondingGateway_CrossGatewayQueryRequestErrorMessage">
+        <part name="body" element="nccommonadapter:AdapterDocumentQueryDeferredRequestErrorSecured"/>
+    </message>
+    <message name="RespondingGateway_CrossGatewayQueryResponseMessage">
+        <part name="body" element="dq:DocQueryAcknowledgement"/>
+    </message>
+    <portType name="AdapterDocQueryDeferredRequestErrorSecuredPortType">
+        <operation name="RespondingGateway_CrossGatewayQuery">
+            <input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:RespondingGateway_CrossGatewayQueryRequestErrorMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryRequestErrorMessage"/>
+            <output name="RespondingGateway_CrossGatewayQueryResponse" message="tns:RespondingGateway_CrossGatewayQueryResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured:RespondingGateway_CrossGatewayQueryResponseMessage"/>
+        </operation>
+    </portType>
+    <binding name="AdapterDocQueryDeferredRequestErrorSecuredBindingSoap" type="tns:AdapterDocQueryDeferredRequestErrorSecuredPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
+        <operation name="RespondingGateway_CrossGatewayQuery">
+            <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
+            <input name="RespondingGateway_CrossGatewayQueryRequest">
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Input_Policy"/>
+            </input>
+            <output name="RespondingGateway_CrossGatewayQueryResponse">
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Output_Policy"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AdapterDocQueryDeferredRequestErrorSecured">
+        <port name="AdapterDocQueryDeferredRequestErrorSecuredPortSoap" binding="tns:AdapterDocQueryDeferredRequestErrorSecuredBindingSoap">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocQueryDeferredRequestSecured"/>
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
       </wsp:All>
-		</wsp:ExactlyOne>
-	</wsp:Policy>
-	<wsp:Policy wsu:Id="RespondingGateway_Query_Binding_Soap_Output_Policy">
-		<wsp:ExactlyOne>
-			<wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
       </wsp:All>
-		</wsp:ExactlyOne>
-	</wsp:Policy>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
 </definitions>
