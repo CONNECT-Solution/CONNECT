@@ -17,7 +17,6 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -86,12 +85,6 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201305UV02RequestType request, CMUrlInfo urlInfo)
             {
                 return HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), "Success");
-            }
-
-            @Override
-            protected void addEntryToDatabase(RespondingGatewayPRPAIN201305UV02RequestType request)
-            {
-                return;
             }
 
             @Override
@@ -183,12 +176,6 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected void addEntryToDatabase(RespondingGatewayPRPAIN201305UV02RequestType request)
-            {
-                return;
-            }
-
-            @Override
             protected PatientDiscoveryAuditLogger createAuditLogger()
             {
                 PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger()
@@ -208,6 +195,27 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                 };
                 return auditLogger;
             }
+
+            @Override
+            protected AsyncMessageProcessHelper createAsyncProcesser()
+            {
+                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper()
+                {
+
+                    @Override
+                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction)
+                    {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
+                    {
+                        return true;
+                    }
+                };
+                return processHelper;
+            }
         };
 
         AssertionType assertion = new AssertionType();
@@ -220,7 +228,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(msg, assertion, targets);
 
         assertNotNull(result);
-        TestHelper.assertAckMsgEquals("No Targets Found", result);
+        TestHelper.assertAckMsgEquals("No targets were found for the Patient Discovery Request", result);
         TestHelper.assertReceiverEquals("1.1", result);
         TestHelper.assertSenderEquals("2.2", result);
         TestHelper.assertAckMsgIdEquals(msg.getId(), result);
@@ -260,12 +268,6 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201305UV02RequestType request, CMUrlInfo urlInfo)
             {
                 return HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), "Success");
-            }
-
-            @Override
-            protected void addEntryToDatabase(RespondingGatewayPRPAIN201305UV02RequestType request)
-            {
-                return;
             }
 
             @Override

@@ -9,7 +9,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
-import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -25,19 +24,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import java.beans.XMLEncoder;
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import java.sql.Blob;
-import org.hl7.v3.II;
-import org.hibernate.Hibernate;
 
 public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
@@ -61,6 +52,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        String ackMsg = "";
         CMUrlInfos urlInfoList = null;
         PatientDiscovery201305Processor pd201305Processor = new PatientDiscovery201305Processor();
 
@@ -98,23 +90,40 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                     newRequest.setNhinTargetCommunities(targets);
 
                     // The new request is ready for processing, add a new outbound PD entry to the local deferred queue
-                    asyncProcess.addPatientDiscoveryRequest(newRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+                    boolean bIsQueueOk = asyncProcess.addPatientDiscoveryRequest(newRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
 
-                    //check the policy for the outgoing request to the target community
-                    boolean bIsPolicyOk = checkPolicy(newRequest);
+                    // check for valid queue entry
+                    if (bIsQueueOk) {
+                        //check the policy for the outgoing request to the target community
+                        boolean bIsPolicyOk = checkPolicy(newRequest);
 
-                    if (bIsPolicyOk) {
-                        ack = sendToProxy(newRequest, urlInfo);
+                        if (bIsPolicyOk) {
+                            ack = sendToProxy(newRequest, urlInfo);
+                        } else {
+                            ackMsg = "Policy Failed";
+
+                            // Set the error acknowledgement status of the deferred queue entry
+                            ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
+                            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, ack);
+                        }
                     } else {
-                        ack = HL7AckTransforms.createAckFrom201305(message, "Policy Failed");
+                        ackMsg = "Deferred Patient Discovery request processing halted; deferred queue repository error encountered";
 
-                        // Set the error acknowledgement status of the deferred queue entry
-                        asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, ack);
+                        // Set the error acknowledgement status
+                        // break processing loop in order to return immediately - fatal error with deferred queue repository
+                        ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
+                        break;
                     }
                 }
             } else {
-                log.warn("No targets were found for the Patient Discovery Request");
-                ack = HL7AckTransforms.createAckFrom201305(message, "No Targets Found");
+                ackMsg = "No targets were found for the Patient Discovery Request";
+                log.warn(ackMsg);
+                // Add deferred queue record based on entity message
+                asyncProcess.addPatientDiscoveryRequest(unsecureRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+
+                // Set the error acknowledgement status of the deferred queue entry
+                ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
+                asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, ack);
             }
 
             auditLog.auditAck(ack, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
@@ -163,57 +172,4 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return resp;
     }
 
-    protected void addEntryToDatabase(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
-        AsyncMsgRecord rec = new AsyncMsgRecord();
-        AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
-
-        // Replace with message id from the assertion class
-        rec.setMessageId(request.getAssertion().getMessageId());
-        rec.setCreationTime(new Date());
-        rec.setServiceName(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-        rec.setMsgData(createBlob(request));
-        asyncMsgRecs.add(rec);
-
-        boolean result = instance.insertRecords(asyncMsgRecs);
-
-        if (result == false) {
-            log.error("Failed to insert asynchronous record in the database");
-        }
-    }
-
-    private Blob createBlob(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        Blob data = null;
-
-        PatientDiscovery201305Processor msgProcessor = new PatientDiscovery201305Processor();
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        if (request != null &&
-                request.getPRPAIN201305UV02() != null) {
-            II patId = msgProcessor.extractPatientIdFrom201305(request.getPRPAIN201305UV02());
-            baOutStrm.reset();
-
-            try {
-                // Create XML encoder.
-                XMLEncoder xenc = new XMLEncoder(baOutStrm);
-                try {
-                    // Write object.
-                    xenc.writeObject(patId);
-                    xenc.flush();
-                } finally {
-                    xenc.close();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                log.error(ex.getMessage());
-            }
-
-            byte[] buffer = baOutStrm.toByteArray();
-            log.debug("Byte Array: " + baOutStrm.toString());
-
-            data = Hibernate.createBlob(buffer);
-        }
-
-        return data;
-    }
 }

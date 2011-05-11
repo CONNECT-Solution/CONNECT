@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
@@ -24,7 +25,10 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Hibernate;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
@@ -41,9 +45,22 @@ public class AsyncMessageProcessHelper {
      * gateway; i.e. outbound == initiator, inbound == receiver/responder
      *
      * @param request
+     * @param assertion
      * @param direction
      * @return true - success; false - error
      */
+    public boolean addPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion, String direction) {
+        log.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
+
+        RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+        newRequest.setAssertion(assertion);
+        newRequest.setPRPAIN201305UV02(request);
+
+        log.debug("End AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
+
+        return addPatientDiscoveryRequest(newRequest, direction);
+    }
+
     public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction) {
         log.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
 
@@ -59,19 +76,7 @@ public class AsyncMessageProcessHelper {
             rec.setCreationTime(new Date());
             rec.setServiceName(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
             rec.setDirection(direction);
-            if (request.getPRPAIN201305UV02() != null &&
-                    request.getPRPAIN201305UV02().getSender() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                rec.setCommunityId(request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
-            }
+            rec.setCommunityId(getPatientDiscoveryMessageCommunityId(request));
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
 
             rec.setMsgData(getBlobFromPRPAIN201305UV02RequestType(request));
@@ -161,6 +166,50 @@ public class AsyncMessageProcessHelper {
         return result;
     }
 
+    /**
+     * Process an acknowledgement error for the asyncmsgs record
+     *
+     * @param messageId
+     * @param newStatus
+     * @param ack
+     * @return true - success; false - error
+     */
+    public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus, RespondingGatewayPRPAIN201306UV02RequestType response) {
+        log.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
+
+        boolean result = false;
+
+        try {
+            if (response == null) {
+                newStatus = errorStatus;
+            }
+            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+
+            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            if (records != null && records.size() > 0) {
+                records.get(0).setResponseTime(new Date());
+
+                // Calculate the duration in milliseconds
+                Long duration = null;
+                duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
+                records.get(0).setDuration(duration);
+
+                records.get(0).setStatus(newStatus);
+                records.get(0).setRspData(getBlobFromPRPAIN201306UV02RequestType(response));
+                instance.save(records.get(0));
+            }
+
+            // Success if we got this far
+            result = true;
+        } catch (Exception e) {
+            log.error("ERROR: Failed to update the async response.", e);
+        }
+
+        log.debug("End AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
+
+        return result;
+    }
+
     private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {
         Blob asyncMessage = null; //Not Implemented
 
@@ -209,6 +258,29 @@ public class AsyncMessageProcessHelper {
         return asyncMessage;
     }
 
+    private Blob getBlobFromPRPAIN201306UV02RequestType(RespondingGatewayPRPAIN201306UV02RequestType request) {
+        Blob asyncMessage = null; //Not Implemented
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
+            Marshaller marshaller = jc.createMarshaller();
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+            JAXBElement<RespondingGatewayPRPAIN201306UV02RequestType> oJaxbElement = factory.createRespondingGatewayPRPAIN201306UV02Request(request);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+            asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return asyncMessage;
+    }
+
     private boolean isAckError(MCCIIN000002UV01 ack) {
         boolean result = false;
 
@@ -221,6 +293,35 @@ public class AsyncMessageProcessHelper {
         }
 
         return result;
+    }
+
+    /**
+     * Get the home community id of the communicating gateway
+     * @param requestMessage
+     * @param direction
+     * @return String
+     */
+    private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType requestMessage) {
+        String communityId = "";
+
+        if (requestMessage != null) {
+            if (requestMessage.getPRPAIN201305UV02() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0 &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                    requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            }
+        }
+
+        return communityId;
     }
 
 }

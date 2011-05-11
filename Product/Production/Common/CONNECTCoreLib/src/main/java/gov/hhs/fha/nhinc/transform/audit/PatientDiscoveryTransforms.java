@@ -24,6 +24,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class PatientDiscoveryTransforms {
 
         // Based on IHE XCPD specifications, the sender contains the home community id
         // Based on IHE XCPD specification the sender does not contain the home community name
-        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryRequestMessage);
+        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryRequestMessage, direction, _interface);
 
         /* Create the AuditSourceIdentifierType object */
         AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(sCommunityId, sCommunityId);
@@ -203,7 +204,7 @@ public class PatientDiscoveryTransforms {
 
         // Based on IHE XCPD specifications, the receiver contains the home community id
         // Based on IHE XCPD specification the receiver does not contain the home community name
-        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryResponseMessage);
+        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryResponseMessage, direction, _interface);
 
         AuditSourceIdentificationType oAuditSource = getAuditSourceIdentificationType(sCommunityId, sCommunityId);
         oAuditMessageType.getAuditSourceIdentification().add(oAuditSource);
@@ -1028,22 +1029,49 @@ public class PatientDiscoveryTransforms {
     /**
      * Get the home community id of the communicating gateway
      * @param requestMessage
+     * @param direction
+     * @param _interface
      * @return String
      */
-    public String getPatientDiscoveryMessageCommunityId(PRPAIN201305UV02 requestMessage) {
+    public String getPatientDiscoveryMessageCommunityId(PRPAIN201305UV02 requestMessage, String direction, String _interface) {
         String communityId = "";
+        boolean useReceiver = false;
 
-        if (requestMessage != null &&
-                requestMessage.getSender() != null &&
-                requestMessage.getSender().getDevice() != null &&
-                requestMessage.getSender().getDevice().getAsAgent() != null &&
-                requestMessage.getSender().getDevice().getAsAgent().getValue() != null &&
-                requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-            communityId = requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (requestMessage != null && direction != null && _interface != null) {
+            if ( (_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) )
+            {
+                useReceiver = true;
+            }
+
+            if (useReceiver) {
+                if (requestMessage.getReceiver() != null &&
+                        requestMessage.getReceiver().size() > 0 &&
+                        requestMessage.getReceiver().get(0) != null &&
+                        requestMessage.getReceiver().get(0).getDevice() != null &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+            } else {
+                if (requestMessage.getSender() != null &&
+                        requestMessage.getSender().getDevice() != null &&
+                        requestMessage.getSender().getDevice().getAsAgent() != null &&
+                        requestMessage.getSender().getDevice().getAsAgent().getValue() != null &&
+                        requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+            }
         }
 
         return communityId;
@@ -1052,24 +1080,50 @@ public class PatientDiscoveryTransforms {
     /**
      * Get the home community id of the communicating gateway
      * @param responseMessage
+     * @param direction
+     * @param _interface
      * @return String
      */
-    public String getPatientDiscoveryMessageCommunityId(PRPAIN201306UV02 responseMessage) {
+    public String getPatientDiscoveryMessageCommunityId(PRPAIN201306UV02 responseMessage, String direction, String _interface) {
         String communityId = "";
+        boolean useSender = false;
 
-        if (responseMessage != null &&
-                responseMessage.getReceiver() != null &&
-                responseMessage.getReceiver().size() > 0 &&
-                responseMessage.getReceiver().get(0) != null &&
-                responseMessage.getReceiver().get(0).getDevice() != null &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-            communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (responseMessage != null && direction != null && _interface != null) {
+            if ( (_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) )
+            {
+                useSender = true;
+            }
+
+            if (useSender) {
+                if (responseMessage.getSender() != null &&
+                        responseMessage.getSender().getDevice() != null &&
+                        responseMessage.getSender().getDevice().getAsAgent() != null &&
+                        responseMessage.getSender().getDevice().getAsAgent().getValue() != null &&
+                        responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+            } else {
+                if (responseMessage != null &&
+                        responseMessage.getReceiver() != null &&
+                        responseMessage.getReceiver().size() > 0 &&
+                        responseMessage.getReceiver().get(0) != null &&
+                        responseMessage.getReceiver().get(0).getDevice() != null &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+            }
         }
 
         return communityId;

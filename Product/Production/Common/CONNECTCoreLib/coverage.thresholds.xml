@@ -280,9 +280,9 @@
               linecount="24"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="44" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper"
-              linecount="93"
+              linecount="142"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="118" branchrate="80" branchsexecuted="0"
@@ -3765,9 +3765,9 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredReqErrorOrchImpl"
-              linecount="3"
+              linecount="14"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -3970,9 +3970,9 @@
               linecount="39"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="18" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueOrchImpl"
-              linecount="34"
+              linecount="44"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="34" branchrate="80" branchsexecuted="0"
@@ -4190,9 +4190,9 @@
               linecount="40"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.PassthruPatientDiscoveryDeferredRespOrchImpl"
-              linecount="9"
+              linecount="24"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

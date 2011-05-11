@@ -6,6 +6,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
+import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -19,6 +21,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.Passt
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -33,7 +36,12 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
     private static Log log = LogFactory.getLog(EntityPatientDiscoveryDeferredReqQueueOrchImpl.class);
 
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
+    }
+
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetCommunitiesType targets) {
+        MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         unsecureRequest.setAssertion(assertion);
         unsecureRequest.setNhinTargetCommunities(targets);
@@ -43,7 +51,26 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditEntity201305(unsecureRequest, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
-        MCCIIN000002UV01 resp = addPatientDiscoveryAsyncReq(unsecureRequest);
+        // ASYNCMSG PROCESSING - RSPPROCESS
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+        String messageId = "";
+        if (assertion.getRelatesToList() != null &&
+                assertion.getRelatesToList().size() > 0 &&
+                assertion.getRelatesToList().get(0) != null) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+        boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
+
+        // check for valid queue entry
+        if (bIsQueueOk) {
+            resp = addPatientDiscoveryAsyncReq(unsecureRequest);
+        } else {
+            String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+
+            // Set the error acknowledgement status
+            // fatal error with deferred queue repository
+            resp = HL7AckTransforms.createAckErrorFrom201305(request, ackMsg);
+        }
 
         // Audit the responding 201306 Message
         ack = auditLogger.auditAck(resp, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);

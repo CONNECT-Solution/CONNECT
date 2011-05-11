@@ -6,10 +6,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyObjectFactory;
@@ -46,9 +44,9 @@ public class PassthruPatientDiscoveryDeferredRequestOrchImpl
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditLogger auditLog = createAuditLogger();
+        //PatientDiscoveryAuditLogger auditLog = createAuditLogger();
 
-        AcknowledgementType ack = auditLog.auditNhin201305(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        //AcknowledgementType ack = auditLog.auditNhin201305(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         NhinPatientDiscoveryDeferredReqProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredReqProxyObjectFactory();
         NhinPatientDiscoveryDeferredReqProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncReqProxy();
@@ -58,7 +56,7 @@ public class PassthruPatientDiscoveryDeferredRequestOrchImpl
         response = proxy.respondingGatewayPRPAIN201305UV02(message, assertion, targets);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        ack = auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        //ack = auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         log.debug("Exiting PassthruPatientDiscoveryDeferredRequestOrchImpl.processPatientDiscoveryAsyncReq with response: " + response);
         return response;

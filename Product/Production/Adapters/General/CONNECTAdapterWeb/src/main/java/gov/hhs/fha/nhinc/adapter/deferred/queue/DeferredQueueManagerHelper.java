@@ -19,10 +19,15 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseT
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.SuccessOrFailType;
+import gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcessOrchImpl;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
+import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
@@ -213,12 +218,10 @@ public class DeferredQueueManagerHelper {
         if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
             if (queueRecords.get(0).getStatus().equals(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK)) {
                 result = forceProcessOnRequest(queueRecords.get(0));
-            }
-            else {
+            } else {
                 log.warn("Queue record cannot be processed with status of [" + queueRecords.get(0).getStatus() + "]");
             }
-        }
-        else {
+        } else {
             log.warn("Queue record not found for message id [" + messageId + "]");
         }
 
@@ -240,14 +243,41 @@ public class DeferredQueueManagerHelper {
         log.debug("***** Processing deferred service request for " + queueRecord.getServiceName() + " received at " + queueRecord.getCreationTime() + " *****");
 
         // Call processing based on the service name
-        if (queueRecord.getServiceName().equals("PatientDiscovery")) {
-            MCCIIN000002UV01 ack = processDeferredPatientDiscovery(queueRecord);
-            if (ack.getAcceptAckCode().getCode().equals("")) {
+        if (queueRecord.getServiceName().equals(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME)) {
+            MCCIIN000002UV01 pdAck = processDeferredPatientDiscovery(queueRecord);
+
+            if (pdAck != null &&
+                    pdAck.getAcknowledgement() != null &&
+                    pdAck.getAcknowledgement().size() > 0 &&
+                    pdAck.getAcknowledgement().get(0) != null &&
+                    pdAck.getAcknowledgement().get(0).getTypeCode() != null &&
+                    pdAck.getAcknowledgement().get(0).getTypeCode().getCode() != null &&
+                    pdAck.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ACCEPT)) {
                 result = true;
             }
-        }
-        else {
-            log.warn("Service Name processing not implemented.");
+
+        } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_QUERY_SERVICE_NAME)) {
+            DocQueryAcknowledgementType qdAck = processDeferredQueryForDocuments(queueRecord);
+
+            if (qdAck != null &&
+                    qdAck.getMessage() != null &&
+                    qdAck.getMessage().getStatus() != null &&
+                    qdAck.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)) {
+                result = true;
+            }
+
+        } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
+            DocRetrieveAcknowledgementType rdAck = processDeferredRetrieveDocuments(queueRecord);
+            
+            if (rdAck != null &&
+                    rdAck.getMessage() != null &&
+                    rdAck.getMessage().getStatus() != null &&
+                    rdAck.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG)) {
+                result = true;
+            }
+
+        } else {
+            log.warn("Service Name " + queueRecord.getServiceName() + " processing not implemented.");
         }
 
         log.debug("End: DeferredQueueManagerHelper.forceProcessOnRequest method - processing deferred request by record.");
@@ -278,6 +308,7 @@ public class DeferredQueueManagerHelper {
     /**
      * Process the deferred patient discovery request
      * @param queueRecord
+     * @return Deferred Patient Discovery Acknowledgment
      * @throws DeferredQueueException
      */
     private MCCIIN000002UV01 processDeferredPatientDiscovery(AsyncMsgRecord queueRecord) throws DeferredQueueException {
@@ -287,6 +318,41 @@ public class DeferredQueueManagerHelper {
         MCCIIN000002UV01 ack = processImpl.processPatientDiscoveryAsyncReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredPatientDiscovery method - processing deferred message.");
+
+        return ack;
+    }
+
+    /**
+     * Process the deferred query for documetns request
+     * @param queueRecord
+     * @return Deferred Query For Documents Acknowledgment
+     * @throws DeferredQueueException
+     */
+    private DocQueryAcknowledgementType processDeferredQueryForDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+        log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
+
+        EntityDocQueryDeferredReqQueueProcessOrchImpl processImpl = new EntityDocQueryDeferredReqQueueProcessOrchImpl();
+        DocQueryAcknowledgementType ack = processImpl.processDocQueryAsyncReqQueue(queueRecord.getMessageId());
+
+        log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
+
+        return ack;
+    }
+
+    /**
+     * Process the deferred query for documetns request
+     * @param queueRecord
+     * @return Deferred Retrieve Documents Acknowledgment
+     * @throws DeferredQueueException
+     */
+    private DocRetrieveAcknowledgementType processDeferredRetrieveDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+        log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
+
+//        EntityDocRetrieveDeferredReqQueueProcessOrchImpl processImpl = new EntityDocRetrieveDeferredReqQueueProcessOrchImpl();
+//        DocRetrieveAcknowledgementType ack = processImpl.processDocRetrieveAsyncReqQueue(queueRecord.getMessageId());
+        DocRetrieveAcknowledgementType ack = null;
+
+        log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
         return ack;
     }
@@ -344,5 +410,4 @@ public class DeferredQueueManagerHelper {
 
         return response;
     }
-
 }

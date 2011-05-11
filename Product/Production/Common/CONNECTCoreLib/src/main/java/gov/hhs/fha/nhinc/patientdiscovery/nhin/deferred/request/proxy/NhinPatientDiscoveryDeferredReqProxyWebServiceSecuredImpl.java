@@ -119,7 +119,7 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                     asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
                 } else {
                     ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  The URL is null.";
-                    response = HL7AckTransforms.createAckFrom201305(request, ackMessage);
+                    response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
 
                     // Set the error acknowledgement status of the deferred queue entry
                     asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
@@ -128,7 +128,7 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                 }
             } else {
                 ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  The input parameter is null.";
-                response = HL7AckTransforms.createAckFrom201305(request, ackMessage);
+                response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
 
                 // Set the error acknowledgement status of the deferred queue entry
                 asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
@@ -137,7 +137,7 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
             }
         } catch (Exception e) {
             ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  An unexpected exception occurred.";
-            response = HL7AckTransforms.createAckFrom201305(request, ackMessage);
+            response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
 
             // Set the error acknowledgement status of the deferred queue entry
             asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);

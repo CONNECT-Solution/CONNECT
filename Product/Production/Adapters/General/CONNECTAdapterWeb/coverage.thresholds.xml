@@ -10,9 +10,9 @@
               linecount="13"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="26" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="58" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManagerHelper"
-              linecount="123"
+              linecount="140"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
