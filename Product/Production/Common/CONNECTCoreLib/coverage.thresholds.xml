@@ -385,9 +385,9 @@
               linecount="52"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="56" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="58" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO"
-              linecount="120"
+              linecount="123"
               linerate="80"
               linesexecuted="0.02"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -830,9 +830,9 @@
               linecount="97"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="62" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="74" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper"
-              linecount="61"
+              linecount="76"
               linerate="80"
               linesexecuted="0"/>   
     <threshold branchcount="40" branchrate="80" branchsexecuted="0"

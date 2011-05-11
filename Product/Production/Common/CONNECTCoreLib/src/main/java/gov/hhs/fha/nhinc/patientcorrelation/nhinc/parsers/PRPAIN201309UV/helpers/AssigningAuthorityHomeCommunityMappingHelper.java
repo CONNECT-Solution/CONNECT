@@ -29,11 +29,15 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
         log.info("converting homeCommunityId [" + homeCommunityId + "] to assigning authority");
         AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
         //this really should be a list returned, not a single value
-        String assigningAuthorityId = mappingDao.getAssigningAuthority(homeCommunityId);
-        log.info("found assigning authority? [" + assigningAuthorityId + "]");
+
+        //****************************************************************************************************
+        //String assigningAuthorityId = mappingDao.getAssigningAuthority(homeCommunityId);
+        //log.info("found assigning authority? [" + assigningAuthorityId + "]");
+        //****************************************************************************************************
 
         List<String> assigningAuthorityIds = new ArrayList<String>();
-        assigningAuthorityIds.add(assigningAuthorityId);
+        //assigningAuthorityIds.add(assigningAuthorityId);
+        assigningAuthorityIds = mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
         return assigningAuthorityIds;
     }
 

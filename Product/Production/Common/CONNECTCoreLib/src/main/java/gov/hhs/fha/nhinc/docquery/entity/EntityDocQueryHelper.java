@@ -50,27 +50,50 @@ public class EntityDocQueryHelper {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    /**
+     * This method retrieves the correlations
+     * @param slotList
+     * @param urlInfoList
+     * @param assertion
+     * @param isTargeted
+     * @param localHomeCommunity
+     * @return subIdList
+     */
     public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
+        log.debug("Begin EntityDocQueryHelper.retreiveCorrelations().....");
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
         List<QualifiedSubjectIdentifierType> subIdList = new ArrayList<QualifiedSubjectIdentifierType>();
         boolean querySelf = false;
 
+        if (slotList != null) {
+            log.debug("retreiveCorrelations slotList.size: " + slotList.size());
+            for (SlotType1 slot1 : slotList) {
+                if (slot1.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
+                    if (slot1.getValueList() != null) {
+                        log.debug("retreiveCorrelations slot value: " + slot1.getValueList().getValue());
+                    } else {
+                        log.debug("retreiveCorrelations slot1.getValueList(): null");
+                    }
+                } else {
+                    log.debug("retreiveCorrelations " + NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME + " not found");
+                }
+            }
+        }
+
         // For each slot process each of the Patient Id slots
         for (SlotType1 slot : slotList) {
-
             // Find the Patient Id slot
             if (slot.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
                 if (slot.getValueList() != null &&
                         NullChecker.isNotNullish(slot.getValueList().getValue()) &&
                         NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
                     qualSubId.setSubjectIdentifier(PatientIdFormatUtil.parsePatientId(slot.getValueList().getValue().get(0)));
-                    String localAssigningAuthorityId = PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue().get(0));
-                    qualSubId.setAssigningAuthorityIdentifier(localAssigningAuthorityId);
+                    qualSubId.setAssigningAuthorityIdentifier(PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue().get(0)));
 
-                    log.info("Extracting subject id: " + qualSubId.getSubjectIdentifier());
-                    log.info("Extracting assigning authority id: " + qualSubId.getAssigningAuthorityIdentifier());
+                    log.debug("Extracting subject id: " + qualSubId.getSubjectIdentifier());
+                    log.debug("Extracting assigning authority id: " + qualSubId.getAssigningAuthorityIdentifier());
                     patientCorrelationReq.setQualifiedPatientIdentifier(qualSubId);
                 }
 
@@ -104,6 +127,8 @@ public class EntityDocQueryHelper {
         patientCorrelationReq.setAssertion(assertion);
         PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(patientCorrelationReq);
 
+
+
         results = proxy.retrievePatientCorrelations(patCorrelationRequest, assertion);
 
         // Make sure the response is valid
@@ -128,7 +153,16 @@ public class EntityDocQueryHelper {
         if (querySelf == true) {
             subIdList.add(patientCorrelationReq.getQualifiedPatientIdentifier());
         }
-
+        if (subIdList != null) {
+            log.debug("retreiveCorrelations subIdList.size(): " + subIdList.size());
+            for (QualifiedSubjectIdentifierType qual : subIdList) {
+                log.debug("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
+                log.debug("retreiveCorrelations qual.getAssigningAuthorityIdentifier: " + qual.getAssigningAuthorityIdentifier());
+            }
+        } else {
+            log.debug("retreiveCorrelations subIdList.size(): null");
+        }
+        log.debug("End EntityDocQueryHelper.retreiveCorrelations().....");
         return subIdList;
     }
 

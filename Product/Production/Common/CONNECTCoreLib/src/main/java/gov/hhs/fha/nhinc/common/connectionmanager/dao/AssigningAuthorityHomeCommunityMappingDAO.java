@@ -118,6 +118,11 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             return null;
         }
         log.debug("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+        if(listOfAAs != null){
+            log.debug("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
+        }else{
+            log.debug("getAssigningAuthoritiesByHomeCommunity - listOfAAs is null");
+        }
         return listOfAAs;
     }
     
