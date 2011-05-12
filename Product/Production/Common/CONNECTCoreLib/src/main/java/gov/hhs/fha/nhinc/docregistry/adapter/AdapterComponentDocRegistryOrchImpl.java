@@ -261,7 +261,9 @@ public class AdapterComponentDocRegistryOrchImpl {
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
             String formattedPatientId = slotValues.get(0);
-            patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
+            //patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
+            patientId = PatientIdFormatUtil.stripQuotesFromPatientId(formattedPatientId);
+            log.debug("extractPatientIdentifier - patientId: " + patientId);
         }
         return patientId;
     }
