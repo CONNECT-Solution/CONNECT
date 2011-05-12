@@ -970,7 +970,7 @@ public class PatientDiscoveryTransforms {
         // AuditSourceIdentification
         // Based on IHE XCPD specifications, the receiver contains the home community id
         // Based on IHE XCPD specification the receiver does not contain the home community name
-        String sCommunityId = getPatientDiscoveryMessageCommunityId(message);
+        String sCommunityId = getPatientDiscoveryMessageCommunityId(message, direction, _interface);
 
         log.info("Setting ACK CommunityID : " + sCommunityId);
 
@@ -1059,6 +1059,19 @@ public class PatientDiscoveryTransforms {
                         requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (requestMessage.getReceiver() != null &&
+                            requestMessage.getReceiver().size() > 0 &&
+                            requestMessage.getReceiver().get(0) != null &&
+                            requestMessage.getReceiver().get(0).getDevice() != null &&
+                            requestMessage.getReceiver().get(0).getDevice().getId() != null &&
+                            requestMessage.getReceiver().get(0).getDevice().getId().size() > 0 &&
+                            requestMessage.getReceiver().get(0).getDevice().getId().get(0) != null &&
+                            requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
+                        communityId = requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                    }
+                }
             } else {
                 if (requestMessage.getSender() != null &&
                         requestMessage.getSender().getDevice() != null &&
@@ -1070,6 +1083,18 @@ public class PatientDiscoveryTransforms {
                         requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
                         requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (requestMessage.getSender() != null &&
+                            requestMessage.getSender().getDevice() != null &&
+                            requestMessage.getSender().getDevice() != null &&
+                            requestMessage.getSender().getDevice().getId() != null &&
+                            requestMessage.getSender().getDevice().getId().size() > 0 &&
+                            requestMessage.getSender().getDevice().getId().get(0) != null &&
+                            requestMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
+                        communityId = requestMessage.getSender().getDevice().getId().get(0).getRoot();
+                    }
                 }
             }
         }
@@ -1108,6 +1133,18 @@ public class PatientDiscoveryTransforms {
                         responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (responseMessage.getSender() != null &&
+                            responseMessage.getSender().getDevice() != null &&
+                            responseMessage.getSender().getDevice() != null &&
+                            responseMessage.getSender().getDevice().getId() != null &&
+                            responseMessage.getSender().getDevice().getId().size() > 0 &&
+                            responseMessage.getSender().getDevice().getId().get(0) != null &&
+                            responseMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
+                        communityId = responseMessage.getSender().getDevice().getId().get(0).getRoot();
+                    }
+                }
             } else {
                 if (responseMessage != null &&
                         responseMessage.getReceiver() != null &&
@@ -1123,6 +1160,19 @@ public class PatientDiscoveryTransforms {
                         responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (responseMessage.getReceiver() != null &&
+                            responseMessage.getReceiver().size() > 0 &&
+                            responseMessage.getReceiver().get(0) != null &&
+                            responseMessage.getReceiver().get(0).getDevice() != null &&
+                            responseMessage.getReceiver().get(0).getDevice().getId() != null &&
+                            responseMessage.getReceiver().get(0).getDevice().getId().size() > 0 &&
+                            responseMessage.getReceiver().get(0).getDevice().getId().get(0) != null &&
+                            responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
+                        communityId = responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                    }
+                }
             }
         }
 
@@ -1134,22 +1184,71 @@ public class PatientDiscoveryTransforms {
      * @param ackMessage
      * @return String
      */
-    public String getPatientDiscoveryMessageCommunityId(MCCIIN000002UV01 ackMessage) {
+    public String getPatientDiscoveryMessageCommunityId(MCCIIN000002UV01 ackMessage, String direction, String _interface) {
         String communityId = "";
+        boolean useReceiver = false;
 
-        if (ackMessage != null &&
-                ackMessage.getReceiver() != null &&
-                ackMessage.getReceiver().size() > 0 &&
-                ackMessage.getReceiver().get(0) != null &&
-                ackMessage.getReceiver().get(0).getDevice() != null &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-            communityId = ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (ackMessage != null && direction != null && _interface != null) {
+            if ( (_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) )
+            {
+                useReceiver = true;
+            }
+
+            if (useReceiver) {
+                if (ackMessage != null &&
+                        ackMessage.getReceiver() != null &&
+                        ackMessage.getReceiver().size() > 0 &&
+                        ackMessage.getReceiver().get(0) != null &&
+                        ackMessage.getReceiver().get(0).getDevice() != null &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (ackMessage.getReceiver() != null &&
+                            ackMessage.getReceiver().size() > 0 &&
+                            ackMessage.getReceiver().get(0) != null &&
+                            ackMessage.getReceiver().get(0).getDevice() != null &&
+                            ackMessage.getReceiver().get(0).getDevice().getId() != null &&
+                            ackMessage.getReceiver().get(0).getDevice().getId().size() > 0 &&
+                            ackMessage.getReceiver().get(0).getDevice().getId().get(0) != null &&
+                            ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
+                        communityId = ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                    }
+                }
+            } else {
+                if (ackMessage.getSender() != null &&
+                        ackMessage.getSender().getDevice() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (ackMessage.getSender() != null &&
+                            ackMessage.getSender().getDevice() != null &&
+                            ackMessage.getSender().getDevice() != null &&
+                            ackMessage.getSender().getDevice().getId() != null &&
+                            ackMessage.getSender().getDevice().getId().size() > 0 &&
+                            ackMessage.getSender().getDevice().getId().get(0) != null &&
+                            ackMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
+                        communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
+                    }
+                }
+            }
         }
 
         return communityId;

@@ -280,14 +280,14 @@
               linecount="24"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="118" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper"
-              linecount="142"
+              linecount="155"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="118" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="138" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao"
-              linecount="264"
+              linecount="317"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -5085,9 +5085,9 @@
               linecount="85"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="152" branchrate="80" branchsexecuted="0.87"
+   <threshold branchcount="436" branchrate="80" branchsexecuted="0.87"
               class="gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms"
-              linecount="445"
+              linecount="497"
               linerate="80"
               linesexecuted="3.47"/>
    <threshold branchcount="142" branchrate="80" branchsexecuted="0.71"

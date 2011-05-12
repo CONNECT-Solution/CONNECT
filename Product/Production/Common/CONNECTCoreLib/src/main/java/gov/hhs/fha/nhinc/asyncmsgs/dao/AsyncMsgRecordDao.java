@@ -49,6 +49,7 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_REQSENTACK = "REQSENTACK";
     public static final String QUEUE_STATUS_REQSENTERR = "REQSENTERR";
 
+    public static final String QUEUE_STATUS_RSPSELECT = "RSPSELECT";
     public static final String QUEUE_STATUS_RSPPROCESS = "RSPPROCESS";
     public static final String QUEUE_STATUS_RSPRCVD = "RSPRCVD";
     public static final String QUEUE_STATUS_RSPRCVDACK = "RSPRCVDACK";
@@ -281,6 +282,51 @@ public class AsyncMsgRecordDao {
     }
 
     /**
+     * Query for all records that are already selected.  This will occur if a prior
+     * process was interrupted before all selected records processing was complete.
+     *
+     * @return matching records
+     */
+    public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
+        log.debug("Performing database record retrieve for deferred queue manager selected.");
+
+        List<AsyncMsgRecord> asyncMsgRecs = null;
+        Session sess = null;
+
+        try {
+            SessionFactory fact = HibernateUtil.getSessionFactory();
+            if (fact != null) {
+                sess = fact.openSession();
+                if (sess != null) {
+                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
+                    criteria.add(Restrictions.eq("Direction", QUEUE_DIRECTION_INBOUND));
+                    criteria.add(Restrictions.eq("ResponseType", QUEUE_RESPONSE_TYPE_AUTO));
+                    criteria.add(Restrictions.eq("Status", QUEUE_STATUS_RSPSELECT));
+                    asyncMsgRecs = criteria.list();
+                } else {
+                    log.error("Failed to obtain a session from the sessionFactory");
+                }
+            } else {
+                log.error("Session factory was null");
+            }
+
+            if (log.isDebugEnabled()) {
+                log.debug("Completed database record retrieve for deferred queue manager selected. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+            }
+        } finally {
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (Throwable t) {
+                    log.error("Failed to close session: " + t.getMessage(), t);
+                }
+            }
+        }
+
+        return asyncMsgRecs;
+    }
+
+    /**
      * Query by Message Id and Service Name.  This should return only one record.
      *
      * @param messageId
@@ -458,6 +504,60 @@ public class AsyncMsgRecordDao {
         }
 
         log.debug("AsyncMsgRecordDao.save() - End");
+    }
+
+    /**
+     * Save records to the database. Insert if pk is null. Update otherwise.
+     *
+     * @param asyncMsgRecs
+     */
+    public void save(List<AsyncMsgRecord> asyncMsgRecs) {
+        log.debug("AsyncMsgRecordDao.save(list) - Begin");
+
+        Session sess = null;
+        Transaction trans = null;
+        try {
+            SessionFactory fact = HibernateUtil.getSessionFactory();
+            if (fact != null) {
+                sess = fact.openSession();
+                if (sess != null) {
+                    trans = sess.beginTransaction();
+
+                    int size = asyncMsgRecs.size();
+                    AsyncMsgRecord dbRecord = null;
+
+                    log.info("Saving Records...");
+
+                    for (int i = 0; i < size; i++) {
+                        dbRecord = (AsyncMsgRecord) asyncMsgRecs.get(i);
+                        sess.saveOrUpdate(dbRecord);
+                    }
+
+                    log.info("AsyncMsgRecord List Saved successfully...");
+                } else {
+                    log.error("Failed to obtain a session from the sessionFactory");
+                }
+            } else {
+                log.error("Session factory was null");
+            }
+        } finally {
+            if (trans != null) {
+                try {
+                    trans.commit();
+                } catch (Throwable t) {
+                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                }
+            }
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (Throwable t) {
+                    log.error("Failed to close session: " + t.getMessage(), t);
+                }
+            }
+        }
+
+        log.debug("AsyncMsgRecordDao.save(list) - End");
     }
 
     /**

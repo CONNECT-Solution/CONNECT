@@ -174,14 +174,31 @@ public class DeferredQueueManagerHelper {
         log.debug("***** Check queue message records that are expired and should not be processed *****");
         queueDao.checkExpiration();
 
-        log.debug("***** Retrieve queue message records that are received and not processed *****");
-        List<AsyncMsgRecord> queueRecords = queueDao.queryForDeferredQueueProcessing();
+        log.debug("***** Retrieve queue message records that were previously selected *****");
+        List<AsyncMsgRecord> queueRecords = queueDao.queryForDeferredQueueSelected();
+
+        if (queueRecords == null || queueRecords.size() == 0) {
+            log.debug("***** Retrieve queue message records that are received and not processed *****");
+            queueRecords = queueDao.queryForDeferredQueueProcessing();
+        }
 
         if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
             int count = 0;
             int maxCount = (queueRecords.size() > iGlobalThreshold ? iGlobalThreshold : queueRecords.size());
             log.debug("***** Found " + queueRecords.size() + " queue message records; will process " + maxCount + " records. *****");
 
+            // Set all statuses of all records to be processed to RSPSELECT
+            for (AsyncMsgRecord queueRecord : queueRecords) {
+                count++;
+                if (count > maxCount) {
+                    break; // stop processing if max threshold reached
+                }
+
+                queueRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT);
+            }
+            queueDao.save(queueRecords);
+
+            // Now process
             for (AsyncMsgRecord queueRecord : queueRecords) {
                 count++;
                 if (count > maxCount) {
