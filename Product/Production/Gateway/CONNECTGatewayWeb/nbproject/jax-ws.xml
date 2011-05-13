@@ -1327,6 +1327,9 @@
     <service name="EntityDocQueryDeferredReqQueueProcess">
       <implementation-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcess</implementation-class>
     </service>
+    <service name="EntityDocRetrieveDeferredReqQueueProcess">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcess</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
