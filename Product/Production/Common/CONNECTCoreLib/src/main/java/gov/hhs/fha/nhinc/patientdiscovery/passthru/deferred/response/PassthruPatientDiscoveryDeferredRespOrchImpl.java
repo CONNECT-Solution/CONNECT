@@ -25,15 +25,20 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
  *
  * @author Neil Webb
  */
-public class PassthruPatientDiscoveryDeferredRespOrchImpl
-{
+public class PassthruPatientDiscoveryDeferredRespOrchImpl {
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
     }
 
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    /**
+     *
+     * @param request
+     * @param assertion
+     * @param targetSystem
+     * @return Patient Discovery Response Acknowledgement
+     */
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         MCCIIN000002UV01 response = null;
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();

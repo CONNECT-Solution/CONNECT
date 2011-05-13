@@ -4,10 +4,6 @@
  * Copyright 2011(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
@@ -26,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import javax.xml.bind.Unmarshaller;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
 
 /**
  *
@@ -54,7 +49,7 @@ public class EntityDocQueryDeferredReqQueueProcessOrchImpl {
         try {
             RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequestType = new RespondingGatewayCrossGatewayQueryRequestType();
             //Extract the Request from the DB for the given msgid.
-            AsyncMsgRecord asyncMsgRecordFromDb = new AsyncMsgRecord();
+            AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
             AsyncMsgRecordDao asyncDao = new AsyncMsgRecordDao();
             log.info("messageId: " + messageId);
             if ((messageId != null)) {
@@ -63,7 +58,11 @@ public class EntityDocQueryDeferredReqQueueProcessOrchImpl {
                 if ((msgList != null) &&
                         (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());
-                    asyncMsgRecordFromDb = msgList.get(0);
+                    asyncMsgRecord = msgList.get(0);
+
+                    // Set queue status to processing
+                    asyncMsgRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
+                    asyncDao.save(asyncMsgRecord);
                 } else {
                     log.info("msgList: is null");
                 }
@@ -73,14 +72,14 @@ public class EntityDocQueryDeferredReqQueueProcessOrchImpl {
             }
 
 
-            log.info("AsyncMsgRecord - messageId: " + asyncMsgRecordFromDb.getMessageId());
-            log.info("AsyncMsgRecord - serviceName: " + asyncMsgRecordFromDb.getServiceName());
-            log.info("AsyncMsgRecord - creationTime: " + asyncMsgRecordFromDb.getCreationTime());
+            log.info("AsyncMsgRecord - messageId: " + asyncMsgRecord.getMessageId());
+            log.info("AsyncMsgRecord - serviceName: " + asyncMsgRecord.getServiceName());
+            log.info("AsyncMsgRecord - creationTime: " + asyncMsgRecord.getCreationTime());
 
             EntityDocQueryDeferredRequestQueueProxyJavaImpl entityDocQueryDeferredReqQueueProxyJavaImpl = new EntityDocQueryDeferredRequestQueueProxyJavaImpl();
            
-            if (asyncMsgRecordFromDb.getMsgData() != null) {
-                respondingGatewayCrossGatewayQueryRequestType = extractRespondingGatewayQueryRequestType(asyncMsgRecordFromDb.getMsgData());
+            if (asyncMsgRecord.getMsgData() != null) {
+                respondingGatewayCrossGatewayQueryRequestType = extractRespondingGatewayQueryRequestType(asyncMsgRecord.getMsgData());
             }
             if (respondingGatewayCrossGatewayQueryRequestType != null) {
                 log.info("AsyncMsgRecord - messageId: " + respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest().getId());

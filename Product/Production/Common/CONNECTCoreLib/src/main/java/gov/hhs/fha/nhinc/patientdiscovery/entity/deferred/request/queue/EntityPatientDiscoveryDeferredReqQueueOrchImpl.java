@@ -72,7 +72,7 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
             resp = HL7AckTransforms.createAckErrorFrom201305(request, ackMsg);
         }
 
-        // Audit the responding 201306 Message
+        // Audit the responding Acknowledgement Message
         ack = auditLogger.auditAck(resp, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return resp;

@@ -6,22 +6,31 @@
  */
 package gov.hhs.fha.nhinc.docquery.passthru.deferred.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
+import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
  * @author jhoppesc
  */
 public class PassthruDocQueryDeferredResponseOrchImpl {
+
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
+    }
 
     /**
      *
@@ -32,9 +41,10 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
      */
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body, AssertionType assertion, NhinTargetSystemType target) {
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
-        RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
-        respAck.setMessage(regResp);
+
+        // Audit the Query For Documents Response Message sent on the Nhin Interface
+        DocQueryAuditLog auditLog = new DocQueryAuditLog();
+
         // Requireed the responding home community id in the audit log
         String responseCommunityID = null;
         if (target != null &&
@@ -42,30 +52,44 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
             responseCommunityID = target.getHomeCommunity().getHomeCommunityId();
         }
         // Audit the outgoing NHIN Message
-        AcknowledgementType ack = auditResponse(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        AcknowledgementType ack = auditLog.auditDQResponse(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         // Call the NHIN Interface
         NhinDocQueryDeferredResponseProxyObjectFactory factory = new NhinDocQueryDeferredResponseProxyObjectFactory();
         NhinDocQueryDeferredResponseProxy proxy = factory.getNhinDocQueryDeferredResponseProxy();
-        respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
 
-        // Audit the incoming NHIN Message
-        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        // ASYNCMSG PROCESSING - REQSENT
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+
+        RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryResponseType = new RespondingGatewayCrossGatewayQueryResponseType();
+        respondingGatewayCrossGatewayQueryResponseType.setAdhocQueryResponse(body);
+        respondingGatewayCrossGatewayQueryResponseType.setAssertion(assertion);
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
+        targetCommunity.setHomeCommunity(target.getHomeCommunity());
+        targets.getNhinTargetCommunity().add(targetCommunity);
+        respondingGatewayCrossGatewayQueryResponseType.setNhinTargetCommunities(targets);
+
+        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayQueryResponseType);
+
+        // check for valid queue update
+        if (bIsQueueOk) {
+            respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
+
+            // ASYNCMSG PROCESSING - REQSENTACK
+            bIsQueueOk = asyncProcess.processAck(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+        } else {
+            String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+
+            // Set the error acknowledgement status
+            // fatal error with deferred queue repository
+            respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+        }
+
+        // Audit the incoming NHIN Acknowledgement Message
+        ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         return respAck;
     }
 
-    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface, String responseCommunityId) {
-        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface, responseCommunityId);
-
-        return ack;
-    }
-
-    private AcknowledgementType auditAck(DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface, String responseCommunityId) {
-        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.logDocQueryAck(msg, assertion, direction, _interface, responseCommunityId);
-
-        return ack;
-    }
 }
