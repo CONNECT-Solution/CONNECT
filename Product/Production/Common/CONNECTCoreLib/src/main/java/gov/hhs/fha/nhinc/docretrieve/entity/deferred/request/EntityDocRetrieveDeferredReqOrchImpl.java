@@ -6,14 +6,18 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request;
 
+import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
+import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -26,12 +30,22 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
 
 /**
  * Implementation class for Entity Document Retrieve Deferred request message
@@ -83,10 +97,16 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
                 nhinDocRequest.getDocumentRequest().add(docRequest);
                 nhinDocRetrieveMsg.setNhinTargetSystem(buildHomeCommunity(docRequest.getHomeCommunityId()));
+
+                //If target is null set the doc request target community.
+                if (target == null) {
+                    target = createTargetCommunities(docRequest.getHomeCommunityId());
+                }
+
                 CMUrlInfos urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
                 //loop through the communities and send request if results were not null
-                if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
+                if ((urlInfoList == null) || (urlInfoList.getUrlInfo() != null && urlInfoList.getUrlInfo().isEmpty())) {
                     log.warn("No targets were found for the Document retrieve deferred service Request");
                     nhincResponse = buildRegistryErrorAck();
                 } else {
@@ -96,11 +116,19 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                     }
                     PassthruDocRetrieveDeferredReqProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredReqProxyObjectFactory();
                     PassthruDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredReqProxy();
+
                     for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
                         if (isPolicyValid(nhinDocRequest, assertion, urlInfo.getHcid())) {
-                            // Call NHIN proxy
+
+                            //add the Request to the Initiator AsyncMsgs Table.
+                            RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetreiveRequest = new RespondingGatewayCrossGatewayRetrieveRequestType();
+                            respondingGatewayCrossGatewayRetreiveRequest.setRetrieveDocumentSetRequest(message);
+                            respondingGatewayCrossGatewayRetreiveRequest.setAssertion(assertion);
+                            addEntryToDatabase(respondingGatewayCrossGatewayRetreiveRequest);
+
                             oTargetSystem = new NhinTargetSystemType();
                             oTargetSystem.setUrl(urlInfo.getUrl());
+                            // Call NHIN proxy
                             if (debugEnabled) {
                                 log.debug("Calling doc retrieve proxy");
                             }
@@ -110,6 +138,9 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                             nhincResponse = buildRegistryErrorAck();
                         }
                     }
+
+
+
                 }
             }
         } catch (Exception ex) {
@@ -197,5 +228,71 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
         }
 
         return urlInfoList;
+    }
+
+    /**
+     *
+     * @param request
+     * @return void
+     */
+    protected void addEntryToDatabase(RespondingGatewayCrossGatewayRetrieveRequestType request) {
+        log.debug("EntityDocRetrieveDeferredReqOrchImpl :addEntryToDatabase : Begin");
+        List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
+        AsyncMsgRecord rec = new AsyncMsgRecord();
+        AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+
+        // Replace with message id from the assertion class
+        rec.setMessageId(request.getAssertion().getMessageId());
+        rec.setCreationTime(new Date());
+        rec.setServiceName(NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+        rec.setMsgData(createBlob(request));
+        asyncMsgRecs.add(rec);
+
+        boolean result = instance.insertRecords(asyncMsgRecs);
+
+        if (result == false) {
+            log.error("Failed to insert asynchronous record in the database");
+        }
+        log.debug("EntityDocRetrieveDeferredReqOrchImpl :addEntryToDatabase : End ");
+    }
+
+    /**
+     *
+     * @param request
+     * @return Blob
+     */
+    private Blob createBlob(RespondingGatewayCrossGatewayRetrieveRequestType request) {
+        Blob asyncMessage = null;
+        try {
+            log.debug("EntityDocRetrieveDeferredReqOrchImpl :createBlob : Begin");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonentity");
+            Marshaller marshaller = jc.createMarshaller();
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
+            JAXBElement<RespondingGatewayCrossGatewayRetrieveRequestType> oJaxbElement = factory.createRespondingGatewayCrossGatewayRetrieveRequest(request);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+            asyncMessage = Hibernate.createBlob(buffer);
+            log.debug("EntityDocRetrieveDeferredReqOrchImpl :createBlob : End");
+        } catch (Exception e) {
+            log.error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+        return asyncMessage;
+    }
+
+    private NhinTargetCommunitiesType createTargetCommunities(String homeCommunityId) {
+        NhinTargetCommunitiesType result = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType community = new NhinTargetCommunityType();
+        HomeCommunityType hc = new HomeCommunityType();
+        hc.setHomeCommunityId(homeCommunityId);
+        community.setHomeCommunity(hc);
+        result.getNhinTargetCommunity().add(community);
+
+        return result;
+
     }
 }
