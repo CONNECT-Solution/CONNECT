@@ -247,6 +247,11 @@ public class NhincConstants {
     public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION = "AuthorizationException";
+    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_INVALID = "InvalidRequestException";
+    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_SIGNATURE = "SignatureValidationException";
+    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_TIMEOUT = "TimeoutException";
+    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_UNSUPPORTED = "UnsupportedCapabilityException";
 
     //Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
@@ -266,6 +271,11 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION = "AuthorizationException";
+    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID = "InvalidRequestException";
+    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_SIGNATURE = "SignatureValidationException";
+    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_TIMEOUT = "TimeoutException";
+    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_UNSUPPORTED = "UnsupportedCapabilityException";
 
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";

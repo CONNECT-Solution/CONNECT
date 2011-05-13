@@ -9,10 +9,15 @@ package gov.hhs.fha.nhinc.async;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
+import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import java.io.ByteArrayOutputStream;
+import java.io.StringWriter;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +25,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Hibernate;
@@ -113,6 +119,82 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
+     * Used to add the Deferred Query For Documents Request to the local gateway
+     * asyncmsgs repository.  The direction indicates the role of the local
+     * gateway; i.e. outbound == initiator, inbound == receiver/responder
+     *
+     * @param request
+     * @param assertion
+     * @param direction
+     * @param communityId
+     * @return true - success; false - error
+     */
+    public boolean addQueryForDocumentsRequest(AdhocQueryRequest request, AssertionType assertion, String direction, String communityId) {
+        log.debug("Begin AsyncMessageProcessHelper.addQueryForDocumentsRequest(assertion)...");
+
+        RespondingGatewayCrossGatewayQueryRequestType newRequest = new RespondingGatewayCrossGatewayQueryRequestType();
+        newRequest.setAssertion(assertion);
+        newRequest.setAdhocQueryRequest(request);
+
+        log.debug("End AsyncMessageProcessHelper.addQueryForDocumentsRequest(assertion)...");
+
+        return addQueryForDocumentsRequest(newRequest, direction, communityId);
+    }
+
+    /**
+     * Used to add the Deferred Query For Documents Request to the local gateway
+     * asyncmsgs repository.  The direction indicates the role of the local
+     * gateway; i.e. outbound == initiator, inbound == receiver/responder
+     *
+     * @param request
+     * @param direction
+     * @param communityId
+     * @return true - success; false - error
+     */
+    public boolean addQueryForDocumentsRequest(RespondingGatewayCrossGatewayQueryRequestType request, String direction, String communityId) {
+        log.debug("Begin AsyncMessageProcessHelper.addQueryForDocumentsRequest()...");
+
+        boolean result = false;
+
+        try {
+            List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
+            AsyncMsgRecord rec = new AsyncMsgRecord();
+            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+
+            // Replace with message id from the assertion class
+            rec.setMessageId(request.getAssertion().getMessageId());
+            rec.setCreationTime(new Date());
+            rec.setServiceName(NhincConstants.DOC_QUERY_SERVICE_NAME);
+            rec.setDirection(direction);
+            rec.setCommunityId(communityId);
+            rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
+
+            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
+                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
+            } else {
+                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
+                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
+            }
+
+            rec.setMsgData(getBlobFromRespondingGatewayCrossGatewayQueryRequestType(request));
+
+            asyncMsgRecs.add(rec);
+
+            result = instance.insertRecords(asyncMsgRecs);
+
+            if (result == false) {
+                log.error("Failed to insert asynchronous record in the database");
+            }
+        } catch (Exception e) {
+            log.error("ERROR: Failed to add the async request to async msg repository.", e);
+        }
+
+        log.debug("End AsyncMessageProcessHelper.addQueryForDocumentsRequest()...");
+
+        return result;
+    }
+
+    /**
      * Process an acknowledgement error for the asyncmsgs record
      *
      * @param messageId
@@ -135,6 +217,43 @@ public class AsyncMessageProcessHelper {
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromMCCIIN000002UV01(ack));
+                instance.save(records.get(0));
+            }
+
+            // Success if we got this far
+            result = true;
+        } catch (Exception e) {
+            log.error("ERROR: Failed to update the async request.", e);
+        }
+
+        log.debug("End AsyncMessageProcessHelper.processAck()...");
+
+        return result;
+    }
+
+    /**
+     * Process an acknowledgement error for the asyncmsgs record
+     *
+     * @param messageId
+     * @param newStatus
+     * @param ack
+     * @return true - success; false - error
+     */
+    public boolean processAck(String messageId, String newStatus, String errorStatus, DocQueryAcknowledgementType ack) {
+        log.debug("Begin AsyncMessageProcessHelper.processAck()...");
+
+        boolean result = false;
+
+        try {
+            if (isAckError(ack)) {
+                newStatus = errorStatus;
+            }
+            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+
+            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            if (records != null && records.size() > 0) {
+                records.get(0).setStatus(newStatus);
+                records.get(0).setAckData(getBlobFromDocQueryAcknowledgementType(ack));
                 instance.save(records.get(0));
             }
 
@@ -182,10 +301,11 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Process an acknowledgement error for the asyncmsgs record
+     * Process an acknowledgement error for the Patient Discovery asyncmsgs record
      *
      * @param messageId
      * @param newStatus
+     * @param errorStatus
      * @param ack
      * @return true - success; false - error
      */
@@ -221,6 +341,51 @@ public class AsyncMessageProcessHelper {
         }
 
         log.debug("End AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
+
+        return result;
+    }
+
+    /**
+     * Process an acknowledgement error for the Query For Documents asyncmsgs record
+     *
+     * @param messageId
+     * @param newStatus
+     * @param errorStatus
+     * @param ack
+     * @return true - success; false - error
+     */
+    public boolean processQueryForDocumentsResponse(String messageId, String newStatus, String errorStatus, RespondingGatewayCrossGatewayQueryResponseType response) {
+        log.debug("Begin AsyncMessageProcessHelper.processQueryForDocumentsResponse()...");
+
+        boolean result = false;
+
+        try {
+            if (response == null) {
+                newStatus = errorStatus;
+            }
+            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+
+            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            if (records != null && records.size() > 0) {
+                records.get(0).setResponseTime(new Date());
+
+                // Calculate the duration in milliseconds
+                Long duration = null;
+                duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
+                records.get(0).setDuration(duration);
+
+                records.get(0).setStatus(newStatus);
+                records.get(0).setRspData(getBlobFromRespondingGatewayCrossGatewayQueryResponseType(response));
+                instance.save(records.get(0));
+            }
+
+            // Success if we got this far
+            result = true;
+        } catch (Exception e) {
+            log.error("ERROR: Failed to update the async response.", e);
+        }
+
+        log.debug("End AsyncMessageProcessHelper.processQueryForDocumentsResponse()...");
 
         return result;
     }
@@ -296,14 +461,127 @@ public class AsyncMessageProcessHelper {
         return asyncMessage;
     }
 
+    private Blob getBlobFromRespondingGatewayCrossGatewayQueryRequestType(RespondingGatewayCrossGatewayQueryRequestType request) {
+        Blob asyncMessage = null; //Not Implemented
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonentity");
+            Marshaller marshaller = jc.createMarshaller();
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
+            JAXBElement<RespondingGatewayCrossGatewayQueryRequestType> oJaxbElement = factory.createRespondingGatewayCrossGatewayQueryRequest(request);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+            asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return asyncMessage;
+    }
+
+    private Blob getBlobFromRespondingGatewayCrossGatewayQueryResponseType(RespondingGatewayCrossGatewayQueryResponseType response) {
+        Blob asyncMessage = null; //Not Implemented
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonentity");
+            Marshaller marshaller = jc.createMarshaller();
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
+            JAXBElement<RespondingGatewayCrossGatewayQueryResponseType> oJaxbElement = factory.createRespondingGatewayCrossGatewayQueryResponse(response);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+            asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return asyncMessage;
+    }
+
+    private Blob getBlobFromDocQueryAcknowledgementType(DocQueryAcknowledgementType ack) {
+        Blob asyncMessage = null; //Not Implemented
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
+            Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+
+            StringWriter sw = new StringWriter();
+
+            marshaller.marshal(ack, sw);
+
+            String xmlText = sw.toString();
+            byte[] buffer = xmlText.getBytes();
+
+            asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return asyncMessage;
+    }
+
+    private Blob getBlobFromDocRetrieveAcknowledgementType(DocRetrieveAcknowledgementType ack) {
+        Blob asyncMessage = null; //Not Implemented
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
+            Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+
+            StringWriter sw = new StringWriter();
+
+            marshaller.marshal(ack, sw);
+
+            String xmlText = sw.toString();
+            byte[] buffer = xmlText.getBytes();
+
+            asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during Blob conversion :" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return asyncMessage;
+    }
+
     private boolean isAckError(MCCIIN000002UV01 ack) {
         boolean result = false;
 
-        if (ack.getAcknowledgement() != null &&
+        if (ack != null &&
+                ack.getAcknowledgement() != null &&
                 ack.getAcknowledgement().size() > 0 &&
                 ack.getAcknowledgement().get(0).getTypeCode() != null &&
                 ack.getAcknowledgement().get(0).getTypeCode().getCode() != null &&
                 ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    private boolean isAckError(DocQueryAcknowledgementType ack) {
+        boolean result = false;
+
+        if (ack != null &&
+                ack.getMessage() != null &&
+                ack.getMessage().getStatus() != null &&
+                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG) ||
+                    ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG)
+                    )
+                ) {
             result = true;
         }
 
