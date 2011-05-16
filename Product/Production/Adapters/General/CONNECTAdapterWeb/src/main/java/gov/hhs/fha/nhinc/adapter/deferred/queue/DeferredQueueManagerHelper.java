@@ -199,6 +199,7 @@ public class DeferredQueueManagerHelper {
             queueDao.save(queueRecords);
 
             // Now process
+            count = 0;
             for (AsyncMsgRecord queueRecord : queueRecords) {
                 count++;
                 if (count > maxCount) {
@@ -285,7 +286,7 @@ public class DeferredQueueManagerHelper {
 
         } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
             DocRetrieveAcknowledgementType rdAck = processDeferredRetrieveDocuments(queueRecord);
-            
+
             if (rdAck != null &&
                     rdAck.getMessage() != null &&
                     rdAck.getMessage().getStatus() != null &&
