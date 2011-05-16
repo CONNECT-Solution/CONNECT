@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ManageQueue
+    Created on : May 13, 2011, 10:40:40 PM
+    Author     : richard.ettema
+-->
+
+<jsp:root version="2.1" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
+    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"/>
+    <f:view>
+        <webuijsf:page id="ManageQueue">
+            <webuijsf:html id="html1">
+                <webuijsf:head id="head1" title="Deferred Queue Manager">
+                    <webuijsf:link id="link1" url="/CONNECTDeferredQueueManagerGUI/resources/stylesheet.css"/>
+                </webuijsf:head>
+                <webuijsf:body id="body1" style="-rave-layout: grid">
+                    <webuijsf:form id="manageQueueForm">
+                        <webuijsf:image height="100" id="connectImage" style="left: 4px; top: 4px; position: absolute" url="/CONNECTDeferredQueueManagerGUI/resources/connect.GIF" width="312"/>
+                        <webuijsf:tabSet binding="#{ManageQueue.processTabSet}" id="processTabSet" selected="processQueueTab" style="height: 526px; left: 36px; top: 120px; position: absolute; width: 800px">
+                            <webuijsf:tab actionExpression="#{ManageQueue.processQueueTab_action}" binding="#{ManageQueue.processQueueTab}"
+                                id="processQueueTab" style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px" text="Process Queue">
+                                <webuijsf:panelLayout id="processQueueLayoutPanel" style="height: 537px; position: relative; width: 800px; -rave-layout: grid">
+                                    <webuijsf:staticText id="staticText2"
+                                        style="font-family: 'Arial','Helvetica',sans-serif; font-size: 14px; font-weight: bolder; left: 16px; top: 24px; position: absolute"
+                                        text="Click the following button to retrieve queue records to be processed:"/>
+                                    <webuijsf:button actionExpression="#{ManageQueue.retrieveProcessButton_action}" id="retrieveProcessButton"
+                                        style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px; left: 520px; top: 24px; position: absolute; width: 72px" text="Retrieve"/>
+                                    <webuijsf:staticText binding="#{ManageQueue.errorMessages}" id="errorMessages" style="color: red; font-family: 'Arial','Helvetica',sans-serif; font-size: 12px; left: 52px; top: 56px; position: absolute"/>
+                                    <webuijsf:table augmentTitle="false" id="processQueueResults"
+                                        style="left: 0px; top: 80px; position: absolute; width: 800px" title="Queue Records to be Processed" width="800">
+                                        <webuijsf:tableRowGroup id="queueResults" sourceData="#{UserSession.processQueueResults}" sourceVar="processQueue">
+                                            <webuijsf:tableColumn headerText="Message Id" id="MessageId">
+                                                <webuijsf:staticText id="staticText1" text="#{processQueue.value['messageId']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Create Time" id="CreationTime">
+                                                <webuijsf:staticText id="staticText1" text="#{processQueue.value['creationTime']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Service Name" id="ServiceName">
+                                                <webuijsf:staticText id="staticText1" text="#{processQueue.value['serviceName']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Requesting Community Id" id="CommunityId">
+                                                <webuijsf:staticText id="staticText1" text="#{processQueue.value['communityId']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Status" id="Status">
+                                                <webuijsf:staticText id="staticText1" text="#{processQueue.value['status']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Action" id="action">
+                                                <webuijsf:button id="forceProcessButton" reset="true"
+                                                    style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px; width: 64px" text="Process"/>
+                                            </webuijsf:tableColumn>
+                                        </webuijsf:tableRowGroup>
+                                    </webuijsf:table>
+                                </webuijsf:panelLayout>
+                            </webuijsf:tab>
+                        </webuijsf:tabSet>
+                        <webuijsf:label id="UCLabel1"
+                            style="color: gray; font-family: 'Arial','Helvetica',sans-serif; font-size: 32px; left: 360px; top: 36px; position: absolute" text="DEFERRED QUEUE MANAGER"/>
+                    </webuijsf:form>
+                </webuijsf:body>
+            </webuijsf:html>
+        </webuijsf:page>
+    </f:view>
+</jsp:root>
