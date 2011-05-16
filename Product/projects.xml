@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
-	<project>
-		<name>CONNECTCommonTypesLib</name>
-		<directory>/Production/Common/CONNECTCommonTypesLib</directory>
-		<dist.type>jar</dist.type>
-	</project>
-	<project>
-		<name>CONNECTCoreLib</name>
-		<directory>/Production/Common/CONNECTCoreLib</directory>
-		<dist.type>jar</dist.type>
-	</project>
+    <project>
+        <name>CONNECTCommonTypesLib</name>
+        <directory>/Production/Common/CONNECTCommonTypesLib</directory>
+        <dist.type>jar</dist.type>
+    </project>
+    <project>
+        <name>CONNECTCoreLib</name>
+        <directory>/Production/Common/CONNECTCoreLib</directory>
+        <dist.type>jar</dist.type>
+    </project>
     <project>
         <name>CONNECTCommonWeb</name>
         <directory>/Production/Common/CONNECTCommonWeb</directory>
@@ -45,7 +45,7 @@
         <directory>/Production/Gateway/CONNECTLiFTClientApp</directory>
         <dist.type>jar</dist.type>
     </project> 
-	<project>
+    <project>
         <name>CONNECTLiFTServerApp</name>
         <directory>/Production/Gateway/CONNECTLiFTServerApp</directory>
         <dist.type>jar</dist.type>
@@ -76,6 +76,11 @@
         <dist.type>war</dist.type>
     </project>
     <project>
+        <name>CONNECTDeferredQueueManagerGUI</name>
+        <directory>/Production/Adapters/General/CONNECTDeferredQueueManagerGUI</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
@@ -90,7 +95,7 @@
         <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
         <dist.type>war</dist.type>
     </project>
-	<project>
+    <project>
         <name>AdapterDocRegistry2Soap12Web</name>
         <directory>/Production/Adapters/General/AdapterDocRegistry2Soap12Web</directory>
         <dist.type>war</dist.type>
@@ -183,11 +188,11 @@
       <name>HiemSubscriptionRepositoryIntegrationTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
       <dist.type>jar</dist.type>
-    </project>	
+    </project>  
     <project>
       <name>LoadTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
       <dist.type>jar</dist.type>
-    </project>	
-	
+    </project>  
+    
 </projects>
