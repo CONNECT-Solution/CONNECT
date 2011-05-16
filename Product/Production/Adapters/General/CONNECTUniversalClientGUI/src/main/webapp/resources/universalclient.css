@@ -113,11 +113,12 @@
 	left: 0px !important;
 	top: 155px !important;
 	width: 320px !important;
-	margin-top: 10px; !important;
+	margin-top: 10px !important;
 	}
-	#form1\:clientTabSet\:patientSearchTab\:patientSearchLayoutPanel\:patientSearchResultTable div {
-		width: 320px !important;
-		}
+
+#form1\:clientTabSet\:patientSearchTab\:patientSearchLayoutPanel\:patientSearchResultTable div {
+        width: 320px !important;
+        }
 
 
 #form1\:clientTabSet\:subjectDiscoveryTab\:subjectDiscoveryLayoutPanel\:broadcastInfo2 {
@@ -134,8 +135,7 @@
 	margin-top: 10px !important;
 	top: 140px !important;
 	}	
-	#form1\:clientTabSet\:subjectDiscoveryTab\:subjectDiscoveryLayoutPanel\:subjectDiscoveryCoorelationTable div {
-		width: 320px !important;
-		}
-	
-	
+
+#form1\:clientTabSet\:subjectDiscoveryTab\:subjectDiscoveryLayoutPanel\:subjectDiscoveryCoorelationTable div {
+        width: 320px !important;
+        }

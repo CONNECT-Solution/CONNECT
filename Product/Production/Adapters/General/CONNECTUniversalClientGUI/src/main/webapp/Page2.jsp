@@ -14,7 +14,7 @@
                     <webuijsf:script>
                         if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
                             document.write('<link id="link2" rel="stylesheet" type="text/css" href="/UniversalClientGUI/resources/universalclient.css" />');
-                            document.write('<meta content="width=320" name="viewport" id="j_id_id9"/>');
+                            document.write('<meta content="width=320" name="viewport"/>');
                         }
                     </webuijsf:script>
                 </webuijsf:head>
