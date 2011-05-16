@@ -6,12 +6,18 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
+import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveResponseType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.proxy.NhinDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.proxy.NhinDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -25,23 +31,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhincProxyDocRetrieveDeferredRespOrchImpl {
 
-    private Log log = null;
-    private boolean debugEnabled = false;
+    private static final Log log = LogFactory.getLog(NhincProxyDocRetrieveDeferredRespOrchImpl.class);
 
-    /**
-     * default constructor
-     */
-    public NhincProxyDocRetrieveDeferredRespOrchImpl() {
-        log = createLogger();
-        debugEnabled = log.isDebugEnabled();
-    }
-
-    /**
-     *
-     * @return Log
-     */
-    protected Log createLogger() {
-        return (log != null) ? log : LogFactory.getLog(this.getClass());
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
     }
 
     /**
@@ -52,54 +45,55 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetSystemType target) {
-        if (debugEnabled) {
-            log.debug("Begin NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
-        }
-        DocRetrieveAcknowledgementType ack = null;
+        log.debug("Begin NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
+
+        DocRetrieveAcknowledgementType respAck = new DocRetrieveAcknowledgementType();
+        String ackMsg = "";
+
         String responseCommunityId = HomeCommunityMap.getCommunitIdForDeferredRDResponse(retrieveDocumentSetResponse);
+
         // Audit request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponse, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
-        try {
-            if (debugEnabled) {
-                log.debug("Creating NHIN Proxy Component");
-            }
-            NhinDocRetrieveDeferredRespProxyObjectFactory objFactory = new NhinDocRetrieveDeferredRespProxyObjectFactory();
-            NhinDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredResponseProxy();
-            if (debugEnabled) {
-                log.debug("Calling NHIN Proxy Component");
-            }
-            ack = docRetrieveProxy.sendToRespondingGateway(retrieveDocumentSetResponse, assertion, target);
-        } catch (Exception ex) {
-            log.error(ex);
-            ack = createErrorAck();
+
+        // ASYNCMSG PROCESSING - REQSENT
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+
+        // Call the NHIN Interface
+        NhinDocRetrieveDeferredRespProxyObjectFactory objFactory = new NhinDocRetrieveDeferredRespProxyObjectFactory();
+        NhinDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredResponseProxy();
+
+        RespondingGatewayCrossGatewayRetrieveResponseType respondingGatewayCrossGatewayRetrieveResponseType = new RespondingGatewayCrossGatewayRetrieveResponseType();
+        respondingGatewayCrossGatewayRetrieveResponseType.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
+        respondingGatewayCrossGatewayRetrieveResponseType.setAssertion(assertion);
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
+        targetCommunity.setHomeCommunity(target.getHomeCommunity());
+        targets.getNhinTargetCommunity().add(targetCommunity);
+        respondingGatewayCrossGatewayRetrieveResponseType.setNhinTargetCommunities(targets);
+
+        boolean bIsQueueOk = asyncProcess.processRetrieveDocumentsResponse(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayRetrieveResponseType);
+
+        // check for valid queue update
+        if (bIsQueueOk) {
+            respAck = docRetrieveProxy.sendToRespondingGateway(retrieveDocumentSetResponse, assertion, target);
+        } else {
+            ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+
+            // Set the error acknowledgement status
+            // fatal error with deferred queue repository
+            respAck = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+
+            // ASYNCMSG PROCESSING - REQSENTACK
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
         }
-        if (ack != null) {
-            // Audit response message
-            auditLog.auditDocRetrieveDeferredAckResponse(ack.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
-        }
-        if (debugEnabled) {
-            log.debug("End NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
-        }
-        return ack;
+
+        // Audit response message
+        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+
+        log.debug("End NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
+
+        return respAck;
     }
 
-    /**
-     *
-     * @return DocRetrieveAcknowledgementType
-     */
-    private DocRetrieveAcknowledgementType createErrorAck() {
-        if (debugEnabled) {
-            log.debug("Begin NhincProxyDocRetrieveDeferredRespOrchImpl.createErrorAck(...)");
-        }
-        log.error("Error occured sending doc retrieve deferred to NHIN target:");
-        DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
-        RegistryResponseType responseType = new RegistryResponseType();
-        ack.setMessage(responseType);
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-        if (debugEnabled) {
-            log.debug("End NhincProxyDocRetrieveDeferredRespOrchImpl.createErrorAck(...)");
-        }
-        return ack;
-    }
 }

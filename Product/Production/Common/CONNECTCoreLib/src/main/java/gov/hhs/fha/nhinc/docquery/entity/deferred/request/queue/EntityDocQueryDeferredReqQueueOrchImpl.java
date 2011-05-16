@@ -25,6 +25,7 @@ import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQu
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -51,6 +52,8 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
      * @return DocQueryAcknowledgementType
      */
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+        log.debug("Begin EntityDocQueryDeferredReqQueueOrchImpl.respondingGatewayCrossGatewayQuery");
+
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         String ackMsg = "";
 
@@ -59,14 +62,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
         respondingGatewayCrossGatewayQueryRequestType.setAssertion(assertion);
         respondingGatewayCrossGatewayQueryRequestType.setNhinTargetCommunities(targets);
 
-        String responseCommunityID = null;
-        if (targets != null &&
-                targets.getNhinTargetCommunity() != null &&
-                targets.getNhinTargetCommunity().size() > 0 &&
-                targets.getNhinTargetCommunity().get(0) != null &&
-                targets.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {
-            responseCommunityID = targets.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId();
-        }
+        String responseCommunityID = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
 
         // Audit the incoming doc query request Message
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
@@ -133,7 +129,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
-            respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         // Audit the responding Acknowledgement Message

@@ -59,7 +59,7 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
         targets.getNhinTargetCommunity().add(target);
         nhinResponse.setNhinTargetCommunities(targets);
 
-        boolean bIsQueueOk = asyncProcess.processPatientDiscoveryResponse(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, nhinResponse);
+        boolean bIsQueueOk = asyncProcess.processPatientDiscoveryResponse(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, nhinResponse);
 
         // check for valid queue update
         if (bIsQueueOk) {

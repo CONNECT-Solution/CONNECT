@@ -280,9 +280,9 @@
               linecount="24"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="146" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="172" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper"
-              linecount="289"
+              linecount="387"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="138" branchrate="80" branchsexecuted="0"
@@ -5147,6 +5147,11 @@
               linesexecuted="1.85"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms"
+              linecount="12"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms"
               linecount="12"
               linerate="80"
               linesexecuted="0"/>

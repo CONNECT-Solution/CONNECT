@@ -70,14 +70,14 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         targets.getNhinTargetCommunity().add(targetCommunity);
         respondingGatewayCrossGatewayQueryResponseType.setNhinTargetCommunities(targets);
 
-        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayQueryResponseType);
+        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayQueryResponseType);
 
         // check for valid queue update
         if (bIsQueueOk) {
             respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
 
             // ASYNCMSG PROCESSING - REQSENTACK
-            bIsQueueOk = asyncProcess.processAck(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+            bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
 

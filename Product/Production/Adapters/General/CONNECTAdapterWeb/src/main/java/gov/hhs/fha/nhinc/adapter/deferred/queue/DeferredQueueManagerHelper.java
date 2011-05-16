@@ -20,6 +20,7 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueReques
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.SuccessOrFailType;
 import gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcessOrchImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcessOrchImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl;
@@ -366,9 +367,8 @@ public class DeferredQueueManagerHelper {
     private DocRetrieveAcknowledgementType processDeferredRetrieveDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
-//        EntityDocRetrieveDeferredReqQueueProcessOrchImpl processImpl = new EntityDocRetrieveDeferredReqQueueProcessOrchImpl();
-//        DocRetrieveAcknowledgementType ack = processImpl.processDocRetrieveAsyncReqQueue(queueRecord.getMessageId());
-        DocRetrieveAcknowledgementType ack = null;
+        EntityDocRetrieveDeferredReqQueueProcessOrchImpl processImpl = new EntityDocRetrieveDeferredReqQueueProcessOrchImpl();
+        DocRetrieveAcknowledgementType ack = processImpl.processDocRetrieveDeferredReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
