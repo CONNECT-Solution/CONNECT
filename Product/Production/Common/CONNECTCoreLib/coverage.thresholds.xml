@@ -825,19 +825,19 @@
               linecount="49"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.DocQuerySender"
-              linecount="97"
+              linecount="101"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="74" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="84" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper"
-              linecount="76"
+              linecount="82"
               linerate="80"
               linesexecuted="0"/>
     <threshold branchcount="40" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl"
-              linecount="128"
+              linecount="130"
               linerate="80"
               linesexecuted="0"/>
     <threshold branchcount="28" branchrate="80" branchsexecuted="0"
@@ -5190,9 +5190,9 @@
               linecount="8"
               linerate="80"
               linesexecuted="0.06"/>
-   <threshold branchcount="40" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="44" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.transform.policy.AdhocQueryTransformHelper"
-              linecount="94"
+              linecount="103"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="18" branchrate="80" branchsexecuted="0.14"

@@ -95,6 +95,8 @@ public class EntityDocQueryOrchImpl {
                     NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot())) {
                 List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
                 String localAA = new EntityDocQueryHelper().getLocalAssigningAuthority(slotList);
+                String uniquePatientId = new EntityDocQueryHelper().getUniquePatientId(slotList);
+                log.debug("respondingGatewayCrossGatewayQuery EntityDocQueryHelper uniquePatientId: " + uniquePatientId);
 
                 List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
@@ -110,7 +112,7 @@ public class EntityDocQueryOrchImpl {
 
                     String transactionId = startTransaction(aggregator, subjectIds);
 
-                    sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion, localAA);
+                    sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion, localAA, uniquePatientId);
 
                     response = retrieveDocQueryResults(aggregator, transactionId);
                 } else {
@@ -178,9 +180,9 @@ public class EntityDocQueryOrchImpl {
         return sHomeCommunity;
     }
 
-    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion, String localAA) {
+    private void sendQueryMessages(String transactionId, List<QualifiedSubjectIdentifierType> correlationsResult, AdhocQueryRequest queryRequest, AssertionType assertion, String localAA, String localPatientId) {
         for (QualifiedSubjectIdentifierType subId : correlationsResult) {
-            DocQuerySender querySender = new DocQuerySender(transactionId, assertion, subId, queryRequest, localAA);
+            DocQuerySender querySender = new DocQuerySender(transactionId, assertion, subId, queryRequest, localAA, localPatientId);
             querySender.sendMessage();
         }
     }

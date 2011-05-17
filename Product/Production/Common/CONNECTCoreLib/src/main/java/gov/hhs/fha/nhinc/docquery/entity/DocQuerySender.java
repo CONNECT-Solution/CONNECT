@@ -45,12 +45,13 @@ public class DocQuerySender {
     private Log log = null;
     private String sLocalHomeCommunity = null;
     private String sLocalAssigningAuthorityId = null;
+    private String sUniquePatientId = null;
     private String sTransactionId = null;
     private AssertionType oAssertion;
     private QualifiedSubjectIdentifierType oSubjectId;
     private AdhocQueryRequest oOriginalQueryRequest;
 
-    public DocQuerySender(String transactionId, AssertionType assertion, QualifiedSubjectIdentifierType subjectId, AdhocQueryRequest originalQueryRequest, String localAssigningAuthorityId) {
+    public DocQuerySender(String transactionId, AssertionType assertion, QualifiedSubjectIdentifierType subjectId, AdhocQueryRequest originalQueryRequest, String localAssigningAuthorityId, String uniquePatientId) {
         log = createLogger();
         sLocalHomeCommunity = getLocalHomeCommunityId();
         oOriginalQueryRequest = originalQueryRequest;
@@ -58,6 +59,11 @@ public class DocQuerySender {
         oAssertion = assertion;
         oSubjectId = subjectId;
         sLocalAssigningAuthorityId = localAssigningAuthorityId;
+        sUniquePatientId = uniquePatientId;
+        if ((oAssertion.getUniquePatientId() != null) && (oAssertion.getUniquePatientId().size() < 1)) {
+            oAssertion.getUniquePatientId().add(sUniquePatientId);
+        }
+
     }
 
     protected Log createLogger() {
@@ -78,8 +84,6 @@ public class DocQuerySender {
         }
         return sHomeCommunity;
     }
-
-    
 
     protected DocumentQueryTransform createDocumentTransform() {
         return new DocumentQueryTransform();
@@ -129,7 +133,7 @@ public class DocQuerySender {
                 RegistryErrorList regErrList = new RegistryErrorList();
                 RegistryError regErr = new RegistryError();
                 regErrList.getRegistryError().add(regErr);
-                regErr.setCodeContext("Fault encountered processing internal document query for community "+ sTargetHomeCommunityId);
+                regErr.setCodeContext("Fault encountered processing internal document query for community " + sTargetHomeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
                 regErr.setSeverity("Error");
                 queryResults.setRegistryErrorList(regErrList);

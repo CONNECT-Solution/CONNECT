@@ -15,6 +15,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -95,8 +96,10 @@ public class AdhocQueryTransformHelper {
             sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
             aaId = PatientIdFormatUtil.parseCommunityId(sPatientId);
         }
-        resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+        log.debug("transformAdhocQueryResponseToCheckPolicyBase aaId: " + aaId);
+        log.debug("transformAdhocQueryResponseToCheckPolicyBase PatientId: " + sStrippedPatientId);
 
+        resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
 
         resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
@@ -130,8 +133,13 @@ public class AdhocQueryTransformHelper {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
 
         AdhocQueryRequest docQuery = event.getMessage().getAdhocQueryRequest();
+        AssertionType assertion = event.getMessage().getAssertion();
 
         RequestType request = new RequestType();
+
+        String aaId = extractPatientIdentifierAssigningAuthority(docQuery);
+        String sPatientId = extractPatientIdentifierId(docQuery);
+        String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
 
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
@@ -139,15 +147,24 @@ public class AdhocQueryTransformHelper {
 
         if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
+            if ((assertion.getUniquePatientId() != null) &&
+                    (assertion.getUniquePatientId().size() > 0)) {
+                aaId = PatientIdFormatUtil.parseCommunityId(assertion.getUniquePatientId().get(0));
+                sStrippedPatientId = PatientIdFormatUtil.parsePatientId(assertion.getUniquePatientId().get(0));
+
+            } else {
+                log.info("Unique patientid is null in the assertion.");
+            }
         }
+
+        log.debug("transformAdhocQueryToCheckPolicyBase: event direction: " + event.getDirection());
+        log.debug("transformAdhocQueryToCheckPolicyBase: aaId: " + aaId);
+        log.debug("transformAdhocQueryToCheckPolicyBase: PatientId: " + sStrippedPatientId);
 
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
-        resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, extractPatientIdentifierAssigningAuthority(docQuery)));
-        String sPatientId = extractPatientIdentifierId(docQuery);
-        String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
-        log.debug("transformAdhocQueryToCheckPolicyBase: sPatientId = " + sPatientId);
-        log.debug("transformAdhocQueryToCheckPolicyBase: sStrippedPatientId = " + sStrippedPatientId);
+        resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+
         resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
 

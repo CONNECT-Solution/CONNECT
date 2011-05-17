@@ -210,4 +210,27 @@ public class EntityDocQueryHelper {
 
         return localAssigningAuthorityId;
     }
+
+    /**
+     * This method returns uniquePatientId from slot list
+     * @param slotList
+     * @return uniquePatientId
+     */
+    public String getUniquePatientId(List<SlotType1> slotList) {
+        String uniquePatientId = null;
+
+        // For each slot process each of the Patient Id slots
+        for (SlotType1 slot : slotList) {
+            if (slot.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
+                if (slot.getValueList() != null &&
+                        NullChecker.isNotNullish(slot.getValueList().getValue()) &&
+                        NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+                    uniquePatientId = PatientIdFormatUtil.stripQuotesFromPatientId(slot.getValueList().getValue().get(0));
+                }
+                break;
+            }
+        }
+
+        return uniquePatientId;
+    }
 }
