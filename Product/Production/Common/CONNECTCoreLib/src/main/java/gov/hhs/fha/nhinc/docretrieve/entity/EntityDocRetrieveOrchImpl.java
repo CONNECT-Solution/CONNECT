@@ -64,8 +64,8 @@ public class EntityDocRetrieveOrchImpl {
         RetrieveDocumentSetResponseType response = null;
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
         DocRetrieveAggregator aggregator = new DocRetrieveAggregator();
-        String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(body);
-        auditLog.auditDocRetrieveRequest(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        auditLog.auditDocRetrieveRequest(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         try {
             String transactionId = startTransaction(aggregator, body);
@@ -77,7 +77,7 @@ public class EntityDocRetrieveOrchImpl {
         }
 
         // Audit log - response
-        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
+        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         log.debug("End EntityDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve");
         return response;

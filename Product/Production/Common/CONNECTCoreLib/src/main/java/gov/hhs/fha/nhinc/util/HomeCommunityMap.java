@@ -9,13 +9,16 @@ package gov.hhs.fha.nhinc.util;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class is used to map a home community ID to the
@@ -145,6 +148,23 @@ public class HomeCommunityMap {
             }
         }
         return communityId;
+    }
+
+    /**
+     * Return this gateway's home community id
+     *
+     * @return
+     */
+    public static String getLocalHomeCommunityId() {
+        String sHomeCommunity = null;
+
+        try {
+            sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        } catch (PropertyAccessException ex) {
+            log.error(ex.getMessage());
+        }
+
+        return sHomeCommunity;
     }
 
 }

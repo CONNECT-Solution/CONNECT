@@ -8,44 +8,26 @@ package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.proxy.NhinDocRetrieveDeferredReqProxy;
 import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.proxy.NhinDocRetrieveDeferredReqProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Proxy Orchestration Request implementation class
+ * Passthru Proxy Orchestration Request implementation class
+ *
  * @author Sai Valluripalli
+ * @author richard.ettema
  */
 public class NhincProxyDocRetrieveDeferredReqOrchImpl {
 
-    private Log log = null;
-    private boolean debugEnabled = false;
+    //Logger
+    private static final Log log = LogFactory.getLog(NhincProxyDocRetrieveDeferredReqOrchImpl.class);
 
     /**
-     * default constructor
-     */
-    public NhincProxyDocRetrieveDeferredReqOrchImpl() {
-        log = createLogger();
-        debugEnabled = log.isDebugEnabled();
-    }
-
-    /**
-     *
-     * @return Log
-     */
-    protected Log createLogger() {
-        return (log != null) ? log : LogFactory.getLog(this.getClass());
-    }
-
-    /**
+     * Pass the processing on to the NHIN layer
      *
      * @param request
      * @param assertion
@@ -53,56 +35,18 @@ public class NhincProxyDocRetrieveDeferredReqOrchImpl {
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
-        if (debugEnabled) {
-            log.debug("Begin NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
-        }
+        log.debug("Begin NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
+
         DocRetrieveAcknowledgementType ack = null;
-        if (null != request || null != assertion) {
-            String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(request);
-            // Audit request message
-            DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-            try {
-                auditLog.auditDocRetrieveDeferredRequest(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
-                if (debugEnabled) {
-                    log.debug("Creating NHIN doc retrieve proxy");
-                }
-                NhinDocRetrieveDeferredReqProxyObjectFactory objFactory = new NhinDocRetrieveDeferredReqProxyObjectFactory();
-                NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredRequestProxy();
-                RespondingGatewayCrossGatewayRetrieveSecuredRequestType req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-                req.setNhinTargetSystem(target);
-                req.setRetrieveDocumentSetRequest(request);
-                if (debugEnabled) {
-                    log.debug("Calling NHIN doc retrieve proxy");
-                }
-                ack = docRetrieveProxy.sendToRespondingGateway(request, assertion, target);
-            } catch (Exception ex) {
-                log.error(ex);
-                ack = createErrorAckResponse();
-            }
-            if (ack != null) {
-                // Audit response message
-                auditLog.auditDocRetrieveDeferredAckResponse(ack.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
-            }
-        } else {
-            log.error("Error in NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...): request/assertion are null");
-            ack = createErrorAckResponse();
-        }
-        if (debugEnabled) {
-            log.debug("End NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
-        }
+
+        //Call Nhin component proxy
+        NhinDocRetrieveDeferredReqProxyObjectFactory objFactory = new NhinDocRetrieveDeferredReqProxyObjectFactory();
+        NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredRequestProxy();
+        ack = docRetrieveProxy.sendToRespondingGateway(request, assertion, target);
+
+        log.debug("End NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
+
         return ack;
     }
 
-    /**
-     *
-     * @return DocRetrieveAcknowledgementType
-     */
-    private DocRetrieveAcknowledgementType createErrorAckResponse() {
-        log.error("Error occured sending doc retrieve deferred to NHIN target: ");
-        DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
-        RegistryResponseType responseType = new RegistryResponseType();
-        ack.setMessage(responseType);
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-        return ack;
-    }
 }

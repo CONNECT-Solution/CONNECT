@@ -6,14 +6,19 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.proxy;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
+import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RespondingGatewayDeferredRequestRetrievePortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,14 +26,13 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 11:46:39 AM
+ * Send deferred retrieve document request over the secured NHIN
+ *
+ * @author richard.ettema
  */
 public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements NhinDocRetrieveDeferredReqProxy {
 
-    private static final Log logger = LogFactory.getLog(NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl.class);
+    private static final Log log = LogFactory.getLog(NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl.class);
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xds-b:2007";
     private static final String SERVICE_LOCAL_PART = "RespondingGatewayDeferredRequest_Retrieve_Service";
@@ -37,15 +41,15 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:xds-b:2007:Deferred:CrossGatewayRetrieve_Message";
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    protected Log getLogger() {
-        return logger;
-    }
-
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return oProxyHelper;
     }
 
-    /**\
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
+    }
+
+    /**
      *
      * This method retrieves and initializes the port.
      *
@@ -56,12 +60,12 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
         RespondingGatewayDeferredRequestRetrievePortType port = null;
         Service service = getService();
         if (service != null) {
-            getLogger().debug("Obtained service - creating port.");
+            log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayDeferredRequestRetrievePortType.class);
             getWebServiceProxyHelper().initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         } else {
-            getLogger().error("Unable to obtain serivce - no port created.");
+            log.error("Unable to obtain serivce - no port created.");
         }
 
         return port;
@@ -77,38 +81,74 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
             try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
             } catch (Throwable t) {
-                getLogger().error("Error creating service: " + t.getMessage(), t);
+                log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
-        getLogger().debug("Begin respondingGatewayCrossGatewayQuery");
+        log.debug("Begin respondingGatewayCrossGatewayQuery");
 
+        String url = null;
+        String ackMessage = null;
         DocRetrieveAcknowledgementType response = null;
 
+        // Audit outbound deferred retrieve document request message
+        DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
+        String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(body);
+        auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
+
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         try {
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST);
-            RespondingGatewayDeferredRequestRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
+            if (body != null) {
+                log.debug("Before target system URL look up.");
+                url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST);
+                log.debug("After target system URL look up. URL for service: " + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + " is: " + url);
 
-            if (body == null) {
-                getLogger().error("Message was null");
-            } else if (port == null) {
-                getLogger().error("port was null");
+                if (NullChecker.isNotNullish(url)) {
+                    // Set the sent status of the deferred queue entry
+                    asyncProcess.processMessageStatus(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENT);
+
+                    RespondingGatewayDeferredRequestRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    response = (DocRetrieveAcknowledgementType) getWebServiceProxyHelper().invokePort(port, RespondingGatewayDeferredRequestRetrievePortType.class, "respondingGatewayDeferredRequestCrossGatewayRetrieve", body);
+
+                    // Set the ack status of the deferred queue entry
+                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
+                } else {
+                    ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + ").  The URL is null.";
+                    response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+
+                    // Set the error acknowledgement status of the deferred queue entry
+                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
+
+                    log.error(ackMessage);
+                }
             } else {
-                response = (DocRetrieveAcknowledgementType) getWebServiceProxyHelper().invokePort(port, RespondingGatewayDeferredRequestRetrievePortType.class, "respondingGatewayDeferredRequestCrossGatewayRetrieve", body);
+                ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + ").  The input parameter is null.";
+                response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+
+                // Set the error acknowledgement status of the deferred queue entry
+                asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
+
+                log.error(ackMessage);
             }
-        } catch (Exception ex) {
-            getLogger().error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
-            response = new DocRetrieveAcknowledgementType();
-            RegistryResponseType regResp = new RegistryResponseType();
-            regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
-            response.setMessage(regResp);
+        } catch (Exception e) {
+            ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + ").  An unexpected exception occurred: " + e.getMessage();
+            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+
+            // Set the error acknowledgement status of the deferred queue entry
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
+
+            log.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }
 
-        getLogger().debug("End respondingGatewayCrossGatewayQuery");
+        // Log the inbound acknowledgement response -- Audit Logging
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+
+        log.debug("End respondingGatewayCrossGatewayQuery");
+
         return response;
     }
 }

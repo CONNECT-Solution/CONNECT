@@ -146,7 +146,7 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
                 log.error(ackMessage);
             }
         } catch (Exception e) {
-            ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  An unexpected exception occurred: " + e.getMessage();
+            ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + ").  An unexpected exception occurred: " + e.getMessage();
             response = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
 
             // Set the error acknowledgement status of the deferred queue entry
