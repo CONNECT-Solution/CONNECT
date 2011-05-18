@@ -21,6 +21,7 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRespon
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.SuccessOrFailType;
 import gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcessOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcessOrchImpl;
+import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl;
@@ -263,15 +264,11 @@ public class DeferredQueueManagerHelper {
 
         // Call processing based on the service name
         if (queueRecord.getServiceName().equals(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME)) {
-            MCCIIN000002UV01 pdAck = processDeferredPatientDiscovery(queueRecord);
+            PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse = processDeferredPatientDiscovery(queueRecord);
 
-            if (pdAck != null &&
-                    pdAck.getAcknowledgement() != null &&
-                    pdAck.getAcknowledgement().size() > 0 &&
-                    pdAck.getAcknowledgement().get(0) != null &&
-                    pdAck.getAcknowledgement().get(0).getTypeCode() != null &&
-                    pdAck.getAcknowledgement().get(0).getTypeCode().getCode() != null &&
-                    pdAck.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ACCEPT)) {
+            if (pdResponse != null &&
+                    pdResponse.getSuccessOrFail() != null &&
+                    pdResponse.getSuccessOrFail().isSuccess()) {
                 result = true;
             }
 
@@ -330,15 +327,15 @@ public class DeferredQueueManagerHelper {
      * @return Deferred Patient Discovery Acknowledgment
      * @throws DeferredQueueException
      */
-    private MCCIIN000002UV01 processDeferredPatientDiscovery(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    private PatientDiscoveryDeferredReqQueueProcessResponseType processDeferredPatientDiscovery(AsyncMsgRecord queueRecord) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredPatientDiscovery method - processing deferred message.");
 
-        EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl processImpl = new EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl();
-        MCCIIN000002UV01 ack = processImpl.processPatientDiscoveryAsyncReqQueue(queueRecord.getMessageId());
+        PatientDiscoveryDeferredReqQueueClient reqClient = new PatientDiscoveryDeferredReqQueueClient();
+        PatientDiscoveryDeferredReqQueueProcessResponseType response = reqClient.processPatientDiscoveryDeferredReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredPatientDiscovery method - processing deferred message.");
 
-        return ack;
+        return response;
     }
 
     /**

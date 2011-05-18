@@ -6,7 +6,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue;
 
-import org.hl7.v3.MCCIIN000002UV01;
+import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessRequestType;
+import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -32,7 +33,7 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessImplTest {
     final EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl mockServiceImpl = context.mock(EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl.class);
 
     @Test
-    public void testProcessPatientDiscoveryAsyncReqQueueHappy() {
+    public void testProcessPatientDiscoveryDeferredReqQueueHappy() {
         try {
             EntityPatientDiscoveryDeferredReqQueueProcessImpl deferredProcessImpl = new EntityPatientDiscoveryDeferredReqQueueProcessImpl() {
                 @Override
@@ -42,16 +43,18 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    oneOf(mockServiceImpl).processPatientDiscoveryAsyncReqQueue(with(aNonNull(String.class)));
+                    oneOf(mockServiceImpl).processPatientDiscoveryDeferredReqQueue(with(aNonNull(String.class)));
                 }
             });
 
-            MCCIIN000002UV01 response = deferredProcessImpl.processPatientDiscoveryAsyncReqQueue("");
-            assertNotNull("processPatientDiscoveryAsyncReqQueue response was null", response);
+            PatientDiscoveryDeferredReqQueueProcessRequestType request = new PatientDiscoveryDeferredReqQueueProcessRequestType();
+            request.setMessageId("");
+            PatientDiscoveryDeferredReqQueueProcessResponseType response = deferredProcessImpl.processPatientDiscoveryDeferredReqQueue(request, null);
+            assertNotNull("processPatientDiscoveryDeferredReqQueue response was null", response);
         } catch (Throwable t) {
-            System.out.println("Error running testProcessPatientDiscoveryAsyncReqQueueHappy: " + t.getMessage());
+            System.out.println("Error running testProcessPatientDiscoveryDeferredReqQueueHappy: " + t.getMessage());
             t.printStackTrace();
-            fail("Error running testProcessPatientDiscoveryAsyncReqQueueHappy: " + t.getMessage());
+            fail("Error running testProcessPatientDiscoveryDeferredReqQueueHappy: " + t.getMessage());
         }
     }
 

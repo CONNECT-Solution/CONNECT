@@ -327,6 +327,7 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreq";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoveryasyncresp";
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
+    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME = "entitypatientdiscoverydeferredreqqueueprocess";
 
     // Patient Discovery Error Constants
     public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";

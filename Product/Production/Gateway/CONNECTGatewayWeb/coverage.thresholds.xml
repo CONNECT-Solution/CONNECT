@@ -400,14 +400,14 @@
               linecount="2"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcess"
-              linecount="8"
+              linecount="12"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcessImpl"
-              linecount="5"
+              linecount="13"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

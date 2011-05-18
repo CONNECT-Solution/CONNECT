@@ -8,6 +8,7 @@
         <servlet-name>EntityDocQuerySecured</servlet-name>
         <url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocQueryUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryUnsecured</servlet-class>
@@ -16,6 +17,7 @@
         <servlet-name>EntityDocQueryUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityDocQueryUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReqSecured</servlet-class>
@@ -24,6 +26,7 @@
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecureDd</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocQueryDeferredReq</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReq</servlet-class>
@@ -32,6 +35,7 @@
         <servlet-name>EntityDocQueryDeferredReq</servlet-name>
         <url-pattern>/EntityService/EntityDocQueryDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecured</servlet-class>
@@ -40,6 +44,7 @@
         <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocQueryDeferredResponseSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured</servlet-class>
@@ -53,11 +58,11 @@
         <servlet-name>EntityDocRetrieveSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>EntityDocRetrieveSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocRetrieve</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve</servlet-class>
@@ -66,6 +71,7 @@
         <servlet-name>EntityDocRetrieve</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieve</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>AdapterAuditQueryService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</servlet-class>
@@ -74,6 +80,7 @@
         <servlet-name>AdapterAuditQueryService</servlet-name>
         <url-pattern>/AdapterProxyService/AdapterAuditQuery</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityAuditLogQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</servlet-class>
@@ -82,6 +89,7 @@
         <servlet-name>EntityAuditLogQuery</servlet-name>
         <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityNotifySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifySecured</servlet-class>
@@ -90,6 +98,7 @@
         <servlet-name>EntityNotifySecured</servlet-name>
         <url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntitySubscribeSecuredService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeSecuredService</servlet-class>
@@ -98,6 +107,7 @@
         <servlet-name>EntitySubscribeSecuredService</servlet-name>
         <url-pattern>/EntityService/EntityNotificationProducerSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityUnsubscribeSecuredService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeSecuredService</servlet-class>
@@ -106,6 +116,7 @@
         <servlet-name>EntityUnsubscribeSecuredService</servlet-name>
         <url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>GatewaySubscriptionReferenceRepository</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionReferenceRepository</servlet-class>
@@ -114,6 +125,7 @@
         <servlet-name>GatewaySubscriptionReferenceRepository</servlet-name>
         <url-pattern>/GatewayInternalService/NhincComponentSubscriptionReferenceRepository</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>GatewaySubscriptionRepository</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionRepository</servlet-class>
@@ -122,6 +134,7 @@
         <servlet-name>GatewaySubscriptionRepository</servlet-name>
         <url-pattern>/GatewayInternalService/NhincComponentSubscriptionRepository</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subscription.repository.util.HiemSubscriptionRepositoryUtilService</servlet-class>
@@ -130,6 +143,7 @@
         <servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>
         <url-pattern>/GatewayInternalService/HiemSubscriptionRepositoryUtil</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>AdapterSubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</servlet-class>
@@ -138,6 +152,16 @@
         <servlet-name>AdapterSubjectDiscovery</servlet-name>
         <url-pattern>/AdapterProxyService/AdapterSubjectDiscovery</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoveryDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/EntityPatientDiscoveryDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityPatientDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoverySecured</servlet-class>
@@ -146,6 +170,7 @@
         <servlet-name>EntityPatientDiscoverySecured</servlet-name>
         <url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredReqQueueSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueSecured</servlet-class>
@@ -154,6 +179,7 @@
         <servlet-name>EntityPatientDiscoveryDeferredReqQueueSecured</servlet-name>
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredReqQueueUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueUnsecured</servlet-class>
@@ -171,6 +197,7 @@
         <servlet-name>EntityPatientDiscoveryDeferredResponseUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredResponseSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseSecured</servlet-class>
@@ -180,7 +207,6 @@
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredResponseSecured</url-pattern>
     </servlet-mapping>
 
-
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredRequestSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestSecured</servlet-class>
@@ -189,6 +215,7 @@
         <servlet-name>EntityPatientDiscoveryDeferredRequestSecured</servlet-name>
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredRequestSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredRequestUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestUnsecured</servlet-class>
@@ -197,6 +224,7 @@
         <servlet-name>EntityPatientDiscoveryDeferredRequestUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntitySubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured</servlet-class>
@@ -205,6 +233,7 @@
         <servlet-name>EntitySubjectDiscoverySecured</servlet-name>
         <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocSubmissionSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionSecured</servlet-class>
@@ -213,7 +242,8 @@
         <servlet-name>EntityDocSubmissionSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocSubmissionSecured</url-pattern>
     </servlet-mapping>
-	<servlet>
+
+    <servlet>
         <servlet-name>EntityDocSubmissionUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionUnsecured</servlet-class>
     </servlet>
@@ -221,6 +251,7 @@
         <servlet-name>EntityDocSubmissionUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityDocSubmissionUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured</servlet-class>
@@ -229,6 +260,7 @@
         <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredRequestUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured</servlet-class>
@@ -237,6 +269,7 @@
         <servlet-name>EntityDocSubmissionDeferredRequestUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredResponseSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured</servlet-class>
@@ -245,6 +278,7 @@
         <servlet-name>EntityDocSubmissionDeferredResponseSecured</servlet-name>
         <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredResponseUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured</servlet-class>
@@ -253,6 +287,7 @@
         <servlet-name>EntityDocSubmissionDeferredResponseUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>AuditRepository</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository</servlet-class>
@@ -261,6 +296,7 @@
         <servlet-name>AuditRepository</servlet-name>
         <url-pattern>/GatewayService/AuditRepositoryManagerSecuredService</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>AuditRepositoryUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured</servlet-class>
@@ -269,6 +305,7 @@
         <servlet-name>AuditRepositoryUnsecured</servlet-name>
         <url-pattern>/GatewayService/AuditRepositoryManagerService</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>PatientCorrelationServiceSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured</servlet-class>
@@ -277,6 +314,7 @@
         <servlet-name>PatientCorrelationServiceSecured</servlet-name>
         <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>PatientCorrelationServiceUnsecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured</servlet-class>
@@ -285,6 +323,7 @@
         <servlet-name>PatientCorrelationServiceUnsecured</servlet-name>
         <url-pattern>/GatewayService/PatientCorrelationServiceUnsecured</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>GatewayLiftManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.lift.GatewayLiftManager</servlet-class>
@@ -294,7 +333,8 @@
         <url-pattern>/GatewayService/GatewayLiftManager</url-pattern>
     </servlet-mapping>
     <!-- End: XDR Request and Response services-->
-	<!-- BEGIN: Document Retrieve Deferred Services -->
+
+    <!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
         <servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReq</servlet-class>
@@ -380,6 +420,10 @@
         <web-resource-collection>
             <web-resource-name>EntityUnsubscribeSecuredService</web-resource-name>
             <url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityPatientDiscoveryDeferredReqQueueProcess</web-resource-name>
+            <url-pattern>/EntityPatientDiscoveryDeferredReqQueueProcess</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityPatientDiscoverySecured</web-resource-name>

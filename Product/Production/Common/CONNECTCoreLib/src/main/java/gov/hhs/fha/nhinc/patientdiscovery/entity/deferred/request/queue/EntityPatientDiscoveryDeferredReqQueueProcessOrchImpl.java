@@ -38,11 +38,11 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
     }
 
     /**
-     * processPatientDiscoveryAsyncReqQueue Orchestration method for processing request queues on reponding gateway
+     * processPatientDiscoveryDeferredReqQueue Orchestration method for processing request queues on reponding gateway
      * @param messageId
      * @return org.hl7.v3.MCCIIN000002UV01
      */
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqQueue(String messageId) {
+    public MCCIIN000002UV01 processPatientDiscoveryDeferredReqQueue(String messageId) {
         log.info("Begin EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl.processPatientDiscoveryAsyncReq()....");
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         try {

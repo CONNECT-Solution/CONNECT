@@ -121,12 +121,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
-            <web-module-additional-libraries>
-                <library>
-                    <file>${libs.exceptionhandler-runtime.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-            </web-module-additional-libraries>
+            <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>

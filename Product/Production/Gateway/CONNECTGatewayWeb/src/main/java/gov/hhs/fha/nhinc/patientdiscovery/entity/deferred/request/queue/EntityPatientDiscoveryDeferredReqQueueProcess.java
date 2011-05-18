@@ -6,32 +6,29 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
+import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessRequestType;
+import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
+import javax.annotation.Resource;
 import javax.jws.WebService;
-import org.hl7.v3.MCCIIN000002UV01;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
-@WebService(serviceName = "EntityPatientDiscoveryAsyncReqQueueProcess")
+@WebService(serviceName = "EntityPatientDiscoveryDeferredReqQueueProcess", portName = "EntityPatientDiscoveryDeferredReqQueueProcessPort", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoveryreqqueueprocess.EntityPatientDiscoveryDeferredReqQueueProcessPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoveryreqqueueprocess", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredReqQueueProcess/EntityPatientDiscoveryDeferredReqQueueProcess.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled=true)
 public class EntityPatientDiscoveryDeferredReqQueueProcess {
 
-    protected EntityPatientDiscoveryDeferredReqQueueProcessImpl getEntityPatientDiscoveryDeferredReqQueueProcessImpl() {
-        return new EntityPatientDiscoveryDeferredReqQueueProcessImpl();
-    }
+    @Resource
+    private WebServiceContext context;
 
     /**
-     * processPatientDiscoveryAsyncReqQueue WebMethod for processing request queues on reponding gateway
-     * @param messageId
-     * @return
+     * processPatientDiscoveryDeferredReqQueue WebMethod for processing request queues on reponding gateway
+     * @param request
+     * @return response
      */
-    @WebMethod(operationName = "processPatientDiscoveryAsyncReqQueue")
-    public String processPatientDiscoveryAsyncReqQueue(@WebParam(name = "messageId") String messageId) {
-        String result = "Failed";
-        MCCIIN000002UV01 mCCIIN000002UV01 = new MCCIIN000002UV01();
-        EntityPatientDiscoveryDeferredReqQueueProcessImpl entityPatientDiscoveryDeferredReqQueueProcessImpl = getEntityPatientDiscoveryDeferredReqQueueProcessImpl();
-        mCCIIN000002UV01 = entityPatientDiscoveryDeferredReqQueueProcessImpl.processPatientDiscoveryAsyncReqQueue(messageId);
-        if (mCCIIN000002UV01 != null) {
-            result = "Success";
-        }
-        return result;
+    public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(PatientDiscoveryDeferredReqQueueProcessRequestType request) {
+        return new EntityPatientDiscoveryDeferredReqQueueProcessImpl().processPatientDiscoveryDeferredReqQueue(request, context);
     }
+
 }
