@@ -30,6 +30,7 @@ public class AdapterPDPConstants {
     public static final String ATTRIBUTE_DESIGNATOR_DATATYPE_STRING = "http://www.w3.org/2001/XMLSchema#string";
     public static final String ATTRIBUTE_DESIGNATOR_DATATYPE_ANYURI = "http://www.w3.org/2001/XMLSchema#anyURI";
     public static final String REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
+    public static final String REQUEST_CONTEXT_ATTRIBUTE_AA_ID = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
     public static final String POLICY_RESULT_STATUS_CODE_OK = "urn:oasis:names:tc:xacml:1.0:status:ok";
     public static final String POLICY_RESULT_STATUS_CODE_MISSING_ATTRIBUTE = "urn:oasis:names:tc:xacml:1.0:status:missing-attribute";
     public static final String POLICY_RESULT_STATUS_CODE_SYNTAX_ERROR = "urn:oasis:names:tc:xacml:1.0:status:syntax-error";

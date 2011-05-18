@@ -3545,7 +3545,7 @@
               linecount="77"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.AssigningAuthorityHomeCommunityMappingHelper"
               linecount="22"
               linerate="80"
@@ -4420,9 +4420,9 @@
               linecount="0"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="126" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="144" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyJavaImpl"
-              linecount="287"
+              linecount="324"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

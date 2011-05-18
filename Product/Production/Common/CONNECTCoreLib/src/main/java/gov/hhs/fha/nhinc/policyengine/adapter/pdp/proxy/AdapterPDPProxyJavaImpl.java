@@ -71,7 +71,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         Policy policy = new Policy();
         try {
             DocumentQueryParams params = new DocumentQueryParams();
-            String patientId = getResourceIdFromPdpRequest(pdpRequest);
+            //String patientId = getResourceIdFromPdpRequest(pdpRequest);
+            String patientId = getUniquePatientIdFromPdpRequest(pdpRequest);
             log.debug("patientid:" + patientId);
             params.setPatientId(patientId);
             List<String> classCodeValues = new ArrayList<String>();
@@ -173,6 +174,58 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         }
         log.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
         return attrValue;
+    }
+
+    public String getUniquePatientIdFromPdpRequest(Request pdpRequest) {
+        log.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
+        List<Resource> resources = new ArrayList<Resource>();
+        resources = (List<Resource>) pdpRequest.getResources();
+        String resourceId = "";
+        String aaId = "";
+        if (resources != null) {
+            log.debug("Resources list size:" + resources.size());
+            for (Resource resource : resources) {
+                List<Attribute> attributes = new ArrayList<Attribute>();
+                attributes = (List<Attribute>) resource.getAttributes();
+                log.debug("Attributes list size:" + attributes.size());
+                for (Attribute attribute : attributes) {
+                    String attrId = "";
+                    String attrDataType = "";
+                    if (attribute.getAttributeId() != null) {
+                        attrId = attribute.getAttributeId().toString();
+                        log.debug("AttributeId: " + attrId);
+                    } else {
+                        log.debug("AttributeId not found in the Attribute");
+                    }
+                    if (attribute.getDataType() != null) {
+                        attrDataType = attribute.getDataType().toString();
+                        log.debug("Attribute DataType : " + attrDataType);
+                    } else {
+                        log.debug("DataType not found in the Attribute");
+                    }
+                    if ((attrId.trim().equals(AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID)) &&
+                            attrDataType.trim().equals(AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING)) {
+                        Element sidElement = (Element) attribute.getAttributeValues().get(0);
+                        resourceId = XMLUtils.getElementValue(sidElement);
+                        log.debug("getUniquePatientIdFromPdpRequest - resourceId: " + resourceId);
+                    }
+                    if ((attrId.trim().equals(AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_AA_ID)) &&
+                            attrDataType.trim().equals(AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING)) {
+                        Element sidElement = (Element) attribute.getAttributeValues().get(0);
+                        aaId = XMLUtils.getElementValue(sidElement);
+                        log.debug("getUniquePatientIdFromPdpRequest - aaId: " + aaId);
+                    }
+                }
+            }
+        } else {
+            log.info("No resources found in the Request context");
+        }
+
+        String uniquePatientId = (resourceId + "^^^&" + aaId + "&ISO");
+        log.debug("getUniquePatientIdFromPdpRequest - uniquePatientId: " + uniquePatientId);
+
+        log.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
+        return uniquePatientId;
     }
 
     private EffectType evaluatePolicy(Request pdpRequest, Policy policy) {
