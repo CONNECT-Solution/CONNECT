@@ -42,7 +42,7 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
     }
 
     public static List<String> lookupAssigningAuthorities(List<String> homeCommunityIds) {
-        List<String> fullListOfAssigningAuthorities=null;
+        List<String> fullListOfAssigningAuthorities = null;
         if (NullChecker.isNotNullish(homeCommunityIds)) {
             log.info("converting homeCommunityIds [count=" + homeCommunityIds.size() + "] to assigning authorities");
             fullListOfAssigningAuthorities = new ArrayList<String>();
@@ -62,7 +62,14 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
         if (a == null) {
             a = new ArrayList<String>();
         }
-        a.addAll(b);
+
+        if ((b != null) &&
+                (b.size() > 0)) {
+            a.addAll(b);
+        } else {
+            log.debug("combineLists - Assignin authorities not found for the home community");
+        }
+
         return a;
     }
 }
