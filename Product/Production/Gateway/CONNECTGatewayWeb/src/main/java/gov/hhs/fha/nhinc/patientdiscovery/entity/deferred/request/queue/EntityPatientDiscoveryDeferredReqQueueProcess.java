@@ -12,11 +12,9 @@ import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
 
 @WebService(serviceName = "EntityPatientDiscoveryDeferredReqQueueProcess", portName = "EntityPatientDiscoveryDeferredReqQueueProcessPort", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoveryreqqueueprocess.EntityPatientDiscoveryDeferredReqQueueProcessPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoveryreqqueueprocess", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredReqQueueProcess/EntityPatientDiscoveryDeferredReqQueueProcess.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
 public class EntityPatientDiscoveryDeferredReqQueueProcess {
 
     @Resource
