@@ -31,6 +31,7 @@ public class AdapterPDPConstants {
     public static final String ATTRIBUTE_DESIGNATOR_DATATYPE_ANYURI = "http://www.w3.org/2001/XMLSchema#anyURI";
     public static final String REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
     public static final String REQUEST_CONTEXT_ATTRIBUTE_AA_ID = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
+    public static final String REQUEST_CONTEXT_ATTRIBUTE_SERVICE_TYPE = "urn:gov:hhs:fha:nhinc:service-type";
     public static final String POLICY_RESULT_STATUS_CODE_OK = "urn:oasis:names:tc:xacml:1.0:status:ok";
     public static final String POLICY_RESULT_STATUS_CODE_MISSING_ATTRIBUTE = "urn:oasis:names:tc:xacml:1.0:status:missing-attribute";
     public static final String POLICY_RESULT_STATUS_CODE_SYNTAX_ERROR = "urn:oasis:names:tc:xacml:1.0:status:syntax-error";
@@ -39,4 +40,11 @@ public class AdapterPDPConstants {
     public static final String POLICY_RESULT_STATUS_MESSAGE_MISSING_ATTRIBUTE = "Attributes necessary to make a policy decision were not available or incomplete";
     public static final String POLICY_RESULT_STATUS_MESSAGE_SYNTAX_ERROR = "Attribute value contained a syntax error";
     public static final String POLICY_RESULT_STATUS_MESSAGE_PROCESSING_ERROR = "Error occurred during policy evaluation";
+    public static final String REQUEST_ACTION_PATIENT_DISCOVERY_OUT = "PatientDiscoveryOut";
+    public static final String REQUEST_ACTION_PATIENT_DISCOVERY_IN = "PatientDiscoveryIn";
+    public static final String REQUEST_ACTION_DOCUMENT_QUERY_OUT = "DocumentQueryOut";
+    public static final String REQUEST_ACTION_DOCUMENT_QUERY_IN = "DocumentQueryIn";
+    public static final String REQUEST_ACTION_DOCUMENT_RETRIEVE_OUT = "DocumentRetrieveOut";
+    public static final String REQUEST_ACTION_DOCUMENT_RETRIEVE_IN = "DocumentRetrieveIn";
+
 }

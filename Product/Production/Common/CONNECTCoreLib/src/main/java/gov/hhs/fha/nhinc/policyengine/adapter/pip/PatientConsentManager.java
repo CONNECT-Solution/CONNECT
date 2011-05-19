@@ -447,6 +447,7 @@ public class PatientConsentManager {
      */
     private String retrievePtIdFromDocumentId(String sDocumentUniqueId, String sRepositoryId)
             throws AdapterPIPException {
+        log.debug("Begin PatientConsentManager.retrievePtIdFromDocumentId()..");
         String sPatientId = "";
 
         DocumentRegistryPortType oDocRegistryPort = getDocumentRegistryPort();
@@ -459,6 +460,8 @@ public class PatientConsentManager {
 
         sPatientId =
                 new QueryUtil().extractPatientId(oResponse);
+
+        log.debug("retrievePtIdFromDocumentId() - PatientId:" + sPatientId);
 
         return sPatientId;
     }

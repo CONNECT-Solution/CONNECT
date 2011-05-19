@@ -103,6 +103,7 @@ public class AdapterPIPImpl {
      */
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
             throws AdapterPIPException {
+        log.debug("Begin AdapterPIPImpl.retrievePtIdFromDocumentId()..");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
         String sHomeCommunityId = "";
@@ -132,6 +133,7 @@ public class AdapterPIPImpl {
             oResponse.setPatientPreferences(oPtPref);
         }
 
+        log.debug("End AdapterPIPImpl.retrievePtIdFromDocumentId()..");
         return oResponse;
     }
 

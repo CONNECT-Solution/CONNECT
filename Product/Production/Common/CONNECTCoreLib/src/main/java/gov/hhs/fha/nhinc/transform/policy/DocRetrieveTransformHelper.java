@@ -8,7 +8,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -20,15 +19,19 @@ import java.util.List;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author svalluripalli
  */
 public class DocRetrieveTransformHelper {
+
+    private static Log log = LogFactory.getLog(DocRetrieveTransformHelper.class);
     private static final String ActionInValue = "DocumentRetrieveIn";
     private static final String ActionOutValue = "DocumentRetrieveOut";
-    
+
     public static CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         //TODO: Need to handle DocumentSet
@@ -44,15 +47,13 @@ public class DocRetrieveTransformHelper {
 
 
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity() ,  event.getMessage().getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
         DocRetrieveMessageType docMessage = event.getMessage();
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = docMessage.getRetrieveDocumentSetRequest();
         List<DocumentRequest> docRequestList = retrieveDocumentSetRequest.getDocumentRequest();
-        if(docRequestList != null && docRequestList.size() > 0)
-        {
-            for(DocumentRequest docReq : docRequestList)
-            {
+        if (docRequestList != null && docRequestList.size() > 0) {
+            for (DocumentRequest docReq : docRequestList) {
                 request.getResource().add(getResource(docReq));
             }
         }
@@ -65,12 +66,14 @@ public class DocRetrieveTransformHelper {
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
-    
-    private static ResourceType getResource(DocumentRequest documentRequest)
-    {
+
+    private static ResourceType getResource(DocumentRequest documentRequest) {
         String homeCommunityId = documentRequest.getHomeCommunityId();
         String repositoryUniqueId = documentRequest.getRepositoryUniqueId();
         String documentId = documentRequest.getDocumentUniqueId();
+        log.debug("getResource - homeCommunityId: " + homeCommunityId);
+        log.debug("getResource - repositoryUniqueId: " + repositoryUniqueId);
+        log.debug("getResource - documentId: " + documentId);
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
         resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, homeCommunityId));

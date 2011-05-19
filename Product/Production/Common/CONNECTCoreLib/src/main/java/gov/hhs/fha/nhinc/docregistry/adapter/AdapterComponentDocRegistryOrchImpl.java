@@ -152,7 +152,8 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
-        //getLogger().debug("Begin DocumentRegistryHelper.documentRegistryRegistryStoredQuery(...)");
+        log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
+
         oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
 
@@ -219,9 +220,16 @@ public class AdapterComponentDocRegistryOrchImpl {
         DocumentService service = getDocumentService();
         List<Document> docs = service.documentQuery(params);
 
+        if(docs != null){
+            log.debug("registryStoredQuery- docs.size: " + docs.size());
+        }else{
+            log.debug("registryStoredQuery- docs.size: is null");
+        }
+
         // Create response
         loadResponseMessage(response, docs);
-        //getLogger().debug("End DocumentRegistryHelper.documentRegistryRegistryStoredQuery(...)");
+
+        log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         return response;
     }
 

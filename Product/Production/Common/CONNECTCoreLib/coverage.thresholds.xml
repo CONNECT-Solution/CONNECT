@@ -1150,9 +1150,9 @@
               linecount="45"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="232" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="234" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl"
-              linecount="454"
+              linecount="460"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4170,9 +4170,9 @@
               linecount="3"
               linerate="80"
               linesexecuted="0.02"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0.01"
+   <threshold branchcount="16" branchrate="80" branchsexecuted="0.01"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyWebServiceSecuredImpl"
-              linecount="38"
+              linecount="48"
               linerate="80"
               linesexecuted="0.11"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4420,9 +4420,9 @@
               linecount="0"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="144" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="164" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyJavaImpl"
-              linecount="324"
+              linecount="358"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4510,9 +4510,9 @@
               linecount="8"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="168" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="170" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPImpl"
-              linecount="389"
+              linecount="422"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -5227,7 +5227,7 @@
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.transform.policy.DocRetrieveTransformHelper"
-              linecount="32"
+              linecount="36"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
