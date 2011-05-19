@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.util;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
@@ -63,9 +64,9 @@ public class HomeCommunityMap {
     }
 
     /**
-     * This method retrieves the first home community id from the targe home
+     * This method retrieves the first home community id from the target home
      * communities list.
-     * @param request
+     * @param target
      * @return The home community OID string
      */
     public static String getCommunityIdFromTargetCommunities(NhinTargetCommunitiesType target) {
@@ -74,6 +75,22 @@ public class HomeCommunityMap {
                 NullChecker.isNotNullish(target.getNhinTargetCommunity()) &&
                 target.getNhinTargetCommunity().get(0) != null) {
             responseCommunityId = target.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId();
+        }
+        log.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
+        return formatHomeCommunityId(responseCommunityId);
+    }
+
+    /**
+     * This method retrieves the home community id from the target home system.
+     * @param target
+     * @return The home community OID string
+     */
+    public static String getCommunityIdFromTargetSystem(NhinTargetSystemType target) {
+        String responseCommunityId = null;
+        if (target != null &&
+                target.getHomeCommunity() != null &&
+                target.getHomeCommunity().getHomeCommunityId() != null) {
+            responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         }
         log.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
         return formatHomeCommunityId(responseCommunityId);

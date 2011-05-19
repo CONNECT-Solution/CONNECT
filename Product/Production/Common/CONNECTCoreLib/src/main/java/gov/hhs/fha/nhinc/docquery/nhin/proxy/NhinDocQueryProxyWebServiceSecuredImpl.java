@@ -10,8 +10,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
+import java.sql.Timestamp;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -108,7 +111,17 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             } else if (port == null) {
                 log.error("port was null");
             } else {
+
+                // Log the start of the performance record
+                String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
+                Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
+
                 response = (AdhocQueryResponse) oProxyHelper.invokePort(port, RespondingGatewayQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
+
+                // Log the end of the performance record
+                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);

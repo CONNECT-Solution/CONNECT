@@ -18,19 +18,17 @@ import javax.xml.ws.soap.Addressing;
  */
 @WebService(serviceName = "EntityDocRetrieveSecured", portName = "EntityDocRetrieveSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocretrievesecured", wsdlLocation = "WEB-INF/wsdl/EntityDocRetrieveSecured/EntityDocRetrieveSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class EntityDocRetrieveSecured
-{
+@Addressing(enabled = true)
+public class EntityDocRetrieveSecured {
+
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body)
-    {
-        //return new EntityDocRetrieveSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
-        return getImpl().respondingGatewayCrossGatewayQuery(body, context);
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+        return getImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
-    protected EntityDocRetreiveImpl getImpl()
-    {
+
+    protected EntityDocRetreiveImpl getImpl() {
         return new EntityDocRetreiveImpl();
     }
 }

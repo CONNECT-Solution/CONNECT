@@ -112,7 +112,7 @@
               linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryImpl"
-              linecount="36"
+              linecount="41"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
@@ -172,7 +172,7 @@
               linesexecuted="0"/>              
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetreiveImpl"
-              linecount="14"
+              linecount="20"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

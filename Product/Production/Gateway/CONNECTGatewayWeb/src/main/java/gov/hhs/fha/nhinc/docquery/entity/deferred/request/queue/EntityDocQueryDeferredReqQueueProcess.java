@@ -32,5 +32,4 @@ public class EntityDocQueryDeferredReqQueueProcess {
     public DocQueryDeferredReqQueueProcessResponseType processDocQueryDeferredReqQueue(DocQueryDeferredReqQueueProcessRequestType request) {
         return new EntityDocQueryDeferredReqQueueProcessImpl().processDocQueryDeferredReqQueue(request, context);
     }
-
 }

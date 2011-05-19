@@ -4,19 +4,17 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
+import java.sql.Timestamp;
 import javax.xml.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,8 +40,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     /**
      * Default constructor.
      */
-    public NhinPatientDiscoveryProxyWebServiceSecuredImpl()
-    {
+    public NhinPatientDiscoveryProxyWebServiceSecuredImpl() {
         log = createLogger();
     }
 
@@ -52,8 +49,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
      *
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -61,33 +57,34 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
-        try
-        {
-            if (request != null)
-            {
+        try {
+            if (request != null) {
                 log.debug("Before target system URL look up.");
                 url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
 
-                if (NullChecker.isNotNullish(url))
-                {
+                if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+
+                    // Log the start of the performance record
+                    String targetCommunityId = target.getHomeCommunity().getHomeCommunityId();
+                    Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
+
                     response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class, "respondingGatewayPRPAIN201305UV02", request);
-                }
-                else
-                {
+
+                    // Log the end of the performance record
+                    Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
+                } else {
                     log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The URL is null.");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameter is null.");
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
-                      "Exception: " + e.getMessage(), e);
+                    "Exception: " + e.getMessage(), e);
             response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
 
@@ -99,16 +96,11 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
      *
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -124,22 +116,17 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected RespondingGatewayPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
         RespondingGatewayPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayPortType.class);
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-        }
-        else
-        {
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
     }
-
 }

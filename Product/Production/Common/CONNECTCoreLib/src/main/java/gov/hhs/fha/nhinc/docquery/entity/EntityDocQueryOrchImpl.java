@@ -70,8 +70,8 @@ public class EntityDocQueryOrchImpl {
         RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
         request.setNhinTargetCommunities(targets);
-        String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
-        auditDocQueryRequest(request, assertion, auditLog, targetHomeCommunityId);
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        auditDocQueryRequest(request, assertion, auditLog, homeCommunityId);
 
         try {
             DocQueryAggregator aggregator = createDocQueryAggregator();
@@ -98,7 +98,7 @@ public class EntityDocQueryOrchImpl {
                 String uniquePatientId = new EntityDocQueryHelper().getUniquePatientId(slotList);
                 log.debug("respondingGatewayCrossGatewayQuery EntityDocQueryHelper uniquePatientId: " + uniquePatientId);
 
-                List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
+                List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, homeCommunityId);
 
                 // Make sure the valid results back
                 if (NullChecker.isNotNullish(correlationsResult)) {
@@ -127,7 +127,7 @@ public class EntityDocQueryOrchImpl {
             log.error("Error occured processing doc query on entity interface: " + t.getMessage(), t);
             response = createErrorResponse("Fault encountered processing internal document query");
         }
-        auditDocQueryResponse(response, assertion, auditLog, targetHomeCommunityId);
+        auditDocQueryResponse(response, assertion, auditLog, homeCommunityId);
         log.debug("Exiting EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
@@ -205,7 +205,7 @@ public class EntityDocQueryOrchImpl {
             if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus)) {
                 response = aggResultsResponse.getAdhocQueryResponse();
             } else if (DocumentConstants.FAIL_TEXT.equals(retrieveStatus)) {
-                log.error("Document query aggregator reports failurt - returning error");
+                log.error("Document query aggregator reports failure - returning error");
                 response = createErrorResponse("Processing internal document query");
             } else {
                 retrieveTimedOut = retrieveTimedOut(startTime);

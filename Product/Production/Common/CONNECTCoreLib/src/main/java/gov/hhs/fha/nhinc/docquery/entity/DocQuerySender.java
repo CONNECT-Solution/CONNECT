@@ -115,7 +115,7 @@ public class DocQuerySender {
             try {
                 // Audit the Document Query Request Message sent on the Nhin Interface
                 DocQueryAuditLog auditLog = new DocQueryAuditLog();
-                AcknowledgementType ack = auditLog.auditDQRequest(adhocQueryRequest, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                AcknowledgementType ack = auditLog.auditDQRequest(adhocQueryRequest, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, sTargetHomeCommunityId);
                 log.debug("Creating NhinDocQueryProxy");
                 PassthruDocQueryProxyObjectFactory docQueryFactory = new PassthruDocQueryProxyObjectFactory();
                 PassthruDocQueryProxy proxy = docQueryFactory.getPassthruDocQueryProxy();
@@ -128,6 +128,9 @@ public class DocQuerySender {
 
                 log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
                 queryResults = proxy.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(), request.getNhinTargetSystem());
+
+                // Audit the Document Query Response Message received on the Nhin Interface
+                ack = auditLog.auditDQResponse(queryResults, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, sTargetHomeCommunityId);
             } catch (Throwable t) {
                 queryResults = new AdhocQueryResponse();
                 RegistryErrorList regErrList = new RegistryErrorList();

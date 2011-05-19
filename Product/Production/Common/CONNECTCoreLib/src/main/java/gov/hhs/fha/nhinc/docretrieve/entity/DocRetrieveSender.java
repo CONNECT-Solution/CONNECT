@@ -71,11 +71,6 @@ public class DocRetrieveSender {
             // Call NHIN proxy
             RetrieveDocumentSetResponseType nhinResponse = null;
             try {
-                // Audit request message : TODO : DOn,t need Audit logging here .
-                /**
-                DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
-                auditLog.auditDocRetrieveRequest(request.getRetrieveDocumentSetRequest(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
-                 **/
                 PassthruDocRetrieveProxy docRetrieveProxy = getDocRetreiveProxy();
 
                 RetrieveDocumentSetRequestType body = null;
