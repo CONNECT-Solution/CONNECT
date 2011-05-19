@@ -165,9 +165,9 @@
               linecount="8"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcessImpl"
-              linecount="6"
+              linecount="13"
               linerate="80"
               linesexecuted="0"/>              
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
@@ -205,9 +205,9 @@
               linecount="8"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcessImpl"
-              linecount="6"
+              linecount="13"
               linerate="80"
               linesexecuted="0"/>           
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

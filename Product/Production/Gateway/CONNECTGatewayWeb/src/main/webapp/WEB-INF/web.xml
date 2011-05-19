@@ -19,12 +19,21 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EntityDocQueryDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocQueryDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/EntityDocQueryDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReqSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecureDd</url-pattern>
+        <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecured</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -345,6 +354,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EntityDocRetrieveDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieveDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/EntityDocRetrieveDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
     </servlet>
@@ -420,10 +438,6 @@
         <web-resource-collection>
             <web-resource-name>EntityUnsubscribeSecuredService</web-resource-name>
             <url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityPatientDiscoveryDeferredReqQueueProcess</web-resource-name>
-            <url-pattern>/EntityPatientDiscoveryDeferredReqQueueProcess</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityPatientDiscoverySecured</web-resource-name>

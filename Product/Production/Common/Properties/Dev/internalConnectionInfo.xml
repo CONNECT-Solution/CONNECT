@@ -847,8 +847,18 @@
             </service>
             <service>
                 <name>entitypatientdiscoverydeferredreqqueueprocess</name>
-                <description>Entity Patient Discovery Async Request Queue Process</description>
+                <description>Entity Patient Discovery Deferred Request Queue Process</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerydeferredreqqueueprocess</name>
+                <description>Entity Query For Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocQueryDeferredReqQueueProcess</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievedeferredreqqueueprocess</name>
+                <description>Entity Retrieve Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
@@ -1755,8 +1765,18 @@
             </service>
             <service>
                 <name>entitypatientdiscoverydeferredreqqueueprocess</name>
-                <description>Entity Patient Discovery Async Request Queue Process</description>
+                <description>Entity Patient Discovery Deferred Request Queue Process</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerydeferredreqqueueprocess</name>
+                <description>Entity Query For Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocQueryDeferredReqQueueProcess</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievedeferredreqqueueprocess</name>
+                <description>Entity Retrieve Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
@@ -1912,6 +1932,11 @@
                 <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
+                <name>nhincproxyxdr</name>
+                <description>NHINC PROXY XDR</description>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxyxdrrequestsecured</name>
                 <description>NHIN Proxy XDR Request Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
@@ -2009,12 +2034,32 @@
             <service>
                 <name>adaptercomponentdocretrievedeferredrequest</name>
                 <description>Adapter Component Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveReqService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentdocretrievedeferredresponse</name>
                 <description>Adapter Component Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveRespService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveDeferredResponseUnsecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrsecured</name>
+                <description>Adapter Component XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocSubmissionSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdr</name>
+                <description>Adapter Component XDR </description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocSubmissionUnsecured</endpointURL>
+            </service>
+            <service>
+                <name>adaptercomponentxdrsecured</name>
+                <description>Adapter Component XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentDocSubmissionSecured</endpointURL>
+            </service>
+            <service>
+                <name>adaptercomponentxdr</name>
+                <description>Adapter Component XDR </description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrsecured</name>
@@ -2059,7 +2104,7 @@
             <service>
                 <name>policyengineservicesecured</name>
                 <description>Policy Engine Service Secured</description>
-                <endpointURL>https://localhost:8181/AdapterService/AdapterPolicyEngineSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPolicyEngineSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrieve</name>
@@ -2079,7 +2124,7 @@
             <service>
                 <name>adaptersubjectdiscoverysecured</name>
                 <description>Adapter Subject Discovery Secured</description>
-                <endpointURL>https://localhost:8181/AdapterService/AdapterSubjectDiscoverySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterSubjectDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquery</name>
@@ -2089,7 +2134,7 @@
             <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>https://localhost:8181/AdapterService/AdapterDocQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>
@@ -2099,32 +2144,32 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://localhost:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
             </service>
             <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterMpiService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterMpiService</endpointURL>
             </service>
             <service>
                 <name>mpisecured</name>
                 <description>Master Patient Index</description>
-                <endpointURL>https://localhost:8181/AdapterService/AdapterMpiSecuredService</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpiservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterComponentMpiService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentMpiService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpisecuredservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>https://localhost:8181/AdapterService/AdapterComponentMpiSecuredService</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterReidentification</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterReidentification</endpointURL>
             </service>
             <service>
                 <name>adapternotificationproducersecured</name>
@@ -2164,31 +2209,31 @@
             <service>
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://localhost:8080/AdapterService/DocumentRepository_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
                 <!--                <endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
-                <!--                <endpointURL>http://localhost:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>      -->
+                <!--                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRepository2Soap12Service</endpointURL>      -->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://localhost:8080/AdapterService/DocumentRegistry_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL>
                 <!--                <endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
                 <!--                <endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>           -->
             </service>
             <service>
                 <name>adapterpip</name>
                 <description>adapterpip</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterPIP</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPIP</endpointURL>
             </service>
             <service>
                 <name>adapterpep</name>
                 <description>adapterpep</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterPEP</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPEP</endpointURL>
             </service>
             <service>
                 <name>adapterpolicyengineorchestrator</name>
                 <description>adapterpolicyengineorchestrator</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterPolicyEngineOrchestrator</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPolicyEngineOrchestrator</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>
@@ -2198,12 +2243,12 @@
             <service>
                 <name>nhincproxysubjectdiscovery</name>
                 <description>NHINC Proxy Subject Discovery</description>
-                <endpointURL>http://localhost:8080/AdapterService/NhincProxySubjectDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://localhost:8080/AdapterService/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
@@ -2238,12 +2283,12 @@
             <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
-                <endpointURL>http://localhost:8080/AdapterService/AdapterAuthentication</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAuthentication</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://localhost:8080/AdapterService/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -2258,7 +2303,7 @@
             <service>
                 <name>entityauditqueryproxy</name>
                 <description>Entity Audit Query Proxy</description>
-                <endpointURL>http://localhost:8080/AdapterService/EntityAuditQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</endpointURL>
             </service>
             <service>
                 <name>entityauditquerysecured</name>
@@ -2268,7 +2313,7 @@
             <service>
                 <name>nhincproxyauditquery</name>
                 <description>NHINC Proxy Audit Query</description>
-                <endpointURL>http://localhost:8080/AdapterService/NhincProxyAuditQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecured</name>
@@ -2288,7 +2333,7 @@
             <service>
                 <name>entitypatientdiscoveryasyncreqqueue</name>
                 <description>Entity Patient Discovery Async Req Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecuredasyncreq</name>
@@ -2313,7 +2358,7 @@
             <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
-                <endpointURL>http://localhost:8080/AdapterService/NhincProxyPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoveryasyncreq</name>
@@ -2324,6 +2369,16 @@
                 <name>nhincproxypatientdiscoveryasyncresp</name>
                 <description>NHINC Proxy Patient Discovery Async Response</description>
                 <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumer</name>
+                <description>Adapter HIEM Notify</description>
+                <endpointURL>http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumerpassthrough</name>
+                <description>Adapter HIEM Notify PassThrough</description>
+                <endpointURL>http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
             </service>
             <!-- Start: XDR Request and Response service definitions-->
             <!-- XDR Request -->
@@ -2405,6 +2460,56 @@
             </service>
             <!--End: XDR Request and Response service definitions -->
             <service>
+                <name>adapterpatientdiscovery</name>
+                <description>Adapter Patient Discovery</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecured</name>
+                <description>Adapter Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoveryasyncreq</name>
+                <description>Adapter Patient Discovery Async Request</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestUnsecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreq</name>
+                <description>Adapter Patient Discovery Async Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoveryasyncresp</name>
+                <description>Adapter Patient Discovery Async Response</description>
+                <endpointURL>http://localhost:8080/CCONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncresp</name>
+                <description>Adapter Patient Discovery Async Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoveryasyncreqqueue</name>
+                <description>Adapter Patient Discovery Async Request Queue</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreqqueue</name>
+                <description>Adapter Patient Discovery Async Request Queue Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqQueueSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoveryasyncreqerror</name>
+                <description>Adapter Patient Discovery Async Request Error</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecuredasyncreqerror</name>
+                <description>Adapter Patient Discovery Async Request Error Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorSecured</endpointURL>
+            </service>
+            <service>
                 <name>adapterredactionengine</name>
                 <description>Adapter component redaction engine</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</endpointURL>
@@ -2468,12 +2573,12 @@
             <service>
                 <name>adaptercomponentdocretrievedeferredrequest</name>
                 <description>Adapter Component Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveReqService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentdocretrievedeferredresponse</name>
                 <description>Adapter Component Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveRespService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveDeferredResponseUnsecured</endpointURL>
             </service>
             <!-- End Doc Retrieve deferred service end points -->
             <service>
@@ -2557,9 +2662,39 @@
                 <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
             </service>
             <service>
+                <name>adapteradmindistsecured</name>
+                <description>Administrative Distribution Service</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAdministrativeDistributionSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapteradmindist</name>
+                <description>Administrative Distribution Service</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAdministrativeDistribution</endpointURL>
+            </service>
+            <service>
+                <name>nhincadmindistsecured</name>
+                <description>Administrative Distribution Service</description>
+                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincadmindist</name>
+                <description>Administrative Distribution Service</description>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
+            </service>
+            <service>
                 <name>entitypatientdiscoverydeferredreqqueueprocess</name>
-                <description>Entity Patient Discovery Async Request Queue Process</description>
+                <description>Entity Patient Discovery Deferred Request Queue Process</description>
                 <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerydeferredreqqueueprocess</name>
+                <description>Entity Query For Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocQueryDeferredReqQueueProcess</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievedeferredreqqueueprocess</name>
+                <description>Entity Retrieve Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>

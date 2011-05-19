@@ -242,6 +242,7 @@ public class NhincConstants {
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "entitydocquerydeferredrequestsecured";
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "entitydocquerydeferredresponse";
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "entitydocquerydeferredresponsesecured";
+    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "entitydocquerydeferredreqqueueprocess";
 
     public static final String DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
@@ -266,6 +267,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
+    public static final String ENTITY_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "entitydocretrievedeferredreqqueueprocess";
 
     public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
