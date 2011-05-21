@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
@@ -58,7 +58,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         try {
-            if (request != null) {
+            if (request != null && target != null) {
                 log.debug("Before target system URL look up.");
                 url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
@@ -67,32 +67,27 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
                     // Log the start of the performance record
-                    String targetCommunityId = null;
+                    String targetCommunityId = "";
 
                     if ((target != null) &&
                             (target.getHomeCommunity() != null)) {
                         targetCommunityId = target.getHomeCommunity().getHomeCommunityId();
                     }
 
-                    //String targetCommunityId = target.getHomeCommunity().getHomeCommunityId();
-                    if (targetCommunityId != null) {
-                        Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
+                    Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
 
-                        response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class, "respondingGatewayPRPAIN201305UV02", request);
 
-                        // Log the end of the performance record
-                        Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
-                    } else {
-                        response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class, "respondingGatewayPRPAIN201305UV02", request);
-                    }
+                    // Log the end of the performance record
+                    Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
 
                 } else {
                     log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameter is null.");
+                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameters are null.");
             }
         } catch (Exception e) {
             log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
