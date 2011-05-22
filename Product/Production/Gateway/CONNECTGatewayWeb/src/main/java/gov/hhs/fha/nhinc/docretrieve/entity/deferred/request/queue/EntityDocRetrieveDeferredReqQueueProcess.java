@@ -6,8 +6,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue;
 
-import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessRequestType;
-import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessRequestType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -29,7 +29,7 @@ public class EntityDocRetrieveDeferredReqQueueProcess {
      * @param request
      * @return response
      */
-    public DocQueryDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(DocQueryDeferredReqQueueProcessRequestType request) {
+    public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(DocRetrieveDeferredReqQueueProcessRequestType request) {
         return new EntityDocRetrieveDeferredReqQueueProcessImpl().processDocRetrieveDeferredReqQueue(request, context);
     }
 }

@@ -6,9 +6,9 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue;
 
-import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessRequestType;
-import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
-import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.SuccessOrFailType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessRequestType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
@@ -31,18 +31,18 @@ public class EntityDocRetrieveDeferredReqQueueProcessImpl {
      * processDocRetrieveDeferredReqQueue Implementation method for processing request queues on reponding gateway
      * @param request
      * @param context
-     * @return DocQueryDeferredReqQueueProcessResponseType
+     * @return DocRetrieveDeferredReqQueueProcessResponseType
      */
-    public DocQueryDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(DocQueryDeferredReqQueueProcessRequestType request, WebServiceContext context) {
+    public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(DocRetrieveDeferredReqQueueProcessRequestType request, WebServiceContext context) {
 
-        DocQueryDeferredReqQueueProcessResponseType response = new DocQueryDeferredReqQueueProcessResponseType();
+        DocRetrieveDeferredReqQueueProcessResponseType response = new DocRetrieveDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
         sof.setSuccess(Boolean.FALSE);
         response.setSuccessOrFail(sof);
 
         DocRetrieveAcknowledgementType docRetrieveAck = new DocRetrieveAcknowledgementType();
-        EntityDocRetrieveDeferredReqQueueProcessOrchImpl entityDocQueryDeferredReqQueueProcessOrchImpl = new EntityDocRetrieveDeferredReqQueueProcessOrchImpl();
-        docRetrieveAck = entityDocQueryDeferredReqQueueProcessOrchImpl.processDocRetrieveDeferredReqQueue(request.getMessageId());
+        EntityDocRetrieveDeferredReqQueueProcessOrchImpl entityDocRetrieveDeferredReqQueueProcessOrchImpl = new EntityDocRetrieveDeferredReqQueueProcessOrchImpl();
+        docRetrieveAck = entityDocRetrieveDeferredReqQueueProcessOrchImpl.processDocRetrieveDeferredReqQueue(request.getMessageId());
 
         if (docRetrieveAck != null &&
                 docRetrieveAck.getMessage() != null &&
