@@ -7,6 +7,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -182,6 +183,9 @@ public class EntityPatientDiscoveryOrchImpl {
 
                     NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
                     oTargetSystemType.setUrl(urlInfo.getUrl());
+                    HomeCommunityType homeCommunity = new HomeCommunityType();
+                    homeCommunity.setHomeCommunityId(urlInfo.getHcid());
+                    oTargetSystemType.setHomeCommunity(homeCommunity);
 
                     //format request for nhincProxyPatientDiscoveryImpl call
                     ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType =
