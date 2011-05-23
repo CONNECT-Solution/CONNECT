@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -53,12 +54,7 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-        String messageId = "";
-        if (assertion.getRelatesToList() != null &&
-                assertion.getRelatesToList().size() > 0 &&
-                assertion.getRelatesToList().get(0) != null) {
-            messageId = assertion.getRelatesToList().get(0);
-        }
+        String messageId = assertion.getMessageId();
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
         // check for valid queue entry
@@ -85,7 +81,14 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
         PatientDiscovery201305Processor msgProcessor = new PatientDiscovery201305Processor();
         PRPAIN201306UV02 resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
 
-        ack = sendToNhin(resp, request.getAssertion(), request.getNhinTargetCommunities());
+        // Generate a new response assertion
+        AssertionType assertion = new AssertionType();
+        // Original request message id is now set as the relates to id
+        assertion.getRelatesToList().add(request.getAssertion().getMessageId());
+        // Generate a new unique response assertion Message ID
+        assertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+
+        ack = sendToNhin(resp, assertion, request.getNhinTargetCommunities());
 
         return ack;
     }
