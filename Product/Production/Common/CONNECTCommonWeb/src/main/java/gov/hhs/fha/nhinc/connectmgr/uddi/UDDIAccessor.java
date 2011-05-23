@@ -7,20 +7,34 @@
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import gov.hhs.fha.nhinc.connectmgr.data.CMBindingDescriptions;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessNames;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessDescriptions;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessServices;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBindingNames;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplate;
+import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplates;
+import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
+
+import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory;
+import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy;
+
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.xml.bind.JAXBElement;
-
 import javax.xml.ws.BindingProvider;
 
 import org.uddi.api_v3.BusinessList;
-import org.uddi.api_v3.BusinessInfos;
 import org.uddi.api_v3.BusinessInfo;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.ServiceInfo;
-import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.GetBusinessDetail;
 import org.uddi.api_v3.BusinessDetail;
@@ -35,21 +49,6 @@ import org.uddi.v3_service.UDDIInquiryPortType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessNames;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessDescriptions;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessServices;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBindingNames;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplate;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplates;
-import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
 
 /**
  * This class is used to retrieve the connection information from the UDDI server.
@@ -278,16 +277,13 @@ public class UDDIAccessor {
         BusinessList oBusinessList = null;
 
         try {
-            UDDIInquiryPortType oPort = getUDDIInquiryWebService();
-
-            // Make the call...
-            //-----------------
-            FindBusiness oSearchParams = new FindBusiness();
-            oSearchParams.setMaxRows(100);
-            oBusinessList = oPort.findBusiness(oSearchParams);
-
+            // Use the UDDI Find Business Proxy...
+            //------------------------------------
+            UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
+            UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
+            oBusinessList = uddiProxy.findBusinessesFromUDDI();
         } catch (Exception e) {
-            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Errro: " +
+            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
                     e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+<!-- 
+    The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+    in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+    <description>Beans included in this file: {uddifindbusiness}</description>
+
+    <!-- No-op Implementation -->
+    <bean class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyNoOpImpl" id="uddifindbusinessnoop" name="uddifindbusinessnoop"> 
+        <meta key="impltype" value="noop"/>
+    </bean> 
+
+    <!-- Java HP Implementation -->
+    <bean class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyHPImpl" id="uddifindbusiness" name="uddifindbusinesshp"> 
+        <meta key="impltype" value="java"/>
+    </bean> 
+
+    <!-- Java jUDDI Implementation -->
+    <bean class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyJuddiV3Impl" id="uddifindbusinessjuddi" name="uddifindbusinessjuddi"> 
+        <meta key="impltype" value="java"/>
+    </bean> 
+
+</beans>
