@@ -7,11 +7,11 @@
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.entitypatientdiscoveryreqqueueprocess.EntityPatientDiscoveryDeferredReqQueueProcess;
-import gov.hhs.fha.nhinc.entitypatientdiscoveryreqqueueprocess.EntityPatientDiscoveryDeferredReqQueueProcessPortType;
-import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessRequestType;
-import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
-import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.SuccessOrFailType;
+import gov.hhs.fha.nhinc.entitydocqueryreqqueueprocess.EntityDocQueryDeferredReqQueueProcess;
+import gov.hhs.fha.nhinc.entitydocqueryreqqueueprocess.EntityDocQueryDeferredReqQueueProcessPortType;
+import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessRequestType;
+import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -24,28 +24,28 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author richard.ettema
  */
-public class PatientDiscoveryDeferredReqQueueClient {
+public class QueryForDocumentsDeferredReqQueueClient {
 
-    private static final Log log = LogFactory.getLog(PatientDiscoveryDeferredReqQueueClient.class);
+    private static final Log log = LogFactory.getLog(QueryForDocumentsDeferredReqQueueClient.class);
 
     /**
      * Default constructor
      */
-    public PatientDiscoveryDeferredReqQueueClient() {
+    public QueryForDocumentsDeferredReqQueueClient() {
     }
 
     /**
      * Send queue process request for a deferred patient discovery queue record
-     * 
+     *
      * @param messageId
      * @return queue process response
      */
-    public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(String messageId) {
+    public DocQueryDeferredReqQueueProcessResponseType processDocQueryDeferredReqQueue(String messageId) {
 
-        EntityPatientDiscoveryDeferredReqQueueProcess service = new EntityPatientDiscoveryDeferredReqQueueProcess();
+        EntityDocQueryDeferredReqQueueProcess service = new EntityDocQueryDeferredReqQueueProcess();
         String msgText = "";
 
-        PatientDiscoveryDeferredReqQueueProcessResponseType response = new PatientDiscoveryDeferredReqQueueProcessResponseType();
+        DocQueryDeferredReqQueueProcessResponseType response = new DocQueryDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
         sof.setSuccess(Boolean.FALSE);
         response.setSuccessOrFail(sof);
@@ -53,21 +53,21 @@ public class PatientDiscoveryDeferredReqQueueClient {
         try {
             String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            String endpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunity, NhincConstants.PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME);
+            String endpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunity, NhincConstants.ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
 
             if (endpointURL != null && !endpointURL.isEmpty()) {
-                EntityPatientDiscoveryDeferredReqQueueProcessPortType port = service.getEntityPatientDiscoveryDeferredReqQueueProcessPort();
+                EntityDocQueryDeferredReqQueueProcessPortType port = service.getEntityDocQueryDeferredReqQueueProcessPort();
 
                 BindingProvider bp = (BindingProvider) port;
                 // (Optional) Configure RequestContext with endpoint's URL
                 Map<String, Object> rc = bp.getRequestContext();
                 rc.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
 
-                PatientDiscoveryDeferredReqQueueProcessRequestType request = new PatientDiscoveryDeferredReqQueueProcessRequestType();
+                DocQueryDeferredReqQueueProcessRequestType request = new DocQueryDeferredReqQueueProcessRequestType();
                 request.setMessageId(messageId);
-                response = port.processPatientDiscoveryDeferredReqQueue(request);
+                response = port.processDocQueryDeferredReqQueue(request);
             } else {
-                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name [" + NhincConstants.PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
+                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name [" + NhincConstants.ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
                 log.error(msgText);
                 response.setResponse(msgText);
             }
@@ -76,7 +76,7 @@ public class PatientDiscoveryDeferredReqQueueClient {
             log.error(msgText, ex);
             response.setResponse(msgText);
         } catch (Exception ex) {
-            msgText = "Exception occurred during deferred patient discovery queue processing";
+            msgText = "Exception occurred during deferred query for documents queue processing";
             log.error(msgText, ex);
             response.setResponse(msgText);
         }

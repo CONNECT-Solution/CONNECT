@@ -10,9 +10,9 @@
               linecount="13"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="66" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="76" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManagerHelper"
-              linecount="151"
+              linecount="197"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
@@ -27,6 +27,16 @@
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.PatientDiscoveryDeferredReqQueueClient"
+              linecount="33"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="0" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.adapter.deferred.queue.QueryForDocumentsDeferredReqQueueClient"
+              linecount="33"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="0" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueueClient"
               linecount="33"
               linerate="80"
               linesexecuted="0"/>

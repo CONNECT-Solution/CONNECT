@@ -610,6 +610,36 @@
               linecount="14"
               linerate="80"
               linesexecuted="0.14"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessException"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy"
+              linecount="24"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyHPImpl"
+              linecount="15"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyJuddiV3Impl"
+              linecount="21"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyNoOpImpl"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.devtools.FindAndReplaceFile"
               linecount="59"
@@ -5420,6 +5450,11 @@
               linecount="40"
               linerate="80"
               linesexecuted="0.33"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.util.format.XMLDateUtil"
+              linecount="17"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0.09"
               class="gov.hhs.fha.nhinc.util.hash.SHA1HashCode"
               linecount="18"

@@ -19,23 +19,19 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseT
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.SuccessOrFailType;
-import gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcessOrchImpl;
-import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcessOrchImpl;
+import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
-import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
 
 /**
  * Helper class for the web service.
@@ -273,22 +269,20 @@ public class DeferredQueueManagerHelper {
             }
 
         } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_QUERY_SERVICE_NAME)) {
-            DocQueryAcknowledgementType qdAck = processDeferredQueryForDocuments(queueRecord);
+            DocQueryDeferredReqQueueProcessResponseType qdResponse = processDeferredQueryForDocuments(queueRecord);
 
-            if (qdAck != null &&
-                    qdAck.getMessage() != null &&
-                    qdAck.getMessage().getStatus() != null &&
-                    qdAck.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)) {
+            if (qdResponse != null &&
+                    qdResponse.getSuccessOrFail() != null &&
+                    qdResponse.getSuccessOrFail().isSuccess()) {
                 result = true;
             }
 
         } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
-            DocRetrieveAcknowledgementType rdAck = processDeferredRetrieveDocuments(queueRecord);
+            DocRetrieveDeferredReqQueueProcessResponseType rdResponse = processDeferredRetrieveDocuments(queueRecord);
 
-            if (rdAck != null &&
-                    rdAck.getMessage() != null &&
-                    rdAck.getMessage().getStatus() != null &&
-                    rdAck.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG)) {
+            if (rdResponse != null &&
+                    rdResponse.getSuccessOrFail() != null &&
+                    rdResponse.getSuccessOrFail().isSuccess()) {
                 result = true;
             }
 
@@ -324,7 +318,7 @@ public class DeferredQueueManagerHelper {
     /**
      * Process the deferred patient discovery request
      * @param queueRecord
-     * @return Deferred Patient Discovery Acknowledgment
+     * @return Deferred Patient Discovery Response
      * @throws DeferredQueueException
      */
     private PatientDiscoveryDeferredReqQueueProcessResponseType processDeferredPatientDiscovery(AsyncMsgRecord queueRecord) throws DeferredQueueException {
@@ -339,37 +333,37 @@ public class DeferredQueueManagerHelper {
     }
 
     /**
-     * Process the deferred query for documetns request
+     * Process the deferred query for documents request
      * @param queueRecord
-     * @return Deferred Query For Documents Acknowledgment
+     * @return Deferred Query For Documents Response
      * @throws DeferredQueueException
      */
-    private DocQueryAcknowledgementType processDeferredQueryForDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    private DocQueryDeferredReqQueueProcessResponseType processDeferredQueryForDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
-        EntityDocQueryDeferredReqQueueProcessOrchImpl processImpl = new EntityDocQueryDeferredReqQueueProcessOrchImpl();
-        DocQueryAcknowledgementType ack = processImpl.processDocQueryAsyncReqQueue(queueRecord.getMessageId());
+        QueryForDocumentsDeferredReqQueueClient reqClient = new QueryForDocumentsDeferredReqQueueClient();
+        DocQueryDeferredReqQueueProcessResponseType response = reqClient.processDocQueryDeferredReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
-        return ack;
+        return response;
     }
 
     /**
-     * Process the deferred query for documetns request
+     * Process the deferred retrieve documents request
      * @param queueRecord
-     * @return Deferred Retrieve Documents Acknowledgment
+     * @return Deferred Retrieve Documents Response
      * @throws DeferredQueueException
      */
-    private DocRetrieveAcknowledgementType processDeferredRetrieveDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    private DocRetrieveDeferredReqQueueProcessResponseType processDeferredRetrieveDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
-        EntityDocRetrieveDeferredReqQueueProcessOrchImpl processImpl = new EntityDocRetrieveDeferredReqQueueProcessOrchImpl();
-        DocRetrieveAcknowledgementType ack = processImpl.processDocRetrieveDeferredReqQueue(queueRecord.getMessageId());
+        RetrieveDocumentsDeferredReqQueueClient reqClient = new RetrieveDocumentsDeferredReqQueueClient();
+        DocRetrieveDeferredReqQueueProcessResponseType response = reqClient.processDocRetrieveDeferredReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
-        return ack;
+        return response;
     }
 
     /**
@@ -383,7 +377,31 @@ public class DeferredQueueManagerHelper {
 
         List<DeferredQueueRecordType> response = new ArrayList<DeferredQueueRecordType>();
 
-        // TODO: Logic goes here
+        try {
+            AsyncMsgRecordDao queueDao = new AsyncMsgRecordDao();
+
+            List<AsyncMsgRecord> asyncResponse = queueDao.queryByCriteria(queryDeferredQueueRequest);
+
+            if (asyncResponse != null && asyncResponse.size() > 0) {
+                for (AsyncMsgRecord asyncRecord : asyncResponse) {
+                    DeferredQueueRecordType queueRecord = new DeferredQueueRecordType();
+                    queueRecord.setMessageId(asyncRecord.getMessageId());
+                    queueRecord.setCreationTime(XMLDateUtil.date2Gregorian(asyncRecord.getCreationTime()));
+                    queueRecord.setResponseTime(XMLDateUtil.date2Gregorian(asyncRecord.getResponseTime()));
+                    queueRecord.setDuration(asyncRecord.getDuration());
+                    queueRecord.setServiceName(asyncRecord.getServiceName());
+                    queueRecord.setDirection(asyncRecord.getDirection());
+                    queueRecord.setCommunityId(asyncRecord.getCommunityId());
+                    queueRecord.setStatus(asyncRecord.getStatus());
+                    queueRecord.setResponseType(asyncRecord.getResponseType());
+
+                    response.add(queueRecord);
+                }
+            }
+        } catch (Exception e) {
+            log.error("Exception occurred while querying deferred queue: ", e);
+            throw new DeferredQueueException(e);
+        }
 
         log.debug("End: DeferredQueueManagerHelper.queryDeferredQueue method - query deferred messages.");
 
@@ -399,9 +417,45 @@ public class DeferredQueueManagerHelper {
     private DeferredQueueRecordType retrieveDeferredQueue(RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.retrieveDeferredQueue method - retrieve deferred message.");
 
-        DeferredQueueRecordType response = new DeferredQueueRecordType();
+        DeferredQueueRecordType response = null;
 
-        // TODO: Logic goes here
+        try {
+            AsyncMsgRecordDao queueDao = new AsyncMsgRecordDao();
+
+            List<AsyncMsgRecord> asyncResponse = queueDao.queryByMessageId(retrieveDeferredQueueRequest.getMessageId());
+
+            if (asyncResponse != null && asyncResponse.size() > 0) {
+                response = new DeferredQueueRecordType();
+
+                response.setMessageId(asyncResponse.get(0).getMessageId());
+                response.setCreationTime(XMLDateUtil.date2Gregorian(asyncResponse.get(0).getCreationTime()));
+                response.setResponseTime(XMLDateUtil.date2Gregorian(asyncResponse.get(0).getResponseTime()));
+                response.setDuration(asyncResponse.get(0).getDuration());
+                response.setServiceName(asyncResponse.get(0).getServiceName());
+                response.setDirection(asyncResponse.get(0).getDirection());
+                response.setCommunityId(asyncResponse.get(0).getCommunityId());
+                response.setStatus(asyncResponse.get(0).getStatus());
+                response.setResponseType(asyncResponse.get(0).getResponseType());
+
+                if (asyncResponse.get(0).getMsgData() != null && asyncResponse.get(0).getMsgData().length() > 0) {
+                    Long msgLength = asyncResponse.get(0).getMsgData().length();
+                    response.setMsgData(asyncResponse.get(0).getMsgData().getBytes(1, msgLength.intValue()));
+                }
+
+                if (asyncResponse.get(0).getRspData() != null && asyncResponse.get(0).getRspData().length() > 0) {
+                    Long rspLength = asyncResponse.get(0).getRspData().length();
+                    response.setRspData(asyncResponse.get(0).getRspData().getBytes(1, rspLength.intValue()));
+                }
+
+                if (asyncResponse.get(0).getAckData() != null && asyncResponse.get(0).getAckData().length() > 0) {
+                    Long ackLength = asyncResponse.get(0).getAckData().length();
+                    response.setAckData(asyncResponse.get(0).getAckData().getBytes(1, ackLength.intValue()));
+                }
+            }
+        } catch (Exception e) {
+            log.error("Exception occurred while retrieving deferred queue: ", e);
+            throw new DeferredQueueException(e);
+        }
 
         log.debug("End: DeferredQueueManagerHelper.retrieveDeferredQueue method - retrieve deferred message.");
 
