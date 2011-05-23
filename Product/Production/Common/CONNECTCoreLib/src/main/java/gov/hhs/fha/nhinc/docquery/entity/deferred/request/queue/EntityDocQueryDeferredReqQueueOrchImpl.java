@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -70,12 +71,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-        String messageId = "";
-        if (assertion.getRelatesToList() != null &&
-                assertion.getRelatesToList().size() > 0 &&
-                assertion.getRelatesToList().get(0) != null) {
-            messageId = assertion.getRelatesToList().get(0);
-        }
+        String messageId = assertion.getMessageId();
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
         if (bIsQueueOk) {
@@ -101,11 +97,17 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
                         EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
                         response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
 
+                        // Generate a new response assertion
+                        AssertionType responseAssertion = new AssertionType();
+                        // Original request message id is now set as the relates to id
+                        responseAssertion.getRelatesToList().add(assertion.getMessageId());
+                        // Generate a new unique response assertion Message ID
+                        responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+
                         PassthruDocQueryDeferredResponseProxyObjectFactory factory = new PassthruDocQueryDeferredResponseProxyObjectFactory();
                         PassthruDocQueryDeferredResponseProxy proxy = factory.getPassthruDocQueryDeferredResponseProxy();
 
-
-                        respAck = proxy.respondingGatewayCrossGatewayQuery(response, assertion, target);
+                        respAck = proxy.respondingGatewayCrossGatewayQuery(response, responseAssertion, target);
                     } else {
                         ackMsg = "Outgoing Policy Check Failed";
                         log.error(ackMsg);
