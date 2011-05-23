@@ -463,10 +463,12 @@ public class AdapterComponentDocRegistryOrchImpl {
 
         if(NullChecker.isNullish(docs))
         {
-            response.setStatus(XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            log.debug("loadResponseMessage - docs size: null");
+            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         }
         else
         {
+            log.debug("loadResponseMessage - docs size: " + docs.size());
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
