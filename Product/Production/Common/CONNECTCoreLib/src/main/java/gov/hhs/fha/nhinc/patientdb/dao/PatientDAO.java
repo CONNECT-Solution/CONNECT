@@ -269,13 +269,13 @@ public class PatientDAO {
             if (NullChecker.isNotNullish(ssn)) {
                 sqlSelect.append(" AND p.ssn = ?");
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(prefix)) {
                 sqlSelect.append(" AND n.prefix = ?");
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(middleName)) {
                 sqlSelect.append(" AND n.middleName = ?");
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(suffix)) {
                 sqlSelect.append(" AND n.suffix = ?");
             }
             if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet1())) {
@@ -315,15 +315,15 @@ public class PatientDAO {
                 sqlQuery.setString(iParam, ssn);
                 iParam++;
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(prefix)) {
                 sqlQuery.setString(iParam, prefix);
                 iParam++;
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(middleName)) {
                 sqlQuery.setString(iParam, middleName);
                 iParam++;
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(suffix)) {
                 sqlQuery.setString(iParam, suffix);
                 iParam++;
             }
