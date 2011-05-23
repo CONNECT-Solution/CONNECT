@@ -31,6 +31,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
         PRPAIN201306UV02 result = null;
 
         PRPAMT201306UV02ParameterList queryParams = HL7DbParser201305.ExtractHL7QueryParamsFromMessage(query);
+        List<Patient> filteredPatients = new ArrayList<Patient>();
 
         if (queryParams == null) {
             log.error("no query parameters were supplied");
@@ -45,9 +46,9 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                 // Minimum required NHIN query parameters found, perform find
                 PatientService patientService = PatientService.getPatientService();
                 List<Patient> patientList = patientService.findPatients(sourcePatient);
-                
+
                 if (patientList != null && patientList.size() > 0) {
-                    List<Patient> filteredPatients = new ArrayList<Patient>();
+
                     List<String> dupOrgIds = new ArrayList<String>();
                     for (Patient patient : patientList) {
                         if ((patient.getIdentifiers() != null) &&
@@ -86,21 +87,17 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                     if (filteredPatients != null) {
                         log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
                     } else {
-                        log.debug("filteredPatients - No matching patients found");
+                        log.debug("filteredPatients - null");
                     }
 
-                    if ((filteredPatients != null) &&
-                            (filteredPatients.size() > 0)) {
-                        result = HL7DbParser201306.BuildMessageFromMpiPatients(filteredPatients, query);
-                    } else {
-                        result = null;
-                    }
                 } else {
                     // No matches found, generate appropriate empty response
                     log.debug("No matches found, generate appropriate empty response");
                 }
             }
         }
+
+        result = HL7DbParser201306.BuildMessageFromMpiPatients(filteredPatients, query);
 
         log.debug("Exiting PatientDbChecker.FindPatient method...");
         return result;

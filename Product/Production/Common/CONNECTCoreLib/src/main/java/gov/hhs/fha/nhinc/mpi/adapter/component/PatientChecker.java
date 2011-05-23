@@ -36,6 +36,8 @@ public class PatientChecker implements AdapterComponentMpiChecker {
 
         PRPAMT201306UV02ParameterList queryParams = HL7Parser201305.ExtractHL7QueryParamsFromMessage(query);
 
+        Patients filteredPatients = new Patients();
+
         if (queryParams == null) {
             log.error("no query parameters were supplied");
         } else {
@@ -50,7 +52,6 @@ public class PatientChecker implements AdapterComponentMpiChecker {
                 log.debug("No matching patient found");
             }
 
-            Patients filteredPatients = new Patients();
             List<String> dupOrgIds = new ArrayList<String>();
             for (Patient patient : searchResults) {
                 if ((patient.getIdentifiers() != null) &&
@@ -89,16 +90,11 @@ public class PatientChecker implements AdapterComponentMpiChecker {
             if (filteredPatients != null) {
                 log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
             } else {
-                log.debug("filteredPatients - No matching patients found");
-            }
-
-            if ((filteredPatients != null) &&
-                    (filteredPatients.size() > 0)) {
-                result = HL7Parser201306.BuildMessageFromMpiPatient(filteredPatients, query);
-            } else {
-                result = null;
+                log.debug("filteredPatients - null");
             }
         }
+
+        result = HL7Parser201306.BuildMessageFromMpiPatient(filteredPatients, query);
 
         log.debug("Exiting PatientChecker.FindPatient method...");
         return result;

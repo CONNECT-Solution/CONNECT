@@ -113,8 +113,12 @@ public class HL7DbParser201306 {
         controlActProcess.setCode(code);
 
         // Add a subject for each value unique patient
-        for (Patient patient : patients) {
-            controlActProcess.getSubject().add(createSubject(patient));
+        if ((patients != null) && (patients.size() > 0)) {
+            for (Patient patient : patients) {
+                controlActProcess.getSubject().add(createSubject(patient));
+            }
+        } else {
+            log.info("createControlActProcess - No patients found to create subject");
         }
 
         // Add in query parameters
@@ -504,7 +508,7 @@ public class HL7DbParser201306 {
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting receiver device id (applicationId) to query sender's device id " +  app);
+        log.debug("Setting receiver device id (applicationId) to query sender's device id " + app);
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
@@ -557,7 +561,7 @@ public class HL7DbParser201306 {
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender device id (applicationId) to query receiver's device id " +  app);
+        log.debug("Setting sender device id (applicationId) to query receiver's device id " + app);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
@@ -627,5 +631,4 @@ public class HL7DbParser201306 {
 
         return result;
     }
-
 }

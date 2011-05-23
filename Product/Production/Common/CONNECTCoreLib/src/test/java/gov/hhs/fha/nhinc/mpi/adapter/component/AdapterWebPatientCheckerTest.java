@@ -84,6 +84,6 @@ public class AdapterWebPatientCheckerTest {
         PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Anderson", "M", "March 1, 1956", subjectId);
         PatientChecker checker = new PatientChecker();
         PRPAIN201306UV02 result = checker.FindPatient(query);
-        assertNull(result);
+        assertNotNull(result);
     }
 }
