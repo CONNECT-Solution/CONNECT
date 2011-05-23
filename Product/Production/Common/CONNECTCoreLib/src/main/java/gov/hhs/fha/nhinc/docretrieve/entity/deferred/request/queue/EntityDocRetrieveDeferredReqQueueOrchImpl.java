@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -101,8 +102,15 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                     DocRetrieveDeferredPolicyChecker policyCheck = new DocRetrieveDeferredPolicyChecker();
 
                     if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
+                        // Generate a new response assertion
+                        AssertionType responseAssertion = new AssertionType();
+                        // Original request message id is now set as the relates to id
+                        responseAssertion.getRelatesToList().add(assertion.getMessageId());
+                        // Generate a new unique response assertion Message ID
+                        responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+
                         // Send response via NHIN proxy
-                        respAck = docRetrieveProxy.crossGatewayRetrieveResponse(response, assertion, oTargetSystem);
+                        respAck = docRetrieveProxy.crossGatewayRetrieveResponse(response, responseAssertion, oTargetSystem);
                     } else {
                         ackMsg = "Outgoing Policy Check Failed";
                         log.error(ackMsg);
