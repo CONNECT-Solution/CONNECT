@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 //
 // Non-Export Controlled Information
@@ -40,8 +40,8 @@
 //
 // CLASSIFICATION: Unclassified
 //
-// DESCRIPTION: SSLClient.java 
-//              
+// DESCRIPTION: SSLClient.java
+//
 //
 // LIMITATIONS: None
 //
@@ -147,7 +147,7 @@ public class SSLClient extends Client {
                 isPKCSKeyStore = true;
                 setupProvider();
             }
-            
+
             char[] passphrase = System.getProperty("javax.net.ssl.keyStorePassword").toCharArray();
 
             ctx = SSLContext.getInstance("TLS");
@@ -232,8 +232,8 @@ public class SSLClient extends Client {
         Provider sunpkcs11Provider = Security.getProvider(providerName);
 
         if (sunpkcs11Provider == null){
-            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
-            Security.insertProviderAt(sunpkcs11Provider, 1);
+//            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
+//            Security.insertProviderAt(sunpkcs11Provider, 1);
         }
     }
 

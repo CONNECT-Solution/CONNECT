@@ -59,14 +59,16 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
         targets.getNhinTargetCommunity().add(target);
         nhinResponse.setNhinTargetCommunities(targets);
 
-        boolean bIsQueueOk = asyncProcess.processPatientDiscoveryResponse(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, nhinResponse);
+        String messageId = "";
+        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+
+        boolean bIsQueueOk = asyncProcess.processPatientDiscoveryResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, nhinResponse);
 
         // check for valid queue update
         if (bIsQueueOk) {
             response = proxy.respondingGatewayPRPAIN201306UV02(request, assertion, targetSystem);
-
-            // ASYNCMSG PROCESSING - REQSENTACK
-            bIsQueueOk = asyncProcess.processAck(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, response);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
 
@@ -74,6 +76,9 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
             // fatal error with deferred queue repository
             response = HL7AckTransforms.createAckErrorFrom201306(request, ackMsg);
         }
+
+        // ASYNCMSG PROCESSING - REQSENTACK
+        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, response);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
         auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);

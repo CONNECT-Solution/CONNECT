@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 //
 // Non-Export Controlled Information
@@ -40,8 +40,8 @@
 //
 // CLASSIFICATION: Unclassified
 //
-// DESCRIPTION: SSLServer.java 
-//              
+// DESCRIPTION: SSLServer.java
+//
 //
 // LIMITATIONS: None
 //
@@ -113,7 +113,7 @@ public class SSLServer extends Server {
             KeyStore ks;
 
             boolean isPKCSKeyStore = false;
-            
+
             // Check whether the keystore is set to NONE
             if (NONE.equalsIgnoreCase(System.getProperty("javax.net.ssl.keyStore"))){
                 log.info("Set up SUNPKCS11 Provider");
@@ -171,7 +171,7 @@ public class SSLServer extends Server {
                     throw new IOException("FIPS Mode: Cipher suites are not available");
                 }
             }
-            
+
             log.debug("Accepted a new connection " + socket.getInetAddress()  + ": " + socket.getPort());
             /*
              * Spawn off and start a new Handler thread to process
@@ -199,7 +199,7 @@ public class SSLServer extends Server {
         String configFile;
 
         try {
-            configFile = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_SERVER_NSS_CONFIG);    
+            configFile = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_SERVER_NSS_CONFIG);
         } catch (Exception e) {
             log.error("Unable to read location of NSS config file", e);
             throw new RuntimeException(e);
@@ -212,8 +212,8 @@ public class SSLServer extends Server {
         Provider sunpkcs11Provider = Security.getProvider(providerName);
 
         if (sunpkcs11Provider == null){
-            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
-            Security.insertProviderAt(sunpkcs11Provider, 1);
+//            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
+//            Security.insertProviderAt(sunpkcs11Provider, 1);
         }
     }
 
@@ -222,18 +222,18 @@ public class SSLServer extends Server {
      * @return
      */
     private String[] getEnabledCipherSuites(){
-        
+
         String cipherSuites = null;
-        
+
         try {
             // Retrieve
             cipherSuites = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.LIFT_CIPHER_SUITES);
-            
+
         } catch (Exception e) {
             log.error("Unable to read Cipher Suites from gateway.properties file");
             return null;
         }
-        
+
         return cipherSuites.split(",");
     }
 }

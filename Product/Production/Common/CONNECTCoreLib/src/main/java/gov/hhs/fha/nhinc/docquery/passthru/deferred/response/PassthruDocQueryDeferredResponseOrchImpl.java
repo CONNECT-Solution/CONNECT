@@ -70,14 +70,16 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         targets.getNhinTargetCommunity().add(targetCommunity);
         respondingGatewayCrossGatewayQueryResponseType.setNhinTargetCommunities(targets);
 
-        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayQueryResponseType);
+        String messageId = "";
+        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+
+        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayQueryResponseType);
 
         // check for valid queue update
         if (bIsQueueOk) {
             respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
-
-            // ASYNCMSG PROCESSING - REQSENTACK
-            bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
 
@@ -85,6 +87,9 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
             // fatal error with deferred queue repository
             respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
+
+        // ASYNCMSG PROCESSING - REQSENTACK
+        bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
 
         // Audit the incoming NHIN Acknowledgement Message
         ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);

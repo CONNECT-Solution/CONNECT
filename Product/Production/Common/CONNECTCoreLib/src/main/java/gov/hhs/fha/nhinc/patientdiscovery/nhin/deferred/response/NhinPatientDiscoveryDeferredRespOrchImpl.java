@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  *
@@ -56,7 +57,17 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
 
         // ASYNCMSG PROCESSING - RSPRCVD
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-        boolean bIsQueueOk = asyncProcess.processMessageStatus(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD);
+
+        RespondingGatewayPRPAIN201306UV02RequestType nhinResponse = new RespondingGatewayPRPAIN201306UV02RequestType();
+        nhinResponse.setPRPAIN201306UV02(body);
+        nhinResponse.setAssertion(assertion);
+
+        String messageId = "";
+        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+
+        boolean bIsQueueOk = asyncProcess.processPatientDiscoveryResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, nhinResponse);
 
         // Check if the Patient Discovery Async Response Service is enabled
         if (isServiceEnabled()) {
@@ -91,7 +102,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         resp = sendToAdapter(body, assertion);
 
         // ASYNCMSG PROCESSING - RSPRCVDACK
-        bIsQueueOk = asyncProcess.processAck(assertion.getRelatesToList().get(0), AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, resp);
+        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, resp);
 
         // Audit the responding ack Message
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
@@ -135,10 +146,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         // Note: Currently only the message from the Nhin is returned to the Agency so there is no
         //       need for this method to return a value.
         VerifyMode respProcessor = new VerifyMode();
-        PRPAIN201306UV02 resp = respProcessor.processResponse(body, assertion);
-
-        AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
-        asyncDbDao.checkExpiration();
+        respProcessor.processResponse(body, assertion);
     }
 
     protected void processRespTrustMode(PRPAIN201306UV02 body, AssertionType assertion) {
@@ -151,17 +159,19 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         II patId = new II();
         AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
 
-        List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByMessageId(assertion.getMessageId());
+        String messageId = "";
+        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+
+        List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByMessageId(messageId);
 
         if (NullChecker.isNotNullish(asyncMsgRecs)) {
             AsyncMsgRecord dbRec = asyncMsgRecs.get(0);
             patId = extractPatId(dbRec.getMsgData());
 
             TrustMode respProcessor = new TrustMode();
-            PRPAIN201306UV02 resp = respProcessor.processResponse(body, assertion, patId);
-
-            // Clean up database entry
-            cleanupDatabase(dbRec);
+            respProcessor.processResponse(body, assertion, patId);
         }
     }
 
@@ -219,15 +229,4 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         msgProcessor.storeMapping(msg);
     }
 
-    protected void cleanupDatabase(AsyncMsgRecord dbRec) {
-        AsyncMsgRecordDao asyncDbDao = new AsyncMsgRecordDao();
-
-        // Update the specific database record that was passed into this method.
-        dbRec.setResponseTime(new Date());
-        dbRec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT);
-        asyncDbDao.save(dbRec);
-
-        // Clean up all database entries that have "expired"
-        asyncDbDao.checkExpiration();
-    }
 }

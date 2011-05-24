@@ -72,7 +72,12 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         targets.getNhinTargetCommunity().add(targetCommunity);
         respondingGatewayCrossGatewayRetrieveResponseType.setNhinTargetCommunities(targets);
 
-        boolean bIsQueueOk = asyncProcess.processRetrieveDocumentsResponse(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayRetrieveResponseType);
+        String messageId = "";
+        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+
+        boolean bIsQueueOk = asyncProcess.processRetrieveDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayRetrieveResponseType);
 
         // check for valid queue update
         if (bIsQueueOk) {
@@ -83,10 +88,10 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
             respAck = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-
-            // ASYNCMSG PROCESSING - REQSENTACK
-            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
         }
+
+        // ASYNCMSG PROCESSING - REQSENTACK
+        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
 
         // Audit response message
         auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
