@@ -45,11 +45,15 @@ public class NhinDocQueryDeferredResponseOrchImpl {
      * @return <code>DocQueryAcknowledgementType</code>
      */
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
+        log.debug("Begin - respondingGatewayCrossGatewayQuery");
+
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
         respAck.setMessage(regResp);
         String responseHomeCommunityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
+        String ackMsg = "";
+
         // Audit the incoming NHIN Message
         AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseHomeCommunityId);
 
@@ -75,7 +79,12 @@ public class NhinDocQueryDeferredResponseOrchImpl {
                 if (isPolicyValid(msg, assertion)) {
                     respAck = sendToAgency(msg, assertion, responseHomeCommunityId);
                 } else {
-                    log.error("Policy Check Failed for incoming Document Query Deferred Response");
+                    // Policy Check Failed for incoming Document Query Deferred Response
+                    ackMsg = "Policy Check Failed for incoming Document Query Deferred Response";
+                    log.warn(ackMsg);
+
+                    // Set the error acknowledgement status
+                    respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
                 }
             } else {
                 // Send the deferred response to the Adapter Interface
@@ -83,7 +92,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
             }
         } else {
             // Service is not enabled so we are not doing anything with this response
-            String ackMsg = "Document Query Deferred Response Service Not Enabled";
+            ackMsg = "Document Query Deferred Response Service Not Enabled";
             log.warn(ackMsg);
 
             // Set the error acknowledgement status
@@ -95,6 +104,8 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
         // Audit the outgoing NHIN Message
         ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseHomeCommunityId);
+
+        log.debug("End - respondingGatewayCrossGatewayQuery");
 
         return respAck;
     }

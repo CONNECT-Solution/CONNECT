@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
@@ -25,6 +21,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.TrustMode;
 import gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.beans.XMLDecoder;
 import java.sql.Blob;
 import java.util.Date;
@@ -50,6 +47,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
 
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02Orch(PRPAIN201306UV02 body, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
+        String ackMsg = "";
 
         // Audit the incoming Nhin 201306 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
@@ -90,16 +88,22 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
                     // Default is Verify Mode
                     processRespVerifyMode(body, assertion);
                 }
+
+                resp = sendToAdapter(body, assertion);
             } else {
-                log.error("Policy Check Failed");
-                body.getControlActProcess().getSubject().clear();
+                ackMsg = "Policy Check Failed for incoming Patient Discovery Deferred Response";
+                log.warn(ackMsg);
+
+                // Set the error acknowledgement status
+                resp = HL7AckTransforms.createAckErrorFrom201306(body, ackMsg);
             }
         } else {
-            log.error("Patient Discovery Async Response Service Not Enabled");
-            body.getControlActProcess().getSubject().clear();
-        }
+            ackMsg = "Patient Discovery Async Response Service Not Enabled";
+            log.warn(ackMsg);
 
-        resp = sendToAdapter(body, assertion);
+            // Set the error acknowledgement status
+            resp = HL7AckTransforms.createAckErrorFrom201306(body, ackMsg);
+        }
 
         // ASYNCMSG PROCESSING - RSPRCVDACK
         bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, resp);

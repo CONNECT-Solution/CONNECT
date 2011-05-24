@@ -17,6 +17,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
@@ -26,6 +28,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
  * @author Neil Webb
  */
 public class PassthruPatientDiscoveryDeferredRespOrchImpl {
+
+    private static Log log = LogFactory.getLog(PassthruPatientDiscoveryDeferredRespOrchImpl.class);
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
@@ -39,6 +43,8 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
      * @return Patient Discovery Response Acknowledgement
      */
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+        log.debug("Begin - proxyProcessPatientDiscoveryAsyncResp");
+
         MCCIIN000002UV01 response = null;
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
@@ -71,6 +77,7 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
             response = proxy.respondingGatewayPRPAIN201306UV02(request, assertion, targetSystem);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            log.error(ackMsg);
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
@@ -82,6 +89,8 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
         auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
+        log.debug("End - proxyProcessPatientDiscoveryAsyncResp");
 
         return response;
     }

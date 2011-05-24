@@ -21,12 +21,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class PassthruDocQueryDeferredResponseOrchImpl {
+
+    private static Log log = LogFactory.getLog(PassthruDocQueryDeferredResponseOrchImpl.class);
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
@@ -40,6 +44,8 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
      * @return <code>DocQueryAcknowledgementType</code>
      */
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body, AssertionType assertion, NhinTargetSystemType target) {
+        log.debug("Begin - respondingGatewayCrossGatewayQuery");
+
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
 
         // Audit the Query For Documents Response Message sent on the Nhin Interface
@@ -82,6 +88,7 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
             respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            log.error(ackMsg);
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
@@ -93,6 +100,8 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
 
         // Audit the incoming NHIN Acknowledgement Message
         ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+
+        log.debug("End - respondingGatewayCrossGatewayQuery");
 
         return respAck;
     }

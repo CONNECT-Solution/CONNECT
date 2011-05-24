@@ -21,7 +21,6 @@ import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -84,6 +83,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
             respAck = docRetrieveProxy.sendToRespondingGateway(retrieveDocumentSetResponse, assertion, target);
         } else {
             ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            log.error(ackMsg);
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
