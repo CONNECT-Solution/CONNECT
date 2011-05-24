@@ -38,7 +38,7 @@
         </operation>
     </portType>
 
-    <binding name="EntityDocRetrieveDeferredReqQueueProcessPortBinding" type="tns:EntityDocRetrieveDeferredReqQueueProcessPortType">
+    <binding name="EntityDocRetrieveDeferredReqQueueProcessBindingSoap" type="tns:EntityDocRetrieveDeferredReqQueueProcessPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProcessDocRetrieveDeferredReqQueue">
             <soap:operation soapAction="urn:ProcessDocRetrieveDeferredReqQueue"/>
@@ -52,7 +52,7 @@
     </binding>
 
     <service name="EntityDocRetrieveDeferredReqQueueProcess">
-        <port name="EntityDocRetrieveDeferredReqQueueProcessPort" binding="tns:EntityDocRetrieveDeferredReqQueueProcessPortBinding">
+        <port name="EntityDocRetrieveDeferredReqQueueProcessPort" binding="tns:EntityDocRetrieveDeferredReqQueueProcessBindingSoap">
             <soap:address location="http://localhost:${NhincHttpPort}/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess"/>
         </port>
     </service>

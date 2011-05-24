@@ -38,7 +38,7 @@
         </operation>
     </portType>
 
-    <binding name="EntityPatientDiscoveryDeferredReqQueueProcessPortBinding" type="tns:EntityPatientDiscoveryDeferredReqQueueProcessPortType">
+    <binding name="EntityPatientDiscoveryDeferredReqQueueProcessBindingSoap" type="tns:EntityPatientDiscoveryDeferredReqQueueProcessPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProcessPatientDiscoveryDeferredReqQueue">
             <soap:operation soapAction="urn:ProcessPatientDiscoveryDeferredReqQueue"/>
@@ -52,7 +52,7 @@
     </binding>
 
     <service name="EntityPatientDiscoveryDeferredReqQueueProcess">
-        <port name="EntityPatientDiscoveryDeferredReqQueueProcessPort" binding="tns:EntityPatientDiscoveryDeferredReqQueueProcessPortBinding">
+        <port name="EntityPatientDiscoveryDeferredReqQueueProcessPort" binding="tns:EntityPatientDiscoveryDeferredReqQueueProcessBindingSoap">
             <soap:address location="http://localhost:${NhincHttpPort}/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess"/>
         </port>
     </service>
