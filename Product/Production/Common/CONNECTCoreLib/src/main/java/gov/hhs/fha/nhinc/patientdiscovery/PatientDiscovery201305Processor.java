@@ -14,6 +14,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
@@ -24,8 +25,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
+import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.MFMIMT700711UV01AuthorOrPerformer;
+import org.hl7.v3.MFMIMT700711UV01Reason;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -57,30 +60,11 @@ public class PatientDiscovery201305Processor {
         // Query the MPI to see if we have a match
         response = queryMpi(request, assertion);
 
-        // Check to see if the Patient was found
-        if (response != null &&
-                response.getControlActProcess() != null) {
-
-            II patIdOverride = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(response);
-
-            if (NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
-                    response.getControlActProcess().getSubject().get(0) != null &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                    NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                    response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
-                    NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
-                    NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
-                patIdOverride.setExtension(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
-                patIdOverride.setRoot(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
-            } else {
-                patIdOverride = null;
-            }
+        // Check to see if the a valid response was returned from the local MPI
+        if (response != null && response.getControlActProcess() != null) {
 
             // Check to make sure the policy is valid
-
-            if (checkPolicy(response, patIdOverride, assertion)) {
+            if (checkPolicy(response, assertion)) {
                 // Store Assigning Authority to Home Community Id Mapping
                 storeMapping(request);
 
@@ -92,18 +76,21 @@ public class PatientDiscovery201305Processor {
                 }
                 response = addAuthorOrPerformer(response);
             } else {
-                log.error("Policy Check Failed");
-                response = createEmpty201306(senderOID, receiverOID, request);
+                // Policy check on all matching patient ids has failed
+                log.warn("Policy Check Failed");
+                response = addPolicyDenyReasonOf(response);
             }
         } else {
-            log.warn("Patient Not Found");
+            log.warn("Response from local MPI is null; generating empty response");
             response = createEmpty201306(senderOID, receiverOID, request);
+            response = addValidationReasonOf(response);
         }
         return response;
     }
 
-    protected boolean checkPolicy(PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+    protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
         boolean isPermit = false;
+        II patId = null;
         PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
 
         //************************************************************************************************
@@ -125,7 +112,9 @@ public class PatientDiscovery201305Processor {
             PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0, pRPAINSubject);
             response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
-            if (policyChecker.check201305Policy(response, patIdOverride, assertion)) {
+            // Extract patient for current subject and perform policy check
+            patId = NhinPatientDiscoveryUtils.extractPatientIdFromSubject(pRPAINSubject);
+            if (policyChecker.check201305Policy(response, patId, assertion)) {
                 log.debug("checkPolicy -policy returns permit for patient: " + pRPAINSubjectInd);
             } else {
                 log.debug("checkPolicy -policy returns deny for patient: " + pRPAINSubjectInd);
@@ -519,6 +508,30 @@ public class PatientDiscovery201305Processor {
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
 
         response.getControlActProcess().getAuthorOrPerformer().add(authorOrPerformer);
+        return response;
+    }
+
+    private PRPAIN201306UV02 addPolicyDenyReasonOf(PRPAIN201306UV02 response) {
+
+        MFMIMT700711UV01Reason reasonOf = new MFMIMT700711UV01Reason();
+        MCAIMT900001UV01DetectedIssueEvent detectedIssueEvent = new MCAIMT900001UV01DetectedIssueEvent();
+        detectedIssueEvent.setCode(HL7DataTransformHelper.CDFactory(HL7Constants.DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION, HL7Constants.DETECTED_ISSUE_EVENT_OID, HL7Constants.DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC));
+        reasonOf.setDetectedIssueEvent(detectedIssueEvent);
+
+        response.getControlActProcess().getReasonOf().add(reasonOf);
+
+        return response;
+    }
+
+    private PRPAIN201306UV02 addValidationReasonOf(PRPAIN201306UV02 response) {
+
+        MFMIMT700711UV01Reason reasonOf = new MFMIMT700711UV01Reason();
+        MCAIMT900001UV01DetectedIssueEvent detectedIssueEvent = new MCAIMT900001UV01DetectedIssueEvent();
+        detectedIssueEvent.setCode(HL7DataTransformHelper.CDFactory(HL7Constants.DETECTED_ISSUE_EVENT_CODE_VALIDATION, HL7Constants.DETECTED_ISSUE_EVENT_OID, HL7Constants.DETECTED_ISSUE_EVENT_CODE_VALIDATION_DESC));
+        reasonOf.setDetectedIssueEvent(detectedIssueEvent);
+
+        response.getControlActProcess().getReasonOf().add(reasonOf);
+
         return response;
     }
 }

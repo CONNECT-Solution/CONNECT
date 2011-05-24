@@ -86,6 +86,10 @@ public class HL7DataTransformHelper {
     }
 
     public static CD CDFactory(String code, String codeSystem) {
+        return CDFactory(code, codeSystem, null);
+    }
+    
+    public static CD CDFactory(String code, String codeSystem, String displayName) {
         CD cd = new CD();
 
         if (NullChecker.isNotNullish(code)) {
@@ -98,9 +102,14 @@ public class HL7DataTransformHelper {
             cd.setCodeSystem(codeSystem);
         }
 
+        if (NullChecker.isNotNullish(displayName)) {
+            log.debug("Setting the display name attribute of CD: " + displayName);
+            cd.setDisplayName(displayName);
+        }
+
         return cd;
     }
-    
+
     public static TSExplicit TSExplicitFactory (String value) {
         TSExplicit ts = new TSExplicit();
         

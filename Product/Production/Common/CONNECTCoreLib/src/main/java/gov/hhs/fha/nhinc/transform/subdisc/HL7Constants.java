@@ -24,7 +24,7 @@ public class HL7Constants {
     public static final String INTERACTION_ID_ROOT = "2.16.840.1.113883.1.6";
     public static final String SSN_ID_ROOT = "2.16.840.1.113883.4.1";
 
-    //ResponderBusy Error Constants
+    // ResponderBusy Error Constants
     public static final String QUERY_ACK_OK = "OK";
     public static final String QUERY_ACK_QE = "QE";
     public static final String DETECTED_ISSUE_CLASSCODE_ALRT = "ALRT";
@@ -40,4 +40,15 @@ public class HL7Constants {
     public static final String AGENT_CLASS_CODE="AGNT";
     public static final String ORG_CLASS_CODE="ORG";
     public static final String ASSIGNED_DEVICE_CLASS_CODE = "ASSIGNED";
+
+    // ControlActProcess.ReasonOf.DetectedIssueEvent
+    public static final String DETECTED_ISSUE_EVENT_OID="2.16.578.1.34.5.3";
+    public static final String DETECTED_ISSUE_EVENT_CODE_KNOWNPAT="KNOWNPAT";
+    public static final String DETECTED_ISSUE_EVENT_CODE_KNOWNPAT_DESC="The patient is already known in the patient registry.";
+    public static final String DETECTED_ISSUE_EVENT_CODE_VALIDATION="VALIDATION";
+    public static final String DETECTED_ISSUE_EVENT_CODE_VALIDATION_DESC="The query parameters are wrong or insufficient.";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION="AUTHENTICATION";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION_DESC="The user cannot be authenticated.";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION="AUTHORIZATION";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC="The user is not authorized.";
 }

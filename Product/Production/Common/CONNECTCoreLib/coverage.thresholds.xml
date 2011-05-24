@@ -3780,9 +3780,9 @@
               linecount="13"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="22" branchrate="80" branchsexecuted="0.12"
+   <threshold branchcount="38" branchrate="80" branchsexecuted="0.12"
               class="gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils"
-              linecount="22"
+              linecount="28"
               linerate="80"
               linesexecuted="0.07"/>
    <threshold branchcount="200" branchrate="80" branchsexecuted="0.78"

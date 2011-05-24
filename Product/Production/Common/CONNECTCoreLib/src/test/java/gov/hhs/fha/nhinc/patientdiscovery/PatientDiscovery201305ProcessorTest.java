@@ -67,9 +67,9 @@ public class PatientDiscovery201305ProcessorTest {
 
                 return resp;
             }
-            
+
             @Override
-            protected boolean checkPolicy(PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+            protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
                 return true;
             }
 
@@ -101,15 +101,13 @@ public class PatientDiscovery201305ProcessorTest {
 
             @Override
             protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
-                JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
-                PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "5678", "2.2.2");
-                PRPAIN201306UV02 resp = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", query);
+                PRPAIN201306UV02 resp = HL7PRPA201306Transforms.createPRPA201306(null, "2.2", null, "1.1", null, query);
 
                 return resp;
             }
 
             @Override
-            protected boolean checkPolicy(PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+            protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
                 return false;
             }
 
@@ -145,7 +143,7 @@ public class PatientDiscovery201305ProcessorTest {
             }
 
             @Override
-            protected boolean checkPolicy(PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+            protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
                 return true;
             }
 
@@ -170,7 +168,7 @@ public class PatientDiscovery201305ProcessorTest {
     @Test
     public void testCreateNewRequest() {
         System.out.println("testCreateNewRequest");
-        
+
         String targetCommunityId = "3.3";
         PatientDiscovery201305Processor instance = new PatientDiscovery201305Processor();
 
@@ -179,7 +177,7 @@ public class PatientDiscovery201305ProcessorTest {
         PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
 
         PRPAIN201305UV02 result = instance.createNewRequest(request, targetCommunityId);
-        
+
         TestHelper.assertReceiverEquals(targetCommunityId, result);
     }
 
