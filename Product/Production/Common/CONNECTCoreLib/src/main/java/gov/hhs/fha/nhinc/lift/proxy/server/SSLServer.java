@@ -212,8 +212,8 @@ public class SSLServer extends Server {
         Provider sunpkcs11Provider = Security.getProvider(providerName);
 
         if (sunpkcs11Provider == null){
-//            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
-//            Security.insertProviderAt(sunpkcs11Provider, 1);
+            sunpkcs11Provider = new sun.security.pkcs11.SunPKCS11(configFile);
+            Security.insertProviderAt(sunpkcs11Provider, 1);
         }
     }
 
