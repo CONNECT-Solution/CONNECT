@@ -6,33 +6,21 @@
  */
 package deferredqueuemanagergui;
 
-import com.sun.rave.faces.data.DefaultSelectItemsArray;
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.webui.jsf.component.Button;
-import com.sun.webui.jsf.component.DropDown;
 import com.sun.webui.jsf.component.Hyperlink;
-import com.sun.webui.jsf.component.PanelLayout;
-import com.sun.webui.jsf.component.RadioButtonGroup;
 import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
 import com.sun.webui.jsf.component.TabSet;
-import com.sun.webui.jsf.component.Table;
 import com.sun.webui.jsf.component.TextField;
-import com.sun.webui.jsf.model.Option;
-import com.sun.webui.jsf.model.SingleSelectOptionsList;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.IOException;
-import java.util.ArrayList;
+import gov.hhs.fha.nhinc.util.Format;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import javax.faces.FacesException;
-import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlSelectOneRadio;
-import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,14 +36,12 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author richard.ettema
  */
-
 public class ManageQueue extends AbstractPageBean {
 
     private static Log log = LogFactory.getLog(ManageQueue.class);
 
     private void _init() throws Exception {
     }
-
     private TabSet processTabSet = new TabSet();
 
     public TabSet getProcessTabSet() {
@@ -65,8 +51,8 @@ public class ManageQueue extends AbstractPageBean {
     public void setProcessTabSet(TabSet ts) {
         this.processTabSet = ts;
     }
-
     private Tab processQueueTab = new Tab();
+    private Tab unProcessQueueTab = new Tab();
 
     public Tab getProcessQueueTab() {
         return processQueueTab;
@@ -76,6 +62,13 @@ public class ManageQueue extends AbstractPageBean {
         this.processQueueTab = processQueueTab;
     }
 
+    public Tab getUnProcessQueueTab() {
+        return unProcessQueueTab;
+    }
+
+    public void setUnProcessQueueTab(Tab unProcessQueueTab) {
+        this.unProcessQueueTab = unProcessQueueTab;
+    }
     private HtmlSelectOneRadio autoEnabled = new HtmlSelectOneRadio();
 
     public HtmlSelectOneRadio getAutoEnabled() {
@@ -85,7 +78,6 @@ public class ManageQueue extends AbstractPageBean {
     public void setAutoEnabled(HtmlSelectOneRadio hsor) {
         this.autoEnabled = hsor;
     }
-
     private StaticText errorMessages = new StaticText();
 
     public StaticText getErrorMessages() {
@@ -94,6 +86,42 @@ public class ManageQueue extends AbstractPageBean {
 
     public void setErrorMessages(StaticText st) {
         this.errorMessages = st;
+    }
+    private TextField startCreationDate = new TextField();
+    private TextField stopCreationDate = new TextField();
+
+    public TextField getStartCreationDate() {
+        return startCreationDate;
+    }
+
+    public void setStartCreationDate(TextField startCreationDate) {
+        this.startCreationDate = startCreationDate;
+    }
+
+    public TextField getStopCreationDate() {
+        return stopCreationDate;
+    }
+
+    public void setStopCreationDate(TextField stopCreationDate) {
+        this.stopCreationDate = stopCreationDate;
+    }
+    private String errors;
+
+    public String getErrors() {
+        return errors;
+    }
+
+    public void setErrors(String errors) {
+        this.errors = errors;
+    }
+    private StaticText messageId = new StaticText();
+
+    public StaticText getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(StaticText messageId) {
+        this.messageId = messageId;
     }
 
     /** Creates a new instance of ManageQueue */
@@ -130,10 +158,10 @@ public class ManageQueue extends AbstractPageBean {
             throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
 
-    // </editor-fold>
-    // Perform application initialization that must complete
-    // *after* managed components are initialized
-    // TODO - add your own initialization code here
+        // </editor-fold>
+        // Perform application initialization that must complete
+        // *after* managed components are initialized
+        // TODO - add your own initialization code here
     }
 
     /**
@@ -171,7 +199,14 @@ public class ManageQueue extends AbstractPageBean {
     public void destroy() {
     }
 
-    public String processTab_action() {
+    public String processQueueTab_action() {
+        // Process the action. Return value is a navigation
+        // case name where null will return to the same page.
+        this.errorMessages.setText("");
+        return null;
+    }
+
+    public String unProcessQueueTab_action() {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
         this.errorMessages.setText("");
@@ -191,15 +226,7 @@ public class ManageQueue extends AbstractPageBean {
             this.errorMessages.setText("No records found to process.");
         }
 
-//        QueueRecordsVO vo = new QueueRecordsVO();
-//        vo.setMessageId("MESSAGE-001");
-//        vo.setStatus("REQRCVDACK");
-//        processQueueResults.add(vo);
-//
-//        vo = new QueueRecordsVO();
-//        vo.setMessageId("MESSAGE-002");
-//        vo.setStatus("REQRCVDACK");
-//        processQueueResults.add(vo);
+
 
         UserSession userSession = (UserSession) getBean("UserSession");
         userSession.setProcessQueueResults(null); // reset to null to force lazy load
@@ -208,4 +235,84 @@ public class ManageQueue extends AbstractPageBean {
         return null;
     }
 
+    public String retrieveUnProcessButton_action() throws Exception {
+        // Process the action. Return value is a navigation
+        // case name where null will return to the same page.
+
+        this.errorMessages.setText("");
+
+        if (!isDateSearchCriteriaValid()) {
+            log.error("Error Message: " + errors);
+            this.errorMessages.setText(errors);
+            return null;
+        }
+
+        Date d1 = new Date();
+        Date d2 = new Date();
+        String startCreationTime = "";
+        String stopCreationTime = "";
+        try {
+            startCreationTime = (String) startCreationDate.getText();
+            stopCreationTime = (String) stopCreationDate.getText();
+            if(startCreationTime==null)
+               startCreationTime="";
+            if(stopCreationTime==null)
+               stopCreationTime="";
+            Calendar cal1 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, startCreationTime);
+            Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
+
+            if(cal1!=null)
+            d1 = cal1.getTime();
+            if(cal2!=null)
+            d2 = cal2.getTime();
+        } catch (Exception ex) {
+            log.error("Error Message: " + ex);
+            this.errorMessages.setText("Unable to parse given input dates, please recheck the date formats and retry agian... ");
+            return null;
+        }
+        DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
+
+        List<AsyncMsgRecord> unProcessQueueResults = null;
+
+        if ((startCreationTime.equals("") && stopCreationTime.equals(""))) {
+            unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
+        } else {
+            unProcessQueueResults = deferredQueueManagerFacade.queryByCreationStartAndStopTime(d1, d2);
+        }
+
+        if (unProcessQueueResults == null || unProcessQueueResults.size() == 0) {
+            this.errorMessages.setText("No records found to process.");
+        }
+
+        UserSession userSession = (UserSession) getBean("UserSession");
+        userSession.setUnProcessQueueResults(null); // reset to null to force lazy load
+        userSession.getUnProcessQueueResults().addAll(unProcessQueueResults);
+
+        return null;
+    }
+
+    private boolean isDateSearchCriteriaValid() {
+        StringBuffer message = new StringBuffer();
+        boolean isValid = true;
+
+        if (this.startCreationDate == null || this.stopCreationDate == null) {
+            message.append("Earliest Date and Most Recent Date should not be null");
+            isValid = false;
+        } else if (this.startCreationDate == null || this.getStopCreationDate() == null) {
+            message.append("Earliest Date and Most Recent Date should not be null");
+            isValid = false;
+        } //else if (this.startCreationDate.after(this.getStopCreationDate())) {
+        //message.append("Earliest Date should not be after Most Recent Date");
+        //isValid = false;
+        //}
+
+        errors = message.toString();
+
+        return isValid;
+    }
+
+    public String process_action() throws Exception {
+
+        return null;
+    }
 }

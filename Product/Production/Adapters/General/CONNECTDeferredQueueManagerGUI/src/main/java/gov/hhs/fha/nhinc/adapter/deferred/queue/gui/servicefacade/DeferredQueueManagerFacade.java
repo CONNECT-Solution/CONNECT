@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,6 +41,24 @@ public class DeferredQueueManagerFacade {
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
         List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryForDeferredQueueProcessing();
+
+        return asyncMsgRecs;
+    }
+
+     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
+        log.debug("Performing query for unprocessed queue records.");
+
+        AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
+        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryForDeferredQueueSelected();
+
+        return asyncMsgRecs;
+    }
+
+     public List<AsyncMsgRecord> queryByCreationStartAndStopTime(Date startDate,Date stopDate) {
+        log.debug("Performing query for unprocessed queue records.");
+
+        AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
+        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryByCreationStartAndStopTime(startDate,stopDate);
 
         return asyncMsgRecs;
     }

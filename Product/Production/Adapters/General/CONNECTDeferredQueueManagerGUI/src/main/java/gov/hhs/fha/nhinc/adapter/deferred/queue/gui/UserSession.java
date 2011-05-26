@@ -16,21 +16,24 @@ import javax.faces.FacesException;
  *
  * @author richard.ettema
  */
-
 public class UserSession extends AbstractSessionBean {
 
     private String authToken;
+   
+
     public String getAuthToken() {
         return authToken;
     }
+
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
-
     private boolean authenticationServiceAvail;
+
     public boolean isAuthenticationServiceAvail() {
         return authenticationServiceAvail;
     }
+
     public void setAuthenticationServiceAvail(boolean authenticationServiceAvail) {
         this.authenticationServiceAvail = authenticationServiceAvail;
     }
@@ -71,10 +74,10 @@ public class UserSession extends AbstractSessionBean {
             throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
 
-    // </editor-fold>
-    // Perform application initialization that must complete
-    // *after* managed components are initialized
-    // TODO - add your own initialization code here
+        // </editor-fold>
+        // Perform application initialization that must complete
+        // *after* managed components are initialized
+        // TODO - add your own initialization code here
     }
 
     /**
@@ -115,8 +118,8 @@ public class UserSession extends AbstractSessionBean {
     @Override
     public void destroy() {
     }
-
     private List<AsyncMsgRecord> processQueueResults;
+    private List<AsyncMsgRecord> unProcessQueueResults;
 
     public List<AsyncMsgRecord> getProcessQueueResults() {
         if (processQueueResults == null) {
@@ -128,5 +131,17 @@ public class UserSession extends AbstractSessionBean {
     public void setProcessQueueResults(List<AsyncMsgRecord> processQueueResults) {
         this.processQueueResults = processQueueResults;
     }
+
+    public List<AsyncMsgRecord> getUnProcessQueueResults() {
+        if (unProcessQueueResults == null) {
+            unProcessQueueResults = new ArrayList<AsyncMsgRecord>();
+        }
+        return unProcessQueueResults;
+    }
+
+    public void setUnProcessQueueResults(List<AsyncMsgRecord> unProcessQueueResults) {
+        this.unProcessQueueResults = unProcessQueueResults;
+    }
+
 
 }

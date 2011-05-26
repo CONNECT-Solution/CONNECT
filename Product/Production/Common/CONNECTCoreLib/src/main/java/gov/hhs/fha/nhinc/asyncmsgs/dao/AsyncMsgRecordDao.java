@@ -191,6 +191,50 @@ public class AsyncMsgRecordDao {
     }
 
     /**
+     * Query for Creation Start and Stop Time .
+     *
+     * @param startTimestamp
+     * @param stopTimestamp
+     * @return matching records
+     */
+    public List<AsyncMsgRecord> queryByCreationStartAndStopTime(Date startTimestamp,Date stopTimestamp) {
+        log.debug("Performing database retrieve using timestamp");
+
+        List<AsyncMsgRecord> asyncMsgRecs = null;
+        Session sess = null;
+
+        try {
+            SessionFactory fact = HibernateUtil.getSessionFactory();
+            if (fact != null) {
+                sess = fact.openSession();
+                if (sess != null) {
+                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
+                    criteria.add(Restrictions.between("CreationTime", startTimestamp,stopTimestamp));
+                    asyncMsgRecs = criteria.list();
+                } else {
+                    log.error("Failed to obtain a session from the sessionFactory");
+                }
+            } else {
+                log.error("Session factory was null");
+            }
+
+            if (log.isDebugEnabled()) {
+                log.debug("Completed database record retrieve by timestamp. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+            }
+        } finally {
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (Throwable t) {
+                    log.error("Failed to close session: " + t.getMessage(), t);
+                }
+            }
+        }
+
+        return asyncMsgRecs;
+    }
+
+    /**
      * Query for Creation Time less than passed timestamp and status equal to
      * Request Receieved Acknowledged [REQRCVDACK]
      *
