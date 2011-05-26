@@ -7,14 +7,19 @@
 package deferredqueuemanagergui;
 
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.webui.jsf.component.Hyperlink;
 import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
 import com.sun.webui.jsf.component.TabSet;
 import com.sun.webui.jsf.component.TextField;
+import gov.hhs.fha.nhinc.adapter.deferred.queue.PatientDiscoveryDeferredReqQueueClient;
+import gov.hhs.fha.nhinc.adapter.deferred.queue.QueryForDocumentsDeferredReqQueueClient;
+import gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueueClient;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.util.Format;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,11 +39,14 @@ import org.apache.commons.logging.LogFactory;
  * @version ManageQueue.java
  * @version Created on May 13, 2011, 11:55:16 PM
  *
- * @author richard.ettema
+ * @author richard.ettema,narendra.reddy
  */
 public class ManageQueue extends AbstractPageBean {
 
     private static Log log = LogFactory.getLog(ManageQueue.class);
+    private static final String PATIENT_DISCOVERY = "PatientDiscovery";
+    private static final String QUERY_FOR_DOCUMENT = "QueryForDocument";
+    private static final String RETRIEVE_DOCUMENT = "RetrieveDocument";
 
     private void _init() throws Exception {
     }
@@ -115,6 +123,7 @@ public class ManageQueue extends AbstractPageBean {
         this.errors = errors;
     }
     private StaticText messageId = new StaticText();
+    private StaticText serviceName = new StaticText();
 
     public StaticText getMessageId() {
         return messageId;
@@ -122,6 +131,14 @@ public class ManageQueue extends AbstractPageBean {
 
     public void setMessageId(StaticText messageId) {
         this.messageId = messageId;
+    }
+
+    public StaticText getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(StaticText serviceName) {
+        this.serviceName = serviceName;
     }
 
     /** Creates a new instance of ManageQueue */
@@ -254,17 +271,21 @@ public class ManageQueue extends AbstractPageBean {
         try {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
-            if(startCreationTime==null)
-               startCreationTime="";
-            if(stopCreationTime==null)
-               stopCreationTime="";
+            if (startCreationTime == null) {
+                startCreationTime = "";
+            }
+            if (stopCreationTime == null) {
+                stopCreationTime = "";
+            }
             Calendar cal1 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, startCreationTime);
             Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
 
-            if(cal1!=null)
-            d1 = cal1.getTime();
-            if(cal2!=null)
-            d2 = cal2.getTime();
+            if (cal1 != null) {
+                d1 = cal1.getTime();
+            }
+            if (cal2 != null) {
+                d2 = cal2.getTime();
+            }
         } catch (Exception ex) {
             log.error("Error Message: " + ex);
             this.errorMessages.setText("Unable to parse given input dates, please recheck the date formats and retry agian... ");
@@ -311,7 +332,20 @@ public class ManageQueue extends AbstractPageBean {
         return isValid;
     }
 
-    public String process_action() throws Exception {
+    public String process_action(javax.faces.event.ActionEvent event) throws Exception {
+
+        String asyncMsgId = (String) this.messageId.getText();
+        String serviceName = (String) this.serviceName.getText();
+        if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
+            PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
+            PatientDiscoveryDeferredReqQueueProcessResponseType response = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
+        } else if (serviceName.trim().equals(QUERY_FOR_DOCUMENT)) {
+            QueryForDocumentsDeferredReqQueueClient qdClient = new QueryForDocumentsDeferredReqQueueClient();
+            DocQueryDeferredReqQueueProcessResponseType response = qdClient.processDocQueryDeferredReqQueue(asyncMsgId);
+        } else if (serviceName.trim().equals(RETRIEVE_DOCUMENT)) {
+            RetrieveDocumentsDeferredReqQueueClient rdClient = new RetrieveDocumentsDeferredReqQueueClient();
+            DocRetrieveDeferredReqQueueProcessResponseType response = rdClient.processDocRetrieveDeferredReqQueue(asyncMsgId);
+        }
 
         return null;
     }

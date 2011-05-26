@@ -37,7 +37,7 @@
                                                 <webuijsf:staticText id="staticText1" text="#{processQueue.value['creationTime']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Service Name" id="ServiceName">
-                                                <webuijsf:staticText id="staticText1" text="#{processQueue.value['serviceName']}"/>
+                                                <webuijsf:staticText  binding="#{ManageQueue.serviceName}" id="staticText1" text="#{processQueue.value['serviceName']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Requesting Community Id" id="CommunityId">
                                                 <webuijsf:staticText id="staticText1" text="#{processQueue.value['communityId']}"/>
@@ -46,9 +46,9 @@
                                                 <webuijsf:staticText id="staticText1" text="#{processQueue.value['status']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Action" id="action">
-                                                <webuijsf:button  actionListenerExpression="#{ManageQueue.process_action}" actionExpression="#{ManageQueue.process_action}" id="forceProcessButton" text="Process"
+                                                <webuijsf:button  actionListenerExpression="#{ManageQueue.process_action}" id="forceProcessButton" text="Process"
                                                  style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px; width: 64px"/>
-                                            </webuijsf:tableColumn>
+                                            </webuijsf:tableColumn>                                            
                                         </webuijsf:tableRowGroup>
                                     </webuijsf:table>
                                 </webuijsf:panelLayout>

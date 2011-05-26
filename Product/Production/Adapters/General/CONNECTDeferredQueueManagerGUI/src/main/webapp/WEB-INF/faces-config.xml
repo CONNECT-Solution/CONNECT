@@ -9,11 +9,11 @@
     <managed-bean>
         <managed-bean-name>ManageQueue</managed-bean-name>
         <managed-bean-class>deferredqueuemanagergui.ManageQueue</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>UserSession</managed-bean-name>
         <managed-bean-class>gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>
