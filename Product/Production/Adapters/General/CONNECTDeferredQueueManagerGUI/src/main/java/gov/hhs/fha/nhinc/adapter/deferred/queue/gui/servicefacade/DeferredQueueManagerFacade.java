@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
+import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -54,11 +55,14 @@ public class DeferredQueueManagerFacade {
         return asyncMsgRecs;
     }
 
-     public List<AsyncMsgRecord> queryByCreationStartAndStopTime(Date startDate,Date stopDate) {
+     public List<AsyncMsgRecord> queryByCreationStartAndStopTime(Date startDate, Date stopDate) {
         log.debug("Performing query for unprocessed queue records.");
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
-        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryByCreationStartAndStopTime(startDate,stopDate);
+        QueryDeferredQueueRequestType queryCriteria = new QueryDeferredQueueRequestType();
+        queryCriteria.setCreationBeginTime(XMLDateUtil.date2Gregorian(startDate));
+        queryCriteria.setCreationEndTime(XMLDateUtil.date2Gregorian(stopDate));
+        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryByCriteria(queryCriteria);
 
         return asyncMsgRecs;
     }
