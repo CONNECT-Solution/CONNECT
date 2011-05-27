@@ -700,15 +700,14 @@ public class AsyncMessageProcessHelper {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
             Marshaller marshaller = jc.createMarshaller();
-            marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
-
-            StringWriter sw = new StringWriter();
-
-            marshaller.marshal(ack, sw);
-
-            String xmlText = sw.toString();
-            byte[] buffer = xmlText.getBytes();
-
+            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.healthit.nhin.ObjectFactory factory = new gov.hhs.healthit.nhin.ObjectFactory();
+            JAXBElement<DocQueryAcknowledgementType> oJaxbElement = factory.createDocQueryAcknowledgement(ack);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
             log.error("Exception during Blob conversion :" + e.getMessage());
@@ -725,15 +724,14 @@ public class AsyncMessageProcessHelper {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
             Marshaller marshaller = jc.createMarshaller();
-            marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
-
-            StringWriter sw = new StringWriter();
-
-            marshaller.marshal(ack, sw);
-
-            String xmlText = sw.toString();
-            byte[] buffer = xmlText.getBytes();
-
+            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.healthit.nhin.ObjectFactory factory = new gov.hhs.healthit.nhin.ObjectFactory();
+            JAXBElement<DocRetrieveAcknowledgementType> oJaxbElement = factory.createDocRetrieveAcknowledgement(ack);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
             log.error("Exception during Blob conversion :" + e.getMessage());
