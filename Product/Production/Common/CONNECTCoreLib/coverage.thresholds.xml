@@ -285,9 +285,9 @@
               linecount="387"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="138" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="148" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao"
-              linecount="317"
+              linecount="338"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

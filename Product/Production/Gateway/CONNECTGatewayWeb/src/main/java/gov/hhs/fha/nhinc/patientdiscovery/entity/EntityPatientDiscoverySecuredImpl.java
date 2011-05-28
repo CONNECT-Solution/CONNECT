@@ -38,6 +38,10 @@ public class EntityPatientDiscoverySecuredImpl {
         return new EntityPatientDiscoveryOrchImpl();
     }
 
+    protected PerformanceManager getPerformanceManager() {
+        return PerformanceManager.getPerformanceManagerInstance();
+    }
+
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
 
         log.debug("Entering EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
@@ -58,13 +62,13 @@ public class EntityPatientDiscoverySecuredImpl {
                 // Log the start of the performance record
                 String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
+                Long logId = getPerformanceManager().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
                 response = processor.respondingGatewayPRPAIN201305UV02(request, assertion);
 
                 // Log the end of the performance record
                 Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
+                getPerformanceManager().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 log.error("The EntityPatientDiscoveryProcessor was null.");
             }

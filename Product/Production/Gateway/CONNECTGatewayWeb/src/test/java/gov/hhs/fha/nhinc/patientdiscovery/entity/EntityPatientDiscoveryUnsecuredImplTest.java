@@ -2,6 +2,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import java.sql.Timestamp;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -33,6 +35,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
     final PRPAIN201305UV02 mockPdMessage = context.mock(PRPAIN201305UV02.class);
     final AssertionType mockAssertion = context.mock(AssertionType.class);
     final NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);
+    final PerformanceManager mockPerformanceManager = context.mock(PerformanceManager.class);
 
     @Test
     public void testCreateLogger()
@@ -118,12 +121,19 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                 {
                     return mockEntityPatientDiscoveryProcessor;
                 }
+                @Override
+                protected PerformanceManager getPerformanceManager()
+                {
+                    return mockPerformanceManager;
+                }
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockEntityPatientDiscoveryProcessor).respondingGatewayPRPAIN201305UV02(with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)), with(aNonNull(AssertionType.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)), with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)), with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
                 }
             });
 
@@ -249,11 +259,18 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                     };
                     return processor;
                 }
+                @Override
+                protected PerformanceManager getPerformanceManager()
+                {
+                    return mockPerformanceManager;
+                }
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)), with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)), with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
                 }
             });
 

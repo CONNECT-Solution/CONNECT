@@ -1,6 +1,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import java.sql.Timestamp;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -10,10 +12,6 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -36,6 +34,7 @@ public class EntityPatientDiscoverySecuredImplTest
     final AssertionType mockAssertion = context.mock(AssertionType.class);
     final EntityPatientDiscoveryOrchImpl mockProcessor = context.mock(EntityPatientDiscoveryOrchImpl.class);
     final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
+    final PerformanceManager mockPerformanceManager = context.mock(PerformanceManager.class);
 
     @Test
     public void testCreateLogger()
@@ -156,12 +155,19 @@ public class EntityPatientDiscoverySecuredImplTest
                 {
                     return mockAssertion;
                 }
+                @Override
+                protected PerformanceManager getPerformanceManager()
+                {
+                    return mockPerformanceManager;
+                }
             };
             context.checking(new Expectations()
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockProcessor).respondingGatewayPRPAIN201305UV02(with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)), with(aNonNull(AssertionType.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)), with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)), with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
                 }
             });
 
