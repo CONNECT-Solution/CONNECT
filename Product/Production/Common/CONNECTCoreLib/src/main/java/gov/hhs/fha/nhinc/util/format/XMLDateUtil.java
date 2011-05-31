@@ -23,10 +23,10 @@ public class XMLDateUtil {
     private static Log log = LogFactory.getLog(XMLDateUtil.class);
 
     /**
-     * Transform a date in a long to a GregorianCalendar
+     * Transform a date in a long to a XMLGregorianCalendar
      *
-     * @param date
-     * @return
+     * @param date long value
+     * @return <code>XMLGregorianCalendar</code>
      */
     public static XMLGregorianCalendar long2Gregorian(long date) {
         XMLGregorianCalendar xmlCal = null;
@@ -49,6 +49,9 @@ public class XMLDateUtil {
 
     /**
      * Transform a date in Date to XMLGregorianCalendar
+     *
+     * @param date value
+     * @return <code>XMLGregorianCalendar</code>
      */
     public static XMLGregorianCalendar date2Gregorian(Date date) {
         XMLGregorianCalendar xmlCal = null;
@@ -58,6 +61,23 @@ public class XMLDateUtil {
         }
 
         return xmlCal;
+    }
+
+    /**
+     * Transform an XMLGregorianCalendar value to a Date value
+     * 
+     * @param xmlCal
+     * @return <code>Date</code>
+     */
+    public static Date gregorian2date(XMLGregorianCalendar xmlCal) {
+        Date date = null;
+
+        if (xmlCal != null) {
+            GregorianCalendar c = xmlCal.toGregorianCalendar();
+            date = c.getTime();
+        }
+
+        return date;
     }
 
 }

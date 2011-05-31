@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -393,19 +394,23 @@ public class AsyncMsgRecordDao {
                     Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
 
                     if (queryCriteria.getCreationBeginTime() != null) {
-                        criteria.add(Restrictions.ge("CreationTime", queryCriteria.getCreationBeginTime()));
+                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getCreationBeginTime());
+                        criteria.add(Restrictions.ge("CreationTime", date));
                         criteriaPopulated = true;
                     }
                     if (queryCriteria.getCreationEndTime() != null) {
-                        criteria.add(Restrictions.le("CreationTime", queryCriteria.getCreationEndTime()));
+                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getCreationEndTime());
+                        criteria.add(Restrictions.le("CreationTime", date));
                         criteriaPopulated = true;
                     }
                     if (queryCriteria.getResponseBeginTime() != null) {
-                        criteria.add(Restrictions.ge("ResponseTime", queryCriteria.getResponseBeginTime()));
+                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getResponseBeginTime());
+                        criteria.add(Restrictions.ge("ResponseTime", date));
                         criteriaPopulated = true;
                     }
                     if (queryCriteria.getResponseEndTime() != null) {
-                        criteria.add(Restrictions.le("ResponseTime", queryCriteria.getResponseEndTime()));
+                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getResponseEndTime());
+                        criteria.add(Restrictions.le("ResponseTime", date));
                         criteriaPopulated = true;
                     }
                     if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
