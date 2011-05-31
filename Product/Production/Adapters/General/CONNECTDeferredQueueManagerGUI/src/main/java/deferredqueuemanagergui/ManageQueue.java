@@ -7,6 +7,7 @@
 package deferredqueuemanagergui;
 
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
+import com.sun.webui.jsf.component.Button;
 import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
 import com.sun.webui.jsf.component.TabSet;
@@ -25,7 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.FacesException;
-import javax.faces.component.html.HtmlSelectOneRadio;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,10 +47,20 @@ public class ManageQueue extends AbstractPageBean {
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
     private static final String QUERY_FOR_DOCUMENT = "QueryForDocument";
     private static final String RETRIEVE_DOCUMENT = "RetrieveDocument";
+    private TabSet processTabSet = new TabSet();
+    private Tab processQueueTab = new Tab();
+    private Tab unProcessQueueTab = new Tab();
+    private StaticText errorMessages = new StaticText();
+    private TextField startCreationDate = new TextField();
+    private TextField stopCreationDate = new TextField();
+    private String errors;
+    private StaticText messageId = new StaticText();
+    private StaticText serviceName = new StaticText();
+    private StaticText userInfo = new StaticText();
+    private Button processButton = new Button();
 
     private void _init() throws Exception {
     }
-    private TabSet processTabSet = new TabSet();
 
     public TabSet getProcessTabSet() {
         return processTabSet;
@@ -59,8 +69,6 @@ public class ManageQueue extends AbstractPageBean {
     public void setProcessTabSet(TabSet ts) {
         this.processTabSet = ts;
     }
-    private Tab processQueueTab = new Tab();
-    private Tab unProcessQueueTab = new Tab();
 
     public Tab getProcessQueueTab() {
         return processQueueTab;
@@ -77,16 +85,6 @@ public class ManageQueue extends AbstractPageBean {
     public void setUnProcessQueueTab(Tab unProcessQueueTab) {
         this.unProcessQueueTab = unProcessQueueTab;
     }
-    private HtmlSelectOneRadio autoEnabled = new HtmlSelectOneRadio();
-
-    public HtmlSelectOneRadio getAutoEnabled() {
-        return autoEnabled;
-    }
-
-    public void setAutoEnabled(HtmlSelectOneRadio hsor) {
-        this.autoEnabled = hsor;
-    }
-    private StaticText errorMessages = new StaticText();
 
     public StaticText getErrorMessages() {
         return errorMessages;
@@ -95,8 +93,6 @@ public class ManageQueue extends AbstractPageBean {
     public void setErrorMessages(StaticText st) {
         this.errorMessages = st;
     }
-    private TextField startCreationDate = new TextField();
-    private TextField stopCreationDate = new TextField();
 
     public TextField getStartCreationDate() {
         return startCreationDate;
@@ -113,7 +109,6 @@ public class ManageQueue extends AbstractPageBean {
     public void setStopCreationDate(TextField stopCreationDate) {
         this.stopCreationDate = stopCreationDate;
     }
-    private String errors;
 
     public String getErrors() {
         return errors;
@@ -122,8 +117,6 @@ public class ManageQueue extends AbstractPageBean {
     public void setErrors(String errors) {
         this.errors = errors;
     }
-    private StaticText messageId = new StaticText();
-    private StaticText serviceName = new StaticText();
 
     public StaticText getMessageId() {
         return messageId;
@@ -139,6 +132,23 @@ public class ManageQueue extends AbstractPageBean {
 
     public void setServiceName(StaticText serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public Button getProcessButton() {
+        return processButton;
+    }
+
+    public void setProcessButton(Button processButton) {
+        this.processButton = processButton;
+
+    }
+
+    public StaticText getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(StaticText userInfo) {
+        this.userInfo = userInfo;
     }
 
     /** Creates a new instance of ManageQueue */
@@ -234,7 +244,6 @@ public class ManageQueue extends AbstractPageBean {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
         this.errorMessages.setText("");
-
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
         List<AsyncMsgRecord> processQueueResults = deferredQueueManagerFacade.queryForDeferredQueueProcessing();
@@ -280,6 +289,11 @@ public class ManageQueue extends AbstractPageBean {
             Calendar cal1 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, startCreationTime);
             Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
 
+            if (cal1 == null || cal2 == null) {
+                this.errorMessages.setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                return null;
+            }
+
             if (cal1 != null) {
                 d1 = cal1.getTime();
             }
@@ -288,7 +302,7 @@ public class ManageQueue extends AbstractPageBean {
             }
         } catch (Exception ex) {
             log.error("Error Message: " + ex);
-            this.errorMessages.setText("Unable to parse given input dates, please recheck the date formats and retry agian... ");
+            this.errorMessages.setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
             return null;
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
@@ -333,18 +347,39 @@ public class ManageQueue extends AbstractPageBean {
     }
 
     public String process_action(javax.faces.event.ActionEvent event) throws Exception {
-
         String asyncMsgId = (String) this.messageId.getText();
         String serviceName = (String) this.serviceName.getText();
+        PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse = null;
+        DocQueryDeferredReqQueueProcessResponseType qdResponse = null;
+        DocRetrieveDeferredReqQueueProcessResponseType rdResponse = null;
+
         if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
-            PatientDiscoveryDeferredReqQueueProcessResponseType response = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
+            pdResponse = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
+            gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse.getSuccessOrFail();
+            if (sfpd.isSuccess()) {
+                this.userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
+            } else {
+                this.errorMessages.setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
+            }
         } else if (serviceName.trim().equals(QUERY_FOR_DOCUMENT)) {
             QueryForDocumentsDeferredReqQueueClient qdClient = new QueryForDocumentsDeferredReqQueueClient();
-            DocQueryDeferredReqQueueProcessResponseType response = qdClient.processDocQueryDeferredReqQueue(asyncMsgId);
+            qdResponse = qdClient.processDocQueryDeferredReqQueue(asyncMsgId);
+            gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.SuccessOrFailType sfqd = qdResponse.getSuccessOrFail();
+            if (sfqd.isSuccess()) {
+                this.userInfo.setText("Succesfully Query for Document Deferred Response Msg got Processed.");
+            } else {
+                this.errorMessages.setText("Unable to process the Query for Document Deferred Response, Please contact system administrator for further details.");
+            }
         } else if (serviceName.trim().equals(RETRIEVE_DOCUMENT)) {
             RetrieveDocumentsDeferredReqQueueClient rdClient = new RetrieveDocumentsDeferredReqQueueClient();
-            DocRetrieveDeferredReqQueueProcessResponseType response = rdClient.processDocRetrieveDeferredReqQueue(asyncMsgId);
+            rdResponse = rdClient.processDocRetrieveDeferredReqQueue(asyncMsgId);
+            gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.SuccessOrFailType sfrd = rdResponse.getSuccessOrFail();
+            if (sfrd.isSuccess()) {
+                this.userInfo.setText("Succesfully Retrieve for Document Deferred Response Msg got Processed.");
+            } else {
+                this.errorMessages.setText("Unable to process the Retrieve for Document Deferred Response, Please contact system administrator for further details.");
+            }
         }
 
         return null;
