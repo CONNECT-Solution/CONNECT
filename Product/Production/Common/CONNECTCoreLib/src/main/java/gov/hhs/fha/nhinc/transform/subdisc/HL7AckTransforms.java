@@ -174,7 +174,7 @@ public class HL7AckTransforms {
             }
 
             // Create the ack message
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_DETAIL_TYPE_CODE_INFO, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID, receiverOID);
         }
 
         return ack;
@@ -337,6 +337,9 @@ public class HL7AckTransforms {
             ceCode.setCodeSystemName("AcknowledgementDetailCode");
             ceCode.setDisplayName("Internal error");
             ackDetail.setCode(ceCode);
+        } else {
+            // Set the acknowledge detail type code as an info
+            ackDetail.setTypeCode(AcknowledgementDetailType.fromValue(ACK_DETAIL_TYPE_CODE_INFO));
         }
 
         if (NullChecker.isNotNullish(msgText)) {
