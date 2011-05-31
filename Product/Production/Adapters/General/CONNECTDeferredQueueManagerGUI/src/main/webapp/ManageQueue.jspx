@@ -46,7 +46,7 @@
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Action" id="action">
                                                 <webuijsf:button binding="#{ManageQueue.processButton}"  actionListenerExpression="#{ManageQueue.process_action}" id="forceProcessButton" text="Process"
-                                                   style="font-family: 'Arial','Helvetica',sans-serif;color: gray; fopnt-size: 12px; width: 64px"/>                                                
+                                                   style="font-family: 'Arial','Helvetica',sans-serif;font-size: 12px; width: 64px"/>                                                
                                             </webuijsf:tableColumn>                                            
                                         </webuijsf:tableRowGroup>
                                     </webuijsf:table>
