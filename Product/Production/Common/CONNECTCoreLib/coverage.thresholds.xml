@@ -4160,9 +4160,9 @@
               linecount="51"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="38" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="86" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchImpl"
-              linecount="102"
+              linecount="125"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4335,9 +4335,9 @@
               linecount="112"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="118" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="122" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode"
-              linecount="129"
+              linecount="123"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="20" branchrate="80" branchsexecuted="0"
@@ -5450,9 +5450,9 @@
               linecount="40"
               linerate="80"
               linesexecuted="0.33"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.util.format.XMLDateUtil"
-              linecount="17"
+              linecount="22"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0.09"
