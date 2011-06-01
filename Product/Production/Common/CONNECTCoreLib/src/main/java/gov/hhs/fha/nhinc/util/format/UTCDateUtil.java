@@ -58,6 +58,16 @@ public class UTCDateUtil {
     }
 
     /**
+     * Format a date using a UTC Date Only format.
+     *
+     * @param sourceDate Date to
+     * @return
+     */
+    public String formatUTCDateOnly(Date sourceDate) {
+        return formatDate(sourceDate, DATE_ONLY_FORMAT);
+    }
+
+    /**
      * Parses a string and returns a Date object having the given date format.
      *
      * @param dateString String to be parsed containing a date

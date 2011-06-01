@@ -432,7 +432,8 @@ public class HL7DbParser201306 {
         if (patient.getDateOfBirth() != null) {
             log.info("Setting Patient Birthday in 201306: " + patient.getDateOfBirth());
             UTCDateUtil utcDateUtil = new UTCDateUtil();
-            birthTime.setValue(utcDateUtil.formatUTCDate(patient.getDateOfBirth()));
+            // Format for date only, no time portion
+            birthTime.setValue(utcDateUtil.formatUTCDateOnly(patient.getDateOfBirth()));
         }
 
         return birthTime;
