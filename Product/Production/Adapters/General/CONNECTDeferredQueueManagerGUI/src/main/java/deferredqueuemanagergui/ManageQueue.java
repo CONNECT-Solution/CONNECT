@@ -8,10 +8,12 @@ package deferredqueuemanagergui;
 
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
 import com.sun.webui.jsf.component.Button;
+import com.sun.webui.jsf.component.DropDown;
 import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
 import com.sun.webui.jsf.component.TabSet;
 import com.sun.webui.jsf.component.TextField;
+import com.sun.webui.jsf.model.Option;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.PatientDiscoveryDeferredReqQueueClient;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.QueryForDocumentsDeferredReqQueueClient;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueueClient;
@@ -58,6 +60,7 @@ public class ManageQueue extends AbstractPageBean {
     private StaticText serviceName = new StaticText();
     private StaticText userInfo = new StaticText();
     private Button processButton = new Button();
+    private DropDown status = new DropDown();
 
     private void _init() throws Exception {
     }
@@ -140,7 +143,6 @@ public class ManageQueue extends AbstractPageBean {
 
     public void setProcessButton(Button processButton) {
         this.processButton = processButton;
-
     }
 
     public StaticText getUserInfo() {
@@ -149,6 +151,14 @@ public class ManageQueue extends AbstractPageBean {
 
     public void setUserInfo(StaticText userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public DropDown getStatus() {
+        return status;
+    }
+
+    public void setStatus(DropDown status) {
+        this.status = status;
     }
 
     /** Creates a new instance of ManageQueue */
@@ -237,6 +247,11 @@ public class ManageQueue extends AbstractPageBean {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
         this.errorMessages.setText("");
+        DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
+        List<Option> deferredQueueStatuses = deferredQueueManagerFacade.queryForDeferredQueueStatuses();
+        UserSession userSession = (UserSession) getBean("UserSession");
+        userSession.setStatusItems(null); // reset to null to force lazy load
+        userSession.getStatusItems().addAll(deferredQueueStatuses);
         return null;
     }
 
@@ -273,19 +288,27 @@ public class ManageQueue extends AbstractPageBean {
             return null;
         }
 
-        Date d1 = new Date();
-        Date d2 = new Date();
+        Date startDate = new Date();
+        Date stopDate = new Date();
         String startCreationTime = "";
         String stopCreationTime = "";
+        String statusValue ="";
         try {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
+            statusValue = (String) status.getValue();
+            String statusValue1 = (String) status.getLabel();
+
             if (startCreationTime == null) {
                 startCreationTime = "";
             }
             if (stopCreationTime == null) {
                 stopCreationTime = "";
             }
+            if (statusValue == null) {
+                statusValue = "";
+            }
+
             Calendar cal1 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, startCreationTime);
             Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
 
@@ -295,10 +318,10 @@ public class ManageQueue extends AbstractPageBean {
             }
 
             if (cal1 != null) {
-                d1 = cal1.getTime();
+                startDate = cal1.getTime();
             }
             if (cal2 != null) {
-                d2 = cal2.getTime();
+                stopDate = cal2.getTime();
             }
         } catch (Exception ex) {
             log.error("Error Message: " + ex);
@@ -308,11 +331,10 @@ public class ManageQueue extends AbstractPageBean {
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
         List<AsyncMsgRecord> unProcessQueueResults = null;
-
-        if ((startCreationTime.equals("") && stopCreationTime.equals(""))) {
+        if ((startCreationTime.equals("") && stopCreationTime.equals("") && statusValue.equals(""))) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
-            unProcessQueueResults = deferredQueueManagerFacade.queryByCreationStartAndStopTime(d1, d2);
+            unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate,statusValue);
         }
 
         if (unProcessQueueResults == null || unProcessQueueResults.size() == 0) {
