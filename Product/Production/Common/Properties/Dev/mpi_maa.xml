@@ -53,6 +53,16 @@
                             </void>
                         </object>
                     </void>
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>D123401</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>1.1.2</string>
+                            </void>
+                        </object>
+                    </void>
                 </void>
                 <void property="names">
                     <void method="add">
@@ -120,6 +130,16 @@
                     </void>
                 </void>
                 <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>1234</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>2.2.1</string>
+                            </void>
+                        </object>
+                    </void>
                     <void method="add">
                         <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
                             <void property="id">
