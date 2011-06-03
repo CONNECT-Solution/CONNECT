@@ -10,7 +10,6 @@ import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
@@ -18,6 +17,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -25,7 +26,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
  */
 public class PassthruDocQueryOrchImpl {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocQueryOrchImpl.class);
+    private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
 
     /**
      *
@@ -38,7 +39,7 @@ public class PassthruDocQueryOrchImpl {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
-        // Requireed the responding home community id in the audit log
+        // The responding home community id is required in the audit log
         String responseCommunityID = null;
         if (target != null &&
                 target.getHomeCommunity() != null) {
@@ -54,13 +55,8 @@ public class PassthruDocQueryOrchImpl {
             NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
             NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
 
-            RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
-
-            request.setAdhocQueryRequest(body);
-            request.setAssertion(assertion);
-            request.setNhinTargetSystem(target);
             log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
-            response = proxy.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(), request.getNhinTargetSystem());
+            response = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
         } catch (Throwable t) {
             log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
             response = new AdhocQueryResponse();

@@ -8,15 +8,12 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
@@ -28,10 +25,8 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
-import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.logging.Log;
@@ -94,10 +89,8 @@ public class DocQuerySender {
     }
 
     public void sendMessage() {
-        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType docQuery = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType();
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         String assigningAuthority = oSubjectId.getAssigningAuthorityIdentifier();
-        EntityDocQueryHelper helper = new EntityDocQueryHelper();
 
         HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(assigningAuthority, sLocalAssigningAuthorityId, sLocalHomeCommunity);
         String sTargetHomeCommunityId = null;
@@ -105,32 +98,18 @@ public class DocQuerySender {
             targetSystem.setHomeCommunity(targetCommunity);
             sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
         }
-        docQuery.setNhinTargetSystem(targetSystem);
         // Replace the patient id in the document query message
         DocumentQueryTransform transform = createDocumentTransform();
         AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(oOriginalQueryRequest, sLocalHomeCommunity, oSubjectId.getAssigningAuthorityIdentifier(), oSubjectId.getSubjectIdentifier());
-        docQuery.setAdhocQueryRequest(adhocQueryRequest);
         AdhocQueryResponse queryResults = null;
         if (isValidPolicy(adhocQueryRequest, oAssertion, targetCommunity)) {
             try {
-                // Audit the Document Query Request Message sent on the Nhin Interface
-                DocQueryAuditLog auditLog = new DocQueryAuditLog();
-                AcknowledgementType ack = auditLog.auditDQRequest(adhocQueryRequest, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, sTargetHomeCommunityId);
                 log.debug("Creating NhinDocQueryProxy");
                 PassthruDocQueryProxyObjectFactory docQueryFactory = new PassthruDocQueryProxyObjectFactory();
                 PassthruDocQueryProxy proxy = docQueryFactory.getPassthruDocQueryProxy();
 
-                RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
-
-                request.setAdhocQueryRequest(docQuery.getAdhocQueryRequest());
-                request.setAssertion(oAssertion);
-                request.setNhinTargetSystem(docQuery.getNhinTargetSystem());
-
                 log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
-                queryResults = proxy.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(), request.getNhinTargetSystem());
-
-                // Audit the Document Query Response Message received on the Nhin Interface
-                ack = auditLog.auditDQResponse(queryResults, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, sTargetHomeCommunityId);
+                queryResults = proxy.respondingGatewayCrossGatewayQuery(adhocQueryRequest, oAssertion, targetSystem);
             } catch (Throwable t) {
                 queryResults = new AdhocQueryResponse();
                 RegistryErrorList regErrList = new RegistryErrorList();

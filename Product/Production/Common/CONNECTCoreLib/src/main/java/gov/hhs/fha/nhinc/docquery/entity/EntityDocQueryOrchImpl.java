@@ -142,7 +142,7 @@ public class EntityDocQueryOrchImpl {
 
     private void auditDocQueryRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request, AssertionType assertion, DocQueryAuditLog auditLog, String targetHomeCommunityId) {
         if (auditLog != null) {
-            auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion, targetHomeCommunityId, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, targetHomeCommunityId);
         }
     }
 

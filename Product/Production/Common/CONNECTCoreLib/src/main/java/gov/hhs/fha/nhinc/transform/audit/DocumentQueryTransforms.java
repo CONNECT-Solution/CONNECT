@@ -194,6 +194,10 @@ public class DocumentQueryTransforms {
                 message.getMessage().getAssertion() != null &&
                 message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
+            log.info("***** ASSERTION UserInfo UserName contains: " + userInfo.getUserName() + " *****");
+            log.info("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId() + " *****");
+        } else {
+            log.info("***** ASSERTION IS NULL *****");
         }
 
         // Create Event Identification Section
