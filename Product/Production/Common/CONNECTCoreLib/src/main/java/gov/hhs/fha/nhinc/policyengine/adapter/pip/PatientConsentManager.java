@@ -174,7 +174,18 @@ public class PatientConsentManager {
             XACMLCreator oCreator = new XACMLCreator();
             oConsentXACML = oCreator.createConsentXACMLDoc(oPtPref);
             log.info("Created XACML Doc with policy OID: " + oConsentXACML.getPolicyId());
-            String sDocOID = oConsentXACML.getPolicyId();
+
+            String sDocOID = null;
+            if ((oPtPref != null) &&
+                    (oPtPref.getAssigningAuthority() != null) &&
+                    (oPtPref.getPatientId() != null)) {
+                sDocOID = retrievePatientConsentDocumentIdByPatientId(oPtPref.getPatientId(), oPtPref.getAssigningAuthority());
+                log.info("storePatientConsent - sDocOID: " + sDocOID);
+            }
+
+            if (sDocOID == null) {
+                sDocOID = oConsentXACML.getPolicyId();
+            }
 
             XACMLSerializer oSerializer = new XACMLSerializer();
             String sConsentXACML = oSerializer.serializeConsentXACMLDoc(oConsentXACML);
@@ -428,10 +439,10 @@ public class PatientConsentManager {
         String sPatientId = retrievePtIdFromDocumentId(sDocumentUniqueId, sRepositoryId);
         log.info("Given DocId: " + sDocumentUniqueId + " in Repository: " + sRepositoryId + " patientId retrieved is: " + sPatientId);
 
-        if ((sPatientId != null) &&
-                (sPatientId.length() >= 0)) {
+        /*if ((sPatientId != null) &&
+                (!sPatientId.trim().equals(""))) {
             oPtPref = retrievePatientConsentByPatientId(sPatientId, "");
-        }
+        }*/
         log.info("--------------- End retrievePatientConsentByDocId ---------------");
         return oPtPref;
     }
@@ -498,6 +509,32 @@ public class PatientConsentManager {
         }
         log.info("--------------- End retrievePatientConsentByPatientId ---------------");
         return oPtPref;
+    }
+
+    public String retrievePatientConsentDocumentIdByPatientId(
+            String sPatientId, String sAssigningAuthority)
+            throws AdapterPIPException {
+        log.info("--------------- Begin retrievePatientConsentDocumentIdByPatientId ---------------");
+        String patientConsentDocumentId = null;
+
+        if ((sPatientId == null) ||
+                (sPatientId.trim().length() <= 0)) {
+            String sErrorMessage = "Failed to retrieve patient consent.  The patient ID was either null or an empty string.";
+            log.error(sErrorMessage);
+            throw new AdapterPIPException(sErrorMessage);
+        }
+
+        List<CPPDocumentInfo> olDocInfo = retrieveCPPFromRepositoryUsingXDSb(sPatientId, sAssigningAuthority);
+
+        if (olDocInfo != null &&
+                (olDocInfo.size() > 0)) {
+            log.info(olDocInfo.size() + " CPP documents were retrieved from the repository");
+            patientConsentDocumentId = olDocInfo.get(0).sDocumentUniqueId;
+        }
+
+        log.info("retrievePatientConsentDocumentIdByPatientId - patientConsentDocumentId: " + patientConsentDocumentId);
+        log.info("--------------- End retrievePatientConsentDocumentIdByPatientId ---------------");
+        return patientConsentDocumentId;
     }
 
     /**
@@ -733,9 +770,9 @@ public class PatientConsentManager {
             }
             if (olBinDocPolicyCriteria != null && !olBinDocPolicyCriteria.isEmpty()) {
                 oPtPref.setBinaryDocumentPolicyCriteria(oBinDocPolicyCriteriaType);
-        } else {
-            log.info("No Binary documents are processed");
-        }
+            } else {
+                log.info("No Binary documents are processed");
+            }
         } else {
             log.info("Fine Grained Policy Criterion is not present.");
         }

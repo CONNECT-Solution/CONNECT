@@ -8,9 +8,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.docrepository.adapter;
-
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
@@ -56,6 +54,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * @author jhoppesc
  */
 public class AdapterComponentDocRepositoryOrchImpl {
+
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_AVAILABLILTY_STATUS_APPROVED = "Active";
@@ -112,14 +111,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
     private static final String REPOSITORY_UNIQUE_ID = "1";
     private final static int FILECHUNK = 65536;
 
-    public AdapterComponentDocRepositoryOrchImpl()
-    {
+    public AdapterComponentDocRepositoryOrchImpl() {
         log = createLogger();
         utcDateUtil = createDateUtil();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -127,8 +124,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         return new DocumentService();
     }
 
-    protected UTCDateUtil createDateUtil()
-    {
+    protected UTCDateUtil createDateUtil() {
         return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
 
@@ -404,7 +400,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         if (patientId != null) {
                             //remove the assigning authority value
                             log.debug("patientId for ExtrinsicObject " + i + ": " + patientId);
-                            String patientIdReformatted = PatientIdFormatUtil.parsePatientId(patientId);
+                            String patientIdReformatted = PatientIdFormatUtil.stripQuotesFromPatientId(patientId);
                             log.debug("Reformatted patientId for ExtrinsicObject " + i + ": " + patientIdReformatted);
                             doc.setPatientId(patientIdReformatted);
                         } else {
@@ -488,7 +484,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         log.debug("sourcePatientid: " + sourcePatientId);
                         if (sourcePatientId != null) {
                             //remove the assigning authority value
-                            String sourcePatientIdReformatted = PatientIdFormatUtil.parsePatientId(sourcePatientId);
+                            String sourcePatientIdReformatted = PatientIdFormatUtil.stripQuotesFromPatientId(sourcePatientId);
                             log.debug("Reformatted sourcePatientId for ExtrinsicObject " + i + ": " + sourcePatientIdReformatted);
                             doc.setSourcePatientId(sourcePatientIdReformatted);
                         }
@@ -747,6 +743,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             log.debug("queryRepositoryByPatientId " + documents.size() + " documents for patient: " + sPatId);
             for (Document doc : documents) {
                 log.debug("Found matching docId: " + doc.getDocumentUniqueId() + " with repository doc id: " + doc.getDocumentid());
+                log.debug("queryRepositoryByPatientId - sDocId: " + sDocId);
                 if (sDocId.equals(doc.getDocumentUniqueId())) {
                     nhincDocRepositoryDocId = doc.getDocumentid();
                     break;
@@ -968,6 +965,4 @@ public class AdapterComponentDocRepositoryOrchImpl {
         doc.setEventCodes(eventCodes);
         log.debug("End extractEventCodes");
     }
-
-
 }

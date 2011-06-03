@@ -4610,9 +4610,9 @@
               linecount="515"
               linerate="80"
               linesexecuted="3.66"/>
-   <threshold branchcount="222" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="234" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.policyengine.adapter.pip.PatientConsentManager"
-              linecount="291"
+              linecount="309"
               linerate="80"
               linesexecuted="0.03"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

@@ -146,11 +146,12 @@ public class AdapterPIPImpl {
      */
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request)
             throws AdapterPIPException {
+        log.debug("Begin AdapterPIPImpl.storePtConsent()..");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         try {
             if ((request != null) &&
                     (request.getPatientPreferences() != null)) {
-                PatientConsentManager oManager = getPatientConsentManager();
+                PatientConsentManager oManager = getPatientConsentManager();                
                 oManager.storePatientConsent(request.getPatientPreferences());
                 oResponse.setStatus("SUCCESS");
             } else {

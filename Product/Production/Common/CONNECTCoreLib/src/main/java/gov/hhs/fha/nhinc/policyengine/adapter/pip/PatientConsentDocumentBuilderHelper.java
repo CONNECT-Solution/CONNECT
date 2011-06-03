@@ -53,7 +53,7 @@ public class PatientConsentDocumentBuilderHelper {
 
     private Log log = null;
     private UTCDateUtil utcDateUtil = null;
-    private static final String FILE_NAME = "XDSUniqueIds.properties";
+    private static final String FILE_NAME = "XDSUniqueIds";
     private static String sPropertyFile = null;
     private static final String PDF_MIME_TYPE = "application/pdf";
 
@@ -104,7 +104,7 @@ public class PatientConsentDocumentBuilderHelper {
         if (oPtPref != null &&
                 oPtPref.getPatientId() != null &&
                 !oPtPref.getPatientId().contains("&ISO")) {
-            hl7PatientId = PatientIdFormatUtil.hl7EncodePatientId(oPtPref.getPatientId(), sHid);
+            hl7PatientId = PatientIdFormatUtil.hl7EncodePatientId(oPtPref.getPatientId(), oPtPref.getAssigningAuthority());
             hl7PatientId = StringUtil.extractStringFromTokens(hl7PatientId, "'");
         } else {
             hl7PatientId = oPtPref.getPatientId();
@@ -175,7 +175,9 @@ public class PatientConsentDocumentBuilderHelper {
                 CDAConstants.PROVIDE_REGISTER_SLOT_NAME_DOC_SUBMISSION_SET_PATIENT_ID);
         oRegistryPackage.getExternalIdentifier().add(oExtIdTypePatForReg);
 
-        String sSubmissionSetUniqueId = getOidFromProperty("submissionsetuniqueid");
+        String sSubmissionSetUniqueId = PropertyAccessor.getProperty(FILE_NAME, "submissionsetuniqueid");
+        log.debug("sSubmissionSetUniqueId: " + sSubmissionSetUniqueId);
+        //getOidFromProperty("submissionsetuniqueid");
         oExtIdTypePatForReg = createExternalIdentifier(oRimObjectFactory,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_UNIQUEID,
