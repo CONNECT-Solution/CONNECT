@@ -28,9 +28,12 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
@@ -40,9 +43,15 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
  */
 public class PatientSearchFacade {
 
+    private static final Log log = LogFactory.getLog(PatientSearchFacade.class);
 
-    public List<PatientVO> searchPatient(PatientSearchCriteria patientSearchCriteria) throws Exception
-    {
+    /**
+     * Search MPI with the given search criteria
+     *
+     * @param patientSearchCriteria
+     * @return patients
+     */
+    public List<PatientVO> searchPatient(PatientSearchCriteria patientSearchCriteria) throws Exception {
 
         List<PatientVO> patientVOs = null;
 
@@ -93,35 +102,54 @@ public class PatientSearchFacade {
      */
     private Patients convertPRPAIN201306UVToPatients(PRPAIN201306UV02 patients) {
         Patients mpiPatients = new Patients();
-        Patient searchPatient = new Patient();
+        Patient searchPatient = null;
+        PRPAMT201310UV02Patient mpiPatResult = null;
+        PersonNameType name = null;
+        PersonName personName = null;
+        if ((patients != null) &&
+                (patients.getControlActProcess() != null) &&
+                NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
+            log.debug("convertPRPAIN201306UVToPatients - patients size: " + patients.getControlActProcess().getSubject().size());
+            for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : patients.getControlActProcess().getSubject()) {
+                if ((subj1.getRegistrationEvent() != null) &&
+                        (subj1.getRegistrationEvent().getSubject1() != null) &&
+                        (subj1.getRegistrationEvent().getSubject1().getPatient() != null)) {
+                    mpiPatResult = subj1.getRegistrationEvent().getSubject1().getPatient();
+                    searchPatient = new Patient();
 
-        if (patients != null &&
-                patients.getControlActProcess() != null &&
-                NullChecker.isNotNullish(patients.getControlActProcess().getSubject()) &&
-                patients.getControlActProcess().getSubject().get(0) != null &&
-                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
-            PRPAMT201310UV02Patient mpiPatResult = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+                    if (NullChecker.isNotNullish(mpiPatResult.getId()) &&
+                            mpiPatResult.getId().get(0) != null &&
+                            NullChecker.isNotNullish(mpiPatResult.getId().get(0).getExtension()) &&
+                            NullChecker.isNotNullish(mpiPatResult.getId().get(0).getRoot())) {
+                        log.debug("convertPRPAIN201306UVToPatients - patients getExtension: " + mpiPatResult.getId().get(0).getExtension());
+                        log.debug("convertPRPAIN201306UVToPatients - patients getRoot: " + mpiPatResult.getId().get(0).getRoot());
+                        searchPatient.getIdentifiers().add(mpiPatResult.getId().get(0).getExtension(), mpiPatResult.getId().get(0).getRoot());
+                    }
 
-            if (NullChecker.isNotNullish(mpiPatResult.getId()) &&
-                    mpiPatResult.getId().get(0) != null &&
-                    NullChecker.isNotNullish(mpiPatResult.getId().get(0).getExtension()) &&
-                    NullChecker.isNotNullish(mpiPatResult.getId().get(0).getRoot())) {
-                searchPatient.getIdentifiers().add(mpiPatResult.getId().get(0).getExtension(), mpiPatResult.getId().get(0).getRoot());
+                    if (mpiPatResult.getPatientPerson() != null &&
+                            mpiPatResult.getPatientPerson().getValue() != null &&
+                            mpiPatResult.getPatientPerson().getValue().getName() != null) {
+                        name = HL7Extractors.translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue().getName());
+                        if (name != null) {
+                            log.debug("convertPRPAIN201306UVToPatients - patients name.getGivenName(): " + name.getGivenName());
+                            log.debug("convertPRPAIN201306UVToPatients - patients name.getFamilyName(): " + name.getFamilyName());
+                            personName = new PersonName();
+                            personName.setFirstName(name.getGivenName());
+                            personName.setLastName(name.getFamilyName());
+                            searchPatient.setName(personName);
+                        }
+
+                    } else {
+                        log.debug("convertPRPAIN201306UVToPatients - mpiPatResult.getPatientPerson(): null");
+                    }
+
+                    mpiPatients.add(searchPatient);
+
+                }
             }
 
-            if (mpiPatResult.getPatientPerson() != null &&
-                    mpiPatResult.getPatientPerson().getValue() != null &&
-                    mpiPatResult.getPatientPerson().getValue().getName() != null) {
-                PersonNameType name = HL7Extractors.translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue().getName());
-                PersonName personName = new PersonName();
-                personName.setFirstName(name.getGivenName());
-                personName.setLastName(name.getFamilyName());
-                searchPatient.setName(personName);
-            }
-
-            mpiPatients.add(searchPatient);
+        } else {
+            log.debug("convertPRPAIN201306UVToPatients - patients size: null");
         }
 
         return mpiPatients;
@@ -131,19 +159,14 @@ public class PatientSearchFacade {
      *
      * @return
      */
-    private List<PatientVO> convertMPIPatientToPatientVO(Patients mpiPatients) throws Exception
-    {
+    private List<PatientVO> convertMPIPatientToPatientVO(Patients mpiPatients) throws Exception {
         List<PatientVO> patientVOs = new ArrayList<PatientVO>();
 
         if (mpiPatients == null || mpiPatients.size() < 1) {
             return patientVOs;
         }
 
-        String assigningAuthId = PropertyAccessor.getProperty("adapter", "assigningAuthorityId");
-
-
-        for (Patient patient : mpiPatients)
-        {
+        for (Patient patient : mpiPatients) {
             PatientVO patientVO = new PatientVO();
 
             PersonName name = patient.getName();
@@ -153,14 +176,9 @@ public class PatientSearchFacade {
                 patientVO.setLastName(name.getLastName());
             }
 
-            for (Identifier id : patient.getIdentifiers())
-            {
-                if (id.getOrganizationId().equals(assigningAuthId)) 
-                {
-                    patientVO.setAssigningAuthorityID(assigningAuthId);
-                    patientVO.setPatientID(id.getId());
-                    patientVO.setOrganizationID(id.getOrganizationId());
-                }
+            for (Identifier id : patient.getIdentifiers()) {
+                patientVO.setPatientID(id.getId());
+                patientVO.setOrganizationID(id.getOrganizationId());
             }
 
             patientVOs.add(patientVO);

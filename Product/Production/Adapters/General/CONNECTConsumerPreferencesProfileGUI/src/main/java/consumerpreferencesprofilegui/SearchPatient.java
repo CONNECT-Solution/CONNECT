@@ -95,6 +95,17 @@ public class SearchPatient extends AbstractPageBean {
     public void setIdentifier(TextField tf) {
         this.identifier = tf;
     }
+
+    private TextField aaId = new TextField();
+
+    public TextField getAaId() {
+        return aaId;
+    }
+
+    public void setAaId(TextField tf) {
+        this.aaId = tf;
+    }
+
     private Tab searchPatientTab = new Tab();
 
     public Tab getSearchPatientTab() {
@@ -150,8 +161,6 @@ public class SearchPatient extends AbstractPageBean {
     public void setUserSelectedPolicyOID(UIParameter userSelectedPolicyOID) {
         this.userSelectedPolicyOID = userSelectedPolicyOID;
     }
-
-
 
     public void setOptInDefaultOptions(SingleSelectOptionsList ssol) {
         this.optInDefaultOptions = ssol;
@@ -362,10 +371,10 @@ public class SearchPatient extends AbstractPageBean {
             throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
 
-    // </editor-fold>
-    // Perform application initialization that must complete
-    // *after* managed components are initialized
-    // TODO - add your own initialization code here
+        // </editor-fold>
+        // Perform application initialization that must complete
+        // *after* managed components are initialized
+        // TODO - add your own initialization code here
     }
 
     /**
@@ -424,6 +433,14 @@ public class SearchPatient extends AbstractPageBean {
 
         List<PatientVO> searchResults = patientSearchFacade.searchPatient(criteria);
 
+        if (searchResults != null) {
+            log.info("CPP - searchResults: " + searchResults.size());
+           for (PatientVO patientVO: searchResults){
+               patientVO.setAssigningAuthorityID(patientVO.getOrganizationID());
+           }
+        } else {
+            log.info("CPP - searchResults: null");
+        }
         UserSession userSession = (UserSession) getBean("UserSession");
         userSession.setSearchResults(searchResults);
 
@@ -435,16 +452,26 @@ public class SearchPatient extends AbstractPageBean {
 
         if (firstName != null && firstName.getText() != null) {
             criteria.setFirstName(firstName.getText().toString());
+            log.info("createPatientSearchCriteria - firstName: " + firstName.getText().toString());
         }
 
         if (lastName != null && lastName.getText() != null) {
             criteria.setLastName(lastName.getText().toString());
+            log.info("createPatientSearchCriteria - firstName: " + lastName.getText().toString());
         }
 
         if (identifier != null && identifier.getText() != null) {
             criteria.setPatientID(identifier.getText().toString());
+            log.info("createPatientSearchCriteria - firstName: " + identifier.getText().toString());
         }
 
+        if (aaId != null && aaId.getText() != null) {
+            criteria.setAssigningAuthorityID(aaId.getText().toString());
+            log.info("createPatientSearchCriteria - aaId: " + aaId.getText().toString());
+        }
+
+        //criteria.setOrganizationID("2.16.840.1.113883.0.202.1");
+        
 
         return criteria;
     }
@@ -471,7 +498,10 @@ public class SearchPatient extends AbstractPageBean {
 
         PatientVO selectedPatient = null;
 
+        log.debug("displayConsumerPreferences - patientID: " + patientID);        
+
         for (PatientVO patient : userSession.getSearchResults()) {
+            log.debug("displayConsumerPreferences - PatientVO patientID: " + patient.getPatientID());
             if (patientID.contentEquals(patient.getPatientID())) {
                 selectedPatient = patient;
                 break;
@@ -480,14 +510,24 @@ public class SearchPatient extends AbstractPageBean {
 
         AdapterPIPFacade adapterPIPFacade = new AdapterPIPFacade();
 
-        this.patientName.setText(selectedPatient.getFirstName() + " " + selectedPatient.getLastName());
+        PatientPreferencesVO patientPreferences = new PatientPreferencesVO();
+        if (selectedPatient != null) {
+            this.patientName.setText(selectedPatient.getFirstName() + " " + selectedPatient.getLastName());
 
-        ConsumerPreferencesSearchCriteria criteria = createPreferencesSearchCriteria(selectedPatient.getPatientID(),
-                selectedPatient.getAssigningAuthorityID());
+            log.debug("displayConsumerPreferences - selectedPatient.getPatientID: " + selectedPatient.getPatientID());
+            log.debug("displayConsumerPreferences - selectedPatient.getAssigningAuthorityID: " + selectedPatient.getAssigningAuthorityID());
+            log.debug("displayConsumerPreferences - selectedPatient.getOrganizationID: " + selectedPatient.getOrganizationID());
 
-        PatientPreferencesVO patientPreferences = adapterPIPFacade.retriveConsumerPreferences(criteria);
+            ConsumerPreferencesSearchCriteria criteria = createPreferencesSearchCriteria(selectedPatient.getPatientID(),
+                    selectedPatient.getAssigningAuthorityID());
 
-        selectedPatient.setPatientPreferences(patientPreferences);
+            patientPreferences = adapterPIPFacade.retriveConsumerPreferences(criteria);
+
+            selectedPatient.setPatientPreferences(patientPreferences);
+        }else{
+            log.debug("displayConsumerPreferences - selectedPatient: null");
+        }
+
 
         userSession.setPatient(selectedPatient);
 
@@ -544,13 +584,13 @@ public class SearchPatient extends AbstractPageBean {
 
     private void activatePatientPreferencesTab() {
         this.patientPreferencesTab.setDisabled(false);
-    /*
-    String tabLabelStyle = this.getPatientPreferencesTab().getStyle();
-    if (tabLabelStyle.contains("color: gray; ")) {
-    String newStyle = tabLabelStyle.replace("color: gray; ", "");
-    this.patientPreferencesTab.setStyle(newStyle);
-    }
-     */
+        /*
+        String tabLabelStyle = this.getPatientPreferencesTab().getStyle();
+        if (tabLabelStyle.contains("color: gray; ")) {
+        String newStyle = tabLabelStyle.replace("color: gray; ", "");
+        this.patientPreferencesTab.setStyle(newStyle);
+        }
+         */
     }
 
     private void deactivatePatientPreferencesTab() {
@@ -677,7 +717,7 @@ public class SearchPatient extends AbstractPageBean {
         }
 
         resetFineGrainedPrefencesForm();
-        
+
         return null;
     }
 
@@ -794,7 +834,7 @@ public class SearchPatient extends AbstractPageBean {
         }
 
         resetFineGrainedPrefencesForm();
-        
+
         return null;
     }
 
@@ -845,16 +885,12 @@ public class SearchPatient extends AbstractPageBean {
      * 
      * @param propertiesFile
      */
-    private Option[] createOptionsFromPropertiesFile(String propertiesFile)
-    {
+    private Option[] createOptionsFromPropertiesFile(String propertiesFile) {
         Properties properties = null;
 
-        try
-        {
+        try {
             properties = PropertyAccessor.getProperties(propertiesFile);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error("Exception while reading properties file: " + propertiesFile, e);
         }
 
@@ -863,31 +899,26 @@ public class SearchPatient extends AbstractPageBean {
         defaultOption.setValue("");
         int index = 0;
 
-        Option [] options = null;
+        Option[] options = null;
 
-        if (properties != null && properties.size()>0)
-        {
+        if (properties != null && properties.size() > 0) {
             int size = properties.size() + 1;
             options = new Option[size];
             options[index] = defaultOption;
 
-            for(String propertyKey : properties.stringPropertyNames())
-            {
+            for (String propertyKey : properties.stringPropertyNames()) {
                 Option option = new Option();
                 option.setLabel(properties.getProperty(propertyKey));
                 option.setValue(propertyKey);
                 options[++index] = option;
             }
-        }
-        else
-        {
+        } else {
             options = new Option[1];
             options[index] = defaultOption;
         }
-        
+
         return options;
     }
-
 
     private void resetFineGrainedPrefencesForm() {
         this.permission.setValue("");

@@ -27,17 +27,17 @@
               linesexecuted="0"/>
    <threshold branchcount="56" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.AdapterPIPFacade"
-              linecount="94"
+              linecount="96"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="40" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade"
-              linecount="51"
+              linecount="63"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO"
-              linecount="31"
+              linecount="35"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="14" branchrate="80" branchsexecuted="0"

@@ -25,16 +25,21 @@
                                     <webuijsf:label id="firstNameLbl"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 12px; height: 24px; left: 24px; top: 120px; position: absolute" text="First Name: "/>
                                     <webuijsf:label id="lastNameLbl"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 96px; position: absolute" text="Last Name:"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 96px; position: absolute" text="Last Name:"/>                                    
                                     <webuijsf:label id="identifierLbl"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 144px; position: absolute" text="Identifier:"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 144px; position: absolute" text="Patient Id:"/>
+                                    <webuijsf:label id="aaIdLbl"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 166px; position: absolute" text="AA Id:"/>
                                     <webuijsf:textField binding="#{SearchPatient.firstName}" columns="30" id="firstName" style="left: 96px; top: 120px; position: absolute"/>
                                     <webuijsf:textField binding="#{SearchPatient.lastName}" columns="30" id="lastName" style="left: 96px; top: 96px; position: absolute"/>
                                     <webuijsf:textField binding="#{SearchPatient.identifier}" columns="30" id="identifier" style="left: 96px; top: 144px; position: absolute"/>
+                                    <webuijsf:textField binding="#{SearchPatient.aaId}" columns="30" id="aaId" style="left: 96px; top: 166px; position: absolute"/>
+                                    <webuijsf:label id="noteLbl"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 184px; position: absolute" text="Note*: AA Id is required when Patient Id is provided. Patient Id is case sensitive."/>
                                     <webuijsf:button id="resetButton" reset="true"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 95px; top: 192px; position: absolute; width: 72px" text="Reset"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 95px; top: 204px; position: absolute; width: 72px" text="Reset"/>
                                     <webuijsf:button actionExpression="#{SearchPatient.searchPatientButton_action}" id="searchPatientButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 191px; top: 192px; position: absolute; width: 72px" text="Search"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 191px; top: 204px; position: absolute; width: 72px" text="Search"/>
                                     <webuijsf:table augmentTitle="false" id="searchPatientResults"
                                         style="left: 48px; top: 240px; position: absolute; width: 600px" title="Patient Search Results" width="600">
                                         <webuijsf:tableRowGroup id="patientSearchResults" sourceData="#{UserSession.searchResults}" sourceVar="patient">
@@ -115,11 +120,11 @@
                                         <webuijsf:dropDown binding="#{SearchPatient.confidentialityCode}" id="confidentialityCode"
                                             items="#{SearchPatient.confidentialityCodeDefaultOptions.options}" style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 144px; top: 120px; position: absolute"/>
                                         <webuijsf:button actionExpression="#{SearchPatient.addPreferences}" id="addPreferences"
-                                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 23px; top: 168px; position: absolute" text="Add"/>
+                                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 23px; top: 168px; position: absolute; width: 72px" text="Add"/>
                                         <webuijsf:button actionExpression="#{SearchPatient.updatePreferences}" id="updatePreferences"
-                                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 95px; top: 168px; position: absolute" text="Update Selected"/>
+                                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 95px; top: 168px; position: absolute; width: 120px" text="Update Selected"/>
                                         <webuijsf:button actionExpression="#{SearchPatient.deletePreferences}" id="deletePreference"
-                                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 215px; top: 168px; position: absolute" text="Delete Selected"/>
+                                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 215px; top: 168px; position: absolute; width: 100x" text="Delete Selected"/>
                                     </webuijsf:panelLayout>
                                     <webuijsf:button actionExpression="#{SearchPatient.savePreferences}" binding="#{SearchPatient.savePreferences}"
                                         id="savePreferences"
@@ -129,7 +134,7 @@
                         </webuijsf:tabSet>
                         <webuijsf:staticText binding="#{SearchPatient.errorMessages}" id="errorMessages" style="color: red; font-family: 'Times New Roman',Times,serif; font-size: 12px; left: 72px; top: 72px; position: absolute"/>
                         <webuijsf:button actionExpression="#{SearchPatient.logOut_action}" id="logOut"
-                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 767px; top: 72px; position: absolute" text="Log Off"/>
+                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 767px; top: 72px; position: absolute; width: 72px" text="Log Off"/>
                     </webuijsf:form>
                 </webuijsf:body>
             </webuijsf:html>

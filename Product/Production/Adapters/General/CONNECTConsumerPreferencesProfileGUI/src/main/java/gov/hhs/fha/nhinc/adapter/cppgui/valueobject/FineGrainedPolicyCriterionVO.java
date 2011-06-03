@@ -105,7 +105,14 @@ public class FineGrainedPolicyCriterionVO {
 
         try
         {
-            description = PropertyAccessor.getProperty(propertyFile, propertyName);
+            if((propertyFile == null) || ((propertyFile.trim()).equals(""))){
+                log.error("propertyFile value is null");
+            }else if((propertyName == null) || ((propertyName.trim()).equals(""))){
+                log.error("propertyName value is null");
+            }else{
+                description = PropertyAccessor.getProperty(propertyFile, propertyName);
+            }
+            
         }
         catch (Exception e)
         {

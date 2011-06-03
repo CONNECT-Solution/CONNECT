@@ -172,6 +172,9 @@ public class AdapterPIPFacade {
         StorePtConsentRequestType consentRequest = new StorePtConsentRequestType();
         PatientPreferencesType patientPreference = new PatientPreferencesType();
 
+        log.debug("createStorePtConsentRequestType - patientVO.getPatientID(): " + patientVO.getPatientID());
+        log.debug("createStorePtConsentRequestType - patientVO.getAssigningAuthorityID(): " + patientVO.getAssigningAuthorityID());
+
         patientPreference.setPatientId(patientVO.getPatientID());
         patientPreference.setAssigningAuthority(patientVO.getAssigningAuthorityID());
 
