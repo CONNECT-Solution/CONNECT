@@ -14,8 +14,11 @@ import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.sql.Timestamp;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
@@ -56,15 +59,21 @@ public class NhinDocQueryOrchImpl {
         // Audit the incomming query
         AcknowledgementType ack = auditAdhocQueryRequest(crossGatewayQueryRequest, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
 
-        //AssignProcessFlag: 'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue
+        // Log the start of the nhin performance record
+        Timestamp starttime = new Timestamp(System.currentTimeMillis());
+        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, requestCommunityID);
+
+        // AssignProcessFlag: 'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue
         // Check if the AdhocQuery Service is enabled
         if (isServiceEnabled()) {
+            // Get local home community id for adapter audit log
+            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
             // Check to see if in adapter pass through mode for this service
             if (isInPassThroughMode()) {
                 log.info("Passthrough mode is enabled, sending message to the Adapter");
-                resp = forwardToAgency(crossGatewayQueryRequest, requestCommunityID);
+                resp = forwardToAgency(crossGatewayQueryRequest, homeCommunityId);
             } else {
-                resp = queryInternalDocRegistry(crossGatewayQueryRequest, requestCommunityID);
+                resp = queryInternalDocRegistry(crossGatewayQueryRequest, homeCommunityId);
             }
         } else {
             log.warn("Document Query Service is disabled");
@@ -74,7 +83,11 @@ public class NhinDocQueryOrchImpl {
             resp.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
         }
 
-        //create an audit record for the response
+        // Log the end of the nhin performance record
+        Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
+
+        // create an audit record for the response
         ack = auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, crossGatewayQueryRequest.getAssertion(), requestCommunityID);
 
         log.debug("Exiting DocQueryImpl.respondingGatewayCrossGatewayQuery");
@@ -172,11 +185,11 @@ public class NhinDocQueryOrchImpl {
      * @param adhocQueryRequestMsg
      * @return
      */
-    private AdhocQueryResponse forwardToAgency(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String requestCommunityID) {
+    private AdhocQueryResponse forwardToAgency(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String communityID) {
         AdhocQueryResponse resp = new AdhocQueryResponse();
 
-        // Audit the Audit Log Query Request Message received on the Nhin Interface
-        AcknowledgementType ack = auditAdhocQueryRequest(adhocQueryRequestMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
+        // Audit the Audit Log Query Request Message sent to the Adapter Interface
+        AcknowledgementType ack = auditAdhocQueryRequest(adhocQueryRequestMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, communityID);
 
         gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryEventsRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType();
         crossGatewayQueryEventsRequest.setAssertion(adhocQueryRequestMsg.getAssertion());
@@ -185,6 +198,9 @@ public class NhinDocQueryOrchImpl {
         AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
         AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
         resp = adapterProxy.respondingGatewayCrossGatewayQuery(adhocQueryRequestMsg.getAdhocQueryRequest(), adhocQueryRequestMsg.getAssertion());
+
+        // Audit the Audit Log Query Request Message sent to the Adapter Interface
+        ack = auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, adhocQueryRequestMsg.getAssertion(), communityID);
 
         return resp;
     }

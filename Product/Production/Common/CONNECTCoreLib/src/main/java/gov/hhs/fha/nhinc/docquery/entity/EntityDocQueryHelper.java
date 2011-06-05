@@ -151,6 +151,11 @@ public class EntityDocQueryHelper {
 
         // If we are querying ourselves as well then add this community to the list of correlations
         if (querySelf == true) {
+            // Examine our patient
+            if (patientCorrelationReq.getQualifiedPatientIdentifier() != null) {
+                log.debug("***** documentQueryQuerySelf=true - Our Patient Id: " + patientCorrelationReq.getQualifiedPatientIdentifier().getSubjectIdentifier() + " *****");
+                log.debug("***** documentQueryQuerySelf=true - Our AA Id: " + patientCorrelationReq.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier() + " *****");
+            }
             subIdList.add(patientCorrelationReq.getQualifiedPatientIdentifier());
         }
         if (subIdList != null) {

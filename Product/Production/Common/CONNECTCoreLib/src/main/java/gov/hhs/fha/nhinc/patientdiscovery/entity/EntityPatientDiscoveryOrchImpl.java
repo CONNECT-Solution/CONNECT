@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -24,9 +25,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
@@ -100,68 +103,15 @@ public class EntityPatientDiscoveryOrchImpl {
         return new ResponseFactory();
     }
 
-//    protected PRPAIN201306UV02 sendToNhinProxy(RespondingGatewayPRPAIN201305UV02RequestType newRequest, AssertionType assertion, String url) {
-//        PRPAIN201306UV02 resultFromNhin = null;
-//
-//        if (newRequest == null) {
-//            log.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-//        } else if (assertion == null) {
-//            log.warn("AssertionType was null.");
-//        } else if (url == null) {
-//            log.warn("URL was null.");
-//        } else {
-//            NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
-//            oTargetSystemType.setUrl(url);
-//
-//            //format request for nhincProxyPatientDiscoveryImpl call
-//            ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType =
-//                    new ProxyPRPAIN201305UVProxySecuredRequestType();
-//            oProxyPRPAIN201305UVProxySecuredRequestType.setPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
-//            oProxyPRPAIN201305UVProxySecuredRequestType.setNhinTargetSystem(oTargetSystemType);
-//
-//            resultFromNhin = sendPRPAIN201305UV02(oProxyPRPAIN201305UVProxySecuredRequestType, assertion, oTargetSystemType);
-//
-//            //process the response
-//            ResponseParams params = new ResponseParams();
-//            params.assertion = assertion;
-//            params.origRequest = oProxyPRPAIN201305UVProxySecuredRequestType;
-//            params.response = resultFromNhin;
-//
-//            try {
-//                resultFromNhin = getResponseFactory().getResponseMode().processResponse(params);
-//            } catch (Exception ex) {
-//                log.error("Error processing NHIN proxy response: " + ex.getMessage(), ex);
-//                resultFromNhin = new PRPAIN201306UV02();
-//            }
-//        }
-//
-//        return resultFromNhin;
-//    }
-
-//    protected PRPAIN201306UV02 sendPRPAIN201305UV02(ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType, AssertionType assertion, NhinTargetSystemType oTargetSystemType)
-//    {
-//        PRPAIN201306UV02 response = null;
-//
-//        // Audit the Patient Discovery Request Message sent on the Nhin Interface
-//        PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
-//        auditLog.auditNhin201305(oProxyPRPAIN201305UVProxySecuredRequestType.getPRPAIN201305UV02(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-//
-//        NhincPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new NhincPatientDiscoveryProxyObjectFactory();
-//        NhincPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
-//
-//        response = proxy.PRPAIN201305UV(oProxyPRPAIN201305UVProxySecuredRequestType.getPRPAIN201305UV02(), assertion, oProxyPRPAIN201305UVProxySecuredRequestType.getNhinTargetSystem());
-//
-//        // Audit the Patient Discovery Response Message received on the Nhin Interface
-//        auditLog.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-//        return response;
-//    }
-
     protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         log.debug("Entering getResponseFromCommunities");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
         PRPAIN201306UV02 resultFromNhin = null;
         PassthruPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryProxyObjectFactory();
         PassthruPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
+
+        // Process local unique patient id and home community id to create local aa to hcid mapping
+        storeLocalMapping(request);
 
         CMUrlInfos urlInfoList = getEndpoints(request.getNhinTargetCommunities());
 
@@ -250,5 +200,35 @@ public class EntityPatientDiscoveryOrchImpl {
             request.setAssertion(assertion);
         }
         return getPatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
+    }
+
+    /**
+     * Method to store local AA and HCID mapping
+     * @param request
+     * @return
+     */
+    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request) {
+        log.debug("Begin storeLocalMapping");
+
+        String hcid = HomeCommunityMap.getLocalHomeCommunityId();
+        log.debug("Begin storeLocalMapping: hcid" + hcid);
+
+        II patId = getPatientDiscovery201305Processor().extractPatientIdFrom201305(request.getPRPAIN201305UV02());
+
+        AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
+
+        if (mappingDao == null || patId == null) {
+            log.warn("AssigningAuthorityHomeCommunityMappingDAO or Local Patient Id was null. Mapping was not stored.");
+        } else {
+            if (!mappingDao.storeMapping(hcid, patId.getRoot())) {
+                log.warn("Failed to store home community - assigning authority mapping" );
+            }
+        }
+
+        log.debug("End storeMapping");
+    }
+
+    protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
+        return new AssigningAuthorityHomeCommunityMappingDAO();
     }
 }

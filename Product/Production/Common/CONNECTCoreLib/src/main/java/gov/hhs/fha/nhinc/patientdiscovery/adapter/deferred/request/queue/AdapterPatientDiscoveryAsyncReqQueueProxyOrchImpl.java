@@ -68,6 +68,7 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl {
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
             ack = HL7AckTransforms.createAckErrorFrom201305(request.getPRPAIN201305UV02(), ackMsg);
+            asyncProcess.processAck(request.getAssertion().getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         }
 
         return ack;

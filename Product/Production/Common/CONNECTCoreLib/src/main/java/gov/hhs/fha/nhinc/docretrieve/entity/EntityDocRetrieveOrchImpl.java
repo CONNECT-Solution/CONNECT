@@ -34,7 +34,9 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.sql.Timestamp;
 
 /**
  *
@@ -67,6 +69,10 @@ public class EntityDocRetrieveOrchImpl {
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         auditLog.auditDocRetrieveRequest(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
+        // Log the start of the entity performance record
+        Timestamp starttime = new Timestamp(System.currentTimeMillis());
+        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
+
         try {
             String transactionId = startTransaction(aggregator, body);
             sendRetrieveMessages(transactionId, body, assertion);
@@ -75,6 +81,10 @@ public class EntityDocRetrieveOrchImpl {
             log.error("Error occured processing doc retrieve on entity interface: " + t.getMessage(), t);
             response = createErrorResponse("Fault encountered processing internal document retrieve");
         }
+
+        // Log the end of the entity performance record
+        Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
 
         // Audit log - response
         auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);

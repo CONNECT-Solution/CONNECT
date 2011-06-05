@@ -112,6 +112,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                         // Set the error acknowledgement status
                         // break processing loop in order to return immediately - fatal error with deferred queue repository
                         ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
+                        asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, ack);
                         break;
                     }
                 }

@@ -19,7 +19,6 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import java.io.ByteArrayOutputStream;
-import java.io.StringWriter;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
@@ -757,32 +756,32 @@ public class AsyncMessageProcessHelper {
     }
 
     private boolean isAckError(DocQueryAcknowledgementType ack) {
-        boolean result = false;
+        boolean result = true;
 
         if (ack != null &&
                 ack.getMessage() != null &&
                 ack.getMessage().getStatus() != null &&
-                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG) ||
-                    ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG)
+                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG) ||
+                    ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)
                     )
                 ) {
-            result = true;
+            result = false;
         }
 
         return result;
     }
 
     private boolean isAckError(DocRetrieveAcknowledgementType ack) {
-        boolean result = false;
+        boolean result = true;
 
         if (ack != null &&
                 ack.getMessage() != null &&
                 ack.getMessage().getStatus() != null &&
-                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG) ||
-                    ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG)
+                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG) ||
+                    ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG)
                     )
                 ) {
-            result = true;
+            result = false;
         }
 
         return result;

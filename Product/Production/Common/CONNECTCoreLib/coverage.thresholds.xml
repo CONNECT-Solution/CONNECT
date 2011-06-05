@@ -860,14 +860,14 @@
               linecount="102"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="84" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="86" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper"
-              linecount="82"
+              linecount="85"
               linerate="80"
               linesexecuted="0"/>
-    <threshold branchcount="40" branchrate="80" branchsexecuted="0"
+    <threshold branchcount="50" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl"
-              linecount="130"
+              linecount="156"
               linerate="80"
               linesexecuted="0"/>
     <threshold branchcount="28" branchrate="80" branchsexecuted="0"
@@ -1002,7 +1002,7 @@
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl"
-              linecount="63"
+              linecount="70"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
@@ -1537,7 +1537,7 @@
               linesexecuted="0"/>
    <threshold branchcount="18" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl"
-              linecount="108"
+              linecount="112"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="34" branchrate="80" branchsexecuted="0"
@@ -2480,9 +2480,9 @@
               linecount="51"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="142" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="146" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator"
-              linecount="227"
+              linecount="235"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="174" branchrate="80" branchsexecuted="0"

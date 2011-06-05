@@ -14,8 +14,12 @@ package gov.hhs.fha.nhinc.docquery.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.sql.Timestamp;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -46,6 +50,11 @@ public class AdapterDocQueryOrchImpl {
         AdhocQueryResponse response = null;
         try {
             if (request != null) {
+                // Log the start of the adapter performance record
+                String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+                Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
+
                 AdapterComponentDocRegistryProxyObjectFactory objFactory = new AdapterComponentDocRegistryProxyObjectFactory();
                 AdapterComponentDocRegistryProxy registryProxy = objFactory.getAdapterComponentDocRegistryProxy();
                 AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
@@ -60,6 +69,10 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(request, assertion);
                 response = callRedactionEngine(request, response, assertion);
+
+                // Log the end of the adapter performance record
+                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();

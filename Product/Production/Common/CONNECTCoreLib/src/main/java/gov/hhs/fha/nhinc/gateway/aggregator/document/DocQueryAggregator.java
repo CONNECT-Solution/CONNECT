@@ -165,6 +165,7 @@ public class DocQueryAggregator
                 else
                 {
                     oKey.setAssigningAuthority("");
+                    baFound[0] = false;
                 }
 
                 if ((oKey.getAssigningAuthority() != null) &&
@@ -174,25 +175,26 @@ public class DocQueryAggregator
                     log.debug("Looking up Home Community Id for Assigning Authority Id: " + oKey.getAssigningAuthority());
                     homeCommunityId = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(oKey.getAssigningAuthority());
 
-                        if (homeCommunityId != null &&
-                            NullChecker.isNotNullish(homeCommunityId.getHomeCommunityId()))
-                        {
-                            oKey.setHomeCommunityId(homeCommunityId.getHomeCommunityId());
-                        }
-                        else
-                        {
-                            log.warn("There was no mapping for this assigning authority to a home community,  " +
-                                     "The home community ID will be treated as the same as the assigning authority.");
-                            oKey.setHomeCommunityId("");            // Assume it is the same as the
-                        }
-
-                    baFound[1] = true;
+                    if (homeCommunityId != null &&
+                        NullChecker.isNotNullish(homeCommunityId.getHomeCommunityId()) &&
+                        !homeCommunityId.getHomeCommunityId().isEmpty())
+                    {
+                        oKey.setHomeCommunityId(homeCommunityId.getHomeCommunityId());
+                        baFound[1] = true;
+                    }
+                    else
+                    {
+                        // MAA Implementation - Removed assumption that HCID equals AA
+                        // If no mapping found, do not include
+                        log.warn("There was no mapping for this assigning authority to a home community.");
+                        baFound[1] = false;
+                    }
                 }
                 else
                 {
                     log.warn("The assigning authority was either null or empty.  " +
                              "No mapping to home community ID can be done.");
-                    oKey.setHomeCommunityId("");            // Assume it is the same as the
+                    baFound[1] = false;
                 }
 
                 if (oId.getSubjectIdentifier() != null)
@@ -203,19 +205,37 @@ public class DocQueryAggregator
                 else
                 {
                     oKey.setPatientId("");
+                    baFound[2] = false;
                 }
 
                 // We can only build keys when we have all the appropriate identifiers
                 //--------------------------------------------------------------------
                 if (baFound[0] && baFound[1] && baFound[2])
                 {
+                    log.info("All key elements found, add to DocQueryMessageKey list: pid = " + oKey.getPatientId() +
+                            ", aaid = " + oKey.getAssigningAuthority() +
+                            ", hcid = " + oKey.getHomeCommunityId());
                     olKey.add(oKey);
+                }
+                else {
+                    log.info("One or more missing key elements: pid = " + oKey.getPatientId() +
+                            ", aaid = " + oKey.getAssigningAuthority() +
+                            ", hcid = " + oKey.getHomeCommunityId());
                 }
             }   // for (QualifiedSubjectIdentifierType oId : olIds)
 
             if (olKey.size() > 0)
             {
                 DocQueryMessageKey oaKey[] = olKey.toArray(new DocQueryMessageKey[0]);
+
+                int count = 0;
+                for (DocQueryMessageKey keyValue : oaKey) {
+                    log.info("Key array [" + count  + "]: pid = " + keyValue.getPatientId() +
+                            ", aaid = " + keyValue.getAssigningAuthority() +
+                            ", hcid = " + keyValue.getHomeCommunityId());
+                    count++;
+                }
+
                 sTransactionId = startTransaction(oaKey);
             }
         }   // if ((oRequest != null) && ...

@@ -68,7 +68,7 @@ public class NhincProxyDocRetrieveOrchImpl {
         }
 
         // Audit response message
-        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
+        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;

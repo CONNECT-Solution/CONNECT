@@ -33,56 +33,39 @@ public class NhinPatientDiscoveryOrchImpl {
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion) {
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
-        // Audit the incoming Nhin 201305 Message
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-
-        // Log the start of the nhin performance record
-        PatientDiscoveryTransforms transforms = new PatientDiscoveryTransforms();
-        String targetCommunityId = transforms.getPatientDiscoveryMessageCommunityId(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        Timestamp starttimeNhin = new Timestamp(System.currentTimeMillis());
-        Long logNhinId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttimeNhin, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
-
-
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        ack = new AcknowledgementType();
+        AcknowledgementType ack = new AcknowledgementType();
+        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
 
         // Check if the Patient Discovery Service is enabled
         if (isServiceEnabled()) {
+
+            // Audit the outgoing Adapter 201305 Message
+            ack = auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+
+            // Log the start of the adapter performance record
+            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+            Timestamp starttimeAdapter = new Timestamp(System.currentTimeMillis());
+            Long logAdapterId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttimeAdapter, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
             // Check if in Pass-Through Mode
             if (!(isInPassThroughMode())) {
                 PatientDiscovery201305Processor msgProcessor = new PatientDiscovery201305Processor();
                 response = msgProcessor.process201305(body, assertion);
             } else {
-                // Audit the outgoing Adapter 201305 Message
-                ack = auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
                 // Send the 201305 to the Adapter Interface
                 PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 
-                // Log the start of the adapter performance record
-                String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-                Timestamp starttimeAdapter = new Timestamp(System.currentTimeMillis());
-                Long logAdapterId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttimeAdapter, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
-
                 response = adapterSender.send201305ToAgency(body, assertion);
-
-                // Log the end of the adapter performance record
-                Timestamp stoptimeAdapter = new Timestamp(System.currentTimeMillis());
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logAdapterId, starttimeAdapter, stoptimeAdapter);
-
-                // Audit the incoming Adapter 201306 Message  - response that came back from the adapter.
-                ack = auditLogger.auditAdapter201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
             }
+
+            // Log the end of the adapter performance record
+            Timestamp stoptimeAdapter = new Timestamp(System.currentTimeMillis());
+            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logAdapterId, starttimeAdapter, stoptimeAdapter);
+
+            // Audit the incoming Adapter 201306 Message  - response that came back from the adapter.
+            ack = auditLogger.auditAdapter201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         }
-
-        // Log the end of the nhin performance record
-        Timestamp stoptimeNhin = new Timestamp(System.currentTimeMillis());
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logNhinId, starttimeNhin, stoptimeNhin);
-
-        // Audit the responding 201306 Message - Response outbound to the NHIN
-        ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");

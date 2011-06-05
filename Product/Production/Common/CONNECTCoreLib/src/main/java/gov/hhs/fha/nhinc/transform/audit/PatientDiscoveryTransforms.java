@@ -238,7 +238,7 @@ public class PatientDiscoveryTransforms {
                     addLogDebug("Audit record AuditMessageType.getParticipantObjectIdentification().get(i).getAuditSourceID(): " + oAuditMessageType.getParticipantObjectIdentification().get(0).getParticipantObjectID());
                     addLogDebug("Audit record AuditMessageType.getParticipantObjectIdentification().get(i).getParticipantObjectName(): " + oAuditMessageType.getParticipantObjectIdentification().get(0).getParticipantObjectName());
                     addLogDebug("Audit record AuditMessageType.getParticipantObjectIdentification().get(i).getParticipantObjectSensitivity(): " + oAuditMessageType.getParticipantObjectIdentification().get(0).getParticipantObjectSensitivity());
-               }
+                }
             }
         }
 
@@ -1038,10 +1038,9 @@ public class PatientDiscoveryTransforms {
         boolean useReceiver = false;
 
         if (requestMessage != null && direction != null && _interface != null) {
-            if ( (_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) )
-            {
+            if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
+                // Request message NHIN interface will use the receiver
                 useReceiver = true;
             }
 
@@ -1114,10 +1113,9 @@ public class PatientDiscoveryTransforms {
         boolean useSender = false;
 
         if (responseMessage != null && direction != null && _interface != null) {
-            if ( (_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) )
-            {
+            if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
+                // Response message NHIN interface will use the sender
                 useSender = true;
             }
 
@@ -1189,10 +1187,9 @@ public class PatientDiscoveryTransforms {
         boolean useReceiver = false;
 
         if (ackMessage != null && direction != null && _interface != null) {
-            if ( (_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+            if ((_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
                     (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) )
-            {
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))) {
                 useReceiver = true;
             }
 
@@ -1253,5 +1250,4 @@ public class PatientDiscoveryTransforms {
 
         return communityId;
     }
-
 }

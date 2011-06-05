@@ -14,6 +14,8 @@ import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import java.sql.Timestamp;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -56,7 +58,16 @@ public class PassthruDocQueryOrchImpl {
             NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
 
             log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
+
+            // Log the start of the nhin performance record
+            Timestamp starttime = new Timestamp(System.currentTimeMillis());
+            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
+
             response = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
+
+            // Log the end of the nhin performance record
+            Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
         } catch (Throwable t) {
             log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
             response = new AdhocQueryResponse();
