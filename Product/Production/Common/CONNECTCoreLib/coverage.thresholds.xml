@@ -1335,9 +1335,9 @@
               linecount="25"
               linerate="80"
               linesexecuted="0.04"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.AdapterComponentDocRetrieveDeferredReqOrchImpl"
-              linecount="57"
+              linecount="62"
               linerate="80"
               linesexecuted="0"/>           
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -5125,9 +5125,9 @@
               linecount="164"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="48" branchrate="80" branchsexecuted="0.24"
+   <threshold branchcount="102" branchrate="80" branchsexecuted="0.24"
               class="gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms"
-              linecount="103"
+              linecount="147"
               linerate="80"
               linesexecuted="0.94"/>
    <threshold branchcount="36" branchrate="80" branchsexecuted="0.18"
