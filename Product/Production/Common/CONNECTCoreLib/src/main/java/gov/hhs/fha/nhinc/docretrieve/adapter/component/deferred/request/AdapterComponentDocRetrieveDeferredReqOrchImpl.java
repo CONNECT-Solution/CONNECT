@@ -10,12 +10,15 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import java.io.ByteArrayOutputStream;
@@ -48,30 +51,48 @@ public class AdapterComponentDocRetrieveDeferredReqOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
+    }
+
     public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         log.debug("Enter AdapterComponentDocRetrieveDeferredReqImpl.respondingGatewayCrossGatewayRetrieve()");
-        DocRetrieveAcknowledgementType response = null;
-        RegistryResponseType responseType;
-        response = new DocRetrieveAcknowledgementType();
-
-        String msgText = "Success";
+        DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
 
         RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest = new RespondingGatewayCrossGatewayRetrieveRequestType();
         respondingGatewayCrossGatewayRetrieveRequest.setRetrieveDocumentSetRequest(body);
         respondingGatewayCrossGatewayRetrieveRequest.setAssertion(assertion);
 
-        if (!addEntryToDatabase(respondingGatewayCrossGatewayRetrieveRequest)) {
-            msgText = "Failed to add the async request to async msg repository";
-            log.error(msgText);
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+
+        String requestCommunityID = HomeCommunityMap.getCommunitIdForRDRequest(body);
+
+        RespondingGatewayCrossGatewayRetrieveRequestType requestType = new RespondingGatewayCrossGatewayRetrieveRequestType();
+        requestType.setRetrieveDocumentSetRequest(body);
+        requestType.setAssertion(assertion);
+
+        // Add a new inbound RD request entry to the local deferred queue
+        boolean bIsQueueOk = asyncProcess.addRetrieveDocumentsRequest(requestType, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND, requestCommunityID);
+
+        // check for valid queue entry
+        if (bIsQueueOk) {
+            bIsQueueOk = asyncProcess.processMessageStatus(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD);
         }
 
-        responseType = new RegistryResponseType();
-        response.setMessage(responseType);
-        //responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
-        responseType.setStatus("Responder");
+        // check for valid queue entry/update
+        if (bIsQueueOk) {
+            // Set the ack success status of the deferred queue entry
+            ack = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG, null, null);
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
+        } else {
+            String ackMsg = "Deferred Retrieve Documents processing halted; deferred queue repository error encountered";
 
-        log.debug("Leaving AdapterComponentDocRetrieveDeferredReqImpl.respondingGatewayCrossGatewayRetrieve()");
-        return response;
+            // Set the error acknowledgement status
+            // fatal error with deferred queue repository
+            ack = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+        }
+
+        return ack;
     }
 
     /**

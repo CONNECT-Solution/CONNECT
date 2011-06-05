@@ -19,6 +19,7 @@ import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -59,22 +60,24 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
-        if (debugEnabled) {
-            log.debug("Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
-        }
+        log.debug("Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
+
+        String ackMessage = null;
         DocRetrieveAcknowledgementType nhinResponse = null;
-        String homeCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(target);
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
+
         try {
             if (null != response && (null != assertion) && (null != target)) {
                 auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
                 CMUrlInfos urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
-//                homeCommunityId = getHomeCommFromTarget(target);
+
                 //loop through the communities and send request if results were not null
                 if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
-                    log.warn("No targets were found for the Document retrieve deferred Response service");
-                    nhinResponse = buildRegistryErrorAck();
+                    ackMessage = "No targets were found for the Document retrieve deferred Response service.";
+                    log.warn(ackMessage);
+                    nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
                 } else {
                     if (debugEnabled) {
                         log.debug("Creating NHIN doc retrieve proxy");
@@ -90,7 +93,8 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                             // Call NHIN proxy
                             nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(response, assertion, oTargetSystem);
                         } else {
-                            nhinResponse = buildRegistryErrorAck();
+                            ackMessage = "Policy check failed.";
+                            nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMessage);
                         }
 
                     }
@@ -99,46 +103,18 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
             }
         } catch (Exception ex) {
             log.error(ex);
-            nhinResponse = buildRegistryErrorAck();
-            log.error("Fault encountered processing internal document retrieve deferred for community " + homeCommunityId);
+            ackMessage = "Fault encountered processing internal document retrieve deferred response for community " + homeCommunityId;
+            nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+            log.error(ackMessage);
         }
-        if (null != nhinResponse) {
-            // Audit log - response
-            auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-        }
+
+        // Audit log - response
+        auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
         }
         return nhinResponse;
-    }
-
-    /**
-     *
-     * @return DocRetrieveAcknowledgementType
-     */
-    private DocRetrieveAcknowledgementType buildRegistryErrorAck() {
-        DocRetrieveAcknowledgementType nhinResponse = new DocRetrieveAcknowledgementType();
-        RegistryResponseType registryResponse = new RegistryResponseType();
-        nhinResponse.setMessage(registryResponse);
-        registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-        return nhinResponse;
-    }
-
-    /**
-     *
-     * @param target
-     * @return String
-     */
-    protected String getHomeCommFromTarget(NhinTargetCommunitiesType target) {
-        String sHomComm = null;
-        if (target.getNhinTargetCommunity() != null &&
-                target.getNhinTargetCommunity().size() > 0) {
-            NhinTargetCommunityType comm = target.getNhinTargetCommunity().get(0);
-            if (comm.getHomeCommunity() != null) {
-                sHomComm = comm.getHomeCommunity().getHomeCommunityId();
-            }
-        }
-        return sHomComm;
     }
 
     /**

@@ -218,7 +218,7 @@ public class AsyncMessageProcessHelper {
             // Replace with message id from the assertion class
             rec.setMessageId(request.getAssertion().getMessageId());
             rec.setCreationTime(new Date());
-            rec.setServiceName(NhincConstants.DOC_QUERY_SERVICE_NAME);
+            rec.setServiceName(NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
             rec.setDirection(direction);
             rec.setCommunityId(communityId);
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);

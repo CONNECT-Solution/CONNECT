@@ -61,7 +61,7 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
         respondingGatewayCrossGatewayRetrieveRequestType.setAssertion(assertion);
         respondingGatewayCrossGatewayRetrieveRequestType.setNhinTargetCommunities(target);
 
-        String homeCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(target);
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
 
         // Audit the incoming doc retrieve request Message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
@@ -138,7 +138,7 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
         }
 
         // Audit log - response
-        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
 

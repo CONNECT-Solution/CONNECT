@@ -52,7 +52,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
 
         DocRetrieveAcknowledgementType response = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         String requestCommunityId = HomeCommunityMap.getCommunitIdForDeferredRDResponse(body);
 
         auditLog.auditDocRetrieveDeferredResponse(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityId);
@@ -73,9 +73,9 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
 
         if (isServiceEnabled(NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_KEY)) {
             if (isInPassThroughMode(NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_PASSTHRU_PROPERTY)) {
-                response = sendDocRetrieveDeferredResponseToAgency(body, assertion, requestCommunityId);
+                response = sendDocRetrieveDeferredResponseToAgency(body, assertion, homeCommunityId);
             } else {
-                response = serviceDocRetrieveInternal(body, assertion, homeCommunityId, requestCommunityId);
+                response = serviceDocRetrieveInternal(body, assertion, homeCommunityId);
             }
         } else {
             // Service is not enabled so we are not doing anything with this response
@@ -89,7 +89,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
         // ASYNCMSG PROCESSING - RSPRCVDACK
         bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, response);
 
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityId);
 
         log.debug("End - sendToRespondingGateway");
 
@@ -103,21 +103,21 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
      * @param homeCommunityId
      * @return
      */
-    private DocRetrieveAcknowledgementType serviceDocRetrieveInternal(RetrieveDocumentSetResponseType request, AssertionType assertion, String homeCommunityId, String requestCommunityId) {
+    private DocRetrieveAcknowledgementType serviceDocRetrieveInternal(RetrieveDocumentSetResponseType request, AssertionType assertion, String homeCommunityId) {
         log.debug("Begin DocRetrieveImpl.serviceDocRetrieveInternal");
 
         DocRetrieveAcknowledgementType response = null;
         HomeCommunityType hcId = new HomeCommunityType();
-        String msg = "Adapter doc retrieve deferred response policy check failed.";
+        String ackMsg = "";
 
         hcId.setHomeCommunityId(homeCommunityId);
         if (isPolicyValidForResponse(request, assertion, hcId)) {
             log.debug("Adapter doc retrieve deferred policy check successful");
-            response = sendDocRetrieveDeferredResponseToAgency(request, assertion, requestCommunityId);
+            response = sendDocRetrieveDeferredResponseToAgency(request, assertion, homeCommunityId);
         } else {
-            msg = "Policy Check Failed on NHIN community : " + homeCommunityId;
-            log.error(msg);
-            response = createSuccessResponse(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
+            ackMsg = "Adapter doc retrieve deferred response policy check failed.";
+            log.error(ackMsg);
+            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         log.debug("End DocRetrieveImpl.serviceDocRetrieveInternal");
@@ -131,20 +131,20 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
      * @param assertion
      * @return DocRetrieveAcknowledgementType
      */
-    private DocRetrieveAcknowledgementType sendDocRetrieveDeferredResponseToAgency(RetrieveDocumentSetResponseType request, AssertionType assertion, String requestCommunityId) {
+    private DocRetrieveAcknowledgementType sendDocRetrieveDeferredResponseToAgency(RetrieveDocumentSetResponseType request, AssertionType assertion, String homeCommunityId) {
 
         DocRetrieveAcknowledgementType response = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         AdapterDocRetrieveDeferredRespProxy proxy;
 
         log.debug("Begin DocRetrieveReqImpl.sendDocRetrieveToAgency");
-        auditDeferredRetrieveMessage(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, requestCommunityId);
+        auditDeferredRetrieveMessage(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
 
         proxy = new AdapterDocRetrieveDeferredRespProxyObjectFactory().getAdapterDocRetrieveDeferredResponseProxy();
 
         response = proxy.sendToAdapter(request, assertion);
 
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
 
         log.debug("End DocRetrieveReqImpl.sendDocRetrieveToAgency");
 

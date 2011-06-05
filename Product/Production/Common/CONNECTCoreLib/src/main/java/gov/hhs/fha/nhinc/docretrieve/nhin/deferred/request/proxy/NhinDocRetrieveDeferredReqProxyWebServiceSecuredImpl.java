@@ -14,7 +14,6 @@ import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -96,7 +95,7 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
 
         // Audit outbound deferred retrieve document request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(body);
+        String responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
 
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();

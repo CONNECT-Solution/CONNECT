@@ -153,40 +153,4 @@ public class NhinDocRetrieveDeferred {
         return passThroughModeEnabled;
     }
 
-    /**
-     * Creates an acknowledgement response that indicates success.
-     *
-     * @param codeContext
-     * @return RetrieveDocumentSetResponseType
-     */
-    protected DocRetrieveAcknowledgementType createSuccessResponse(String  status) {
-        DocRetrieveAcknowledgementType response;
-        RegistryResponseType responseType;
-
-
-        response = new DocRetrieveAcknowledgementType();
-        responseType = new RegistryResponseType();
-        response.setMessage(responseType);
-        responseType.setStatus(status);
-
-        return response;
-    }
-
-    /**
-     * Creates an acknowledgement response that indicates an error has occurred.
-     *
-     * @param codeContext
-     * @return RetrieveDocumentSetResponseType
-     */
-    protected DocRetrieveAcknowledgementType createErrorResponse(String codeContext, String  status) {
-        DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
-        RegistryResponseType responseType = new RegistryResponseType();
-
-        response.setMessage(responseType);
-        responseType.setStatus(status);
-
-
-        return response;
-    }
-
 }

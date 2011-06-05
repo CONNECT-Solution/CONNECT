@@ -56,7 +56,7 @@ public class AdapterComponentDocQueryDeferredRequestOrchImpl {
         if (msg != null && msg.getAdhocQuery() != null) {
             requestCommunityID = msg.getAdhocQuery().getHome();
         }
-        // Add a new inbound PD request entry to the local deferred queue
+        // Add a new inbound QD request entry to the local deferred queue
         boolean bIsQueueOk = asyncProcess.addQueryForDocumentsRequest(respondingGatewayCrossGatewayQueryRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND, requestCommunityID);
 
         // check for valid queue entry
