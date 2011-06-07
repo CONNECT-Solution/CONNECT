@@ -39,11 +39,11 @@ public class NhincPatientDiscoveryOrchImpl {
     }
 
     protected void logNhincPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion) {
-        getPatientDiscoveryAuditLogger().auditNhin201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        getPatientDiscoveryAuditLogger().auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected void logNhincPatientDiscoveryResponse(PRPAIN201306UV02 response, AssertionType assertion) {
-        getPatientDiscoveryAuditLogger().auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        getPatientDiscoveryAuditLogger().auditNhinDeferred201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {

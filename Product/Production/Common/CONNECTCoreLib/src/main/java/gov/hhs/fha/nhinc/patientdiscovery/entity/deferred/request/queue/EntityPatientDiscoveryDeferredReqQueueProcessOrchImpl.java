@@ -6,8 +6,10 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -35,6 +37,10 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
     private static Log log = LogFactory.getLog(EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl.class);
 
     public EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl() {
+    }
+
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
     }
 
     /**
@@ -70,7 +76,6 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                 log.info("messageId: is null");
             }
 
-
             log.info("AsyncMsgRecord - messageId: " + asyncMsgRecord.getMessageId());
             log.info("AsyncMsgRecord - serviceName: " + asyncMsgRecord.getServiceName());
             log.info("AsyncMsgRecord - creationTime: " + asyncMsgRecord.getCreationTime());
@@ -80,24 +85,27 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             if (asyncMsgRecord.getMsgData() != null) {
                 respondingGatewayPRPAIN201305UV02RequestType = extractRespondingGatewayPRPAIN201305UV02RequestType(asyncMsgRecord.getMsgData());
             }
+
             if (respondingGatewayPRPAIN201305UV02RequestType != null) {
                 log.info("AsyncMsgRecord - messageId: " + respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02().getITSVersion());
 
-                PRPAIN201305UV02 pRPAIN201305UV02 = null;
-                pRPAIN201305UV02 = respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02();
+                PRPAIN201305UV02 pRPAIN201305UV02 = respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02();
 
                 String senderTargetCommId = extractSenderOID(pRPAIN201305UV02);
                 if (senderTargetCommId != null) {
                     log.info("senderTargetCommId: " + senderTargetCommId);
-                    NhinTargetCommunitiesType targetCommunitiess = new NhinTargetCommunitiesType();
+
+                    NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
                     NhinTargetCommunityType nhinTargetCommunityType = new NhinTargetCommunityType();
                     HomeCommunityType homeCommunityType = new HomeCommunityType();
                     homeCommunityType.setHomeCommunityId(senderTargetCommId);
                     nhinTargetCommunityType.setHomeCommunity(homeCommunityType);
-                    targetCommunitiess.getNhinTargetCommunity().add(nhinTargetCommunityType);
-                    respondingGatewayPRPAIN201305UV02RequestType.setNhinTargetCommunities(targetCommunitiess);
-                    ack = entityPatientDiscoveryDeferredReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq(respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02(),
-                            respondingGatewayPRPAIN201305UV02RequestType.getAssertion(), respondingGatewayPRPAIN201305UV02RequestType.getNhinTargetCommunities());
+                    targetCommunities.getNhinTargetCommunity().add(nhinTargetCommunityType);
+
+                    // Generate new request queue assertion from original request message assertion
+                    AssertionType assertion = respondingGatewayPRPAIN201305UV02RequestType.getAssertion();
+
+                    ack = entityPatientDiscoveryDeferredReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq(pRPAIN201305UV02, assertion, targetCommunities);
                 } else {
                     log.error("Sender root is null - Unable to extract target community hcid from sender root");
                 }

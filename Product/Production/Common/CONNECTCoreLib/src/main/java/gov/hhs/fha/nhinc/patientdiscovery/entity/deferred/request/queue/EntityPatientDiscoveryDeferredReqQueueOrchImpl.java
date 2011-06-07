@@ -50,7 +50,7 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
 
         // Audit the incoming Nhin 201305 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditEntity201305(unsecureRequest, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditEntityDeferred201305(unsecureRequest, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_RESPONSE_PROCESS);
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
@@ -82,13 +82,14 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
         PRPAIN201306UV02 resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
 
         // Generate a new response assertion
-        AssertionType assertion = new AssertionType();
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+        AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(request.getAssertion());
         // Original request message id is now set as the relates to id
-        assertion.getRelatesToList().add(request.getAssertion().getMessageId());
+        newAssertion.getRelatesToList().add(request.getAssertion().getMessageId());
         // Generate a new unique response assertion Message ID
-        assertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+        newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
 
-        ack = sendToNhin(resp, assertion, request.getNhinTargetCommunities());
+        ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
 
         return ack;
     }

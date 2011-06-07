@@ -75,10 +75,15 @@ public class PatientDiscoveryTransforms {
      * but it leaves the direction decision needed for the audit log up to the
      * caller.
      *
-     * @param message
+     * @param oPatientDiscoveryRequestMessage
+     * @param oAssertion
+     * @param direction
+     * @param _interface
+     * @param _type
+     * @param _process
      * @return
      */
-    private LogEventRequestType transformPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion, String direction, String _interface) {
+    protected LogEventRequestType transformPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion, String direction, String _interface, String _type, String _process) {
         LogEventRequestType oReturnLogEventRequestType = null;
 
         AuditMessageType oAuditMessageType = null;
@@ -132,7 +137,7 @@ public class PatientDiscoveryTransforms {
 
         // Based on IHE XCPD specifications, the sender contains the home community id
         // Based on IHE XCPD specification the sender does not contain the home community name
-        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryRequestMessage, direction, _interface);
+        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryRequestMessage, direction, _interface, _type, _process);
 
         /* Create the AuditSourceIdentifierType object */
         AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(sCommunityId, sCommunityId);
@@ -169,10 +174,14 @@ public class PatientDiscoveryTransforms {
      * This method translates a patient discovery response to an audit log request.
      * It leave the direction decision needed for the audit log up to the caller.
      *
-     * @param oRequest
+     * @param oPatientDiscoveryResponseMessage
+     * @param oAssertion
+     * @param direction
+     * @param _interface
+     * @param _type
      * @return
      */
-    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion, String direction, String _interface) {
+    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion, String direction, String _interface, String _type) {
         LogEventRequestType oReturnLogEventRequestType = null;
         AuditMessageType oAuditMessageType = null;
 
@@ -204,7 +213,7 @@ public class PatientDiscoveryTransforms {
 
         // Based on IHE XCPD specifications, the receiver contains the home community id
         // Based on IHE XCPD specification the receiver does not contain the home community name
-        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryResponseMessage, direction, _interface);
+        String sCommunityId = getPatientDiscoveryMessageCommunityId(oPatientDiscoveryResponseMessage, direction, _interface, _type);
 
         AuditSourceIdentificationType oAuditSource = getAuditSourceIdentificationType(sCommunityId, sCommunityId);
         oAuditMessageType.getAuditSourceIdentification().add(oAuditSource);
@@ -264,9 +273,11 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
+     * @param _process
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformEntityPRPAIN201305RequestToAuditMsg(RespondingGatewayPRPAIN201305UV02RequestType oRequest, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformEntityPRPAIN201305RequestToAuditMsg(RespondingGatewayPRPAIN201305UV02RequestType oRequest, AssertionType oAssertion, String direction, String _interface, String _type, String _process) {
         LogEventRequestType oReturnLogEventRequestType = null;
         PRPAIN201305UV02 oPatientDiscoveryRequestMessage = null;
 
@@ -285,7 +296,7 @@ public class PatientDiscoveryTransforms {
             addLogError("The Patient Discovery request did not have a PRPAIN201305UV object or an AssertionType object.");
             return null;
         } else {
-            oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequestMessage, oAssertion, direction, _interface);
+            oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequestMessage, oAssertion, direction, _interface, _type, _process);
         }
 
         if (oReturnLogEventRequestType == null) {
@@ -310,9 +321,11 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
+     * @param _process
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformNhinPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformNhinPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion, String direction, String _interface, String _type, String _process) {
         LogEventRequestType oReturnLogEventRequestType = null;
 
         addLogInfo("*************************************************************");
@@ -329,7 +342,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion, direction, _interface);
+        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion, direction, _interface, _type, _process);
 
 
         if (oReturnLogEventRequestType == null) {
@@ -351,9 +364,11 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
+     * @param _process
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformAdapterPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformAdapterPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion, String direction, String _interface, String _type, String _process) {
         LogEventRequestType oReturnLogEventRequestType = null;
 
         addLogInfo("****************************************************************");
@@ -370,7 +385,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion, direction, _interface);
+        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion, direction, _interface, _type, _process);
 
 
         if (oReturnLogEventRequestType == null) {
@@ -392,9 +407,10 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(List<CommunityPRPAIN201306UV02ResponseType> oRequest, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(List<CommunityPRPAIN201306UV02ResponseType> oRequest, AssertionType oAssertion, String direction, String _interface, String _type) {
 
         addLogInfo("****************************************************************");
         addLogInfo("Entering transformEntityPRPAIN201306ResponseToAuditMsg() method.");
@@ -403,7 +419,7 @@ public class PatientDiscoveryTransforms {
         LogEventRequestType oReturnLogEventRequestType = null;
 
         for (CommunityPRPAIN201306UV02ResponseType response : oRequest) {
-            oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(response.getPRPAIN201306UV02(), oAssertion, direction, _interface);
+            oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(response.getPRPAIN201306UV02(), oAssertion, direction, _interface, _type);
 
         }
 
@@ -420,9 +436,10 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformEntityPRPAIN201306AsyncResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02RequestType oRequest, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformEntityPRPAIN201306AsyncResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02RequestType oRequest, AssertionType oAssertion, String direction, String _interface, String _type) {
 
         addLogInfo("*********************************************************************");
         addLogInfo("Entering transformEntityPRPAIN201306AsyncResponseToAuditMsg() method.");
@@ -430,7 +447,7 @@ public class PatientDiscoveryTransforms {
 
         LogEventRequestType oReturnLogEventRequestType = null;
 
-        oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(oRequest.getPRPAIN201306UV02(), oAssertion, direction, _interface);
+        oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(oRequest.getPRPAIN201306UV02(), oAssertion, direction, _interface, _type);
 
         addLogInfo("********************************************************************");
         addLogInfo("Exiting transformEntityPRPAIN201306AsyncResponseToAuditMsg() method.");
@@ -445,9 +462,10 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02ResponseType oRequest, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02ResponseType oRequest, AssertionType oAssertion, String direction, String _interface, String _type) {
         LogEventRequestType oReturnLogEventRequestType = null;
         List<CommunityPRPAIN201306UV02ResponseType> communityResponses = null;
 
@@ -471,7 +489,7 @@ public class PatientDiscoveryTransforms {
             addLogError("The assertion object parameter was null.");
             return null;
         } else {
-            oReturnLogEventRequestType = transformEntityPRPAIN201306ResponseToAuditMsg(communityResponses, oAssertion, direction, _interface);
+            oReturnLogEventRequestType = transformEntityPRPAIN201306ResponseToAuditMsg(communityResponses, oAssertion, direction, _interface, _type);
         }
 
         if (oReturnLogEventRequestType == null) {
@@ -492,9 +510,10 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformNhinPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformNhinPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion, String direction, String _interface, String _type) {
         LogEventRequestType oReturnLogEventRequestType = null;
 
         addLogInfo("**************************************************************");
@@ -510,7 +529,7 @@ public class PatientDiscoveryTransforms {
             addLogError("The assertionType object parameter was null.");
             return null;
         } else {
-            oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion, direction, _interface);
+            oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion, direction, _interface, _type);
         }
 
         if (oReturnLogEventRequestType == null) {
@@ -534,9 +553,10 @@ public class PatientDiscoveryTransforms {
      * @param oAssertion
      * @param direction
      * @param _interface
+     * @param _type
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformAdapterPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion, String direction, String _interface) {
+    public LogEventRequestType transformAdapterPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion, String direction, String _interface, String _type) {
         LogEventRequestType oReturnLogEventRequestType = null;
 
         addLogInfo("*****************************************************************");
@@ -552,7 +572,7 @@ public class PatientDiscoveryTransforms {
             addLogError("The assertionType object parameter was null.");
             return null;
         } else {
-            oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion, direction, _interface);
+            oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion, direction, _interface, _type);
         }
 
         if (oReturnLogEventRequestType == null) {
@@ -977,20 +997,6 @@ public class PatientDiscoveryTransforms {
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(sCommunityId, sCommunityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
-//        if (message != null &&
-//                NullChecker.isNotNullish(message.getReceiver())) {
-//            if (message.getReceiver().get(0).getDevice() != null &&
-//                    message.getReceiver().get(0).getDevice().getId() != null) {
-//                sourceID = message.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-//                enterpriseID = message.getReceiver().get(0).getDevice().getId().get(0).getExtension();
-//
-//                log.info("Setting ACK enterpriseID : " + enterpriseID + " sourceID : " + sourceID);
-//
-//                AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(sourceID, enterpriseID);
-//                auditMsg.getAuditSourceIdentification().add(auditSource);
-//            }
-//        }
-
         // ParticipationObjectIdentification
         String sPatientId = "";
         if (assertion != null &&
@@ -1031,17 +1037,32 @@ public class PatientDiscoveryTransforms {
      * @param requestMessage
      * @param direction
      * @param _interface
+     * @param _process
      * @return String
      */
-    public String getPatientDiscoveryMessageCommunityId(PRPAIN201305UV02 requestMessage, String direction, String _interface) {
+    public String getPatientDiscoveryMessageCommunityId(PRPAIN201305UV02 requestMessage, String direction, String _interface, String _type, String _process) {
         String communityId = "";
         boolean useReceiver = false;
 
+        if (_process == null) {
+            _process = "";
+        }
+
         if (requestMessage != null && direction != null && _interface != null) {
-            if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
-                // Request message NHIN interface will use the receiver
-                useReceiver = true;
+            if (_type.equals(NhincConstants.AUDIT_LOG_DEFERRED_TYPE)) {
+
+                if ((_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION) && _process.equals(NhincConstants.AUDIT_LOG_RESPONSE_PROCESS)) ||
+                        (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
+                        (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION))) {
+                    // Request message Adapter Outbound, NHIN Inbound and Adapter Outbound interfaces will use the receiver
+                    useReceiver = true;
+                }
+            } else {
+                if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
+                        (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
+                    // Request message NHIN Outbound and Adapter interfaces will use the receiver
+                    useReceiver = true;
+                }
             }
 
             if (useReceiver) {
@@ -1108,15 +1129,23 @@ public class PatientDiscoveryTransforms {
      * @param _interface
      * @return String
      */
-    public String getPatientDiscoveryMessageCommunityId(PRPAIN201306UV02 responseMessage, String direction, String _interface) {
+    public String getPatientDiscoveryMessageCommunityId(PRPAIN201306UV02 responseMessage, String direction, String _interface, String _type) {
         String communityId = "";
         boolean useSender = false;
 
         if (responseMessage != null && direction != null && _interface != null) {
-            if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
-                // Response message NHIN interface will use the sender
-                useSender = true;
+            if (_type.equals(NhincConstants.AUDIT_LOG_DEFERRED_TYPE)) {
+                if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                        (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))) {
+                    // Request message NHIN Inbound and Adapter Inbound interfaces will use the receiver
+                    useSender = true;
+                }
+            } else {
+                if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                        (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
+                    // Response message NHIN Inbound and Adapter interfaces will use the sender
+                    useSender = true;
+                }
             }
 
             if (useSender) {
@@ -1184,16 +1213,40 @@ public class PatientDiscoveryTransforms {
      */
     public String getPatientDiscoveryMessageCommunityId(MCCIIN000002UV01 ackMessage, String direction, String _interface) {
         String communityId = "";
-        boolean useReceiver = false;
+        boolean useSender = false;
 
         if (ackMessage != null && direction != null && _interface != null) {
-            if ((_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) ||
-                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))) {
-                useReceiver = true;
+            if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)) ||
+                    (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
+                // Ack message NHIN interface will use the sender
+                useSender = true;
             }
 
-            if (useReceiver) {
+            if (useSender) {
+                if (ackMessage.getSender() != null &&
+                        ackMessage.getSender().getDevice() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
+                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                }
+                // If represented organization is empty or null, check the device id
+                if (communityId == null || communityId.equals("")) {
+                    if (ackMessage.getSender() != null &&
+                            ackMessage.getSender().getDevice() != null &&
+                            ackMessage.getSender().getDevice() != null &&
+                            ackMessage.getSender().getDevice().getId() != null &&
+                            ackMessage.getSender().getDevice().getId().size() > 0 &&
+                            ackMessage.getSender().getDevice().getId().get(0) != null &&
+                            ackMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
+                        communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
+                    }
+                }
+            } else {
                 if (ackMessage != null &&
                         ackMessage.getReceiver() != null &&
                         ackMessage.getReceiver().size() > 0 &&
@@ -1219,30 +1272,6 @@ public class PatientDiscoveryTransforms {
                             ackMessage.getReceiver().get(0).getDevice().getId().get(0) != null &&
                             ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
                         communityId = ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-                    }
-                }
-            } else {
-                if (ackMessage.getSender() != null &&
-                        ackMessage.getSender().getDevice() != null &&
-                        ackMessage.getSender().getDevice().getAsAgent() != null &&
-                        ackMessage.getSender().getDevice().getAsAgent().getValue() != null &&
-                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                        ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (ackMessage.getSender() != null &&
-                            ackMessage.getSender().getDevice() != null &&
-                            ackMessage.getSender().getDevice() != null &&
-                            ackMessage.getSender().getDevice().getId() != null &&
-                            ackMessage.getSender().getDevice().getId().size() > 0 &&
-                            ackMessage.getSender().getDevice().getId().get(0) != null &&
-                            ackMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
-                        communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
                     }
                 }
             }

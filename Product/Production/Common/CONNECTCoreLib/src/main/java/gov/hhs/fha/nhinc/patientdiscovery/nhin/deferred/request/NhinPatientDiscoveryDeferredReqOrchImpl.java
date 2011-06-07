@@ -34,7 +34,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
 
         // Audit the incoming Nhin 201305 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditNhin201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         // Check if the Patient Discovery Async Request Service is enabled
         if (isServiceEnabled()) {
@@ -80,7 +80,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
 
     protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditAdapter201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 
@@ -93,7 +93,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
 
     protected MCCIIN000002UV01 sendToAgencyQueue(PRPAIN201305UV02 request, AssertionType assertion) {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditAdapter201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 
@@ -106,7 +106,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
 
     protected MCCIIN000002UV01 sendToAgencyError(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditAdapter201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 

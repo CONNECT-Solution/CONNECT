@@ -82,9 +82,9 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201305UV02RequestType request, CMUrlInfo urlInfo)
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo)
             {
-                return HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), "Success");
+                return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
             @Override
@@ -170,9 +170,9 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201305UV02RequestType request, CMUrlInfo urlInfo)
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo)
             {
-                return HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), "Success");
+                return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
             @Override
@@ -265,9 +265,9 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201305UV02RequestType request, CMUrlInfo urlInfo)
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo)
             {
-                return HL7AckTransforms.createAckFrom201305(request.getPRPAIN201305UV02(), "Success");
+                return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
             @Override

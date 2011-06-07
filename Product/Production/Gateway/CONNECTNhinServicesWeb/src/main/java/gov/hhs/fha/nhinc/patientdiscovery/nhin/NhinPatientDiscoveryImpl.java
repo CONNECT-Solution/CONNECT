@@ -41,7 +41,7 @@ public class NhinPatientDiscoveryImpl
 
         // Log the start of the nhin performance record
         PatientDiscoveryTransforms transforms = new PatientDiscoveryTransforms();
-        String targetCommunityId = transforms.getPatientDiscoveryMessageCommunityId(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        String targetCommunityId = transforms.getPatientDiscoveryMessageCommunityId(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE, NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
         Timestamp starttimeNhin = new Timestamp(System.currentTimeMillis());
         Long logNhinId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttimeNhin, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
 

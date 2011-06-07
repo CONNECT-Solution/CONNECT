@@ -3800,9 +3800,9 @@
               linecount="32"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="16" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="26" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger"
-              linecount="52"
+              linecount="82"
               linerate="80"
               linesexecuted="0.01"/>
    <threshold branchcount="58" branchrate="80" branchsexecuted="0.04"
@@ -4027,7 +4027,7 @@
               linesexecuted="0"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueOrchImpl"
-              linecount="45"
+              linecount="46"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="34" branchrate="80" branchsexecuted="0"

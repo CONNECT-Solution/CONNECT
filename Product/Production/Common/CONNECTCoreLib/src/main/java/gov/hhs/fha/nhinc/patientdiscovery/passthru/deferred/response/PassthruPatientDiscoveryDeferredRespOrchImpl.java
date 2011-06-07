@@ -48,7 +48,7 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
         MCCIIN000002UV01 response = null;
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
-        auditLog.auditNhin201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        auditLog.auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         NhinPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredRespProxyObjectFactory();
         NhinPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncRespProxy();

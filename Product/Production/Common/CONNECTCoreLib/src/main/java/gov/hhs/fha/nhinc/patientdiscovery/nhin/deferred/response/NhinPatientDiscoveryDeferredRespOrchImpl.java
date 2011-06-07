@@ -58,7 +58,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
 
         // Audit the incoming Nhin 201306 Message
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditNhin201306(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditNhinDeferred201306(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         // ASYNCMSG PROCESSING - RSPRCVD
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
@@ -138,7 +138,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
 
     protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion) {
         PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditAdapter201306(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditAdapterDeferred201306(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
 

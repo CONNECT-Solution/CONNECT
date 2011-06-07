@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -527,6 +529,40 @@ public class AsyncMessageProcessHelper {
         log.debug("End AsyncMessageProcessHelper.processQueryForDocumentsResponse()...");
 
         return result;
+    }
+
+    /**
+     * Copy the original AssertionType using JAXB
+     * 
+     * @param orig
+     * @return copy of AssertionType
+     */
+    public AssertionType copyAssertionTypeObject(AssertionType orig) {
+        AssertionType copy = null;
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
+            Marshaller marshaller = jc.createMarshaller();
+            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+            JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(orig);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+
+            Unmarshaller unmarshaller =  jc.createUnmarshaller();
+            ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
+            JAXBElement<AssertionType> oJaxbElementCopy = (JAXBElement<AssertionType>) unmarshaller.unmarshal(baInStrm);
+            copy = oJaxbElementCopy.getValue();
+            //asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during copyAssertionTypeObject conversion :" + e);
+        }
+
+        return copy;
     }
 
     private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {

@@ -131,6 +131,10 @@ public class NhincConstants {
     public static final String AUDIT_LOG_ENTITY_INTERFACE = "Entity";
     public static final String AUDIT_LOG_NHIN_INTERFACE = "Nhin";
     public static final String AUDIT_LOG_ADAPTER_INTERFACE = "Adapter";
+    public static final String AUDIT_LOG_DEFERRED_TYPE = "Deferred";
+    public static final String AUDIT_LOG_SYNC_TYPE = "Synchronous";
+    public static final String AUDIT_LOG_REQUEST_PROCESS = "Request";
+    public static final String AUDIT_LOG_RESPONSE_PROCESS = "Response";
     public static final String AUDIT_LOG_SERVICE_PROPERTY = "serviceAuditRepository";
     public static final String AUDIT_LOG_SERVICE_PASSTHRU_PROPERTY = "auditRepositoryPassthrough";
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
