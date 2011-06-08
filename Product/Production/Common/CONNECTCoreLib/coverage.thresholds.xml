@@ -282,7 +282,7 @@
               linesexecuted="0"/>
    <threshold branchcount="172" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper"
-              linecount="387"
+              linecount="426"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="148" branchrate="80" branchsexecuted="0"
@@ -1032,7 +1032,7 @@
               linesexecuted="0"/>
    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.nhin.deferred.response.NhinDocQueryDeferredResponseOrchImpl"
-              linecount="64"
+              linecount="66"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

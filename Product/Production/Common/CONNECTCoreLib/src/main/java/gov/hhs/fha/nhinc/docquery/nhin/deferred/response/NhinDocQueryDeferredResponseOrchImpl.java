@@ -47,6 +47,10 @@ public class NhinDocQueryDeferredResponseOrchImpl {
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
         log.debug("Begin - respondingGatewayCrossGatewayQuery");
 
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+
+        log.debug("Assertion-0 is: " + asyncProcess.marshalAssertionTypeObject(assertion));
+
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
@@ -59,11 +63,11 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         // ASYNCMSG PROCESSING - RSPRCVD
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-
         RespondingGatewayCrossGatewayQueryResponseType nhinResponse = new RespondingGatewayCrossGatewayQueryResponseType();
         nhinResponse.setAdhocQueryResponse(msg);
         nhinResponse.setAssertion(assertion);
+
+        log.debug("Assertion-1 is: " + asyncProcess.marshalAssertionTypeObject(assertion));
 
         String messageId = "";
         if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {

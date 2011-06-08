@@ -565,6 +565,35 @@ public class AsyncMessageProcessHelper {
         return copy;
     }
 
+    /**
+     * Copy the original AssertionType using JAXB
+     *
+     * @param orig
+     * @return copy of AssertionType
+     */
+    public String marshalAssertionTypeObject(AssertionType assertion) {
+        String returnValue = "";
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
+            Marshaller marshaller = jc.createMarshaller();
+            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+            JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(assertion);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+            returnValue = new String(buffer);
+        } catch (Exception e) {
+            log.error("Exception during marshalAssertionTypeObject conversion :" + e);
+        }
+
+        return returnValue;
+    }
+
     private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {
         Blob asyncMessage = null; //Not Implemented
 
