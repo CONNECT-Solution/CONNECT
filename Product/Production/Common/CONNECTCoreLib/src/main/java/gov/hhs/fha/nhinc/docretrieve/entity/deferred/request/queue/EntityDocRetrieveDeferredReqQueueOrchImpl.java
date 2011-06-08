@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
@@ -18,6 +19,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
+import gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxy;
@@ -69,12 +71,25 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-        String messageId = "";
-        if (assertion.getRelatesToList() != null &&
-                assertion.getRelatesToList().size() > 0 &&
-                assertion.getRelatesToList().get(0) != null) {
-            messageId = assertion.getRelatesToList().get(0);
+        String messageId = assertion.getMessageId();
+
+        // Generate a new response assertion
+        AssertionType responseAssertion = asyncProcess.copyAssertionTypeObject(assertion);
+        // Original request message id is now set as the relates to id
+        responseAssertion.getRelatesToList().add(messageId);
+        // Generate a new unique response assertion Message ID
+        responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+        // Set user info homeCommunity
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId(homeCommunityId);
+        homeCommunityType.setName(homeCommunityId);
+        responseAssertion.setHomeCommunity(homeCommunityType);
+        if (responseAssertion.getUserInfo() != null &&
+                responseAssertion.getUserInfo().getOrg() != null) {
+            responseAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
+            responseAssertion.getUserInfo().getOrg().setName(homeCommunityId);
         }
+
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
         if (bIsQueueOk) {
@@ -90,26 +105,18 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                     NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
                     oTargetSystem.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
-                    // Use passthru proxy to call NHIN
-                    PassthruDocRetrieveDeferredRespProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredRespProxyObjectFactory();
-                    PassthruDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredRespProxy();
-
-                    // Get the RetrieveDocumentSetResponseType by passing the request to the RD Sync Flow.
+                    // Get the RetrieveDocumentSetResponseType by passing the request to this agency's adapter doc retrieve service
                     RetrieveDocumentSetResponseType response = null;
-                    EntityDocRetrieveOrchImpl orchImpl = new EntityDocRetrieveOrchImpl();
-                    response = orchImpl.respondingGatewayCrossGatewayRetrieve(request, assertion);
+                    AdapterDocRetrieveOrchImpl orchImpl = new AdapterDocRetrieveOrchImpl();
+                    response = orchImpl.respondingGatewayCrossGatewayRetrieve(request, responseAssertion);
 
                     DocRetrieveDeferredPolicyChecker policyCheck = new DocRetrieveDeferredPolicyChecker();
 
                     if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
-                        // Generate a new response assertion
-                        AssertionType responseAssertion = new AssertionType();
-                        // Original request message id is now set as the relates to id
-                        responseAssertion.getRelatesToList().add(assertion.getMessageId());
-                        // Generate a new unique response assertion Message ID
-                        responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+                        // Use passthru proxy to call NHIN
+                        PassthruDocRetrieveDeferredRespProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredRespProxyObjectFactory();
+                        PassthruDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredRespProxy();
 
-                        // Send response via NHIN proxy
                         respAck = docRetrieveProxy.crossGatewayRetrieveResponse(response, responseAssertion, oTargetSystem);
                     } else {
                         ackMsg = "Outgoing Policy Check Failed";
@@ -138,7 +145,7 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
         }
 
         // Audit log - response
-        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), responseAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
 

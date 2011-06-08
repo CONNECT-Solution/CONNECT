@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -97,7 +98,11 @@ public class EntityDocRetrieveDeferredReqQueueProcessOrchImpl {
                     homeCommunityType.setHomeCommunityId(senderTargetCommunityId);
                     nhinTargetCommunityType.setHomeCommunity(homeCommunityType);
                     targetCommunities.getNhinTargetCommunity().add(nhinTargetCommunityType);
-                    ack = entityDocRetrieveDeferredRequestQueueProxyJavaImpl.crossGatewayRetrieveResponse(retrieveDocumentSetRequestType, respondingGatewayCrossGatewayRetrieveRequestType.getAssertion(), targetCommunities);
+
+                    // Generate new request queue assertion from original request message assertion
+                    AssertionType assertion = respondingGatewayCrossGatewayRetrieveRequestType.getAssertion();
+
+                    ack = entityDocRetrieveDeferredRequestQueueProxyJavaImpl.crossGatewayRetrieveResponse(retrieveDocumentSetRequestType, assertion, targetCommunities);
 
                 } else {
                     log.error("Sender home is null - Unable to extract target community hcid from sender home");

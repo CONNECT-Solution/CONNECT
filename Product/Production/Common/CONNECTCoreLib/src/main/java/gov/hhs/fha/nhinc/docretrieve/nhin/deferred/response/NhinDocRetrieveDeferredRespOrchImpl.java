@@ -19,7 +19,6 @@ import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.proxy.AdapterDocR
 import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.proxy.AdapterDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.deferred.NhinDocRetrieveDeferred;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractorHelper;
 import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -48,7 +47,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
      * @return deferred doc retrieve ack
      */
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion) {
-        log.debug("Begin - sendToRespondingGateway");
+        log.debug("Begin - NhinDocRetrieveDeferredRespOrchImpl.sendToRespondingGateway");
 
         DocRetrieveAcknowledgementType response = null;
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
@@ -64,9 +63,10 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
         nhinResponse.setRetrieveDocumentSetResponse(body);
         nhinResponse.setAssertion(assertion);
 
+        // Use messageId as WebServiceHelper has moved the RelatesToList.get(0) to MessageId already
         String messageId = "";
         if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
-            messageId = assertion.getRelatesToList().get(0);
+            messageId = assertion.getMessageId();
         }
 
         boolean bIsQueueOk = asyncProcess.processRetrieveDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, nhinResponse);
@@ -83,7 +83,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
             log.warn(ackMsg);
 
             // Set the error acknowledgement status
-            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         // ASYNCMSG PROCESSING - RSPRCVDACK
@@ -91,7 +91,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
 
         auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityId);
 
-        log.debug("End - sendToRespondingGateway");
+        log.debug("End - NhinDocRetrieveDeferredRespOrchImpl.sendToRespondingGateway");
 
         return response;
     }
@@ -117,7 +117,7 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
         } else {
             ackMsg = "Adapter doc retrieve deferred response policy check failed.";
             log.error(ackMsg);
-            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         log.debug("End DocRetrieveImpl.serviceDocRetrieveInternal");

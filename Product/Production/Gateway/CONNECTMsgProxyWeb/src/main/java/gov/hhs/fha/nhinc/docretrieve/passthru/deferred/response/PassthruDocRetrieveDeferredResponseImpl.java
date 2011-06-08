@@ -17,12 +17,16 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author Sai Valluripalli
  */
 public class PassthruDocRetrieveDeferredResponseImpl {
+
+    private static Log log = LogFactory.getLog(PassthruDocRetrieveDeferredResponseImpl.class);
 
     /**
      * 
@@ -31,9 +35,12 @@ public class PassthruDocRetrieveDeferredResponseImpl {
      * @return DocRetrieveAcknowledgementType
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
+        log.debug("Begin PassthruDocRetrieveDeferredResponseImpl.crossGatewayRetrieveResponse(secured)");
+
         AssertionType assertion = extractAssertionInfo(context, null);
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = body.getNhinTargetSystem();
+
         return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
     }
 
@@ -44,9 +51,12 @@ public class PassthruDocRetrieveDeferredResponseImpl {
      * @return DocRetrieveAcknowledgementType
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
+        log.debug("Begin PassthruDocRetrieveDeferredResponseImpl.crossGatewayRetrieveResponse(unsecured)");
+
         AssertionType assertion = extractAssertionInfo(context, crossGatewayRetrieveResponse.getAssertion());
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = crossGatewayRetrieveResponse.getNhinTargetSystem();
+
         return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
     }
 
@@ -58,11 +68,13 @@ public class PassthruDocRetrieveDeferredResponseImpl {
      */
     private AssertionType extractAssertionInfo(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
+
         if (null == oAssertionIn) {
             assertion = SamlTokenExtractor.GetAssertion(context);
         } else {
             assertion = oAssertionIn;
         }
+
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));

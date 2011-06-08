@@ -4,16 +4,12 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredResponsePortType;
@@ -29,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
  * @author jhoppesc
  */
 public class NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl implements NhinDocQueryDeferredResponseProxy {
+
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xds-b:2007";
@@ -36,22 +33,18 @@ public class NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl implements N
     private static final String PORT_LOCAL_PART = "RespondingGateway_QueryDeferredResponse_Port_Soap";
     private static final String WSDL_FILE = "NhinDocQueryDeferredResponse.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:Deferred:CrossGatewayQueryResponse";
-
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl()
-    {
+    public NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
@@ -61,19 +54,15 @@ public class NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl implements N
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected RespondingGatewayQueryDeferredResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected RespondingGatewayQueryDeferredResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
         RespondingGatewayQueryDeferredResponsePortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayQueryDeferredResponsePortType.class);
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-        }
-        else
-        {
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -84,16 +73,11 @@ public class NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl implements N
      *
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -104,43 +88,28 @@ public class NhinDocQueryDeferredResponseProxyWebServiceSecuredImpl implements N
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         DocQueryAcknowledgementType response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
             RespondingGatewayQueryDeferredResponsePortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("AssertionType was null");
-            }
-            else if(target == null)
-            {
+            } else if (target == null) {
                 log.error("NhinTargetCommunitiesType was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
+            } else {
+                response = (DocQueryAcknowledgementType) oProxyHelper.invokePort(port, RespondingGatewayQueryDeferredResponsePortType.class, "respondingGatewayCrossGatewayQuery", msg);
             }
-            else
-            {
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, RespondingGatewayQueryDeferredResponsePortType.class, "respondingGatewayCrossGatewayQuery", msg);
-            }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
+            String ackMsg = "Error calling respondingGatewayCrossGatewayQuery";
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
-            response = new DocQueryAcknowledgementType();
-            RegistryResponseType regResp = new RegistryResponseType();
-            regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
-            response.setMessage(regResp);
+            response = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         log.debug("End respondingGatewayCrossGatewayQuery");
         return response;
     }
-
 }

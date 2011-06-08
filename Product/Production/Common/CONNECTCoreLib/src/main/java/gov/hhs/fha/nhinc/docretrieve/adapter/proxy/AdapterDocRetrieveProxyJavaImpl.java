@@ -18,15 +18,14 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Les Westberg
  */
-public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy
-{
+public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy {
+
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterDocRetrieveProxyJavaImpl()
-    {
+    public AdapterDocRetrieveProxyJavaImpl() {
         log = createLogger();
     }
 
@@ -35,8 +34,7 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy
      *
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -47,13 +45,14 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy
      * @param assertion The assertion information.
      * @return The retrieved documents.
      */
-    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request, AssertionType assertion)
-    {
+    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request, AssertionType assertion) {
         log.debug("Entering AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
+
         AdapterDocRetrieveOrchImpl oOrchestrator = new AdapterDocRetrieveOrchImpl();
         RetrieveDocumentSetResponseType oResponse = oOrchestrator.respondingGatewayCrossGatewayRetrieve(request, assertion);
+
         log.debug("Leaving AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
+
         return oResponse;
     }
-    
 }

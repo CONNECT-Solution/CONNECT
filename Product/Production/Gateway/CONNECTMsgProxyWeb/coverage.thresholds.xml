@@ -77,7 +77,7 @@
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveImpl"
-              linecount="21"
+              linecount="23"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -107,7 +107,7 @@
               linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.PassthruDocRetrieveDeferredResponseImpl"
-              linecount="19"
+              linecount="22"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

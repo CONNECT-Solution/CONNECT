@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -19,16 +20,19 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author vvickers, Les Westberg
  */
-class DocRetrieveImpl
-{
+class DocRetrieveImpl {
 
     private static Log log = LogFactory.getLog(DocRetrieveImpl.class);
 
-    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context)
-    {
+    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
 
         NhinDocRetrieveOrchImpl oOrchestrator = new NhinDocRetrieveOrchImpl();
         RetrieveDocumentSetResponseType response = oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
@@ -37,5 +41,4 @@ class DocRetrieveImpl
         log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
     }
-
 }

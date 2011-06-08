@@ -7,29 +7,30 @@
 package gov.hhs.fha.nhinc.docretrieve.passthru;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import javax.xml.ws.WebServiceContext;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import javax.xml.ws.WebServiceContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  *
  * @author Neil Webb
  */
-public class NhincProxyDocRetrieveImpl
-{
+public class NhincProxyDocRetrieveImpl {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhincProxyDocRetrieveImpl.class);
+    private static Log log = LogFactory.getLog(NhincProxyDocRetrieveImpl.class);
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context)
-    {
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
+        log.debug("NhincProxyDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve(secured)");
+
         RetrieveDocumentSetResponseType response = null;
 
-        if (body != null)
-        {
+        if (body != null) {
             AssertionType assertion = getAssertion(context, null);
             NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion, body.getNhinTargetSystem());
@@ -38,12 +39,12 @@ public class NhincProxyDocRetrieveImpl
         return response;
     }
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveRequestType body, WebServiceContext context)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveRequestType body, WebServiceContext context) {
+        log.debug("NhincProxyDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve(unsecured)");
+
         RetrieveDocumentSetResponseType response = null;
 
-        if (body != null)
-        {
+        if (body != null) {
             AssertionType assertion = getAssertion(context, body.getAssertion());
             NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion, body.getNhinTargetSystem());
@@ -51,21 +52,16 @@ public class NhincProxyDocRetrieveImpl
         return response;
     }
 
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn)
-    {
+    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null)
-        {
+        if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = oAssertionIn;
         }
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null)
-        {
+        if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 

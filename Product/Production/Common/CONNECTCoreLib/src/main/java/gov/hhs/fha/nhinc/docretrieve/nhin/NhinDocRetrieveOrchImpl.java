@@ -64,10 +64,10 @@ public class NhinDocRetrieveOrchImpl {
                 log.debug("Doc retrieve service is enabled. Procesing message");
                 if (isInPassThroughMode()) {
                     log.debug("In passthrough mode. Sending adapter doc retrieve directly to adapter");
-                    response = sendDocRetrieveToAgency(body, assertion, requestCommunityID);
+                    response = sendDocRetrieveToAgency(body, assertion, homeCommunityId);
                 } else {
                     log.debug("Not in passthrough mode. Calling internal processing for adapter doc retrieve");
-                    response = serviceDocRetrieveInternal(body, assertion, homeCommunityId, requestCommunityID);
+                    response = serviceDocRetrieveInternal(body, assertion, homeCommunityId);
                 }
             } else {
                 log.debug("Doc retrieve service is not enabled. returning an empty response");
@@ -85,13 +85,13 @@ public class NhinDocRetrieveOrchImpl {
         return response;
     }
 
-    private RetrieveDocumentSetResponseType serviceDocRetrieveInternal(RetrieveDocumentSetRequestType request, AssertionType assertion, String homeCommunityId, String requestCommunityID) {
+    private RetrieveDocumentSetResponseType serviceDocRetrieveInternal(RetrieveDocumentSetRequestType request, AssertionType assertion, String homeCommunityId) {
         log.debug("Begin DocRetrieveImpl.serviceDocRetrieveInternal");
         RetrieveDocumentSetResponseType response = null;
 
         if (checkPolicy(request, assertion)) {
             log.debug("Adapter doc query policy check successful");
-            response = sendDocRetrieveToAgency(request, assertion, requestCommunityID);
+            response = sendDocRetrieveToAgency(request, assertion, homeCommunityId);
         } else {
             log.debug("Adapter doc query policy check failed");
             response = createEmptyResponse(homeCommunityId);
@@ -101,12 +101,12 @@ public class NhinDocRetrieveOrchImpl {
         return response;
     }
 
-    private RetrieveDocumentSetResponseType sendDocRetrieveToAgency(RetrieveDocumentSetRequestType request, AssertionType assertion, String requestCommunityID) {
+    private RetrieveDocumentSetResponseType sendDocRetrieveToAgency(RetrieveDocumentSetRequestType request, AssertionType assertion, String communityID) {
         log.debug("Begin DocRetrieveImpl.sendDocRetrieveToAgency");
         RetrieveDocumentSetResponseType response = null;
 
         log.debug("Calling audit log for doc retrieve request sent to adapter");
-        auditRequestMessage(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, requestCommunityID);
+        auditRequestMessage(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, communityID);
 
         log.debug("Creating adapter doc retrieve proxy");
         AdapterDocRetrieveProxy proxy = new AdapterDocRetrieveProxyObjectFactory().getAdapterDocRetrieveProxy();
@@ -114,7 +114,7 @@ public class NhinDocRetrieveOrchImpl {
         response = proxy.retrieveDocumentSet(request, assertion);
 
         log.debug("Calling audit log for doc retrieve response received from adapter");
-        auditResponseMessage(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, requestCommunityID);
+        auditResponseMessage(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, communityID);
 
         log.debug("End DocRetrieveImpl.sendDocRetrieveToAgency");
         return response;

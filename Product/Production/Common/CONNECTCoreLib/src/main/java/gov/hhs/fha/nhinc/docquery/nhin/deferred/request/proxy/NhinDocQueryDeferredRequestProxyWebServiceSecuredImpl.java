@@ -4,10 +4,6 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
@@ -25,7 +21,6 @@ import ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredRequestPortType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

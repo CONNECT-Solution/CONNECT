@@ -55,7 +55,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponse, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
 
-        // ASYNCMSG PROCESSING - REQSENT
+        // ASYNCMSG PROCESSING - RSPSENT
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         // Call the NHIN Interface

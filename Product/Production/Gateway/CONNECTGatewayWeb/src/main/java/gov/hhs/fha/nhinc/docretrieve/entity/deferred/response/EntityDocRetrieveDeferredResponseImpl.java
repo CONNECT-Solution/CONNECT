@@ -31,9 +31,11 @@ public class EntityDocRetrieveDeferredResponseImpl {
      * @return DocRetrieveAcknowledgementType
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
+
         AssertionType assertion = extractAssertionFromContext(context, crossGatewayRetrieveResponse.getAssertion());
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
         NhinTargetCommunitiesType nhinTarget = crossGatewayRetrieveResponse.getNhinTargetCommunities();
+
         return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTarget);
     }
 
@@ -43,9 +45,11 @@ public class EntityDocRetrieveDeferredResponseImpl {
      * @return DocRetrieveAcknowledgementType
      */
     protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
+
         AssertionType assertion = extractAssertionFromContext(context, null);
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
         NhinTargetCommunitiesType nhinTarget = body.getNhinTargetCommunities();
+
         return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTarget);
     }
 
@@ -57,11 +61,13 @@ public class EntityDocRetrieveDeferredResponseImpl {
      */
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
+
         if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
         } else {
             assertion = oAssertionIn;
         }
+
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));

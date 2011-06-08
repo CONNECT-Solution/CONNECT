@@ -13,7 +13,6 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * Created by
  * User: ralph
@@ -21,18 +20,21 @@ import org.apache.commons.logging.LogFactory;
  * Time: 12:36:16 PM
  */
 public class AdapterDocRetrieveDeferredReqProxyJavaImpl implements AdapterDocRetrieveDeferredReqProxy {
+
     private Log log = null;
 
-     public AdapterDocRetrieveDeferredReqProxyJavaImpl() {
-         log = LogFactory.getLog(getClass());
-     }
+    public AdapterDocRetrieveDeferredReqProxyJavaImpl() {
+        log = LogFactory.getLog(getClass());
+    }
 
-     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion) {
-         DocRetrieveAcknowledgementType             response = new DocRetrieveAcknowledgementType();
-         AdapterDocRetrieveDeferredReqOrchImpl   adapter = new AdapterDocRetrieveDeferredReqOrchImpl();
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion) {
+        DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
+        AdapterDocRetrieveDeferredReqOrchImpl adapter = new AdapterDocRetrieveDeferredReqOrchImpl();
 
-         response = adapter.respondingGatewayCrossGatewayRetrieve(body, assertion);
+        log.info("AdapterDocRetrieveDeferredReqProxyJavaImpl.sendToAdapter() - JavaImpl called");
 
-         return response;
-     }
+        response = adapter.respondingGatewayCrossGatewayRetrieve(body, assertion);
+
+        return response;
+    }
 }

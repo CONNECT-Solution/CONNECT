@@ -6,7 +6,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;

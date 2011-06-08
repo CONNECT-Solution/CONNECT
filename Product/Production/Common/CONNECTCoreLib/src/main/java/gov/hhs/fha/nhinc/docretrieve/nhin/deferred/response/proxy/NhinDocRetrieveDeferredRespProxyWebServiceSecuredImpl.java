@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import ihe.iti.xds_b._2007.RespondingGatewayDeferredResponseRetrievePortType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -27,6 +28,7 @@ import javax.xml.ws.Service;
  * Time: 11:16:36 PM
  */
 public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements NhinDocRetrieveDeferredRespProxy {
+
     private static final Log logger = LogFactory.getLog(NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl.class);
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xds-b:2007";
@@ -82,12 +84,10 @@ public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements Nh
         return cachedService;
     }
 
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion, NhinTargetSystemType target)
-    {
-         getLogger().debug("Begin sendToRespondingGateway");
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion, NhinTargetSystemType target) {
+        getLogger().debug("Begin sendToRespondingGateway");
 
         DocRetrieveAcknowledgementType response = null;
-
 
         try {
             String url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
@@ -101,11 +101,9 @@ public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements Nh
                 response = (DocRetrieveAcknowledgementType) getWebServiceProxyHelper().invokePort(port, RespondingGatewayDeferredResponseRetrievePortType.class, "respondingGatewayDeferredResponseCrossGatewayRetrieve", body);
             }
         } catch (Exception ex) {
-            getLogger().error("Error calling respondingGatewayDeferredResponseCrossGatewayRetrieve: " + ex.getMessage(), ex);
-            response = new DocRetrieveAcknowledgementType();
-            RegistryResponseType regResp = new RegistryResponseType();
-            regResp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
-            response.setMessage(regResp);
+            String ackMsg = "Error calling respondingGatewayDeferredResponseCrossGatewayRetrieve";
+            getLogger().error(ackMsg + ": " + ex.getMessage(), ex);
+            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         getLogger().debug("End sendToRespondingGateway");

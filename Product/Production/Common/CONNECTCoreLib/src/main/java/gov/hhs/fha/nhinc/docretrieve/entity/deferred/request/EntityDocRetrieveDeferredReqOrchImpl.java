@@ -73,8 +73,9 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
                 nhinDocRequest.getDocumentRequest().add(docRequest);
                 // Each new request must generate its own unique assertion Message ID
-                assertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
-                nhinDocRetrieveMsg.setAssertion(assertion);
+                AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
+                newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+                nhinDocRetrieveMsg.setAssertion(newAssertion);
 
                 NhinTargetSystemType oTargetSystem = buildHomeCommunity(docRequest.getHomeCommunityId());
 
@@ -84,22 +85,22 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 // check for valid queue entry
                 if (bIsQueueOk) {
 
-                    if (isPolicyValid(nhinDocRequest, assertion, oTargetSystem.getHomeCommunity())) {
+                    if (isPolicyValid(nhinDocRequest, newAssertion, oTargetSystem.getHomeCommunity())) {
                         // Send the deferred doc retrieve request
-                        nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, assertion, oTargetSystem);
+                        nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(message, newAssertion, oTargetSystem);
                     } else {
                         ackMsg = "Policy Failed";
 
                         // Set the error acknowledgement status of the deferred queue entry
                         nhincResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
-                        asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
+                        asyncProcess.processAck(newAssertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
                     }
                 } else {
                     ackMsg = "Deferred Retrieve Documents request processing halted; deferred queue repository error encountered";
 
                     // Set the error acknowledgement status of the deferred queue entry
                     nhincResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
+                    asyncProcess.processAck(newAssertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
                 }
             }
         } catch (Exception e) {

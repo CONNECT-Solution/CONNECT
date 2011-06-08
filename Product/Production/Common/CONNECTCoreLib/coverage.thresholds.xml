@@ -1442,7 +1442,7 @@
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRetrieveDeferredReqProxyJavaImpl"
-              linecount="8"
+              linecount="9"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -1575,14 +1575,14 @@
               linecount="54"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="20" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="18" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueOrchImpl"
-              linecount="61"
+              linecount="66"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="22" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcessOrchImpl"
-              linecount="64"
+              linecount="65"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
