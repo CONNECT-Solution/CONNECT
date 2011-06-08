@@ -15,4 +15,6 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public interface AdapterComponentMpiChecker {
     public PRPAIN201306UV02 FindPatient(PRPAIN201305UV02 query);
+
+    public boolean isNhinRequiredParamsFound(PRPAIN201305UV02 query);
 }

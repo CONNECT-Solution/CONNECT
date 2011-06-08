@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201305;
 import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201306;
 import gov.hhs.fha.nhinc.mpilib.*;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -99,4 +100,29 @@ public class PatientChecker implements AdapterComponentMpiChecker {
         log.debug("Exiting PatientChecker.FindPatient method...");
         return result;
     }
+
+    /**
+     *
+     * @param query
+     * @return true - minimum params found; false - not found
+     */
+    public boolean isNhinRequiredParamsFound(PRPAIN201305UV02 query) {
+        boolean result = false;
+
+        PRPAMT201306UV02ParameterList queryParams = HL7Parser201305.ExtractHL7QueryParamsFromMessage(query);
+        Patient sourcePatient = HL7Parser201305.ExtractMpiPatientFromQueryParams(queryParams);
+
+        if (sourcePatient != null &&
+                sourcePatient.getNames() != null &&
+                sourcePatient.getNames().size() > 0 &&
+                sourcePatient.getNames().get(0) != null &&
+                NullChecker.isNotNullish(sourcePatient.getNames().get(0).getFirstName()) &&
+                NullChecker.isNotNullish(sourcePatient.getNames().get(0).getLastName()) &&
+                NullChecker.isNotNullish(sourcePatient.getGender()) &&
+                sourcePatient.getDateOfBirth() != null) {
+            result = true;
+        }
+
+        return result;
+     }
 }

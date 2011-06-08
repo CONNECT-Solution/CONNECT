@@ -19,4 +19,8 @@ public class AdapterComponentMpiCheckerNoOpImpl implements AdapterComponentMpiCh
         return new PRPAIN201306UV02();
     }
 
+    public boolean isNhinRequiredParamsFound(PRPAIN201305UV02 query) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

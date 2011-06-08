@@ -38,62 +38,56 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
         } else {
             Patient sourcePatient = HL7DbParser201305.ExtractMpiPatientFromQueryParams(queryParams);
 
-            // Check for required NHIN query parameters
-            if (!isNhinRequiredParamsFound(sourcePatient)) {
-                // Not all required NHIN query parameters found, generate appropriate empty response
-                log.debug("Not all required NHIN query parameters found, generate appropriate empty response");
-            } else {
-                // Minimum required NHIN query parameters found, perform find
-                PatientService patientService = PatientService.getPatientService();
-                List<Patient> patientList = patientService.findPatients(sourcePatient);
+            // Perform find
+            PatientService patientService = PatientService.getPatientService();
+            List<Patient> patientList = patientService.findPatients(sourcePatient);
 
-                if (patientList != null && patientList.size() > 0) {
+            if (patientList != null && patientList.size() > 0) {
 
-                    List<String> dupOrgIds = new ArrayList<String>();
-                    for (Patient patient : patientList) {
-                        if ((patient.getIdentifiers() != null) &&
-                                (patient.getIdentifiers().size() > 0) &&
-                                (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+                List<String> dupOrgIds = new ArrayList<String>();
+                for (Patient patient : patientList) {
+                    if ((patient.getIdentifiers() != null) &&
+                            (patient.getIdentifiers().size() > 0) &&
+                            (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
 
-                            for (Patient tempPatient : filteredPatients) {
-                                if ((tempPatient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(patient.getIdentifiers().get(0).getOrganizationId())) {
-                                    dupOrgIds.add(patient.getIdentifiers().get(0).getOrganizationId());
-                                }
-                            }
-                            filteredPatients.add(patient);
-                        }
-                    }
-
-                    if ((dupOrgIds != null) &&
-                            (dupOrgIds.size() > 0)) {
-                        HashSet hashSet = new HashSet(dupOrgIds);
-                        dupOrgIds = new ArrayList(hashSet);
-                        log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): " + dupOrgIds.size());
-                    }
-
-                    for (Patient patient : patientList) {
-                        if ((patient.getIdentifiers() != null) &&
-                                (patient.getIdentifiers().size() > 0) &&
-                                (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
-
-                            for (String str : dupOrgIds) {
-                                if ((patient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(str)) {
-                                    filteredPatients.remove(patient);
-                                }
+                        for (Patient tempPatient : filteredPatients) {
+                            if ((tempPatient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(patient.getIdentifiers().get(0).getOrganizationId())) {
+                                dupOrgIds.add(patient.getIdentifiers().get(0).getOrganizationId());
                             }
                         }
+                        filteredPatients.add(patient);
                     }
-
-                    if (filteredPatients != null) {
-                        log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
-                    } else {
-                        log.debug("filteredPatients - null");
-                    }
-
-                } else {
-                    // No matches found, generate appropriate empty response
-                    log.debug("No matches found, generate appropriate empty response");
                 }
+
+                if ((dupOrgIds != null) &&
+                        (dupOrgIds.size() > 0)) {
+                    HashSet hashSet = new HashSet(dupOrgIds);
+                    dupOrgIds = new ArrayList(hashSet);
+                    log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): " + dupOrgIds.size());
+                }
+
+                for (Patient patient : patientList) {
+                    if ((patient.getIdentifiers() != null) &&
+                            (patient.getIdentifiers().size() > 0) &&
+                            (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+
+                        for (String str : dupOrgIds) {
+                            if ((patient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(str)) {
+                                filteredPatients.remove(patient);
+                            }
+                        }
+                    }
+                }
+
+                if (filteredPatients != null) {
+                    log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
+                } else {
+                    log.debug("filteredPatients - null");
+                }
+
+            } else {
+                // No matches found, generate appropriate empty response
+                log.debug("No matches found, generate appropriate empty response");
             }
         }
 
@@ -103,8 +97,16 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
         return result;
     }
 
-    private boolean isNhinRequiredParamsFound(Patient sourcePatient) {
+    /**
+     *
+     * @param query
+     * @return true - minimum params found; false - not found
+     */
+    public boolean isNhinRequiredParamsFound(PRPAIN201305UV02 query) {
         boolean result = false;
+
+        PRPAMT201306UV02ParameterList queryParams = HL7DbParser201305.ExtractHL7QueryParamsFromMessage(query);
+        Patient sourcePatient = HL7DbParser201305.ExtractMpiPatientFromQueryParams(queryParams);
 
         if (sourcePatient != null &&
                 sourcePatient.getPersonnames() != null &&
