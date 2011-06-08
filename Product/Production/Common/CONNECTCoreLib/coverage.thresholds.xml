@@ -3730,9 +3730,9 @@
               linecount="85"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="112" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="156" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdb.dao.PatientDAO"
-              linecount="220"
+              linecount="282"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="26" branchrate="80" branchsexecuted="0"

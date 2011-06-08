@@ -264,38 +264,122 @@ public class PatientDAO {
             if (phonenumber.getPhonenumberId() != null) {
                 sqlSelect.append(" INNER JOIN patientdb.phonenumber h ON p.patientId = h.patientId");
             }
-            sqlSelect.append(" WHERE p.gender = ? AND p.dateOfBirth = ?");
-            sqlSelect.append(" AND n.firstname = ? AND n.lastname = ?");
+
+            StringBuffer criteriaString = new StringBuffer("");
+            if (NullChecker.isNotNullish(gender)) {
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" p.gender = ?");
+            }
+            if (dateOfBirth != null) {
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" p.dateOfBirth = ?");
+            }
             if (NullChecker.isNotNullish(ssn)) {
-                sqlSelect.append(" AND p.ssn = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" n.firstname = ?");
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" n.lastname = ?");
+            }
+            if (NullChecker.isNotNullish(ssn)) {
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" p.ssn = ?");
             }
             if (NullChecker.isNotNullish(prefix)) {
-                sqlSelect.append(" AND n.prefix = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" n.prefix = ?");
             }
             if (NullChecker.isNotNullish(middleName)) {
-                sqlSelect.append(" AND n.middleName = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" n.middleName = ?");
             }
             if (NullChecker.isNotNullish(suffix)) {
-                sqlSelect.append(" AND n.suffix = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" n.suffix = ?");
             }
             if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet1())) {
-                sqlSelect.append(" AND a.street1 = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" a.street1 = ?");
             }
             if (address.getAddressId() != null && NullChecker.isNotNullish(address.getStreet2())) {
-                sqlSelect.append(" AND a.street2 = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" a.street2 = ?");
             }
             if (address.getAddressId() != null && NullChecker.isNotNullish(address.getCity())) {
-                sqlSelect.append(" AND a.city = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" a.city = ?");
             }
             if (address.getAddressId() != null && NullChecker.isNotNullish(address.getState())) {
-                sqlSelect.append(" AND a.state = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" a.state = ?");
             }
             if (address.getAddressId() != null && NullChecker.isNotNullish(address.getPostal())) {
-                sqlSelect.append(" AND a.postal = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" a.postal = ?");
             }
             if (phonenumber.getPhonenumberId() != null && NullChecker.isNotNullish(phonenumber.getValue())) {
-                sqlSelect.append(" AND h.value = ?");
+                if (criteriaString.length() > 0) {
+                    criteriaString.append(" AND");
+                } else {
+                    criteriaString.append(" WHERE");
+                }
+                criteriaString.append(" h.value = ?");
             }
+            sqlSelect.append(criteriaString);
+
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
             Query sqlQuery = session.createSQLQuery(sqlSelect.toString())
@@ -304,13 +388,25 @@ public class PatientDAO {
                     .addScalar("gender", Hibernate.STRING)
                     .addScalar("ssn", Hibernate.STRING)
                     .addScalar("id", Hibernate.STRING)
-                    .addScalar("organizationid", Hibernate.STRING)
-                    .setString(0, gender)
-                    .setTimestamp(1, dateOfBirth)
-                    .setString(2, firstName)
-                    .setString(3, lastName);
+                    .addScalar("organizationid", Hibernate.STRING);
 
-            int iParam = 4;
+            int iParam = 0;
+            if (NullChecker.isNotNullish(gender)) {
+                sqlQuery.setString(iParam, gender);
+                iParam++;
+            }
+            if (dateOfBirth != null) {
+                sqlQuery.setTimestamp(iParam, dateOfBirth);
+                iParam++;
+            }
+            if (NullChecker.isNotNullish(firstName)) {
+                sqlQuery.setString(iParam, firstName);
+                iParam++;
+            }
+            if (NullChecker.isNotNullish(lastName)) {
+                sqlQuery.setString(iParam, lastName);
+                iParam++;
+            }
             if (NullChecker.isNotNullish(ssn)) {
                 sqlQuery.setString(iParam, ssn);
                 iParam++;
