@@ -102,9 +102,10 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
         DocQueryAcknowledgementType response = null;
 
         String responseCommunityID = null;
-        if (target != null &&
-                target.getHomeCommunity() != null) {
-            responseCommunityID = target.getHomeCommunity().getHomeCommunityId();
+        if (msg != null &&
+                msg.getAdhocQuery() != null &&
+                msg.getAdhocQuery().getHome() != null) {
+            responseCommunityID = msg.getAdhocQuery().getHome();
         }
         // Log the outbound request -- Audit Logging
         AcknowledgementType ack = getDocQueryAuditLogger().auditDQRequest(msg, assertion,

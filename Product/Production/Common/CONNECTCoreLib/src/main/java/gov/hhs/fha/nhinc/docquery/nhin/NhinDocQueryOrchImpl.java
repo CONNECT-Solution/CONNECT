@@ -214,7 +214,7 @@ public class NhinDocQueryOrchImpl {
      * @param requestCommunityID
      * @return
      */
-    public AdhocQueryResponse queryInternalDocRegistry(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String requestCommunityID) {
+    private AdhocQueryResponse queryInternalDocRegistry(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String requestCommunityID) {
         AdhocQueryResponse resp = new AdhocQueryResponse();
         RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
         request.setAssertion(adhocQueryRequestMsg.getAssertion());

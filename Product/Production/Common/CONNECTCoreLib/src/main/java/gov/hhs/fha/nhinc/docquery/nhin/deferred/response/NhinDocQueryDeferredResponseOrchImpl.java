@@ -45,11 +45,9 @@ public class NhinDocQueryDeferredResponseOrchImpl {
      * @return <code>DocQueryAcknowledgementType</code>
      */
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
-        log.debug("Begin - respondingGatewayCrossGatewayQuery");
+        log.debug("Begin - .NhinDocQueryDeferredResponseOrchImplrespondingGatewayCrossGatewayQuery");
 
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-
-        log.debug("Assertion-0 is: " + asyncProcess.marshalAssertionTypeObject(assertion));
 
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
@@ -67,11 +65,10 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         nhinResponse.setAdhocQueryResponse(msg);
         nhinResponse.setAssertion(assertion);
 
-        log.debug("Assertion-1 is: " + asyncProcess.marshalAssertionTypeObject(assertion));
-
+        // Use messageId as WebServiceHelper has moved the RelatesToList.get(0) to MessageId already
         String messageId = "";
-        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
-            messageId = assertion.getRelatesToList().get(0);
+        if (assertion.getMessageId() != null) {
+            messageId = assertion.getMessageId();
         }
 
         boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, nhinResponse);
@@ -110,7 +107,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         // Audit the outgoing NHIN Message
         ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
-        log.debug("End - respondingGatewayCrossGatewayQuery");
+        log.debug("End - NhinDocQueryDeferredResponseOrchImpl.respondingGatewayCrossGatewayQuery");
 
         return respAck;
     }

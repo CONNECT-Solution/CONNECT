@@ -20,7 +20,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl;
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -108,9 +108,15 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
                         NhinTargetSystemType target = new NhinTargetSystemType();
                         target.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
+                        // Audit the Audit Log Query Request Message sent to the Adapter Interface
+                        ack = auditAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequestType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
+
                         // Get the AdhocQueryResponse by passing the request to this agency's adapter doc query service
-                        NhinDocQueryOrchImpl orchImpl = new NhinDocQueryOrchImpl();
-                        AdhocQueryResponse response = orchImpl.queryInternalDocRegistry(respondingGatewayCrossGatewayQueryRequestType, homeCommunityId);
+                        AdapterDocQueryProxyJavaImpl orchImpl = new AdapterDocQueryProxyJavaImpl();
+                        AdhocQueryResponse response = orchImpl.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest(), assertion);
+
+                        // Audit the Audit Log Query Request Message sent to the Adapter Interface
+                        ack = auditAdhocQueryResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
 
                         PassthruDocQueryDeferredResponseProxyObjectFactory factory = new PassthruDocQueryDeferredResponseProxyObjectFactory();
                         PassthruDocQueryDeferredResponseProxy proxy = factory.getPassthruDocQueryDeferredResponseProxy();
@@ -177,4 +183,34 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
 
         return urlInfoList;
     }
+
+    /**
+     * Creates an audit log for an AdhocQueryRequest.
+     * @param crossGatewayDocQueryRequest AdhocQueryRequest message to log
+     * @param direction Indicates whether the message is going out or comming in
+     * @param _interface Indicates which interface component is being logged??
+     * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
+     */
+    private AcknowledgementType auditAdhocQueryRequest(RespondingGatewayCrossGatewayQueryRequestType msg, String direction, String _interface, String requestCommunityID) {
+        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
+        AcknowledgementType ack = auditLogger.auditDQRequest(msg.getAdhocQueryRequest(), msg.getAssertion(), direction, _interface, requestCommunityID);
+
+        return ack;
+    }
+
+    /**
+     * Creates an audit log for an AdhocQueryResponse.
+     * @param crossGatewayDocQueryResponse AdhocQueryResponse message to log
+     * @param direction Indicates whether the message is going out or comming in
+     * @param _interface Indicates which interface component is being logged??
+     * @param requestCommunityID
+     * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
+     */
+    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse msg, String direction, String _interface, AssertionType assertion, String requestCommunityID) {
+        DocQueryAuditLog auditLogger = new DocQueryAuditLog();
+        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface, requestCommunityID);
+
+        return ack;
+    }
+
 }
