@@ -64,7 +64,7 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         NhinDocQueryDeferredResponseProxyObjectFactory factory = new NhinDocQueryDeferredResponseProxyObjectFactory();
         NhinDocQueryDeferredResponseProxy proxy = factory.getNhinDocQueryDeferredResponseProxy();
 
-        // ASYNCMSG PROCESSING - REQSENT
+        // ASYNCMSG PROCESSING - RSPSENT
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryResponseType = new RespondingGatewayCrossGatewayQueryResponseType();
@@ -96,7 +96,7 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         }
 
         // ASYNCMSG PROCESSING - REQSENTACK
-        bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
 
         // Audit the incoming NHIN Acknowledgement Message
         ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);

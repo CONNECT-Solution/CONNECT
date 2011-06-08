@@ -166,9 +166,9 @@
                         <sp:IncludeTimestamp/>
                         <sp:AlgorithmSuite>
                             <wsp:Policy>
-                                <sp:Basic128/>
-                                <sp:Basic192/>
                                 <sp:Basic256/>
+                                <sp:Basic192/>
+                                <sp:Basic128/>
                                 <sp:TripleDes/>
                                 <sp:Basic256Rsa15/>
                                 <sp:Basic192Rsa15/>

@@ -83,7 +83,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                     PRPAIN201305UV02 new201305 = pd201305Processor.createNewRequest(message, urlInfo.getHcid());
 
                     // Each new request must generate its own unique assertion Message ID
-                    AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);;
+                    AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
 
                     newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
 

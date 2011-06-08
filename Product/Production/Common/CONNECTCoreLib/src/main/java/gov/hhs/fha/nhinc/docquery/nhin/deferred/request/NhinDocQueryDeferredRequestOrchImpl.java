@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.docquery.adapter.deferred.request.proxy.AdapterDocQuery
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import org.apache.commons.logging.Log;
@@ -40,6 +41,7 @@ public class NhinDocQueryDeferredRequestOrchImpl {
         String ackMsg = null;
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
 
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         String requestCommunityID = null;
         if (msg != null && msg.getAdhocQuery() != null) {
             requestCommunityID = msg.getAdhocQuery().getHome();
@@ -55,21 +57,21 @@ public class NhinDocQueryDeferredRequestOrchImpl {
 
                 // Perform the inbound policy check
                 if (isPolicyValid(msg, assertion)) {
-                    respAck = sendToAgency(msg, assertion, requestCommunityID);
+                    respAck = sendToAgency(msg, assertion, homeCommunityId);
                 } else {
                     ackMsg = "Policy Check Failed for incoming Document Query Deferred Request";
                     log.error(ackMsg);
-                    respAck = sendToAgencyError(msg, assertion, ackMsg, requestCommunityID);
+                    respAck = sendToAgencyError(msg, assertion, ackMsg, homeCommunityId);
                 }
             } else {
                 // Send the deferred request to the Adapter Interface
-                respAck = sendToAgency(msg, assertion, requestCommunityID);
+                respAck = sendToAgency(msg, assertion, homeCommunityId);
             }
         } else {
             // Send the error to the Adapter Error Interface
             ackMsg = "Document Query Deferred Request Service Not Enabled";
             log.error(ackMsg);
-            respAck = sendToAgencyError(msg, assertion, ackMsg, requestCommunityID);
+            respAck = sendToAgencyError(msg, assertion, ackMsg, homeCommunityId);
         }
 
         // Audit the outgoing NHIN Message

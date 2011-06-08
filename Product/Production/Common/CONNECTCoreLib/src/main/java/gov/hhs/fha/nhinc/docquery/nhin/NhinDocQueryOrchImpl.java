@@ -182,7 +182,9 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Forwards the AdhocQueryRequest to an agency's adapter doc query service
+     *
      * @param adhocQueryRequestMsg
+     * @param communityID
      * @return
      */
     private AdhocQueryResponse forwardToAgency(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String communityID) {
@@ -205,7 +207,14 @@ public class NhinDocQueryOrchImpl {
         return resp;
     }
 
-    private AdhocQueryResponse queryInternalDocRegistry(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String requestCommunityID) {
+    /**
+     * Forwards the AdhocQueryRequest to this agency's adapter doc query service
+     *
+     * @param adhocQueryRequestMsg
+     * @param requestCommunityID
+     * @return
+     */
+    public AdhocQueryResponse queryInternalDocRegistry(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg, String requestCommunityID) {
         AdhocQueryResponse resp = new AdhocQueryResponse();
         RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
         request.setAssertion(adhocQueryRequestMsg.getAssertion());

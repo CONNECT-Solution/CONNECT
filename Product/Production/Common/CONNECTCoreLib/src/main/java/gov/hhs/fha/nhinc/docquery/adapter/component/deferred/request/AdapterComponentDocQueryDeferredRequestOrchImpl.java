@@ -67,7 +67,7 @@ public class AdapterComponentDocQueryDeferredRequestOrchImpl {
         // check for valid queue entry/update
         if (bIsQueueOk) {
             // Set the ack success status of the deferred queue entry
-            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG, null, null);
+            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG, null, null);
             asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         } else {
             String ackMsg = "Deferred Query For Documents processing halted; deferred queue repository error encountered";

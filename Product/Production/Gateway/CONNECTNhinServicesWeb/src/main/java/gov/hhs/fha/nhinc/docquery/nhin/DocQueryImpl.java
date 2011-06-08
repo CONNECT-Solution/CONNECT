@@ -40,8 +40,7 @@ public class DocQueryImpl
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
         return new NhinDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);

@@ -51,11 +51,12 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
         respAck.setMessage(regResp);
-        String responseHomeCommunityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        String responseCommunityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         String ackMsg = "";
 
         // Audit the incoming NHIN Message
-        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseHomeCommunityId);
+        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         // ASYNCMSG PROCESSING - RSPRCVD
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
@@ -77,7 +78,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
             if (!(isInPassThroughMode())) {
                 // Perform the inbound policy check
                 if (isPolicyValid(msg, assertion)) {
-                    respAck = sendToAgency(msg, assertion, responseHomeCommunityId);
+                    respAck = sendToAgency(msg, assertion, homeCommunityId);
                 } else {
                     // Policy Check Failed for incoming Document Query Deferred Response
                     ackMsg = "Policy Check Failed for incoming Document Query Deferred Response";
@@ -88,7 +89,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
                 }
             } else {
                 // Send the deferred response to the Adapter Interface
-                respAck = sendToAgency(msg, assertion, responseHomeCommunityId);
+                respAck = sendToAgency(msg, assertion, homeCommunityId);
             }
         } else {
             // Service is not enabled so we are not doing anything with this response
@@ -103,7 +104,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, respAck);
 
         // Audit the outgoing NHIN Message
-        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseHomeCommunityId);
+        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End - respondingGatewayCrossGatewayQuery");
 

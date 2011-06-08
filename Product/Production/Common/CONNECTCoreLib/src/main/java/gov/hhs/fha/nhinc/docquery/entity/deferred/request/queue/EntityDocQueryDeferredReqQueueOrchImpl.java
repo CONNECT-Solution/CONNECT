@@ -14,13 +14,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl;
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -61,17 +61,34 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
         RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequestType = new RespondingGatewayCrossGatewayQueryRequestType();
         respondingGatewayCrossGatewayQueryRequestType.setAdhocQueryRequest(msg);
         respondingGatewayCrossGatewayQueryRequestType.setAssertion(assertion);
-        respondingGatewayCrossGatewayQueryRequestType.setNhinTargetCommunities(targets);
 
-        String responseCommunityID = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
 
         // Audit the incoming doc query request Message
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+        AcknowledgementType ack = auditLogger.auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
         String messageId = assertion.getMessageId();
+
+        // Generate a new response assertion
+        AssertionType responseAssertion = asyncProcess.copyAssertionTypeObject(assertion);
+        // Original request message id is now set as the relates to id
+        responseAssertion.getRelatesToList().add(messageId);
+        // Generate a new unique response assertion Message ID
+        responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+        // Set user info homeCommunity
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId(homeCommunityId);
+        homeCommunityType.setName(homeCommunityId);
+        responseAssertion.setHomeCommunity(homeCommunityType);
+        if (responseAssertion.getUserInfo() != null &&
+                responseAssertion.getUserInfo().getOrg() != null) {
+            responseAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
+            responseAssertion.getUserInfo().getOrg().setName(homeCommunityId);
+        }
+
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
         if (bIsQueueOk) {
@@ -91,18 +108,9 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
                         NhinTargetSystemType target = new NhinTargetSystemType();
                         target.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
-
-                        // Get the AdhocQueryResponse by passing the request to the QD Sync Flow.
-                        AdhocQueryResponse response = null;
-                        EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
-                        response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
-
-                        // Generate a new response assertion
-                        AssertionType responseAssertion = new AssertionType();
-                        // Original request message id is now set as the relates to id
-                        responseAssertion.getRelatesToList().add(assertion.getMessageId());
-                        // Generate a new unique response assertion Message ID
-                        responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+                        // Get the AdhocQueryResponse by passing the request to this agency's adapter doc query service
+                        NhinDocQueryOrchImpl orchImpl = new NhinDocQueryOrchImpl();
+                        AdhocQueryResponse response = orchImpl.queryInternalDocRegistry(respondingGatewayCrossGatewayQueryRequestType, homeCommunityId);
 
                         PassthruDocQueryDeferredResponseProxyObjectFactory factory = new PassthruDocQueryDeferredResponseProxyObjectFactory();
                         PassthruDocQueryDeferredResponseProxy proxy = factory.getPassthruDocQueryDeferredResponseProxy();
@@ -135,7 +143,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
         }
 
         // Audit the responding Acknowledgement Message
-        ack = auditLogger.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+        ack = auditLogger.logDocQueryAck(respAck, responseAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         return respAck;
     }

@@ -358,11 +358,12 @@ public class DocumentQueryTransforms {
         }
 
         /* Assign ParticipationObjectIdentification */
-        String patientId = new String();
         // Create Participation Object Identification Section
         ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
-        if (assertion.getUserInfo() != null) {
-            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        if (assertion.getUniquePatientId() != null &&
+                assertion.getUniquePatientId().size() > 0 &&
+                assertion.getUniquePatientId().get(0) != null) {
+            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(assertion.getUniquePatientId().get(0));
         }
 
         // Put the contents of the actual message into the Audit Log Message

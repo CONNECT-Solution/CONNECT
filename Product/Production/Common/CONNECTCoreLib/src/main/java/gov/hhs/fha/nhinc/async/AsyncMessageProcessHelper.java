@@ -428,10 +428,10 @@ public class AsyncMessageProcessHelper {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setRspData(getBlobFromPRPAIN201306UV02RequestType(response));
                 instance.save(records.get(0));
-            }
 
-            // Success if we got this far
-            result = true;
+                // Success if we got this far
+                result = true;
+            }
         } catch (Exception e) {
             log.error("ERROR: Failed to update the async response.", e);
         }
@@ -473,10 +473,10 @@ public class AsyncMessageProcessHelper {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setRspData(getBlobFromRespondingGatewayCrossGatewayQueryResponseType(response));
                 instance.save(records.get(0));
-            }
 
-            // Success if we got this far
-            result = true;
+                // Success if we got this far
+                result = true;
+            }
         } catch (Exception e) {
             log.error("ERROR: Failed to update the async response.", e);
         }
@@ -518,10 +518,10 @@ public class AsyncMessageProcessHelper {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setRspData(getBlobFromRespondingGatewayCrossGatewayRetrieveResponseType(response));
                 instance.save(records.get(0));
-            }
 
-            // Success if we got this far
-            result = true;
+                // Success if we got this far
+                result = true;
+            }
         } catch (Exception e) {
             log.error("ERROR: Failed to update the async response.", e);
         }

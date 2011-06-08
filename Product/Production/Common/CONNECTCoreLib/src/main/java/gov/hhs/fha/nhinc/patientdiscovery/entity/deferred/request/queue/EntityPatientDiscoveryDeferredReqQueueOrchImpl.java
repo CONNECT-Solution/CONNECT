@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -23,6 +24,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.Passt
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -88,6 +90,17 @@ public class EntityPatientDiscoveryDeferredReqQueueOrchImpl {
         newAssertion.getRelatesToList().add(request.getAssertion().getMessageId());
         // Generate a new unique response assertion Message ID
         newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+        // Set user info homeCommunity
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId(homeCommunityId);
+        homeCommunityType.setName(homeCommunityId);
+        newAssertion.setHomeCommunity(homeCommunityType);
+        if (newAssertion.getUserInfo() != null &&
+                newAssertion.getUserInfo().getOrg() != null) {
+            newAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
+            newAssertion.getUserInfo().getOrg().setName(homeCommunityId);
+        }
 
         ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
 
