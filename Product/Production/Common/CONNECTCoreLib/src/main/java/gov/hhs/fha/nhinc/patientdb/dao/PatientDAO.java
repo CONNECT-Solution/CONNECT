@@ -282,7 +282,7 @@ public class PatientDAO {
                 }
                 criteriaString.append(" p.dateOfBirth = ?");
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(firstName)) {
                 if (criteriaString.length() > 0) {
                     criteriaString.append(" AND");
                 } else {
@@ -290,7 +290,7 @@ public class PatientDAO {
                 }
                 criteriaString.append(" n.firstname = ?");
             }
-            if (NullChecker.isNotNullish(ssn)) {
+            if (NullChecker.isNotNullish(lastName)) {
                 if (criteriaString.length() > 0) {
                     criteriaString.append(" AND");
                 } else {
