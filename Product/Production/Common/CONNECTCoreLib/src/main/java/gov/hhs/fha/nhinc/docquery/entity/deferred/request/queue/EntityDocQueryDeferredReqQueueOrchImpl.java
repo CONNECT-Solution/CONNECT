@@ -113,7 +113,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
 
                         // Get the AdhocQueryResponse by passing the request to this agency's adapter doc query service
                         AdapterDocQueryProxyJavaImpl orchImpl = new AdapterDocQueryProxyJavaImpl();
-                        AdhocQueryResponse response = orchImpl.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest(), assertion);
+                        AdhocQueryResponse response = orchImpl.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest(), responseAssertion);
 
                         // Audit the Audit Log Query Request Message sent to the Adapter Interface
                         ack = auditAdhocQueryResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
