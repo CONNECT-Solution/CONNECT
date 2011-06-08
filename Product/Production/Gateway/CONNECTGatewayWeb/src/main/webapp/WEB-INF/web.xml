@@ -181,6 +181,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EntityPatientDiscoveryUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoveryUnsecured</servlet-name>
+        <url-pattern>/EntityPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredReqQueueSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueSecured</servlet-class>
     </servlet>
@@ -341,7 +350,15 @@
         <servlet-name>GatewayLiftManager</servlet-name>
         <url-pattern>/GatewayService/GatewayLiftManager</url-pattern>
     </servlet-mapping>
-    <!-- End: XDR Request and Response services-->
+
+    <servlet>
+        <servlet-name>PolicyEngineTransformationService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService</servlet-class>       
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PolicyEngineTransformationService</servlet-name>
+        <url-pattern>/NhincComponentInternalPolicyEngineTransformService</url-pattern>
+    </servlet-mapping>
 
     <!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
