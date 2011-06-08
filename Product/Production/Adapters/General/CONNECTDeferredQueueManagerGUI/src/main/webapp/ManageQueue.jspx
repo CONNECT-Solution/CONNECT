@@ -53,7 +53,7 @@
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                             <webuijsf:tab actionExpression="#{ManageQueue.unProcessQueueTab_action}" binding="#{ManageQueue.unProcessQueueTab}"
-                                id="unProcessQueueTab" style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px" text="UnProcess Queue">
+                                id="unProcessQueueTab" style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px" text="Search Queue">
                                 <webuijsf:panelLayout id="unProcessQueueLayoutPanel" style="height: 537px; position: relative; width: 600px; -rave-layout: grid">
                                    <webuijsf:panelLayout id="unProcessQueueSubLayoutPanel" style="height: 20px; position: relative; width: 600px; -rave-layout: grid">
                                        <webuijsf:staticText id="startCreationTimeTextLabelId"
