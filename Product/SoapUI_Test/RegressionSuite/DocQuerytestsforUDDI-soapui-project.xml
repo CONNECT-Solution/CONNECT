@@ -16347,7 +16347,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>9</content>
+                <content>6</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -18422,7 +18422,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>12</content>
+                <content>9</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
