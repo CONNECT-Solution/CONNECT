@@ -69,7 +69,7 @@ public class NhinDocRetrieveDeferredReqOrchImpl extends NhinDocRetrieveDeferred 
             response = sendToAgencyErrorInterface(body, assertion, errMsg, homeCommunityId);
         }
 
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), body, null, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityId);
 
         return response;
     }
@@ -124,7 +124,7 @@ public class NhinDocRetrieveDeferredReqOrchImpl extends NhinDocRetrieveDeferred 
 
         response = proxy.sendToAdapter(request, assertion);
 
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), request, null, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
 
         log.debug("End DocRetrieveReqImpl.sendDocRetrieveToAgency");
         return response;
@@ -148,7 +148,7 @@ public class NhinDocRetrieveDeferredReqOrchImpl extends NhinDocRetrieveDeferred 
 
         response = proxy.sendToAdapter(request, assertion, errMsg);
 
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), request, null, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
 
         log.debug("End DocRetrieveReqImpl.sendToAgencyErrorInterface");
         return response;

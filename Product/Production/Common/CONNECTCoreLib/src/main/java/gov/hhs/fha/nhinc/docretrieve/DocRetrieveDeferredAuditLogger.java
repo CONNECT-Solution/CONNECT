@@ -15,6 +15,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -70,12 +71,12 @@ public class DocRetrieveDeferredAuditLogger {
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    protected AcknowledgementType logDocRetrieveDeferred(DocRetrieveMessageType message, String direction, String _interface, AssertionType assertion) {
+    protected AcknowledgementType logDocRetrieveDeferred(DocRetrieveMessageType message, String direction, String _interface, AssertionType assertion, String responseCommunityId) {
         if (debugEnabled) {
             log.debug("Entering DocRetrieveDeferredAuditLogger.logDocRetrieveDeferred(...)");
         }
         AcknowledgementType ack = null;
-        LogEventRequestType auditLogMsg = auditRepositoryLogger(message, direction, _interface);
+        LogEventRequestType auditLogMsg = new AuditRepositoryLogger().logDocRetrieve(message, direction, _interface, responseCommunityId);
 
         if (auditLogMsg != null) {
             if (debugEnabled) {
@@ -98,17 +99,6 @@ public class DocRetrieveDeferredAuditLogger {
         }
 
         return ack;
-    }
-
-    /**
-     * Calls the audit log transformation operations
-     * @param message
-     * @param direction
-     * @param _interface
-     * @return LogEventRequestType
-     */
-    protected LogEventRequestType auditRepositoryLogger(DocRetrieveMessageType message, String direction, String _interface) {
-        return new AuditRepositoryLogger().logDocRetrieve(message, direction, _interface);
     }
 
     /**
@@ -135,7 +125,7 @@ public class DocRetrieveDeferredAuditLogger {
         DocRetrieveMessageType auditRequestMsg = new DocRetrieveMessageType();
         auditRequestMsg.setRetrieveDocumentSetRequest(auditMsg);
         auditRequestMsg.setAssertion(assertion);
-        AcknowledgementType ack = logDocRetrieveDeferred(auditRequestMsg, direction, _interface, assertion);
+        AcknowledgementType ack = logDocRetrieveDeferred(auditRequestMsg, direction, _interface, assertion, responseCommunityId);
         if (debugEnabled) {
             log.debug("Exiting DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredRequest(...)");
         }
@@ -171,7 +161,7 @@ public class DocRetrieveDeferredAuditLogger {
 
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(responseAudit, direction, _interface);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(responseAudit, direction, _interface, responseCommunityId);
 
         if (auditLogMsg != null) {
             log.debug("Inside: DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredResponse(...) - Creating AuditRepositoryProxyObjectFactory object.");
@@ -194,8 +184,8 @@ public class DocRetrieveDeferredAuditLogger {
      * @param direction
      * @return AcknowledgementType
      */
-    public AcknowledgementType auditDocRetrieveDeferredAckResponse(RegistryResponseType Response, AssertionType assertion, String direction, String _interface) {
-        return auditDocRetrieveDeferredAckResponse(Response, assertion, direction, _interface, null);
+    public AcknowledgementType auditDocRetrieveDeferredAckResponse(RegistryResponseType Response, RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response, AssertionType assertion, String direction, String _interface) {
+        return auditDocRetrieveDeferredAckResponse(Response, request, response, assertion, direction, _interface, null);
     }
 
     /**
@@ -206,13 +196,13 @@ public class DocRetrieveDeferredAuditLogger {
      * @param requestCommunityId
      * @return AcknowledgementType
      */
-    public AcknowledgementType auditDocRetrieveDeferredAckResponse(RegistryResponseType Response, AssertionType assertion, String direction, String _interface, String requestCommunityId) {
+    public AcknowledgementType auditDocRetrieveDeferredAckResponse(RegistryResponseType Response, RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response, AssertionType assertion, String direction, String _interface, String requestCommunityId) {
         log.debug("Entering DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredAckResponse(...)");
         AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveAckResponse(Response, assertion, direction, _interface);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveAckResponse(Response, request, response, assertion, direction, _interface, requestCommunityId);
 
         if (auditLogMsg != null) {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

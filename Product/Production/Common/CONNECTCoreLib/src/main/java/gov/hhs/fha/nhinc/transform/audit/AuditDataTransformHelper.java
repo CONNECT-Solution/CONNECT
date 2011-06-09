@@ -350,6 +350,34 @@ public class AuditDataTransformHelper {
     }
 
     /**
+     * Create the <code>ParticipantObjectIdentificationType</code> based on the
+     * patient id for an audit log record.
+     * @param patientId
+     * @return <code>ParticipantObjectIdentificationType</code>
+     */
+    public static ParticipantObjectIdentificationType createDocumentParticipantObjectIdentification(String documentId) {
+        ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
+
+        // Set the Partipation Object Id (documentId)
+        if (documentId != null) {
+            partObjId.setParticipantObjectID(documentId);
+        }
+
+        // Set the Participation Object Typecode
+        partObjId.setParticipantObjectTypeCode(AuditDataTransformConstants.PARTICIPANT_OJB_TYPE_CODE_SYSTEM);
+
+        // Set the Participation Object Typecode Role
+        partObjId.setParticipantObjectTypeCodeRole(AuditDataTransformConstants.PARTICIPANT_OJB_TYPE_CODE_ROLE_DATA_REPO);
+
+        // Set the Participation Object Id Type code
+        CodedValueType partObjIdTypeCode = new CodedValueType();
+        partObjIdTypeCode.setCode(AuditDataTransformConstants.PARTICIPANT_OJB_ID_TYPE_CODE_REPORTNUM);
+        partObjId.setParticipantObjectIDTypeCode(partObjIdTypeCode);
+
+        return partObjId;
+    }
+
+    /**
      * Write out debug logging statements based on the given
      * <code>AuditMessageType</code> message.
      * @param message

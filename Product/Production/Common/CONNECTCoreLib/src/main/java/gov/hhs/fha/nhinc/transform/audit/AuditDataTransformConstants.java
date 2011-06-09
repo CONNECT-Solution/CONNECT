@@ -28,8 +28,11 @@ public class AuditDataTransformConstants {
     public static final Integer EVENT_OUTCOME_INDICATOR_MAJOR_FAILURE = 12;
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_PERSON = 1;
+    public static final Short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_ROLE_PATIENT = 1;
+    public static final Short PARTICIPANT_OJB_TYPE_CODE_ROLE_DATA_REPO = 17;
     public static final String PARTICIPANT_OJB_ID_TYPE_CODE_PATIENTNUM = "2";
+    public static final String PARTICIPANT_OJB_ID_TYPE_CODE_REPORTNUM = "9";
     public static final String EVENT_ID_CODE_SYS_NAME_DOC = "DCM";
     public static final String EVENT_ID_CODE_SYS_NAME_SDN = "SDN";    
     public static final String EVENT_ID_CODE_SYS_NAME_SDR = "SDR";

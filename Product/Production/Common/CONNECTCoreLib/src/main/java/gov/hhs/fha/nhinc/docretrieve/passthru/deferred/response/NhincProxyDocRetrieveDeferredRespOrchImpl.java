@@ -94,7 +94,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
 
         // Audit response message
-        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), null, retrieveDocumentSetResponse, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
 

@@ -93,7 +93,7 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
         String ackMessage = null;
         DocRetrieveAcknowledgementType response = null;
 
-        // Audit outbound deferred retrieve document request message
+        // Audit nhin outbound deferred retrieve document request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         String responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
@@ -144,7 +144,7 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
         }
 
         // Log the inbound acknowledgement response -- Audit Logging
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), body, null, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End respondingGatewayCrossGatewayQuery");
 

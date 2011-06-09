@@ -71,6 +71,8 @@ import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -1112,14 +1114,14 @@ public class AuditRepositoryLogger {
      * @param direction
      * @return LogEventRequestType
      */
-    public LogEventRequestType logDocRetrieveAckResponse(RegistryResponseType message, AssertionType assertion, String direction, String _interface) {
+    public LogEventRequestType logDocRetrieveAckResponse(RegistryResponseType message, RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response, AssertionType assertion, String direction, String _interface, String requestCommunityId) {
         log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
         LogEventRequestType auditMsg = null;
 
 
         if (isServiceEnabled()) {
             DocumentRetrieveDeferredTransforms auditTransformer = new DocumentRetrieveDeferredTransforms();
-            auditMsg = auditTransformer.transformAckResponseToAuditMsg(message, assertion, direction, _interface);
+            auditMsg = auditTransformer.transformAckResponseToAuditMsg(message, request, response, assertion, direction, _interface, requestCommunityId);
         }
 
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
