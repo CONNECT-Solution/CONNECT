@@ -11,10 +11,13 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,9 +40,16 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.XACMLSerializer;
 import java.io.ByteArrayInputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.EffectType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
 import org.w3c.dom.Element;
 
 /**
@@ -71,7 +81,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
     public Response processPDPRequest(Request pdpRequest) {
         log.info("Begin AdapterPDPProxyJavaImpl.processPDPRequest(...)");
         EffectType effect = EffectType.DENY;
-        Policy policy = new Policy();
+        PolicyType policyType = new PolicyType();
         try {
             String serviceType = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_SERVICE_TYPE, AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
             log.debug("processPDPRequest - serviceType: " + serviceType);
@@ -116,15 +126,15 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     if (policyStrRawData.trim().equals("")) {
                         log.info("No Policy info found for the given criteria:");
                     } else {
-                        policy = getPolicyObject(policyStrRawData);
+                        policyType = getPolicyObject(policyStrRawData);
                     }
 
                     if (pdpRequest == null) {
                         log.info("PDP request is null");
-                    } else if (policy == null) {
+                    } else if (policyType == null) {
                         log.info("Policy is null");
                     } else {
-                        effect = evaluatePolicy(pdpRequest, policy);
+                        effect = evaluatePolicy(pdpRequest, policyType);
                         effect = (effect == null) ? EffectType.DENY : effect;
                     }
                 } else {
@@ -146,16 +156,23 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         return resp;
     }
 
-    private Policy getPolicyObject(String policyStrRawData) throws JAXBException {
+    private PolicyType getPolicyObject(String policyStrRawData) throws JAXBException {
         log.debug("Begin AdapterPDPProxyJavaImpl.getPolicyObject(...) ***");
         log.debug("getPolicyObject - Policy rawData:" + policyStrRawData);
-        Policy policy = new Policy();
-        ByteArrayInputStream xmlContentBytes = new ByteArrayInputStream(policyStrRawData.getBytes());
-        JAXBContext context = JAXBContext.newInstance("gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy");
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        Object xmlObject = unmarshaller.unmarshal(xmlContentBytes);
-        policy = (Policy) xmlObject;
-        return policy;
+        PolicyType policyType = new PolicyType();
+        
+        XACMLSerializer xACMLSerializer = new XACMLSerializer();
+        try {
+            policyType = xACMLSerializer.deserializeConsentXACMLDoc(policyStrRawData);
+        } catch (AdapterPIPException ex) {
+            log.error("getPolicyObject - Error occured while deserializing policy document");
+        }
+        if (policyType != null) {
+            log.debug("getPolicyObject - Policy description:" + policyType.getDescription());
+        } else {
+            log.debug("getPolicyObject - Policy description: null");
+        }
+        return policyType;
     }
 
     private String getResourceIdFromPdpRequest(Request pdpRequest) {
@@ -288,7 +305,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         return patientId;
     }
 
-    private EffectType evaluatePolicy(Request pdpRequest, Policy policy) {
+    private EffectType evaluatePolicy(Request pdpRequest, PolicyType policy) {
         log.debug("Begin AdapterPDPProxyJavaImpl.evaluatePolicy()");
         boolean isMatch = false;
         statusCodeValue = "";
@@ -301,9 +318,20 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     return EffectType.DENY;
                 }
                 List<RuleType> rules = new ArrayList<RuleType>();
-                rules = policy.getRule();
+                //rules = policy.getRule();
+                if ((policy != null) &&
+                        (policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)) {
+                    log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: " + policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size());
+                    for (Object obj : policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition()) {
+                        if (obj instanceof RuleType) {
+                            rules.add((RuleType) obj);
+                        }
+                    }
+                }else{
+                    log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: null");
+                }
                 if ((rules != null) && (rules.size() > 0)) {
-                    log.debug("Rules list size" + rules.size());
+                    log.debug("Rules list size: " + rules.size());
                     String policyMatchId = "";
                     String policyAttrValue = "";
                     String policyAttrDataType = "";
@@ -337,7 +365,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                 policyAttrValue = null;
                                                 policyAttrDataType = null;
                                                 if (subjectMatch.getAttributeValue() != null) {
-                                                    policyAttrValue = (subjectMatch.getAttributeValue().getValue() == null) ? subjectMatch.getAttributeValue().getValue() : subjectMatch.getAttributeValue().getValue().trim();
+                                                    if(subjectMatch.getAttributeValue().getContent() != null){
+                                                        policyAttrValue = (String)subjectMatch.getAttributeValue().getContent().get(0);
+                                                    } 
                                                     policyAttrDataType = (subjectMatch.getAttributeValue().getDataType() == null) ? subjectMatch.getAttributeValue().getDataType() : subjectMatch.getAttributeValue().getDataType().trim();
                                                     log.debug("AttributeValue Value: " + policyAttrValue);
                                                     log.debug("AttributeValue DataType: " + policyAttrDataType);
