@@ -2,7 +2,8 @@
 <!-- 
     Document   : Page2
     Created on : Aug 7, 2009, 6:03:45 PM
-    Author     : vvickers
+    Updated on : Jun 9, 2011, 12:37:15 PM
+    Author     : vvickers, rwelch, richard.ettema
 -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
     <jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
@@ -13,7 +14,7 @@
                     <webuijsf:link id="link1" url="/resources/stylesheet.css"/>
                     <webuijsf:script>
                         if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-                            document.write('<link id="link2" rel="stylesheet" type="text/css" href="/UniversalClientGUI/resources/universalclient.css" />');
+                            document.write('<link id="link2" rel="stylesheet" type="text/css" href="/CONNECTUniversalClientGUI/resources/stylesheet.css" />');
                             document.write('<meta content="width=320" name="viewport"/>');
                         }
                     </webuijsf:script>
@@ -63,7 +64,7 @@
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                             <webuijsf:tab actionExpression="#{Page2.subjectDiscoveryTab_action}" binding="#{Page2.subjectDiscoveryTab}" disabled="true"
-                                id="subjectDiscoveryTab" style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Patient Discovery">
+                                id="subjectDiscoveryTab" style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Patient Correlations">
                                 <webuijsf:panelLayout id="subjectDiscoveryLayoutPanel" style="height: 534px; position: relative; width: 100%; -rave-layout: grid">
                                     <webuijsf:staticText binding="#{Page2.subjectDiscoveryResultsInfo}" id="subjectDiscoveryResultsInfo" style="color: black; font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 24px; top: 24px; position: absolute"/>
                                     <webuijsf:button actionExpression="#{Page2.broadcastSubjectDiscoveryButton_action}" id="broadcastSubjectDiscoveryButton"
@@ -102,7 +103,7 @@
                                     <webuijsf:table augmentTitle="false" id="docQueryResults" style="left: 48px; top: 216px; position: absolute; width: 600px"
                                         title="Document Search Results" width="600">
                                         <webuijsf:tableRowGroup id="docQueryResultsGroup" rows="4" sourceData="#{DocumentQueryResults.documents}" sourceVar="document">
-                                            <webuijsf:tableColumn headerText="Dcoument Id" id="documentID">
+                                            <webuijsf:tableColumn headerText="Document Id" id="documentID">
                                                 <webuijsf:hyperlink actionExpression="#{Page2.displayDocument}" binding="#{Page2.selectedDocumentID}"
                                                 id="documentIdLink" style="color: blue; text-decoration: underline" text="#{document.value['documentID']}" target="_new"/>
                                             </webuijsf:tableColumn>

@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -35,7 +35,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+//import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -52,15 +52,16 @@ public class DocumentQueryClient {
     private static final String HOME_ID = "urn:oid:2.16.840.1.113883.3.200";
     private static final String ID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
-    private static final String DOCUMENT_STATUS_SLOT_NAME = "('$XDSDocumentEntryStatus')";
+    private static final String DOCUMENT_STATUS_SLOT_NAME = "$XDSDocumentEntryStatus";
     private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
+    private static final String DOCUMENT_STATUS_APPROVED = "('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')";
     //private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
     private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
 
     /**
-     * 
+     *
      * @param patientSearchData
      * @param creationFromDate
      * @param creationToDate
@@ -77,24 +78,8 @@ public class DocumentQueryClient {
         return convertAdhocQueryResponseToDocInfoBO(response);
     }
 
-    private SlotType1 createStatusTypeSlot()
-    {
-        SlotType1 slot = new SlotType1();
-        RegistryResponseType responseType = new RegistryResponseType();
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Approved");
-
-        ValueListType valueList = new ValueListType();
-
-        valueList.getValue().add("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Approved");
-
-        slot.setName(DOCUMENT_STATUS_SLOT_NAME);
-        slot.setValueList(valueList);
-
-
-        return slot;
-    }
     /**
-     * 
+     *
      * @param patientSearchData
      * @param creationFromDate
      * @param creationToDate
@@ -105,15 +90,13 @@ public class DocumentQueryClient {
         adhocQuery.setHome(HOME_ID);
         adhocQuery.setId(ID);
 
-
-
         // Set patient id
         SlotType1 patientIDSlot = new SlotType1();
         patientIDSlot.setName(PATIENT_ID_SLOT_NAME);
 
         ValueListType valueList = new ValueListType();
 
-        StringBuffer universalPatientID = new StringBuffer();
+        StringBuilder universalPatientID = new StringBuilder();
         universalPatientID.append(patientSearchData.getPatientId());
         universalPatientID.append("^^^&");
         universalPatientID.append(patientSearchData.getAssigningAuthorityID());
@@ -121,12 +104,18 @@ public class DocumentQueryClient {
 
         valueList.getValue().add(universalPatientID.toString());
 
-        //valueList.getValue().add("D123401^^^&1.1&ISO");
-
+        // Populate $XDSDocumentEntryStatus slot to address Gateway-166
         patientIDSlot.setValueList(valueList);
         adhocQuery.getSlot().add(patientIDSlot);
 
-        //Set Creation From Date
+        SlotType1 documentEntryStatusSlot = new SlotType1();
+        documentEntryStatusSlot.setName( DOCUMENT_STATUS_SLOT_NAME );
+        ValueListType valueEntryStatusList = new ValueListType();
+        valueEntryStatusList.getValue().add(DOCUMENT_STATUS_APPROVED);
+        documentEntryStatusSlot.setValueList(valueEntryStatusList);
+        adhocQuery.getSlot().add(documentEntryStatusSlot);
+
+        // Set Creation From Date
         SlotType1 creationStartTimeSlot = new SlotType1();
         creationStartTimeSlot.setName(CREATION_TIME_FROM_SLOT_NAME);
 
@@ -147,8 +136,6 @@ public class DocumentQueryClient {
 
         creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
         adhocQuery.getSlot().add(creationEndTimeSlot);
-
-        adhocQuery.getSlot().add(createStatusTypeSlot());
 
         ResponseOptionType responseOption = new ResponseOptionType();
         responseOption.setReturnType("LeafClass");
@@ -190,7 +177,7 @@ public class DocumentQueryClient {
     }
 
     /**
-     * 
+     *
      * @param url
      * @return
      */
@@ -218,7 +205,7 @@ public class DocumentQueryClient {
     }
 
     /**
-     * 
+     *
      * @param response
      * @return
      */
@@ -365,29 +352,6 @@ public class DocumentQueryClient {
 
         return classification;
     }
-
-    /**
-     * 
-     * @param dateString
-     * @param inputFormat
-     * @param outputFormat
-     * @return
-     */
-    
-//    private String formatDate(String dateString, String inputFormat, String outputFormat) {
-//        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
-//        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
-//
-//        Date date = null;
-//
-//        try {
-//            date = inputFormatter.parse(dateString);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(DocumentQueryClient.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        return outputFormatter.format(date);
-//    }
 
     /**
      * Format date in the String format using UTCDateUtil class.
