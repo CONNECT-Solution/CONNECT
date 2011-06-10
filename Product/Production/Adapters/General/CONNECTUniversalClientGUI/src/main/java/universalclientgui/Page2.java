@@ -500,10 +500,10 @@ public class Page2 extends AbstractPageBean {
                                                 idxId.getRoot() != null) {
                                             // Get the assigning authority of the patient
                                             patientOrgAssigningAuthorityID = idxId.getRoot();
-                                            if (assigningAuthId.equals(idxId.getRoot())) {
-                                                resultPatientId = idxId.getExtension();
-                                                log.debug(resultPatientId + " found with assigning authority: " + assigningAuthId);
-                                            }
+                                            //if (assigningAuthId.equals(idxId.getRoot())) {
+                                            resultPatientId = idxId.getExtension();
+                                            log.debug(resultPatientId + " found with assigning authority: " + patientOrgAssigningAuthorityID);
+                                            //}
                                         }
                                     }
                                 }
@@ -547,6 +547,7 @@ public class Page2 extends AbstractPageBean {
                                 data.add(resultPatientGender);
 
                                 PatientSearchData patientData = new PatientSearchData(data);
+                                patientData.setPatientId(resultPatientId);
                                 patientData.setAssigningAuthorityID(patientOrgAssigningAuthorityID);
                                 this.getPatientSearchDataList().add(patientData);
 

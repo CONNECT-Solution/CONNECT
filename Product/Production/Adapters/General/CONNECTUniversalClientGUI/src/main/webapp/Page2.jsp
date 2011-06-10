@@ -35,14 +35,17 @@
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 48px; top: 96px; position: absolute" text="First Name:"/>
                                     <webuijsf:textField binding="#{Page2.firstNameField}" id="firstNameField" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 120px; top: 96px; position: absolute"/>
                                     <webuijsf:button actionExpression="#{Page2.patientSearchButton_action}" id="patientSearchButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 18px; left: 311px; top: 96px; position: absolute" text="Search"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 18px; left: 311px; top: 96px; position: absolute; width: 100px" text="Search"/>
                                     <webuijsf:table augmentTitle="false" id="patientSearchResultTable"
-                                        style="left: 24px; top: 144px; position: absolute; width: 450px" title="Patient Search Results" width="450">
+                                        style="left: 24px; top: 144px; position: absolute; width: 500px" title="Patient Search Results" width="500">
                                         <webuijsf:tableRowGroup id="patientSearchResultTableRowGroup" rows="4" sourceData="#{Page2.patientSearchDataList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn headerText="Patient Id" id="patientSearchPatientIdColm">
                                                 <webuijsf:hyperlink actionExpression="#{Page2.patientSelectIdLink_action}"
                                                     binding="#{Page2.patientSelectIdLink}" id="patientSelectIdLink"
                                                     style="color: blue; text-decoration: underline" text="#{currentRow.value['patientId']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="AA Id" id="patientSearchAaidColm">
+                                                <webuijsf:staticText id="staticText0" text="#{currentRow.value['assigningAuthorityID']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Last Name" id="patientSearchLastNameColm">
                                                 <webuijsf:staticText id="staticText1" text="#{currentRow.value['lastName']}"/>
@@ -130,7 +133,7 @@
                         </webuijsf:tabSet>
                         <webuijsf:staticText binding="#{Page2.patientInfo}" id="patientInfo" style="color: blue; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 0px; top: 120px; position: absolute"/>
                         <webuijsf:button actionExpression="#{Page2.logOutButton_action}" id="logOutButton"
-                            style="font-family: 'Times New Roman','Times',serif; font-size: 14px; height: 24px; left: 623px; top: 120px; position: absolute" text="Log Out"/>
+                            style="font-family: 'Times New Roman','Times',serif; font-size: 14px; height: 24px; left: 613px; top: 120px; position: absolute; width: 120px" text="Log Out"/>
                         <webuijsf:label id="UCLabel1"
                             style="color: gray; font-family: 'Arial','Helvetica',sans-serif; font-size: 30px; left: 360px; top: 48px; position: absolute" text="UNIVERSAL CLIENT"/>
                         <webuijsf:staticText binding="#{Page2.agencyLogo}" id="agencyLogo" style="color: gray; font-family: 'Arial','Helvetica',sans-serif; font-size: 30px; left: 360px; top: 0px; position: absolute"/>
