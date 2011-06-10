@@ -114,8 +114,12 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                     AdapterComponentDocRepositoryProxyJavaImpl docRepositoryImpl = new AdapterComponentDocRepositoryProxyJavaImpl();
                     response = docRepositoryImpl.retrieveDocument(request, assertion);
 
-                    AdapterRedactionEngineProxyJavaImpl redactEngineImpl = new AdapterRedactionEngineProxyJavaImpl();
-                    response = redactEngineImpl.filterRetrieveDocumentSetResults(request, response, assertion);
+                    /*
+                     * TODO - Redaction Engine has a known issue with Retrieve Documents - GATEWAY-295.
+                     * Uncomment and re-test use of the Redaction Engine when this issue has been resolved.
+                     */
+                    //AdapterRedactionEngineProxyJavaImpl redactEngineImpl = new AdapterRedactionEngineProxyJavaImpl();
+                    //response = redactEngineImpl.filterRetrieveDocumentSetResults(request, response, assertion);
 
                     // Audit the Retrieve Documents Query Response Message sent to the Adapter Interface
                     auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);

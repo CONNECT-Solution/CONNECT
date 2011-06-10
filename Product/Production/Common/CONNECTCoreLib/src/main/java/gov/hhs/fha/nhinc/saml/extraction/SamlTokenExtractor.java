@@ -68,11 +68,15 @@ public class SamlTokenExtractor {
 
         try {
             Subject subj = SubjectAccessor.getRequesterSubject(context);
-            Set<Object> set = subj.getPublicCredentials();
-            for (Object obj : set) {
-                if (obj instanceof XMLStreamReader) {
-                    XMLStreamReader reader = (XMLStreamReader) obj;
-                    assertion = SamlTokenExtractor.CreateAssertion(reader);
+
+            //  Check for valid Subject elements
+            if (subj != null) {
+                Set<Object> set = subj.getPublicCredentials();
+                for (Object obj : set) {
+                    if (obj instanceof XMLStreamReader) {
+                        XMLStreamReader reader = (XMLStreamReader) obj;
+                        assertion = SamlTokenExtractor.CreateAssertion(reader);
+                    }
                 }
             }
         } catch (XWSSecurityException ex) {

@@ -436,13 +436,23 @@ public class PatientConsentManager {
             throw new AdapterPIPException(sErrorMessage);
         }
 
-        String sPatientId = retrievePtIdFromDocumentId(sDocumentUniqueId, sRepositoryId);
-        log.info("Given DocId: " + sDocumentUniqueId + " in Repository: " + sRepositoryId + " patientId retrieved is: " + sPatientId);
+        try {
+            // Patient from the document is now the fully qualified Unique Patient Id; "PID^^^&AAID&ISO"
+            String sPatientId = retrievePtIdFromDocumentId(sDocumentUniqueId, sRepositoryId);
+            log.info("Given DocId: " + sDocumentUniqueId + " in Repository: " + sRepositoryId + " patientId retrieved is: " + sPatientId);
 
-        /*if ((sPatientId != null) &&
-                (!sPatientId.trim().equals(""))) {
-            oPtPref = retrievePatientConsentByPatientId(sPatientId, "");
-        }*/
+            // Extract the patient and assigning authority id into an II
+            II patII = extractUniquePatientIdToII(sPatientId);
+
+            if (patII != null &&
+                    patII.getExtension() != null && !patII.getExtension().isEmpty() &&
+                    patII.getRoot() != null && !patII.getRoot().isEmpty()) {
+                oPtPref = retrievePatientConsentByPatientId(patII.getExtension(), patII.getRoot());
+            }
+        } catch (Exception e) {
+            log.error("Exception processing retrievePatientConsentByPatientId: ", e);
+        }
+
         log.info("--------------- End retrievePatientConsentByDocId ---------------");
         return oPtPref;
     }
@@ -475,6 +485,49 @@ public class PatientConsentManager {
         log.debug("retrievePtIdFromDocumentId() - PatientId:" + sPatientId);
 
         return sPatientId;
+    }
+
+    private II extractUniquePatientIdToII(String uniquePatientId) {
+        log.debug("Begin extractUniquePatientIdToII - uniquePatientId is " + uniquePatientId);
+
+        II patII = new II();
+
+        String patientId = "";
+        String aaId = "";
+
+        if (uniquePatientId != null && !uniquePatientId.isEmpty()) {
+            if (uniquePatientId.startsWith("'")) {
+                uniquePatientId = uniquePatientId.substring(1);
+            }
+            int pos = 0;
+            String[] tokens = uniquePatientId.split("\\&");
+            log.debug("extractUniquePatientIdToII - tokens length is " + tokens.length);
+            if (tokens.length > 0) {
+                for (String token : tokens) {
+                    log.debug("token: " + token);
+                }
+            }
+
+            if (tokens.length == 3) {
+                patientId = tokens[0];
+                pos = patientId.indexOf("^");
+                if (pos > 0) {
+                    patientId = patientId.substring(0, pos);
+                }
+                aaId = tokens[1];
+            }
+
+            if (patientId != null && !patientId.isEmpty()) {
+                patII.setExtension(patientId);
+                log.debug("extracted patient id is " + patientId);
+            }
+            if (aaId != null && !aaId.isEmpty()) {
+                patII.setRoot(aaId);
+                log.debug("extracted aa id is " + aaId);
+            }
+        }
+
+        return patII;
     }
 
     /**
@@ -794,365 +847,5 @@ public class PatientConsentManager {
         String sConsentXACML = "";
         List<String> olConsentPdf = new ArrayList();
     }
-//    /**
-//     * This method fills in the structured portion of the CDA document.  It was used in CONNECT
-//     * Release 2.1
-//     *
-//     * @param oDOMDocument The DOM Document to create elements to.
-//     * @param bOptIn TRUE if the user has opted in.
-//     * @return The structured body node to be placed in the CDA document.
-//     */
-//    private POCDMT000040StructuredBody fillInCDAStructuredBody(Document oDOMDocument, boolean bOptIn)
-//    {
-//        // Structured Body
-//        //----------------
-//        POCDMT000040StructuredBody oStructuredBody = new POCDMT000040StructuredBody();
-//
-//        // Structured Body Component
-//        //---------------------------
-//        POCDMT000040Component3 oSBComponent = new POCDMT000040Component3();
-//        oStructuredBody.getComponent().add(oSBComponent);
-//
-//        // Section
-//        //---------
-//        POCDMT000040Section oSection = new POCDMT000040Section();
-//        oSBComponent.setSection(oSection);
-//
-//        // Section Code
-//        //-------------
-//        CE oCode = new CE();
-//        oSection.setCode(oCode);
-//        if (bOptIn)
-//        {
-//            oCode.setCode(CDAConstants.CONSENT_CODE_YES);
-//            oCode.setDisplayName(CDAConstants.CONSENT_CODE_YES_DISPLAY_NAME);
-//        }
-//        else
-//        {
-//            oCode.setCode(CDAConstants.CONSENT_CODE_NO);
-//            oCode.setDisplayName(CDAConstants.CONSENT_CODE_NO_DISPLAY_NAME);
-//        }
-//        oCode.setCodeSystem(CDAConstants.SNOMED_CT_CODE_SYSTEM);
-//        oCode.setCodeSystemName(CDAConstants.SNOMED_CT_CODE_SYSTEM_DISPLAY_NAME);
-//
-//        // Section Title
-//        //---------------
-//        Element oSectionTitle = null;
-//        oSectionTitle = oDOMDocument.createElement(CDAConstants.TITLE_TAG);
-//        if (bOptIn)
-//        {
-//            oSectionTitle.setTextContent(CDAConstants.CONSENT_CODE_YES_DISPLAY_NAME);
-//        }
-//        else
-//        {
-//            oSectionTitle.setTextContent(CDAConstants.CONSENT_CODE_NO_DISPLAY_NAME);
-//        }
-//        oSection.setTitle(oSectionTitle);
-//
-//        // Section Text
-//        //-------------
-//        Element oSectionText = oDOMDocument.createElement(CDAConstants.TEXT_TAG);
-//        if (bOptIn)
-//        {
-//            oSectionText.setTextContent(CDAConstants.CONSENT_CODE_YES_DISPLAY_NAME);
-//        }
-//        else
-//        {
-//            oSectionText.setTextContent(CDAConstants.CONSENT_CODE_NO_DISPLAY_NAME);
-//        }
-//        oSection.setText(oSectionText);
-//
-//        // Section Entry
-//        //--------------
-//        POCDMT000040Entry oSectionEntry = new POCDMT000040Entry();
-//        oSection.getEntry().add(oSectionEntry);
-//
-//        // Entry Act
-//        //-----------
-//        POCDMT000040Act oEntryAct = new POCDMT000040Act();
-//        oSectionEntry.setAct(oEntryAct);
-//
-//        // Entry Act Class & Mood Code
-//        //----------------------------
-//        oEntryAct.setClassCode(XActClassDocumentEntryAct.ACT);
-//        oEntryAct.setMoodCode(XDocumentActMood.EVN);
-//
-//        // Entry Act Code
-//        //----------------
-//        oCode = new CE();
-//        oEntryAct.setCode(oCode);
-//        if (bOptIn)
-//        {
-//            oCode.setCode(CDAConstants.CONSENT_CODE_YES);
-//            oCode.setDisplayName(CDAConstants.CONSENT_CODE_YES_DISPLAY_NAME);
-//        }
-//        else
-//        {
-//            oCode.setCode(CDAConstants.CONSENT_CODE_NO);
-//            oCode.setDisplayName(CDAConstants.CONSENT_CODE_NO_DISPLAY_NAME);
-//        }
-//        oCode.setCodeSystem(CDAConstants.SNOMED_CT_CODE_SYSTEM);
-//        oCode.setCodeSystemName(CDAConstants.SNOMED_CT_CODE_SYSTEM_DISPLAY_NAME);
-//
-//        return oStructuredBody;
-//    }
-    /**
-     * This method takes in an object representation of the clinical document
-     * and serializes it to a text string representation of the document.
-     *
-     * @param oPrefCDA The object representation of the clinical document.
-     * @return The textual string representation of the clinical document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This exception is thrown if an error occurs.
-     */
-//    private String serializeConsentCDADoc(POCDMT000040ClinicalDocument oPrefCDA)
-//        throws AdapterPIPException
-//    {
-//        String sPrefCDA = "";
-//
-//        try
-//        {
-//            // If the JAXBContext or Marshaller was not created - try to create it now.
-//            //-------------------------------------------------------------------------
-//            if (oJaxbContextHL7 == null)
-//            {
-//                oJaxbContextHL7 = JAXBContext.newInstance("org.hl7.v3");
-//            }
-//
-//            if (oHL7Marshaller == null)
-//            {
-//                oHL7Marshaller = oJaxbContextHL7.createMarshaller();
-//            }
-//
-//            StringWriter swXML = new StringWriter();
-//
-//            org.hl7.v3.ObjectFactory oHL7ObjectFactory = new org.hl7.v3.ObjectFactory();
-//            JAXBElement oJaxbElement = oHL7ObjectFactory.createClinicalDocument(oPrefCDA);
-//
-//            oHL7Marshaller.marshal(oJaxbElement, swXML);
-//            sPrefCDA = swXML.toString();
-//        }
-//        catch (Exception e)
-//        {
-//            String sErrorMessage = "Failed to serialize the CDA document to a string.  Error: " +
-//                                   e.getMessage();
-//            log.error(sErrorMessage, e);
-//            throw new AdapterPIPException(sErrorMessage, e);
-//        }
-//
-//        return sPrefCDA;
-//    }
-    /**
-     * This method takes a string version of the Patient Pref document and
-     * creates the JAXB object version of the same document.
-     *
-     * @param sPrefCDA The string version of the patient preference CDA document.
-     * @return The JAXB object version of the patient preferences CDA document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This is thrown if there is an error deserializing the string.
-     */
-//    private POCDMT000040ClinicalDocument deserializeConsentCDADoc(String sPrefCDA)
-//        throws AdapterPIPException
-//    {
-//        POCDMT000040ClinicalDocument oPrefCDA = null;
-//
-//        try
-//        {
-//            // If the JAXBContext or Marshaller was not created - try to create it now.
-//            //-------------------------------------------------------------------------
-//            if (oJaxbContextHL7 == null)
-//            {
-//                oJaxbContextHL7 = JAXBContext.newInstance("org.hl7.v3");
-//            }
-//
-//            if (oHL7Unmarshaller == null)
-//            {
-//                oHL7Unmarshaller = oJaxbContextHL7.createUnmarshaller();
-//            }
-//
-//            StringReader srXML = new StringReader(sPrefCDA);
-//
-//            JAXBElement oJAXBElementPrefCDA = (JAXBElement) oHL7Unmarshaller.unmarshal(srXML);
-//            if (oJAXBElementPrefCDA.getValue() instanceof POCDMT000040ClinicalDocument)
-//            {
-//                oPrefCDA = (POCDMT000040ClinicalDocument) oJAXBElementPrefCDA.getValue();
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            String sErrorMessage = "Failed to deserialize the CDA string: " + sPrefCDA + "  Error: " +
-//                                   e.getMessage();
-//            log.error(sErrorMessage, e);
-//            throw new AdapterPIPException(sErrorMessage, e);
-//        }
-//
-//        return oPrefCDA;
-//    }
-//
-//    /**
-//     * This operation retrieves the currently stored patient consent
-//     * information from the repository.
-//     *
-//     * @param sPatientId The ID of the patient.
-//     * @return The document information.
-//     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-//     *         The error if one occurs.
-//     */
-//    private CPPDocumentInfo retrieveCPPFromRepositoryUsingDocumentService(String sPatientId)
-//        throws AdapterPIPException
-//    {
-//        CPPDocumentInfo oCPPDocInfo = new CPPDocumentInfo();
-//
-//        gov.hhs.fha.nhinc.repository.model.Document oDoc = new gov.hhs.fha.nhinc.repository.model.Document();
-//        DocumentService oDocService = new DocumentService();
-//        DocumentQueryParams oParams = new DocumentQueryParams();
-//
-//
-//        LinkedList<String> oaClassCode = new LinkedList<String>();
-//        List<gov.hhs.fha.nhinc.repository.model.Document> oDocs;
-//
-//        oaClassCode.add(CDAConstants.METADATA_CLASS_CODE);
-//
-//        oParams.setClassCodes(oaClassCode);
-//        oParams.setPatientId(sPatientId);
-//
-//        oDocs = oDocService.documentQuery(oParams);
-//
-//        // We should only have one document.  If we found more than one, throw
-//        // an exception.
-//        //---------------------------------------------------------------------
-//        if (oDocs.size() == 1)
-//        {
-//            oDoc = oDocs.get(0);
-//
-//            log.debug("Retrieved patient preferences for patient: " + sPatientId +
-//                      "Document: " + new String(oDoc.getRawData()));
-//        }
-//        else if (oDocs.size() > 1)
-//        {
-//            String sErrorMessage = "Found more than one Consent document in the repository.  " +
-//                                   "There should have been only 1.";
-//            log.error(sErrorMessage);
-//            throw new AdapterPIPException(sErrorMessage);
-//        }
-//
-//        if (oDoc != null)
-//        {
-//            if (oDoc.getDocumentid() != null)
-//            {
-//                oCPPDocInfo.lDocumentId = oDoc.getDocumentid();
-//            }
-//
-//            if (oDoc.getDocumentUniqueId() != null)
-//            {
-//                oCPPDocInfo.sDocumentUniqueId = oDoc.getDocumentUniqueId();
-//            }
-//
-//            if ((oDoc.getRawData() != null) &&
-//                (oDoc.getRawData().length > 0))
-//            {
-//                oCPPDocInfo.sPrefCDA = new String(oDoc.getRawData());
-//
-//                oCPPDocInfo.oPrefCDA = deserializeConsentCDADoc(oCPPDocInfo.sPrefCDA);
-//            }
-//        }
-//
-//        return oCPPDocInfo;
-//
-//    }
-//    /**
-//     * This method stores the patient preference CDA document to the repository.
-//     *
-//     * @param oPtPref The patient preference information.
-//     * @param sPrefCDA The CDA document form of the patient preferences.
-//     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-//     *         This exception is thrown if there is an error.
-//     */
-//    private void storeCPPToRepository(PatientPreferencesType oPtPref, String sPrefCDA)
-//        throws AdapterPIPException
-//    {
-//        // Note that right now we are storing using the Document repository API
-//        // As soon as the XDS.b document storage operations are completed,
-//        // this code should be changed to call that web service.
-//        //----------------------------------------------------------------------
-//        if ((oPtPref == null) ||
-//            (oPtPref.getPatientId() == null) ||
-//            (oPtPref.getPatientId().trim().length() <= 0))
-//        {
-//            String sErrorMessage = "failed to store patient consent.  The patient ID was null or blank.";
-//            log.error(sErrorMessage);
-//            throw new AdapterPIPException(sErrorMessage);
-//        }
-//
-//        CPPDocumentInfo oCPPDocInfo = retrieveCPPFromRepositoryUsingDocumentService(oPtPref.getPatientId());
-//
-//        gov.hhs.fha.nhinc.repository.model.Document oDoc = new gov.hhs.fha.nhinc.repository.model.Document();
-//
-//        // Document ID - If it exists - then the previous one will be overwritten
-//        //-----------------------------------------------------------------------
-//        if ((oCPPDocInfo != null) &&
-//            (oCPPDocInfo.lDocumentId > 0))
-//        {
-//            oDoc.setDocumentid(oCPPDocInfo.lDocumentId);
-//        }
-//
-//        // Class Code
-//        //-----------
-//        oDoc.setClassCode(CDAConstants.METADATA_CLASS_CODE);
-//        oDoc.setClassCodeDisplayName(CDAConstants.METADATA_CLASS_CODE_DISPLAY_NAME);
-//
-//        // Event Code
-//        //-----------
-//        HashSet<EventCode> oaEventCode = new HashSet<EventCode>();
-//        EventCode oEventCode = new EventCode();
-//        oaEventCode.add(oEventCode);
-//        oEventCode.setDocument(oDoc);       // This must be set for foreign key
-//        if (oPtPref.isOptIn())
-//        {
-//            oEventCode.setEventCode(CDAConstants.CONSENT_CODE_YES);
-//            oEventCode.setEventCodeDisplayName(CDAConstants.CONSENT_CODE_YES_DISPLAY_NAME);
-//        }
-//        else
-//        {
-//            oEventCode.setEventCode(CDAConstants.CONSENT_CODE_NO);
-//            oEventCode.setEventCodeDisplayName(CDAConstants.CONSENT_CODE_NO_DISPLAY_NAME);
-//        }
-//        oEventCode.setEventCodeScheme(CDAConstants.SNOMED_CT_CODE_SYSTEM);
-//        oDoc.setEventCodes(oaEventCode);
-//
-//        // Format Code
-//        //-------------
-//        oDoc.setFormatCode(CDAConstants.METADATA_FORMAT_CODE);
-//        oDoc.setFormatCodeScheme(CDAConstants.METADATA_FORMAT_CODE_SYSTEM);
-//
-//        // CDA Consent XML
-//        //-----------------
-//        oDoc.setRawData(sPrefCDA.getBytes());
-//
-//        // Document Title
-//        //---------------
-//        oDoc.setDocumentTitle(CDAConstants.TITLE);
-//
-//        // Patient ID
-//        //------------
-//        oDoc.setPatientId(oPtPref.getPatientId());
-//
-//        // Unique ID - Note that this Unique ID would normally be set by
-//        // the repository (I assume).  If that is the case then we need to
-//        // allow it to create this..  Right now we will make one up...  (This
-//        // may be an issue with the XDS.b interface.
-//        //--------------------------------------------------------------------
-//        oDoc.setDocumentUniqueId(oPtPref.getPatientId()+'-'+CDAConstants.METADATA_CLASS_CODE);
-//
-//        // Status Code
-//        //-------------
-//        oDoc.setStatus(CDAConstants.STATUS_APPROVED_STORE_VALUE);
-//
-//        DocumentService oDocService = new DocumentService();
-//        oDocService.saveDocument(oDoc);
-//
-//        log.debug("Stored CPP to repository for patient ID: " + oPtPref.getPatientId() +
-//                  "Document: " + sPrefCDA);
-//
-//    }
+
 }
