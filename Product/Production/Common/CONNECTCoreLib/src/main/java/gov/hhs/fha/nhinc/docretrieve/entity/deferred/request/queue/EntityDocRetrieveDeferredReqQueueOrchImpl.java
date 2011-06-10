@@ -85,7 +85,11 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
         homeCommunityType.setHomeCommunityId(homeCommunityId);
         homeCommunityType.setName(homeCommunityId);
         responseAssertion.setHomeCommunity(homeCommunityType);
-
+        if (responseAssertion.getUserInfo() != null &&
+                responseAssertion.getUserInfo().getOrg() != null) {
+            responseAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
+            responseAssertion.getUserInfo().getOrg().setName(homeCommunityId);
+        }
 
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
@@ -131,7 +135,7 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                         oTargetSystem.setHomeCommunity(responseCommunityType);
 
                         // Send NHIN DRD response request
-                        respAck = docRetrieveProxy.crossGatewayRetrieveResponse(response, responseAssertion, oTargetSystem);
+                        respAck = docRetrieveProxy.crossGatewayRetrieveResponse(request, response, responseAssertion, oTargetSystem);
                     } else {
                         ackMsg = "Outgoing Policy Check Failed";
                         log.error(ackMsg);

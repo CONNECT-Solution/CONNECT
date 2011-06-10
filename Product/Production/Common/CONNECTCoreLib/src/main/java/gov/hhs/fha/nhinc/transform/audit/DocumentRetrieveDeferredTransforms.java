@@ -99,6 +99,14 @@ public class DocumentRetrieveDeferredTransforms {
         }
 
         /* Assign ParticipationObjectIdentification */
+        String uniquePatientId = "";
+        if (assertion != null &&
+                assertion.getUniquePatientId() != null &&
+                assertion.getUniquePatientId().size() > 0) {
+            uniquePatientId = assertion.getUniquePatientId().get(0);
+            log.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is [" + uniquePatientId + "]");
+        }
+
         // The acknowledgement does not contain the patient or document ids, so we will extract the first document id from the original request
         String documentId = "";
         if (retrieveRequest != null &&
@@ -116,7 +124,12 @@ public class DocumentRetrieveDeferredTransforms {
 
 
         // Create Participation Object Identification Section
-        ParticipantObjectIdentificationType partObjId = AuditDataTransformHelper.createDocumentParticipantObjectIdentification(documentId);
+        ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
+        if (documentId != null && !documentId.isEmpty()) {
+            partObjId = AuditDataTransformHelper.createDocumentParticipantObjectIdentification(documentId);
+        } else if (uniquePatientId != null && !uniquePatientId.isEmpty()) {
+            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(uniquePatientId);
+        }
 
         // Put the contents of the actual message into the Audit Log Message
         ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();

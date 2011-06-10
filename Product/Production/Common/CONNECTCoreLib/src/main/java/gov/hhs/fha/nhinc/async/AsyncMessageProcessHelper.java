@@ -18,6 +18,8 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
@@ -532,6 +534,74 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
+     * Copy the original RetrieveDocumentSetRequestType using JAXB
+     *
+     * @param orig
+     * @return copy of RetrieveDocumentSetRequestType
+     */
+    public RetrieveDocumentSetRequestType copyRetrieveDocumentSetRequestTypeObject(RetrieveDocumentSetRequestType orig) {
+        RetrieveDocumentSetRequestType copy = null;
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
+            Marshaller marshaller = jc.createMarshaller();
+            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
+            JAXBElement<RetrieveDocumentSetRequestType> oJaxbElement = factory.createRetrieveDocumentSetRequest(orig);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
+            JAXBElement<RetrieveDocumentSetRequestType> oJaxbElementCopy = (JAXBElement<RetrieveDocumentSetRequestType>) unmarshaller.unmarshal(baInStrm);
+            copy = oJaxbElementCopy.getValue();
+            //asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during RetrieveDocumentSetRequestType conversion :" + e);
+        }
+
+        return copy;
+    }
+
+    /**
+     * Copy the original RetrieveDocumentSetResponseType using JAXB
+     *
+     * @param orig
+     * @return copy of RetrieveDocumentSetResponseType
+     */
+    public RetrieveDocumentSetResponseType copyRetrieveDocumentSetResponseTypeObject(RetrieveDocumentSetResponseType orig) {
+        RetrieveDocumentSetResponseType copy = null;
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
+            Marshaller marshaller = jc.createMarshaller();
+            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
+            JAXBElement<RetrieveDocumentSetResponseType> oJaxbElement = factory.createRetrieveDocumentSetResponse(orig);
+            baOutStrm.close();
+            marshaller.marshal(oJaxbElement, baOutStrm);
+            byte[] buffer = baOutStrm.toByteArray();
+
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
+            JAXBElement<RetrieveDocumentSetResponseType> oJaxbElementCopy = (JAXBElement<RetrieveDocumentSetResponseType>) unmarshaller.unmarshal(baInStrm);
+            copy = oJaxbElementCopy.getValue();
+            //asyncMessage = Hibernate.createBlob(buffer);
+        } catch (Exception e) {
+            log.error("Exception during copyRetrieveDocumentSetResponseTypeObject conversion :" + e);
+        }
+
+        return copy;
+    }
+
+    /**
      * Copy the original AssertionType using JAXB
      * 
      * @param orig
@@ -566,7 +636,7 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Copy the original AssertionType using JAXB
+     * Marshal AssertionType using JAXB
      *
      * @param orig
      * @return copy of AssertionType

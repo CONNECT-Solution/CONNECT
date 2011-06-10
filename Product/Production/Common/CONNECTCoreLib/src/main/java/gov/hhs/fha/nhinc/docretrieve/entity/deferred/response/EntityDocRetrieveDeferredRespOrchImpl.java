@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -50,6 +51,10 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
         return (log != null) ? log : LogFactory.getLog(this.getClass());
     }
 
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
+        return new AsyncMessageProcessHelper();
+    }
+
     /**
      * Document Retrieve Deferred Response implementation method
      * @param response
@@ -60,6 +65,9 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
     public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
         log.debug("Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
 
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+        RetrieveDocumentSetResponseType retrieveDocumentSetResponseTypeCopy = asyncProcess.copyRetrieveDocumentSetResponseTypeObject(response);
+
         String ackMessage = null;
         DocRetrieveAcknowledgementType nhinResponse = null;
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
@@ -67,7 +75,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
 
         try {
             if (null != response && (null != assertion) && (null != target)) {
-                auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
+                auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponseTypeCopy, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
                 CMUrlInfos urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
 
@@ -89,7 +97,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                         oTargetSystem.setUrl(urlInfo.getUrl());
                         if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
                             // Call NHIN proxy
-                            nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(response, assertion, oTargetSystem);
+                            nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(null, response, assertion, oTargetSystem);
                         } else {
                             ackMessage = "Policy check failed.";
                             nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMessage);
@@ -107,7 +115,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
         }
 
         // Audit log - response
-        auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), null, response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), null, retrieveDocumentSetResponseTypeCopy, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");

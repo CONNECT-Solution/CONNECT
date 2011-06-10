@@ -89,6 +89,10 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
 
+        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+
+        RetrieveDocumentSetRequestType retrieveResponseTypeCopy = asyncProcess.copyRetrieveDocumentSetRequestTypeObject(body);
+
         String url = null;
         String ackMessage = null;
         DocRetrieveAcknowledgementType response = null;
@@ -96,9 +100,7 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
         // Audit nhin outbound deferred retrieve document request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
         String responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
-        auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
-
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+        auditLog.auditDocRetrieveDeferredRequest(retrieveResponseTypeCopy, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
 
         try {
             if (body != null) {
@@ -144,7 +146,7 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
         }
 
         // Log the inbound acknowledgement response -- Audit Logging
-        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), body, null, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), retrieveResponseTypeCopy, null, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End respondingGatewayCrossGatewayQuery");
 

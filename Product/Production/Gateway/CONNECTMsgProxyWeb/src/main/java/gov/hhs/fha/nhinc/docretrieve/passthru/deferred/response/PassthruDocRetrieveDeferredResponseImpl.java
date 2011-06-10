@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response;
 
@@ -29,7 +29,7 @@ public class PassthruDocRetrieveDeferredResponseImpl {
     private static Log log = LogFactory.getLog(PassthruDocRetrieveDeferredResponseImpl.class);
 
     /**
-     * 
+     *
      * @param body
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -41,11 +41,11 @@ public class PassthruDocRetrieveDeferredResponseImpl {
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = body.getNhinTargetSystem();
 
-        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
+        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(null, retrieveDocumentSetResponse, assertion, nhinTargetSystem);
     }
 
     /**
-     * 
+     *
      * @param crossGatewayRetrieveResponse
      * @param context
      * @return DocRetrieveAcknowledgementType
@@ -57,11 +57,11 @@ public class PassthruDocRetrieveDeferredResponseImpl {
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = crossGatewayRetrieveResponse.getNhinTargetSystem();
 
-        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTargetSystem);
+        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(null, retrieveDocumentSetResponse, assertion, nhinTargetSystem);
     }
 
     /**
-     * 
+     *
      * @param context
      * @param oAssertionIn
      * @return AssertionType
