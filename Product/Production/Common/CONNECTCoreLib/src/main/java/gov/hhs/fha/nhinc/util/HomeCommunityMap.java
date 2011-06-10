@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -125,6 +126,24 @@ public class HomeCommunityMap {
     }
 
     /**
+     * This method retrieves the community id from the deferred query
+     * document response.
+     * @param body
+     * @return The home community OID string
+     */
+    public static String getCommunitIdForDeferredQDResponse(AdhocQueryResponse body) {
+        String responseCommunityID = null;
+        if (body != null &&
+                body.getRegistryObjectList() != null &&
+                body.getRegistryObjectList().getIdentifiable() != null &&
+                body.getRegistryObjectList().getIdentifiable().size() > 0 &&
+                body.getRegistryObjectList().getIdentifiable().get(0) != null) {
+            responseCommunityID = body.getRegistryObjectList().getIdentifiable().get(0).getValue().getHome();
+        }
+        return formatHomeCommunityId(responseCommunityID);
+    }
+
+    /**
      * This method retrieves the home community id from the retrieve document
      * request.
      * @param body
@@ -142,7 +161,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the deferred retrieve
-     * document request.
+     * document response.
      * @param body
      * @return The home community OID string
      */

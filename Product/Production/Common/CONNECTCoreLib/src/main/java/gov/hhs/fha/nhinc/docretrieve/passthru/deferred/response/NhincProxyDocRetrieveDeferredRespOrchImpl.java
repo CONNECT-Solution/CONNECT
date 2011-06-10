@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response;
 
@@ -49,7 +49,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         DocRetrieveAcknowledgementType respAck = new DocRetrieveAcknowledgementType();
         String ackMsg = "";
 
-        String responseCommunityId = HomeCommunityMap.getCommunitIdForDeferredRDResponse(retrieveDocumentSetResponse);
+        String responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
 
         // Audit request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
@@ -82,7 +82,7 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         if (bIsQueueOk) {
             respAck = docRetrieveProxy.sendToRespondingGateway(retrieveDocumentSetResponse, assertion, target);
         } else {
-            ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            ackMsg = "Deferred Retrieve Documents response processing halted; deferred queue repository error encountered";
             log.error(ackMsg);
 
             // Set the error acknowledgement status

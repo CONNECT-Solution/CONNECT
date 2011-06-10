@@ -16,7 +16,6 @@ import ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredResponsePortType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -17,13 +17,14 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyJavaImpl;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
-import gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveOrchImpl;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyJavaImpl;
 import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -63,6 +64,7 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
         respondingGatewayCrossGatewayRetrieveRequestType.setNhinTargetCommunities(target);
 
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        String responseCommunityId = assertion.getHomeCommunity().getHomeCommunityId();
 
         // Audit the incoming doc retrieve request Message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
@@ -78,16 +80,12 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
         responseAssertion.getRelatesToList().add(messageId);
         // Generate a new unique response assertion Message ID
         responseAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
-        // Set user info homeCommunity
+        // Set the reponse assertions home community with the local gateway's community id
         HomeCommunityType homeCommunityType = new HomeCommunityType();
         homeCommunityType.setHomeCommunityId(homeCommunityId);
         homeCommunityType.setName(homeCommunityId);
         responseAssertion.setHomeCommunity(homeCommunityType);
-        if (responseAssertion.getUserInfo() != null &&
-                responseAssertion.getUserInfo().getOrg() != null) {
-            responseAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
-            responseAssertion.getUserInfo().getOrg().setName(homeCommunityId);
-        }
+
 
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
@@ -104,10 +102,19 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                     NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
                     oTargetSystem.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
-                    // Get the RetrieveDocumentSetResponseType by passing the request to this agency's adapter doc retrieve service
+                    // Audit the Retrieve Documents Request Message sent to the Adapter Interface
+                    auditLog.auditDocRetrieveDeferredRequest(request, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
+
+                    // Get the RetrieveDocumentSetResponseType by passing the request to local adapter doc retrieve java implementation
                     RetrieveDocumentSetResponseType response = null;
-                    AdapterDocRetrieveOrchImpl orchImpl = new AdapterDocRetrieveOrchImpl();
-                    response = orchImpl.respondingGatewayCrossGatewayRetrieve(request, responseAssertion);
+                    AdapterComponentDocRepositoryProxyJavaImpl docRepositoryImpl = new AdapterComponentDocRepositoryProxyJavaImpl();
+                    response = docRepositoryImpl.retrieveDocument(request, assertion);
+
+                    AdapterRedactionEngineProxyJavaImpl redactEngineImpl = new AdapterRedactionEngineProxyJavaImpl();
+                    response = redactEngineImpl.filterRetrieveDocumentSetResults(request, response, assertion);
+
+                    // Audit the Retrieve Documents Query Response Message sent to the Adapter Interface
+                    auditLog.auditDocRetrieveDeferredResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
 
                     DocRetrieveDeferredPolicyChecker policyCheck = new DocRetrieveDeferredPolicyChecker();
 
@@ -116,6 +123,14 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                         PassthruDocRetrieveDeferredRespProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredRespProxyObjectFactory();
                         PassthruDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredRespProxy();
 
+                        // Create new target system for outbound NHIN DRD response request
+                        oTargetSystem = new NhinTargetSystemType();
+                        HomeCommunityType responseCommunityType = new HomeCommunityType();
+                        responseCommunityType.setHomeCommunityId(responseCommunityId);
+                        responseCommunityType.setName(responseCommunityId);
+                        oTargetSystem.setHomeCommunity(responseCommunityType);
+
+                        // Send NHIN DRD response request
                         respAck = docRetrieveProxy.crossGatewayRetrieveResponse(response, responseAssertion, oTargetSystem);
                     } else {
                         ackMsg = "Outgoing Policy Check Failed";
@@ -136,7 +151,7 @@ public class EntityDocRetrieveDeferredReqQueueOrchImpl {
                 asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, respAck);
             }
         } else {
-            ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            ackMsg = "Deferred Retrieve Documents response processing halted; deferred queue repository error encountered";
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository

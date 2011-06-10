@@ -46,7 +46,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param msg
      * @param assertion
      * @param targets
@@ -83,11 +83,6 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
         homeCommunityType.setHomeCommunityId(homeCommunityId);
         homeCommunityType.setName(homeCommunityId);
         responseAssertion.setHomeCommunity(homeCommunityType);
-        if (responseAssertion.getUserInfo() != null &&
-                responseAssertion.getUserInfo().getOrg() != null) {
-            responseAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
-            responseAssertion.getUserInfo().getOrg().setName(homeCommunityId);
-        }
 
         boolean bIsQueueOk = asyncProcess.processMessageStatus(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
 
@@ -108,14 +103,14 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
                         NhinTargetSystemType target = new NhinTargetSystemType();
                         target.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
 
-                        // Audit the Audit Log Query Request Message sent to the Adapter Interface
+                        // Audit the Adhoc Query Request Message sent to the Adapter Interface
                         ack = auditAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequestType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
 
                         // Get the AdhocQueryResponse by passing the request to this agency's adapter doc query service
                         AdapterDocQueryProxyJavaImpl orchImpl = new AdapterDocQueryProxyJavaImpl();
                         AdhocQueryResponse response = orchImpl.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest(), responseAssertion);
 
-                        // Audit the Audit Log Query Request Message sent to the Adapter Interface
+                        // Audit the Adhoc Query Response Message sent to the Adapter Interface
                         ack = auditAdhocQueryResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
 
                         PassthruDocQueryDeferredResponseProxyObjectFactory factory = new PassthruDocQueryDeferredResponseProxyObjectFactory();
@@ -141,7 +136,7 @@ public class EntityDocQueryDeferredReqQueueOrchImpl {
                 asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, respAck);
             }
         } else {
-            ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            ackMsg = "Deferred Query For Documents response processing halted; deferred queue repository error encountered";
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository

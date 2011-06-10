@@ -63,10 +63,10 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
         nhinResponse.setRetrieveDocumentSetResponse(body);
         nhinResponse.setAssertion(assertion);
 
-        // Use messageId as WebServiceHelper has moved the RelatesToList.get(0) to MessageId already
+        // Get messageId from the RelatesToList.get(0)
         String messageId = "";
         if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
-            messageId = assertion.getMessageId();
+            messageId = assertion.getRelatesToList().get(0);
         }
 
         boolean bIsQueueOk = asyncProcess.processRetrieveDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, nhinResponse);

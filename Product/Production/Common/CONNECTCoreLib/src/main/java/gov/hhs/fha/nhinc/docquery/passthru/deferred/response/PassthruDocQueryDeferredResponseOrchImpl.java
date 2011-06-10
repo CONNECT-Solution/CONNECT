@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docquery.passthru.deferred.response;
 
@@ -51,11 +51,13 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         // Audit the Query For Documents Response Message sent on the Nhin Interface
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
 
-        // Requireed the responding home community id in the audit log
+        // The responding home community id is required in the audit log
         String responseCommunityID = null;
-        if (target != null &&
-                target.getHomeCommunity() != null) {
-            responseCommunityID = target.getHomeCommunity().getHomeCommunityId();
+        if (assertion != null &&
+                assertion.getUserInfo() != null &&
+                assertion.getUserInfo().getOrg() != null) {
+            responseCommunityID = assertion.getUserInfo().getOrg().getHomeCommunityId();
+            log.debug("=====>>>>> PassthruDocQueryDeferredResponseOrchImpl --> responseCommunityID is [" + responseCommunityID + "]");
         }
         // Audit the outgoing NHIN Message
         AcknowledgementType ack = auditLog.auditDQResponse(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
@@ -87,7 +89,7 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         if (bIsQueueOk) {
             respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
         } else {
-            String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            String ackMsg = "Deferred Query For Documents request processing halted; deferred queue repository error encountered";
             log.error(ackMsg);
 
             // Set the error acknowledgement status

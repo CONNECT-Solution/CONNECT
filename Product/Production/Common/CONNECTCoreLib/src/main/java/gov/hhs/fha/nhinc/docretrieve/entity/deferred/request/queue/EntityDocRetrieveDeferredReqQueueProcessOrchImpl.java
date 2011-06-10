@@ -28,6 +28,7 @@ import javax.xml.bind.Unmarshaller;
  * @author narendra.reddy
  */
 import gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.proxy.EntityDocRetrieveDeferredRequestQueueProxyJavaImpl;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
@@ -86,8 +87,9 @@ public class EntityDocRetrieveDeferredReqQueueProcessOrchImpl {
 
                 retrieveDocumentSetRequestType = respondingGatewayCrossGatewayRetrieveRequestType.getRetrieveDocumentSetRequest();
 
-                //Extract the SenderOID from the request which we got from db.
-                String senderTargetCommunityId = extractSenderOID(retrieveDocumentSetRequestType);
+                //Extract the Sender Gateway OID from the assertion which we got from db.
+                //String senderTargetCommunityId = extractSenderOID(retrieveDocumentSetRequestType);
+                String senderTargetCommunityId = HomeCommunityMap.getCommunityIdFromAssertion(respondingGatewayCrossGatewayRetrieveRequestType.getAssertion());
 
                 //Set the Sender HomeCommunity Id in the NHINTargetCommunity to serve the Deferred Request.
                 if (senderTargetCommunityId != null) {

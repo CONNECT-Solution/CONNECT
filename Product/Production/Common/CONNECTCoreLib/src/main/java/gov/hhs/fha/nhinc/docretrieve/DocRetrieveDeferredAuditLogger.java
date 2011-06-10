@@ -107,7 +107,7 @@ public class DocRetrieveDeferredAuditLogger {
      * @param assertion Assertion information
      * @return Audit acknowledgement
      */
-    public AcknowledgementType auditDocRetrieveDeferredRequest(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType auditMsg, AssertionType assertion) {
+    public AcknowledgementType auditDocRetrieveDeferredRequest(RetrieveDocumentSetRequestType auditMsg, AssertionType assertion) {
         return auditDocRetrieveDeferredRequest(auditMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, null);
     }
 
@@ -118,7 +118,7 @@ public class DocRetrieveDeferredAuditLogger {
      * @param  responseCommunityId
      * @return Audit acknowledgement
      */
-    public AcknowledgementType auditDocRetrieveDeferredRequest(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType auditMsg, String direction, String _interface, AssertionType assertion, String responseCommunityId) {
+    public AcknowledgementType auditDocRetrieveDeferredRequest(RetrieveDocumentSetRequestType auditMsg, String direction, String _interface, AssertionType assertion, String responseCommunityId) {
         if (debugEnabled) {
             log.debug("Entering DocRetrieveDeferredAuditLog.auditDocRetrieveDeferredRequest(...)");
         }

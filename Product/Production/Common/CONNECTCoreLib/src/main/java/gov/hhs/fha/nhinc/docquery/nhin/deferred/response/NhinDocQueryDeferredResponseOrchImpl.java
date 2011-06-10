@@ -54,7 +54,7 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
         respAck.setMessage(regResp);
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        String responseCommunityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
+        String responseCommunityId = HomeCommunityMap.getCommunitIdForDeferredQDResponse(msg);
         String ackMsg = "";
 
         // Audit the incoming NHIN Message

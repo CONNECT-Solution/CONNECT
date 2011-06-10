@@ -50,7 +50,7 @@ public class AdapterComponentDocRetrieveDeferredReqOrchImpl {
 
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
-        String requestCommunityID = HomeCommunityMap.getCommunitIdForRDRequest(body);
+        String requestCommunityID = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
 
         RespondingGatewayCrossGatewayRetrieveRequestType requestType = new RespondingGatewayCrossGatewayRetrieveRequestType();
         requestType.setRetrieveDocumentSetRequest(body);

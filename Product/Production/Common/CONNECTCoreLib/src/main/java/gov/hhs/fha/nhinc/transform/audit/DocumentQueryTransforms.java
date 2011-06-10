@@ -134,6 +134,7 @@ public class DocumentQueryTransforms {
                 }
             }
         }
+
         // Create Participation Object Identification Section
         ParticipantObjectIdentificationType partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
 
@@ -264,21 +265,21 @@ public class DocumentQueryTransforms {
                 communityId = oObjRef.getHome();
             }
             if (communityId != null) {
-                AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(communityId, null);
+                AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityId);
                 auditMsg.getAuditSourceIdentification().add(auditSrcId);
             }
 
             // Patient ID
             //------------
             ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
-            String patientId = "";
+            String documentId = "";
             if (oExtObj != null &&
                     oExtObj.getExternalIdentifier() != null &&
                     oExtObj.getExternalIdentifier().size() > 0) {
-                patientId = oExtObj.getExternalIdentifier().get(0).getValue();
+                documentId = oExtObj.getExternalIdentifier().get(0).getValue();
             }
             if (userInfo != null) {
-                partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+                partObjId = AuditDataTransformHelper.createDocumentParticipantObjectIdentification(documentId);
             }
 
             // Fill in the message field with the contents of the event message

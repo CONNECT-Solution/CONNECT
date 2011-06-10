@@ -46,7 +46,7 @@ public class NhinDocRetrieveDeferredReqOrchImpl extends NhinDocRetrieveDeferred 
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
 
         String errMsg = null;
-        String requestCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(body);
+        String requestCommunityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         auditLog.auditDocRetrieveDeferredRequest(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityId);
 
