@@ -75,6 +75,9 @@ public class PatientDiscovery201305ProcessorTest {
 
             @Override
             protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, II remotePatient, AssertionType assertion, PRPAIN201305UV02 query) {}
+
+            @Override
+            protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, AssertionType assertion, PRPAIN201305UV02 query) {}
         };
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
@@ -113,6 +116,9 @@ public class PatientDiscovery201305ProcessorTest {
 
             @Override
             protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, II remotePatient, AssertionType assertion, PRPAIN201305UV02 query) {}
+
+            @Override
+            protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, AssertionType assertion, PRPAIN201305UV02 query) {}
         };
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
@@ -149,6 +155,9 @@ public class PatientDiscovery201305ProcessorTest {
 
             @Override
             protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, II remotePatient, AssertionType assertion, PRPAIN201305UV02 query) {}
+
+            @Override
+            protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, AssertionType assertion, PRPAIN201305UV02 query) {}
         };
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
