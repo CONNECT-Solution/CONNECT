@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.response;
 
@@ -37,7 +37,7 @@ public class EntityDocQueryDeferredResponseUnsecuredImpl {
 
     /**
      * Implementation of EntityDocQueryDeferredResponse service
-     * 
+     *
      * @param request
      * @param context
      * @return Doc Query Acknowledgement
@@ -51,7 +51,7 @@ public class EntityDocQueryDeferredResponseUnsecuredImpl {
         AdhocQueryResponse body = null;
         NhinTargetCommunitiesType target = null;
 
-        if (body != null) {
+        if (request != null) {
             body = request.getAdhocQueryResponse();
             assertion = request.getAssertion();
             target = request.getNhinTargetCommunities();

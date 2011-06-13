@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity.deferred.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -101,6 +102,11 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                         // Call NHIN proxy
                         oTargetSystem = new NhinTargetSystemType();
                         oTargetSystem.setUrl(urlInfo.getUrl());
+                        HomeCommunityType homeCommunityType = new HomeCommunityType();
+                        homeCommunityType.setHomeCommunityId(urlInfo.getHcid());
+                        homeCommunityType.setName(urlInfo.getHcid());
+                        oTargetSystem.setHomeCommunity(homeCommunityType);
+
                         if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
                             // Call NHIN proxy
                             nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(null, response, assertion, oTargetSystem);

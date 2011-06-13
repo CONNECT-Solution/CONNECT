@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EndToEndSelfTest" resourceRoot="" soapui-version="3.6" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="EndToEndSelfTest" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Global Properties" value=""/>
   <con:entry key="TestSuite" value="EndToEndSelfTest TestSuite"/>
@@ -3322,8 +3322,7 @@
       </con:testStep>
       <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+        <con:config><script>context.withSql('AAMappingDB') { sql -> 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -3333,8 +3332,13 @@
   def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
                    "values (1, ?, ?)"
   sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-}</script>
-        </con:config>
+
+  def localAA = context.findProperty( "LocalAA" )
+  def localHCID = context.findProperty("LocalHCID")
+  insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (1, ?, ?)"
+  sql.executeUpdate(insertSql, [localAA, localHCID])
+}</script></con:config>
       </con:testStep>
       <con:testStep type="request" name="Doc Query Deferred Request">
         <con:settings/>
@@ -3356,7 +3360,7 @@
             <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
                <urn2:Slot name="$XDSDocumentEntryPatientId">
                   <urn2:ValueList>
-                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
+                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#RemoteAA}&amp;ISO'</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryStatus">
@@ -3609,25 +3613,45 @@
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T03:37:11Z</con:value>
+          <con:value>2011-06-10T17:52:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T03:47:11Z</con:value>
+          <con:value>2011-06-10T18:02:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 03:37:11</con:value>
+          <con:value>06/10/2011 17:52:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2011-07-10T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Response" searchProperties="true" id="44a09a27-43ba-459d-96af-f35fd7204222">
       <con:settings/>
+      <con:testStep type="groovy" name="Add Deferred Doc Query Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
+  def table = context.findProperty('AsyncMsgTable')
+  
+ // sql.execute('delete from ' + table)
+
+  //def DeferredQueryReqMessageIDLocal = context.findProperty( "DeferredQueryReqMessageIDLocal" )
+  def DeferredQueryReqMessageID = context.findProperty( "DeferredQueryReqMessageID" )
+ // def localAA = context.findProperty( "LocalAA" )
+  def remoteAA = context.findProperty( "RemoteAA" )  
+  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
+  def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
+  def insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
+  "values (?, ?, ?, 'QueryForDocument', 'OUTBOUND', ? , 'REQSENTACK')"
+  sql.executeUpdate(insertSql, [DeferredQueryReqMessageID, startDate, endDate, remoteAA])
+
+ // insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, //Direction,CommunityId,Status)" +
+//  "values (?, ?, ?, 'QueryForDocument', 'INBOUND', ? , 'REQSENTACK')"
+//  sql.executeUpdate(insertSql, [DeferredQueryReqMessageIDLocal, startDate, endDate, localAA ])
+}
+</script></con:config></con:testStep>
       <con:testStep type="request" name="Doc Query Deferred Response">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -3639,7 +3663,7 @@
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DeferredDQResponse}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+          <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body projectName="EndToEndSelfTest" testCase="Document Query Deferred Response">
       <urn:RespondingGateway_CrossGatewayQueryResponse>
@@ -4020,7 +4044,9 @@
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
-         </urn:assertion>
+			 <urn3:messageId>570b6d1a-54de-442f-a64a-3b8225fa2216</urn3:messageId>
+			<urn3:relatesToList>${#Project#DeferredQueryReqMessageID}</urn3:relatesToList>
+		 </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
@@ -4033,7 +4059,7 @@
       </urn:RespondingGateway_CrossGatewayQueryResponse>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response"/>
+		    <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="XPath Match" name="Match content of [@status]">
               <con:configuration>
@@ -4050,23 +4076,28 @@
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:properties>
+      </con:testStep><con:testStep type="groovy" name="Remove Deferred Doc Query Request" disabled="true"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
+  def table = context.findProperty('AsyncMsgTable')
+  def DeferredQueryReqMessageID = context.findProperty( "DeferredQueryReqMessageID" )
+  
+  sql.execute ("delete from " + table + "where MessageId ='"+DeferredQueryReqMessageID+"'")
+}
+</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T03:37:13Z</con:value>
+          <con:value>2011-06-10T19:22:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T03:47:13Z</con:value>
+          <con:value>2011-06-10T19:32:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 03:37:13</con:value>
+          <con:value>06/10/2011 19:22:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2011-07-10T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4090,7 +4121,7 @@
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
         <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>${#TestCase#CorrectedRemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -4363,6 +4394,18 @@
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Deferred Response" searchProperties="true" id="a2d45dd4-dc00-4141-9a8f-7590d39489c6">
       <con:settings/>
+      <con:testStep type="groovy" name="Add Deferred Doc Retrieve Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
+  def table = context.findProperty('AsyncMsgTable')
+  
+ // sql.execute('delete from ' + table)
+
+  def DeferredDocRetrieveReqMessageID = context.findProperty( "DeferredDocRetrieveReqMessageID" )
+  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
+    def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
+  def insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
+  "values (?, ?, ?, 'RetrieveDocument', 'INBOUND', '1.1', 'REQSENTACK')"
+  sql.executeUpdate(insertSql, [DeferredDocRetrieveReqMessageID, startDate, endDate])
+}</script></con:config></con:testStep>
       <con:testStep type="request" name="Doc Retrieve Deferred Resp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -4381,7 +4424,7 @@
          <urn1:RetrieveDocumentSetResponse>
             <urn2:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
 	    <urn1:DocumentResponse>
-            <urn1:HomeCommunityId>urn:oid:2.2</urn1:HomeCommunityId>
+            <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
             <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
             <urn1:DocumentUniqueId>1.123407.777777</urn1:DocumentUniqueId>
             <urn1:mimeType>text/xml</urn1:mimeType>
@@ -4600,7 +4643,9 @@
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
-</urn:assertion>
+			<urn3:messageId>570b6d1a-54de-442f-a64a-3b8225fa2216</urn3:messageId>
+			<urn3:relatesToList>${#Project#DeferredDocRetrieveReqMessageID}</urn3:relatesToList>
+		 </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
@@ -4633,8 +4678,13 @@
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:properties>
+      </con:testStep><con:testStep type="groovy" name="Remove Deferred Doc Retrieve Request" disabled="true"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
+  def table = context.findProperty('AsyncMsgTable')
+  def DeferredDocRetrieveReqMessageID = context.findProperty( "DeferredDocRetrieveReqMessageID" )
+  
+  sql.execute ("delete from " + table + "where MessageId ='"+DeferredDocRetrieveReqMessageID+"'")
+}
+</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-07T03:37:16Z</con:value>
@@ -5246,6 +5296,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
+			
          </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -8261,7 +8312,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>DRDocID</con:name>
-      <con:value>1.123407.777777</con:value>
+      <con:value>1.123407.77777</con:value>
     </con:property>
     <con:property>
       <con:name>DRRepoID</con:name>
@@ -8495,7 +8546,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
       <con:name>AuditRepoTable</con:name>
       <con:value>auditrepository</con:value>
     </con:property>
-  <con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property></con:properties>
+  <con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
