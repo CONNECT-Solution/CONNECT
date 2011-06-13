@@ -1210,7 +1210,7 @@
               linecount="45"
               linerate="80"
               linesexecuted="0"/>
-   <thresholdbranchcount="120" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="120" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper"
               linecount="351"
               linerate="80"
