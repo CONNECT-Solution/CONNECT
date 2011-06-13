@@ -23,7 +23,10 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.sql.Timestamp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -50,11 +53,15 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return new AsyncMessageProcessHelper();
     }
 
+    protected PatientDiscovery201305Processor getPatientDiscovery201305Processor() {
+        return new PatientDiscovery201305Processor();
+    }
+
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         String ackMsg = "";
         CMUrlInfos urlInfoList = null;
-        PatientDiscovery201305Processor pd201305Processor = new PatientDiscovery201305Processor();
+        PatientDiscovery201305Processor pd201305Processor = getPatientDiscovery201305Processor();
 
         if (message != null &&
                 assertion != null) {
@@ -70,11 +77,18 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
             unsecureRequest.setAssertion(assertion);
             auditLog.auditEntityDeferred201305(unsecureRequest, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
 
+            // Process local unique patient id and home community id to create local aa to hcid mapping
+            pd201305Processor.storeLocalMapping(unsecureRequest);
+
             urlInfoList = getTargets(targets);
 
             // loop through the communities and send request if results were not null
             if (urlInfoList != null &&
                     urlInfoList.getUrlInfo() != null) {
+
+                // Log the start of the performance record
+                Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
 
                 for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
 
@@ -120,6 +134,10 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                         break;
                     }
                 }
+
+                // Log the end of the performance record
+                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 ackMsg = "No targets were found for the Patient Discovery Request";
                 log.warn(ackMsg);

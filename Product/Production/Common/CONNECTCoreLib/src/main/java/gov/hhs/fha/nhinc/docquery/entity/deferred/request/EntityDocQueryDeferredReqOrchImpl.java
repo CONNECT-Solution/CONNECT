@@ -27,10 +27,12 @@ import gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQue
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.request.proxy.PassthruDocQueryDeferredRequestProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
+import java.sql.Timestamp;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -63,14 +65,19 @@ public class EntityDocQueryDeferredReqOrchImpl {
         String targetCommunityHcid = "";
         String ackMsg = "";
         boolean bIsQueueOk = false;
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
 
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        auditLog.auditDQRequest(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, HomeCommunityMap.getLocalHomeCommunityId());
+        auditLog.auditDQRequest(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         try {
             CMUrlInfos urlInfoList = getEndpoints(target);
 
             if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
+
+                // Log the start of the performance record
+                Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
                 AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
                 EntityDocQueryHelper helper = new EntityDocQueryHelper();
@@ -160,6 +167,10 @@ public class EntityDocQueryDeferredReqOrchImpl {
                         nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
                     }
                 }
+
+                // Log the end of the performance record
+                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 ackMsg = "Failed to obtain target URL from connection manager";
                 log.error(ackMsg);

@@ -102,6 +102,7 @@ public class NhincPatientDiscoveryOrchImplTest {
             {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
+                    allowing(mockTargetSystem).getHomeCommunity();
                 }
             });
 

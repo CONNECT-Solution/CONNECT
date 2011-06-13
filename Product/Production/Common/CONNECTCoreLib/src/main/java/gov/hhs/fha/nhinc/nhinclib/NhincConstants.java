@@ -27,6 +27,9 @@ public class NhincConstants {
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
 
+    // CONNECT Operation
+    public static final String CONNECT_DEMO_OPERATION_MODE_PROP = "connectDemoOperationMode";
+
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";

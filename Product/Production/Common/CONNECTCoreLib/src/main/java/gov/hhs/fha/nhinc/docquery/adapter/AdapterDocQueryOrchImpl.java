@@ -40,6 +40,12 @@ public class AdapterDocQueryOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     *
+     * @param request
+     * @param assertion
+     * @return AdhocQueryResponse
+     */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
         log.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         AdhocQueryResponse response = null;

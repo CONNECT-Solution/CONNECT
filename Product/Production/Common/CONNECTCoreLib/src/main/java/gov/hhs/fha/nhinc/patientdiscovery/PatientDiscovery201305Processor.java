@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
@@ -34,6 +35,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.XParticipationAuthorPerformer;
 
 /**
@@ -175,6 +177,32 @@ public class PatientDiscovery201305Processor {
             }
 
         }
+    }
+
+    /**
+     * Method to store local AA and HCID mapping
+     * @param request
+     * @return
+     */
+    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request) {
+        log.debug("Begin storeLocalMapping");
+
+        String hcid = HomeCommunityMap.getLocalHomeCommunityId();
+        log.debug("Begin storeLocalMapping: hcid" + hcid);
+
+        II patId = extractPatientIdFrom201305(request.getPRPAIN201305UV02());
+
+        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+
+        if (mappingDao == null || patId == null) {
+            log.warn("AssigningAuthorityHomeCommunityMappingDAO or Local Patient Id was null. Mapping was not stored.");
+        } else {
+            if (!mappingDao.storeMapping(hcid, patId.getRoot())) {
+                log.warn("Failed to store home community - assigning authority mapping" );
+            }
+        }
+
+        log.debug("End storeLocalMapping");
     }
 
     protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {

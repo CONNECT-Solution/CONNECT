@@ -29,10 +29,12 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.sql.Timestamp;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
@@ -51,17 +53,22 @@ public class NhinDocRetrieveOrchImpl {
      * @return <code>RetrieveDocumentSetResponseType</code>
      */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
-        log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+        log.debug("Entering NhinDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve");
 
         RetrieveDocumentSetResponseType response = null;
         String requestCommunityID = HomeCommunityMap.getCommunitIdForRDRequest(body);
         log.debug("Calling audit on doc retrieve request received from NHIN");
         auditRequestMessage(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityID);
 
+        // Log the start of the nhin performance record
+        Timestamp starttime = new Timestamp(System.currentTimeMillis());
+        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, requestCommunityID);
+
         try {
             String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
             if (isServiceEnabled()) {
                 log.debug("Doc retrieve service is enabled. Procesing message");
+
                 if (isInPassThroughMode()) {
                     log.debug("In passthrough mode. Sending adapter doc retrieve directly to adapter");
                     response = sendDocRetrieveToAgency(body, assertion, homeCommunityId);
@@ -78,10 +85,14 @@ public class NhinDocRetrieveOrchImpl {
             response = createErrorResponse("Processing document retrieve message");
         }
 
+        // Log the end of the nhin performance record
+        Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
+
         log.debug("Calling audit on doc retrieve response returned to NHIN");
         auditResponseMessage(response, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityID);
 
-        log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+        log.debug("Exiting NhinDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
     }
 

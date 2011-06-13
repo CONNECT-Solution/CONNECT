@@ -13,6 +13,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.Service;
@@ -58,6 +59,10 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    protected DocumentProcessHelper getDocumentProcessHelper() {
+        return new DocumentProcessHelper();
+    }
+
     /**
      * Retrieve the document(s) specified in the request.
      *
@@ -85,6 +90,17 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
 
                     response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port, RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+
+                    // Check for Demo Mode
+                    if (DocumentProcessHelper.isDemoOperationModeEnabled()) {
+                        log.debug("CONNECT Demo Operation Mode Enabled");
+                        DocumentProcessHelper documentProcessHelper = getDocumentProcessHelper();
+
+                    // Demo mode enabled, process RetrieveDocumentSetRequestType to save document content to the CONNECT default document repository
+                    documentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(response);
+                    } else {
+                        log.debug("CONNECT Demo Operation Mode Disabled");
+                    }
 
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());

@@ -47,6 +47,8 @@ public class NhinDocQueryOrchImpl {
      * @return <code>AdhocQueryResponse</code>
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion) {
+        log.info("Begin - NhinDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
+
         RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
         AdhocQueryResponse resp = new AdhocQueryResponse();
         crossGatewayQueryRequest.setAdhocQueryRequest(body);
@@ -90,7 +92,8 @@ public class NhinDocQueryOrchImpl {
         // create an audit record for the response
         ack = auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, crossGatewayQueryRequest.getAssertion(), requestCommunityID);
 
-        log.debug("Exiting DocQueryImpl.respondingGatewayCrossGatewayQuery");
+        log.info("End - NhinDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
+
         return resp;
     }
 

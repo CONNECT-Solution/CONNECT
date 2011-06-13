@@ -9,11 +9,15 @@ package gov.hhs.fha.nhinc.docretrieve.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import java.sql.Timestamp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,14 +37,29 @@ public class AdapterDocRetrieveOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @return RetrieveDocumentSetResponseType
+     */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         log.debug("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         RetrieveDocumentSetResponseType response = null;
 
         try {
+            // Log the start of the adapter performance record
+            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+            Timestamp starttime = new Timestamp(System.currentTimeMillis());
+            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
+
             AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
             response = proxy.retrieveDocument(body, assertion);
             response = callRedactionEngine(body, response, assertion);
+
+            // Log the end of the adapter performance record
+            Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
         } catch (Throwable t) {
             log.error("Error processing an adapter document retrieve message: " + t.getMessage(), t);
             response = new RetrieveDocumentSetResponseType();

@@ -245,10 +245,10 @@ public class DocumentRetrieveTransforms {
       
         // Create Participation Object Identification Section
         ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
-        if (uniquePatientId != null && !uniquePatientId.isEmpty()) {
-            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(uniquePatientId);
-        } else if (documentId != null && !documentId.isEmpty()) {
+        if (documentId != null && !documentId.isEmpty()) {
             partObjId = AuditDataTransformHelper.createDocumentParticipantObjectIdentification(documentId);
+        } else if (uniquePatientId != null && !uniquePatientId.isEmpty()) {
+            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(uniquePatientId);
         }
 
         // Fill in the message field with the contents of the event message

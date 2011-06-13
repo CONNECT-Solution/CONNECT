@@ -17,6 +17,9 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyOb
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.sql.Timestamp;
 
 /**
  *
@@ -39,11 +42,11 @@ public class NhincPatientDiscoveryOrchImpl {
     }
 
     protected void logNhincPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion) {
-        getPatientDiscoveryAuditLogger().auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        getPatientDiscoveryAuditLogger().auditNhin201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected void logNhincPatientDiscoveryResponse(PRPAIN201306UV02 response, AssertionType assertion) {
-        getPatientDiscoveryAuditLogger().auditNhinDeferred201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        getPatientDiscoveryAuditLogger().auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
@@ -59,8 +62,20 @@ public class NhincPatientDiscoveryOrchImpl {
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         logNhincPatientDiscoveryRequest(request.getPRPAIN201305UV02(), assertion);
 
+        // Log the start of the adapter performance record
+        String responseCommunityId = "";
+        if (request != null && request.getNhinTargetSystem() != null &&
+                request.getNhinTargetSystem().getHomeCommunity() != null) {
+            responseCommunityId = request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId();
+        }
+        Timestamp starttime = new Timestamp(System.currentTimeMillis());
+        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityId);
 
         PRPAIN201306UV02 response = sendToNhinProxy(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetSystem());
+
+        // Log the end of the performance record
+        Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
         logNhincPatientDiscoveryResponse(response, assertion);

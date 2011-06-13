@@ -7,6 +7,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
@@ -128,6 +129,21 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                 };
                 return processHelper;
             }
+
+            @Override
+            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
+            {
+                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor()
+                {
+
+                    @Override
+                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request)
+                    {
+                        return;
+                    }
+                };
+                return processHelper;
+            }
         };
 
         AssertionType assertion = new AssertionType();
@@ -212,6 +228,21 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                     public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
                     {
                         return true;
+                    }
+                };
+                return processHelper;
+            }
+
+            @Override
+            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
+            {
+                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor()
+                {
+
+                    @Override
+                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request)
+                    {
+                        return;
                     }
                 };
                 return processHelper;
@@ -307,6 +338,21 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                     public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
                     {
                         return true;
+                    }
+                };
+                return processHelper;
+            }
+
+            @Override
+            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
+            {
+                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor()
+                {
+
+                    @Override
+                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request)
+                    {
+                        return;
                     }
                 };
                 return processHelper;

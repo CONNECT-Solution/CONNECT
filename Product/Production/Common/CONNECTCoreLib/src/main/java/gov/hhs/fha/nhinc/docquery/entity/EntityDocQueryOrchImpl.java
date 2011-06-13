@@ -33,9 +33,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryResponseType;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import java.sql.Timestamp;
 import java.util.HashMap;
 
 public class EntityDocQueryOrchImpl {
@@ -111,20 +109,11 @@ public class EntityDocQueryOrchImpl {
                             subjectIds.getQualifiedSubjectIdentifier().add(subjectId);
                         }
                     }
-
-                    // Log the start of the entity performance record
-                    Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                     String transactionId = startTransaction(aggregator, subjectIds);
 
                     sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion, localAA, uniquePatientId);
 
                     response = retrieveDocQueryResults(aggregator, transactionId);
-
-                    // Log the end of the entity performance record
-                    Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
                 } else {
                     log.error("No patient correlations found.");
                     response = createErrorResponse("No patient correlations found.");
