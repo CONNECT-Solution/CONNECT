@@ -23,10 +23,12 @@
          -->
          
     <!-- Checks for imports                              --> 
+    <!--
     <module name="AvoidStarImport"/>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
-
+     -->
+     
     <!-- complexity thresholds on code -->
     <module name="BooleanExpressionComplexity">
       <property name="max" value="7"/>
