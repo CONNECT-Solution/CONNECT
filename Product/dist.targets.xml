@@ -1,0 +1,129 @@
+<!--
+  Preconditions
+  *************
+  Properties defined:  root.project.directory.path
+                       deployment.dir
+                       
+  Exported targets: dist
+  -->
+<!--
+<?xml-stylesheet type="text/xsl"
+                 href="build/ant/ant2html.xsl"?>
+  -->
+<project name="dist.targets">
+  <!-- must come from somewhere else.  just dummy filler for now -->
+  <property name="released.version.name" value="3.2.1_xxxx"/>
+
+   
+  <property name="dist.zip.filename" value="CONNECT_Binaries_${released.version.name}.zip"/>
+  <property name="dist.artifact.dir" value="../target"/>
+  <property name="dbscripts.dir.name" value="DBScripts"/>
+  <property name="dbscripts.dir" value="${root.project.directory.path}/${dbscripts.dir.name}"/>  
+  <property name="install.scripts.dir" value="${root.project.directory.path}/Install"/>
+  <property name="production.dir" value="${root.project.directory.path}/Production"/>
+  <property name="thirdparty.dir" value="${root.project.directory.path}/../ThirdParty"/>
+  <property name="thirdparty.zip.filename" value="CONNECT_ThirdParty_Components_${released.version.name}.zip"/>
+  <property name="validation_tests.zip.filename" value="CONNECT_Validation_Tests_${released.version.name}.zip"/>
+  
+  <!--
+    This target should build **all** externally released artifacts from scratch.
+    
+    Originally modeled off of the target 'Build.PublishZip.Release.Installer' in /Build/Custom.Build.xml
+    -->
+  <target name="dist"
+          depends="init,
+                   binary_dist,
+                   third_party_dist,
+                   validation_tests_dist"/>
+                   
+  <target name="init">
+    <mkdir dir="${dist.artifact.dir}"/>
+  </target>
+  
+  <!-- ***** BEGIN INTERNAL TARGETS *********************** -->
+                   
+  <target name="binary_dist"
+          depends="clean, 
+                   package.create, 
+                   copy.deployable.artifacts, 
+                   just.binary_dist"/>
+
+
+  <target name="just.binary_dist">
+       
+    <!--
+    <saveproperties file="${Common.Project.TempDirectory}\ReleaseInfo.txt" format="CommandLine" >
+      <property name="CCNetLabel"/>
+      <property name="CCNetBuildDate"/>
+      <property name="CCNetBuildTime"/>
+    </saveproperties>
+    -->
+
+    
+    <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+      <zipfileset dir="${deployment.dir}">
+        <include name="**\*"/>
+      </zipfileset>
+      <zipfileset dir="${install.scripts.dir}">
+        <include name="**\*"/>
+      </zipfileset>
+      <zipfileset dir="${dbscripts.dir}" prefix="${dbscripts.dir.name}">
+        <include name="**\*"/>
+      </zipfileset>
+      
+      <!--
+      <zipfileset dir="${Common.Project.TempDirectory}">
+        <include name="ReleaseInfo.txt"/>
+      </zipfileset>
+       -->
+    </zip>
+    
+  </target>
+
+  <target name="third_party_dist">
+    <zip zipfile="${dist.artifact.dir}/${thirdparty.zip.filename}">
+      <zipfileset dir="${thirdparty.dir}/C3PO" prefix="C3PO">
+        <include name="*.jar"/>
+      </zipfileset>
+      <zipfileset dir="${thirdparty.dir}/HibernateLibraries" prefix="HibernateLibraries">
+        <include name="*.jar"/>
+      </zipfileset>     
+      <zipfileset dir="${thirdparty.dir}/log4j" prefix="log4j">
+        <include name="*.jar"/>
+      </zipfileset>  
+      <zipfileset dir="${thirdparty.dir}/MySQLDB" prefix="MySQLDB">
+        <include name="*.jar"/>
+      </zipfileset>  
+      <zipfileset dir="${thirdparty.dir}/OpenSSO" prefix="OpenSSO">
+        <include name="*.jar"/>
+      </zipfileset>  
+      <zipfileset dir="${thirdparty.dir}/SpringFramework" prefix="SpringFramework">
+        <include name="*.jar"/>
+      </zipfileset>  
+      <zipfileset dir="${thirdparty.dir}/Xerces" prefix="Xerces">
+        <include name="*.jar"/>
+      </zipfileset>  
+      <zipfileset dir="${thirdparty.dir}/XStream" prefix="XStream">
+        <include name="*.jar"/>
+      </zipfileset>  
+    </zip>
+  </target>
+  
+  <target name="validation_tests_dist">
+    <zip zipfile="${dist.artifact.dir}/${validation_tests.zip.filename}">
+      <zipfileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" prefix="ValidationSuite">
+        <include name="*.*"/>
+        <exclude name="build.xml"/>
+      </zipfileset>
+      <zipfileset dir="${production.dir}/Common/Properties/Dev" prefix="ValidationSuite">
+        <include name="mpi.xml"/>
+        <include name="reidentification.xml"/>
+      </zipfileset>
+      <zipfileset dir="${dbscripts.dir}/nhincdb" prefix="ValidationSuite">
+        <include name="populateTestData.sql"/>
+      </zipfileset>
+    </zip>
+  </target>
+  
+ 
+</project>

@@ -2,7 +2,8 @@
 <project name="NHINC" default="source.compile" basedir=".">
 
   <import file="build/build.targets.xml" />
-
+  <import file="dist.targets.xml"/>
+  
   <condition property="progress-filepath" value="${temp.directory.path}/ant-progress.txt">
     <not>
       <isset property="progress-filepath" />
