@@ -19,5 +19,4 @@
 	<property name="debug" value="false" />
 	<property name="ant.build.javac.source" value="1.6" />
 	<property name="ant.build.javac.target" value="1.6" />
-	<property name="ant.thirdparty.lib.dir" value="${env.ANT_HOME}/lib" />
 </project>
