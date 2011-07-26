@@ -36,11 +36,12 @@
                    third_party_dist,
                    validation_tests_dist"/>
                    
+  <!-- ***** BEGIN INTERNAL TARGETS *********************** -->                   
+                   
   <target name="init">
     <mkdir dir="${dist.artifact.dir}"/>
   </target>
   
-  <!-- ***** BEGIN INTERNAL TARGETS *********************** -->
                    
   <target name="binary_dist"
           depends="clean, 
