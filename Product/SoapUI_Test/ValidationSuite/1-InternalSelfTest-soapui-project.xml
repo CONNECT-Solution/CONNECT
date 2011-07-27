@@ -1937,14 +1937,14 @@
               <con:configuration>
                 <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]/text()</path>
-                <content>uuid:7777777777.77777.777.77</content>
+                <content>uuid:6666666666.66666.666.66</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncReqRequest" messageID="uuid:7777777777.77777.777.77"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncReqRequest" messageID="uuid:6666666666.66666.666.66"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -2207,6 +2207,23 @@
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Async Resp" searchProperties="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7">
       <con:settings/>
+      <con:testStep type="groovy" name="Add PD Deferred Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
+  def table = context.findProperty('AsyncMsgTable')
+  
+ // sql.execute('delete from ' + table)
+
+  def DeferredDocRetrieveReqMessageID = "uuid:6666666666.66666.666.66"
+  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
+  def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
+  def insertSqlInbound = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
+  "values (?, ?, ?, 'PatientDiscovery', 'INBOUND', '1.1', 'RSPPROCESS')"
+  sql.executeUpdate(insertSqlInbound, [DeferredDocRetrieveReqMessageID, startDate, endDate])
+
+  def insertSqlOutbound = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
+  "values (?, ?, ?, 'PatientDiscovery', 'OUTBOUND', '1.1', 'REQSENTACK')"
+  sql.executeUpdate(insertSqlOutbound, [DeferredDocRetrieveReqMessageID, startDate, endDate])
+  
+}</script></con:config></con:testStep>
       <con:testStep type="request" name="Patient Discovery Async Resp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -2549,6 +2566,22 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Match content of [typeCode/@code]">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
+                <content>CA</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Match content of [acknowledgementDetail/@typeCode]">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/@typeCode</path>
+                <content>I</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespRequest" generateMessageId="true" relatesTo="uuid:1111111111.11111.111.11" addDefaultAction="false"/>
