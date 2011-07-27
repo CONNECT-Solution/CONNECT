@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.CDAConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -143,11 +144,8 @@ public class DocQueryResponseProcessor
             AdhocQueryType adhocQuery = adhocQueryRequest.getAdhocQuery();
             if(adhocQuery != null)
             {
-                homeCommunityId = adhocQuery.getHome();
-                if((homeCommunityId != null) && (homeCommunityId.startsWith("urn:oid:")))
-                {
-                    homeCommunityId = homeCommunityId.replaceFirst("urn:oid:", "");
-                }
+                homeCommunityId = HomeCommunityMap.getCommunityIdForDeferredQDRequest(adhocQuery);
+
                 List<SlotType1> slots = null;
                 if(adhocQuery != null)
                 {

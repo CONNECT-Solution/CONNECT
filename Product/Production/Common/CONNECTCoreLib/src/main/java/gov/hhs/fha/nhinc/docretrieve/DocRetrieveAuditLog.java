@@ -35,7 +35,7 @@ public class DocRetrieveAuditLog {
      */
     public AcknowledgementType auditDocRetrieveRequest(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType auditMsg, AssertionType assertion) {
 
-        return auditDocRetrieveRequest(auditMsg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, HomeCommunityMap.getCommunitIdForRDRequest(auditMsg));
+        return auditDocRetrieveRequest(auditMsg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, HomeCommunityMap.getCommunityIdForRDRequest(auditMsg));
     }
 
     /**

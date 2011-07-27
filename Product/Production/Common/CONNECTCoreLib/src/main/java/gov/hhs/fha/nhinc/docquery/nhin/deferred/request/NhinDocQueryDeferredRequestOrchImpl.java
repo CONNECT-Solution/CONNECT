@@ -43,8 +43,8 @@ public class NhinDocQueryDeferredRequestOrchImpl {
 
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         String requestCommunityID = null;
-        if (msg != null && msg.getAdhocQuery() != null) {
-            requestCommunityID = msg.getAdhocQuery().getHome();
+        if (msg != null) {
+            requestCommunityID = HomeCommunityMap.getCommunityIdForDeferredQDRequest(msg.getAdhocQuery());
         }
         // Audit the incoming NHIN Message
         AcknowledgementType ack = auditRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);

@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.ByteArrayInputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class EntityDocQueryDeferredReqQueueProcessOrchImpl {
             log.info("messageId: " + messageId);
             if ((messageId != null)) {
                 List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
-                msgList = asyncDao.queryByMessageId(messageId);
+                msgList = asyncDao.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
                 if ((msgList != null) &&
                         (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());
@@ -143,18 +144,16 @@ public class EntityDocQueryDeferredReqQueueProcessOrchImpl {
         return respondingGatewayCrossGatewayQueryRequestType;
     }
 
-      /**
+    /**
+     * Extracts the home community id of the request.
      *
      * @param request
      * @return String
      */
     private String extractSenderOID(AdhocQueryRequest request) {
         String oid = null;
-
-        if (request != null &&
-                request.getAdhocQuery() != null &&
-                request.getAdhocQuery().getHome() != null) {
-            oid = request.getAdhocQuery().getHome();
+        if (request != null) {
+            oid = HomeCommunityMap.getCommunityIdForDeferredQDRequest(request.getAdhocQuery());
         }
 
         return oid;

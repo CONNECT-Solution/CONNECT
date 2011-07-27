@@ -46,17 +46,17 @@ public class NhinDocQueryOrchImpl {
      * @param assertion
      * @return <code>AdhocQueryResponse</code>
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         log.info("Begin - NhinDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
 
         RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
         AdhocQueryResponse resp = new AdhocQueryResponse();
-        crossGatewayQueryRequest.setAdhocQueryRequest(body);
+        crossGatewayQueryRequest.setAdhocQueryRequest(msg);
         crossGatewayQueryRequest.setAssertion(assertion);
 
         String requestCommunityID = null;
-        if (body != null && body.getAdhocQuery() != null) {
-            requestCommunityID = body.getAdhocQuery().getHome();
+        if (msg != null) {
+            requestCommunityID = HomeCommunityMap.getCommunityIdForDeferredQDRequest(msg.getAdhocQuery());
         }
         // Audit the incomming query
         AcknowledgementType ack = auditAdhocQueryRequest(crossGatewayQueryRequest, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
