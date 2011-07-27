@@ -229,7 +229,7 @@ public class DeferredQueueManagerHelper {
         queueDao.checkExpiration();
 
         log.debug("***** Retrieve queue message record to be processed [" + messageId + "] *****");
-        List<AsyncMsgRecord> queueRecords = queueDao.queryByMessageId(messageId);
+        List<AsyncMsgRecord> queueRecords = queueDao.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
         if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
             if (queueRecords.get(0).getStatus().equals(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK)) {
@@ -422,7 +422,7 @@ public class DeferredQueueManagerHelper {
         try {
             AsyncMsgRecordDao queueDao = new AsyncMsgRecordDao();
 
-            List<AsyncMsgRecord> asyncResponse = queueDao.queryByMessageId(retrieveDeferredQueueRequest.getMessageId());
+            List<AsyncMsgRecord> asyncResponse = queueDao.queryByMessageIdAndDirection(retrieveDeferredQueueRequest.getMessageId(), AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
             if (asyncResponse != null && asyncResponse.size() > 0) {
                 response = new DeferredQueueRecordType();

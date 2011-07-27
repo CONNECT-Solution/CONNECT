@@ -59,7 +59,7 @@ public class EntityPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             log.info("messageId: " + messageId);
             if ((messageId != null)) {
                 List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
-                msgList = instance.queryByMessageId(messageId);
+                msgList = instance.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
                 if ((msgList != null) &&
                         (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());

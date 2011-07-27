@@ -185,7 +185,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
             messageId = assertion.getRelatesToList().get(0);
         }
 
-        List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByMessageId(messageId);
+        List<AsyncMsgRecord> asyncMsgRecs = asyncDbDao.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
         RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02RequestType = new RespondingGatewayPRPAIN201305UV02RequestType();
         PRPAIN201305UV02 pRPAIN201305UV02 = new PRPAIN201305UV02();
         if (NullChecker.isNotNullish(asyncMsgRecs)) {

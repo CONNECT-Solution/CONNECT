@@ -58,7 +58,7 @@ public class EntityDocRetrieveDeferredReqQueueProcessOrchImpl {
             log.info("messageId: " + messageId);
             if ((messageId != null)) {
                 List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
-                msgList = asyncDao.queryByMessageId(messageId);
+                msgList = asyncDao.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
                 if ((msgList != null) &&
                         (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());

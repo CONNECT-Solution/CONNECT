@@ -30,12 +30,15 @@ public class AsyncMsgRecordDaoTest {
         rec1.setMessageId("uuid:1234567890");
         rec1.setCreationTime(new Date());
         rec1.setServiceName("PatientDiscovery");
+        rec1.setDirection("INBOUND");
         rec2.setMessageId("uuid:1111111111");
         rec2.setCreationTime(new Date());
         rec2.setServiceName("PatientDiscovery");
+        rec2.setDirection("INBOUND");
         rec3.setMessageId("uuid:2222222222");
         rec3.setCreationTime(new Date());
         rec3.setServiceName("PatientDiscovery");
+        rec3.setDirection("INBOUND");
 
         asyncMsgRecs.add(rec1);
         asyncMsgRecs.add(rec2);
@@ -80,17 +83,17 @@ public class AsyncMsgRecordDaoTest {
     }
 
     /**
-     * Test of queryByMessageId method, of class AsyncMsgRecordDao.
+     * Test of queryByMessageIdAndDirection method, of class AsyncMsgRecordDao.
      */
     @Test
-    public void testQueryByMessageId() {
-        System.out.println("testQueryByMessageId");
+    public void testQueryByMessageIdAndDirection() {
+        System.out.println("testQueryByMessageIdAndDirection");
 
         String messageId = "uuid:1111111111";
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
 
         System.out.println("Attempting to retrieve rec2");
-        List<AsyncMsgRecord> result = instance.queryByMessageId(messageId);
+        List<AsyncMsgRecord> result = instance.queryByMessageIdAndDirection(messageId, "INBOUND");
 
         assertEquals(1, result.size());
         assertEquals(rec2.getMessageId(), result.get(0).getMessageId());
@@ -135,22 +138,22 @@ public class AsyncMsgRecordDaoTest {
 
         AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
 
-        List<AsyncMsgRecord> result = instance.queryByMessageId(rec1.getMessageId());
+        List<AsyncMsgRecord> result = instance.queryByMessageIdAndDirection(rec1.getMessageId(), "INBOUND");
         assertEquals(1, result.size());
         instance.delete(result.get(0));
-        result = instance.queryByMessageId(rec1.getMessageId());
+        result = instance.queryByMessageIdAndDirection(rec1.getMessageId(), "INBOUND");
         assertEquals(0, result.size());
 
-        result = instance.queryByMessageId(rec2.getMessageId());
+        result = instance.queryByMessageIdAndDirection(rec2.getMessageId(), "INBOUND");
         assertEquals(1, result.size());
         instance.delete(result.get(0));
-        result = instance.queryByMessageId(rec2.getMessageId());
+        result = instance.queryByMessageIdAndDirection(rec2.getMessageId(), "INBOUND");
         assertEquals(0, result.size());
 
-        result = instance.queryByMessageId(rec3.getMessageId());
+        result = instance.queryByMessageIdAndDirection(rec3.getMessageId(), "INBOUND");
         assertEquals(1, result.size());
         instance.delete(result.get(0));
-        result = instance.queryByMessageId(rec3.getMessageId());
+        result = instance.queryByMessageIdAndDirection(rec3.getMessageId(), "INBOUND");
         assertEquals(0, result.size());
     }
 
