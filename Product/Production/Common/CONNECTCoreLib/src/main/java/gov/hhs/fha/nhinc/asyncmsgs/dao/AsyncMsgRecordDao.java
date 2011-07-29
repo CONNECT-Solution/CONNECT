@@ -66,7 +66,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndDirection(String messageId, String direction) {
-        log.debug("Performing database record retrieve using message id: " + messageId + "and direction: " + direction);
+        log.debug("Performing database record retrieve using message id: " + messageId + " and direction: " + direction);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
