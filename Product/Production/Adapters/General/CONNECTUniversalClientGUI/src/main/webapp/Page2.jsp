@@ -40,9 +40,11 @@
                                         style="left: 24px; top: 144px; position: absolute; width: 500px" title="Patient Search Results" width="500">
                                         <webuijsf:tableRowGroup id="patientSearchResultTableRowGroup" rows="4" sourceData="#{Page2.patientSearchDataList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn headerText="Patient Id" id="patientSearchPatientIdColm">
-                                                <webuijsf:hyperlink actionExpression="#{Page2.patientSelectIdLink_action}"
-                                                    binding="#{Page2.patientSelectIdLink}" id="patientSelectIdLink"
-                                                    style="color: blue; text-decoration: underline" text="#{currentRow.value['patientId']}"/>
+                                               <webuijsf:hyperlink actionExpression="#{Page2.patientSelectIdLink_action}" 
+                                                    binding="#{Page2.patientSelectIdLink}" id="patientSelectIdLink"  
+                                                    style="color: blue; text-decoration: underline" text="#{currentRow.value['patientId']}"> 
+                                                    <f:param name="valueAssigningAuthority" value="#{currentRow.value['assigningAuthorityID']}"/>
+                                                </webuijsf:hyperlink> 
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="AA Id" id="patientSearchAaidColm">
                                                 <webuijsf:staticText id="staticText0" text="#{currentRow.value['assigningAuthorityID']}"/>
