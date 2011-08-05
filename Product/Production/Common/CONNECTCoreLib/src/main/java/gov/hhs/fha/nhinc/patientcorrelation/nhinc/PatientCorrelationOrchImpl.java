@@ -132,11 +132,7 @@ public class PatientCorrelationOrchImpl {
             log.warn("correlatedPatientId assigning authority was not supplied");
             return null;
         }
-        if (patientAssigningAuthId.equals(correlatedPatientAssigningAuthId) && patientId.equals(correlatedPatientId)) {
-            log.warn("patient was self-correlated");
-            //return null;
-        }
-
+        
         //calculate the correlation expiration date
         Date newExpirationDate = calculateCorrelationExpirationDate(correlatedPatientAssigningAuthId);
 
