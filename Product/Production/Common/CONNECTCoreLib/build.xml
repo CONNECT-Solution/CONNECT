@@ -6,7 +6,7 @@
 	<property name="unittest.hasTests" value="true" />
 	<property name="deploy.type" value="shared" />
 	<property name="deploy.isDeployable" value="true"/>
-	<property name="coverage.isneeded" value="true" />
+	<property name="coverage.isneeded" value="false" />
 	
 	<!-- Please make sure that this goes up to the correct directory -->
 	<import file="../../../build/build.targets.xml" />
