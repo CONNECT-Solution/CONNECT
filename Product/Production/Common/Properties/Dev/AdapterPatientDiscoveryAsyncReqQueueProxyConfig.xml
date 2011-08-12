@@ -10,24 +10,13 @@
 	<description>Beans included in this file: {adapterpatientdiscoveryasyncreqqueue}</description>
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyNoOpImpl" id="adapterpatientdiscoveryasyncreqqueuenoop" name="adapterpatientdiscoveryasyncreqqueuenoop"> 
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryDeferredReqQueueProxyNoOpImpl" id="adapterpatientdiscoveryasyncreqqueuenoop" name="adapterpatientdiscoveryasyncreqqueuenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl" id="adapterpatientdiscoveryasyncreqqueuejava" name="adapterpatientdiscoveryasyncreqqueuejava"> 
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryDeferredReqQueueProxyJavaImpl" id="adapterpatientdiscoveryasyncreqqueuejava" name="adapterpatientdiscoveryasyncreqqueuejava"> 
 		<meta key="impltype" value="java"/>
-	</bean> 
-
-	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyWebServiceSecuredImpl" id="adapterpatientdiscoveryasyncreqqueue" name="adapterpatientdiscoveryasyncreqqueuewssecured"> 
-		<meta key="impltype" value="wssecured"/>
-		<meta key="default" value="true"/>
-	</bean> 
-
-	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyWebServiceUnsecuredImpl" id="adapterpatientdiscoveryasyncreqqueuewsunsecured" name="adapterpatientdiscoveryasyncreqqueuewsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 
 </beans>

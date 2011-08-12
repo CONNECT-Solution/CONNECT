@@ -158,14 +158,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(getPatientDiscoveryMessageCommunityId(request, direction));
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-
-            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            } else {
-                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            }
-
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);            
             rec.setMsgData(getBlobFromPRPAIN201305UV02RequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -234,14 +227,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(communityId);
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-
-            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            } else {
-                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            }
-
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
             rec.setMsgData(getBlobFromRespondingGatewayCrossGatewayQueryRequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -287,14 +273,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(communityId);
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-
-            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            } else {
-                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            }
-
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
             rec.setMsgData(getBlobFromRespondingGatewayCrossGatewayRetrieveRequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -632,7 +611,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             //asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during RetrieveDocumentSetRequestType conversion :" + e);
+            log.error("Exception during RetrieveDocumentSetRequestType conversion :" + e, e);
         }
 
         return copy;
@@ -666,7 +645,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             //asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during copyRetrieveDocumentSetResponseTypeObject conversion :" + e);
+            log.error("Exception during copyRetrieveDocumentSetResponseTypeObject conversion :" + e, e);
         }
 
         return copy;
@@ -700,7 +679,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             //asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during copyAssertionTypeObject conversion :" + e);
+            log.error("Exception during copyAssertionTypeObject conversion :" + e, e);
         }
 
         return copy;
@@ -729,7 +708,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             returnValue = new String(buffer);
         } catch (Exception e) {
-            log.error("Exception during marshalAssertionTypeObject conversion :" + e);
+            log.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
 
         return returnValue;
@@ -763,8 +742,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -786,8 +764,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -809,8 +786,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -832,8 +808,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -855,8 +830,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -878,8 +852,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -901,8 +874,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -925,8 +897,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -949,8 +920,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;

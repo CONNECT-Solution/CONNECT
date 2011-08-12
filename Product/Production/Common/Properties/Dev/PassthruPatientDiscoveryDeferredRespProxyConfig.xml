@@ -15,7 +15,7 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl" id="passthrupatientdiscoverydeferredresp" name="passthrupatientdiscoverydeferredrespjava"> 
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl" id="passthrupatientdiscoverydeferredrespjava" name="passthrupatientdiscoverydeferredrespjava"> 
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 
@@ -26,7 +26,7 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl" id="passthrupatientdiscoverydeferredrespwsunsecured" name="passthrupatientdiscoverydeferredrespwsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl" id="passthrupatientdiscoverydeferredresp" name="passthrupatientdiscoverydeferredrespwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 

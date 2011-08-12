@@ -114,8 +114,7 @@ public class EntityDocQueryDeferredResponseProxyWebServiceSecuredImpl implements
                 RespondingGatewayCrossGatewayQueryResponseSecuredType request = new RespondingGatewayCrossGatewayQueryResponseSecuredType();
                 request.setAdhocQueryResponse(msg);
                 request.setNhinTargetCommunities(targets);
-
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, EntityDocQueryDeferredResponseSecuredPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, EntityDocQueryDeferredResponseSecuredPortType.class, "crossGatewayQueryResponse", request);
             }
         }
         catch (Exception ex)

@@ -119,8 +119,7 @@ public class EntityDocQueryDeferredResponseProxyWebServiceUnsecuredImpl implemen
                 request.setAdhocQueryResponse(msg);
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targets);
-
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, EntityDocQueryDeferredResponsePortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, EntityDocQueryDeferredResponsePortType.class, "crossGatewayQueryResponse", request);
             }
         }
         catch (Exception ex)
