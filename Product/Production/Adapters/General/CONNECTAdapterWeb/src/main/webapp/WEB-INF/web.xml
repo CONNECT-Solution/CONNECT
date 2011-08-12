@@ -104,6 +104,23 @@
         <url-pattern>/AdapterComponentDocQueryDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
 
+	<servlet>
+        <servlet-name>AdapterDocQueryDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.queue.AdapterDocQueryDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.queue.AdapterDocRetrieveDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>AdapterDocRetrieveSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured</servlet-class>
@@ -356,25 +373,16 @@
         <servlet-name>AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-name>
         <url-pattern>/AdapterPatientDiscoveryDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
-
+    
     <servlet>
-        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-class>
+        <servlet-name>AdapterPatientDiscoveryDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcess</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoverySecuredAsyncReqQueue</servlet-name>
-        <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
+        <servlet-name>AdapterPatientDiscoveryDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredReqQueueProcess</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterPatientDiscoveryUnsecuredAsyncReqQueue</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryUnsecuredAsyncReqQueue</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoveryUnsecuredAsyncReqQueue</servlet-name>
-        <url-pattern>/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</url-pattern>
-    </servlet-mapping>
-
+    
     <servlet>
         <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-class>
@@ -707,10 +715,6 @@
         <web-resource-collection>
             <web-resource-name>AdapterPatientDiscoveryDeferredRespSecured</web-resource-name>
             <url-pattern>/AdapterPatientDiscoveryDeferredRespSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterPatientDiscoveryAsyncReqQueueSecured</web-resource-name>
-            <url-pattern>/AdapterPatientDiscoveryAsyncReqQueueSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</web-resource-name>

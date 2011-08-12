@@ -19,15 +19,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityDocQueryDeferredReqQueueProcess</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.queue.EntityDocQueryDeferredReqQueueProcess</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQueryDeferredReqQueueProcess</servlet-name>
-        <url-pattern>/EntityDocQueryDeferredReqQueueProcess</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReqSecured</servlet-class>
     </servlet>
@@ -163,15 +154,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityPatientDiscoveryDeferredReqQueueProcess</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueProcess</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityPatientDiscoveryDeferredReqQueueProcess</servlet-name>
-        <url-pattern>/EntityPatientDiscoveryDeferredReqQueueProcess</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>EntityPatientDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoverySecured</servlet-class>
     </servlet>
@@ -187,24 +169,6 @@
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoveryUnsecured</servlet-name>
         <url-pattern>/EntityPatientDiscovery</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityPatientDiscoveryDeferredReqQueueSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityPatientDiscoveryDeferredReqQueueSecured</servlet-name>
-        <url-pattern>/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityPatientDiscoveryDeferredReqQueueUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.queue.EntityPatientDiscoveryDeferredReqQueueUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityPatientDiscoveryDeferredReqQueueUnsecured</servlet-name>
-        <url-pattern>/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -368,15 +332,6 @@
     <servlet-mapping>
         <servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
         <url-pattern>/EntityService/EntityDocRetrieveDeferredRequest</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocRetrieveDeferredReqQueueProcess</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.queue.EntityDocRetrieveDeferredReqQueueProcess</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredReqQueueProcess</servlet-name>
-        <url-pattern>/EntityDocRetrieveDeferredReqQueueProcess</url-pattern>
     </servlet-mapping>
 
     <servlet>

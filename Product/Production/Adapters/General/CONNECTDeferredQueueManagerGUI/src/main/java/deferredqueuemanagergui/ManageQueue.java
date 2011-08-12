@@ -20,9 +20,9 @@ import gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueu
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
-import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
-import gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.util.Format;
 import java.util.Calendar;
 import java.util.Date;
@@ -378,7 +378,7 @@ public class ManageQueue extends AbstractPageBean {
         if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
             pdResponse = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.entitypatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse.getSuccessOrFail();
+            gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse.getSuccessOrFail();
             if (sfpd.isSuccess()) {
                 this.userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
             } else {
@@ -387,7 +387,7 @@ public class ManageQueue extends AbstractPageBean {
         } else if (serviceName.trim().equals(QUERY_FOR_DOCUMENT)) {
             QueryForDocumentsDeferredReqQueueClient qdClient = new QueryForDocumentsDeferredReqQueueClient();
             qdResponse = qdClient.processDocQueryDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.entitydocqueryreqqueueprocess.SuccessOrFailType sfqd = qdResponse.getSuccessOrFail();
+            gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.SuccessOrFailType sfqd = qdResponse.getSuccessOrFail();
             if (sfqd.isSuccess()) {
                 this.userInfo.setText("Succesfully Query for Document Deferred Response Msg got Processed.");
             } else {
@@ -396,7 +396,7 @@ public class ManageQueue extends AbstractPageBean {
         } else if (serviceName.trim().equals(RETRIEVE_DOCUMENT)) {
             RetrieveDocumentsDeferredReqQueueClient rdClient = new RetrieveDocumentsDeferredReqQueueClient();
             rdResponse = rdClient.processDocRetrieveDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.SuccessOrFailType sfrd = rdResponse.getSuccessOrFail();
+            gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.SuccessOrFailType sfrd = rdResponse.getSuccessOrFail();
             if (sfrd.isSuccess()) {
                 this.userInfo.setText("Succesfully Retrieve for Document Deferred Response Msg got Processed.");
             } else {
