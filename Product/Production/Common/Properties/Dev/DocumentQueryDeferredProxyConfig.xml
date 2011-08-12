@@ -164,7 +164,7 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyJavaImpl" id="passthrudocquerydeferredresponse" name="passthrudocquerydeferredresponsejava"> 
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyJavaImpl" id="passthrudocquerydeferredresponsejava" name="passthrudocquerydeferredresponsejava"> 
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 
@@ -175,7 +175,7 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceUnsecuredImpl" id="passthrudocquerydeferredresponsewsunsecured" name="passthrudocquerydeferredresponsewsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxyWebServiceUnsecuredImpl" id="passthrudocquerydeferredresponse" name="passthrudocquerydeferredresponsewsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 
