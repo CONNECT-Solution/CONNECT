@@ -6,7 +6,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
@@ -157,9 +156,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 RetrieveDocumentSetRequestType nhinDocRequest = new RetrieveDocumentSetRequestType();
                 nhinDocRequest.getDocumentRequest().add(docRequest);
                 nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
-                // Each new request must generate its own unique assertion Message ID
+                
                 AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-                newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
                 nhinDocRetrieveMsg.setAssertion(newAssertion);
 
                 retrieveRequestList.add(nhinDocRetrieveMsg);
@@ -195,9 +193,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                         nhinDocRequest.getDocumentRequest().add(docRequest);
                     }
                     nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
-                    // Each new request must generate its own unique assertion Message ID
+                    
                     AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-                    newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
                     nhinDocRetrieveMsg.setAssertion(newAssertion);
 
                     retrieveRequestList.add(nhinDocRetrieveMsg);

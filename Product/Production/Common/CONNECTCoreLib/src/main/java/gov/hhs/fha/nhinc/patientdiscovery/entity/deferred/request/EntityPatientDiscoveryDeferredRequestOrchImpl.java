@@ -6,7 +6,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -96,11 +95,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
                     PRPAIN201305UV02 new201305 = pd201305Processor.createNewRequest(message, urlInfo.getHcid());
 
-                    // Each new request must generate its own unique assertion Message ID
                     AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-
-                    newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
-
                     newRequest.setAssertion(newAssertion);
                     newRequest.setPRPAIN201305UV02(new201305);
                     newRequest.setNhinTargetCommunities(targets);

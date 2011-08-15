@@ -6,7 +6,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -106,9 +105,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                 AdhocQueryRequest newRequest = transform.replaceAdhocQueryPatientId(message, HomeCommunityMap.getLocalHomeCommunityId(), subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
                                 respondingGatewayCrossGatewayQueryRequest.setAdhocQueryRequest(newRequest);
 
-                                // Each new request must generate its own unique assertion Message ID
                                 AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-                                newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
                                 respondingGatewayCrossGatewayQueryRequest.setAssertion(newAssertion);
 
                                 // Assign target community
