@@ -6,6 +6,9 @@
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.persistence;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.io.File;
 import java.io.Serializable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,14 +28,13 @@ public class HibernateUtil
 {
     private static Log log = LogFactory.getLog(HibernateUtil.class);
     private static final SessionFactory sessionFactory;
-    private static final String HIBERNATE_CONFIG = "aggregator.cfg.xml";
 
     static
     {
         try
         {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure(HIBERNATE_CONFIG).buildSessionFactory();
+            sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } catch (Throwable ex)
         {
             // Make sure you log the exception, as it might be swallowed
@@ -267,6 +269,19 @@ public class HibernateUtil
         }
         return oObject;
     }
+
+    private static File getConfigFile() {
+        File result = null;
+
+        try {
+            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY);
+        } catch (Exception ex) {
+            log.error("Unable to load " + NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY + " " + ex.getMessage(), ex);
+        }
+
+        return result;
+    }
+
     
     
 }

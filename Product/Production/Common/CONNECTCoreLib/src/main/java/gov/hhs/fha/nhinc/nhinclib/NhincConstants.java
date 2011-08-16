@@ -410,6 +410,8 @@ public class NhincConstants {
     public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
     public static final String HIBERNATE_PATIENTDB_REPOSITORY = "patientdb.hibernate.cfg.xml";
     public static final String HIBERNATE_PERFREPO_REPOSITORY = "perfrepo.hibernate.cfg.xml";
+    public static final String HIBERNATE_HIEMSUBREP_REPOSITORY = "HiemSubRepHibernate.cfg.xml";
+    public static final String HIBERNATE_AGGREGATOR_REPOSITORY = "aggregator.cfg.xml";
 
     //LiFT Constants
     public static final String LIFT_MANAGER_SERVICE_NAME = "nhincliftmanager";
@@ -470,6 +472,7 @@ public class NhincConstants {
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
     /* -- End Document Retrieve deferred Service Name -- */
+
     private NhincConstants() {
     }
 }
