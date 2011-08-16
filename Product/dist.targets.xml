@@ -11,9 +11,17 @@
                  href="build/ant/ant2html.xsl"?>
   -->
 <project name="dist.targets">
-  <!-- must come from somewhere else.  just dummy filler for now -->
-  <property name="released.version.name" value="3.2.1_xxxx"/>
-
+  <if>
+    <not>
+      <isset property="released.version.name" />
+    </not>
+    <then>
+      <tstamp>
+        <format pattern="MMddyyyy_hhmm" property="snapshot_tstamp"/>
+      </tstamp>
+      <property name="released.version.name" value="snapshot_${snapshot_tstamp}"/>
+    </then>
+  </if>
    
   <property name="dist.zip.filename" value="CONNECT_Binaries_${released.version.name}.zip"/>
   <property name="dist.artifact.dir" value="../target"/>
@@ -106,7 +114,7 @@
       </zipfileset>  
       <zipfileset dir="${thirdparty.dir}/XStream" prefix="XStream">
         <include name="*.jar"/>
-      </zipfileset>  
+      </zipfileset>     
     </zip>
   </target>
   
