@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="corbertura.targets">
 
-	<import file="corbertura.properties.xml" />
-	<import file="corbertura.macros.xml" />
+  <import file="corbertura.properties.xml" />
 
-	<taskdef resource="tasks.properties">
-		<classpath>
-			<fileset dir="${corbertura.bin}">
-				<include name="*.jar" />
-			</fileset>
-		</classpath>
-	</taskdef>
-  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9he.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9-ant.jar"/>	
-	<target name="coverage.help">
-		
-	</target>
+
+  <taskdef resource="tasks.properties">
+    <classpath>
+      <fileset dir="${corbertura.bin}">
+        <include name="*.jar" />
+      </fileset>
+    </classpath>
+  </taskdef>
+  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9he.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9-ant.jar"/>  
+  <target name="coverage.help">
+    
+  </target>
 
   <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in the project's coverage.thresholds.xml file.">
     <if>
@@ -36,14 +36,14 @@
     </if> 
   </target>
 
-	<target name="coverage.clean">
-		<delete dir="${coverage.report.dir}" failonerror="true" />
-	</target>
+  <target name="coverage.clean">
+    <delete dir="${coverage.report.dir}" failonerror="true" />
+  </target>
 
-	<target name="coverage.instrument.classes">
-		<if>
-			<istrue value="${coverage.isneeded}" />
-			<then>
+  <target name="coverage.instrument.classes">
+    <if>
+      <istrue value="${coverage.isneeded}" />
+      <then>
         <mkdir dir="${build.instrumented.classes.dir}" />
 
         <path id="source.class.files"/>
@@ -98,100 +98,100 @@
             <echo file="${build.instrumented.classes.dir}/coverage.instrument.classes.flag" append="false"/>
           </sequential>
         </outofdate>
-			</then>
-		</if>
-	</target>
+      </then>
+    </if>
+  </target>
 
-	<target name="coverage.instrument.package">
-		<if>
-			<istrue value="${coverage.isneeded}" />
-			<then>
-				<echo message="check if out of date ${dist.instrumented.file}" level="info"/>
+  <target name="coverage.instrument.package">
+    <if>
+      <istrue value="${coverage.isneeded}" />
+      <then>
+        <echo message="check if out of date ${dist.instrumented.file}" level="info"/>
 
-				<mkdir dir="${dist.instrumented.dir}" />
+        <mkdir dir="${dist.instrumented.dir}" />
 
-				<if>
-					<exists path="${dist.instrumented.file}" />
-					<then>
-						<property name="force.instrument.package" value="false" />
-					</then>
-					<else>
-						<echo message="Force instrument of package..." />
-						<property name="force.instrument.package" value="true" />
-					</else>
-				</if>
+        <if>
+          <exists path="${dist.instrumented.file}" />
+          <then>
+            <property name="force.instrument.package" value="false" />
+          </then>
+          <else>
+            <echo message="Force instrument of package..." />
+            <property name="force.instrument.package" value="true" />
+          </else>
+        </if>
 
-				<outofdate verbose="true" force="${force.instrument.package}">
-					<sourcefiles>
-						<filelist dir="${dist.dir}">
-							<file name="${dist.file}" />
-						</filelist>
-					</sourcefiles>
-					<targetfiles>
-						<filelist dir="${dist.instrumented.dir}">
-							<file name="${dist.instrumented.file}" />
-						</filelist>
-					</targetfiles>
-					<sequential>
-						<cobertura-instrument datafile="${coverage.dist.report.file}" todir="${dist.instrumented.dir}">
-							<includeClasses regex=".*hhs.*" />
+        <outofdate verbose="true" force="${force.instrument.package}">
+          <sourcefiles>
+            <filelist dir="${dist.dir}">
+              <file name="${dist.file}" />
+            </filelist>
+          </sourcefiles>
+          <targetfiles>
+            <filelist dir="${dist.instrumented.dir}">
+              <file name="${dist.instrumented.file}" />
+            </filelist>
+          </targetfiles>
+          <sequential>
+            <cobertura-instrument datafile="${coverage.dist.report.file}" todir="${dist.instrumented.dir}">
+              <includeClasses regex=".*hhs.*" />
 
-							<instrumentationClasspath>
-								<pathelement location="${dist.file}" />
-							</instrumentationClasspath>
-						</cobertura-instrument>
-					</sequential>
-				</outofdate>
-			</then>
-		</if>
-	</target>
+              <instrumentationClasspath>
+                <pathelement location="${dist.file}" />
+              </instrumentationClasspath>
+            </cobertura-instrument>
+          </sequential>
+        </outofdate>
+      </then>
+    </if>
+  </target>
 
-	<target name="-coverage.write.report">
-		<call target="coverage.write.html.report" />
-		<call target="coverage.write.xml.report" />
-	</target>
+  <target name="-coverage.write.report">
+    <call target="coverage.write.html.report" />
+    <call target="coverage.write.xml.report" />
+  </target>
 
-	<target name="coverage.write.xml.report">
-		<if>
-			<exists path="${coverage.classes.report.file}" />
-			<then>
-				<echo message="Createing XML Coverage Report." />
-				<cobertura-report format="xml" datafile="${coverage.classes.report.file}" destdir="${coverage.report.dir}" srcdir="${source.dir}" />
-			</then>
-		</if>
-	</target>
+  <target name="coverage.write.xml.report">
+    <if>
+      <exists path="${coverage.classes.report.file}" />
+      <then>
+        <echo message="Createing XML Coverage Report." />
+        <cobertura-report format="xml" datafile="${coverage.classes.report.file}" destdir="${coverage.report.dir}" srcdir="${source.dir}" />
+      </then>
+    </if>
+  </target>
 
-	<target name="coverage.write.html.report"  description="write html coverage reports in this projects directory coverage-reports...">
-		<if>
-			<exists path="${coverage.classes.report.file}" />
-			<then>
-				<cobertura-report format="html" datafile="${coverage.classes.report.file}" destdir="${coverage.report.dir}" srcdir="${source.dir}" />
-			</then>
-		</if>
-	</target>
-	
-	<target name="-coverage.product.prep">
-		<delete file="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
-	</target>
+  <target name="coverage.write.html.report"  description="write html coverage reports in this projects directory coverage-reports...">
+    <if>
+      <exists path="${coverage.classes.report.file}" />
+      <then>
+        <cobertura-report format="html" datafile="${coverage.classes.report.file}" destdir="${coverage.report.dir}" srcdir="${source.dir}" />
+      </then>
+    </if>
+  </target>
+  
+  <target name="-coverage.product.prep">
+    <delete file="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+  </target>
 
-	<target name="-coverage.product.check">
-		<if>
-			<exists path="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
-			<then>
-				<foreach-line file="${root.project.directory.path}/coverage-reports/coverage.check.failure" var="coverage.failing.project.name">
-					<var name="coverage.failing.project.directory" unset="true"/>
-					<var name="coverage.check.failures" unset="true"/>
-					<propertycopy property="coverage.failing.project.directory" from="project.@{coverage.failing.project.name}.directory"/>
-					<loadfile property="coverage.check.failures" srcfile="${coverage.failing.project.directory}/coverage-reports/coverage.failure.xml"/>
-					<echo message="Coverage check failure in ${coverage.failing.project.directory}"/>
-					<echo message="${coverage.check.failures}"/>
-				</foreach-line>
-				<fail message="Coverage Check failed, please Coverage Summary Report or Ant Report for details."/>
-			</then>
-		</if>
-	</target>
-	
-	<target name="-coverage.check.project">
+  <target name="-coverage.product.check">
+    <if>
+      <exists path="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+      <then>
+        <foreach-line file="${root.project.directory.path}/coverage-reports/coverage.check.failure" var="coverage.failing.project.name">
+          <var name="coverage.failing.project.directory" unset="true"/>
+          <var name="coverage.check.failures" unset="true"/>
+          <propertycopy property="coverage.failing.project.directory" from="project.@{coverage.failing.project.name}.directory"/>
+          <loadfile property="coverage.check.failures" srcfile="${coverage.failing.project.directory}/coverage-reports/coverage.failure.xml"/>
+          <echo message="Coverage check failure in ${coverage.failing.project.directory}"/>
+          <echo message="${coverage.check.failures}"/>
+        </foreach-line>
+        <fail message="Coverage Check failed, please Coverage Summary Report or Ant Report for details."/>
+      </then>
+    </if>
+  </target>
+  
+  <target name="-coverage.check.project">
     <if>
       <and>
         <istrue value="${coverage.isneeded}"/>
@@ -278,7 +278,7 @@
       </then>
     </if>
  
-	</target>
+  </target>
 
   <target name="-coverage.update.failure.file">
     <if>
@@ -324,20 +324,20 @@
     </if>
   </target>
 
-	<target name="coverage.prepfortests">
-		<changeid originial="junitrun.classpath" new="junitrun.classpath.old" />
-		<path id="junitrun.classpath">
-			<pathelement path="${build.instrumented.classes.dir}" />
-			<path refid="junitrun.classpath.old" />
-			<fileset dir="${codeline.directory.path}/Build/Packages/Corbertura/bin">
-				<include name="cobertura.jar" />
-			</fileset>
-		</path>
+  <target name="coverage.prepfortests">
+    <changeid originial="junitrun.classpath" new="junitrun.classpath.old" />
+    <path id="junitrun.classpath">
+      <pathelement path="${build.instrumented.classes.dir}" />
+      <path refid="junitrun.classpath.old" />
+      <fileset dir="${codeline.directory.path}/Build/Packages/Corbertura/bin">
+        <include name="cobertura.jar" />
+      </fileset>
+    </path>
     <mkdir dir="${coverage.report.dir}" />
-	</target>
+  </target>
 
   <target name="create.coverage.failure.file">
-		<xmltask dest="${coverage.report.dir}/coverage.validate.xml" outputter="simple:3">
+    <xmltask dest="${coverage.report.dir}/coverage.validate.xml" outputter="simple:3">
       <insert path="/" xml="&lt;root&gt;&lt;/root&gt;"/>
       <insert path="root" file="${coverage.report.file}"/>
     </xmltask>
@@ -351,21 +351,6 @@
     </if>
 
     <saxon-xslt in="${coverage.validate.file}" out="${coverage.failure.file}" style="${root.project.directory.path}/build/corbertura/coveragecheck.xsl" force="true"/>
-	</target>
-	
-	<target name="scratch.cobetura">
-    <xmltask dest="${coverage.report.dir}/coverage.validate.xml" outputter="simple:3">
-      <insert path="/" xml="&lt;root&gt;&lt;/root&gt;"/>
-      <insert path="root" file="${coverage.report.file}"/>
-    </xmltask>
-		<if>
-			<exists path="${coverage.thresholds.file}" />
-			<then>
-		    <xmltask source="${coverage.report.dir}/coverage.validate.xml"  dest="${coverage.report.dir}/coverage.validate.xml"  outputter="simple:3">
-		      <insert path="root" file="${coverage.thresholds.file}" />
-		    </xmltask>
-			</then>
-		</if>
-	</target>
-	
+  </target>
+  
 </project>
