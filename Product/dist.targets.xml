@@ -47,6 +47,8 @@
   <!-- ***** BEGIN INTERNAL TARGETS *********************** -->                   
                    
   <target name="init">
+    <delete dir="${dist.artifact.dir}"
+            failonerror="false"/>
     <mkdir dir="${dist.artifact.dir}"/>
   </target>
   
