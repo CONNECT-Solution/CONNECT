@@ -117,6 +117,9 @@
       <zipfileset dir="${thirdparty.dir}/XStream" prefix="XStream">
         <include name="*.jar"/>
       </zipfileset>     
+      <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="AntExtraLibs">
+        <include name="*.jar"/>
+      </zipfileset>       
     </zip>
   </target>
   
