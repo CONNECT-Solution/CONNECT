@@ -175,6 +175,15 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   PRIMARY KEY  (correlationId)
 );
 
+CREATE TABLE patientcorrelationdb.pddeferredcorrelation (
+  Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  MessageId VARCHAR(100) NOT NULL,
+  AssigningAuthorityId varchar(45) NOT NULL,
+  PatientId varchar(45) NOT NULL,
+  CreationTime DATETIME NOT NULL,
+  PRIMARY KEY (Id)
+);
+
 GRANT SELECT,INSERT,UPDATE,DELETE ON patientcorrelationdb.* to nhincuser;
 -- end patientcorrelationdb
 

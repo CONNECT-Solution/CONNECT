@@ -7,7 +7,6 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
@@ -109,20 +108,11 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    // Set the sent status of the deferred queue entry
-                    asyncProcess.processMessageStatus(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENT);
-
                     RespondingGatewayDeferredRequestRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
                     response = (DocRetrieveAcknowledgementType) getWebServiceProxyHelper().invokePort(port, RespondingGatewayDeferredRequestRetrievePortType.class, "respondingGatewayDeferredRequestCrossGatewayRetrieve", body);
-
-                    // Set the ack status of the deferred queue entry
-                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
                 } else {
                     ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + ").  The URL is null.";
                     response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
-
-                    // Set the error acknowledgement status of the deferred queue entry
-                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
 
                     log.error(ackMessage);
                 }
@@ -130,17 +120,11 @@ public class NhinDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements Nhi
                 ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + ").  The input parameter is null.";
                 response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
 
-                // Set the error acknowledgement status of the deferred queue entry
-                asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
-
                 log.error(ackMessage);
             }
         } catch (Exception e) {
             ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_REQUEST + ").  An unexpected exception occurred: " + e.getMessage();
             response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
-
-            // Set the error acknowledgement status of the deferred queue entry
-            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
 
             log.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }

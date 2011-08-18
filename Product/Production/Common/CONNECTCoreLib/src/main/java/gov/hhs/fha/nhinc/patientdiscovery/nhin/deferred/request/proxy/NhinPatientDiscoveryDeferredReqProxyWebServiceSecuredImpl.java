@@ -6,8 +6,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -69,10 +67,6 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
         return cachedService;
     }
 
-    protected AsyncMessageProcessHelper createAsyncProcesser() {
-        return new AsyncMessageProcessHelper();
-    }
-
     /**
      * This method retrieves and initializes the port.
      *
@@ -100,8 +94,7 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
         String url = null;
         String ackMessage = null;
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-
+        
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
@@ -109,39 +102,21 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    // Set the sent status of the deferred queue entry
-                    asyncProcess.processMessageStatus(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENT);
-
                     RespondingGatewayDeferredRequestPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
                     response = (MCCIIN000002UV01) oProxyHelper.invokePort(port, RespondingGatewayDeferredRequestPortType.class, "respondingGatewayDeferredPRPAIN201305UV02", request);
-
-                    // Set the ack status of the deferred queue entry
-                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
                 } else {
                     ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  The URL is null.";
                     response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-
-                    // Set the error acknowledgement status of the deferred queue entry
-                    asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
-
                     log.error(ackMessage);
                 }
             } else {
                 ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  The input parameter is null.";
                 response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-
-                // Set the error acknowledgement status of the deferred queue entry
-                asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
-
                 log.error(ackMessage);
             }
         } catch (Exception e) {
             ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  An unexpected exception occurred.";
             response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-
-            // Set the error acknowledgement status of the deferred queue entry
-            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, response);
-
             log.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }
 

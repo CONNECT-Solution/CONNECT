@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : PDDeferredCorrelation.hbm.xml
+    Created on : August 17, 2011
+    Updated on : August 17, 2011
+    Author     : akong
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping package="gov.hhs.fha.nhinc.patientcorrelation.nhinc.model">
+  <class name="PDDeferredCorrelation" table="pddeferredcorrelation">
+    <id column="Id" name="Id" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="MessageId" length="100" name="MessageId" type="string"/>    
+    <property column="AssigningAuthorityId" length="45" name="AssigningAuthorityId" not-null="true" type="string"/>
+    <property column="PatientId" length="45" name="PatientId" not-null="true" type="string"/>
+    <property column="CreationTime" name="CreationTime" not-null="true" type="timestamp"/>
+  </class>
+</hibernate-mapping>
