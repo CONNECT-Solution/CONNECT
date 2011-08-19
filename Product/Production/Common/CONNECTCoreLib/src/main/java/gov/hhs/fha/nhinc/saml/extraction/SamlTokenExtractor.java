@@ -388,20 +388,28 @@ public class SamlTokenExtractor {
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
     private static String extractAttributeValueString(AttributeType attrib) {
-        String retValue = "";
+		// this method was rewritten for GATEWAY-426
+        StringBuffer strBuf = new StringBuffer();
 
-        List attrVals = attrib.getAttributeValue();
-        if ((attrVals != null) &&
-                (attrVals.size() > 0)) {
-            StringBuffer strBuf = new StringBuffer();
+        if (attrib != null) {
+            List attrVals = attrib.getAttributeValue();
             for (Object o : attrVals) {
-                strBuf.append(o + " ");
+                if (o instanceof org.w3c.dom.Element) {
+                    org.w3c.dom.Element elem = (org.w3c.dom.Element) o;
+                    strBuf.append(elem.getTextContent());
+
+                    // we break here because per the nhin specification, there should only be one attribute value.
+                    break;
+                } else if (o instanceof String) {
+                    strBuf.append((String) o + " ");
+
+                    // we DO NOT break here despite the nhin specification because the previous algorithm for handling these Strings handled multiple values. Until I understand
+                    // why the string values are treated differently I am not going to change this logic.
+                }
             }
-            retValue = strBuf.toString();
         }
 
-        return retValue.trim();
-
+        return strBuf.toString().trim();
     }
 
     /**
