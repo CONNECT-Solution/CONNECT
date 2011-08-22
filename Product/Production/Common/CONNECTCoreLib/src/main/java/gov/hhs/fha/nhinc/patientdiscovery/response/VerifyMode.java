@@ -22,19 +22,12 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
+import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
 import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceAddress;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthPlaceName;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
-import org.hl7.v3.PRPAMT201306UV02MothersMaidenName;
-import org.hl7.v3.PRPAMT201306UV02ParameterList;
-import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
@@ -58,26 +51,48 @@ public class VerifyMode implements ResponseMode {
         return processResponse(requestMsg, response, assertion);
     }
 
-    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion) {
-        return processResponse(null, response, assertion);
+    public PRPAIN201306UV02 processResponse(II localPatientId, PRPAIN201306UV02 response, AssertionType assertion) {
+        log.debug("begin processResponse");
+
+        PRPAIN201306UV02 result = response;
+        
+        List<II> requestPatientIds = new ArrayList<II>();
+        if (localPatientId != null) {
+            requestPatientIds.add(localPatientId);
+        }
+        II patId = patientExistsLocally(requestPatientIds, assertion, response);
+
+        if (patId != null &&
+                NullChecker.isNotNullish(patId.getExtension()) &&
+                NullChecker.isNotNullish(patId.getRoot())) {
+            log.debug("patient exists locally, adding correlation");
+            getTrustMode().processResponse(response, assertion, patId);
+        } else {
+            log.warn("Patient does not exist locally, correlation not added");
+        }
+        return result;
     }
 
     public PRPAIN201306UV02 processResponse(PRPAIN201305UV02 requestMsg, PRPAIN201306UV02 response, AssertionType assertion) {
         log.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;
-
-        II patId = patientExistsLocally(requestMsg, assertion, response);
+        
+        II patId = patientExistsLocally(getPatientIds(requestMsg), assertion, response);
 
         if (patId != null &&
                 NullChecker.isNotNullish(patId.getExtension()) &&
                 NullChecker.isNotNullish(patId.getRoot())) {
             log.debug("patient exists locally, adding correlation");
-            new TrustMode().processResponse(response, assertion, patId);
+            getTrustMode().processResponse(response, assertion, patId);
         } else {
             log.warn("Patient does not exist locally, correlation not added");
         }
         return result;
+    }
+
+    protected TrustMode getTrustMode() {
+        return new TrustMode();
     }
 
     protected Log createLogger() {
@@ -95,7 +110,7 @@ public class VerifyMode implements ResponseMode {
         return result;
     }
 
-    private String getSenderCommunityId(PRPAIN201306UV02 response) {
+    protected String getSenderCommunityId(PRPAIN201306UV02 response) {
         String hcid = null;
 
         if (response != null &&
@@ -144,15 +159,9 @@ public class VerifyMode implements ResponseMode {
         return result;
     }
 
-    protected II patientExistsLocally(PRPAIN201305UV02 requestMsg, AssertionType assertion, PRPAIN201306UV02 response) {
-        II patId = null;
-
-        PRPAIN201305UV02 mpiQuery;
-        List<II> mpiIds;
-        List<PRPAMT201306UV02LivingSubjectId> requestIds;
-
-        // Check to see if a patient id was specified in the original request
-        mpiQuery = convert201306to201305(response);
+    protected List<II> getPatientIds(PRPAIN201305UV02 requestMsg) {
+        List<II> requestPatientIds = new ArrayList<II>();
+        List<PRPAMT201306UV02LivingSubjectId> requestSubjectIds;
 
         if (requestMsg != null &&
                 requestMsg.getControlActProcess() != null &&
@@ -160,42 +169,60 @@ public class VerifyMode implements ResponseMode {
                 requestMsg.getControlActProcess().getQueryByParameter().getValue() != null &&
                 requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
                 NullChecker.isNotNullish(requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-            requestIds = requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
-            log.debug("query - original Request Ids " + requestIds.size());
-        } else if (mpiQuery != null &&
-                mpiQuery.getControlActProcess() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter().getValue() != null &&
-                mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                NullChecker.isNotNullish(mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-            requestIds = mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
-            log.debug("mpiQuery - original Request Ids " + requestIds.size());
-        } else {
-            log.debug("There was no patient id specified in the original request message, bypassing MPI check and returning false");
-            requestIds = null;
+            requestSubjectIds = requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
+            log.debug("query - original Request Ids " + requestSubjectIds.size());
+
+            for (PRPAMT201306UV02LivingSubjectId livingPatId : requestSubjectIds) {
+                for (II id : livingPatId.getValue()) {
+                    requestPatientIds.add(id);
+                }
+            }
         }
 
+        return requestPatientIds;
+    }
+
+    protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion, PRPAIN201306UV02 response) {
+        II patId = null;
+
+        PRPAIN201305UV02 mpiQuery;
+        List<II> mpiIds = new ArrayList<II>();
+
+        // Check to see if a patient id was specified in the original request
+        mpiQuery = convert201306to201305(response);
+
         // Only query the MPI and attempt a correlation if a Patient Id was present in the original message.
-        if (requestIds != null) {
+        if (localPatientIds != null && localPatientIds.size() > 0) {
             PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
             if (mpiResult != null) {
                 try {
                     log.debug("Received result from mpi.");
-                    mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
-                    for (PRPAMT201306UV02LivingSubjectId livingPatId : requestIds) {
-                        for (II id : livingPatId.getValue()) {
-                            boolean result = compareId(mpiIds.get(0), id);
-
-                            if (result == true) {
-                                patId = mpiIds.get(0);
-                            } else if (id == null || NullChecker.isNullish(id.getExtension())) {
-                                // If there was no Living Subject Id from the original message, but a match was found in the MPI query then use the
-                                // id returned from the MPI.
-                                patId = mpiIds.get(0);
+                    if ((mpiResult.getControlActProcess() != null) &&
+                            NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject())) {
+                        for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : mpiResult.getControlActProcess().getSubject()) {
+                            if ((subj1.getRegistrationEvent() != null) &&
+                                    (subj1.getRegistrationEvent().getSubject1() != null) &&
+                                    (subj1.getRegistrationEvent().getSubject1().getPatient() != null) &&
+                                    (subj1.getRegistrationEvent().getSubject1().getPatient().getId() != null)) {
+                                mpiIds.add(subj1.getRegistrationEvent().getSubject1().getPatient().getId().get(0));
                             }
                         }
                     }
+                    if (mpiIds != null) {
+                        log.debug("mpiIds size: " + mpiIds.size());
+                    }
+
+                    requestIdsSearch:
+                    for (II id : localPatientIds) {
+                        for (II mpiId : mpiIds) {
+                            if (compareId(mpiId, id)) {
+                                patId = mpiId;
+                                break requestIdsSearch;
+                            }
+                        }
+                    }
+                    
                 } catch (Exception ex) {
                     log.error(ex.getMessage(), ex);
                     patId = null;
@@ -274,50 +301,5 @@ public class VerifyMode implements ResponseMode {
         }
 
         return queryResults;
-    }
-
-    private JAXBElement<PRPAMT201306UV02QueryByParameter> copyParameterList(PRPAMT201306UV02QueryByParameter input) {
-
-        PRPAMT201306UV02QueryByParameter result = new PRPAMT201306UV02QueryByParameter();
-
-        result.setParameterList(copyParameterList(input.getParameterList()));
-
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "PRPAMT201306UV02QueryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> jaxbParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, result);
-
-        return jaxbParams;
-    }
-
-    private PRPAMT201306UV02ParameterList copyParameterList(
-            PRPAMT201306UV02ParameterList input) {
-        PRPAMT201306UV02ParameterList result = new PRPAMT201306UV02ParameterList();
-
-        for (PRPAMT201306UV02LivingSubjectAdministrativeGender gender : input.getLivingSubjectAdministrativeGender()) {
-            result.getLivingSubjectAdministrativeGender().add(gender);
-        }
-
-        for (PRPAMT201306UV02LivingSubjectBirthPlaceAddress birthPlace : input.getLivingSubjectBirthPlaceAddress()) {
-            result.getLivingSubjectBirthPlaceAddress().add(birthPlace);
-        }
-
-        for (PRPAMT201306UV02LivingSubjectBirthPlaceName birthPlaceName : input.getLivingSubjectBirthPlaceName()) {
-            result.getLivingSubjectBirthPlaceName().add(birthPlaceName);
-        }
-
-        for (PRPAMT201306UV02LivingSubjectBirthTime birthTime : input.getLivingSubjectBirthTime()) {
-            result.getLivingSubjectBirthTime().add(birthTime);
-        }
-
-        for (PRPAMT201306UV02LivingSubjectName subjectName : input.getLivingSubjectName()) {
-            result.getLivingSubjectName().add(subjectName);
-        }
-
-        for (PRPAMT201306UV02MothersMaidenName motherName : input.getMothersMaidenName()) {
-            result.getMothersMaidenName().add(motherName);
-        }
-
-        result.setId(input.getId());
-
-        return result;
     }
 }

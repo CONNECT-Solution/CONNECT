@@ -126,8 +126,18 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         //
         // Note: Currently only the message from the Nhin is returned to the Agency so there is no
         //       need for this method to return a value.
-        VerifyMode respProcessor = new VerifyMode();
-        respProcessor.processResponse(body, assertion);
+
+        String messageId = "";
+        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
+            messageId = assertion.getRelatesToList().get(0);
+        }
+
+        PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao();
+        II patientId = pdCorrelationDao.queryByMessageId(messageId);
+        if (patientId != null) {
+            VerifyMode respProcessor = new VerifyMode();
+            respProcessor.processResponse(patientId, body, assertion);
+        }
     }
 
     protected void processRespTrustMode(PRPAIN201306UV02 body, AssertionType assertion) {
