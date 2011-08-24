@@ -101,7 +101,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                 II patientId = pd201305Processor.extractPatientIdFrom201305(message);
 
                 PDDeferredCorrelationDao pdDeferredDao = getPDDeferredCorrelationDao();
-                pdDeferredDao.save(messageId, patientId);
+                pdDeferredDao.saveOrUpdate(messageId, patientId);
                 
                 for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
 

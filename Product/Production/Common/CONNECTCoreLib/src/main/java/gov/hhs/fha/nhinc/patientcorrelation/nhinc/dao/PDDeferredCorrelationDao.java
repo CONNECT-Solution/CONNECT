@@ -87,28 +87,42 @@ public class PDDeferredCorrelationDao {
 
         return patientId;
     }
+
+    /**
+     * Copies the field values from the source to the destination.
+     *
+     * @param source
+     * @param dest
+     */
+    public void copyValues(PDDeferredCorrelation source, PDDeferredCorrelation dest) {
+        dest.setAssigningAuthorityId(source.getAssigningAuthorityId());
+        dest.setCreationTime(source.getCreationTime());
+        dest.setPatientId(source.getPatientId());
+    }
     
     /**
-     * Saves a record to the database. 
+     * Saves a record to the database. Updates if the message id already exists
+     * in the database.
      *
      * @param messageId
      * @param patientId
      */
-    public void save(String messageId, II patientId) {
+    public void saveOrUpdate(String messageId, II patientId) {
         PDDeferredCorrelation pdCorrelation = new PDDeferredCorrelation();
         pdCorrelation.setMessageId(messageId);
         pdCorrelation.setPatientId(patientId.getExtension());
         pdCorrelation.setAssigningAuthorityId(patientId.getRoot());
         pdCorrelation.setCreationTime(new Date());
-        save(pdCorrelation);
+        saveOrUpdate(pdCorrelation);
     }
 
     /**
-     * Save a record to the database. Insert if pk is null. Update otherwise.
+     * Save a record to the database. Updates if the message id already exists
+     * in the database.
      *
      * @param object to save.
      */
-    public void save(PDDeferredCorrelation pdCorrelation) {
+    public void saveOrUpdate(PDDeferredCorrelation pdCorrelation) {
         log.debug("PDDeferredCorrelationDao.save() - Begin");
 
         Session sess = null;
@@ -119,7 +133,17 @@ public class PDDeferredCorrelationDao {
                 sess = fact.openSession();
                 if (sess != null) {
                     trans = sess.beginTransaction();
-                    sess.saveOrUpdate(pdCorrelation);
+
+                    Criteria criteria = sess.createCriteria(PDDeferredCorrelation.class);
+                    criteria.add(Restrictions.eq("MessageId", pdCorrelation.getMessageId()));
+                    List<PDDeferredCorrelation> pdCorrelations = criteria.list();
+                    if ((pdCorrelations != null) && (pdCorrelations.size() == 1)) {
+                        PDDeferredCorrelation updatedPdCorrelation = pdCorrelations.get(0);
+                        copyValues(pdCorrelation, updatedPdCorrelation);
+                        sess.saveOrUpdate(updatedPdCorrelation);
+                    } else {
+                        sess.saveOrUpdate(pdCorrelation);
+                    }
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }

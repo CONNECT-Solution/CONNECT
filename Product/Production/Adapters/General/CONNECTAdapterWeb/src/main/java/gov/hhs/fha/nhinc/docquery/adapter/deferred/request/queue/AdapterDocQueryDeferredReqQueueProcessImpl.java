@@ -47,7 +47,7 @@ public class AdapterDocQueryDeferredReqQueueProcessImpl {
         if (docQueryAck != null &&
                 docQueryAck.getMessage() != null &&
                 docQueryAck.getMessage().getStatus() != null &&
-                docQueryAck.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG)) {
+                docQueryAck.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)) {
             sof.setSuccess(Boolean.TRUE);
         }
 

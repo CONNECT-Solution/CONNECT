@@ -154,7 +154,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                 {
 
                     @Override
-                    public void save(String messageId, II patientId)
+                    public void saveOrUpdate(String messageId, II patientId)
                     {
                         return;
                     }
@@ -272,7 +272,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                 {
 
                     @Override
-                    public void save(String messageId, II patientId)
+                    public void saveOrUpdate(String messageId, II patientId)
                     {
                         return;
                     }
@@ -397,7 +397,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                 {
 
                     @Override
-                    public void save(String messageId, II patientId)
+                    public void saveOrUpdate(String messageId, II patientId)
                     {
                         return;
                     }
