@@ -86,31 +86,31 @@
 
   <target name="third_party_dist">
     <zip zipfile="${dist.artifact.dir}/${thirdparty.zip.filename}">
-      <zipfileset dir="${thirdparty.dir}/C3PO" prefix="C3PO">
+      <zipfileset dir="${thirdparty.dir}/C3PO" prefix="ThirdParty/C3PO">
         <include name="*.jar"/>
       </zipfileset>
-      <zipfileset dir="${thirdparty.dir}/HibernateLibraries" prefix="HibernateLibraries">
+      <zipfileset dir="${thirdparty.dir}/HibernateLibraries" prefix="ThirdParty/HibernateLibraries">
         <include name="*.jar"/>
       </zipfileset>     
-      <zipfileset dir="${thirdparty.dir}/log4j" prefix="log4j">
+      <zipfileset dir="${thirdparty.dir}/log4j" prefix="ThirdParty/log4j">
         <include name="*.jar"/>
       </zipfileset>  
-      <zipfileset dir="${thirdparty.dir}/MySQLDB" prefix="MySQLDB">
+      <zipfileset dir="${thirdparty.dir}/MySQLDB" prefix="ThirdParty/MySQLDB">
         <include name="*.jar"/>
       </zipfileset>  
-      <zipfileset dir="${thirdparty.dir}/OpenSSO" prefix="OpenSSO">
+      <zipfileset dir="${thirdparty.dir}/OpenSSO" prefix="ThirdParty/OpenSSO">
         <include name="*.jar"/>
       </zipfileset>  
-      <zipfileset dir="${thirdparty.dir}/SpringFramework" prefix="SpringFramework">
+      <zipfileset dir="${thirdparty.dir}/SpringFramework" prefix="ThirdParty/SpringFramework">
         <include name="*.jar"/>
       </zipfileset>  
-      <zipfileset dir="${thirdparty.dir}/Xerces" prefix="Xerces">
+      <zipfileset dir="${thirdparty.dir}/Xerces" prefix="ThirdParty/Xerces">
         <include name="*.jar"/>
       </zipfileset>  
-      <zipfileset dir="${thirdparty.dir}/XStream" prefix="XStream">
+      <zipfileset dir="${thirdparty.dir}/XStream" prefix="ThirdParty/XStream">
         <include name="*.jar"/>
       </zipfileset>     
-      <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="AntExtraLibs">
+      <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
         <include name="*.jar"/>
       </zipfileset>       
     </zip>
