@@ -11,14 +11,14 @@
                  href="build/ant/ant2html.xsl"?>
   -->
 <project name="dist.targets">
+  <tstamp>
+    <format pattern="MMddyyyy_hhmm" property="snapshot_tstamp"/>
+  </tstamp>
   <if>
     <not>
       <isset property="released.version.name" />
     </not>
     <then>
-      <tstamp>
-        <format pattern="MMddyyyy_hhmm" property="snapshot_tstamp"/>
-      </tstamp>
       <property name="released.version.name" value="snapshot_${snapshot_tstamp}"/>
     </then>
   </if>
