@@ -49,6 +49,9 @@
   <target name="init">
     <delete dir="${dist.artifact.dir}"
             failonerror="false"/>
+    <delete dir="${deployment.dir}"
+            failonerror="false"/>    
+    <mkdir dir="${deployment.dir}"/>        
     <mkdir dir="${dist.artifact.dir}"/>
   </target>
   
