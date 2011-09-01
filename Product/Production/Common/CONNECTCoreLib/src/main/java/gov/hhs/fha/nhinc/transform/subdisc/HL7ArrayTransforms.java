@@ -317,8 +317,17 @@ public class HL7ArrayTransforms
             MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
             org.setClassCode(HL7Constants.ORG_CLASS_CODE);
             org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
-            org.getId().add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
-
+            if (
+            	orig.getDevice() != null &&
+            	orig.getDevice().getAsAgent() != null &&
+            	orig.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+            	orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
+            	orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() < 0
+            ) 
+            {
+                org.getId().add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
+            }
+            
             javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
             JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg, MCCIMT000100UV01Organization.class, org);
             agent.setRepresentedOrganization(orgElem);
@@ -337,10 +346,9 @@ public class HL7ArrayTransforms
             result.setTypeId(orig.getTypeId());
             result.setDevice(newDevice);
         }
-
-
         return result;
     }
+    
     public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(PRPAIN201305UV02 from, PRPAIN201301UV02 to)
     {
         if (to == null)
