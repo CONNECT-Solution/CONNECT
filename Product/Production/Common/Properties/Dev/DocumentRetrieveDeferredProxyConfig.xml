@@ -60,7 +60,7 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.PassthruDocRetrieveDeferredReqProxyJavaImpl" id="nhincproxydocretrievedeferredreq" name="nhincproxydocretrievedeferredreqjava"> 
+	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.PassthruDocRetrieveDeferredReqProxyJavaImpl" id="nhincproxydocretrievedeferredreqjava" name="nhincproxydocretrievedeferredreqjava"> 
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 
@@ -71,7 +71,7 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.PassthruDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl" id="nhincproxydocretrievedeferredreqwsunsecured" name="nhincproxydocretrievedeferredreqwsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.proxy.PassthruDocRetrieveDeferredReqProxyWebServiceUnsecuredImpl" id="nhincproxydocretrievedeferredreq" name="nhincproxydocretrievedeferredreqwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 
@@ -82,7 +82,7 @@
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyJavaImpl" id="nhincproxydocretrievedeferredresp" name="nhincproxydocretrievedeferredrespjava"> 
+	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyJavaImpl" id="nhincproxydocretrievedeferredrespjava" name="nhincproxydocretrievedeferredrespjava"> 
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 
@@ -93,7 +93,7 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl" id="nhincproxydocretrievedeferredrespwsunsecured" name="nhincproxydocretrievedeferredrespwsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl" id="nhincproxydocretrievedeferredresp" name="nhincproxydocretrievedeferredrespwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 

@@ -7,7 +7,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueOrchImpl;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,16 +51,12 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements Adapte
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
-    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion)
+    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetCommunitiesType targets)
     {
         log.debug("Entering AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
-        AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl oOrchestrator = new AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl();
-        RespondingGatewayPRPAIN201305UV02RequestType wrappedRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
-        wrappedRequest.setPRPAIN201305UV02(request);
-        wrappedRequest.setAssertion(assertion);
-        wrappedRequest.setNhinTargetCommunities(null);
+        AdapterPatientDiscoveryDeferredReqQueueOrchImpl oOrchestrator = new AdapterPatientDiscoveryDeferredReqQueueOrchImpl();
         log.debug("Leaving AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
-        return oOrchestrator.addPatientDiscoveryAsyncReq(wrappedRequest);
+        return oOrchestrator.addPatientDiscoveryAsyncReq(request, assertion, targets);
 
     }
 }

@@ -6,9 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -58,10 +56,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
         log.debug("Begin EntityDocRetrieveDeferredRequestImpl.crossGatewayRetrieveRequest");
 
         DocRetrieveAcknowledgementType nhincResponse = new DocRetrieveAcknowledgementType();
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         String ackMsg = "";
-        boolean bIsQueueOk = false;
 
         // Audit incoming entity deferred document request
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
@@ -86,28 +82,14 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 // Create the target gateway system for the current doc retrieve request message
                 NhinTargetSystemType oTargetSystem = buildHomeCommunity(retrieveRequest.getRetrieveDocumentSetRequest().getDocumentRequest().get(0).getHomeCommunityId());
 
-                // The new request is ready for processing, add a new outbound QD entry to the local deferred queue
-                bIsQueueOk = asyncProcess.addRetrieveDocumentsRequest(retrieveRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND, oTargetSystem.getHomeCommunity().getHomeCommunityId());
-
-                // check for valid queue entry
-                if (bIsQueueOk) {
-
-                    if (isPolicyValid(retrieveRequest.getRetrieveDocumentSetRequest(), retrieveRequest.getAssertion(), oTargetSystem.getHomeCommunity())) {
-                        // Send the deferred doc retrieve request
-                        nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(retrieveRequest.getRetrieveDocumentSetRequest(), retrieveRequest.getAssertion(), oTargetSystem);
-                    } else {
-                        ackMsg = "Policy Failed";
-
-                        // Set the error acknowledgement status of the deferred queue entry
-                        nhincResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
-                        asyncProcess.processAck(retrieveRequest.getAssertion().getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
-                    }
+                if (isPolicyValid(retrieveRequest.getRetrieveDocumentSetRequest(), retrieveRequest.getAssertion(), oTargetSystem.getHomeCommunity())) {
+                    // Send the deferred doc retrieve request
+                    nhincResponse = docRetrieveProxy.crossGatewayRetrieveRequest(retrieveRequest.getRetrieveDocumentSetRequest(), retrieveRequest.getAssertion(), oTargetSystem);
                 } else {
-                    ackMsg = "Deferred Retrieve Documents request processing halted; deferred queue repository error encountered";
+                    ackMsg = "Policy Failed";
 
                     // Set the error acknowledgement status of the deferred queue entry
-                    nhincResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-                    asyncProcess.processAck(retrieveRequest.getAssertion().getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
+                    nhincResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
                 }
             }
 
@@ -157,9 +139,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                 RetrieveDocumentSetRequestType nhinDocRequest = new RetrieveDocumentSetRequestType();
                 nhinDocRequest.getDocumentRequest().add(docRequest);
                 nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
-                // Each new request must generate its own unique assertion Message ID
+                
                 AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-                newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
                 nhinDocRetrieveMsg.setAssertion(newAssertion);
 
                 retrieveRequestList.add(nhinDocRetrieveMsg);
@@ -195,9 +176,8 @@ public class EntityDocRetrieveDeferredReqOrchImpl {
                         nhinDocRequest.getDocumentRequest().add(docRequest);
                     }
                     nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
-                    // Each new request must generate its own unique assertion Message ID
+                    
                     AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-                    newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
                     nhinDocRetrieveMsg.setAssertion(newAssertion);
 
                     retrieveRequestList.add(nhinDocRetrieveMsg);

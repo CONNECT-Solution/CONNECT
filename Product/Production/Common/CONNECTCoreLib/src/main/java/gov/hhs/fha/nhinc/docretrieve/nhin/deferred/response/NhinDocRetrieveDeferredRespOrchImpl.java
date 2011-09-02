@@ -7,7 +7,6 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
@@ -49,7 +48,6 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
     public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion) {
         log.debug("Begin - NhinDocRetrieveDeferredRespOrchImpl.sendToRespondingGateway");
 
-        // ASYNCMSG PROCESSING - RSPRCVD
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         DocRetrieveAcknowledgementType response = null;
@@ -65,14 +63,6 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
         nhinResponse.setRetrieveDocumentSetResponse(body);
         nhinResponse.setAssertion(assertion);
 
-        // Get messageId from the RelatesToList.get(0)
-        String messageId = "";
-        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
-            messageId = assertion.getRelatesToList().get(0);
-        }
-
-        boolean bIsQueueOk = asyncProcess.processRetrieveDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, nhinResponse);
-
         if (isServiceEnabled(NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_KEY)) {
             if (isInPassThroughMode(NhincConstants.NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_PASSTHRU_PROPERTY)) {
                 response = sendDocRetrieveDeferredResponseToAgency(body, assertion, homeCommunityId);
@@ -87,9 +77,6 @@ public class NhinDocRetrieveDeferredRespOrchImpl extends NhinDocRetrieveDeferred
             // Set the error acknowledgement status
             response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
-
-        // ASYNCMSG PROCESSING - RSPRCVDACK
-        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, response);
 
         auditLog.auditDocRetrieveDeferredAckResponse(response.getMessage(), null, retrieveResponseTypeCopy, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityId);
 

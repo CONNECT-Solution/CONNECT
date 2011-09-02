@@ -55,8 +55,8 @@
     <dependency org="jsf"                   name="webui-jsf" rev="1.0" conf="runtime->default" transitive="false" /> 
     <dependency org="jsf"                   name="webui-jsf-suntheme" rev="1.0" conf="runtime->default" transitive="false" /> 
 	<dependency org="org.json" name="json" rev="20090211"  conf="runtime->default" transitive="false" /> 
-    <dependency org="com.sun.faces.extensions" name="jsf-extensions-common" rev="0.2"  conf="runtime->default" transitive="false" /> 
-    <dependency org="com.sun.faces.extensions" name="jsf-extensions-dynamic-faces" rev="0.2"  conf="runtime->default" transitive="false" /> 
+    <dependency org="jsf" name="jsf-extensions-common-0.1" rev="0.1" conf="runtime->default" transitive="false" /> 
+    <dependency org="jsf" name="jsf-extensions-dynamic-faces-0.1" rev="0.1" conf="runtime->default" transitive="false" /> 
 
     <!-- jars for test only -->
 

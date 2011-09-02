@@ -19,6 +19,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -119,10 +120,24 @@ public class HomeCommunityMap {
                 }
             }
 
-        } else if (assertion.getHomeCommunity() != null) {
+        } else if (assertion!= null && assertion.getHomeCommunity() != null) {
             communityId = assertion.getHomeCommunity().getHomeCommunityId();
         }
         return formatHomeCommunityId(communityId);
+    }
+
+    /**
+     * This method retrieves the community id from the deferred query
+     * document request.
+     * @param body
+     * @return The home community OID string
+     */
+    public static String getCommunityIdForDeferredQDRequest(AdhocQueryType body) {
+        String responseCommunityID = null;
+        if (body != null && body.getHome() != null) {
+            responseCommunityID = body.getHome();
+        }
+        return formatHomeCommunityId(responseCommunityID);
     }
 
     /**
@@ -131,7 +146,7 @@ public class HomeCommunityMap {
      * @param body
      * @return The home community OID string
      */
-    public static String getCommunitIdForDeferredQDResponse(AdhocQueryResponse body) {
+    public static String getCommunityIdForDeferredQDResponse(AdhocQueryResponse body) {
         String responseCommunityID = null;
         if (body != null &&
                 body.getRegistryObjectList() != null &&
@@ -149,7 +164,7 @@ public class HomeCommunityMap {
      * @param body
      * @return The home community OID string
      */
-    public static String getCommunitIdForRDRequest(RetrieveDocumentSetRequestType body) {
+    public static String getCommunityIdForRDRequest(RetrieveDocumentSetRequestType body) {
         String responseCommunityID = null;
         if (body != null &&
                 NullChecker.isNotNullish(body.getDocumentRequest()) &&
@@ -165,7 +180,7 @@ public class HomeCommunityMap {
      * @param body
      * @return The home community OID string
      */
-    public static String getCommunitIdForDeferredRDResponse(RetrieveDocumentSetResponseType body) {
+    public static String getCommunityIdForDeferredRDResponse(RetrieveDocumentSetResponseType body) {
         String responseCommunityID = null;
         if (body != null &&
                 NullChecker.isNotNullish(body.getDocumentResponse()) &&
@@ -175,8 +190,14 @@ public class HomeCommunityMap {
         return formatHomeCommunityId(responseCommunityID);
     }
 
+    /**
+     * Formats the home community id by parsing out the 'urn:oid:' prefix if it
+     * exists.
+     *
+     * @param communityId the community id string to format
+     * @return the formatted community id
+     */
     private static String formatHomeCommunityId(String communityId) {
-        // Set the Audit Source Id (community id)
         if (communityId != null) {
             log.debug("communityId prior to remove urn:oid" + communityId);
             if (communityId.startsWith("urn:oid:")) {

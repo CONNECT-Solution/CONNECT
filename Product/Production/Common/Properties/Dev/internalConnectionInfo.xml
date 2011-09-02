@@ -538,16 +538,6 @@
                 <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
-                <name>entitypatientdiscoverysecuredasyncreqqueue</name>
-                <description>Entity Patient Discovery Secured Async Req Queue</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</endpointURL>
-            </service>
-            <service>
-                <name>entitypatientdiscoveryasyncreqqueue</name>
-                <description>Entity Patient Discovery Async Req Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
-            </service>
-            <service>
                 <name>entitypatientdiscoverysecuredasyncreq</name>
                 <description>Entity Patient Discovery Secured Async Request</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestSecured</endpointURL>
@@ -694,22 +684,12 @@
             <service>
                 <name>adapterpatientdiscoveryasyncresp</name>
                 <description>Adapter Patient Discovery Async Response</description>
-                <endpointURL>http://localhost:8080/CCONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecuredasyncresp</name>
                 <description>Adapter Patient Discovery Async Response Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
-            </service>
-            <service>
-                <name>adapterpatientdiscoveryasyncreqqueue</name>
-                <description>Adapter Patient Discovery Async Request Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
-            </service>
-            <service>
-                <name>adapterpatientdiscoverysecuredasyncreqqueue</name>
-                <description>Adapter Patient Discovery Async Request Queue Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqQueueSecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoveryasyncreqerror</name>
@@ -861,7 +841,7 @@
             <service>
                 <name>entitydocquerydeferredresponsesecured</name>
                 <description>Secured Entity Doc Query Deferred Response </description>
-                <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerydeferredrequest</name>
@@ -871,7 +851,7 @@
             <service>
                 <name>entitydocquerydeferredrequestsecured</name>
                 <description>Secured Entity Doc Query Deferred Request </description>
-                <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindistsecured</name>
@@ -894,19 +874,19 @@
                 <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
-                <name>entitypatientdiscoverydeferredreqqueueprocess</name>
-                <description>Entity Patient Discovery Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+                <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
+                <description>Adapter Patient Discovery Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
-                <name>entitydocquerydeferredreqqueueprocess</name>
-                <description>Entity Query For Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocQueryDeferredReqQueueProcess</endpointURL>
+                <name>adapterdocquerydeferredreqqueueprocess</name>
+                <description>Adapter Query For Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
-                <name>entitydocretrievedeferredreqqueueprocess</name>
-                <description>Entity Retrieve Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess</endpointURL>
+                <name>adapterdocretrievedeferredreqqueueprocess</name>
+                <description>Adapter Retrieve Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
@@ -1451,16 +1431,6 @@
                 <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
-                <name>entitypatientdiscoverysecuredasyncreqqueue</name>
-                <description>Entity Patient Discovery Secured Async Req Queue</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</endpointURL>
-            </service>
-            <service>
-                <name>entitypatientdiscoveryasyncreqqueue</name>
-                <description>Entity Patient Discovery Async Req Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
-            </service>
-            <service>
                 <name>entitypatientdiscoverysecuredasyncreq</name>
                 <description>Entity Patient Discovery Secured Async Request</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestSecured</endpointURL>
@@ -1607,22 +1577,12 @@
             <service>
                 <name>adapterpatientdiscoveryasyncresp</name>
                 <description>Adapter Patient Discovery Async Response</description>
-                <endpointURL>http://localhost:8080/CCONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecuredasyncresp</name>
                 <description>Adapter Patient Discovery Async Response Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
-            </service>
-            <service>
-                <name>adapterpatientdiscoveryasyncreqqueue</name>
-                <description>Adapter Patient Discovery Async Request Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
-            </service>
-            <service>
-                <name>adapterpatientdiscoverysecuredasyncreqqueue</name>
-                <description>Adapter Patient Discovery Async Request Queue Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqQueueSecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoveryasyncreqerror</name>
@@ -1774,7 +1734,7 @@
             <service>
                 <name>entitydocquerydeferredresponsesecured</name>
                 <description>Secured Entity Doc Query Deferred Response </description>
-                <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerydeferredrequest</name>
@@ -1784,7 +1744,7 @@
             <service>
                 <name>entitydocquerydeferredrequestsecured</name>
                 <description>Secured Entity Doc Query Deferred Request </description>
-                <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindistsecured</name>
@@ -1807,19 +1767,19 @@
                 <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
-                <name>entitypatientdiscoverydeferredreqqueueprocess</name>
-                <description>Entity Patient Discovery Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+                <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
+                <description>Adapter Patient Discovery Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
-                <name>entitydocquerydeferredreqqueueprocess</name>
-                <description>Entity Query For Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocQueryDeferredReqQueueProcess</endpointURL>
+                <name>adapterdocquerydeferredreqqueueprocess</name>
+                <description>Adapter Query For Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
-                <name>entitydocretrievedeferredreqqueueprocess</name>
-                <description>Entity Retrieve Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess</endpointURL>
+                <name>adapterdocretrievedeferredreqqueueprocess</name>
+                <description>Adapter Retrieve Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
@@ -2364,16 +2324,6 @@
                 <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
-                <name>entitypatientdiscoverysecuredasyncreqqueue</name>
-                <description>Entity Patient Discovery Secured Async Req Queue</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</endpointURL>
-            </service>
-            <service>
-                <name>entitypatientdiscoveryasyncreqqueue</name>
-                <description>Entity Patient Discovery Async Req Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredReqQueueUnsecured</endpointURL>
-            </service>
-            <service>
                 <name>entitypatientdiscoverysecuredasyncreq</name>
                 <description>Entity Patient Discovery Secured Async Request</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestSecured</endpointURL>
@@ -2520,22 +2470,12 @@
             <service>
                 <name>adapterpatientdiscoveryasyncresp</name>
                 <description>Adapter Patient Discovery Async Response</description>
-                <endpointURL>http://localhost:8080/CCONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecuredasyncresp</name>
                 <description>Adapter Patient Discovery Async Response Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
-            </service>
-            <service>
-                <name>adapterpatientdiscoveryasyncreqqueue</name>
-                <description>Adapter Patient Discovery Async Request Queue</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</endpointURL>
-            </service>
-            <service>
-                <name>adapterpatientdiscoverysecuredasyncreqqueue</name>
-                <description>Adapter Patient Discovery Async Request Queue Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryAsyncReqQueueSecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoveryasyncreqerror</name>
@@ -2687,7 +2627,7 @@
             <service>
                 <name>entitydocquerydeferredresponsesecured</name>
                 <description>Secured Entity Doc Query Deferred Response </description>
-                <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerydeferredrequest</name>
@@ -2697,7 +2637,7 @@
             <service>
                 <name>entitydocquerydeferredrequestsecured</name>
                 <description>Secured Entity Doc Query Deferred Request </description>
-                <endpointURL>https://localhost:8181/CCONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindistsecured</name>
@@ -2720,19 +2660,19 @@
                 <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
-                <name>entitypatientdiscoverydeferredreqqueueprocess</name>
-                <description>Entity Patient Discovery Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+                <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
+                <description>Adapter Patient Discovery Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
-                <name>entitydocquerydeferredreqqueueprocess</name>
-                <description>Entity Query For Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocQueryDeferredReqQueueProcess</endpointURL>
+                <name>adapterdocquerydeferredreqqueueprocess</name>
+                <description>Adapter Query For Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
-                <name>entitydocretrievedeferredreqqueueprocess</name>
-                <description>Entity Retrieve Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityDocRetrieveDeferredReqQueueProcess</endpointURL>
+                <name>adapterdocretrievedeferredreqqueueprocess</name>
+                <description>Adapter Retrieve Documents Deferred Request Queue Process</description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>

@@ -22,6 +22,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +48,67 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
  */
 public class AsyncMessageProcessHelper {
 
-    private static Log log = LogFactory.getLog(AsyncMessageProcessHelper.class);
+    private Log log = null;
+
+    private static HashMap<String, String> statusToDirectionMap =
+                new HashMap<String, String>();
+
+    static
+    {
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+    }
+
+
+    public AsyncMessageProcessHelper()
+    {
+        log = createLogger();
+    }
+
+    /**
+     * Create a logger object.
+     *
+     * @return The logger object.
+     */
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    /**
+     * Creates a AsyncMsgRecordDao.
+     * 
+     * @return an instance of AsyncMsgRecordDao
+     */
+    protected AsyncMsgRecordDao createAsyncMsgRecordDao()
+    {
+        return new AsyncMsgRecordDao();
+    }
 
     /**
      * Used to add the Deferred Patient Discovery Request to the local gateway
@@ -88,7 +149,7 @@ public class AsyncMessageProcessHelper {
         try {
             List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
             AsyncMsgRecord rec = new AsyncMsgRecord();
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
             // Replace with message id from the assertion class
             rec.setMessageId(request.getAssertion().getMessageId());
@@ -97,14 +158,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(getPatientDiscoveryMessageCommunityId(request, direction));
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-
-            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            } else {
-                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            }
-
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);            
             rec.setMsgData(getBlobFromPRPAIN201305UV02RequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -164,7 +218,7 @@ public class AsyncMessageProcessHelper {
         try {
             List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
             AsyncMsgRecord rec = new AsyncMsgRecord();
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
             // Replace with message id from the assertion class
             rec.setMessageId(request.getAssertion().getMessageId());
@@ -173,14 +227,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(communityId);
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-
-            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            } else {
-                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            }
-
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
             rec.setMsgData(getBlobFromRespondingGatewayCrossGatewayQueryRequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -210,14 +257,14 @@ public class AsyncMessageProcessHelper {
      * @return true - success; false - error
      */
     public boolean addRetrieveDocumentsRequest(RespondingGatewayCrossGatewayRetrieveRequestType request, String direction, String communityId) {
-        log.debug("Begin AsyncMessageProcessHelper.addQueryForDocumentsRequest()...");
+        log.debug("Begin AsyncMessageProcessHelper.addRetrieveDocumentsRequest()...");
 
         boolean result = false;
 
         try {
             List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
             AsyncMsgRecord rec = new AsyncMsgRecord();
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
             // Replace with message id from the assertion class
             rec.setMessageId(request.getAssertion().getMessageId());
@@ -226,14 +273,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(communityId);
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-
-            if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            } else {
-                //TODO DEFERRED POLICY CHECK GOES HERE - until then, set to AUTO
-                rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
-            }
-
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
             rec.setMsgData(getBlobFromRespondingGatewayCrossGatewayRetrieveRequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -247,13 +287,14 @@ public class AsyncMessageProcessHelper {
             log.error("ERROR: Failed to add the async request to async msg repository.", e);
         }
 
-        log.debug("End AsyncMessageProcessHelper.addQueryForDocumentsRequest()...");
+        log.debug("End AsyncMessageProcessHelper.addRetrieveDocumentsRequest()...");
 
         return result;
     }
 
     /**
-     * Process an acknowledgement for a Deferred Patient Discovery asyncmsgs record
+     * Process an acknowledgement for a Deferred Patient Discovery asyncmsgs
+     * record.
      *
      * @param messageId
      * @param newStatus
@@ -270,9 +311,10 @@ public class AsyncMessageProcessHelper {
             if (isAckError(ack)) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            String direction = getInitialDirectionFromStatus(newStatus);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromMCCIIN000002UV01(ack));
@@ -294,6 +336,7 @@ public class AsyncMessageProcessHelper {
      * Process an acknowledgement for a Deferred Query For Documents asyncmsgs record
      *
      * @param messageId
+     * @param direction
      * @param newStatus
      * @param errorStatus
      * @param ack
@@ -308,9 +351,10 @@ public class AsyncMessageProcessHelper {
             if (isAckError(ack)) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromDocQueryAcknowledgementType(ack));
@@ -332,6 +376,7 @@ public class AsyncMessageProcessHelper {
      * Process an acknowledgement for a Deferred Retrieve Documents asyncmsgs record
      *
      * @param messageId
+     * @param direction
      * @param newStatus
      * @param errorStatus
      * @param ack
@@ -346,9 +391,10 @@ public class AsyncMessageProcessHelper {
             if (isAckError(ack)) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromDocRetrieveAcknowledgementType(ack));
@@ -368,7 +414,7 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process the new status for the asyncmsgs record
-     * 
+     *
      * @param messageId
      * @param newStatus
      * @return true - success; false - error
@@ -379,9 +425,10 @@ public class AsyncMessageProcessHelper {
         boolean result = false;
 
         try {
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 instance.save(records.get(0));
@@ -416,9 +463,10 @@ public class AsyncMessageProcessHelper {
             if (response == null) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setResponseTime(new Date());
 
@@ -461,9 +509,10 @@ public class AsyncMessageProcessHelper {
             if (response == null) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setResponseTime(new Date());
 
@@ -506,9 +555,10 @@ public class AsyncMessageProcessHelper {
             if (response == null) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
+            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageId(messageId);
+            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setResponseTime(new Date());
 
@@ -561,7 +611,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             //asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during RetrieveDocumentSetRequestType conversion :" + e);
+            log.error("Exception during RetrieveDocumentSetRequestType conversion :" + e, e);
         }
 
         return copy;
@@ -595,7 +645,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             //asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during copyRetrieveDocumentSetResponseTypeObject conversion :" + e);
+            log.error("Exception during copyRetrieveDocumentSetResponseTypeObject conversion :" + e, e);
         }
 
         return copy;
@@ -629,7 +679,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             //asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during copyAssertionTypeObject conversion :" + e);
+            log.error("Exception during copyAssertionTypeObject conversion :" + e, e);
         }
 
         return copy;
@@ -658,10 +708,20 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             returnValue = new String(buffer);
         } catch (Exception e) {
-            log.error("Exception during marshalAssertionTypeObject conversion :" + e);
+            log.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
 
         return returnValue;
+    }
+
+    private static String getInitialDirectionFromStatus(String status) {
+        String direction = null;
+
+        if (statusToDirectionMap.containsKey(status)) {
+            direction = statusToDirectionMap.get(status);
+        }
+
+        return direction;
     }
 
     private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {
@@ -682,8 +742,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -705,8 +764,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -728,8 +786,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -751,8 +808,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -774,8 +830,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -797,8 +852,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -820,8 +874,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -844,8 +897,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -868,8 +920,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+            log.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;

@@ -38,6 +38,7 @@
         <!-- <property name="hbm2ddl.auto">create</property> -->
 
         <mapping resource="CorrelatedIdentifers.hbm.xml"/>
+        <mapping resource="PDDeferredCorrelation.hbm.xml"/>
 
     </session-factory>
 

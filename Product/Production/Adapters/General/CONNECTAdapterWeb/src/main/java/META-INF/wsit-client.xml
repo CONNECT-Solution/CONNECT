@@ -17,6 +17,8 @@
     <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"/>
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentxdrsecured"/>
+    <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
 </definitions>
 
 

@@ -40,7 +40,7 @@ public class NhincProxyDocRetrieveOrchImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         RetrieveDocumentSetResponseType response = null;
-        String responseCommunityId = HomeCommunityMap.getCommunitIdForRDRequest(request);
+        String responseCommunityId = HomeCommunityMap.getCommunityIdForRDRequest(request);
         // Audit request message
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
         auditLog.auditDocRetrieveRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);

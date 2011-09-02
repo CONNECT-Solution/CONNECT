@@ -6,6 +6,11 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.persistence;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.io.File;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -17,18 +22,19 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil 
 {
     private static final SessionFactory sessionFactory;
+    private static Log log = LogFactory.getLog(HibernateUtil.class);
     
     static
     {
         try
         {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure("HiemSubRepHibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } 
         catch (Throwable ex)
         {
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            log.error("Initial SessionFactory creation failed: " + ex.getMessage());
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -36,6 +42,18 @@ public class HibernateUtil
     public static SessionFactory getSessionFactory()
     {
         return sessionFactory;
+    }
+
+    private static File getConfigFile() {
+        File result = null;
+
+        try {
+            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_HIEMSUBREP_REPOSITORY);
+        } catch (Exception ex) {
+            log.error("Unable to load " + NhincConstants.HIBERNATE_HIEMSUBREP_REPOSITORY + " " + ex.getMessage(), ex);
+        }
+
+        return result;
     }
 
 }

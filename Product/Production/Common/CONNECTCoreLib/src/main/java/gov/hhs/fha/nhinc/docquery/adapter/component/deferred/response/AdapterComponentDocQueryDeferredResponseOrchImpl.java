@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response;
 
@@ -33,7 +33,7 @@ public class AdapterComponentDocQueryDeferredResponseOrchImpl {
 
     /**
      * Return acknowledgement based on CONNECT Demo Operation Mode
-     * 
+     *
      * @param msg
      * @param assertion
      * @return DocQueryAcknowledgementType
@@ -62,7 +62,7 @@ public class AdapterComponentDocQueryDeferredResponseOrchImpl {
             RegistryResponseType responseType = documentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(msg, uniquePatientId);
             if (responseType.getStatus().equals(DocumentProcessHelper.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)) {
                 // Set the ack success status of the deferred queue entry
-                ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG, null, null);
+                ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG, null, null);
             } else {
                 String ackMsg = responseType.getStatus();
 
@@ -72,7 +72,7 @@ public class AdapterComponentDocQueryDeferredResponseOrchImpl {
             }
         } else {
             // Demo mode not enabled, send success acknowledgement by default with no other processing
-            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG, null, null);
+            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG, null, null);
         }
 
         // Log the end of the adapter performance record

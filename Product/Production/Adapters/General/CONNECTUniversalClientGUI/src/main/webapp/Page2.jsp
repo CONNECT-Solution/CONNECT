@@ -40,9 +40,11 @@
                                         style="left: 24px; top: 144px; position: absolute; width: 500px" title="Patient Search Results" width="500">
                                         <webuijsf:tableRowGroup id="patientSearchResultTableRowGroup" rows="4" sourceData="#{Page2.patientSearchDataList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn headerText="Patient Id" id="patientSearchPatientIdColm">
-                                                <webuijsf:hyperlink actionExpression="#{Page2.patientSelectIdLink_action}"
-                                                    binding="#{Page2.patientSelectIdLink}" id="patientSelectIdLink"
-                                                    style="color: blue; text-decoration: underline" text="#{currentRow.value['patientId']}"/>
+                                               <webuijsf:hyperlink actionExpression="#{Page2.patientSelectIdLink_action}" 
+                                                    binding="#{Page2.patientSelectIdLink}" id="patientSelectIdLink"  
+                                                    style="color: blue; text-decoration: underline" text="#{currentRow.value['patientId']}"> 
+                                                    <f:param name="valueAssigningAuthority" value="#{currentRow.value['assigningAuthorityID']}"/>
+                                                </webuijsf:hyperlink> 
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="AA Id" id="patientSearchAaidColm">
                                                 <webuijsf:staticText id="staticText0" text="#{currentRow.value['assigningAuthorityID']}"/>
@@ -73,7 +75,7 @@
                                     <webuijsf:button actionExpression="#{Page2.broadcastSubjectDiscoveryButton_action}" id="broadcastSubjectDiscoveryButton"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Broadcast Patient Discovery"/>
                                     <webuijsf:table augmentTitle="false" id="subjectDiscoveryCoorelationTable" paginateButton="true" paginationControls="true"
-                                        style="left: 24px; top: 120px; position: absolute; width: 400px" title="Patient Correlations" width="400">
+                                        style="left: 24px; top: 144px; position: absolute; width: 400px" title="Patient Correlations" width="400">
                                         <webuijsf:tableRowGroup id="patientCorrTableRowGoup" rows="10" sourceData="#{Page2.patientCorrelationList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn headerText="Assigning Authority" id="patientCoorAssignAuthColm">
                                                 <webuijsf:staticText id="correlatedAssignAuthority" text="#{currentRow.value['assignAuthorityId']}"/>
@@ -89,8 +91,8 @@
                                             </webuijsf:tableColumn>
                                         </webuijsf:tableRowGroup>
                                     </webuijsf:table>
-                                    <webuijsf:staticText binding="#{Page2.broadcastInfo}" id="broadcastInfo" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 216px; top: 72px; position: absolute"/>
-                                    <webuijsf:staticText binding="#{Page2.broadcastInfo2}" id="broadcastInfo2" style="color: red; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 216px; top: 96px; position: absolute"/>
+                                    <webuijsf:staticText binding="#{Page2.broadcastInfo}" id="broadcastInfo" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 216px; top: 96px; position: absolute"/>
+                                    <webuijsf:staticText binding="#{Page2.broadcastInfo2}" id="broadcastInfo2" style="color: red; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 216px; top: 120px; position: absolute"/>
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                             <webuijsf:tab actionExpression="#{Page2.documentTab_action}" binding="#{Page2.documentTab}" disabled="true" id="documentTab"

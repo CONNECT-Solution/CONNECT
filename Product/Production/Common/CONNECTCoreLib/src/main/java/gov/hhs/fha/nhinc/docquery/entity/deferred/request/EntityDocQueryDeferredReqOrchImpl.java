@@ -6,9 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -106,9 +104,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                 AdhocQueryRequest newRequest = transform.replaceAdhocQueryPatientId(message, HomeCommunityMap.getLocalHomeCommunityId(), subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
                                 respondingGatewayCrossGatewayQueryRequest.setAdhocQueryRequest(newRequest);
 
-                                // Each new request must generate its own unique assertion Message ID
                                 AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
-                                newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
                                 respondingGatewayCrossGatewayQueryRequest.setAssertion(newAssertion);
 
                                 // Assign target community
@@ -121,42 +117,28 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                     targetCommunityHcid = targetCommunity.getHomeCommunityId();
                                 }
 
-                                // The new request is ready for processing, add a new outbound QD entry to the local deferred queue
-                                bIsQueueOk = asyncProcess.addQueryForDocumentsRequest(respondingGatewayCrossGatewayQueryRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND, targetCommunityHcid);
+                                //check the policy for the outgoing request to the target community
+                                if (targetCommunity != null && NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
 
-                                // check for valid queue entry
-                                if (bIsQueueOk) {
+                                    if (checkPolicy(message, newAssertion, targetCommunity.getHomeCommunityId())) {
 
-                                    //check the policy for the outgoing request to the target community
-                                    if (targetCommunity != null && NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
+                                        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+                                        targetSystem.setHomeCommunity(targetCommunity);
 
-                                        if (checkPolicy(message, newAssertion, targetCommunity.getHomeCommunityId())) {
-
-                                            NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-                                            targetSystem.setHomeCommunity(targetCommunity);
-
-                                            nhincResponse = getProxy().crossGatewayQueryRequest(newRequest, newAssertion, targetSystem);
-                                        } else {
-                                            ackMsg = "Policy Failed";
-
-                                            // Set the error acknowledgement status of the deferred queue entry
-                                            nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
-                                            asyncProcess.processAck(newAssertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
-                                        }
+                                        nhincResponse = getProxy().crossGatewayQueryRequest(newRequest, newAssertion, targetSystem);
                                     } else {
-                                        ackMsg = "Invalid target community";
+                                        ackMsg = "Policy Failed";
 
                                         // Set the error acknowledgement status of the deferred queue entry
-                                        nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-                                        asyncProcess.processAck(newAssertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
+                                        nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
                                     }
                                 } else {
-                                    ackMsg = "Deferred Query For Documents request processing halted; deferred queue repository error encountered";
+                                    ackMsg = "Invalid target community";
 
                                     // Set the error acknowledgement status of the deferred queue entry
                                     nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-                                    asyncProcess.processAck(newAssertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, nhincResponse);
                                 }
+
                             } else {
                                 log.error("Invalid correlated subject found");
                             }

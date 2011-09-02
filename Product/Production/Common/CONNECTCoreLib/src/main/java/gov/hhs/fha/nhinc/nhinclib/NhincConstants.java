@@ -237,6 +237,7 @@ public class NhincConstants {
     public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adaptercomponentdocquerydeferredresponse";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME = "adapterdocquerydeferredrequesterror";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequesterrorsecured";
+    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterdocquerydeferredreqqueueprocess";
 
     public static final String NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "QueryForDocumentsDeferredRequest";
     public static final String NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "QueryForDocumentsDeferredResponse";
@@ -249,8 +250,7 @@ public class NhincConstants {
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "entitydocquerydeferredrequestsecured";
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "entitydocquerydeferredresponse";
     public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "entitydocquerydeferredresponsesecured";
-    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "entitydocquerydeferredreqqueueprocess";
-
+    
     public static final String DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
@@ -274,7 +274,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
-    public static final String ENTITY_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "entitydocretrievedeferredreqqueueprocess";
+    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterdocretrievedeferredreqqueueprocess";
 
     public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
@@ -316,8 +316,6 @@ public class NhincConstants {
     public static final String ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "adapterpatientdiscoverysecured";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME = "adapterpatientdiscoveryasyncreq";
     public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreq";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoveryasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterpatientdiscoveryasyncreqerror";
     public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqerror";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME = "adapterpatientdiscoveryasyncresp";
@@ -330,13 +328,16 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_PASSTHRU_ASYNC_RESP_SERVICE_NAME = "nhincproxypatientdiscoveryasyncresp";
     public static final String PATIENT_DISCOVERY_PASSTHRU_SECURED_ASYNC_RESP_SERVICE_NAME = "nhincproxypatientdiscoverysecuredasyncresp";
     public static final String ENTITY_PATIENT_DISCOVERY_SERVICE_NAME = "entitypatientdiscovery";
-    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoveryasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoveryasyncreq";
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreq";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoveryasyncresp";
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
-    public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME = "entitypatientdiscoverydeferredreqqueueprocess";
+
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoveryasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqqueue";
+    //public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoveryasyncreqqueue";
+    //public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterpatientdiscoverydeferredreqqueueprocess";
 
     // Patient Discovery Error Constants
     public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";
@@ -409,6 +410,8 @@ public class NhincConstants {
     public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
     public static final String HIBERNATE_PATIENTDB_REPOSITORY = "patientdb.hibernate.cfg.xml";
     public static final String HIBERNATE_PERFREPO_REPOSITORY = "perfrepo.hibernate.cfg.xml";
+    public static final String HIBERNATE_HIEMSUBREP_REPOSITORY = "HiemSubRepHibernate.cfg.xml";
+    public static final String HIBERNATE_AGGREGATOR_REPOSITORY = "aggregator.cfg.xml";
 
     //LiFT Constants
     public static final String LIFT_MANAGER_SERVICE_NAME = "nhincliftmanager";
@@ -469,6 +472,7 @@ public class NhincConstants {
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
     /* -- End Document Retrieve deferred Service Name -- */
+
     private NhincConstants() {
     }
 }

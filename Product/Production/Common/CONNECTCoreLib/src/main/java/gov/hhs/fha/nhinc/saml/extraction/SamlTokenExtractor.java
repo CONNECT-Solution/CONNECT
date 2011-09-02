@@ -334,34 +334,34 @@ public class SamlTokenExtractor {
                     if (nameAttr != null) {
                         if (nameAttr.equals(NhincConstants.USER_ROLE_ATTR)) {
                             log.debug("Extracting Assertion.userInfo.roleCoded:");
-                            assertOut.getUserInfo().setRoleCoded(extractNhinCodedElement(attrib, NhincConstants.USER_ROLE_ATTR));
+                            assertOut.getUserInfo().setRoleCoded(AttributeTypeHelper.extractNhinCodedElement(attrib, NhincConstants.USER_ROLE_ATTR));
                         } else if (nameAttr.equals(NhincConstants.PURPOSE_ROLE_ATTR)) {
                             log.debug("Extracting Assertion.purposeOfDisclosure:");
-                            assertOut.setPurposeOfDisclosureCoded(extractNhinCodedElement(attrib, NhincConstants.PURPOSE_ROLE_ATTR));
+                            assertOut.setPurposeOfDisclosureCoded(AttributeTypeHelper.extractNhinCodedElement(attrib, NhincConstants.PURPOSE_ROLE_ATTR));
                         } else if (nameAttr.equals(NhincConstants.USERNAME_ATTR)) {
-                            extractNameParts(attrib, assertOut);
+                            AttributeTypeHelper.extractNameParts(attrib, assertOut);
                         } else if (nameAttr.equals(NhincConstants.USER_ORG_ATTR)) {
-                            String sUserOrg = extractAttributeValueString(attrib);
+                            String sUserOrg = AttributeTypeHelper.extractAttributeValueString(attrib);
                             assertOut.getUserInfo().getOrg().setName(sUserOrg);
                             log.debug("Assertion.userInfo.org.Name = " + sUserOrg);
                         } else if (nameAttr.equals(NhincConstants.USER_ORG_ID_ATTR)) {
-                            String sUserOrgId = extractAttributeValueString(attrib);
+                            String sUserOrgId = AttributeTypeHelper.extractAttributeValueString(attrib);
                             assertOut.getUserInfo().getOrg().setHomeCommunityId(sUserOrgId);
                             log.debug("Assertion.userInfo.org.homeCommunityId = " + sUserOrgId);
                         } else if (nameAttr.equals(NhincConstants.HOME_COM_ID_ATTR)) {
-                            String sHomeComId = extractAttributeValueString(attrib);
+                            String sHomeComId = AttributeTypeHelper.extractAttributeValueString(attrib);
                             assertOut.getHomeCommunity().setHomeCommunityId(sHomeComId);
                             log.debug("Assertion.homeCommunity.homeCommunityId = " + sHomeComId);
                         } else if (nameAttr.equals(NhincConstants.PATIENT_ID_ATTR)) {
-                            String sPatientId = extractAttributeValueString(attrib);
+                            String sPatientId = AttributeTypeHelper.extractAttributeValueString(attrib);
                             assertOut.getUniquePatientId().add(sPatientId);
                             log.debug("Assertion.uniquePatientId = " + sPatientId);
                         } else if (nameAttr.equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
-                            String sAccessConsentId = extractAttributeValueString(attrib);
+                            String sAccessConsentId = AttributeTypeHelper.extractAttributeValueString(attrib);
                             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(sAccessConsentId);
                             log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = " + sAccessConsentId);
                         } else if (nameAttr.equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
-                            String sInstAccessConsentId = extractAttributeValueString(attrib);
+                            String sInstAccessConsentId = AttributeTypeHelper.extractAttributeValueString(attrib);
                             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(sInstAccessConsentId);
                             log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = " + sInstAccessConsentId);
                         } else {
@@ -379,213 +379,7 @@ public class SamlTokenExtractor {
         log.debug("Exiting SamlTokenExtractor.extractAttributeInfo...");
     }
 
-    /**
-     * This method takes an attribute and extracts the string value of the
-     * attribute.  If the attribute has multiple values, then it concatenates
-     * all of the values.
-     *
-     * @param attrib The attribute containing the string value.
-     * @return The string value (or if there are multiple values, the concatenated string value.)
-     */
-    private static String extractAttributeValueString(AttributeType attrib) {
-        String retValue = "";
-
-        List attrVals = attrib.getAttributeValue();
-        if ((attrVals != null) &&
-                (attrVals.size() > 0)) {
-            StringBuffer strBuf = new StringBuffer();
-            for (Object o : attrVals) {
-                strBuf.append(o + " ");
-            }
-            retValue = strBuf.toString();
-        }
-
-        return retValue.trim();
-
-    }
-
-    /**
-     * This method takes an attribute and extracts the base64Encoded value from the first
-     * attribute value.
-     *
-     * @param attrib The attribute containing the string value.
-     * @return The string value (or if there are multiple values, the concatenated string value.)
-     */
-    private static byte[] extractFirstAttributeValueBase64Binary(AttributeType attrib) {
-        byte[] retValue = null;
-
-        List attrVals = attrib.getAttributeValue();
-        if ((attrVals != null) &&
-                (attrVals.size() > 0)) {
-            if (attrVals.get(0) instanceof byte[]) {
-                retValue = (byte[]) attrVals.get(0);
-            }
-        }
-
-        return retValue;
-    }
-
-    /**
-     * The value of the UserName attribute is assumed to be a user's name in
-     * plain text.  The name parts are extracted in this method as the first
-     * word constitutes the first name, the last word constitutes the last name
-     * and all other text in between these words constitute the middle name.
-     * @param attrib The Attribute that has the user name as its value
-     * @param assertOut The Assertion element being written to
-     */
-    private static void extractNameParts(AttributeType attrib, AssertionType assertOut) {
-        log.debug("Entering SamlTokenExtractor.extractNameParts...");
-
-        // Assumption is that before the 1st space reflects the first name,
-        // after the last space is the last name, anything between is the middle name
-        List attrVals = attrib.getAttributeValue();
-        if ((attrVals != null) &&
-                (attrVals.size() >= 1)) {
-            PersonNameType personName = assertOut.getUserInfo().getPersonName();
-
-            // Although SAML allows for multiple attribute values, the NHIN Specification
-            // states that for a name there will be one attribute value.  So we will
-            // only look at the first one.  If there are more, the first is the only one
-            // that will be used.
-            //-----------------------------------------------------------------------------
-            String completeName = attrVals.get(0).toString();
-            personName.setFullName(completeName);
-            log.debug("Assertion.userInfo.personName.FullName = " + completeName);
-
-            String[] nameTokens = completeName.split("\\s");
-            ArrayList<String> nameParts = new ArrayList<String>();
-
-            //remove blank tokens
-            for (String tok : nameTokens) {
-                if (tok.trim() != null && tok.trim().length() > 0) {
-                    nameParts.add(tok);
-                }
-            }
-
-            if (nameParts.size() > 0) {
-                if (!nameParts.get(0).isEmpty()) {
-                    personName.setGivenName(nameParts.get(0));
-                    nameParts.remove(0);
-                    log.debug("Assertion.userInfo.personName.givenName = " + personName.getGivenName());
-                }
-            }
-
-            if (nameParts.size() > 0) {
-                if (!nameParts.get(nameParts.size() - 1).isEmpty()) {
-                    personName.setFamilyName(nameParts.get(nameParts.size() - 1));
-                    nameParts.remove(nameParts.size() - 1);
-                    log.debug("Assertion.userInfo.personName.familyName = " + personName.getFamilyName());
-                }
-            }
-
-            if (nameParts.size() > 0) {
-                StringBuffer midName = new StringBuffer();
-                for (String name : nameParts) {
-                    midName.append(name + " ");
-                }
-                // take off last blank character
-                midName.setLength(midName.length() - 1);
-                personName.setSecondNameOrInitials(midName.toString());
-                log.debug("Assertion.userInfo.personName.secondNameOrInitials = " + personName.getSecondNameOrInitials());
-            }
-        } else {
-            log.error("User Name attribute is empty: " + attrVals);
-        }
-
-        log.debug("SamlTokenExtractor.extractNameParts() -- End");
-    }
-
-    /**
-     * The value of the UserRole and PurposeOfUse attributes are formatted
-     * according to the specifications of an nhin:CodedElement.  This method
-     * parses that expected structure to obtain the code, codeSystem,
-     * codeSystemName, and the displayName attributes of that element.
-     * @param attrib The Attribute that has the UserRole or PurposeOfUse as its
-     * value
-     * @param assertOut The Assertion element being written to
-     * @param codeId Identifies which coded element this is parsing
-     */
-    private static CeType extractNhinCodedElement(AttributeType attrib, String codeId) {
-        log.debug("Entering SamlTokenExtractor.extractNhinCodedElement...");
-
-        CeType ce = new CeType();
-        ce.setCode(EMPTY_STRING);
-        ce.setCodeSystem(EMPTY_STRING);
-        ce.setCodeSystemName(EMPTY_STRING);
-        ce.setDisplayName(EMPTY_STRING);
-
-        List attrVals = attrib.getAttributeValue();
-        //log.debug("extractNhinCodedElement: " + attrib.getName() + " has " + attrVals.size() + " values");
-
-        if ((attrVals != null) &&
-                (attrVals.size() > 0)) {
-            log.debug("AttributeValue is: " + attrVals.get(0).getClass());
-            // According to the NHIN specifications - there should be exactly one value.
-            // If there is more than one. We will take only the first one.
-            //---------------------------------------------------------------------------
-            NodeList nodelist = null;
-            if (attrVals.get(0) instanceof ElementNSImpl) {
-                ElementNSImpl elem = (ElementNSImpl) attrVals.get(0);
-                nodelist = elem.getChildNodes();
-            } else {
-                log.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass() + " expected a ElementNSImpl");
-            }
-            if ((nodelist != null) &&
-                    (nodelist.getLength() > 0)) {
-                int numNodes = nodelist.getLength();
-                for (int idx = 0; idx < numNodes; idx++) {
-                    if (nodelist.item(idx) instanceof Node) {
-                        //log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
-                        Node node = (Node) nodelist.item(idx);
-                        NamedNodeMap attrMap = node.getAttributes();
-                        if ((attrMap != null) &&
-                                (attrMap.getLength() > 0)) {
-                            int numMapNodes = attrMap.getLength();
-                            for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                                //log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
-                                Node attrNode = attrMap.item(attrIdx);
-                                if ((attrNode != null) &&
-                                        (attrNode.getNodeName() != null) &&
-                                        (!attrNode.getNodeName().isEmpty())) {
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
-                                        ce.setCode(attrNode.getNodeValue());
-                                        log.debug(codeId + ": ce.Code = " + ce.getCode());
-                                    }
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) {
-                                        ce.setCodeSystem(attrNode.getNodeValue());
-                                        log.debug(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
-                                    }
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) {
-                                        ce.setCodeSystemName(attrNode.getNodeValue());
-                                        log.debug(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
-                                    }
-                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) {
-                                        ce.setDisplayName(attrNode.getNodeValue());
-                                        log.debug(codeId + ": ce.DisplayName = " + ce.getDisplayName());
-                                    }
-                                } else {
-                                    log.debug("Attribute name can not be processed");
-                                }
-                            }   // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                            } else {
-                            log.debug("Attribute map is null");
-                        }
-                    } else {
-                        log.debug("Expected AttributeValue to have a Node child");
-                    }
-                }   // for (int idx = 0; idx < numNodes; idx++) {
-                } else {
-                log.error("The AttributeValue for " + codeId + " should have a Child Node");
-            }
-        } else {
-            log.error("Attributes for " + codeId + " are invalid: " + attrVals);
-        }
-
-        log.debug("Exiting SamlTokenExtractor.extractNhinCodedElement...");
-        return ce;
-    }
-
-    /**
+     /**
      * The Authorization Decision Statement is used to convey a form authorizing
      * access to medical records.  It may embed the binary content of the
      * authorization form as well describing the conditions of its validity.

@@ -65,8 +65,8 @@ public class AsyncMsgRecordDao {
      * @param messageId
      * @return matching records
      */
-    public List<AsyncMsgRecord> queryByMessageId(String messageId) {
-        log.debug("Performing database record retrieve using message id: " + messageId);
+    public List<AsyncMsgRecord> queryByMessageIdAndDirection(String messageId, String direction) {
+        log.debug("Performing database record retrieve using message id: " + messageId + " and direction: " + direction);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -78,6 +78,7 @@ public class AsyncMsgRecordDao {
                 if (sess != null) {
                     Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
                     criteria.add(Restrictions.eq("MessageId", messageId));
+                    criteria.add(Restrictions.eq("Direction", direction));
 
                     asyncMsgRecs = criteria.list();
                 } else {

@@ -56,7 +56,7 @@ public class NhinDocRetrieveOrchImpl {
         log.debug("Entering NhinDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve");
 
         RetrieveDocumentSetResponseType response = null;
-        String requestCommunityID = HomeCommunityMap.getCommunitIdForRDRequest(body);
+        String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(body);
         log.debug("Calling audit on doc retrieve request received from NHIN");
         auditRequestMessage(body, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, requestCommunityID);
 

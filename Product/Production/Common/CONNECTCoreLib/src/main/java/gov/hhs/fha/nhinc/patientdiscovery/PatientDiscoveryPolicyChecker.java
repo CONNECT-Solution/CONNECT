@@ -21,6 +21,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -76,6 +77,13 @@ public class PatientDiscoveryPolicyChecker {
         policyCheckReq.setReceivingHomeCommunity(receiverHC);
 
         return invokePolicyEngine(policyCheckReq);
+    }
+
+    public boolean checkIncomingPolicy(PRPAIN201305UV02 request, AssertionType assertion) {
+        PatientDiscoveryPolicyTransformHelper transformer = new PatientDiscoveryPolicyTransformHelper();
+
+        CheckPolicyRequestType checkPolicyRequest = transformer.transformPRPAIN201305UV02ToCheckPolicy(request, assertion);
+        return invokePolicyEngine(checkPolicyRequest);
     }
 
     public boolean checkOutgoingPolicy (RespondingGatewayPRPAIN201305UV02RequestType request) {

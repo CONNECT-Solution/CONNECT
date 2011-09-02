@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import org.apache.commons.logging.Log;
@@ -53,8 +54,8 @@ public class AdapterComponentDocQueryDeferredRequestOrchImpl {
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         String requestCommunityID = null;
-        if (msg != null && msg.getAdhocQuery() != null) {
-            requestCommunityID = msg.getAdhocQuery().getHome();
+        if (msg != null) {
+            requestCommunityID = HomeCommunityMap.getCommunityIdForDeferredQDRequest(msg.getAdhocQuery());
         }
         // Add a new inbound QD request entry to the local deferred queue
         boolean bIsQueueOk = asyncProcess.addQueryForDocumentsRequest(respondingGatewayCrossGatewayQueryRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND, requestCommunityID);

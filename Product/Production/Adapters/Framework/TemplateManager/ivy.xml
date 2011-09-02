@@ -45,7 +45,7 @@
     <dependency org="mysql"               name="mysql-connector-java" rev="5.1.10" conf="compile->default" transitive="false" />
     
     <!-- runtime jars -->
-    <dependency org="toplink" name="toplink-essentials" rev="1.0"   conf="runtime->default" />
+    <dependency org="Toplink" name="toplink-essentials" rev="1.0"   conf="runtime->default" />
     <!-- jars for test only -->
     
     <!-- global excludes -->

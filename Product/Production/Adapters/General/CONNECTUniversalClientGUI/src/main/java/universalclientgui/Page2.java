@@ -43,6 +43,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -578,14 +579,14 @@ public class Page2 extends AbstractPageBean {
     public String patientSelectIdLink_action() {
 
         String matchPatientId = this.getPatientSelectIdLink().getText().toString();
-
-        //Clear the document search results
-        setBean("DocumentQueryResults", new DocumentQueryResults());
-
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map map = context.getExternalContext().getRequestParameterMap(); 
+        String matchAAId = (String) map.get("valueAssigningAuthority");
+       
         PatientSearchData foundPatient = null;
         StringBuffer discoverInfoBuf = new StringBuffer();
         for (PatientSearchData testPatient : getPatientSearchDataList()) {
-            if (testPatient.getPatientId().equals(matchPatientId)) {
+            if (testPatient.getPatientId().equals(matchPatientId) && testPatient.getAssigningAuthorityID().equals(matchAAId)) {
                 getSessionBean1().setFoundPatient(testPatient);
                 foundPatient = testPatient;
 
@@ -600,6 +601,11 @@ public class Page2 extends AbstractPageBean {
                 if (!foundPatient.getPatientId().isEmpty()) {
                     discoverInfoBuf.append(foundPatient.getPatientId() + " ");
                 }
+                discoverInfoBuf.append("AssigningAuthority ID: ");
+                if (!foundPatient.getAssigningAuthorityID().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getAssigningAuthorityID() + " ");
+                }
+          
                 discoverInfoBuf.append("SSN: ");
                 if (!foundPatient.getSsn().isEmpty()) {
                     discoverInfoBuf.append(foundPatient.getSsn() + " ");
@@ -630,6 +636,7 @@ public class Page2 extends AbstractPageBean {
         SearchData searchData = (SearchData) getBean("SearchData");
 
         searchData.setPatientID(foundPatient.getPatientId());
+        //searchData.setAssigningAuthorityID(foundPatient.getAssigningAuthorityID());
 
         return null;
     }
@@ -670,23 +677,17 @@ public class Page2 extends AbstractPageBean {
     private void performPatientCorrelation() {
 
         this.getPatientCorrelationList().clear();
-        String assigningAuthId = null;
-        try {
-            assigningAuthId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
-        } catch (PropertyAccessException ex) {
-            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
         PatientCorrelationProxyObjectFactory pcFactory = new PatientCorrelationProxyObjectFactory();
         PatientCorrelationProxy pcProxy = pcFactory.getPatientCorrelationProxy();
-
+       
         QualifiedSubjectIdentifierType homeQualifiedSubjectId = new QualifiedSubjectIdentifierType();
-        homeQualifiedSubjectId.setAssigningAuthorityIdentifier(assigningAuthId);
+        homeQualifiedSubjectId.setAssigningAuthorityIdentifier(getSessionBean1().getFoundPatient().getAssigningAuthorityID());
         homeQualifiedSubjectId.setSubjectIdentifier(getSessionBean1().getFoundPatient().getPatientId());
         RetrievePatientCorrelationsRequestType retrieveRequest = new RetrievePatientCorrelationsRequestType();
         retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
         retrieveRequest.setAssertion(getSessionBean1().getAssertionInfo());
-
+        
         PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(retrieveRequest);
         RetrievePatientCorrelationsResponseType response = pcProxy.retrievePatientCorrelations(patCorrelationRequest, retrieveRequest.getAssertion());
         List<QualifiedSubjectIdentifierType> retrievedPatCorrList = new ArrayList<QualifiedSubjectIdentifierType>();
@@ -762,7 +763,8 @@ public class Page2 extends AbstractPageBean {
 //            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
 //            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 //
-        PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
+              PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
+             
 //            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
 //            //HL7PatientTransforms.create201302PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn(), null);
 //            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
@@ -773,12 +775,22 @@ public class Page2 extends AbstractPageBean {
 //
 //            if (sdAck != null) {
 
-        AssertionType assertion = getSessionBean1().getAssertionInfo();
-        PatientDiscoveryClient patientDiscoveryClient = new PatientDiscoveryClient();
-        patientDiscoveryClient.broadcastPatientDiscovery(assertion, foundPatient);
+        
+	   SearchData searchData = (SearchData) getBean("SearchData");
 
-        performPatientCorrelation();
-        this.getSubjectDiscoveryResultsInfo().setText("Broadcast Patient Discovery Results");
+        PatientSearchData currentPatient = null;
+        
+        for (PatientSearchData testPatient : getPatientSearchDataList()) {
+            if (testPatient.getPatientId().equals(searchData.getPatientID())) {
+                currentPatient = testPatient; 
+                AssertionType assertion = getSessionBean1().getAssertionInfo();
+                PatientDiscoveryClient patientDiscoveryClient = new PatientDiscoveryClient();
+                patientDiscoveryClient.broadcastPatientDiscovery(assertion, currentPatient);
+                performPatientCorrelation();
+                this.getSubjectDiscoveryResultsInfo().setText("Broadcast Patient Discovery Results");
+            }
+        }
+
 
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));

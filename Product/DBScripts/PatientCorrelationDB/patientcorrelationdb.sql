@@ -33,3 +33,12 @@ CREATE TABLE `correlatedidentifiers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
+DROP TABLE IF EXISTS `pddeferredcorrelation`;
+CREATE TABLE `pddeferredcorrelation` (
+  Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  MessageId VARCHAR(100) NOT NULL,
+  AssigningAuthorityId varchar(45) NOT NULL,
+  PatientId varchar(45) NOT NULL,
+  CreationTime DATETIME NOT NULL,
+  PRIMARY KEY (Id)
+);

@@ -7,11 +7,11 @@
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.entitydocretrievereqqueueprocess.EntityDocRetrieveDeferredReqQueueProcess;
-import gov.hhs.fha.nhinc.entitydocretrievereqqueueprocess.EntityDocRetrieveDeferredReqQueueProcessPortType;
-import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessRequestType;
-import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
-import gov.hhs.fha.nhinc.gateway.entitydocretrievereqqueueprocess.SuccessOrFailType;
+import gov.hhs.fha.nhinc.adapterdocretrievereqqueueprocess.AdapterDocRetrieveDeferredReqQueueProcess;
+import gov.hhs.fha.nhinc.adapterdocretrievereqqueueprocess.AdapterDocRetrieveDeferredReqQueueProcessPortType;
+import gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessRequestType;
+import gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -42,7 +42,7 @@ public class RetrieveDocumentsDeferredReqQueueClient {
      */
     public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(String messageId) {
 
-        EntityDocRetrieveDeferredReqQueueProcess service = new EntityDocRetrieveDeferredReqQueueProcess();
+        AdapterDocRetrieveDeferredReqQueueProcess service = new AdapterDocRetrieveDeferredReqQueueProcess();
         String msgText = "";
 
         DocRetrieveDeferredReqQueueProcessResponseType response = new DocRetrieveDeferredReqQueueProcessResponseType();
@@ -53,10 +53,10 @@ public class RetrieveDocumentsDeferredReqQueueClient {
         try {
             String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            String endpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunity, NhincConstants.ENTITY_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
+            String endpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunity, NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
 
             if (endpointURL != null && !endpointURL.isEmpty()) {
-                EntityDocRetrieveDeferredReqQueueProcessPortType port = service.getEntityDocRetrieveDeferredReqQueueProcessPort();
+                AdapterDocRetrieveDeferredReqQueueProcessPortType port = service.getAdapterDocRetrieveDeferredReqQueueProcessPort();
 
                 BindingProvider bp = (BindingProvider) port;
                 // (Optional) Configure RequestContext with endpoint's URL
@@ -67,7 +67,7 @@ public class RetrieveDocumentsDeferredReqQueueClient {
                 request.setMessageId(messageId);
                 response = port.processDocRetrieveDeferredReqQueue(request);
             } else {
-                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name [" + NhincConstants.ENTITY_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
+                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name [" + NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
                 log.error(msgText);
                 response.setResponse(msgText);
             }

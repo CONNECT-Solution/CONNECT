@@ -6,8 +6,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.passthru.deferred.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -18,7 +16,6 @@ import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.deferred.response.proxy.NhinDocQueryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.transform.document.DocQueryAckTranforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
@@ -31,10 +28,6 @@ import org.apache.commons.logging.LogFactory;
 public class PassthruDocQueryDeferredResponseOrchImpl {
 
     private static Log log = LogFactory.getLog(PassthruDocQueryDeferredResponseOrchImpl.class);
-
-    protected AsyncMessageProcessHelper createAsyncProcesser() {
-        return new AsyncMessageProcessHelper();
-    }
 
     /**
      *
@@ -66,9 +59,6 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         NhinDocQueryDeferredResponseProxyObjectFactory factory = new NhinDocQueryDeferredResponseProxyObjectFactory();
         NhinDocQueryDeferredResponseProxy proxy = factory.getNhinDocQueryDeferredResponseProxy();
 
-        // ASYNCMSG PROCESSING - RSPSENT
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-
         RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryResponseType = new RespondingGatewayCrossGatewayQueryResponseType();
         respondingGatewayCrossGatewayQueryResponseType.setAdhocQueryResponse(body);
         respondingGatewayCrossGatewayQueryResponseType.setAssertion(assertion);
@@ -78,27 +68,7 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         targets.getNhinTargetCommunity().add(targetCommunity);
         respondingGatewayCrossGatewayQueryResponseType.setNhinTargetCommunities(targets);
 
-        String messageId = "";
-        if (assertion.getRelatesToList() != null && assertion.getRelatesToList().size() > 0) {
-            messageId = assertion.getRelatesToList().get(0);
-        }
-
-        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respondingGatewayCrossGatewayQueryResponseType);
-
-        // check for valid queue update
-        if (bIsQueueOk) {
-            respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
-        } else {
-            String ackMsg = "Deferred Query For Documents request processing halted; deferred queue repository error encountered";
-            log.error(ackMsg);
-
-            // Set the error acknowledgement status
-            // fatal error with deferred queue repository
-            respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-        }
-
-        // ASYNCMSG PROCESSING - REQSENTACK
-        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+        respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
 
         // Audit the incoming NHIN Acknowledgement Message
         ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);

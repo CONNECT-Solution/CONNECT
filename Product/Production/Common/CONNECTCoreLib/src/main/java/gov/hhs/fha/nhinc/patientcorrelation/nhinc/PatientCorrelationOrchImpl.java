@@ -114,6 +114,7 @@ public class PatientCorrelationOrchImpl {
         }
         patientAssigningAuthId = ids.get(0).getRoot();
         if (patientAssigningAuthId != null && !patientAssigningAuthId.equals("")) {
+            log.warn("patientAssigningAuthId: " + patientAssigningAuthId);
         } else {
             log.warn("patient assigning authority was not supplied");
             return null;
@@ -126,15 +127,12 @@ public class PatientCorrelationOrchImpl {
         }
         correlatedPatientAssigningAuthId = ids.get(1).getRoot();
         if (correlatedPatientAssigningAuthId != null && !correlatedPatientAssigningAuthId.equals("")) {
+           log.warn("correlatedPatientAssigningAuthId: " + correlatedPatientAssigningAuthId);
         } else {
             log.warn("correlatedPatientId assigning authority was not supplied");
             return null;
         }
-        if (patientAssigningAuthId.equals(correlatedPatientAssigningAuthId) && patientId.equals(correlatedPatientId)) {
-            log.warn("patient was self-correlated");
-            return null;
-        }
-
+        
         //calculate the correlation expiration date
         Date newExpirationDate = calculateCorrelationExpirationDate(correlatedPatientAssigningAuthId);
 

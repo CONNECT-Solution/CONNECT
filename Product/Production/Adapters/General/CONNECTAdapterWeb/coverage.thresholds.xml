@@ -30,12 +30,12 @@
               linecount="33"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="0" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.QueryForDocumentsDeferredReqQueueClient"
               linecount="33"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="0" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueueClient"
               linecount="33"
               linerate="80"
@@ -187,7 +187,7 @@
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.AdapterComponentDocQueryDeferredResponseUnsecuredImpl"
-              linecount="9"
+              linecount="8"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -230,6 +230,16 @@
               linecount="5"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.queue.AdapterDocQueryDeferredReqQueueProcess"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0.03"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.08"
+              class="gov.hhs.fha.nhinc.docquery.adapter.deferred.request.queue.AdapterDocQueryDeferredReqQueueProcessImpl"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0.13"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseSecured"
               linecount="2"
@@ -335,6 +345,16 @@
               linecount="2"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.queue.AdapterDocRetrieveDeferredReqQueueProcess"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0.03"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.08"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.queue.AdapterDocRetrieveDeferredReqQueueProcessImpl"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0.13"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseImpl"
               linecount="15"
@@ -600,26 +620,16 @@
               linecount="14"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryAsyncReqQueueProxyOrchImpl"
-              linecount="45"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueue"
-              linecount="2"
+              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcess"
+              linecount="3"
               linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoverySecuredAsyncReqQueueImpl"
+              linesexecuted="0.03"/>
+   <threshold branchcount="14" branchrate="80" branchsexecuted="0.12"
+              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcessImpl"
               linecount="13"
               linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryUnsecuredAsyncReqQueue"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
+              linesexecuted="0.13"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured"
               linecount="2"

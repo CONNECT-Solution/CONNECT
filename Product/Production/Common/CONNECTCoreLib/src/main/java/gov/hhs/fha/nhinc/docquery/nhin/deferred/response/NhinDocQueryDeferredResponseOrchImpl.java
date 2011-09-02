@@ -6,8 +6,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
-import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
@@ -34,10 +32,6 @@ public class NhinDocQueryDeferredResponseOrchImpl {
 
     private static Log log = LogFactory.getLog(NhinDocQueryDeferredResponseOrchImpl.class);
 
-    protected AsyncMessageProcessHelper createAsyncProcesser() {
-        return new AsyncMessageProcessHelper();
-    }
-
     /**
      *
      * @param msg
@@ -47,31 +41,20 @@ public class NhinDocQueryDeferredResponseOrchImpl {
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
         log.debug("Begin - .NhinDocQueryDeferredResponseOrchImplrespondingGatewayCrossGatewayQuery");
 
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);
         respAck.setMessage(regResp);
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        String responseCommunityId = HomeCommunityMap.getCommunitIdForDeferredQDResponse(msg);
+        String responseCommunityId = HomeCommunityMap.getCommunityIdForDeferredQDResponse(msg);
         String ackMsg = "";
 
         // Audit the incoming NHIN Message
         AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
-        // ASYNCMSG PROCESSING - RSPRCVD
         RespondingGatewayCrossGatewayQueryResponseType nhinResponse = new RespondingGatewayCrossGatewayQueryResponseType();
         nhinResponse.setAdhocQueryResponse(msg);
         nhinResponse.setAssertion(assertion);
-
-        // Use messageId as WebServiceHelper has moved the RelatesToList.get(0) to MessageId already
-        String messageId = "";
-        if (assertion.getMessageId() != null) {
-            messageId = assertion.getMessageId();
-        }
-
-        boolean bIsQueueOk = asyncProcess.processQueryForDocumentsResponse(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, nhinResponse);
 
         // Check if the service is enabled
         if (isServiceEnabled()) {
@@ -100,9 +83,6 @@ public class NhinDocQueryDeferredResponseOrchImpl {
             // Set the error acknowledgement status
             respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
-
-        // ASYNCMSG PROCESSING - RSPRCVDACK
-        bIsQueueOk = asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, respAck);
 
         // Audit the outgoing NHIN Message
         ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);

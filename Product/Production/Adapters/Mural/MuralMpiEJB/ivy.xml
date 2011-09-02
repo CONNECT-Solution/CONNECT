@@ -48,6 +48,13 @@
     <dependency org="junit" name="junit" rev="4.7" conf="compile->default" />
 	<dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="compile->default" />
     <dependency org="org.jmock" name="jmock-legacy" rev="2.5.1" conf="compile->default" />	
+    
+    <dependency org="com.sun.xml.bind"
+                name="jaxb-impl"
+                rev="2.0"
+                conf="test->default"
+                transitive="false" />
+                
     <!-- global excludes -->
 
 

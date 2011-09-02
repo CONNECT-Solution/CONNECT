@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -43,6 +43,8 @@ public class HL7QueryParamsTransforms {
 
         params.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
         params.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
+        params.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
+        params.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
 
         params.setParameterList(createParamList(patient));
 
@@ -130,14 +132,14 @@ public class HL7QueryParamsTransforms {
         if (patientNames == null || patientNames.size() == 0) {
             return null;
         }
-        
+
         PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
-        
+
         for (PNExplicit name : patientNames) {
            subjectName.getValue().add(HL7DataTransformHelper.ConvertPNToEN(name));
            ST text = new ST();
            subjectName.setSemanticsText(text);
-        }      
+        }
 
         return subjectName;
     }
@@ -162,10 +164,10 @@ public class HL7QueryParamsTransforms {
         CE genderCode = new CE();
 
         if (gender != null &&
-                gender.length() > 0) {            
+                gender.length() > 0) {
             genderCode.setCode(gender);
             adminGender.getValue().add(genderCode);
-            
+
             ST text = new ST();
             adminGender.setSemanticsText(text);
         }

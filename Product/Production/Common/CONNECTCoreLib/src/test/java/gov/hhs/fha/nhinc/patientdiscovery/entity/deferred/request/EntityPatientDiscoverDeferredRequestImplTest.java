@@ -7,12 +7,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
@@ -144,6 +146,21 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                 };
                 return processHelper;
             }
+
+            @Override
+            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao()
+            {
+                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao()
+                {
+
+                    @Override
+                    public void saveOrUpdate(String messageId, II patientId)
+                    {
+                        return;
+                    }
+                };
+                return pdCorrelationDao;
+            }
         };
 
         AssertionType assertion = new AssertionType();
@@ -246,6 +263,21 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                     }
                 };
                 return processHelper;
+            }
+
+            @Override
+            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao()
+            {
+                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao()
+                {
+
+                    @Override
+                    public void saveOrUpdate(String messageId, II patientId)
+                    {
+                        return;
+                    }
+                };
+                return pdCorrelationDao;
             }
         };
 
@@ -356,6 +388,21 @@ public class EntityPatientDiscoverDeferredRequestImplTest
                     }
                 };
                 return processHelper;
+            }
+
+            @Override
+            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao()
+            {
+                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao()
+                {
+
+                    @Override
+                    public void saveOrUpdate(String messageId, II patientId)
+                    {
+                        return;
+                    }
+                };
+                return pdCorrelationDao;
             }
         };
 

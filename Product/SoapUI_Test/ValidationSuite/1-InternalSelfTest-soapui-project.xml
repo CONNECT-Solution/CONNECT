@@ -1937,14 +1937,14 @@
               <con:configuration>
                 <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]/text()</path>
-                <content>uuid:7777777777.77777.777.77</content>
+                <content>uuid:6666666666.66666.666.66</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncReqRequest" messageID="uuid:7777777777.77777.777.77"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncReqRequest" messageID="uuid:6666666666.66666.666.66"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -2206,7 +2206,7 @@
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Async Resp" searchProperties="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7">
-      <con:settings/>
+      <con:settings/>      
       <con:testStep type="request" name="Patient Discovery Async Resp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -2276,7 +2276,7 @@
                                  <urn:given partType="GIV">Gallow</urn:given>
                               </urn:name>
                               <urn:administrativeGenderCode code="M"/>
-                              <urn:birthTime value="19990627"/>
+                              <urn:birthTime value="19630804"/>
                               <urn:addr>
                                  <urn:city>LEESBURG</urn:city>
                                  <urn:state>VA</urn:state>
@@ -2549,6 +2549,22 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Match content of [typeCode/@code]">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
+                <content>CA</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Match content of [acknowledgementDetail/@typeCode]">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/@typeCode</path>
+                <content>I</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespRequest" generateMessageId="true" relatesTo="uuid:1111111111.11111.111.11" addDefaultAction="false"/>
@@ -3106,20 +3122,7 @@
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Response" searchProperties="true" id="6a9e34d9-01e9-4430-bb2f-c1e793b43ae5">
-      <con:settings/>
-      <con:testStep type="groovy" name="Add Deferred Query Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  
- // sql.execute('delete from ' + table)
-
-  def DeferredQueryReqMessageID = context.findProperty( "DeferredQueryReqMessageID" )
-  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
-    def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
-  def insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
-  "values (?, ?, ?, 'QueryForDocument', 'INBOUND', '1.1', 'REQSENTACK')"
-  sql.executeUpdate(insertSql, [DeferredQueryReqMessageID, startDate, endDate])
-}
-</script></con:config></con:testStep>
+      <con:settings/>      
       <con:testStep type="request" name="Document Query Deferred Response">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -3542,13 +3545,8 @@
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Remove Deferred Query Request" disabled="true"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  def DeferredQueryReqMessageID = context.findProperty( "DeferredQueryReqMessageID" )
-  
-  sql.execute ("delete from " + table + "where MessageId ='"+DeferredQueryReqMessageID+"'")
-}
-</script></con:config></con:testStep><con:properties>
+      </con:testStep>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:03:30Z</con:value>
@@ -3854,18 +3852,6 @@
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Deferred Response" searchProperties="true" id="b67cdb4b-1008-4b23-88a8-05dac952baf0">
       <con:settings/>
-      <con:testStep type="groovy" name="Add Deferred Retrieve Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  
- // sql.execute('delete from ' + table)
-
-  def DeferredDocRetrieveReqMessageID = context.findProperty( "DeferredDocRetrieveReqMessageID" )
-  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
-    def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
-  def insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
-  "values (?, ?, ?, 'RetrieveDocument', 'INBOUND', '1.1', 'REQSENTACK')"
-  sql.executeUpdate(insertSql, [DeferredDocRetrieveReqMessageID, startDate, endDate])
-}</script></con:config></con:testStep>
       <con:testStep type="request" name="DocRetrieveDeferredResp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -4133,13 +4119,8 @@
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Remove Deferred Retrieve Request" disabled="true"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  def DeferredDocRetrieveReqMessageID = context.findProperty( "DeferredDocRetrieveReqMessageID" )
-  
-  sql.execute ("delete from " + table + "where MessageId ='"+DeferredDocRetrieveReqMessageID+"'")
-}
-</script></con:config></con:testStep><con:properties>
+      </con:testStep>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:03:34Z</con:value>

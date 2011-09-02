@@ -1574,7 +1574,7 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
         </con:property>
         <con:property>
           <con:name>ServiceCount</con:name>
-          <con:value>136</con:value>
+          <con:value>135</con:value>
         </con:property>
         <con:property>
           <con:name>Service1</con:name>
@@ -1946,11 +1946,11 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
         </con:property>
         <con:property>
           <con:name>Service93</con:name>
-          <con:value>A|adapterpatientdiscoveryasyncreqqueue</con:value>
+          <con:value>A|adapterdocquerydeferredreqqueueprocess</con:value>
         </con:property>
         <con:property>
           <con:name>Service94</con:name>
-          <con:value>A|adapterpatientdiscoverysecuredasyncreqqueue</con:value>
+          <con:value>A|adapterdocretrievedeferredreqqueueprocess</con:value>
         </con:property>
         <con:property>
           <con:name>Service95</con:name>
@@ -1960,13 +1960,13 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
           <con:name>Service96</con:name>
           <con:value>A|adapterpatientdiscoverysecuredasyncreqerror</con:value>
         </con:property>
-        <con:property>
+    	<con:property>
           <con:name>Service97</con:name>
-          <con:value>A|entitypatientdiscoverysecuredasyncreqqueue</con:value>
+          <con:value>A|adapterredactionengine</con:value>
         </con:property>
         <con:property>
           <con:name>Service98</con:name>
-          <con:value>A|entitypatientdiscoveryasyncreqqueue</con:value>
+          <con:value>A|adapterpatientdiscoverydeferredreqqueueprocess</con:value>
         </con:property>
         <con:property>
           <con:name>Service99</con:name>
@@ -2117,12 +2117,8 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
           <con:value>A|adapterdocretrievedeferredrequesterrorsecured</con:value>
         </con:property>
         <con:property>
-          <con:name>Service136</con:name>
-          <con:value>A|adapterredactionengine</con:value>
-        </con:property>
-        <con:property>
           <con:name>Current Service ID</con:name>
-          <con:value>136</con:value>
+          <con:value>135</con:value>
         </con:property>
         <con:property>
           <con:name>Service</con:name>
@@ -2318,7 +2314,7 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     </con:property>
     <con:property>
       <con:name>ServiceCount</con:name>
-      <con:value>136</con:value>
+      <con:value>135</con:value>
     </con:property>
     <con:property>
       <con:name>Service16</con:name>
@@ -2538,11 +2534,11 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     </con:property>
     <con:property>
       <con:name>Service98</con:name>
-      <con:value>A|entitypatientdiscoveryasyncreqqueue</con:value>
+      <con:value>A|adapterpatientdiscoverydeferredreqqueueprocess</con:value>
     </con:property>
     <con:property>
       <con:name>Service97</con:name>
-      <con:value>A|entitypatientdiscoverysecuredasyncreqqueue</con:value>
+      <con:value>A|adapterredactionengine</con:value>
     </con:property>
     <con:property>
       <con:name>Service96</con:name>
@@ -2551,14 +2547,14 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     <con:property>
       <con:name>Service95</con:name>
       <con:value>A|adapterpatientdiscoveryasyncreqerror</con:value>
+    </con:property>    
+    <con:property>
+        <con:name>Service94</con:name>
+        <con:value>A|adapterdocretrievedeferredreqqueueprocess</con:value>
     </con:property>
     <con:property>
-      <con:name>Service94</con:name>
-      <con:value>A|adapterpatientdiscoverysecuredasyncreqqueue</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Service93</con:name>
-      <con:value>A|adapterpatientdiscoveryasyncreqqueue</con:value>
+    	<con:name>Service93</con:name>
+        <con:value>A|adapterdocquerydeferredreqqueueprocess</con:value>
     </con:property>
     <con:property>
       <con:name>Service92</con:name>
@@ -2679,10 +2675,6 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     <con:property>
       <con:name>Service127</con:name>
       <con:value>G|nhinadmindist</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Service136</con:name>
-      <con:value>A|adapterredactionengine</con:value>
     </con:property>
     <con:property>
       <con:name>Service135</con:name>

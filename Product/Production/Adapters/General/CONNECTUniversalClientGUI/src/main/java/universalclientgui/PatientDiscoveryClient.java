@@ -108,6 +108,7 @@ public class PatientDiscoveryClient {
      */
     public void broadcastPatientDiscovery(AssertionType assertion, PatientSearchData patientSearchData) {
 
+        
         try {
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
@@ -115,7 +116,6 @@ public class PatientDiscoveryClient {
 
             String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_FILE_KEY_LOCAL_DEVICE);
             String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-
 
             PRPAIN201305UV02 request201305 = this.create201305(patientSearchData, orgId);
 
@@ -153,9 +153,13 @@ public class PatientDiscoveryClient {
         }
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(patientSearchData.getFirstName(), patientSearchData.getLastName(), patientSearchData.getGender(), patientSearchData.getDob(), patientSearchData.getSsn());
-        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patientSearchData.getPatientId(), localDeviceId);
-
-        resp = HL7PRPA201305Transforms.createPRPA201305(patient, patientSearchData.getAssigningAuthorityID(), receiverOID, localDeviceId);
+        //PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patientSearchData.getPatientId(), localDeviceId);
+	    PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patientSearchData.getPatientId(), patientSearchData.getAssigningAuthorityID());
+     
+          
+        //resp = HL7PRPA201305Transforms.createPRPA201305(patient, patientSearchData.getAssigningAuthorityID(), receiverOID, localDeviceId);
+         resp = HL7PRPA201305Transforms.createPRPA201305(patient, localDeviceId, receiverOID, patientSearchData.getAssigningAuthorityID());
+	  
         return resp;
     }
 

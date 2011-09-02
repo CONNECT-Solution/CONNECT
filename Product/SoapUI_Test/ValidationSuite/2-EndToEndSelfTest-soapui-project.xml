@@ -2024,16 +2024,6 @@
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Async Req" searchProperties="true" id="6ab33784-c36e-403f-82f4-b0722a9fc4fc">
       <con:settings/>
-      <con:testStep type="groovy" name="Clear Async Msg Table">
-        <con:settings/>
-        <con:config>
-          <script>context.withSql('AsyncMsgDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  
-  sql.execute('delete from ' + table)
-}</script>
-        </con:config>
-      </con:testStep>
       <con:testStep type="request" name="Patient Discovery Async Req">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -2369,14 +2359,6 @@
             <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" messageID="uuid:6666666666.66666.666.66"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="Count Database Entries">
-        <con:settings/>
-        <con:config>
-          <script>context.withSql('AsyncMsgDB') { sql -> 
-  assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AsyncMsgTable'))[0]
-}</script>
         </con:config>
       </con:testStep>
       <con:properties>
@@ -2732,7 +2714,7 @@
                                  <urn:given partType="GIV">Gallow</urn:given>
                               </urn:name>
                               <urn:administrativeGenderCode code="M"/>
-                              <urn:birthTime value="19990627"/>
+                              <urn:birthTime value="19630804"/>
                               <urn:addr>
                                  <urn:city>LEESBURG</urn:city>
                                  <urn:state>VA</urn:state>
@@ -3005,6 +2987,22 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Match content of [typeCode/@code]">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
+                <content>CA</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Match content of [acknowledgementDetail/@typeCode]">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/@typeCode</path>
+                <content>I</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -3599,6 +3597,14 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="XPath Match" name="Match content of [@status]">
+              <con:configuration>
+                <path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';//ns10:DocQueryAcknowledgement[1]/ns10:message[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
@@ -3632,26 +3638,6 @@
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Response" searchProperties="true" id="44a09a27-43ba-459d-96af-f35fd7204222">
       <con:settings/>
-      <con:testStep type="groovy" name="Add Deferred Doc Query Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  
- // sql.execute('delete from ' + table)
-
-  //def DeferredQueryReqMessageIDLocal = context.findProperty( "DeferredQueryReqMessageIDLocal" )
-  def DeferredQueryReqMessageID = context.findProperty( "DeferredQueryReqMessageID" )
- // def localAA = context.findProperty( "LocalAA" )
-  def remoteAA = context.findProperty( "RemoteAA" )  
-  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
-  def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
-  def insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
-  "values (?, ?, ?, 'QueryForDocument', 'OUTBOUND', ? , 'REQSENTACK')"
-  sql.executeUpdate(insertSql, [DeferredQueryReqMessageID, startDate, endDate, remoteAA])
-
- // insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, //Direction,CommunityId,Status)" +
-//  "values (?, ?, ?, 'QueryForDocument', 'INBOUND', ? , 'REQSENTACK')"
-//  sql.executeUpdate(insertSql, [DeferredQueryReqMessageIDLocal, startDate, endDate, localAA ])
-}
-</script></con:config></con:testStep>
       <con:testStep type="request" name="Doc Query Deferred Response">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -4076,13 +4062,8 @@
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Remove Deferred Doc Query Request" disabled="true"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  def DeferredQueryReqMessageID = context.findProperty( "DeferredQueryReqMessageID" )
-  
-  sql.execute ("delete from " + table + "where MessageId ='"+DeferredQueryReqMessageID+"'")
-}
-</script></con:config></con:testStep><con:properties>
+      </con:testStep>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-10T19:22:05Z</con:value>
@@ -4394,18 +4375,6 @@
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Deferred Response" searchProperties="true" id="a2d45dd4-dc00-4141-9a8f-7590d39489c6">
       <con:settings/>
-      <con:testStep type="groovy" name="Add Deferred Doc Retrieve Request"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  
- // sql.execute('delete from ' + table)
-
-  def DeferredDocRetrieveReqMessageID = context.findProperty( "DeferredDocRetrieveReqMessageID" )
-  def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
-    def endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("endDate"))
-  def insertSql = "insert into " + table + " (MessageId, CreationTime, ResponseTime, ServiceName, Direction,CommunityId,Status)" +
-  "values (?, ?, ?, 'RetrieveDocument', 'INBOUND', '1.1', 'REQSENTACK')"
-  sql.executeUpdate(insertSql, [DeferredDocRetrieveReqMessageID, startDate, endDate])
-}</script></con:config></con:testStep>
       <con:testStep type="request" name="Doc Retrieve Deferred Resp">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -4678,13 +4647,8 @@
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Remove Deferred Doc Retrieve Request" disabled="true"><con:settings/><con:config><script>context.withSql('AsyncMsgsDB') { sql -> 
-  def table = context.findProperty('AsyncMsgTable')
-  def DeferredDocRetrieveReqMessageID = context.findProperty( "DeferredDocRetrieveReqMessageID" )
-  
-  sql.execute ("delete from " + table + "where MessageId ='"+DeferredDocRetrieveReqMessageID+"'")
-}
-</script></con:config></con:testStep><con:properties>
+      </con:testStep>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-07T03:37:16Z</con:value>
