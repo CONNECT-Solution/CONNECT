@@ -135,21 +135,35 @@ public class PatientDiscoveryPolicyTransformHelper {
 
             HomeCommunityType homeCommunityId = null;
 
-            if (prpain201305UV02 != null &&
+            //if (prpain201305UV02 != null &&
+            //        NullChecker.isNotNullish(prpain201305UV02.getReceiver()) &&
+            //        prpain201305UV02.getReceiver().get(0) != null &&
+            //        prpain201305UV02.getReceiver().get(0).getDevice() != null &&
+            //        prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent() != null &&
+            //        prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+            //        prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+            //        prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+            //        NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+            //        prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+            //        NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            //    homeCommunityId = new HomeCommunityType();
+            //    homeCommunityId.setHomeCommunityId(prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
+                  
+	       //} 
+
+		           
+           if (prpain201305UV02 != null &&
                     NullChecker.isNotNullish(prpain201305UV02.getReceiver()) &&
                     prpain201305UV02.getReceiver().get(0) != null &&
                     prpain201305UV02.getReceiver().get(0).getDevice() != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                homeCommunityId = new HomeCommunityType();
-                homeCommunityId.setHomeCommunityId(prpain201305UV02.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
-            }
-            resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
+                    prpain201305UV02.getReceiver().get(0).getDevice().getId() != null &&
+                    prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0) != null &&
+                    NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
+                homeCommunityId = new HomeCommunityType(); 
+                homeCommunityId.setHomeCommunityId(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+             }
+
+             resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
 
             request.getResource().add(resource);
         }
