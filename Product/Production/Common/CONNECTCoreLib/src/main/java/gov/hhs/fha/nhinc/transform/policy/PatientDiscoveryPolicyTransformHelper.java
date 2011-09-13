@@ -163,7 +163,7 @@ public class PatientDiscoveryPolicyTransformHelper {
                 homeCommunityId.setHomeCommunityId(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot());
              }
 
-             resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
+            resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
 
             request.getResource().add(resource);
         }
