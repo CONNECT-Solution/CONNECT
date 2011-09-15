@@ -4,135 +4,175 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.mpilib;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class MpiDataSaver {
-    private static Log log = LogFactory.getLog(MpiDataSaver.class);
-    private static String filename = "mpi.xml";
+    private Log log = null;
+    private String defaultMpiFilename = null;
 
-
-    public static void SaveMpi(Patients patientList, String file)
-    {
-        log.info("Saving " + patientList.size() + " patient(s)");
-
-        // Create output stream.
-        log.info("Filename=" + file);
-
-        FileOutputStream fos;
-        
-        try {
-            fos = new FileOutputStream(file);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, ex);
-            throw new UnableToInitializeMpi("Error accessing mpi storage", ex);
-        }
-
-        try {
-            // Create XML encoder.
-            XMLEncoder xenc = new XMLEncoder(fos);
-            try {
-                // Write object.
-                xenc.writeObject(patientList);
-                xenc.flush();
-            } finally {
-                xenc.close();
-            }
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        log.info("Save complete");        
+    public MpiDataSaver() {
+        log = createLogger();
+        defaultMpiFilename = getDefaultMpiFilename();
     }
-    public static void SaveMpi(Patients patientList) {
+
+    public void saveMpi(Patients patientList) {
+        saveMpi(patientList, defaultMpiFilename);
+    }
+
+    public void saveMpi(Patients patientList, String file) {
         if ((patientList == null)) {
-            log.info("Patiet List is null");
             patientList = new Patients();
         }
-        SaveMpi(patientList, filename);
-        
 
+        log.info("Saving " + patientList.size() + " patient(s)");
+        log.info("Filename=" + file);
+
+        FileOutputStream fos = null;
+        try {
+            fos = createFileOutputStream(file);
+            writePatientList(fos, patientList);
+        }
+        catch (Exception e) {
+            throw new UnableToInitializeMpi("Failed to save MPI.", e);
+        } finally {
+            closeFileOutputStream(fos);
+        }
+        
+        log.info("Save complete");        
     }
 
-    public static Patients LoadMpi(String file)
-    {
-        log.info("Loading patients");
+    public Patients loadMpi() {
+        return loadMpi(defaultMpiFilename);
+    }
 
-        Patients patientList;
-        File f;
+    public Patients loadMpi(String file) {
+        log.info("Loading patients from " + file);
         
-        // Create input stream.
-        log.info("Filename=" + file);
-        log.info("user.dir: " + System.getProperty("user.dir"));
+        openOrCreateMpiFile(file);
 
-        f = new File(file);
-            
-
-        if (!f.exists()) {
-            //file does not exist, so create it
-            //i would like to replace this with ability to create a default mpi
-            //for testing purposes
-            try
-            {
-                f.createNewFile();
-                SaveMpi(new Patients(), file);
-            }
-            catch (Exception ex)
-            {
-                throw new UnableToInitializeMpi("Error accessing mpi storage", ex);
-            }
-            
-        }
-
-        FileInputStream fis;
+        Patients patientList = new Patients();
+        FileInputStream fis = null;
         try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, ex);
-            throw new UnableToInitializeMpi("Error accessing mpi storage", ex);
-        }
-        try {
-            // Create XML decode.
-            XMLDecoder xdec = new XMLDecoder(fis);
-            try {
-                // Write object.
-                log.info("Loading object");
-                Object o = xdec.readObject();
-                log.info("casting object to 'patients'");
-                patientList = (Patients) o;
-            } finally {
-                xdec.close();
-            }
+            fis = createFileInputStream(file);
+            patientList = readPatientList(fis);
+        } catch (Exception e) {
+            throw new UnableToInitializeMpi("Failed to load MPI.", e);
         } finally {
-            try {
-                fis.close();
-            } catch (IOException ex) {
-                Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            closeFileInputStream(fis);
         }
 
         log.info("Loaded " + patientList.size() + " patient(s)");
         return patientList;        
     }
-    public static Patients LoadMpi() {
-        return LoadMpi(filename);
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
+
+    protected void logException(Exception e) {
+        Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, e);
+    }
+
+    protected String getDefaultMpiFilename() {
+        return ((defaultMpiFilename != null) ? defaultMpiFilename : 
+            PropertyAccessor.getPropertyFileLocation() + File.separator + "mpi.xml");
+    }
+
+    protected FileOutputStream createFileOutputStream(String file) {
+        try {
+            return new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            logException(e);
+            throw new UnableToInitializeMpi("Error accessing mpi storage.", e);
+        }
+    }
+
+    protected FileInputStream createFileInputStream(String file) {
+        try {
+            return new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            logException(e);
+            throw new UnableToInitializeMpi("Error accessing mpi storage", e);
+        }
+    }
+
+    protected void closeFileOutputStream(FileOutputStream fos) {
+        try {
+            fos.close();
+        } catch (Exception ex) {
+            logException(ex);
+        }
+    }
+
+    protected void closeFileInputStream(FileInputStream fis) {
+        try {
+            fis.close();
+        } catch (Exception ex) {
+            logException(ex);
+        }
+    }
+
+    protected void closeXMLEncoder(XMLEncoder xenc) {
+        try {
+            xenc.close();
+        } catch (Exception ex) {
+            logException(ex);
+        }
+    }
+
+    protected void writePatientList(FileOutputStream fos, Patients patientList) {
+        XMLEncoder xenc = new XMLEncoder(fos);
+        try {
+            xenc.writeObject(patientList);
+            xenc.flush();
+        } catch(Exception e) {
+            logException(e);
+            throw new UnableToInitializeMpi("Error writing patient list to xml.", e);
+        } finally {
+            closeXMLEncoder(xenc);
+        }
+    }
+
+    protected Patients readPatientList(FileInputStream fis) {
+        Patients patientList = new Patients();
+        XMLDecoder xdec = new XMLDecoder(fis);
+        try {
+            Object o = xdec.readObject();
+            patientList = (Patients) o;
+        } catch(Exception e) {
+            logException(e);
+            throw new UnableToInitializeMpi("Error reading patient list.", e);
+        } finally {
+            xdec.close();
+        }
+
+        return patientList;
+    }
+
+    protected File openOrCreateMpiFile(String file) {
+        File f = new File(file);
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+                saveMpi(new Patients(), file);
+            } catch (Exception ex) {
+                throw new UnableToInitializeMpi("Error accessing mpi storage", ex);
+            }
+        }
+
+        return f;
+    }
+
 }

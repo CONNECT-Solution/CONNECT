@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -236,19 +236,22 @@ public class MiniMpi implements IMPI {
     }
 
     private void LoadData() {
-        this.setPatients(MpiDataSaver.LoadMpi());
+        MpiDataSaver mpiDataSaver = new MpiDataSaver();
+        this.setPatients( mpiDataSaver.loadMpi());
     }
 
     private void LoadData(String fileName) {
         customFileName = fileName;
-        this.setPatients(MpiDataSaver.LoadMpi(fileName));
+        MpiDataSaver mpiDataSaver = new MpiDataSaver();
+        this.setPatients(mpiDataSaver.loadMpi(fileName));
     }
 
     private void SaveData() {
-        if (customFileName == "") {
-            MpiDataSaver.SaveMpi(this.getPatients());
+        MpiDataSaver mpiDataSaver = new MpiDataSaver();
+        if (customFileName.equals("")) {
+            mpiDataSaver.saveMpi(this.getPatients());
         } else {
-            MpiDataSaver.SaveMpi(this.getPatients(), customFileName);
+            mpiDataSaver.saveMpi(this.getPatients(), customFileName);
         }
     }
 

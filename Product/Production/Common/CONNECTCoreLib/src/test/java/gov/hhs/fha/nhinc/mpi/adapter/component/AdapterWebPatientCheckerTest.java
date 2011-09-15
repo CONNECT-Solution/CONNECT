@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201306;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -25,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterWebPatientCheckerTest {
     private static Log log = LogFactory.getLog(AdapterWebPatientCheckerTest.class);
+    private static String propertyFileLocation = null;
 
     public AdapterWebPatientCheckerTest() {
     }
@@ -39,10 +41,14 @@ public class AdapterWebPatientCheckerTest {
 
     @Before
     public void setUp() {
+        propertyFileLocation = PropertyAccessor.getPropertyFileLocation();
+        String testConfigDir = System.getProperty("user.dir") + "/src/test/resources/config";
+        PropertyAccessor.setPropertyFileLocation(testConfigDir);
     }
 
     @After
     public void tearDown() {
+        PropertyAccessor.setPropertyFileLocation(propertyFileLocation);
     }
 
     /**

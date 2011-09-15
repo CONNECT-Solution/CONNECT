@@ -619,6 +619,14 @@ public class PropertyAccessor
         return m_sPropertyFileDirAbsolutePath;
     }
 
+    public static void setPropertyFileLocation(String propertyFileDirAbsolutePath)
+    {
+        m_sPropertyFileDirAbsolutePath = propertyFileDirAbsolutePath;
+        if (!m_sPropertyFileDirAbsolutePath.endsWith(File.separator)) {
+            m_sPropertyFileDirAbsolutePath = m_sPropertyFileDirAbsolutePath + File.separator;
+        }
+    }
+
     /**
      * This method will return the path to the property files for the currently running servlet.
      */
