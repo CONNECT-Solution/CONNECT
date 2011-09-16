@@ -608,6 +608,12 @@ public class DocRetrieveAggregator {
                     }
 
                     RetrieveDocumentSetResponseType oTempResponse = unmarshalAdhocQueryResponse(resultMsg);
+                     // use the status from the returned response
+                    if (oTempResponse.getRegistryResponse() != null && 
+                            oTempResponse.getRegistryResponse().getStatus() != null) {
+                        oRetrieveDocumentSetResponse.getRegistryResponse().setStatus(oTempResponse.getRegistryResponse().getStatus());
+                    }
+
                     if ((oTempResponse != null) &&
                             (oTempResponse.getDocumentResponse() != null) &&
                             (oTempResponse.getDocumentResponse().size() > 0)) {
