@@ -124,14 +124,6 @@ public class MpiDataSaver {
         }
     }
 
-    protected void closeXMLEncoder(XMLEncoder xenc) {
-        try {
-            xenc.close();
-        } catch (Exception ex) {
-            logException(ex);
-        }
-    }
-
     protected void writePatientList(FileOutputStream fos, Patients patientList) {
         XMLEncoder xenc = new XMLEncoder(fos);
         try {
@@ -141,7 +133,7 @@ public class MpiDataSaver {
             logException(e);
             throw new UnableToInitializeMpi("Error writing patient list to xml.", e);
         } finally {
-            closeXMLEncoder(xenc);
+            xenc.close();
         }
     }
 
