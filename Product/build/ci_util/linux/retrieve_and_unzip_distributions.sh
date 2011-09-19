@@ -2,7 +2,7 @@ JENKINS_URL=$1
 
 NHINC_DIR=/nhin/NHINC
 AS_HOME=/nhin/SUNWappserver
-PASSWORD_FILE_TMP_DIR=/home/jenkins
+PASSWORD_FILE_TMP_DIR=/tmp
 
 #pull down the full dist from wbld21
 rm -Rf target
