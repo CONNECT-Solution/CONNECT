@@ -35,7 +35,7 @@
     
     <mkdir dir="${nhinc.dir}"/>
     
-    <unzip dest="${nhinc.dir}/NHINC">
+    <unzip dest="${nhinc.dir}">
       <fileset dir="target">
         <include name="CONNECT_Binaries*.zip"/>
       </fileset>
@@ -53,7 +53,7 @@
       <fileset dir="${nhinc.dir}/ThirdParty" 
                includes="*"/>
     </delete>
-    <unzip dest="${nhinc.dir}/ThirdParty">
+    <unzip dest="${nhinc.dir}">
       <fileset dir="target">
         <include name="CONNECT_ThirdParty*.zip"/>
       </fileset>
