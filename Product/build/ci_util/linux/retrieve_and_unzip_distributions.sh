@@ -28,7 +28,7 @@ echo "AS_ADMIN_PASSWORD=adminadmin" > $PASSWORD_FILE_TMP_DIR/password.txt
 ########
 
 patch_dos_paths_in_internal_self_test() {
-    echo -e "\n\n" > newlines
+    echo "\n\n" > newlines
     #on solaris, sed seems to filter out a last line that ends with eof instead of eoln
     cat /nhin/ValidationSuite/1-InternalSelfTest-soapui-project.xml newlines > foo0.xml
     sed 's/C:\/Projects\/NHINC\/Current\/Product\/Production\/Common\/Interfaces\/src\//\/nhin\/SUNWappserver\/domains\/domain1\/config\/nhin\//g' < foo0.xml  > foo.xml
@@ -38,7 +38,7 @@ patch_dos_paths_in_internal_self_test() {
 }
 
 patch_dos_paths_in_end_to_end_test() {
-    echo -e "\n\n" > newlines
+    echo "\n\n" > newlines
     cat /nhin/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml newlines > foo0.xml
     sed 's/C:\/Projects\/NHINC\/Current\/Product\/Production\/Common\/Interfaces\/src\//\/nhin\/SUNWappserver\/domains\/domain1\/config\/nhin\//g' < foo0.xml > foo.xml
     sed 's/C:\/projects\/nhinc\/Current\/Product\/Production\/Common\/Interfaces\/src\//\/nhin\/SUNWappserver\/domains\/domain1\/config\/nhin\//g' < foo.xml > foo2.xml
