@@ -13,12 +13,12 @@ unzip target.zip
 
 #unzip the binaries into the ordained directory so brittle deployment scripts..
 rm -Rf $NHINC_DIR/*
-unzip target/CONNECT_Binaries*.zip -d /nhin/NHINC
+unzip target/CONNECT_Binaries*.zip -d $NHINC_DIR
 mkdir $AS_HOME/domains/domain1/config/nhin
 cp -r $NHINC_DIR/Dev/* $AS_HOME/domains/domain1/config/nhin
 
 rm -Rf $NHINC_DIRC/ThirdParty/*
-unzip target/CONNECT_ThirdParty*.zip -d $NHINC_DIR/ThirdParty
+unzip target/CONNECT_ThirdParty*.zip -d $NHINC_DIR
 
 rm -Rf /nhin/ValidationSuite/*
 unzip target/CONNECT_Validation*.zip -d /nhin/
@@ -49,7 +49,7 @@ patch_dos_paths_in_end_to_end_test() {
 patch_dos_paths_in_internal_self_test 
 patch_dos_paths_in_end_to_end_test 
 
-/nhin/mysql/bin/mysql -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/dropall.sql
-/nhin/mysql/bin/mysql -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/nhincdb.sql
-/nhin/mysql/bin/mysql -uroot -pNHIE-Gateway -Ddocrepository < /nhin/NHINC/DBScripts/nhincdb/populateTestData.sql
+/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/dropall.sql
+/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/nhincdb.sql
+/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway -Ddocrepository < /nhin/NHINC/DBScripts/nhincdb/populateTestData.sql
     
