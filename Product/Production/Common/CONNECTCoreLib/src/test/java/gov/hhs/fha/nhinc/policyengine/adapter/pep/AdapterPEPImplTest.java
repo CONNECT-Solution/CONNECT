@@ -28,7 +28,7 @@ public class AdapterPEPImplTest {
 				request,
 				createAttribute(
 						"urn:oasis:names:tc:xspa:1.0:subject:organization-id",
-						"http://www.w3.org/2001/XMLSchema#string", null));
+						"http://www.w3.org/2001/XMLSchema#string"));
 		try {
 			AdapterPEPImpl adapter = new AdapterPEPImpl();
 			Request req = adapter.createPdpRequest(request, null);
@@ -74,12 +74,9 @@ public class AdapterPEPImplTest {
 		return request;
 	}
 
-	private AttributeType createAttribute(String id, String type, String value) {
+	private AttributeType createAttribute(String id, String type) {
 		AttributeType attr = new AttributeType();
 		AttributeValueType av = new AttributeValueType();
-		if (value != null) {
-			av.getContent().add(value);
-		}
 		attr.getAttributeValue().add(av);
 		attr.setDataType(type);
 		attr.setAttributeId(id);
