@@ -1,4 +1,4 @@
-JENKINS_URL=$1
+TARGET_DIST_URL=$1
 
 NHINC_DIR=/nhin/NHINC
 AS_HOME=/nhin/SUNWappserver
@@ -7,7 +7,7 @@ PASSWORD_FILE_TMP_DIR=/tmp
 #pull down the full dist from wbld21
 rm -Rf target
 rm -f target.zip
-wget $JENKINS_URL/lastSuccessfulBuild/artifact/target/\*zip\*/target.zip
+wget $TARGET_DIST_URL
 unzip target.zip
 #rm target.zip
 
