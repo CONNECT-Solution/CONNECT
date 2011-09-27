@@ -4,8 +4,8 @@ username = args[2]
 password = args[3]
 releaseCandidateWorkingCopy = args[4]
 repoURL = args[5]
-archiveDirectory = args[6]; //"c:/archives"
-deploymentQueueDirectory = args[7]  //c:/current-tst
+archiveDirectory = args[6]; //"e:/archives"
+deploymentQueueDirectory = args[7]  //e:/current-milestone
 
 ///////THINGS THAT ARE GOING TO RARELY CHANGE
 svnAntInstallationDir = new File(".", "svnant-1.3.1/").getAbsolutePath()
@@ -115,14 +115,22 @@ def archiveTag(ant, releasedVersionName) {
     ant.copy(todir: targetDir.getAbsolutePath()) {
         fileset(dir: releaseCandidateWorkingCopy + "/target",
                 includes: "*.zip")
-    }
+    }   
+}
 
-    ////////to the queue directory for the deployment project to poll and pick up
+def updateMostRecentMilestone(ant) {
+   if(deploymentQueueDirectory==null || deploymentQueueDirectory.trim().equals("")) {
+       return;
+   }
 
-    ant.copy(todir: deploymentQueueDirectory) {
+   ant.delete(dir: deploymentQueueDirectory,
+              includes: "*.zip");
+              
+   def zipFile = new File(deploymentQueueDirectory, "target.zip")
+   ant.zip(destfile: zipFile.getAbsolutePath()) {
         fileset(dir: releaseCandidateWorkingCopy + "/target",
                 includes: "*.zip")
-    }    
+   }  
 }
 
 /////
@@ -146,6 +154,8 @@ checkoutTag(ant,
 dist(new File(releaseCandidateWorkingCopy, "Product"), tagTuple.release)
 
 archiveTag(ant, tagTuple.release)
+
+updateMostRecentMilestone(ant)
 //////////////////
 
 
