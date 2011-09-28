@@ -1,6 +1,6 @@
 <project name="retrieve_dist_and_unzip">
 
-  <fail unless="jenkins.url"/>
+  <fail unless="target.dist.url"/>
   <fail unless="as.home"/>
   <fail unless="nhin.dir"/>
   <fail unless="password.file.tmp.dir"/>
@@ -19,7 +19,7 @@
     <delete dir="target" quiet="true"/>
     <delete file="target.zip" quiet="true"/>
     
-    <get src="${jenkins.url}/lastSuccessfulBuild/artifact/target/*zip*/target.zip" 
+    <get src="${target.dist.url}" 
          dest="target.zip"/>
          
     <unzip dest="."
