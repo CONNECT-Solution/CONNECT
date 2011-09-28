@@ -20,7 +20,8 @@
     <delete file="target.zip" quiet="true"/>
     
     <get src="${target.dist.url}" 
-         dest="target.zip"/>
+         dest="target.zip"
+         ignoreerrors="true"/>
          
     <unzip dest="."
            src="target.zip"/>       
