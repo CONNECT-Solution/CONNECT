@@ -7,7 +7,7 @@ PASSWORD_FILE_TMP_DIR=/tmp
 #pull down the full dist from wbld21
 rm -Rf target
 rm -f target.zip
-wget $JENKINS_URL/lastSuccessfulBuild/artifact/target/\*zip\*/target.zip
+wget --no-check-certificate $JENKINS_URL/lastSuccessfulBuild/artifact/target/\*zip\*/target.zip
 unzip target.zip
 #rm target.zip
 
