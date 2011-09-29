@@ -128,8 +128,9 @@ def updateMostRecentMilestone(ant) {
               
    def zipFile = new File(deploymentQueueDirectory, "target.zip")
    ant.zip(destfile: zipFile.getAbsolutePath()) {
-        fileset(dir: releaseCandidateWorkingCopy + "/target",
-                includes: "*.zip")
+        zipfileset(dir: releaseCandidateWorkingCopy + "/target",
+                  includes: "*.zip",
+                  prefix: "target")
    }  
 }
 
