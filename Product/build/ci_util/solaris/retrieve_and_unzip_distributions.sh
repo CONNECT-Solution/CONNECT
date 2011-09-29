@@ -48,8 +48,4 @@ patch_dos_paths_in_end_to_end_test() {
 
 patch_dos_paths_in_internal_self_test 
 patch_dos_paths_in_end_to_end_test 
-
-/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/dropall.sql
-/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/nhincdb.sql
-/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway -Ddocrepository < /nhin/NHINC/DBScripts/nhincdb/populateTestData.sql
     
