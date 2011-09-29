@@ -11,8 +11,9 @@ cp /nhin/NHINC/Dev/adapter.properties $AS_HOME/domains/domain1/config/nhin
 cp /nhin/NHINC/Dev/gateway.properties $AS_HOME/domains/domain1/config/nhin
 cp /nhin/NHINC/Dev/repository.properties $AS_HOME/domains/domain1/config/nhin
 cp /nhin/NHINC/Dev/internalConnectionInfo.xml $AS_HOME/domains/domain1/config/nhin
+echo foo: cp /nhin/NHINC/Dev/internalConnectionInfo.xml $AS_HOME/domains/domain1/config/nhin
 
 /nhin/mysql/bin/mysql -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/dropall.sql
 /nhin/mysql/bin/mysql -uroot -pNHIE-Gateway < /nhin/NHINC/DBScripts/nhincdb/nhincdb.sql
-/nhin/mysql/bin/mysql -uroot -pNHIE-Gateway -Ddocrepository < /nhin/ValidationSuite/populateTestData.sql
+/nhin/mysql/bin/mysql --verbose -uroot -pNHIE-Gateway -Ddocrepository < /nhin/ValidationSuite/populateTestData.sql
 
