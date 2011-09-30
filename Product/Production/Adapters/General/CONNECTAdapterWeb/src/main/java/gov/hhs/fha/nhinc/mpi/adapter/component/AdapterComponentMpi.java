@@ -10,6 +10,8 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
@@ -22,9 +24,10 @@ public class AdapterComponentMpi
     @Resource
     private WebServiceContext context;
 
-    public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest)
+    public org.hl7.v3.PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest)
     {
         AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
-        return oImpl.findCandidates(false, findCandidatesRequest, context);
+        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(), findCandidatesRequest.getAssertion());
+        return oResponse;
     }
 }
