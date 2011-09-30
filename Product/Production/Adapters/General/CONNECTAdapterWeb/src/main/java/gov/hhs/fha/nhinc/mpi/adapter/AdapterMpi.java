@@ -12,6 +12,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * This class is the implementation of the Unsecured AdapterMPI service.
@@ -32,10 +33,10 @@ public class AdapterMpi {
      * @param findCandidatesRequest The query data.
      * @return The results from the MPI query.
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest)
+    public PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest)
     {
         AdapterMpiImpl oImpl = new AdapterMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(false, findCandidatesRequest, context);
+        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(), findCandidatesRequest.getAssertion());
         return oResponse;
     }
 
