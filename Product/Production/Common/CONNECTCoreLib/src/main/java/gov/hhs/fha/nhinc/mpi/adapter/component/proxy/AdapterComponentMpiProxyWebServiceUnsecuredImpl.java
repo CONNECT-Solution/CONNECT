@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.Service;
 import javax.xml.namespace.QName;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * This is the proxy class for the unsecued AdapterComponentProxy interface.
@@ -76,8 +77,11 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
 
                 if (NullChecker.isNotNullish(url))
                 {
+                    RespondingGatewayPRPAIN201305UV02RequestType wsRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+                    wsRequest.setPRPAIN201305UV02(request);
+                    wsRequest.setAssertion(assertion);
                     AdapterComponentMpiPortType port = getPort(url, NhincConstants.ADAPTER_MPI_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, AdapterComponentMpiPortType.class, "findCandidates", request);
+                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, AdapterComponentMpiPortType.class, "findCandidates", wsRequest);
                 }
                 else
                 {
