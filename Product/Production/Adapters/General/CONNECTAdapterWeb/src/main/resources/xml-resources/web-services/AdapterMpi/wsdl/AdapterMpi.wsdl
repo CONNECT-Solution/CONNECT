@@ -7,7 +7,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<message name="FindCandidatesRequest">
-		<part name="FindCandidatesRequest" element="hl7:PRPA_IN201305UV02"/>
+		<part name="FindCandidatesRequest" element="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
 	</message>
 	<message name="FindCandidatesResponse">
 		<part name="FindCandidatesResponse" element="hl7:PRPA_IN201306UV02"/>
