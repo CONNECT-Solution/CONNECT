@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.hiem.processor.nhin;
 
@@ -107,7 +107,7 @@ public class NhinNotifyProcessor {
                 if (log.isDebugEnabled()) {
                     log.debug("Notification message: " + XmlUtility.serializeElementIgnoreFaults(notificationMessageElement));
                 }
-                List<HiemSubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(notificationMessageElement, HiemProcessorConstants.PRODUCER_NHIN);
+                List<HiemSubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(notificationMessageElement, HiemProcessorConstants.PRODUCER_GATEWAY);
                 if (subscriptionItems != null) {
                     log.debug("Subscription item list count: " + subscriptionItems.size());
                     for (HiemSubscriptionItem subscriptionItem : subscriptionItems) {
