@@ -44,6 +44,29 @@ public class AdapterMpiImpl {
      * @param context The web service context information.
      * @return The results of the lookup.
      */
+     
+    public  PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody)
+    {
+        log.debug("Entering AdapterMpiImpl.query");
+
+        AssertionType assertion = null;
+        if(assertionFromBody != null)
+        {
+            assertion = assertionFromBody;
+        }
+        else
+        {
+            assertion = new AssertionType();
+        }
+
+        AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
+        PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
+
+        // Send response back to the initiating Gateway
+        log.debug("Exiting AdapterMpiImpl.query - unsecured");
+        return response;
+    }
+ 
     public  PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context)
     {
         log.debug("Entering AdapterMpiImpl.findCandidates");
@@ -62,7 +85,7 @@ public class AdapterMpiImpl {
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterMpiImpl.findCandidates");
+        log.debug("Exiting AdapterMpiImpl.query - secured");
         return response;
     }
 }
