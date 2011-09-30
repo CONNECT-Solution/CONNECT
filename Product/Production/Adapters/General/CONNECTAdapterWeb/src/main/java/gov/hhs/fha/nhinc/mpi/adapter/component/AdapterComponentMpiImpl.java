@@ -16,6 +16,11 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import javax.xml.ws.BindingProvider;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+
 
 /**
  * This class is the implementation of the AdapterComponentMpi.  It performs any
@@ -37,9 +42,9 @@ public class AdapterComponentMpiImpl
      * @param context The web service context information.
      * @return The results of the lookup.
      */
-    public PRPAIN201306UV02 findCandidates(boolean bIsSecure, org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context)
+    public PRPAIN201306UV02 query(boolean bIsSecure, org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context)
     {
-        log.debug("Entering AdapterComponentMpiImpl.findCandidates");
+        log.debug("Entering AdapterComponentMpiImpl.query - secured");
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null))
@@ -55,7 +60,29 @@ public class AdapterComponentMpiImpl
         PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterComponentMpiImpl.findCandidates");
+        log.debug("Exiting AdapterComponentMpiImpl.query - secured");
+        return response;
+    }
+    
+     public  PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody)
+    {
+        log.debug("Entering AdapterComponentMpiImpl.query - unsecured");
+
+        AssertionType assertion = null;
+        if(assertionFromBody != null)
+        {
+            assertion = assertionFromBody;
+        }    	
+        else
+        {
+            assertion = new AssertionType();
+        }
+
+        AdapterComponentMpiOrchImpl oOrchestrator = new AdapterComponentMpiOrchImpl();
+        PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);
+
+        // Send response back to the initiating Gateway
+        log.debug("Exiting AdapterComponentMpiImpl.query - unsecured");
         return response;
     }
 }
