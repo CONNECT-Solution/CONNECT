@@ -22,6 +22,14 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.jws.WebService;
+import javax.xml.bind.JAXBElement;
+import javax.xml.ws.WebServiceFeature;
+import javax.xml.ws.soap.MTOMFeature;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -92,6 +100,8 @@ public class DocumentManagerImpl {
     public static final DateFormat XDS_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 
     private static Log log = LogFactory.getLog(DocumentManagerImpl.class);
+    private static final String GATEWAY_PROPERTY_FILE = "gateway";
+    private static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
 
     ////////////////////////////////////////////////////////////////////////////
     //Interface implementation
@@ -115,7 +125,10 @@ public class DocumentManagerImpl {
                     + " in file:" + REPOSITORY_PROPERTY_FILE + ".", e);
         }
 
-        return doQuery(body, DYNDOC_REGISTRY_ENDPOINT, repositoryId);
+        String serviceName = "adapterxdsbdocregistry";
+        String sEndpointURL = " ";
+        sEndpointURL = getDocumentServiceEndpoint(serviceName); 
+        return doQuery(body, sEndpointURL, repositoryId);
     }
 
     /**
@@ -126,7 +139,11 @@ public class DocumentManagerImpl {
      */
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentManagerRetrieveDynamicDocument(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         log.debug("Retrieving dynamic document.");
-        return doRetrieve(body, DYNDOC_REPOSITORY_ENDPOINT);
+        
+        String serviceName = "adapterxdsbdocrepository";
+        String sEndpointURL = " ";
+        sEndpointURL = getDocumentServiceEndpoint(serviceName); 
+        return doRetrieve(body, sEndpointURL);
     }
 
     /**
@@ -146,8 +163,12 @@ public class DocumentManagerImpl {
             log.error("Error accessing property:" + DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP
                     + " in file:" + REPOSITORY_PROPERTY_FILE + ".", e);
         }
-
-        return doStore(body, DYNDOC_REPOSITORY_ENDPOINT, repositoryId);
+           
+        String serviceName = "adapterxdsbdocrepository";
+        String sEndpointURL = " ";
+        sEndpointURL = getDocumentServiceEndpoint(serviceName); 
+        return doStore(body, sEndpointURL, repositoryId); 
+        
     }
 
     /**
@@ -930,4 +951,82 @@ public class DocumentManagerImpl {
         valList.getValue().add(repositoryId);
         repositoryIdSlot.setValueList(valList);
     }
-}
+    
+    private String getDocumentServiceEndpoint(String serviceName)
+    {
+
+        String sHomeCommunityId = " ";
+        String sEndpointURL = " ";
+
+        try
+        {
+             List<WebServiceFeature> wsfeatures = new ArrayList<WebServiceFeature>();
+        	 wsfeatures.add(new MTOMFeature(0));
+        	 WebServiceFeature[] wsfeaturearray = wsfeatures.toArray(new WebServiceFeature[0]);
+
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the service
+            //------------------------------------------
+
+            ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
+            ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
+
+
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0))
+            {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, serviceName);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + serviceName +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) 
+            {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+                log.debug("sEndpointURL: " + sEndpointURL); 
+            }
+            else 
+            {
+                // Just a way to cover ourselves for the time being...  - assume port 8080
+                //-------------------------------------------------------------------------
+
+                if (serviceName == "adapterxdsbdocregistry") {
+
+                   ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, DYNDOC_REGISTRY_ENDPOINT);
+
+                   log.warn("Did not find endpoint URL for service: " + "adapterxdsbdocregistry" + " and " +
+                            "Home Community: " + sHomeCommunityId + ".  Using default URL: " + DYNDOC_REGISTRY_ENDPOINT);
+                }     
+                else 
+                {
+                   ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, DYNDOC_REPOSITORY_ENDPOINT);
+
+                   log.warn("Did not find endpoint URL for service: " + "adapterxdsbdocrepository" + " and " +
+                            "Home Community: " + sHomeCommunityId + ".  Using default URL: " + DYNDOC_REPOSITORY_ENDPOINT);
+                }
+             } 
+                   
+         } 
+         catch (Exception ex) 
+         {
+            ex.printStackTrace();
+            log.error("DocumentManagerServices lookup for " + serviceName + " failed " + ex.getMessage());                    
+            
+         }  
+      log.debug("Document Manager Service Endpoint: " + sEndpointURL);   	
+      return (sEndpointURL); 
+    }  
+ }     	
+      		
