@@ -12,7 +12,7 @@
     <id column="id" name="id" type="long">
       <generator class="increment"/>
     </id>
-    <property column="assigningauthorityid" length="45" name="assigningAuthorityId" not-null="true" type="string"/>
-    <property column="homecommunityid" length="45" name="homeCommunityId" not-null="true" type="string"/>
+    <property column="assigningauthorityid" length="64" name="assigningAuthorityId" not-null="true" type="string"/>
+    <property column="homecommunityid" length="64" name="homeCommunityId" not-null="true" type="string"/>
   </class>
 </hibernate-mapping>

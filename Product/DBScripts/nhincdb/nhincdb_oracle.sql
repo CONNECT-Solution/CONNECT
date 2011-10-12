@@ -23,8 +23,8 @@ CREATE TABLE nhincuser.agg_message_results (
 
 CREATE TABLE nhincuser.aa_to_home_community_mapping (
   id number(10) NOT NULL,
-  assigningauthorityid varchar2(45) NOT NULL,
-  homecommunityid varchar2(45) NOT NULL,
+  assigningauthorityid varchar2(64) NOT NULL,
+  homecommunityid varchar2(64) NOT NULL,
   PRIMARY KEY  (id,assigningauthorityid)
 );
 
@@ -37,8 +37,8 @@ CREATE TABLE nhincuser.auditrepository
     participationTypeCode number,
     participationTypeCodeRole number,
     participationIDTypeCode varchar2(100),
-    receiverPatientId varchar2(100),
-    senderPatientId varchar2(100),
+    receiverPatientId varchar2(128),
+    senderPatientId varchar2(128),
     communityId varchar2(255),
     messageType varchar2(100) NOT NULL,
     message BLOB,
@@ -64,7 +64,7 @@ CREATE TABLE nhincuser.document (
   FormatCode varchar2(64) default NULL,
   FormatCodeScheme varchar2(64) default NULL,
   FormatCodeDisplayName varchar2(64) default NULL,
-  PatientId varchar2(64) default NULL,
+  PatientId varchar2(128) default NULL,
   ServiceStartTime DATE default NULL,
   ServiceStopTime DATE default NULL,
   Status varchar2(64) default NULL,
@@ -137,10 +137,10 @@ CREATE TABLE nhincuser.transfer_data
 
 CREATE TABLE nhincuser.correlatedidentifiers (
   correlationId number(10) NOT NULL,
-  PatientAssigningAuthorityId varchar2(45) NOT NULL,
-  PatientId varchar2(45) NOT NULL,
-  CorrelatedPatientAssignAuthId varchar2(45) NOT NULL,
-  CorrelatedPatientId varchar2(45) NOT NULL,
+  PatientAssigningAuthorityId varchar2(64) NOT NULL,
+  PatientId varchar2(128) NOT NULL,
+  CorrelatedPatientAssignAuthId varchar2(64) NOT NULL,
+  CorrelatedPatientId varchar2(128) NOT NULL,
   CorrelationExpirationDate DATE,
   PRIMARY KEY  (correlationId)
 );

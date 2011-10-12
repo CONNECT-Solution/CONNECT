@@ -30,8 +30,8 @@ CREATE DATABASE assigningauthoritydb;
 
 CREATE TABLE assigningauthoritydb.aa_to_home_community_mapping (
   id int(10) unsigned NOT NULL auto_increment,
-  assigningauthorityid varchar(45) NOT NULL,
-  homecommunityid varchar(45) NOT NULL,
+  assigningauthorityid varchar(64) NOT NULL,
+  homecommunityid varchar(64) NOT NULL,
   PRIMARY KEY  (id,assigningauthorityid)
 );
 
@@ -50,8 +50,8 @@ CREATE TABLE auditrepo.auditrepository
     participationTypeCode SMALLINT,
     participationTypeCodeRole SMALLINT,
     participationIDTypeCode VARCHAR(100),
-    receiverPatientId VARCHAR(100),
-    senderPatientId VARCHAR(100),
+    receiverPatientId VARCHAR(128),
+    senderPatientId VARCHAR(128),
     communityId VARCHAR(255),
     messageType VARCHAR(100) NOT NULL,
     message LONGBLOB,
@@ -84,7 +84,7 @@ CREATE TABLE docrepository.document (
   FormatCode varchar(64) default NULL,
   FormatCodeScheme varchar(64) default NULL,
   FormatCodeDisplayName varchar(64) default NULL,
-  PatientId varchar(64) default NULL COMMENT 'Format of HL7 2.x CX',
+  PatientId varchar(128) default NULL COMMENT 'Format of HL7 2.x CX',
   ServiceStartTime datetime default NULL COMMENT 'Format of YYYYMMDDHHMMSS',
   ServiceStopTime datetime default NULL COMMENT 'Format of YYYYMMDDHHMMSS',
   Status varchar(64) default NULL,
@@ -167,10 +167,10 @@ CREATE DATABASE patientcorrelationdb;
 
 CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
-  PatientAssigningAuthorityId varchar(45) NOT NULL,
-  PatientId varchar(45) NOT NULL,
-  CorrelatedPatientAssignAuthId varchar(45) NOT NULL,
-  CorrelatedPatientId varchar(45) NOT NULL,
+  PatientAssigningAuthorityId varchar(64) NOT NULL,
+  PatientId varchar(128) NOT NULL,
+  CorrelatedPatientAssignAuthId varchar(64) NOT NULL,
+  CorrelatedPatientId varchar(128) NOT NULL,
   CorrelationExpirationDate datetime,
   PRIMARY KEY  (correlationId)
 );
@@ -178,8 +178,8 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
 CREATE TABLE patientcorrelationdb.pddeferredcorrelation (
   Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   MessageId VARCHAR(100) NOT NULL,
-  AssigningAuthorityId varchar(45) NOT NULL,
-  PatientId varchar(45) NOT NULL,
+  AssigningAuthorityId varchar(64) NOT NULL,
+  PatientId varchar(128) NOT NULL,
   CreationTime DATETIME NOT NULL,
   PRIMARY KEY (Id)
 );

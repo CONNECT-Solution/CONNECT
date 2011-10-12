@@ -22,7 +22,7 @@
     <property column="FormatCode" length="64" name="formatCode" not-null="false" type="string"/>
     <property column="FormatCodeScheme" length="64" name="formatCodeScheme" not-null="false" type="string"/>
     <property column="FormatCodeDisplayName" length="64" name="formatCodeDisplayName" not-null="false" type="string"/>
-    <property column="PatientId" length="64" name="patientId" not-null="false" type="string"/>
+    <property column="PatientId" length="128" name="patientId" not-null="false" type="string"/>
     <property column="ServiceStartTime" name="serviceStartTime" not-null="false" type="timestamp"/>
     <property column="ServiceStopTime" name="serviceStopTime" not-null="false" type="timestamp"/>
     <property column="Status" length="64" name="status" not-null="false" type="string"/>
