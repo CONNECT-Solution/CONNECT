@@ -167,7 +167,7 @@ CREATE DATABASE patientcorrelationdb;
 
 CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
-  PatientAssigningAuthorityId varchar(65) NOT NULL,
+  PatientAssigningAuthorityId varchar(64) NOT NULL,
   PatientId varchar(128) NOT NULL,
   CorrelatedPatientAssignAuthId varchar(64) NOT NULL,
   CorrelatedPatientId varchar(128) NOT NULL,
