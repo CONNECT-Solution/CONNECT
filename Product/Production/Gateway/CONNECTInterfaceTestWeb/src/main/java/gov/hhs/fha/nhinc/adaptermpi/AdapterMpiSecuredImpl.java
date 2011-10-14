@@ -13,7 +13,9 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractorHelper;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiService;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  *
@@ -30,9 +32,15 @@ public class AdapterMpiSecuredImpl {
         String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
         if (NullChecker.isNotNullish(homeCommunityId)) {
 
+            RespondingGatewayPRPAIN201305UV02RequestType requestMessage = new RespondingGatewayPRPAIN201305UV02RequestType();
+            requestMessage.setAssertion(SamlTokenExtractor.GetAssertion(context));
+            requestMessage.setPRPAIN201305UV02(findCandidatesRequest);
+
             AdapterComponentMpiPortType port = service.getAdapterComponentMpiPort();
-            response = port.findCandidates(findCandidatesRequest);
+            response = port.findCandidates(requestMessage);
             ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+            //            response = port.findCandidates(findCandidatesRequest);
+            //((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
         }
 
         return response;
