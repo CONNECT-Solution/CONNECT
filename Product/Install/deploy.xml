@@ -77,7 +77,7 @@
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
     <runtarget target="deploy.ejbs.to.glassfish"/>
-
+	<run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar"/>
     <if>
       <isset property="stop.glassfish.after.deploy"/>
       <then>
@@ -596,6 +596,14 @@
     <runtarget target="-configure.glassfish.domain"/>
     <runtarget target="-restore.glassfish.domain.certificates"/>
     <runtarget target="-uncomment.domain.config"/>
-  </target>
-
+  
+  
+  </target><macrodef name="run-validationsuite-mod">
+	<attribute name="jarfile"/>
+	<sequential>
+		<java jar="${basedir}/Install/@{jarfile}" fork="true"/>
+		<echo>Sucess:  Validation Suite WSDL paths modified.</echo>
+	</sequential>
+  </macrodef>
+  
 </project>

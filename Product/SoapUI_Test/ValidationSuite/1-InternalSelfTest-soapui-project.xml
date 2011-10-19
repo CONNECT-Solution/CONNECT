@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="InternalSelfTest" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="InternalSelfTest" resourceRoot="" soapui-version="4.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxySubscriptionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxySubscriptionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
       <con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
@@ -15,10 +15,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyNotificationConsumerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyNotificationConsumerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyNotificationConsumer.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
       <con:endpoint>http://192.168.25.157:9080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
@@ -28,10 +28,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
       <con:endpoint>http://mhsnhie3.fedsconnect.org:8080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
@@ -43,10 +43,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyNotificationProducerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyNotificationProducerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
       <con:endpoint>http://192.168.25.157:8080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
       <con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
@@ -60,10 +60,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
       <con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
@@ -74,10 +74,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxySubjectDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery}NhincProxySubjectDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxySubjectDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery}NhincProxySubjectDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxySubjectDiscovery</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubjectDiscovery</con:endpoint>
     </con:endpoints>
@@ -94,10 +94,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
       <con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
@@ -108,10 +108,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProxyXDRAsyncRequest_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProxyXDRAsyncRequest_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyXDRRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRRequest</con:endpoint>
       <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:endpoint>
@@ -453,10 +453,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint>
     </con:endpoints>
@@ -464,10 +464,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryAsyncReqBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryAsyncReqBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncReq</con:endpoint>
       <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
     </con:endpoints>
@@ -475,10 +475,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryAsyncRespBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryAsyncRespBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
       <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
     </con:endpoints>
@@ -486,20 +486,20 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-DeferredDQResponse}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredRequest</con:endpoint>
       <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredRequest}</con:endpoint>
     </con:endpoints>
@@ -718,10 +718,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse}NhincProxyDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse}NhincProxyDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocRetrieveDeferredResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredResponse</con:endpoint>
       <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredResponse}</con:endpoint>
     </con:endpoints>
@@ -936,10 +936,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAdminDist_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAdminDist_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache type="TEXT"/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional">
@@ -1144,10 +1144,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-DeferredDQRequest}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:CrossGatewayQueryRequest" name="CrossGatewayQueryRequest" bindingOperationName="CrossGatewayQueryRequest" type="Request-Response" outputName="CrossGatewayQueryAcknowledgement" inputName="CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false">
@@ -5754,7 +5754,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:04:18Z</con:value>
@@ -6397,7 +6397,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:04:23Z</con:value>
@@ -7417,7 +7417,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
       <con:name>Endpoint-DeferredDQRequest</con:name>
       <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</con:value>
     </con:property>
-  <con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property></con:properties>
+  <con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

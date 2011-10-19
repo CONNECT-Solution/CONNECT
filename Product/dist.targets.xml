@@ -112,7 +112,21 @@
       </zipfileset>     
       <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
         <include name="*.jar"/>
-      </zipfileset>       
+      </zipfileset> 
+	  <zipfileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" prefix="ThirdParty/ValidationSuite">
+        <include name="*.*"/>
+        <exclude name="build.xml"/>
+      </zipfileset>
+      <zipfileset dir="${production.dir}/Common/Properties/Dev" prefix="ThirdParty/ValidationSuite">
+        <include name="mpi.xml"/>
+        <include name="reidentification.xml"/>
+      </zipfileset>
+      <zipfileset dir="${dbscripts.dir}/nhincdb" prefix="ThirdParty/ValidationSuite">
+        <include name="populateTestData.sql"/>
+      </zipfileset>
+	  <zipfileset dir="${root.project.directory.path}/IntegrationTest/scripts" prefix="ThirdParty/ValidationSuite">
+	    <include name="FileUtils.groovy"/>
+	  </zipfileset>
     </zip>
   </target>
   

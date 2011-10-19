@@ -75,7 +75,8 @@
   <target name="copy.deployable.artifacts">
     <delete dir="${deployment.binaries.dir}"/>
     <mkdir dir="${deployment.binaries.dir}"/>
-
+	<mkdir dir="${deployment.dir}/Install"/>
+	
     <runtarget target="create.deploy.list.xml"/>
 
     <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
@@ -84,6 +85,12 @@
 
     <copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
       <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
+    </copy>
+	
+	 <copy todir="${deployment.dir}/Install" verbose="true" overwrite="true">
+      <fileset dir="${root.project.directory.path}/Install">
+		<include name="SetValidationSuiteWsdlPath.jar"/>
+	  </fileset>
     </copy>
 
     <var name="do-to-target" value="copy.deployable.artifacts"/>

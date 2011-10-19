@@ -249,7 +249,9 @@ class FileUtils {
   static restoreToMasterConfiguration(context, log) {
     log.info("Start restoreToMasterConfiguration(context, log)")
     try{
-      def masterDir = new File(System.env['MASTER_NHINC_CONFIG'])
+	
+	  def masterDirFile = System.env['NHINC_PROPERTIES_DIR']+"/master"
+      def masterDir = new File(masterDirFile)
       def confDir = new File(System.env['NHINC_PROPERTIES_DIR'])
       
       def files2restore = ["internalConnectionInfo.xml","adapter.properties","gateway.properties","hiemTopicConfiguration.xml","XDSUniqueIds.properties","PCConfiguration.xml","uddiConnectionInfo.xml"]

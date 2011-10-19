@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="ValidateServices" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincComponentConnectionManager.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl">
       <con:part>

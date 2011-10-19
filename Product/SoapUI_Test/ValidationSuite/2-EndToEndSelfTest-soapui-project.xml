@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EndToEndSelfTest" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="EndToEndSelfTest" resourceRoot="" soapui-version="4.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Global Properties" value=""/>
   <con:entry key="TestSuite" value="EndToEndSelfTest TestSuite"/>
@@ -30,10 +30,10 @@
   <con:entry key="Add Settings" value="false"/>
   <con:entry key="Endpoint" value=""/>
 </xml-fragment>]]></con:setting></con:settings>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/EntityDocQuery</con:endpoint>
       <con:endpoint>http://172.16.50.54:9080/NhinConnect/EntityDocQuery</con:endpoint>
@@ -44,10 +44,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityAuditLogQuery</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/EntityAuditLogQuery</con:endpoint>
       <con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint>
@@ -59,10 +59,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityDocRetrieve</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
     </con:endpoints>
@@ -70,10 +70,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntitySubjectDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubjectdiscovery}EntitySubjectDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntitySubjectDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubjectdiscovery}EntitySubjectDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntitySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubjectDiscovery</con:endpoint>
       <con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntitySubjectDiscovery</con:endpoint>
       <con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/EntitySubjectDiscovery</con:endpoint>
@@ -91,10 +91,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntitySubscriptionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntitySubscriptionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntitySubscriptionManager</con:endpoint>
       <con:endpoint>http://MHSNHIE3.fedsconnect.org:9080/NhinConnect/EntitySubscriptionManager</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubscriptionManager</con:endpoint>
@@ -105,10 +105,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityNotificationProducerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityNotificationProducerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint>
       <con:endpoint>http://MHSNHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
@@ -123,10 +123,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityNotificationConsumerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityNotificationConsumerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityNotificationConsumer.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://MHSNHIE3.fedsconnect.org:8080/NhinConnect/EntityNotificationConsumer</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationConsumer</con:endpoint>
     </con:endpoints>
@@ -140,10 +140,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDRAsyncRequest_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDRAsyncRequest_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityXDRRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
       <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
       <con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
@@ -490,10 +490,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryAsyncReqBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryAsyncReqBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
     </con:endpoints>
@@ -501,10 +501,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryAsyncRespBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryAsyncRespBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp</con:endpoint>
       <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
     </con:endpoints>
@@ -512,10 +512,10 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
       <con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
     </con:endpoints>
@@ -856,20 +856,20 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="http://localhost:8080/CONNECTGateway/EntityPatientDiscovery?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieveDeferredRequest</con:endpoint>
       <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredRequest}</con:endpoint>
     </con:endpoints>
@@ -1086,10 +1086,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocRetrieveDeferredResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieveDeferredResponse</con:endpoint>
       <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredResponse}</con:endpoint>
     </con:endpoints>
@@ -1302,20 +1302,20 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-DeferredDQResponse}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:CrossGatewayQueryResponse" name="CrossGatewayQueryResponse" bindingOperationName="CrossGatewayQueryResponse" type="Request-Response" outputName="CrossGatewayQueryAcknowledgementMessage" inputName="CrossGatewayDocQueryDeferredResponseMessage" receivesAttachments="false" sendsAttachments="false">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional">
@@ -1518,10 +1518,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-DeferredDQRequest}</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="AcknowledgementMessage" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false">
@@ -5698,7 +5698,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-07T03:42:21Z</con:value>
@@ -6370,7 +6370,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-07T03:37:40Z</con:value>
@@ -7010,7 +7010,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-07T03:37:44Z</con:value>
@@ -8268,7 +8268,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>DQDocID</con:name>
-      <con:value>1.123401.11111</con:value>
+      <con:value>1.123401.44444</con:value>
     </con:property>
     <con:property>
       <con:name>DQPatientID</con:name>
@@ -8276,7 +8276,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>DRDocID</con:name>
-      <con:value>1.123407.77777</con:value>
+      <con:value>1.123407.777777</con:value>
     </con:property>
     <con:property>
       <con:name>DRRepoID</con:name>
@@ -8510,7 +8510,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
       <con:name>AuditRepoTable</con:name>
       <con:value>auditrepository</con:value>
     </con:property>
-  <con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property></con:properties>
+  <con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
