@@ -245,4 +245,23 @@ class FileUtils {
     }
     log.info("End restoreConfiguration(context, log)")
   }
+  
+  static restoreToMasterConfiguration(context, log) {
+    log.info("Start restoreToMasterConfiguration(context, log)")
+    try{
+      def masterDir = new File(System.env['MASTER_NHINC_CONFIG'])
+      def confDir = new File(System.env['NHINC_PROPERTIES_DIR'])
+      
+      def files2restore = ["internalConnectionInfo.xml","adapter.properties","gateway.properties","hiemTopicConfiguration.xml","XDSUniqueIds.properties","PCConfiguration.xml","uddiConnectionInfo.xml"]
+      
+	  files2restore.each{
+        def file2restore = new File(masterDir, it)
+        org.apache.commons.io.FileUtils.copyFileToDirectory(file2restore, confDir, true)
+	  }
+    }catch(Throwable e) {
+      log.error(e.getMessage())
+      context.getTestRunner().fail("Failed to restore NHINC configuration: " + e.getMessage())
+    }
+    log.info("End restoreToMasterConfiguration(context, log)")
+  }
 } 
