@@ -601,6 +601,18 @@
   </target><macrodef name="run-validationsuite-mod">
 	<attribute name="jarfile"/>
 	<sequential>
+		<mkdir dir="${deployment.config.home}/master" />
+		<copy todir="${deployment.config.home}/master" verbose="true" overwrite="true">
+			<filelist dir="${deployment.dir}/${deployment.environment.configuration.dir.name}" >
+				<file name="gateway.properties" />
+				<file name="adapter.properties" />
+				<file name="PCConfiguration.xml" />
+				<file name="internalConnectionInfo.xml" />
+				<file name="hiemTopicConfiguration.xml" />
+				<file name="XDSUniqueIds.properties" />
+				<file name="uddiConnectionInfo.xml" />
+			</filelist>
+		</copy>
 		<java jar="${basedir}/Install/@{jarfile}" fork="true"/>
 		<echo>Sucess:  Validation Suite WSDL paths modified.</echo>
 	</sequential>
