@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EntityDocQuery" resourceRoot="${projectDir}" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="EntityDocQuery" resourceRoot="${projectDir}" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl</con:url>
         <con:content><![CDATA[<!--Entity Document Query WSDL-->
@@ -3562,16 +3561,16 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
   <con:testSuite name="EntityDocQueryTestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Backup gateway.properties file">
+      <con:testStep name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -3591,7 +3590,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -3607,14 +3606,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -3623,10 +3622,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -3644,10 +3643,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -3663,7 +3662,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Set Connection Info">
+      <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -3680,9 +3679,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocum
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -3938,7 +3937,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Document Count">
+            <con:assertion name="Document Count" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -3953,7 +3952,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore gateway.properties file">
+      <con:testStep name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -3993,12 +3992,12 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
       <con:settings/>
-      <con:testStep type="properties" name="Test Case Properties" disabled="true">
+      <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -4132,7 +4131,7 @@ if(gatewayBakFile.exists()) {
           </con:properties>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Backup gateway.properties file">
+      <con:testStep name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -4152,7 +4151,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -4168,14 +4167,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="get Dates" disabled="true">
+      <con:testStep disabled="true" name="get Dates" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -4211,7 +4210,7 @@ groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -4220,10 +4219,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -4241,7 +4240,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping-1" disabled="true">
+      <con:testStep disabled="true" name="Clear AA Mapping Table &amp; Add Mapping-1" type="groovy">
         <con:settings/>
         <con:config>
           <script>import groovy.sql.Sql;
@@ -4280,10 +4279,10 @@ runSQL(1, host, port, db, user, pass, table, remoteAA1, remoteHCID1);
 runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -4299,7 +4298,7 @@ runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);</script>
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Set Connection Info">
+      <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -4316,17 +4315,17 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocum
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="transfer" name="set doc query properties" disabled="true">
+      <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
             <con:targetType>Endpoint</con:targetType>
             <con:targetStep>Document Query</con:targetStep>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>fullPatientID</con:name>
             <con:sourceType>FullPatientID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4337,7 +4336,7 @@ declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>signatureDate</con:name>
             <con:sourceType>sigDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4347,7 +4346,7 @@ declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>expirationDate</con:name>
             <con:sourceType>expireDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4357,7 +4356,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4367,7 +4366,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4377,7 +4376,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>assertionHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4387,7 +4386,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>orgHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4397,7 +4396,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>orgHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4407,7 +4406,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>orgHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -4419,9 +4418,9 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
           </con:transfers>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -4675,7 +4674,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Document Count">
+            <con:assertion name="Document Count" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -4700,7 +4699,7 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore gateway.properties file">
+      <con:testStep name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -4740,12 +4739,12 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
       <con:settings/>
-      <con:testStep type="properties" name="Test Case Properties" disabled="true">
+      <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -4879,7 +4878,7 @@ if(gatewayBakFile.exists()) {
           </con:properties>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Backup gateway.properties file">
+      <con:testStep name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -4899,7 +4898,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -4915,14 +4914,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="get Dates" disabled="true">
+      <con:testStep disabled="true" name="get Dates" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -4958,7 +4957,7 @@ groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -4967,10 +4966,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -4987,10 +4986,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -5005,7 +5004,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Set Connection Info">
+      <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -5017,17 +5016,17 @@ def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinServic
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="transfer" name="set doc query properties" disabled="true">
+      <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
             <con:targetType>Endpoint</con:targetType>
             <con:targetStep>Document Query</con:targetStep>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>fullPatientID</con:name>
             <con:sourceType>FullPatientID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5038,7 +5037,7 @@ declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>signatureDate</con:name>
             <con:sourceType>sigDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5048,7 +5047,7 @@ declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>expirationDate</con:name>
             <con:sourceType>expireDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5058,7 +5057,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5068,7 +5067,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5078,7 +5077,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5088,7 +5087,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>orgHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5098,7 +5097,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>orgHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5108,7 +5107,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>orgHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5120,9 +5119,9 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
           </con:transfers>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -5376,7 +5375,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Document Count">
+            <con:assertion name="Document Count" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -5391,7 +5390,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore gateway.properties file">
+      <con:testStep name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -5431,12 +5430,12 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep type="properties" name="Test Case Properties" disabled="true">
+      <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -5570,7 +5569,7 @@ if(gatewayBakFile.exists()) {
           </con:properties>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Backup gateway.properties file">
+      <con:testStep name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -5590,7 +5589,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -5606,14 +5605,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="get Dates" disabled="true">
+      <con:testStep disabled="true" name="get Dates" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -5649,7 +5648,7 @@ groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -5658,10 +5657,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -5679,10 +5678,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -5698,7 +5697,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Set Connection Info">
+      <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -5716,17 +5715,17 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocum
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="transfer" name="set doc query properties" disabled="true">
+      <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
             <con:targetType>Endpoint</con:targetType>
             <con:targetStep>Document Query</con:targetStep>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>fullPatientID</con:name>
             <con:sourceType>FullPatientID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5737,7 +5736,7 @@ declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>signatureDate</con:name>
             <con:sourceType>sigDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5747,7 +5746,7 @@ declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>expirationDate</con:name>
             <con:sourceType>expireDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5757,7 +5756,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5767,7 +5766,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5777,7 +5776,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5787,7 +5786,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>orgHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5797,7 +5796,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>orgHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5807,7 +5806,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>orgHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -5819,9 +5818,9 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
           </con:transfers>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -6077,7 +6076,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Document Count">
+            <con:assertion name="Document Count" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -6092,7 +6091,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore gateway.properties file">
+      <con:testStep name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -6132,12 +6131,12 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
       <con:settings/>
-      <con:testStep type="properties" name="Test Case Properties" disabled="true">
+      <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" discardValuesOnSave="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -6271,7 +6270,7 @@ if(gatewayBakFile.exists()) {
           </con:properties>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Backup gateway.properties file">
+      <con:testStep name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -6291,7 +6290,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -6307,14 +6306,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="get Dates" disabled="true">
+      <con:testStep disabled="true" name="get Dates" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -6350,7 +6349,7 @@ groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
 groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -6359,10 +6358,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -6380,10 +6379,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -6399,7 +6398,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Set Connection Info">
+      <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -6417,17 +6416,17 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocum
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="transfer" name="set doc query properties" disabled="true">
+      <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
             <con:targetType>Endpoint</con:targetType>
             <con:targetStep>Document Query</con:targetStep>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>fullPatientID</con:name>
             <con:sourceType>FullPatientID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6438,7 +6437,7 @@ declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>signatureDate</con:name>
             <con:sourceType>sigDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6448,7 +6447,7 @@ declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>expirationDate</con:name>
             <con:sourceType>expireDate</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6458,7 +6457,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6468,7 +6467,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6478,7 +6477,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>assertionHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6488,7 +6487,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
             <con:name>orgHCID</con:name>
             <con:sourceType>LocalHCID</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6498,7 +6497,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>orgHCName</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6508,7 +6507,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
           </con:transfers>
-          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false">
+          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>orgHCDescription</con:name>
             <con:sourceType>LocalHCDescription</con:sourceType>
             <con:sourceStep>Test Case Properties</con:sourceStep>
@@ -6520,9 +6519,9 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
           </con:transfers>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -6778,7 +6777,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Document Count">
+            <con:assertion name="Document Count" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -6793,7 +6792,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore gateway.properties file">
+      <con:testStep name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -6833,7 +6832,7 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -6945,7 +6944,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -6953,11 +6952,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -6978,14 +6977,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -7041,10 +7040,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
   </con:eventHandlers>
-  <con:eventHandlers type="TestSuiteRunListener.afterTestCase" name="TestSuiteRunListener.afterTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
     <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
   </con:eventHandlers>
 </con:soapui-project>

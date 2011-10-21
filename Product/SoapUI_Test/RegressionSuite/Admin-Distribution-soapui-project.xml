@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="Admin-Distribution" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="Admin-Distribution" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl</con:url>
         <con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Registry Actor-->
@@ -3720,7 +3719,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -3916,13 +3915,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/>
+        <con:wsaConfig action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl" name="NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl</con:url>
         <con:content><![CDATA[<definitions name="NhincProxyAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
@@ -7446,13 +7445,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:endpoint>http://172.16.50.47/NhinConnect/NhincProxyAuditQuery</con:endpoint>
       <con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:findAuditEvents" name="findAuditEvents" bindingOperationName="findAuditEvents" type="Request-Response" outputName="findAuditEventsResponse" inputName="findAuditEventsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:findAuditEvents" anonymous="optional" bindingOperationName="findAuditEvents" inputName="findAuditEventsRequest" isOneWay="false" name="findAuditEvents" outputName="findAuditEventsResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPolicyEngineBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</con:url>
         <con:content><![CDATA[<!--Adapter Policy Engine WSDL-->
@@ -11875,7 +11874,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:CheckPolicy" name="CheckPolicy" bindingOperationName="CheckPolicy" type="Request-Response" outputName="CheckPolicyResponse" inputName="CheckPolicyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -12155,14 +12154,14 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:CheckPolicyRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEnginePortType/CheckPolicyRequest"/>
+        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEnginePortType/CheckPolicyRequest" mustUnderstand="NONE" version="200508"/>
         <con:wsrmConfig version="1.2"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAdminDist_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl</con:url>
         <con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Registry Actor-->
@@ -15836,7 +15835,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -16034,16 +16033,16 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/>
+        <con:wsaConfig action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
   <con:testSuite name="Admin-Distribution">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest with a Binary doc" searchProperties="true" id="9487dbd1-53d3-4293-a664-c1bbced799c2">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9487dbd1-53d3-4293-a664-c1bbced799c2" keepSession="false" maxResults="0" name="EntityRequest with a Binary doc" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -16054,14 +16053,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -16412,14 +16411,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -16734,10 +16733,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest with XML data" searchProperties="true" id="febe5a83-a7e4-4b4e-9a43-cb75355caa50">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="febe5a83-a7e4-4b4e-9a43-cb75355caa50" keepSession="false" maxResults="0" name="EntityRequest with XML data" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -16748,14 +16747,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -17105,14 +17104,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -17427,10 +17426,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( XML and Binary )" searchProperties="true" id="4064a914-3d3e-43a9-9ee9-4da23586b0e9">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4064a914-3d3e-43a9-9ee9-4da23586b0e9" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( XML and Binary )" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -17441,14 +17440,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -17809,14 +17808,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -18131,10 +18130,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( multiple contentObjects )" searchProperties="true" id="b46af245-7eb5-4d2d-8184-9dfd4a0f9ba1">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b46af245-7eb5-4d2d-8184-9dfd4a0f9ba1" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( multiple contentObjects )" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -18145,14 +18144,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -18542,14 +18541,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -18864,10 +18863,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest without a ContentObject tag" searchProperties="true" id="bd07e541-6730-45b7-9800-7e149ac7e486">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="bd07e541-6730-45b7-9800-7e149ac7e486" keepSession="false" maxResults="0" name="EntityRequest without a ContentObject tag" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -18878,14 +18877,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -19195,14 +19194,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -19517,10 +19516,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest with an empty ContentObject" searchProperties="true" id="360faaee-f3c0-43cb-b37c-c88cdaccd791">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="360faaee-f3c0-43cb-b37c-c88cdaccd791" keepSession="false" maxResults="0" name="EntityRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -19531,14 +19530,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -19852,14 +19851,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -20174,10 +20173,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -20188,14 +20187,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -20546,14 +20545,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -20868,10 +20867,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set PolicyEngine Mock">
+      <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -20884,14 +20883,14 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="send request">
+      <con:testStep name="send request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="send request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -21242,9 +21241,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Policy Engine">
+      <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="send request" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="send request" xsi:type="con:MockResponseStep">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -21266,7 +21265,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 </soapenv:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementAuthnInstant " disabled="true">
+          <con:assertion disabled="true" name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='authInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authInstant'
@@ -21300,7 +21299,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21310,7 +21309,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementSessionIndex">
+          <con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='sessionIndex';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:sessionIndex';
@@ -21344,7 +21343,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21354,7 +21353,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementAthnContextClassRef " disabled="true">
+          <con:assertion disabled="true" name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='authContextClassRef';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authContextClassRef';
@@ -21388,7 +21387,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21398,7 +21397,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementSubjectLocalityAddress ">
+          <con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='subjectLocalityAddress';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityAddress';
@@ -21432,7 +21431,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21442,7 +21441,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementDNSName ">
+          <con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='subjectLocalityDNSName';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityDNSName';
@@ -21476,7 +21475,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21486,7 +21485,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserPersonName">
+          <con:assertion name="UserPersonName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='personname';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:userName';
@@ -21520,7 +21519,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21530,7 +21529,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserOrganizationName">
+          <con:assertion name="UserOrganizationName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user organization';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:name';
@@ -21564,7 +21563,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21574,7 +21573,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCode">
+          <con:assertion name="UserRoleCode" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role coded';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:code';
@@ -21609,7 +21608,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21619,7 +21618,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCodeSystem ">
+          <con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role system';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystem';
@@ -21653,7 +21652,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21663,7 +21662,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCodeSystemName ">
+          <con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role system name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystemName';
@@ -21697,7 +21696,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21707,7 +21706,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCodeDiplayName ">
+          <con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role display name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:displayName';
@@ -21741,7 +21740,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21751,7 +21750,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCode">
+          <con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCode';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:code';
@@ -21786,7 +21785,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21796,7 +21795,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCodeSystem">
+          <con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeSystem';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystem';
@@ -21830,7 +21829,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21840,7 +21839,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCodeSystemName">
+          <con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeSystemName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystemName';
@@ -21874,7 +21873,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21884,7 +21883,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCodeDisplayName">
+          <con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeDisplayName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:displayName';
@@ -21918,7 +21917,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21928,7 +21927,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementDecision">
+          <con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementDecision';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:decision';
@@ -21963,7 +21962,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -21973,7 +21972,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementResource">
+          <con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementResource';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:resource';
@@ -22009,7 +22008,7 @@ def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:A
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
 def AssertionValue='myAuthzDecisionStatementResource';
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22019,7 +22018,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementAction">
+          <con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementAction';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:action';
@@ -22054,7 +22053,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 def ExpectedValue='myAuthzDecisionStatementAction';
-//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22064,7 +22063,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionID ">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:id';
@@ -22099,7 +22098,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22109,7 +22108,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionIssueInstant">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issueInstant';
@@ -22144,7 +22143,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22154,7 +22153,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionVersion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:version';
@@ -22189,7 +22188,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22199,7 +22198,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionIssuer">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issuer';
@@ -22234,7 +22233,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22244,7 +22243,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notBefore';
@@ -22279,7 +22278,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2010-02-25T17:12:31.790Z')
 
@@ -22290,7 +22289,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notOnOrAfter';
@@ -22325,7 +22324,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2010-02-25T17:12:31.790Z')
 
@@ -22336,7 +22335,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionContentReference " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentReference';
@@ -22371,7 +22370,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22381,7 +22380,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionContentType " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentType';
@@ -22416,7 +22415,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22426,7 +22425,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionContent " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:content';
@@ -22461,7 +22460,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22471,7 +22470,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="HomeCommunityId">
+          <con:assertion name="HomeCommunityId" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='home-community-id';
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
@@ -22506,7 +22505,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22516,7 +22515,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="OrganizationId">
+          <con:assertion name="OrganizationId" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='organizationid';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:homeCommunityId';
@@ -22550,7 +22549,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22560,7 +22559,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PatientId">
+          <con:assertion name="PatientId" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PatientId';
 def AssertionXpath='//ec:assertion/nc:uniquePatientId';
@@ -22595,13 +22594,13 @@ assert(XacmlAttributeCount=="1");
 def XacmlValueExtension = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@extension"]
 def ExpectedExtension='1234';
 log.info('XacmlAttributeValue(' + FieldName + '@extension)=' + XacmlValueExtension);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedExtension==XacmlValueExtension);
 
 def XacmlValueRoot = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@root"]
 def ExpectedRoot='1.1';
 log.info('XacmlAttributeValue(' + FieldName + '@root)=' + XacmlValueRoot);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedRoot==XacmlValueRoot);
 
 def ActualDataType = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22611,7 +22610,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionAccessConsent">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:accessConsentPolicy';
@@ -22646,7 +22645,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22656,7 +22655,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:instanceAccessConsentPolicy';
@@ -22691,7 +22690,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -22701,7 +22700,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="Namespace for Action" disabled="true">
+          <con:assertion disabled="true" name="Namespace for Action" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns6='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -22711,7 +22710,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" disabled="true">
+          <con:assertion disabled="true" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns6='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -22733,7 +22732,7 @@ declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="reset URL">
+      <con:testStep name="reset URL" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -22767,10 +22766,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityRequest - 404 or 500 error" searchProperties="true" id="eed4b1bc-9a96-4d4b-9bfd-dc40d9dfdbe7">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eed4b1bc-9a96-4d4b-9bfd-dc40d9dfdbe7" keepSession="false" maxResults="0" name="EntityRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Modify endpoint - internalconnectioninfo">
+      <con:testStep name="Modify endpoint - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -22782,14 +22781,14 @@ def RemoteHCID = context.findProperty( "RemoteHCID" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmindist", URL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="AdminDist Request">
+      <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -23139,7 +23138,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmi
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Reset endpoint - internalconnectioninfo">
+      <con:testStep name="Reset endpoint - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -23170,10 +23169,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "nhinadmi
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true" id="e0c96169-f42c-4c42-b566-7950411603be">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -23184,14 +23183,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -23590,14 +23589,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -23912,10 +23911,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -23926,14 +23925,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -24328,14 +24327,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -24650,10 +24649,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -24664,14 +24663,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -25108,14 +25107,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -25430,10 +25429,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -25444,14 +25443,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -25857,14 +25856,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -26179,10 +26178,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -26193,14 +26192,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -26556,14 +26555,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -26878,10 +26877,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true" id="5361bf64-5349-4b98-8d4b-f414271422e0">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set User ID">
+      <con:testStep name="Set User ID" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -26892,14 +26891,14 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -27259,14 +27258,14 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Audit Events">
+      <con:testStep name="Audit Events" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Events">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -27581,10 +27580,10 @@ count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)</path>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Set PolicyEngine Mock">
+      <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -27597,14 +27596,14 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="send request">
+      <con:testStep name="send request" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="send request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -28002,9 +28001,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Policy Engine">
+      <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="send request" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="send request" xsi:type="con:MockResponseStep">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -28026,7 +28025,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 </soapenv:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementAuthnInstant " disabled="true">
+          <con:assertion disabled="true" name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='authInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authInstant'
@@ -28060,7 +28059,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28070,7 +28069,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementSessionIndex">
+          <con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='sessionIndex';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:sessionIndex';
@@ -28104,7 +28103,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28114,7 +28113,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementAthnContextClassRef " disabled="true">
+          <con:assertion disabled="true" name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='authContextClassRef';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authContextClassRef';
@@ -28148,7 +28147,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28158,7 +28157,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementSubjectLocalityAddress ">
+          <con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='subjectLocalityAddress';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityAddress';
@@ -28192,7 +28191,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28202,7 +28201,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthnStatementDNSName ">
+          <con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='subjectLocalityDNSName';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityDNSName';
@@ -28236,7 +28235,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28246,7 +28245,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserPersonName">
+          <con:assertion name="UserPersonName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='personname';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:userName';
@@ -28280,7 +28279,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28290,7 +28289,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserOrganizationName">
+          <con:assertion name="UserOrganizationName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user organization';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:name';
@@ -28324,7 +28323,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28334,7 +28333,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCode">
+          <con:assertion name="UserRoleCode" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role coded';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:code';
@@ -28369,7 +28368,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28379,7 +28378,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCodeSystem ">
+          <con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role system';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystem';
@@ -28413,7 +28412,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28423,7 +28422,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCodeSystemName ">
+          <con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role system name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystemName';
@@ -28457,7 +28456,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28467,7 +28466,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="UserRoleCodeDiplayName ">
+          <con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='user role display name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:displayName';
@@ -28501,7 +28500,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28511,7 +28510,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCode">
+          <con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCode';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:code';
@@ -28546,7 +28545,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28556,7 +28555,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCodeSystem">
+          <con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeSystem';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystem';
@@ -28590,7 +28589,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28600,7 +28599,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCodeSystemName">
+          <con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeSystemName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystemName';
@@ -28634,7 +28633,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28644,7 +28643,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PurposeForUseCodeDisplayName">
+          <con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeDisplayName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:displayName';
@@ -28678,7 +28677,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28688,7 +28687,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementDecision">
+          <con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementDecision';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:decision';
@@ -28723,7 +28722,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28733,7 +28732,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementResource">
+          <con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementResource';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:resource';
@@ -28769,7 +28768,7 @@ def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:A
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
 def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist';
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28779,7 +28778,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementAction">
+          <con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementAction';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:action';
@@ -28814,7 +28813,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 def ExpectedValue='Execute';
-//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28824,7 +28823,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionID ">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:id';
@@ -28859,7 +28858,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28869,7 +28868,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionIssueInstant">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issueInstant';
@@ -28904,7 +28903,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28914,7 +28913,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionVersion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:version';
@@ -28949,7 +28948,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -28959,7 +28958,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionIssuer">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issuer';
@@ -28994,7 +28993,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29004,7 +29003,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notBefore';
@@ -29039,7 +29038,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2010-02-25T17:12:31.790Z')
 
@@ -29050,7 +29049,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notOnOrAfter';
@@ -29085,7 +29084,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2010-02-25T17:12:31.790Z')
 
@@ -29096,7 +29095,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionContentReference " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentReference';
@@ -29131,7 +29130,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29141,7 +29140,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionContentType " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentType';
@@ -29176,7 +29175,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29186,7 +29185,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionContent " disabled="true">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:content';
@@ -29221,7 +29220,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29231,7 +29230,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="HomeCommunityId">
+          <con:assertion name="HomeCommunityId" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='home-community-id';
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
@@ -29265,7 +29264,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29275,7 +29274,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="OrganizationId">
+          <con:assertion name="OrganizationId" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='organizationid';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:homeCommunityId';
@@ -29309,7 +29308,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29319,7 +29318,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="PatientId">
+          <con:assertion name="PatientId" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='PatientId';
 def AssertionXpath='//ec:assertion/nc:uniquePatientId';
@@ -29354,13 +29353,13 @@ assert(XacmlAttributeCount=="1");
 def XacmlValueExtension = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@extension"]
 def ExpectedExtension='1234';
 log.info('XacmlAttributeValue(' + FieldName + '@extension)=' + XacmlValueExtension);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedExtension==XacmlValueExtension);
 
 def XacmlValueRoot = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@root"]
 def ExpectedRoot='1.1';
 log.info('XacmlAttributeValue(' + FieldName + '@root)=' + XacmlValueRoot);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedRoot==XacmlValueRoot);
 
 def ActualDataType = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29370,7 +29369,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionAccessConsent">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:accessConsentPolicy';
@@ -29405,7 +29404,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29415,7 +29414,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="GroovyScriptAssertion" name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:instanceAccessConsentPolicy';
@@ -29450,7 +29449,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -29460,7 +29459,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="Namespace for Action" disabled="true">
+          <con:assertion disabled="true" name="Namespace for Action" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns6='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -29470,7 +29469,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" disabled="true">
+          <con:assertion disabled="true" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns6='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -29492,7 +29491,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="reset URL">
+      <con:testStep name="reset URL" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -29526,10 +29525,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true" id="25050fb5-059d-4875-8ab5-337cd145f06d">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Modify endpoint - internalconnectioninfo">
+      <con:testStep name="Modify endpoint - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -29541,14 +29540,14 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmindist", URL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -29946,7 +29945,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Reset endpoint - internalconnectioninfo">
+      <con:testStep name="Reset endpoint - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -29977,7 +29976,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "nhinadmin
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -30065,7 +30064,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -30073,11 +30072,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -30098,14 +30097,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -30126,10 +30125,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
   </con:eventHandlers>
-  <con:eventHandlers type="TestSuiteRunListener.afterTestCase" name="TestSuiteRunListener.afterTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
     <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
   </con:eventHandlers>
 </con:soapui-project>

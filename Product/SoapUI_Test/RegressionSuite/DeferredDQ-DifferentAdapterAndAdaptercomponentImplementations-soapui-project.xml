@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DeferredDQ-DifferentAdapterAndAdaptercomponentImplementations" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="DeferredDQ-DifferentAdapterAndAdaptercomponentImplementations" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl" name="EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl</con:url>
         <con:content><![CDATA[<!--Entity Document Query Deferred Request WSDL-->
@@ -3741,7 +3740,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequest</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="AcknowledgementMessage" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="AcknowledgementMessage" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -3935,13 +3934,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest/EntityDocQueryDeferredRequestPortType/RespondingGateway_CrossGatewayQueryRequest"/>
+        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest/EntityDocQueryDeferredRequestPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" name="NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl</con:url>
         <con:content><![CDATA[<!--Nhinc Proxy Document Query Deferred Request WSDL-->
@@ -7515,7 +7514,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincRequest}</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:CrossGatewayQueryRequest" name="CrossGatewayQueryRequest" bindingOperationName="CrossGatewayQueryRequest" type="Request-Response" outputName="CrossGatewayQueryAcknowledgement" inputName="CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="CrossGatewayQueryRequest" inputName="CrossGatewayQueryRequest" isOneWay="false" name="CrossGatewayQueryRequest" outputName="CrossGatewayQueryAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -7721,13 +7720,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest/NhincProxyDocQueryDeferredRequestPortType/CrossGatewayQueryRequest"/>
+        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest/NhincProxyDocQueryDeferredRequestPortType/CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" name="NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl</con:url>
         <con:content><![CDATA[<!--Nhinc Proxy Document Query Deferred Response WSDL-->
@@ -11422,7 +11421,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredResponse</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -11613,13 +11612,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:RespondingGateway_CrossGatewayQueryResponse>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse/NhincProxyDocQueryDeferredResponsePortType/RespondingGateway_CrossGatewayQueryRequest"/>
+        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse/NhincProxyDocQueryDeferredResponsePortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl" name="EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl</con:url>
         <con:content><![CDATA[<!--Entity Document Query Deferred Response-->
@@ -15363,7 +15362,7 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredResponse</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:CrossGatewayQueryResponse" name="CrossGatewayQueryResponse" bindingOperationName="CrossGatewayQueryResponse" type="Request-Response" outputName="CrossGatewayQueryAcknowledgementMessage" inputName="CrossGatewayDocQueryDeferredResponseMessage" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:CrossGatewayQueryResponse" anonymous="optional" bindingOperationName="CrossGatewayQueryResponse" inputName="CrossGatewayDocQueryDeferredResponseMessage" isOneWay="false" name="CrossGatewayQueryResponse" outputName="CrossGatewayQueryAcknowledgementMessage" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -15554,16 +15553,16 @@ This document and the information contained herein is provided on an "AS IS" bas
       </urn:RespondingGateway_CrossGatewayQueryResponse>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse/EntityDocQueryDeferredResponsePortType/CrossGatewayDocQueryDeferredResponseMessage"/>
+        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse/EntityDocQueryDeferredResponsePortType/CrossGatewayDocQueryDeferredResponseMessage" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
   <con:testSuite name="DeferredDQ-DifferentAdapterAndAdaptercomponentImplementations">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="No-op adapter and adaptercomponent" searchProperties="true" id="2ffff707-d724-45e8-84c7-a4ca9edd2f74">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2ffff707-d724-45e8-84c7-a4ca9edd2f74" keepSession="false" maxResults="0" name="No-op adapter and adaptercomponent" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -15572,10 +15571,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -15588,10 +15587,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -15606,7 +15605,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy Proxy Config">
+      <con:testStep name="Copy Proxy Config" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -15627,14 +15626,14 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="EntityRequest">
+      <con:testStep name="EntityRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="EntityRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityRequest}</con:endpoint>
@@ -15897,14 +15896,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="EntityResponse">
+      <con:testStep name="EntityResponse" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryResponse</con:operation>
           <con:request name="EntityResponse">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityResponse}</con:endpoint>
@@ -16309,7 +16308,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Match content of [@status]">
+            <con:assertion name="Match content of [@status]" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -16325,14 +16324,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryRequest</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincRequest}</con:endpoint>
@@ -16576,7 +16575,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Match content of [@status]">
+            <con:assertion name="Match content of [@status]" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
 //ns18:DocQueryAcknowledgement[1]/ns18:message[1]/@status</path>
@@ -16592,14 +16591,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincResponse">
+      <con:testStep name="NhincResponse" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="NhincResponse">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
@@ -17001,7 +17000,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Verify Ack Message">
+            <con:assertion name="Verify Ack Message" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -17017,7 +17016,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Reset Proxy Config">
+      <con:testStep name="Reset Proxy Config" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -17061,10 +17060,10 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Java adapter and adaptercomponent" searchProperties="true" id="b882f537-3379-423f-9a9f-874ab7296533">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b882f537-3379-423f-9a9f-874ab7296533" keepSession="false" maxResults="0" name="Java adapter and adaptercomponent" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -17073,10 +17072,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -17089,10 +17088,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -17107,7 +17106,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy Proxy Config">
+      <con:testStep name="Copy Proxy Config" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -17128,14 +17127,14 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="EntityRequest">
+      <con:testStep name="EntityRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="EntityRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityRequest}</con:endpoint>
@@ -17398,14 +17397,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="EntityResponse">
+      <con:testStep name="EntityResponse" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryResponse</con:operation>
           <con:request name="EntityResponse">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityResponse}</con:endpoint>
@@ -17810,7 +17809,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Match content of [@status]">
+            <con:assertion name="Match content of [@status]" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -17826,14 +17825,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryRequest</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincRequest}</con:endpoint>
@@ -18077,7 +18076,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Match content of [@status]">
+            <con:assertion name="Match content of [@status]" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
 //ns18:DocQueryAcknowledgement[1]/ns18:message[1]/@status</path>
@@ -18093,14 +18092,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincResponse">
+      <con:testStep name="NhincResponse" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="NhincResponse">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
@@ -18502,7 +18501,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Verify Ack Message">
+            <con:assertion name="Verify Ack Message" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -18518,7 +18517,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Reset Proxy Config">
+      <con:testStep name="Reset Proxy Config" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -18562,10 +18561,10 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsecured webservice" searchProperties="true" id="3371ee0c-1ebf-42b1-be86-23ca8fca31a3">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3371ee0c-1ebf-42b1-be86-23ca8fca31a3" keepSession="false" maxResults="0" name="Unsecured webservice" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -18574,10 +18573,10 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -18590,10 +18589,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -18608,7 +18607,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy Proxy Config">
+      <con:testStep name="Copy Proxy Config" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -18629,14 +18628,14 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="EntityRequest">
+      <con:testStep name="EntityRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="EntityRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityRequest}</con:endpoint>
@@ -18899,14 +18898,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="EntityResponse">
+      <con:testStep name="EntityResponse" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryResponse</con:operation>
           <con:request name="EntityResponse">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityResponse}</con:endpoint>
@@ -19311,7 +19310,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Match content of [@status]">
+            <con:assertion name="Match content of [@status]" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -19327,14 +19326,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincRequest">
+      <con:testStep name="NhincRequest" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryRequest</con:operation>
           <con:request name="NhincRequest">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincRequest}</con:endpoint>
@@ -19578,7 +19577,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Match content of [@status]">
+            <con:assertion name="Match content of [@status]" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns18='http://www.hhs.gov/healthit/nhin';
 //ns18:DocQueryAcknowledgement[1]/ns18:message[1]/@status</path>
@@ -19594,14 +19593,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="NhincResponse">
+      <con:testStep name="NhincResponse" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="NhincResponse">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincResponse}</con:endpoint>
@@ -20003,7 +20002,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Verify Ack Message">
+            <con:assertion name="Verify Ack Message" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -20019,7 +20018,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Reset Proxy Config">
+      <con:testStep name="Reset Proxy Config" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -20063,7 +20062,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -20167,7 +20166,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -20175,11 +20174,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -20200,14 +20199,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -20229,10 +20228,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers type="TestSuiteRunListener.afterTestCase" name="TestSuiteRunListener.afterTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
     <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
   </con:eventHandlers>
-  <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
   </con:eventHandlers>
 </con:soapui-project>

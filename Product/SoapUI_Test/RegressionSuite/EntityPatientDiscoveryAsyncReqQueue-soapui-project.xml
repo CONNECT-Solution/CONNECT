@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EntityPatientDiscoveryAsyncReqQueue" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="EntityPatientDiscoveryAsyncReqQueue" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryAsyncReqQueueBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreqqueue}EntityPatientDiscoveryAsyncReqQueueBindingSoap" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReqQueue.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreqqueue}EntityPatientDiscoveryAsyncReqQueueBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReqQueue.wsdl" name="EntityPatientDiscoveryAsyncReqQueueBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReqQueue.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReqQueue.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReqQueue.wsdl</con:url>
         <con:content><![CDATA[<wsdl:definitions name="EntityPatientDiscoveryAsyncReqQueue" targetNamespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreqqueue" xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreqqueue" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl">
@@ -40898,11 +40897,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       </con:part>
       <con:part>
         <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\NE2008\multicacheschemas\CDA.xsd</con:url>
-        <con:content>&lt;!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Bob Dolin (HL7 CDA TC)-->
-&lt;xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif">
-  &lt;xs:include schemaLocation="POCD_MT000040.xsd"/>
-  &lt;xs:element name="ClinicalDocument" type="POCD_MT000040.ClinicalDocument"/>
-&lt;/xs:schema></con:content>
+        <con:content>&lt;!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Bob Dolin (HL7 CDA TC)--&gt;
+&lt;xs:schema targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif"&gt;
+  &lt;xs:include schemaLocation="POCD_MT000040.xsd"/&gt;
+  &lt;xs:element name="ClinicalDocument" type="POCD_MT000040.ClinicalDocument"/&gt;
+&lt;/xs:schema&gt;</con:content>
         <con:type>http://www.w3.org/2001/XMLSchema</con:type>
       </con:part>
       <con:part>
@@ -42833,23 +42832,23 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReqQueue</con:endpoint>
       <con:endpoint>${#Project#EntityPatientDiscoveryAsyncReqQueueEndpoint}</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:AddPatientDiscoveryAsyncReq" name="AddPatientDiscoveryAsyncReq" bindingOperationName="AddPatientDiscoveryAsyncReq" type="Request-Response" outputName="AddPatientDiscoveryAsyncReqAsyncResponse" inputName="AddPatientDiscoveryAsyncReqAsyncRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:AddPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="AddPatientDiscoveryAsyncReq" inputName="AddPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="AddPatientDiscoveryAsyncReq" outputName="AddPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
   <con:testSuite name="EntityPatientDiscoveryAsyncReqQueueTestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AddPatientDiscoveryAsyncReqTestCase" searchProperties="true" id="80cd8a5e-70b8-43c7-8a61-dd43c0589b03">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="80cd8a5e-70b8-43c7-8a61-dd43c0589b03" keepSession="false" maxResults="0" name="AddPatientDiscoveryAsyncReqTestCase" searchProperties="true">
       <con:settings/>
-      <con:testStep type="request" name="AddPatientDiscoveryAsyncReq">
+      <con:testStep name="AddPatientDiscoveryAsyncReq" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityPatientDiscoveryAsyncReqQueueBindingSoap</con:interface>
           <con:operation>AddPatientDiscoveryAsyncReq</con:operation>
           <con:request name="AddPatientDiscoveryAsyncReq" useWsAddressing="true">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#EntityPatientDiscoveryAsyncReqQueueEndpoint}</con:endpoint>
@@ -43138,7 +43137,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Verify Receiver">
+            <con:assertion name="Verify Receiver" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';
 //ns2:MCCI_IN000002UV01[1]/ns2:receiver[1]/ns2:device[1]/ns2:asAgent[1]/ns2:representedOrganization[1]/ns2:id[1]/@root</path>
@@ -43147,7 +43146,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Verify Sender">
+            <con:assertion name="Verify Sender" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';
 //ns2:MCCI_IN000002UV01[1]/ns2:sender[1]/ns2:device[1]/ns2:asAgent[1]/ns2:representedOrganization[1]/ns2:id[1]/@root</path>
@@ -43156,7 +43155,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Verify Message">
+            <con:assertion name="Verify Message" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:acknowledgementDetail[1]/ns3:text[1]/text()</path>
@@ -43165,7 +43164,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Verify RelatesTo">
+            <con:assertion name="Verify RelatesTo" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]/text()</path>
@@ -43176,7 +43175,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreqqueue:AddPatientDiscoveryAsyncReqAsyncRequest" mustUnderstand="TRUE" version="200508" addDefaultTo="true" messageID="uuid:5555555555.55555.555.55"/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreqqueue:AddPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:5555555555.55555.555.55" mustUnderstand="TRUE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -43200,7 +43199,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -43215,18 +43214,18 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -43245,14 +43244,14 @@ def testRunListener = [
 
 project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -43305,10 +43304,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
   </con:eventHandlers>
-  <con:eventHandlers type="TestSuiteRunListener.afterTestCase" name="TestSuiteRunListener.afterTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
     <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
   </con:eventHandlers>
 </con:soapui-project>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryTestsForUDDI" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="DocQueryTestsForUDDI" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl</con:url>
         <con:content><![CDATA[<!--Entity Document Query WSDL-->
@@ -3567,13 +3566,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincDocQueryPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincdocquery}NhincDocQueryPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincdocquery}NhincDocQueryPortTypeBinding" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" name="NhincDocQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl</con:url>
         <con:content><![CDATA[<definitions name="NhincDocQuery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincdocquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocquery" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
@@ -7019,22 +7018,22 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/NhincDocQuery</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincDocQuery</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="CrossGatewayQueryResponse" inputName="CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
   <con:testSuite name="DocQueryTestsForUDDI TestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID not in UDDI file" searchProperties="true" id="e195718a-c6ce-4de8-a813-7b932eb9f174">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e195718a-c6ce-4de8-a813-7b932eb9f174" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID not in UDDI file" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -7055,7 +7054,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -7070,14 +7069,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -7086,20 +7085,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID not in the UDDI">
+      <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7112,10 +7111,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -7145,14 +7144,14 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -7389,11 +7388,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status" disabled="true">
+            <con:assertion disabled="true" name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns13:AdhocQueryResponse[1]/@status</path>
@@ -7402,7 +7401,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
                 <token>RegistryObjectList/</token>
                 <ignoreCase>false</ignoreCase>
@@ -7426,7 +7425,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -7455,16 +7454,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID IN UDDI file" searchProperties="true" id="5d62165c-7a92-4211-b4a8-22f1793f3c0c">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5d62165c-7a92-4211-b4a8-22f1793f3c0c" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID IN UDDI file" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -7485,7 +7484,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -7500,14 +7499,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -7516,20 +7515,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7542,10 +7541,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -7575,7 +7574,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -7595,9 +7594,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -7841,7 +7840,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -7850,9 +7849,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -7872,9 +7871,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -8397,7 +8396,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -8426,16 +8425,16 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Empty Target XML - No Patient Correlations" searchProperties="true" id="887d9364-6c82-4903-8190-46476508147f">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="887d9364-6c82-4903-8190-46476508147f" keepSession="false" maxResults="0" name="Empty Target XML - No Patient Correlations" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -8456,7 +8455,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -8471,14 +8470,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -8487,20 +8486,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -8530,9 +8529,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -8772,11 +8771,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Severity">
+            <con:assertion name="Severity" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -8786,7 +8785,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="errorCode">
+            <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -8796,7 +8795,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="codeContext">
+            <con:assertion name="codeContext" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -8806,7 +8805,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -8820,7 +8819,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -8849,16 +8848,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Happy Path - No Patient Correlations" searchProperties="true" id="2ac7a10e-f0e6-4d32-b45d-6874809b4e08">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2ac7a10e-f0e6-4d32-b45d-6874809b4e08" keepSession="false" maxResults="0" name="HCID Happy Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -8879,7 +8878,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -8894,14 +8893,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -8910,20 +8909,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -8953,9 +8952,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -9209,11 +9208,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Severity">
+            <con:assertion name="Severity" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -9223,7 +9222,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="errorCode">
+            <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -9233,7 +9232,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="codeContext">
+            <con:assertion name="codeContext" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -9243,7 +9242,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -9257,7 +9256,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -9286,16 +9285,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -9316,7 +9315,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -9331,14 +9330,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -9347,20 +9346,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -9373,10 +9372,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -9406,7 +9405,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -9424,9 +9423,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -9686,7 +9685,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -9695,9 +9694,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -9717,9 +9716,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -10242,7 +10241,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -10271,16 +10270,16 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true" id="7b1a13e3-8d02-46ed-bef0-981f0f967fc7">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7b1a13e3-8d02-46ed-bef0-981f0f967fc7" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -10301,7 +10300,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -10316,14 +10315,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -10332,20 +10331,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID not in the UDDI">
+      <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -10358,10 +10357,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -10391,9 +10390,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -10649,11 +10648,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -10662,7 +10661,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Severity">
+            <con:assertion name="Severity" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -10672,7 +10671,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="errorCode">
+            <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -10682,7 +10681,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="codeContext">
+            <con:assertion name="codeContext" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -10697,7 +10696,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -10726,16 +10725,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for both HCID IN UDDI file/target XML" searchProperties="true" id="4d4e3ed4-32ff-4ac4-9292-e78373844464">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4d4e3ed4-32ff-4ac4-9292-e78373844464" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for both HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -10756,7 +10755,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -10771,14 +10770,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -10787,20 +10786,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -10816,10 +10815,10 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -10849,7 +10848,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -10867,9 +10866,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -11129,7 +11128,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -11138,9 +11137,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -11160,9 +11159,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -11685,7 +11684,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -11714,16 +11713,16 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Happy Path - Expired Correlation for HCID IN UDDI file/target XML" searchProperties="true" id="9e22c57d-13af-4120-ab1d-fe1eae63e18b">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9e22c57d-13af-4120-ab1d-fe1eae63e18b" keepSession="false" maxResults="0" name="HCID Happy Path - Expired Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -11744,7 +11743,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -11759,14 +11758,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -11775,20 +11774,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -11804,10 +11803,10 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -11837,7 +11836,7 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -11855,9 +11854,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -12106,11 +12105,11 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns11:AdhocQueryResponse[1]/@status</path>
@@ -12119,9 +12118,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -12171,7 +12170,7 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -12200,16 +12199,16 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Alt Path - No Patient Correlations" searchProperties="true" id="0d6f86ae-5976-4334-8822-ac08fdb49c77">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0d6f86ae-5976-4334-8822-ac08fdb49c77" keepSession="false" maxResults="0" name="HCID Alt Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -12230,7 +12229,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -12245,14 +12244,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -12261,20 +12260,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -12304,9 +12303,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -12555,11 +12554,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns13:AdhocQueryResponse[1]/@status</path>
@@ -12573,7 +12572,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -12602,16 +12601,16 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HCID Alt Path - Correlation for HCID in target XML and not in UDDI" searchProperties="true" id="02cf8e64-e873-47ae-b7f2-6cc377efb1b5">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="02cf8e64-e873-47ae-b7f2-6cc377efb1b5" keepSession="false" maxResults="0" name="HCID Alt Path - Correlation for HCID in target XML and not in UDDI" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -12632,7 +12631,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -12647,14 +12646,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -12663,20 +12662,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID not in the UDDI">
+      <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -12689,10 +12688,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -12722,9 +12721,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -12973,11 +12972,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns13:AdhocQueryResponse[1]/@status</path>
@@ -12991,7 +12990,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -13020,16 +13019,16 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true" id="7c286477-8a88-4aad-ab67-d6968f946de2">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -13050,7 +13049,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -13071,7 +13070,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -13086,14 +13085,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -13102,20 +13101,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID not in the UDDI">
+      <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -13128,10 +13127,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -13161,9 +13160,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -13423,11 +13422,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -13436,7 +13435,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Severity">
+            <con:assertion name="Severity" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -13446,7 +13445,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="errorCode">
+            <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -13456,7 +13455,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="codeContext">
+            <con:assertion name="codeContext" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -13471,7 +13470,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -13500,16 +13499,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true" id="2ca4b220-9c88-4ea0-b153-bee84cc4e2b3">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2ca4b220-9c88-4ea0-b153-bee84cc4e2b3" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -13524,14 +13523,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -13552,7 +13551,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -13573,7 +13572,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -13582,20 +13581,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -13608,7 +13607,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }
 
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -13621,10 +13620,10 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -13654,7 +13653,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -13672,9 +13671,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -13938,7 +13937,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -13947,9 +13946,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -13971,9 +13970,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -14483,7 +14482,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion type="XPath Match" name="DocQuery sent to VA">
+          <con:assertion name="DocQuery sent to VA" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -14494,7 +14493,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="DocQuery sent to FL" disabled="true">
+          <con:assertion disabled="true" name="DocQuery sent to FL" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -14507,7 +14506,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -14536,16 +14535,16 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Happy Path - No Patient Correlations" searchProperties="true" id="acb08d49-8426-462e-ba13-d78fc9eb1dbc">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="acb08d49-8426-462e-ba13-d78fc9eb1dbc" keepSession="false" maxResults="0" name="State Happy Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Intialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Intialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -14566,7 +14565,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -14581,14 +14580,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -14597,20 +14596,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -14640,9 +14639,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -14888,11 +14887,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns13:AdhocQueryResponse[1]/@status</path>
@@ -14906,7 +14905,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -14935,16 +14934,16 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Alt Path - No Patient Correlations" searchProperties="true" id="213ffdab-3205-42f3-b9f3-b70f0c097c9e">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="213ffdab-3205-42f3-b9f3-b70f0c097c9e" keepSession="false" maxResults="0" name="State Alt Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Initialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Initialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -14965,7 +14964,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -14986,7 +14985,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -15001,14 +15000,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -15017,20 +15016,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -15060,9 +15059,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -15320,11 +15319,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Severity">
+            <con:assertion name="Severity" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -15334,7 +15333,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="errorCode">
+            <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -15344,7 +15343,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="codeContext">
+            <con:assertion name="codeContext" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -15354,7 +15353,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -15368,7 +15367,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -15397,16 +15396,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true" id="513d71ab-aff5-45ef-a71d-f2fafb41545f">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="513d71ab-aff5-45ef-a71d-f2fafb41545f" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Initialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Initialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -15427,7 +15426,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -15448,7 +15447,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -15463,14 +15462,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -15479,20 +15478,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID not in the UDDI">
+      <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -15505,10 +15504,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -15538,9 +15537,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -15798,11 +15797,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion disabled="true" type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -15811,7 +15810,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="Severity">
+            <con:assertion name="Severity" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -15821,7 +15820,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="errorCode">
+            <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -15831,7 +15830,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="codeContext">
+            <con:assertion name="codeContext" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -15846,7 +15845,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -15875,16 +15874,16 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true" id="9e940daf-b52b-4d96-992c-cef25421fd38">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9e940daf-b52b-4d96-992c-cef25421fd38" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Initialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Initialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -15905,7 +15904,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -15926,7 +15925,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -15941,14 +15940,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -15957,20 +15956,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -15982,7 +15981,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -15994,7 +15993,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA2, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -16007,10 +16006,10 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -16040,7 +16039,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -16058,14 +16057,14 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -16326,7 +16325,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -16335,9 +16334,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -16359,9 +16358,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -16870,7 +16869,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion type="XPath Match" name="Doc Query sent to VA -1">
+          <con:assertion name="Doc Query sent to VA -1" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -16881,7 +16880,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="Doc Query sent to VA -2" disabled="true">
+          <con:assertion disabled="true" name="Doc Query sent to VA -2" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -16892,7 +16891,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="Doc Query sent to FL - 1" disabled="true">
+          <con:assertion disabled="true" name="Doc Query sent to FL - 1" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -16905,7 +16904,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -16934,16 +16933,16 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Alt Path - Region and associated HCID in target xml results in one response" searchProperties="true" id="b673cce6-4e31-401e-8fb0-1b98f7e35455">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b673cce6-4e31-401e-8fb0-1b98f7e35455" keepSession="false" maxResults="0" name="State Alt Path - Region and associated HCID in target xml results in one response" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Initialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Initialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -16964,7 +16963,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -16985,7 +16984,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -17000,14 +16999,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -17016,20 +17015,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -17042,10 +17041,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -17075,7 +17074,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -17093,9 +17092,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -17359,7 +17358,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -17368,9 +17367,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -17390,9 +17389,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -17901,7 +17900,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion type="XPath Match" name="one Doc Query result">
+          <con:assertion name="one Doc Query result" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -17914,7 +17913,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -17943,16 +17942,16 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="State Alt Path - Multiple regions and correlations" searchProperties="true" id="ecb4d188-094b-4f8c-bb59-b5cf33c4e974">
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ecb4d188-094b-4f8c-bb59-b5cf33c4e974" keepSession="false" maxResults="0" name="State Alt Path - Multiple regions and correlations" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Initialize Configurations" disabled="true">
+      <con:testStep disabled="true" name="Initialize Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy UDDIConfigurationInfo">
+      <con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -17973,7 +17972,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy InternalConfigurationInfo">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -17994,7 +17993,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - gateway.properties">
+      <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
@@ -18009,14 +18008,14 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Generate patient ID for Doc Query">
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
           <script>def localAA = context.findProperty('LocalAA')
@@ -18025,20 +18024,20 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear Correlation Table">
+      <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Add Correlation for HCID in the UDDI">
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -18050,7 +18049,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -18062,7 +18061,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiGA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -18075,10 +18074,10 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -18108,7 +18107,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="update config - internalconnectioninfo">
+      <con:testStep name="update config - internalconnectioninfo" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -18126,9 +18125,9 @@ def LocalHCID = context.findProperty( "LocalAA" );
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocumentquery", mockdocQueryURL, context, log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="Document Query">
+      <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -18401,7 +18400,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="Status">
+            <con:assertion name="Status" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns16:AdhocQueryResponse[1]/@status</path>
@@ -18410,9 +18409,9 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockdocum
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="Simple Contains" disabled="true">
+            <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -18434,9 +18433,9 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep name="Mock Response" type="mockresponse">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="Document Query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
           <con:interface>NhincDocQueryPortTypeBinding</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:path>/mockdocquery</con:path>
@@ -18945,7 +18944,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion type="XPath Match" name="Doc Query sent to VA -1">
+          <con:assertion name="Doc Query sent to VA -1" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -18956,7 +18955,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="Doc Query sent to VA -2" disabled="true">
+          <con:assertion disabled="true" name="Doc Query sent to VA -2" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -18967,7 +18966,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match" name="Doc Query sent to FL - 1" disabled="true">
+          <con:assertion disabled="true" name="Doc Query sent to FL - 1" type="XPath Match">
             <con:configuration>
               <path>declare namespace ns10='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -18980,7 +18979,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Restore Configurations">
+      <con:testStep name="Restore Configurations" type="groovy">
         <con:settings/>
         <con:config>
           <script>FileUtils.InitializeNHINCProperties(context, log);</script>
@@ -19009,7 +19008,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -19292,7 +19291,7 @@ declare namespace ns8='urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch';
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -19300,11 +19299,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -19325,14 +19324,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -19411,10 +19410,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers type="TestSuiteRunListener.beforeTestCase" name="TestSuiteRunListener.beforeTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
     <con:script>FileUtils.backupConfiguration(context, log);</con:script>
   </con:eventHandlers>
-  <con:eventHandlers type="TestSuiteRunListener.afterTestCase" name="TestSuiteRunListener.afterTestCase">
+  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
     <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
   </con:eventHandlers>
 </con:soapui-project>
