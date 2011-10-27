@@ -6,13 +6,17 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.logger.ConnectLogFactory;
+import gov.hhs.fha.nhinc.logger.TransactionType;
+import gov.hhs.fha.nhinc.logger.defaulttransaction.DefaultTransactionLog;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * This is the business logic for the AdapterMpi.  This is a thin layer,
@@ -23,6 +27,7 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 public class AdapterMpiOrchImpl
 {
     private static Log log = LogFactory.getLog(AdapterMpiOrchImpl.class);
+    private static DefaultTransactionLog transactionLog = (DefaultTransactionLog) ConnectLogFactory.getTransactionLog(TransactionType.PD_INTERNAL_TRANSACTION);
 
     /**
      * Send the patient query request to the actual MPI that is implemented
@@ -34,11 +39,13 @@ public class AdapterMpiOrchImpl
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion)
     {
         log.debug("Entering AdapterMpiOrchImpl.query method...");
+        transactionLog.begin();
 
         AdapterComponentMpiProxy oMpiProxy = null;
         AdapterComponentMpiProxyObjectFactory oFactory = new AdapterComponentMpiProxyObjectFactory();
         oMpiProxy = oFactory.getAdapterComponentMpiProxy();
         PRPAIN201306UV02 oResponse = oMpiProxy.findCandidates(findCandidatesRequest, assertion);
+        transactionLog.end();
         return oResponse;
     }
 }

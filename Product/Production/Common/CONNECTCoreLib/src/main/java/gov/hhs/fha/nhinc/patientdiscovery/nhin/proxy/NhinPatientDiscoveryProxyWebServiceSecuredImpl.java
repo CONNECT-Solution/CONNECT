@@ -8,19 +8,25 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.logger.ConnectLogFactory;
+import gov.hhs.fha.nhinc.logger.TransactionType;
+import gov.hhs.fha.nhinc.logger.pdtransaction.PdTransactionLog;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
+
 import java.sql.Timestamp;
+
 import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-import javax.xml.ws.Service;
 
 /**
  *
@@ -35,6 +41,8 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     private static final String WSDL_FILE = "NhinPatientDiscovery.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery";
     private Log log = null;
+    private PdTransactionLog transactionLog= null;
+
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
@@ -42,6 +50,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
      */
     public NhinPatientDiscoveryProxyWebServiceSecuredImpl() {
         log = createLogger();
+        transactionLog = (PdTransactionLog) ConnectLogFactory.getTransactionLog(TransactionType.PD_GATEWAY_TRANSACTION);
     }
 
     /**
@@ -63,6 +72,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
 
+                transactionLog.begin();
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
@@ -94,6 +104,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     "Exception: " + e.getMessage(), e);
             response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
+        transactionLog.end();
 
         return response;
     }
