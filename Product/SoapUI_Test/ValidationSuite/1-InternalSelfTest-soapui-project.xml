@@ -5754,7 +5754,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
+      <con:tearDownScript/><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:04:18Z</con:value>
@@ -6397,7 +6397,7 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
+      <con:tearDownScript/><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:04:23Z</con:value>
