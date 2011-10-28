@@ -11,17 +11,17 @@ public class DefaultTransactionLog extends ConnectLog implements TransactionLog 
 
 	private Log log;
 	
-	public DefaultTransactionLog(TransactionType transactionType) {
-		super(transactionType);
+	public DefaultTransactionLog(String transactionId, TransactionType transactionType) {
+		super(transactionId, transactionType);
 		log = LogFactory.getLog(DefaultTransactionLog.class);
 	}
 	
 	public void begin () {
 		setBeginTime();
-		log.info (" Start.");
+		log.info ("Begin" + getLogInfo());
 	}
 	
-	public void end () {
-		log.info (" End in " + getDuration() + " msec");
+	public void end (String status) {
+		log.info (status + getLogInfo() + getDuration() + " msec");
 	}
 }

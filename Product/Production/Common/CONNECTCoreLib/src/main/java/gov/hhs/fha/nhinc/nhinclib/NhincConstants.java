@@ -17,8 +17,12 @@ import java.math.BigInteger;
  * @author Jon Hoppesch
  */
 public class NhincConstants {
+	
+	// Status
+    public static final String FINISHED = "Finished";
+    public static final String FAILED = "Failed";
+	
     // Property File Constants
-
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";

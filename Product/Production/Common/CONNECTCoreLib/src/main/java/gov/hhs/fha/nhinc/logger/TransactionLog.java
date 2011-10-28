@@ -4,5 +4,5 @@ public interface TransactionLog {
 	
 	public void begin ();
 	
-	public void end ();
+	public void end (String status);
 }

@@ -42,6 +42,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     private static final String WS_ADDRESSING_ACTION = "urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery";
     private Log log = null;
     private PdTransactionLog transactionLog= null;
+	private String transactionStatus;
 
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -50,7 +51,6 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
      */
     public NhinPatientDiscoveryProxyWebServiceSecuredImpl() {
         log = createLogger();
-        transactionLog = (PdTransactionLog) ConnectLogFactory.getTransactionLog(TransactionType.PD_GATEWAY_TRANSACTION);
     }
 
     /**
@@ -72,6 +72,9 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
 
+                transactionLog = (PdTransactionLog) ConnectLogFactory.getTransactionLog(
+                		assertion.getMessageId(), TransactionType.PD_GATEWAY_TRANSACTION);
+                transactionLog.init(assertion.getHomeCommunity().getHomeCommunityId());
                 transactionLog.begin();
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
@@ -92,19 +95,23 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                     PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
+                    transactionStatus = NhincConstants.FINISHED;
 
                 } else {
                     log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The URL is null.");
+                    transactionStatus = NhincConstants.FAILED;
                 }
             } else {
                 log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameters are null.");
+                transactionStatus = NhincConstants.FAILED;
             }
         } catch (Exception e) {
             log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
             response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            transactionStatus = NhincConstants.FAILED;
         }
-        transactionLog.end();
+        transactionLog.end(transactionStatus);
 
         return response;
     }

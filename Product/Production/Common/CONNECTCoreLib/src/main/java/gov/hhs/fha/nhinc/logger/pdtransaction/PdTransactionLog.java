@@ -10,26 +10,30 @@ import gov.hhs.fha.nhinc.logger.TransactionType;
 public class PdTransactionLog extends ConnectLog implements TransactionLog {
 
 	private Log log;
-	private String remoteGateway;
+	private String sourceGateway;
 	
-	public PdTransactionLog(TransactionType transactionType) {
-		super(transactionType);
+	public PdTransactionLog(String transactionId, TransactionType transactionType) {
+		super(transactionId, transactionType);
 		log = LogFactory.getLog(PdTransactionLog.class);
 	}
 	
-	public void begin () {
-		setBeginTime();
-		log.info (" Start remoteGateway::" + remoteGateway);
+	public void init(String sourceGateway) {
+		this.sourceGateway = sourceGateway;
 	}
 	
-	public void end () {
-		log.info (" End in " + getDuration() + " msec remoteGateway::" + remoteGateway);
+	public void begin() {
+		setBeginTime();
+		log.info ("Start" + getLogInfo() + "sourceGateway::" + sourceGateway);
+	}
+	
+	public void end(String status) {
+		log.info (status + getLogInfo() + getDuration() + " msec sourceGateway::" + sourceGateway);
 	}
 
 	/**
-	 * @param remoteGateway the remoteGateway to set
+	 * @param sourceGateway the sourceGateway to set
 	 */
-	public void setRemoteGateway(String remoteGateway) {
-		this.remoteGateway = remoteGateway;
+	public void setSourceGateway(String sourceGateway) {
+		this.sourceGateway = sourceGateway;
 	}
 }

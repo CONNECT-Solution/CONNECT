@@ -5,13 +5,13 @@ import gov.hhs.fha.nhinc.logger.pdtransaction.PdTransactionLog;
 
 public class ConnectLogFactory {
 
-	public static ConnectLog getTransactionLog (TransactionType transactionType) {
+	public static ConnectLog getTransactionLog (String transactionId, TransactionType transactionType) {
 		switch (transactionType) {
 		case PD_GATEWAY_TRANSACTION:
-			return new PdTransactionLog(transactionType);
+			return new PdTransactionLog(transactionId, transactionType);
 
 		default:
-			return new DefaultTransactionLog(transactionType);
+			return new DefaultTransactionLog(transactionId, transactionType);
 		}
 	}
 }

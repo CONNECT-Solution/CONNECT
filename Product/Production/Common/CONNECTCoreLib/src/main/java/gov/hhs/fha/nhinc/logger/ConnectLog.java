@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 
 public abstract class ConnectLog {
 
+	private String transactionId;
 	private TransactionType transactionType;
 	private Timestamp beginTime;
 	
-	public ConnectLog(TransactionType transactionType) {
+	public ConnectLog(String transactionId, TransactionType transactionType) {
 		super();
+		this.setTransactionId(transactionId);
 		this.setTransactionType(transactionType);
 	}
 
@@ -43,5 +45,23 @@ public abstract class ConnectLog {
 	 */
 	protected void setBeginTime() {
 		this.beginTime = new Timestamp(System.currentTimeMillis());
+	}
+
+	/**
+	 * @return the transactionId
+	 */
+	public String getTransactionId() {
+		return transactionId;
+	}
+
+	/**
+	 * @param transactionId the transactionId to set
+	 */
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
+	
+	public String getLogInfo() {
+		return "\t" + transactionId + "\t" + transactionType + "\t";
 	}
 }
