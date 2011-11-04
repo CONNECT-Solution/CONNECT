@@ -50,7 +50,7 @@ public class QueryUtilTest
 
             String sPatientId = "123abc";
             String sAssigningAuthority = "1.1";
-            String expectedPatientId = sPatientId + "^^^&" + sAssigningAuthority + "&ISO";
+            String expectedPatientId = "'" + sPatientId + "^^^&" + sAssigningAuthority + "&ISO'";
 
             AdhocQueryRequest request = queryUtil.createAdhocQueryRequest(sPatientId, sAssigningAuthority);
             assertNotNull("Request was null", request);

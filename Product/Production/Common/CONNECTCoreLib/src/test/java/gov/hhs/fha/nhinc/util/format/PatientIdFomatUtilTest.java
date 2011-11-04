@@ -82,7 +82,7 @@ public class PatientIdFomatUtilTest {
         {
             String patientId = "1234";
             String homeCommunityId = "2.16.840.1.113883.3.166.1.1";
-            String expected = "1234^^^&2.16.840.1.113883.3.166.1.1&ISO";
+            String expected = "'1234^^^&2.16.840.1.113883.3.166.1.1&ISO'";
 
             String formatted = PatientIdFormatUtil.hl7EncodePatientId(patientId, homeCommunityId);
             assertNotNull("Formatted - id was null", formatted);
