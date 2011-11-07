@@ -5754,7 +5754,21 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:tearDownScript/><con:properties>
+      <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+
+File gatewayFile = new File(GatewayPropFile)
+File gatewayBakFile = new File(MasterGatewayPropFile)
+
+if(gatewayBakFile.exists()) {
+	def reader = gatewayBakFile.newReader()
+   		gatewayFile.withWriter { writer ->
+       	writer &lt;&lt; reader
+   	}
+   reader.close()
+} else {
+	throw new RuntimeException('Unable to locate master/gateway.properties')
+}</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:04:18Z</con:value>
@@ -6397,7 +6411,21 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:tearDownScript/><con:properties>
+      <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+
+File gatewayFile = new File(GatewayPropFile)
+File gatewayBakFile = new File(MasterGatewayPropFile)
+
+if(gatewayBakFile.exists()) {
+	def reader = gatewayBakFile.newReader()
+   		gatewayFile.withWriter { writer ->
+       	writer &lt;&lt; reader
+   	}
+   reader.close()
+} else {
+	throw new RuntimeException('Unable to locate master/gateway.properties')
+}</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2011-06-13T05:04:23Z</con:value>
