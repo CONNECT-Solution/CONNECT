@@ -442,18 +442,13 @@ public class XDRTransforms {
                 return true;
             }
 
-
-            if (body.getSubmitObjectsRequest().getId().isEmpty())
-            {
-                log.error("SubmitObjectsRequest has no id");
-                return true;
-            }
             if(body.getSubmitObjectsRequest().getRegistryObjectList() == null)
             {
-                log.error("No Registry Objects");
+                log.error("No Registry Object List");
                 return true;
             }
-            if(body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty())
+            if(body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable() == null
+            		|| body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty())
             {
                 log.error("No Identifiables on Registry Object");
                 return true;
