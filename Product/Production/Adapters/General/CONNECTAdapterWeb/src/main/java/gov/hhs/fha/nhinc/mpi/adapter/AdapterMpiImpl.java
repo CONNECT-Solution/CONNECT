@@ -11,19 +11,22 @@
 
 package gov.hhs.fha.nhinc.mpi.adapter;
 
+import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType;
+import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.logger.ConnectLogFactory;
-import gov.hhs.fha.nhinc.logger.TransactionType;
-import gov.hhs.fha.nhinc.logger.defaulttransaction.DefaultTransactionLog;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-
-import javax.xml.ws.WebServiceContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import java.util.Map;
+import javax.xml.ws.BindingProvider;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import javax.xml.ws.WebServiceContext;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  *
@@ -32,7 +35,6 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 public class AdapterMpiImpl {
    private static Log log = LogFactory.getLog(AdapterMpiImpl.class);
-   private DefaultTransactionLog transactionLog;
 
     /**
      * Perform a look up on the MPI.
@@ -47,38 +49,43 @@ public class AdapterMpiImpl {
     {
         log.debug("Entering AdapterMpiImpl.query");
 
-        AssertionType assertion = (assertionFromBody != null) ? assertionFromBody : new AssertionType();
-        
-        transactionLog = (DefaultTransactionLog) ConnectLogFactory.getTransactionLog(
-        		assertion.getMessageId(), TransactionType.PD_ADAPTER_TRANSACTION);
-        transactionLog.begin();
+        AssertionType assertion = null;
+        if(assertionFromBody != null)
+        {
+            assertion = assertionFromBody;
+        }
+        else
+        {
+            assertion = new AssertionType();
+        }
 
         AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
         log.debug("Exiting AdapterMpiImpl.query - unsecured");
-        transactionLog.end(NhincConstants.FINISHED);
         return response;
     }
  
     public  PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context)
     {
-        log.debug("Entering AdapterMpiImpl.query - secured");
+        log.debug("Entering AdapterMpiImpl.findCandidates");
 
-        AssertionType assertion = ((bIsSecure) && (context != null)) ?
-        		SamlTokenExtractor.GetAssertion(context) : new AssertionType();
-        
-        transactionLog = (DefaultTransactionLog) ConnectLogFactory.getTransactionLog(
-        		assertion.getMessageId(), TransactionType.PD_ADAPTER_TRANSACTION);
-        transactionLog.begin();
+        AssertionType assertion = null;
+        if ((bIsSecure) && (context != null))
+        {
+            assertion = SamlTokenExtractor.GetAssertion(context);
+        }
+        else
+        {
+            assertion = new AssertionType();
+        }
 
         AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
         log.debug("Exiting AdapterMpiImpl.query - secured");
-        transactionLog.end(NhincConstants.FINISHED);
         return response;
     }
 }

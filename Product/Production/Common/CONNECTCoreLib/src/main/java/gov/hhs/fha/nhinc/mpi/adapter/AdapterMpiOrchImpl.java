@@ -6,18 +6,13 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.logger.ConnectLogFactory;
-import gov.hhs.fha.nhinc.logger.TransactionType;
-import gov.hhs.fha.nhinc.logger.defaulttransaction.DefaultTransactionLog;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
-import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201305UV02;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 
 /**
  * This is the business logic for the AdapterMpi.  This is a thin layer,
@@ -39,6 +34,7 @@ public class AdapterMpiOrchImpl
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion)
     {
         log.debug("Entering AdapterMpiOrchImpl.query method...");
+
         AdapterComponentMpiProxy oMpiProxy = null;
         AdapterComponentMpiProxyObjectFactory oFactory = new AdapterComponentMpiProxyObjectFactory();
         oMpiProxy = oFactory.getAdapterComponentMpiProxy();
