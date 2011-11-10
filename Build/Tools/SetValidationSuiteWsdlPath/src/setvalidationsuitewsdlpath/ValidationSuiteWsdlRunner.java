@@ -41,6 +41,7 @@ public class ValidationSuiteWsdlRunner {
     private final String binaryPath = "NHINC_THIRDPARTY_DIR";
     private final String glassfishHome = "AS_HOME";
     private final String jBossHome = "JBOSS_HOME";
+    private final String jBossConfig = "NHINC_PROPERTIES_DIR";
 
     private String[] validationFiles = {"1-InternalSelfTest-soapui-project.xml",
                                         "2-EndToEndSelfTest-soapui-project.xml",
@@ -116,12 +117,12 @@ public class ValidationSuiteWsdlRunner {
         }
 
         if(pathToWsdls == null){
-            if(System.getenv(glassfishHome)!=null){
+            if(System.getenv(jBossHome)!= null){
+                pathToWsdls = System.getenv(jBossConfig) + slash + "wsdl" + slash;
+            }
+            else if(System.getenv(glassfishHome)!=null){
                 pathToWsdls = System.getenv(glassfishHome) + slash + "domains" + slash +
                     "domain1" + slash + "config" + slash + "nhin" + slash + "wsdl" + slash;
-            }else if(System.getenv(jBossHome)!=null){
-            //*************NEED TO FIND JBOSS PATHS FOR WSDL*******//
-                pathToWsdls = "Not set up for JBOSS yet";
             }else pathToWsdls = "No Valid WSDL Directory";
         }
         //else do nothing because already pathToWsdls is already set by command line arg
