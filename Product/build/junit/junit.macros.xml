@@ -29,14 +29,19 @@
       </pathconvert>
 
       <if>
-        <isset property="has.some"/>
-        <then>
-          <var name="unittests.force" value="false"/>
-        </then>
+        <isset property="unittests.force"/>
         <else>
-          <var name="unittests.force" value="true"/>
-        </else>
-      </if>
+        <if>
+           <isset property="has.some"/>
+              <then>
+                 <var name="unittests.force" value="false"/>
+              </then>
+              <else>
+                <var name="unittests.force" value="true"/>
+             </else>
+         </if>
+       </else>
+     </if>
 
       <outofdate verbose="${debug}" force="${unittests.force}" >
         <sourcefiles>

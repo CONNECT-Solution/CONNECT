@@ -14,9 +14,13 @@
 	<property name="unittest.resources.dir" value="${project.dir}/src/test/resources" />
 	<property name="build.unittest.classes.dir" value="${build.dir}/test/classes" />
 
+	<property name="single.test" value="Test"/>
+
 	<fileset id="junitrun.tests" dir="${unittest.source.dir}">
-		<include name="**/**Test.java" />
-		<include name="**/**TestSuite.java" />
+		<include name="**/*${single.test}.java" />
+		<exclude name="**/*$*"/>
+		<!-- <include name="**/**Test.java" />		
+		<include name="**/**TestSuite.java" /> -->
 	</fileset>
 
 	<path id="junitrun.classpath">
