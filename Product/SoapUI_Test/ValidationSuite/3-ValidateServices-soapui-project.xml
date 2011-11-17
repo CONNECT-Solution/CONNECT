@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="ValidateServices" resourceRoot="" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="ValidateServices" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincComponentConnectionManager.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl">
+    <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl" type="TEXT">
       <con:part>
         <con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl</con:url>
         <con:content><![CDATA[<definitions name="ConnectionManagerService" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1322,70 +1321,70 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
       <con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:ForceRefreshInternalConnectCache" name="ForceRefreshInternalConnectCache" bindingOperationName="ForceRefreshInternalConnectCache" type="Request-Response" outputName="ForceRefreshInternalConnectCacheResponse" inputName="ForceRefreshInternalConnectCacheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:ForceRefreshInternalConnectCache" anonymous="optional" bindingOperationName="ForceRefreshInternalConnectCache" inputName="ForceRefreshInternalConnectCacheRequest" isOneWay="false" name="ForceRefreshInternalConnectCache" outputName="ForceRefreshInternalConnectCacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:ForceRefreshUDDICache" name="ForceRefreshUDDICache" bindingOperationName="ForceRefreshUDDICache" type="Request-Response" outputName="ForceRefreshUDDICacheResponse" inputName="ForceRefreshUDDICacheRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:ForceRefreshUDDICache" anonymous="optional" bindingOperationName="ForceRefreshUDDICache" inputName="ForceRefreshUDDICacheRequest" isOneWay="false" name="ForceRefreshUDDICache" outputName="ForceRefreshUDDICacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetAllBusinessEntities" name="GetAllBusinessEntities" bindingOperationName="GetAllBusinessEntities" type="Request-Response" outputName="GetAllBusinessEntitiesResponse" inputName="GetAllBusinessEntitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetAllBusinessEntities" anonymous="optional" bindingOperationName="GetAllBusinessEntities" inputName="GetAllBusinessEntitiesRequest" isOneWay="false" name="GetAllBusinessEntities" outputName="GetAllBusinessEntitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetAllBusinessEntitySetByServiceName" name="GetAllBusinessEntitySetByServiceName" bindingOperationName="GetAllBusinessEntitySetByServiceName" type="Request-Response" outputName="GetAllBusinessEntitySetByServiceNameResponse" inputName="GetAllBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetAllBusinessEntitySetByServiceName" anonymous="optional" bindingOperationName="GetAllBusinessEntitySetByServiceName" inputName="GetAllBusinessEntitySetByServiceNameRequest" isOneWay="false" name="GetAllBusinessEntitySetByServiceName" outputName="GetAllBusinessEntitySetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetAllCommunities" name="GetAllCommunities" bindingOperationName="GetAllCommunities" type="Request-Response" outputName="GetAllCommunitiesResponse" inputName="GetAllCommunitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetAllCommunities" anonymous="optional" bindingOperationName="GetAllCommunities" inputName="GetAllCommunitiesRequest" isOneWay="false" name="GetAllCommunities" outputName="GetAllCommunitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetAllConnectionInfoEndpointSetByServiceName" name="GetAllConnectionInfoEndpointSetByServiceName" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetAllConnectionInfoEndpointSetByServiceName" anonymous="optional" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" isOneWay="false" name="GetAllConnectionInfoEndpointSetByServiceName" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetAllConnectionInfoSetByServiceName" name="GetAllConnectionInfoSetByServiceName" bindingOperationName="GetAllConnectionInfoSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoSetByServiceNameResponse" inputName="GetAllConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetAllConnectionInfoSetByServiceName" anonymous="optional" bindingOperationName="GetAllConnectionInfoSetByServiceName" inputName="GetAllConnectionInfoSetByServiceNameRequest" isOneWay="false" name="GetAllConnectionInfoSetByServiceName" outputName="GetAllConnectionInfoSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetBusinessEntity" name="GetBusinessEntity" bindingOperationName="GetBusinessEntity" type="Request-Response" outputName="GetBusinessEntityResponse" inputName="GetBusinessEntityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetBusinessEntity" anonymous="optional" bindingOperationName="GetBusinessEntity" inputName="GetBusinessEntityRequest" isOneWay="false" name="GetBusinessEntity" outputName="GetBusinessEntityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetBusinessEntityByServiceName" name="GetBusinessEntityByServiceName" bindingOperationName="GetBusinessEntityByServiceName" type="Request-Response" outputName="GetBusinessEntityByServiceNameResponse" inputName="GetBusinessEntityByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetBusinessEntityByServiceName" anonymous="optional" bindingOperationName="GetBusinessEntityByServiceName" inputName="GetBusinessEntityByServiceNameRequest" isOneWay="false" name="GetBusinessEntityByServiceName" outputName="GetBusinessEntityByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetBusinessEntitySet" name="GetBusinessEntitySet" bindingOperationName="GetBusinessEntitySet" type="Request-Response" outputName="GetBusinessEntitySetResponse" inputName="GetBusinessEntitySetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetBusinessEntitySet" anonymous="optional" bindingOperationName="GetBusinessEntitySet" inputName="GetBusinessEntitySetRequest" isOneWay="false" name="GetBusinessEntitySet" outputName="GetBusinessEntitySetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetBusinessEntitySetByServiceName" name="GetBusinessEntitySetByServiceName" bindingOperationName="GetBusinessEntitySetByServiceName" type="Request-Response" outputName="GetBusinessEntitySetByServiceNameResponse" inputName="GetBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetBusinessEntitySetByServiceName" anonymous="optional" bindingOperationName="GetBusinessEntitySetByServiceName" inputName="GetBusinessEntitySetByServiceNameRequest" isOneWay="false" name="GetBusinessEntitySetByServiceName" outputName="GetBusinessEntitySetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetConnectionInfoByServiceName" name="GetConnectionInfoByServiceName" bindingOperationName="GetConnectionInfoByServiceName" type="Request-Response" outputName="GetConnectionInfoByServiceNameResponse" inputName="GetConnectionInfoByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetConnectionInfoByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoByServiceName" inputName="GetConnectionInfoByServiceNameRequest" isOneWay="false" name="GetConnectionInfoByServiceName" outputName="GetConnectionInfoByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointByServiceName" name="GetConnectionInfoEndpointByServiceName" bindingOperationName="GetConnectionInfoEndpointByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointByServiceNameResponse" inputName="GetConnectionInfoEndpointByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetConnectionInfoEndpointByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoEndpointByServiceName" inputName="GetConnectionInfoEndpointByServiceNameRequest" isOneWay="false" name="GetConnectionInfoEndpointByServiceName" outputName="GetConnectionInfoEndpointByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSet" name="GetConnectionInfoEndpointSet" bindingOperationName="GetConnectionInfoEndpointSet" type="Request-Response" outputName="GetConnectionInfoEndpointSetResponse" inputName="GetConnectionInfoEndpointSetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetConnectionInfoEndpointSet" anonymous="optional" bindingOperationName="GetConnectionInfoEndpointSet" inputName="GetConnectionInfoEndpointSetRequest" isOneWay="false" name="GetConnectionInfoEndpointSet" outputName="GetConnectionInfoEndpointSetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSetByServiceName" name="GetConnectionInfoEndpointSetByServiceName" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetConnectionInfoEndpointSetByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" isOneWay="false" name="GetConnectionInfoEndpointSetByServiceName" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetConnectionInfoSet" name="GetConnectionInfoSet" bindingOperationName="GetConnectionInfoSet" type="Request-Response" outputName="GetConnectionInfoSetResponse" inputName="GetConnectionInfoSetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetConnectionInfoSet" anonymous="optional" bindingOperationName="GetConnectionInfoSet" inputName="GetConnectionInfoSetRequest" isOneWay="false" name="GetConnectionInfoSet" outputName="GetConnectionInfoSetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetConnectionInfoSetByServiceName" name="GetConnectionInfoSetByServiceName" bindingOperationName="GetConnectionInfoSetByServiceName" type="Request-Response" outputName="GetConnectionInfoSetByServiceNameResponse" inputName="GetConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetConnectionInfoSetByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoSetByServiceName" inputName="GetConnectionInfoSetByServiceNameRequest" isOneWay="false" name="GetConnectionInfoSetByServiceName" outputName="GetConnectionInfoSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:StoreAssigningAuthorityToHomeCommunityMapping" name="StoreAssigningAuthorityToHomeCommunityMapping" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" type="Request-Response" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:StoreAssigningAuthorityToHomeCommunityMapping" anonymous="optional" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" isOneWay="false" name="StoreAssigningAuthorityToHomeCommunityMapping" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetAssigningAuthoritiesByHomeCommunity" name="GetAssigningAuthoritiesByHomeCommunity" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" type="Request-Response" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetAssigningAuthoritiesByHomeCommunity" anonymous="optional" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" isOneWay="false" name="GetAssigningAuthoritiesByHomeCommunity" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="urn:GetHomeCommunityByAssigningAuthority" name="GetHomeCommunityByAssigningAuthority" bindingOperationName="GetHomeCommunityByAssigningAuthority" type="Request-Response" outputName="GetHomeCommunityByAssigningAuthorityResponse" inputName="GetHomeCommunityByAssigningAuthorityRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="urn:GetHomeCommunityByAssigningAuthority" anonymous="optional" bindingOperationName="GetHomeCommunityByAssigningAuthority" inputName="GetHomeCommunityByAssigningAuthorityRequest" isOneWay="false" name="GetHomeCommunityByAssigningAuthority" outputName="GetHomeCommunityByAssigningAuthorityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="GetConnectionInfoEndpontFromNhinTarget" name="GetConnectionInfoEndpontFromNhinTarget" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" type="Request-Response" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="GetConnectionInfoEndpontFromNhinTarget" anonymous="optional" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" isOneWay="false" name="GetConnectionInfoEndpontFromNhinTarget" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-    <con:operation isOneWay="false" action="GetUrlSetFromNhinTargetCommunities" name="GetUrlSetFromNhinTargetCommunities" bindingOperationName="GetUrlSetFromNhinTargetCommunities" type="Request-Response" outputName="GetUrlSetFromNhinTargetCommunitiesResponse" inputName="GetUrlSetFromNhinTargetCommunitiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation action="GetUrlSetFromNhinTargetCommunities" anonymous="optional" bindingOperationName="GetUrlSetFromNhinTargetCommunities" inputName="GetUrlSetFromNhinTargetCommunitiesRequest" isOneWay="false" name="GetUrlSetFromNhinTargetCommunities" outputName="GetUrlSetFromNhinTargetCommunitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -1411,22 +1410,22 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </urn:GetUrlSetByServiceName>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
-        <con:wsaConfig mustUnderstand="NONE" version="200508" action="GetUrlSetFromNhinTargetCommunities"/>
+        <con:wsaConfig action="GetUrlSetFromNhinTargetCommunities" mustUnderstand="NONE" version="200508"/>
       </con:call>
     </con:operation>
   </con:interface>
   <con:testSuite name="ValidateServices TestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="false" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ValidateServices TestCase" searchProperties="true" id="e9f67712-af44-4fc3-bc36-57a8332642ec" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="">
+    <con:testCase amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" failOnError="false" failTestCaseOnErrors="true" id="e9f67712-af44-4fc3-bc36-57a8332642ec" keepSession="false" maxResults="0" name="ValidateServices TestCase" searchProperties="true" timeout="0" wsrmAckTo="" wsrmEnabled="false" wsrmVersion="1.0">
       <con:settings/>
-      <con:testStep type="groovy" name="Initialize Counter">
+      <con:testStep name="Initialize Counter" type="groovy">
         <con:settings/>
         <con:config>
           <script>context.testCase.setPropertyValue( 'Current Service ID', "0" );</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="GetNextService">
+      <con:testStep name="GetNextService" type="groovy">
         <con:settings/>
         <con:config>
           <script>def serviceCount = context.findProperty( 'ServiceCount' );
@@ -1442,14 +1441,14 @@ context.testCase.setPropertyValue('Location', serviceLocation);
 context.testCase.setPropertyValue('Current Service ID', currentServiceID.toString() );</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="request" name="GetConnectionInfoByServiceName">
+      <con:testStep name="GetConnectionInfoByServiceName" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
           <con:operation>GetConnectionInfoByServiceName</con:operation>
           <con:request name="GetConnectionInfoByServiceName">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint>
@@ -1469,7 +1468,7 @@ context.testCase.setPropertyValue('Current Service ID', currentServiceID.toStrin
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion type="XPath Match" name="HCID Match">
+            <con:assertion name="HCID Match" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
@@ -1479,7 +1478,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="ServiceName Match">
+            <con:assertion name="ServiceName Match" type="XPath Match">
               <con:configuration>
                 <path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 //ns2:ConnectionInfo[1]/ns2:serviceConnectionInfos[1]/ns2:serviceConnectionInfo[1]/ns2:serviceName[1]</path>
@@ -1518,7 +1517,7 @@ if (location != "O") assert (url =~ IP) || (url =~ hostname)</scriptText>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Output">
+      <con:testStep name="Output" type="groovy">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -1534,7 +1533,7 @@ log.info( "----------" );
 log.info( serviceResponseHolder.prettyXml );</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Loop">
+      <con:testStep name="Loop" type="groovy">
         <con:settings/>
         <con:config>
           <script>def serviceCount = context.findProperty( 'ServiceCount' );
@@ -2713,12 +2712,12 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
