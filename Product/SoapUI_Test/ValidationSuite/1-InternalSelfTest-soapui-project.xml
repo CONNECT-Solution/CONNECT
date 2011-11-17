@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="InternalSelfTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="4.0.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="InternalSelfTest" resourceRoot="" soapui-version="4.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxySubscriptionManagerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -10,11 +11,11 @@
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
       <con:endpoint>http://dvanhie3.fedsconnect.org:8080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:Unsubscribe" anonymous="optional" bindingOperationName="Unsubscribe" inputName="UnsubscribeRequest" isOneWay="false" name="Unsubscribe" outputName="UnsubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:Unsubscribe" name="Unsubscribe" bindingOperationName="Unsubscribe" type="Request-Response" outputName="UnsubscribeResponse" inputName="UnsubscribeRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyNotificationConsumerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyNotificationConsumer.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -23,11 +24,11 @@
       <con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
       <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:Notify" anonymous="optional" bindingOperationName="Notify" inputName="NotifyRequest" isOneWay="false" name="Notify" sendsAttachments="false" type="One-Way">
+    <con:operation isOneWay="false" action="urn:Notify" name="Notify" bindingOperationName="Notify" type="One-Way" inputName="NotifyRequest" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyAuditLogQuery.wsdl" name="NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyAuditLogQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyAuditLogQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -38,11 +39,11 @@
       <con:endpoint>http://172.16.50.150:9080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
       <con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:findAuditEvents" anonymous="optional" bindingOperationName="findAuditEvents" inputName="findAuditEventsRequest" isOneWay="false" name="findAuditEvents" outputName="findAuditEventsResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:findAuditEvents" name="findAuditEvents" bindingOperationName="findAuditEvents" type="Request-Response" outputName="findAuditEventsResponse" inputName="findAuditEventsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyNotificationProducerBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -55,11 +56,11 @@
       <con:endpoint>http://dvanhie3.fedsconnect.org:8080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:Subscribe" anonymous="optional" bindingOperationName="Subscribe" inputName="SubscribeRequest" isOneWay="false" name="Subscribe" outputName="SubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:Subscribe" name="Subscribe" bindingOperationName="Subscribe" type="Request-Response" outputName="SubscribeResponse" inputName="SubscribeRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -69,31 +70,31 @@
       <con:endpoint>http://192.168.101.162:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
       <con:endpoint>http://dodgateway.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery}NhincProxySubjectDiscoveryBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxySubjectDiscovery.wsdl" name="NhincProxySubjectDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxySubjectDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery}NhincProxySubjectDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxySubjectDiscovery</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubjectDiscovery</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:PIXConsumer_PRPA_IN201301UV" anonymous="optional" bindingOperationName="PIXConsumer_PRPA_IN201301UV" inputName="PIXConsumer_PRPA_IN201301UVProxyRequest" isOneWay="false" name="PIXConsumer_PRPA_IN201301UV" outputName="PIXConsumer_PRPA_IN201301UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:PIXConsumer_PRPA_IN201301UV" name="PIXConsumer_PRPA_IN201301UV" bindingOperationName="PIXConsumer_PRPA_IN201301UV" type="Request-Response" outputName="PIXConsumer_PRPA_IN201301UVProxyResponse" inputName="PIXConsumer_PRPA_IN201301UVProxyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
-    <con:operation action="urn:PIXConsumer_PRPA_IN201302UV" anonymous="optional" bindingOperationName="PIXConsumer_PRPA_IN201302UV" inputName="PIXConsumer_PRPA_IN201302UVProxyRequest" isOneWay="false" name="PIXConsumer_PRPA_IN201302UV" outputName="PIXConsumer_PRPA_IN201302UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:PIXConsumer_PRPA_IN201302UV" name="PIXConsumer_PRPA_IN201302UV" bindingOperationName="PIXConsumer_PRPA_IN201302UV" type="Request-Response" outputName="PIXConsumer_PRPA_IN201302UVProxyResponse" inputName="PIXConsumer_PRPA_IN201302UVProxyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
-    <con:operation action="urn:PIXConsumer_PRPA_IN201304UV" anonymous="optional" bindingOperationName="PIXConsumer_PRPA_IN201304UV" inputName="PIXConsumer_PRPA_IN201304UVProxyRequest" isOneWay="false" name="PIXConsumer_PRPA_IN201304UV" outputName="PIXConsumer_PRPA_IN201304UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:PIXConsumer_PRPA_IN201304UV" name="PIXConsumer_PRPA_IN201304UV" bindingOperationName="PIXConsumer_PRPA_IN201304UV" type="Request-Response" outputName="PIXConsumer_PRPA_IN201304UVProxyResponse" inputName="PIXConsumer_PRPA_IN201304UVProxyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
-    <con:operation action="urn:PIXConsumer_PRPA_IN201309UV" anonymous="optional" bindingOperationName="PIXConsumer_PRPA_IN201309UV" inputName="PIXConsumer_PRPA_IN201309UVProxyRequest" isOneWay="false" name="PIXConsumer_PRPA_IN201309UV" outputName="PIXConsumer_PRPA_IN201309UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:PIXConsumer_PRPA_IN201309UV" name="PIXConsumer_PRPA_IN201309UV" bindingOperationName="PIXConsumer_PRPA_IN201309UV" type="Request-Response" outputName="PIXConsumer_PRPA_IN201309UVProxyResponse" inputName="PIXConsumer_PRPA_IN201309UVProxyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -103,11 +104,11 @@
       <con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
       <con:endpoint>http://dodgateway.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProxyXDRAsyncRequest_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyXDRRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -118,7 +119,7 @@
       <con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest</con:endpoint>
     </con:endpoints>
-    <con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" name="ProvideAndRegisterDocumentSet-bAsyncRequest" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -447,62 +448,62 @@
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_Request" mustUnderstand="NONE" version="200508"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_Request"/>
         <con:wsrmConfig version="1.2"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:Proxy_PRPA_IN201305UV" name="Proxy_PRPA_IN201305UV" bindingOperationName="Proxy_PRPA_IN201305UV" type="Request-Response" outputName="Proxy_PRPA_IN201306UVProxyResponse" inputName="Proxy_PRPA_IN201305UVProxyRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl" name="NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryAsyncReqBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncReq</con:endpoint>
       <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:Proxy_ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncReq" inputName="Proxy_ProcessPatientDiscoveryAsyncReqRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncReq" outputName="Proxy_ProcessPatientDiscoveryAsyncReqResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:Proxy_ProcessPatientDiscoveryAsyncReq" name="Proxy_ProcessPatientDiscoveryAsyncReq" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncReq" type="Request-Response" outputName="Proxy_ProcessPatientDiscoveryAsyncReqResponse" inputName="Proxy_ProcessPatientDiscoveryAsyncReqRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyPatientDiscoveryAsyncResp.wsdl" name="NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyPatientDiscoveryAsyncRespBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
       <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:Proxy_ProcessPatientDiscoveryAsyncResp" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncResp" inputName="Proxy_ProcessPatientDiscoveryAsyncRespRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncResp" outputName="Proxy_ProcessPatientDiscoveryAsyncRespResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:Proxy_ProcessPatientDiscoveryAsyncResp" name="Proxy_ProcessPatientDiscoveryAsyncResp" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncResp" type="Request-Response" outputName="Proxy_ProcessPatientDiscoveryAsyncRespResponse" inputName="Proxy_ProcessPatientDiscoveryAsyncRespRequest" receivesAttachments="false" sendsAttachments="false">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" name="NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocQueryDeferredResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-DeferredDQResponse}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocRetrieveDeferredReq.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredRequest</con:endpoint>
       <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredRequest}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:CrossGatewayRetrieveRequest" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequest" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:CrossGatewayRetrieveRequest" name="CrossGatewayRetrieveRequest" bindingOperationName="CrossGatewayRetrieveRequest" type="Request-Response" outputName="CrossGatewayRetrieveAcknowledgement" inputName="CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -713,18 +714,18 @@
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest/NhincProxyDocRetrieveDeferredRequestPortType/CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest/NhincProxyDocRetrieveDeferredRequestPortType/CrossGatewayRetrieveRequest"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse}NhincProxyDocRetrieveDeferredResponseBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyDocRetrieveDeferredResp.wsdl" name="NhincProxyDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocRetrieveDeferredResponseBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse}NhincProxyDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocRetrieveDeferredResp.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredResponse</con:endpoint>
       <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredResponse}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:CrossGatewayRetrieveResponse" anonymous="optional" bindingOperationName="CrossGatewayRetrieveResponse" inputName="CrossGatewayRetrieveResponse" isOneWay="false" name="CrossGatewayRetrieveResponse" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:CrossGatewayRetrieveResponse" name="CrossGatewayRetrieveResponse" bindingOperationName="CrossGatewayRetrieveResponse" type="Request-Response" outputName="CrossGatewayRetrieveAcknowledgement" inputName="CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -931,17 +932,17 @@
       </urn:RespondingGateway_CrossGatewayRetrieveResponse>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse/NhincProxyDocRetrieveDeferredResponsePortType/CrossGatewayRetrieveResponse" mustUnderstand="NONE" version="200508"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieveresponse/NhincProxyDocRetrieveDeferredResponsePortType/CrossGatewayRetrieveResponse"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAdminDist_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache type="TEXT"/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
+    <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
@@ -1139,17 +1140,17 @@
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-        <con:wsaConfig action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" mustUnderstand="NONE" version="200508"/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/>
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" definition="/Applications/NetBeans/SUNWappserver/domains/domain1/config/nhin/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" name="NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincProxyDocQueryDeferredRequestBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #NhincProxyDocQueryDeferredRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#Endpoint-DeferredDQRequest}</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:CrossGatewayQueryRequest" bindingOperationName="CrossGatewayQueryRequest" inputName="CrossGatewayQueryRequest" isOneWay="false" name="CrossGatewayQueryRequest" outputName="CrossGatewayQueryAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation isOneWay="false" action="urn:CrossGatewayQueryRequest" name="CrossGatewayQueryRequest" bindingOperationName="CrossGatewayQueryRequest" type="Request-Response" outputName="CrossGatewayQueryAcknowledgement" inputName="CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false">
       <con:settings/>
     </con:operation>
   </con:interface>
@@ -1157,16 +1158,16 @@
     <con:description/>
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="1839c262-cc8c-43bd-8aa9-7bccdf9a10e5" keepSession="false" maxResults="0" name="XDR Async" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDR Async" searchProperties="true" id="1839c262-cc8c-43bd-8aa9-7bccdf9a10e5">
       <con:settings/>
-      <con:testStep name="NhincXDRAsyncRequest" type="request">
+      <con:testStep type="request" name="NhincXDRAsyncRequest">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
           <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
           <con:request name="NhincXDRAsyncRequest" useWsAddressing="true">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyXDRRequest}</con:endpoint>
@@ -1609,7 +1610,7 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="SOAP Response"/>
-            <con:assertion name="Match content of [@status]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Match content of [@status]">
               <con:configuration>
                 <path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
 //ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path>
@@ -1620,7 +1621,7 @@
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_Request" addDefaultTo="true" generateMessageId="true" messageID="uuid:7777777777.77777.777.77" mustUnderstand="TRUE" version="200508"/>
+            <con:wsaConfig mustUnderstand="TRUE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_Request" messageID="uuid:7777777777.77777.777.77" addDefaultTo="true" generateMessageId="true"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -1645,16 +1646,16 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Async Req" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Async Req" searchProperties="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e">
       <con:settings/>
-      <con:testStep name="Patient Discovery Async Req" type="request">
+      <con:testStep type="request" name="Patient Discovery Async Req">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyPatientDiscoveryAsyncReqBinding</con:interface>
           <con:operation>Proxy_ProcessPatientDiscoveryAsyncReq</con:operation>
           <con:request name="Patient Discovery Async Req" useWsAddressing="true">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
@@ -1905,7 +1906,7 @@
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Verify Receiver" type="XPath Match">
+            <con:assertion type="XPath Match" name="Verify Receiver">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';
 //ns2:MCCI_IN000002UV01[1]/ns2:receiver[1]/ns2:device[1]/ns2:asAgent[1]/ns2:representedOrganization[1]/ns2:id[1]/@root</path>
@@ -1914,7 +1915,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify Sender" type="XPath Match">
+            <con:assertion type="XPath Match" name="Verify Sender">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';
 //ns2:MCCI_IN000002UV01[1]/ns2:sender[1]/ns2:device[1]/ns2:asAgent[1]/ns2:representedOrganization[1]/ns2:id[1]/@root</path>
@@ -1923,7 +1924,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify Message" type="XPath Match">
+            <con:assertion type="XPath Match" name="Verify Message">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';
 //ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text[1]/text()</path>
@@ -1932,7 +1933,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify RelatesTo" type="XPath Match">
+            <con:assertion type="XPath Match" name="Verify RelatesTo">
               <con:configuration>
                 <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]/text()</path>
@@ -1943,7 +1944,7 @@
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncReqRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncReqRequest" messageID="uuid:6666666666.66666.666.66"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -2204,16 +2205,16 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Async Resp" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Async Resp" searchProperties="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7">
       <con:settings/>      
-      <con:testStep name="Patient Discovery Async Resp" type="request">
+      <con:testStep type="request" name="Patient Discovery Async Resp">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyPatientDiscoveryAsyncRespBinding</con:interface>
           <con:operation>Proxy_ProcessPatientDiscoveryAsyncResp</con:operation>
           <con:request name="Patient Discovery Async Resp" useWsAddressing="false">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
@@ -2548,7 +2549,7 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Match content of [typeCode/@code]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Match content of [typeCode/@code]">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
                 <content>CA</content>
@@ -2556,7 +2557,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Match content of [acknowledgementDetail/@typeCode]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Match content of [acknowledgementDetail/@typeCode]">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/@typeCode</path>
                 <content>I</content>
@@ -2566,7 +2567,7 @@
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespRequest" addDefaultAction="false" addDefaultTo="true" generateMessageId="true" mustUnderstand="NONE" relatesTo="uuid:1111111111.11111.111.11" version="200508"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" addDefaultTo="true" action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq:Proxy_ProcessPatientDiscoveryAsyncRespRequest" generateMessageId="true" relatesTo="uuid:1111111111.11111.111.11" addDefaultAction="false"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -2831,16 +2832,16 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="af9f35fa-caea-494c-ab27-b4343c31771c" keepSession="false" maxResults="0" name="Document Query Deferred Request" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Request" searchProperties="true" id="af9f35fa-caea-494c-ab27-b4343c31771c">
       <con:settings/>
-      <con:testStep name="Document Query Deferred Request" type="request">
+      <con:testStep type="request" name="Document Query Deferred Request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyDocQueryDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayQueryRequest</con:operation>
           <con:request name="Document Query Deferred Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DeferredDQRequest}</con:endpoint>
@@ -3084,7 +3085,7 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Match content of [@status]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Match content of [@status]">
               <con:configuration>
                 <path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
 //ns10:DocQueryAcknowledgement[1]/ns10:message[1]/@status</path>
@@ -3120,16 +3121,16 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6a9e34d9-01e9-4430-bb2f-c1e793b43ae5" keepSession="false" maxResults="0" name="Document Query Deferred Response" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Response" searchProperties="true" id="6a9e34d9-01e9-4430-bb2f-c1e793b43ae5">
       <con:settings/>      
-      <con:testStep name="Document Query Deferred Response" type="request">
+      <con:testStep type="request" name="Document Query Deferred Response">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyDocQueryDeferredResponseBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query Deferred Response">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DeferredDQResponse}</con:endpoint>
@@ -3529,7 +3530,7 @@
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Verify Ack Message" type="XPath Match">
+            <con:assertion type="XPath Match" name="Verify Ack Message">
               <con:configuration>
                 <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:DocQueryAcknowledgement[1]/ns19:message[1]/@status</path>
@@ -3565,16 +3566,16 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="49519d12-6a4a-4170-abbe-87afb96f7492" keepSession="false" maxResults="0" name="Document Retrieve Deferred Request" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Deferred Request" searchProperties="true" id="49519d12-6a4a-4170-abbe-87afb96f7492">
       <con:settings/>
-      <con:testStep name="DocRetrieveDeferredReq" type="request">
+      <con:testStep type="request" name="DocRetrieveDeferredReq">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveRequest</con:operation>
           <con:request name="DocRetrieveDeferredReq">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredRequest}</con:endpoint>
@@ -3813,7 +3814,7 @@
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Match content of [@status]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Match content of [@status]">
               <con:configuration>
                 <path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
 //ns20:DocRetrieveAcknowledgement[1]/ns20:message[1]/@status</path>
@@ -3849,16 +3850,16 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b67cdb4b-1008-4b23-88a8-05dac952baf0" keepSession="false" maxResults="0" name="Document Retrieve Deferred Response" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Deferred Response" searchProperties="true" id="b67cdb4b-1008-4b23-88a8-05dac952baf0">
       <con:settings/>
-      <con:testStep name="DocRetrieveDeferredResp" type="request">
+      <con:testStep type="request" name="DocRetrieveDeferredResp">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyDocRetrieveDeferredResponseBindingSoap</con:interface>
           <con:operation>CrossGatewayRetrieveResponse</con:operation>
           <con:request name="DocRetrieveDeferredResp">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocRetrieveDeferredResponse}</con:endpoint>
@@ -4103,7 +4104,7 @@
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Match content of [@status]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Match content of [@status]">
               <con:configuration>
                 <path>declare namespace ns7='http://www.hhs.gov/healthit/nhin';
 //ns7:DocRetrieveAcknowledgement[1]/ns7:message[1]/@status</path>
@@ -4139,19 +4140,19 @@
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="803da81d-206f-441a-841c-31071b9508ae">
       <con:settings/>
-      <con:testStep name="clear correlations table" type="groovy">
+      <con:testStep type="groovy" name="clear correlations table">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Patient Discovery" type="request">
+      <con:testStep type="request" name="Patient Discovery">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
           <con:operation>Proxy_PRPA_IN201305UV</con:operation>
           <con:request name="Patient Discovery">
@@ -4410,11 +4411,11 @@
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance" disabled="true">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
+            <con:assertion type="XPath Match" name="Check for existance of [ns3:controlActProcess]">
               <con:configuration>
                 <path>declare namespace ns3='urn:hl7-org:v3';
 exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
@@ -4423,7 +4424,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Given Name XPath Match" type="XPath Match">
+            <con:assertion type="XPath Match" name="Given Name XPath Match">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:given[1]</path>
@@ -4432,7 +4433,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Family Name XPath Match" type="XPath Match">
+            <con:assertion type="XPath Match" name="Family Name XPath Match">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:family[1]</path>
@@ -4448,10 +4449,10 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="count correlations (1)" type="groovy">
+      <con:testStep type="groovy" name="count correlations (1)">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
         </con:config>
@@ -4476,13 +4477,13 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="cbf4bb44-5783-4251-b1a2-9a4722d2e0c9" keepSession="false" maxResults="0" name="Reidentification" searchProperties="true" timeout="0">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Reidentification" searchProperties="true" timeout="0" id="cbf4bb44-5783-4251-b1a2-9a4722d2e0c9">
       <con:settings>
         <con:setting id="HttpSettings@socket_timeout">300000</con:setting>
       </con:settings>
-      <con:testStep name="Reidentification" type="request">
+      <con:testStep type="request" name="Reidentification">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxySubjectDiscoveryBindingSoap</con:interface>
           <con:operation>PIXConsumer_PRPA_IN201309UV</con:operation>
           <con:request name="Reidentification">
@@ -4741,7 +4742,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
-            <con:assertion name="RealPatientID Match" type="XPath Match">
+            <con:assertion type="XPath Match" name="RealPatientID Match">
               <con:configuration>
                 <path>declare namespace ns2='urn:hl7-org:v3';
 //ns2:PRPA_IN201310UV02[1]/ns2:controlActProcess[1]/ns2:subject[1]/ns2:registrationEvent[1]/ns2:subject1[1]/ns2:patient[1]/ns2:id[1]/@extension</path>
@@ -4786,16 +4787,16 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="cd5d3a85-d1ff-4a08-98ff-def03e8d8e58" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="cd5d3a85-d1ff-4a08-98ff-def03e8d8e58">
       <con:settings/>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep type="request" name="Document Query">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -5039,7 +5040,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" name="URI Match" type="XPath Match">
+            <con:assertion type="XPath Match" name="URI Match" disabled="true">
               <con:configuration>
                 <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -5054,7 +5055,7 @@ declare namespace ns1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                 <definition/>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="DocID Match" type="GroovyScriptAssertion">
+            <con:assertion type="GroovyScriptAssertion" name="DocID Match">
               <con:configuration>
                 <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
@@ -5098,17 +5099,17 @@ log.info documentID + " " + msgDocID</scriptText>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="dc10b2cf-f433-4c1b-af78-fc831e76309d" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="dc10b2cf-f433-4c1b-af78-fc831e76309d">
       <con:settings/>
-      <con:testStep name="Document Retrieve" type="request">
+      <con:testStep type="request" name="Document Retrieve">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
           <con:request name="Document Retrieve">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
@@ -5349,7 +5350,7 @@ log.info documentID + " " + msgDocID</scriptText>
                 <definition/>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Doc Repository ID" type="XPath Match">
+            <con:assertion type="XPath Match" name="Doc Repository ID">
               <con:configuration>
                 <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 //ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
@@ -5358,7 +5359,7 @@ log.info documentID + " " + msgDocID</scriptText>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Doc ID" type="XPath Match">
+            <con:assertion type="XPath Match" name="Doc ID">
               <con:configuration>
                 <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 //ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
@@ -5367,7 +5368,7 @@ log.info documentID + " " + msgDocID</scriptText>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Document Data" type="GroovyScriptAssertion">
+            <con:assertion type="GroovyScriptAssertion" name="Document Data">
               <con:configuration>
                 <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
@@ -5412,9 +5413,9 @@ assert (docData.size() != 0)</scriptText>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4fcaa4b6-74b9-48f9-91f4-752680f937b3" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="4fcaa4b6-74b9-48f9-91f4-752680f937b3">
       <con:settings/>
-      <con:testStep name="Backup gateway.properties file" type="groovy">
+      <con:testStep type="groovy" name="Backup gateway.properties file">
         <con:settings/>
         <con:config>
           <script>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
@@ -5433,7 +5434,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy">
+      <con:testStep type="groovy" name="update config">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -5449,7 +5450,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -5458,17 +5459,17 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthro
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear Subscription Table" type="groovy">
+      <con:testStep type="groovy" name="Clear Subscription Table">
         <con:settings/>
         <con:config>
-          <script>context.withSql('SubscriptionDB') { sql -&gt; 
+          <script>context.withSql('SubscriptionDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Subscribe" type="request">
+      <con:testStep type="request" name="Subscribe">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyNotificationProducerBindingSoap</con:interface>
           <con:operation>Subscribe</con:operation>
           <con:request name="Subscribe">
@@ -5708,7 +5709,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion type="SOAP Response"/>
-            <con:assertion name="Subscription ID" type="GroovyScriptAssertion">
+            <con:assertion type="GroovyScriptAssertion" name="Subscription ID">
               <con:configuration>
                 <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
@@ -5730,7 +5731,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy">
+      <con:testStep type="groovy" name="Restore gateway.properties file">
         <con:settings/>
         <con:config>
           <script>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
@@ -5745,10 +5746,10 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Count Subscriptions (1)" type="groovy">
+      <con:testStep type="groovy" name="Count Subscriptions (1)">
         <con:settings/>
         <con:config>
-          <script>context.withSql('SubscriptionDB') { sql -&gt; 
+          <script>context.withSql('SubscriptionDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }</script>
         </con:config>
@@ -5787,11 +5788,11 @@ if(gatewayBakFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="cef53c97-3bb4-4e21-adbd-75b8c39255bc" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="cef53c97-3bb4-4e21-adbd-75b8c39255bc">
       <con:settings/>
-      <con:testStep name="Notify" type="request">
+      <con:testStep type="request" name="Notify">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyNotificationConsumerBindingSoap</con:interface>
           <con:operation>Notify</con:operation>
           <con:request name="Notify">
@@ -6068,9 +6069,9 @@ if(gatewayBakFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="1f230d3f-22ce-4c47-8f2b-8adf701059de" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="1f230d3f-22ce-4c47-8f2b-8adf701059de">
       <con:settings/>
-      <con:testStep name="Backup gateway.properties file" type="groovy">
+      <con:testStep type="groovy" name="Backup gateway.properties file">
         <con:settings/>
         <con:config>
           <script>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
@@ -6089,7 +6090,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy">
+      <con:testStep type="groovy" name="update config">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -6105,7 +6106,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -6114,10 +6115,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthro
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear Subscription Table &amp; Add Sub" type="groovy">
+      <con:testStep type="groovy" name="Clear Subscription Table &amp; Add Sub">
         <con:settings/>
         <con:config>
-          <script>context.withSql('SubscriptionDB') { sql -&gt; 
+          <script>context.withSql('SubscriptionDB') { sql -> 
   def table = context.findProperty('SubscriptionTable')
   
   sql.execute('delete from ' + table)
@@ -6130,17 +6131,17 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Count Subscriptions (1)" type="groovy">
+      <con:testStep type="groovy" name="Count Subscriptions (1)">
         <con:settings/>
         <con:config>
-          <script>context.withSql('SubscriptionDB') { sql -&gt; 
+          <script>context.withSql('SubscriptionDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Unsubscribe" type="request">
+      <con:testStep type="request" name="Unsubscribe">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxySubscriptionManagerBindingSoap</con:interface>
           <con:operation>Unsubscribe</con:operation>
           <con:request name="Unsubscribe">
@@ -6385,7 +6386,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy">
+      <con:testStep type="groovy" name="Restore gateway.properties file">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -6402,10 +6403,10 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Count Subscriptions (0)" type="groovy">
+      <con:testStep type="groovy" name="Count Subscriptions (0)">
         <con:settings/>
         <con:config>
-          <script>context.withSql('SubscriptionDB') { sql -&gt; 
+          <script>context.withSql('SubscriptionDB') { sql -> 
   assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }</script>
         </con:config>
@@ -6444,24 +6445,24 @@ if(gatewayBakFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d8588f47-07b7-4507-b9ca-7da142ac6a46" keepSession="false" maxResults="0" name="Audit Log Query" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Audit Log Query" searchProperties="true" id="d8588f47-07b7-4507-b9ca-7da142ac6a46">
       <con:settings/>
-      <con:testStep name="clear auditrepository table" type="groovy">
+      <con:testStep type="groovy" name="clear auditrepository table">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AuditRepoDB') { sql -&gt; 
+          <script>context.withSql('AuditRepoDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditRepoTable'))
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Audit Log Query" type="request">
+      <con:testStep type="request" name="Audit Log Query">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
           <con:operation>findAuditEvents</con:operation>
           <con:request name="Audit Log Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
@@ -6701,14 +6702,14 @@ if(gatewayBakFile.exists()) {
                 <definition/>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Count Audit Entries" type="GroovyScriptAssertion">
+            <con:assertion type="GroovyScriptAssertion" name="Count Audit Entries">
               <con:configuration>
                 <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
 holder.namespaces["ns16"]="http://nhinc.services.com/schema/auditmessage"
 def auditCount = holder["count(//ns16:FindAuditEventsResponse[1]/ns16:findAuditEventsReturn)"]
 
-assert (auditCount.toInteger() &gt; 0)</scriptText>
+assert (auditCount.toInteger() > 0)</scriptText>
               </con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -6742,16 +6743,16 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0a172062-32b9-4143-ac3c-6f2a2f1856fc" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="0a172062-32b9-4143-ac3c-6f2a2f1856fc">
       <con:settings/>
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep type="request" name="AdminDist Request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
           <con:request name="AdminDist Request">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
@@ -7450,7 +7451,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -7458,11 +7459,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -7483,14 +7484,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
