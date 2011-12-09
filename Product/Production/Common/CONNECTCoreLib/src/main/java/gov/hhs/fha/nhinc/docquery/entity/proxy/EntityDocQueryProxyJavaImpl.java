@@ -12,6 +12,12 @@ import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+
+/**
+ * THIS CLASS IS NOT USED ANYMORE WITH NEW DQ FANOUT EXECUTOR SERVICE IMPL
+ * DO NOT USE THIS
+ * @author paul.eftis
+ */
 public class EntityDocQueryProxyJavaImpl implements EntityDocQueryProxy
 {
 
@@ -19,8 +25,8 @@ public class EntityDocQueryProxyJavaImpl implements EntityDocQueryProxy
     {
         AdhocQueryResponse response = null;
 
-        EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
-        response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
+        //EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
+        //response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
 
         return response;
     }

@@ -107,10 +107,10 @@
                     <file>${file.reference.hibernate3.jar}</file>
                 </library>
                 <library>
-                    <file>${reference.CONNECTCoreLib.jar}</file>
+                    <file>${file.reference.CONNECTCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${reference.CONNECTCommonTypesLib.jar}</file>
+                    <file>${file.reference.CONNECTCoreLib.jar}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
@@ -123,23 +123,6 @@
                 <root id="test.resources.dir" name="Test Configuration Files"/>
             </test-roots>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>CONNECTCommonTypesLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>CONNECTCoreLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-        </references>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
     </configuration>
 </project>

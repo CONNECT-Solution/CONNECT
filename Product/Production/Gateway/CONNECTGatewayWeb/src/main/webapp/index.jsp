@@ -1,19 +1,10 @@
-<%-- 
-    Document   : index
-    Created on : Jan 22, 2010, 10:06:24 AM
-    Author     : webbn
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ page import="gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper"%>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>CONNECTGatewayWeb</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <p><b><font size="7">CONNECTGatewayWeb Home Page</font></b></p>
     </body>
 </html>

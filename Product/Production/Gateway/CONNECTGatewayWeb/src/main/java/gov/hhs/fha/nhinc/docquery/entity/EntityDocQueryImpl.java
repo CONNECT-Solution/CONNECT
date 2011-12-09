@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
@@ -90,7 +91,9 @@ class EntityDocQueryImpl {
         return response;
     }
 
-    private EntityDocQueryOrchImpl createEntityDocQueryOrchImpl() {
-        return new EntityDocQueryOrchImpl();
+    private EntityDocQueryOrchImpl createEntityDocQueryOrchImpl(){
+        // create the orch impl and pass in references to the executor services
+        return new EntityDocQueryOrchImpl(InitServlet.getExecutorService(),
+                InitServlet.getLargeJobExecutorService());
     }
 }

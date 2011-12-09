@@ -249,14 +249,15 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                 @Override
                 protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
-                    EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
-                    {
-                        @Override
-                        public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-                        {
-                            return null;
-                        }
-                    };
+                      EntityPatientDiscoveryOrchImpl processor = null;
+//                    EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
+//                    {
+//                        @Override
+//                        public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+//                        {
+//                            return null;
+//                        }
+//                    };
                     return processor;
                 }
                 @Override
