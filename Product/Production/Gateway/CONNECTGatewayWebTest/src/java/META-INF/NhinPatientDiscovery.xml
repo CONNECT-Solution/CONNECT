@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="XCPDRespondingGateway" targetNamespace="urn:ihe:iti:xcpd:2009"
+   xmlns:tns="urn:ihe:iti:xcpd:2009"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:hl7="urn:hl7-org:v3"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+   xmlns:wsaws="http://www.w3.org/2005/08/addressing" 
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
+   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client" 
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy">
+    <wsdl:documentation>
+     Example WSDL for XCPD Responding Gateway
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified"
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+        </xsd:schema>
+
+    <xsd:schema elementFormDefault="qualified"
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+        </xsd:schema></wsdl:types>
+
+    <wsdl:message name="PRPA_IN201305UV02_Message">
+        <wsdl:part name="Body" element="hl7:PRPA_IN201305UV02"/>
+    </wsdl:message>
+    <wsdl:message name="PRPA_IN201306UV02_Message">
+        <wsdl:part name="Body" element="hl7:PRPA_IN201306UV02"/>
+    </wsdl:message>
+ 
+    <wsdl:portType name="RespondingGateway_PortType">
+        <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+            <wsdl:input message="tns:PRPA_IN201305UV02_Message"
+                   wsaw:Action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
+            <wsdl:output message="tns:PRPA_IN201306UV02_Message"
+                    wsaw:Action="urn:hl7-org:v3:PRPA_IN201306UV02:CrossGatewayPatientDiscovery"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="RespondingGateway_Binding_Soap" type="tns:RespondingGateway_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
+        <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="RespondingGateway_Service">
+        <wsdl:port binding="tns:RespondingGateway_Binding_Soap" name="RespondingGateway_Port_Soap">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery"/>
+        </wsdl:port>
+    </wsdl:service>
+    
+    <wsp:Policy wsu:Id="RespondingGateway_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>
+

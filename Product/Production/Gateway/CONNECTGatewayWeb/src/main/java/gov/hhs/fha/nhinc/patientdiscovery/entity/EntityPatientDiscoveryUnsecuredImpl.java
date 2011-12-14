@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -32,7 +33,9 @@ public class EntityPatientDiscoveryUnsecuredImpl {
     }
 
     protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-        return new EntityPatientDiscoveryOrchImpl();
+        // create the orch impl and pass in references to the executor services
+        return new EntityPatientDiscoveryOrchImpl(InitServlet.getExecutorService(),
+                InitServlet.getLargeJobExecutorService());
     }
 
     protected PerformanceManager getPerformanceManager() {

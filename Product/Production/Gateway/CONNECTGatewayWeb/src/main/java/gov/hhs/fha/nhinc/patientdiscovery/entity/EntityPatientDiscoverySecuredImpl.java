@@ -7,6 +7,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -34,8 +35,10 @@ public class EntityPatientDiscoverySecuredImpl {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-        return new EntityPatientDiscoveryOrchImpl();
+    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor(){
+        // create the orch impl and pass in references to the executor services
+        return new EntityPatientDiscoveryOrchImpl(InitServlet.getExecutorService(),
+                InitServlet.getLargeJobExecutorService());
     }
 
     protected PerformanceManager getPerformanceManager() {

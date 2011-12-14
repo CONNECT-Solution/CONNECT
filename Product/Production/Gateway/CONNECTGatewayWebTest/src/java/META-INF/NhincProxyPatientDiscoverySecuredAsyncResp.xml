@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp" 
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:hl7="urn:hl7-org:v3"
+                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:sc="http://schemas.sun.com/2006/03/wss/client"
+                  xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+                  name="NhincProxyPatientDiscoverySecuredAsyncResp"
+                  targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp">
+    <wsdl:documentation>
+     WSDL for NHINC Secure Proxy interface for Patient Discovery Asynchronous Responses
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7ProxyPatientDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage">
+        <wsdl:part name="Proxy_ProcessPatientDiscoveryAsyncRespRequest" element="hl7:Proxy_PRPA_IN201306UVProxySecuredRequest"/>
+    </wsdl:message>
+    <wsdl:message name="Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage">
+        <wsdl:part name="Proxy_ProcessPatientDiscoveryAsyncRespResponse" element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+    <wsdl:portType name="NhincProxyPatientDiscoverySecuredAsyncRespPortType">
+        <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncResp">
+            <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest" message="tns:Proxy_ProcessPatientDiscoveryAsyncRespRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespRequest"/>
+            <wsdl:output name="Proxy_ProcessPatientDiscoveryAsyncRespResponse" message="tns:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="NhincProxyPatientDiscoverySecuredAsyncRespBinding" type="tns:NhincProxyPatientDiscoverySecuredAsyncRespPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#NhincPatientDiscoveryProxy_Binding_SoapPolicy"/>
+        <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncResp">
+            <soap12:operation soapAction="urn:Proxy_ProcessPatientDiscoveryAsyncResp"/>
+            <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest">
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="Proxy_ProcessPatientDiscoveryAsyncRespResponse">
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="NhincProxyPatientDiscoverySecuredAsyncResp">
+        <wsdl:port name="NhincProxyPatientDiscoverySecuredAsyncRespPortType" binding="tns:NhincProxyPatientDiscoverySecuredAsyncRespBinding">
+            <soap12:address location="https://localhost/NhinConnect/NhincProxyPatientDiscoverySecuredAsyncResp"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsp:Policy wsu:Id="NhincPatientDiscoveryProxy_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>
+
