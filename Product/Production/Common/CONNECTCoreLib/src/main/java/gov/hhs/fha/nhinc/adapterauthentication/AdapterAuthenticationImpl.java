@@ -44,7 +44,6 @@ public class AdapterAuthenticationImpl {
                 String orgName = "";
                 String userName = authenticateUserRequest.getUserName();
                 String password = authenticateUserRequest.getPassword();
-                SSOTokenManager manager = SSOTokenManager.getInstance();
                 AuthContext lc = getAuthcontext(orgName, userName, password);
                 if (lc.getStatus() == AuthContext.Status.SUCCESS) {
                     SSOToken token = lc.getSSOToken();
