@@ -4,8 +4,6 @@
             uri="wsdl/DocumentRegistryService/AdapterComponentDocRegistry.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl"
             uri="wsdl/DocumentRepositoryService/AdapterComponentDocRepository.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl"
-            uri="wsdl/AdapterDocQuerySecured/AdapterDocQuerySecured.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl"
             uri="wsdl/AdapterDocRetrieveSecured/AdapterDocRetrieveSecured.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuthentication.wsdl"
