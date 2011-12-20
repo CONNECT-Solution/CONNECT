@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -35,7 +36,29 @@ public abstract class CONNECTOrchestrationBase {
     /*
      * Begin Audit Methods
      */
-    protected AcknowledgementType audit(Orchestratable message) {
+    protected AcknowledgementType auditRequest(Orchestratable message) {
+        AcknowledgementType resp = null;
+
+        if (message != null && message.getAuditTransformer()!= null) {
+            AuditTransformer transformer = message.getAuditTransformer();
+            LogEventRequestType auditLogMsg = transformer.transformRequest(message);
+            resp = audit(auditLogMsg, message.getAssertion());
+        }
+        return resp;
+    }
+
+    protected AcknowledgementType auditResponse(Orchestratable message) {
+        AcknowledgementType resp = null;
+
+        if (message != null && message.getAuditTransformer() != null) {
+            AuditTransformer transformer = message.getAuditTransformer();
+            LogEventRequestType auditLogMsg = transformer.transformResponse(message);
+            resp = audit(auditLogMsg, message.getAssertion());
+        }
+        return resp;
+    }
+
+    private AcknowledgementType audit(LogEventRequestType message, AssertionType assertion) {
         getLogger().debug("Entering CONNECTNhinOrchestrator.audit(...)");
         AcknowledgementType ack = null;
         try {
@@ -43,10 +66,7 @@ public abstract class CONNECTOrchestrationBase {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
 
-                AuditTransformer transformer = message.getAuditTransformer();
-                LogEventRequestType auditLogMsg = transformer.transform(message);
-
-                ack = proxy.auditLog(auditLogMsg, message.getAssertion());
+                ack = proxy.auditLog(message, assertion);
             }
         } catch (Exception exc) {
             getLogger().error("Error: Failed to Audit message.", exc);

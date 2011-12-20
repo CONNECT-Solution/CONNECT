@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.orchestration;
 
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,18 +41,31 @@ public class AuditTransformerTest {
      * Test of transform method, of class AuditTransformer.
      */
     @Test
-    public void testTransform() {
+    public void testTransformRequest() {
         System.out.println("transform");
         Orchestratable message = null;
         AuditTransformer instance = new AuditTransformerImpl();
-        instance.transform(message);
+        instance.transformRequest(message);
+        // we are just testing that the interface is good, so this test should suffice
+    }
+
+    @Test
+    public void testTransformResponse() {
+        System.out.println("transform");
+        Orchestratable message = null;
+        AuditTransformer instance = new AuditTransformerImpl();
+        instance.transformResponse(message);
         // we are just testing that the interface is good, so this test should suffice
     }
 
     public class AuditTransformerImpl implements AuditTransformer {
-        public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transform(Orchestratable message) {
+
+        public LogEventRequestType transformRequest(Orchestratable message) {
+            return null;
+        }
+
+        public LogEventRequestType transformResponse(Orchestratable message) {
             return null;
         }
     }
-
 }

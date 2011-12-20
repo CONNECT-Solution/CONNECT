@@ -11,5 +11,6 @@ package gov.hhs.fha.nhinc.orchestration;
  */
 public interface AuditTransformer {
     public enum Direction {INBOUND, OUTBOUND};
-    public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transform(Orchestratable message);
+    public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transformRequest(Orchestratable message);
+    public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transformResponse(Orchestratable message);
 }

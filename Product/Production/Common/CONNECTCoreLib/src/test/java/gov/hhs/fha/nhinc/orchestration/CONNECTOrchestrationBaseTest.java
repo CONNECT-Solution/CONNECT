@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.orchestration;
 
+import gov.hhs.fha.nhinc.orchestration.CONNECTEntityOrchestratorTest.EntityOrchestratableImpl;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
 import org.apache.commons.logging.Log;
 import org.junit.After;
@@ -50,9 +50,7 @@ public class CONNECTOrchestrationBaseTest {
         Log result = instance.getLogger();
         try {
             result.info("testing CONNECTOrchestrationBase getLogger()");
-        }
-        catch (Exception exc)
-        {
+        } catch (Exception exc) {
             fail("The test case is a prototype.");
         }
     }
@@ -61,11 +59,21 @@ public class CONNECTOrchestrationBaseTest {
      * Test of audit method, of class CONNECTOrchestrationBase.
      */
     @Test
-    public void testAudit() {
-        System.out.println("audit");
+    public void testAuditRequest() {
+        System.out.println("audit request");
         Orchestratable message = null;
         CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
-        instance.audit(message);
+        instance.auditRequest(message);
+        // there was no error, so success
+        // TODO: make a better test
+    }
+
+    @Test
+    public void testAuditResponse() {
+        System.out.println("audit response");
+        Orchestratable message = null;
+        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
+        instance.auditResponse(message);
         // there was no error, so success
         // TODO: make a better test
     }
@@ -98,5 +106,4 @@ public class CONNECTOrchestrationBaseTest {
 
     public class CONNECTOrchestrationBaseImpl extends CONNECTOrchestrationBase {
     }
-
 }

@@ -18,10 +18,10 @@ public class CONNECTNhinOrchestrator extends CONNECTOrchestrationBase implements
     public void process(Orchestratable message) {
         if (message != null) {
             if (message instanceof NhinOrchestratable) {
-                if (message.isEnabled()) {
-                    // audit
-                    audit(message);
+                // audit
+                auditRequest(message);
 
+                if (message.isEnabled()) {
                     if (message.isPassthru()) {
                         // straight to adapter
                         delegateToAdapter((NhinOrchestratable) message);
@@ -32,9 +32,9 @@ public class CONNECTNhinOrchestrator extends CONNECTOrchestrationBase implements
                             delegateToAdapter((NhinOrchestratable) message);
                         }
                     }
-                    // audit again
-                    audit(message);
                 }
+                // audit again
+                auditResponse(message);
             }
         }
     }

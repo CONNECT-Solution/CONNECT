@@ -18,10 +18,10 @@ public class CONNECTEntityOrchestrator extends CONNECTOrchestrationBase implemen
     public void process(Orchestratable message) {
         if (message != null) {
             if (message instanceof EntityOrchestratable) {
-                if (message.isEnabled()) {
-                    // audit
-                    audit(message);
+                // audit
+                auditRequest(message);
 
+                if (message.isEnabled()) {
                     if (message.isPassthru()) {
                         // straight to adapter
                         delegateToNhin((EntityOrchestratable) message);
@@ -32,9 +32,9 @@ public class CONNECTEntityOrchestrator extends CONNECTOrchestrationBase implemen
                             delegateToNhin((EntityOrchestratable) message);
                         }
                     }
-                    // audit again
-                    audit(message);
                 }
+                // audit again
+                auditResponse(message);
             }
         }
     }
