@@ -8,14 +8,7 @@
         <servlet-name>DocQuery</servlet-name>
         <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>DocRetrieve</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DocRetrieve</servlet-name>
-        <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
-    </servlet-mapping>
+    
     <servlet>
         <servlet-name>HiemNotify</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotify</servlet-class>
@@ -104,40 +97,6 @@
         <servlet-name>AuditQuery</servlet-name>
         <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
     </servlet-mapping>
-    <!-- BEGIN: Document Retrieve Deferred Services -->
-    <servlet>
-        <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.NhinDocRetrieveDeferredRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
-        <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.NhinDocRetrieveDeferredResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
-        <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.deferred.request.NhinDocQueryDeferredRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
-        <url-pattern>/NhinService/DocQueryDeferredRequestService</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.deferred.response.NhinDocQueryDeferredResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
-        <url-pattern>/NhinService/DocQueryDeferredResponseService</url-pattern>
-    </servlet-mapping>
-    <!-- END: Document Retrieve Deferred Services -->
     <servlet>
         <servlet-name>NhinAdministrativeDistribution</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution</servlet-class>
@@ -156,10 +115,7 @@
             <web-resource-name>DocQuery</web-resource-name>
             <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
         </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>DocRetrieve</web-resource-name>
-            <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
-        </web-resource-collection>
+        
         <web-resource-collection>
             <web-resource-name>HiemNotify</web-resource-name>
             <url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
@@ -204,24 +160,7 @@
             <web-resource-name>AuditQuery</web-resource-name>
             <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
         </web-resource-collection>
-        <!-- BEGIN Document Retrieve Deferred Service -->
-        <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredRequest</web-resource-name>
-            <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredResponse</web-resource-name>
-            <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinDocQueryDeferredRequest</web-resource-name>
-            <url-pattern>/NhinService/DocQueryDeferredRequestService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinDocQueryDeferredResponse</web-resource-name>
-            <url-pattern>/NhinService/DocQueryDeferredResponseService</url-pattern>
-        </web-resource-collection>
-        <!-- END Document Retrieve Deferred Service -->
+      
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>

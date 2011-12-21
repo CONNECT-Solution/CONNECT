@@ -12,7 +12,6 @@
     <import location="AdapterDocQueryDeferredRequestErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured"/>
     <import location="AdapterDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured"/>
     <import location="AdapterDocQueryDeferredRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured"/>
-    <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
     <import location="AdapterPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>
     <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"/>
@@ -26,9 +25,6 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
     <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
-    <import location="AdapterDocRetrieveDeferredReqSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured"/>
-    <import location="AdapterDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrespsecured"/>
-    <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
     <import location="AdapterXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrsecured"/>
      <import location="AdapterAdminDistSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapteradmindistribution"/>

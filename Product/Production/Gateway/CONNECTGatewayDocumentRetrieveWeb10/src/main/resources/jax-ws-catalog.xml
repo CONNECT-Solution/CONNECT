@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl"
+            uri="wsdl/AdapterDocRetrieveService/AdapterDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl"
+            uri="wsdl/EntityDocRetrieveSecured/EntityDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl"
+            uri="wsdl/NhincProxyDocRetrieveSecured/NhincProxyDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl"
+            uri="wsdl/DocRetrieve/NhinDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl"
+            uri="wsdl/DocRetrieve/NhinDocRetrieve.wsdl"/>
+   </catalog>

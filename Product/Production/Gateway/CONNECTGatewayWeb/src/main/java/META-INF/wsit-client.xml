@@ -6,7 +6,6 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-    <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
@@ -24,8 +23,6 @@
     <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinAdminDist.xml" namespace="urn:gov:hhs:fha:nhinc:nhinadmindistribution"/>
-	<import location="NhinDocRetrieveDeferredReq.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-    <import location="NhinDocRetrieveDeferredResp.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinDocQueryDeferredRequest.xml" namespace="urn:ihe:iti:xds-b:2007"/>
 	<import location="NhinDocQueryDeferredResponse.xml" namespace="urn:ihe:iti:xds-b:2007"/>
 	<import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
