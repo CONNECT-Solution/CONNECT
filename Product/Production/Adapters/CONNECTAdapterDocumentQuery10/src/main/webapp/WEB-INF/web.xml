@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ 
+    <servlet>
+        <servlet-name>AdapterDocQuerySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQuerySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQuerySecured</servlet-name>
+        <url-pattern>/AdapterDocQuerySecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocQueryUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryUnsecured</servlet-name>
+        <url-pattern>/AdapterDocQueryUnsecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocQueryDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredRequestSecured</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocQueryDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.AdapterDocQueryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocQueryDeferredRequestErrorSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.AdapterDocQueryDeferredRequestErrorSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredRequestErrorSecured</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredRequestErrorSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocQueryDeferredRequestErrorUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.error.AdapterDocQueryDeferredRequestErrorUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredRequestErrorUnsecured</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredRequestErrorUnsecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentDocQueryDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.AdapterComponentDocQueryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocQueryDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/AdapterComponentDocQueryDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocQueryDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredResponseSecured</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocQueryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.response.AdapterDocQueryDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentDocQueryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.component.deferred.response.AdapterComponentDocQueryDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocQueryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/AdapterComponentDocQueryDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+        <servlet-name>AdapterDocQueryDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docquery.adapter.deferred.request.queue.AdapterDocQueryDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/AdapterDocQueryDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+ 
+
+    
+
+  
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQuerySecured</web-resource-name>
+            <url-pattern>/AdapterDocQuerySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryDeferredRequestSecured</web-resource-name>
+            <url-pattern>/AdapterDocQueryDeferredRequestSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryDeferredRequestErrorSecured</web-resource-name>
+            <url-pattern>/AdapterDocQueryDeferredRequestErrorSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryDeferredResponseSecured</web-resource-name>
+            <url-pattern>/AdapterDocQueryDeferredResponseSecured</url-pattern>
+        </web-resource-collection>
+ 
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
