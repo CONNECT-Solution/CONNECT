@@ -21,6 +21,11 @@
         <dist.type>war</dist.type>
     </project>    
     <project>
+        <name>CONNECTGatewayDocumentQuery10</name>
+        <directory>/Production/Gateway/CONNECTGatewayDocumentQuery10</directory>
+        <dist.type>war</dist.type>
+    </project>    
+    <project>
         <name>CONNECTNhinServicesWeb</name>
         <directory>/Production/Gateway/CONNECTNhinServicesWeb</directory>
         <dist.type>war</dist.type>
