@@ -4,21 +4,7 @@
     <servlet>
         <servlet-name>NhincProxyDocQuerySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQuerySecured</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>NhincProxyDocQuerySecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQueryUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyDocQueryUnsecured</url-pattern>
-    </servlet-mapping>
-   
+    </servlet>   
     <servlet>
         <servlet-name>ProxyHiemNotifySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured</servlet-class>
