@@ -41,12 +41,10 @@ public class NhinDelegateTest {
      * Test of process method, of class NhinDelegate.
      */
     @Test
-    public void testProcess() {
-        System.out.println("process");
+    public void testProcessInterface() {
         EntityOrchestratable message = null;
         NhinDelegate instance = new NhinDelegateImpl();
         instance.process(message);
-        // we are just testing that the interface is good, so this test should suffice
     }
 
     public class NhinDelegateImpl implements NhinDelegate {

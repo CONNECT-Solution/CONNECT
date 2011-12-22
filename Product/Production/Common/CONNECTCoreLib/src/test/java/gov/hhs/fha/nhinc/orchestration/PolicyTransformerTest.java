@@ -42,8 +42,7 @@ public class PolicyTransformerTest {
      * Test of tranform method, of class PolicyTransformer.
      */
     @Test
-    public void testTranform() {
-        System.out.println("tranform");
+    public void testTranformInterface() {
         Orchestratable message = null;
         Direction direction = null;
         PolicyTransformer instance = new PolicyTransformerImpl();

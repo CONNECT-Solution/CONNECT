@@ -41,13 +41,10 @@ public class CONNECTOrchestratorTest {
      * Test of process method, of class CONNECTOrchestrator.
      */
     @Test
-    public void testProcess() {
-        System.out.println("process");
+    public void testProcessInterface() {
         Orchestratable message = null;
         CONNECTOrchestrator instance = new CONNECTOrchestratorImpl();
         instance.process(message);
-        // there was no error, so success
-        // TODO: make a better test
     }
 
     public class CONNECTOrchestratorImpl implements CONNECTOrchestrator {

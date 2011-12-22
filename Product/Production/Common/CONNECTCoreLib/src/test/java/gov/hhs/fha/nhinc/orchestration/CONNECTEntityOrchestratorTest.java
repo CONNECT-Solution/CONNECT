@@ -44,7 +44,6 @@ public class CONNECTEntityOrchestratorTest {
      */
     @Test
     public void testProcess() {
-        System.out.println("process");
         Orchestratable message = new EntityOrchestratableImpl();
         CONNECTEntityOrchestrator instance = new CONNECTEntityOrchestrator();
         instance.process(message);
@@ -57,7 +56,6 @@ public class CONNECTEntityOrchestratorTest {
      */
     @Test
     public void testGetLogger() {
-        System.out.println("getLogger");
         CONNECTEntityOrchestrator instance = new CONNECTEntityOrchestrator();
         Log result = instance.getLogger();
         try {
@@ -65,7 +63,7 @@ public class CONNECTEntityOrchestratorTest {
         }
         catch (Exception exc)
         {
-            fail("The test case is a prototype.");
+            fail("An exception has occurred:" + exc.getMessage());
         }
     }
 
@@ -74,7 +72,6 @@ public class CONNECTEntityOrchestratorTest {
      */
     @Test
     public void testDelegateToNhin() {
-        System.out.println("delegateToNhin");
         EntityOrchestratable message = new EntityOrchestratableImpl();
         CONNECTEntityOrchestrator instance = new CONNECTEntityOrchestrator();
         instance.delegateToNhin(message);
@@ -112,6 +109,10 @@ public class CONNECTEntityOrchestratorTest {
 
         public AssertionType getAssertion() {
             return null;
+        }
+
+        public String getServiceName() {
+            return "";
         }
     }
 }

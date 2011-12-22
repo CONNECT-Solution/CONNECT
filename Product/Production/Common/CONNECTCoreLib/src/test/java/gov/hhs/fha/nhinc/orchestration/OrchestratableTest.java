@@ -43,7 +43,6 @@ public class OrchestratableTest {
      */
     @Test
     public void testIsEnabled() {
-        System.out.println("isEnabled");
         Orchestratable instance = new OrchestratableImpl();
         boolean expResult = false;
         boolean result = instance.isEnabled();
@@ -55,7 +54,6 @@ public class OrchestratableTest {
      */
     @Test
     public void testIsPassthru() {
-        System.out.println("isPassthru");
         Orchestratable instance = new OrchestratableImpl();
         boolean expResult = false;
         boolean result = instance.isPassthru();
@@ -67,7 +65,6 @@ public class OrchestratableTest {
      */
     @Test
     public void testGetAuditTransformer() {
-        System.out.println("getAuditTransformer");
         Orchestratable instance = new OrchestratableImpl();
         AuditTransformer expResult = null;
         AuditTransformer result = instance.getAuditTransformer();
@@ -79,7 +76,6 @@ public class OrchestratableTest {
      */
     @Test
     public void testGetPolicyTransformer() {
-        System.out.println("getPolicyTransformer");
         Orchestratable instance = new OrchestratableImpl();
         PolicyTransformer expResult = null;
         PolicyTransformer result = instance.getPolicyTransformer();
@@ -91,7 +87,6 @@ public class OrchestratableTest {
      */
     @Test
     public void testGetAssertion() {
-        System.out.println("getAssertion");
         Orchestratable instance = new OrchestratableImpl();
         AssertionType expResult = null;
         AssertionType result = instance.getAssertion();
@@ -119,6 +114,10 @@ public class OrchestratableTest {
         public AssertionType getAssertion()
         {
             return null;
+        }
+
+        public String getServiceName() {
+            return "";
         }
     }
 

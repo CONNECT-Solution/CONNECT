@@ -44,7 +44,6 @@ public class CONNECTOrchestrationBaseTest {
      */
     @Test
     public void testGetLogger() {
-        System.out.println("getLogger");
         CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
         Log expResult = null;
         Log result = instance.getLogger();
@@ -60,7 +59,6 @@ public class CONNECTOrchestrationBaseTest {
      */
     @Test
     public void testAuditRequest() {
-        System.out.println("audit request");
         Orchestratable message = null;
         CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
         instance.auditRequest(message);
@@ -70,7 +68,6 @@ public class CONNECTOrchestrationBaseTest {
 
     @Test
     public void testAuditResponse() {
-        System.out.println("audit response");
         Orchestratable message = null;
         CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
         instance.auditResponse(message);
@@ -83,7 +80,6 @@ public class CONNECTOrchestrationBaseTest {
      */
     @Test
     public void testIsAuditServiceEnabled() {
-        System.out.println("isAuditServiceEnabled");
         CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
         boolean expResult = true;
         boolean result = instance.isAuditServiceEnabled();
@@ -95,7 +91,6 @@ public class CONNECTOrchestrationBaseTest {
      */
     @Test
     public void testIsPolicyOk() {
-        System.out.println("isPolicyOk");
         Orchestratable message = null;
         Direction direction = null;
         CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();

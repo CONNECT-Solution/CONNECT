@@ -41,8 +41,7 @@ public class AuditTransformerTest {
      * Test of transform method, of class AuditTransformer.
      */
     @Test
-    public void testTransformRequest() {
-        System.out.println("transform");
+    public void testTransformRequestInterface() {
         Orchestratable message = null;
         AuditTransformer instance = new AuditTransformerImpl();
         instance.transformRequest(message);
@@ -50,8 +49,7 @@ public class AuditTransformerTest {
     }
 
     @Test
-    public void testTransformResponse() {
-        System.out.println("transform");
+    public void testTransformResponseInterface() {
         Orchestratable message = null;
         AuditTransformer instance = new AuditTransformerImpl();
         instance.transformResponse(message);

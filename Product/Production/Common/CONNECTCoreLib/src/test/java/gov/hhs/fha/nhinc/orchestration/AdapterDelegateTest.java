@@ -41,17 +41,25 @@ public class AdapterDelegateTest {
      * Test of process method, of class AdapterDelegate.
      */
     @Test
-    public void testProcess() {
-        System.out.println("process");
+    public void testProcessInterface() {
         NhinOrchestratable message = null;
         AdapterDelegate instance = new AdapterDelegateImpl();
         instance.process(message);
-        // we are just testing that the interface is good, so this test should suffice
+    }
+
+    @Test
+    public void testCreateErrorResponseInterface() {
+        NhinOrchestratable message = null;
+        AdapterDelegate instance = new AdapterDelegateImpl();
+        instance.createErrorResponse(message, null);
     }
 
     public class AdapterDelegateImpl implements AdapterDelegate {
 
         public void process(NhinOrchestratable message) {
+        }
+
+        public void createErrorResponse(NhinOrchestratable message, String error) {
         }
     }
 

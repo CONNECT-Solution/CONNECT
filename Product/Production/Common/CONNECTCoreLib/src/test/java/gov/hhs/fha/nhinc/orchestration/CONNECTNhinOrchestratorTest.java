@@ -44,7 +44,6 @@ public class CONNECTNhinOrchestratorTest {
      */
     @Test
     public void testProcess() {
-        System.out.println("process");
         Orchestratable message = new NhinOrchestratableImpl();
         CONNECTNhinOrchestrator instance = new CONNECTNhinOrchestrator();
         instance.process(message);
@@ -57,7 +56,6 @@ public class CONNECTNhinOrchestratorTest {
      */
     @Test
     public void testGetLogger() {
-        System.out.println("getLogger");
         CONNECTNhinOrchestrator instance = new CONNECTNhinOrchestrator();
         Log expResult = null;
         Log result = instance.getLogger();
@@ -75,7 +73,6 @@ public class CONNECTNhinOrchestratorTest {
      */
     @Test
     public void testDelegateToAdapter() {
-        System.out.println("delegateToAdapter");
         NhinOrchestratable message = new NhinOrchestratableImpl();
         CONNECTNhinOrchestrator instance = new CONNECTNhinOrchestrator();
         instance.delegateToAdapter(message);
@@ -112,6 +109,10 @@ public class CONNECTNhinOrchestratorTest {
 
         public AssertionType getAssertion() {
             return null;
+        }
+
+        public String getServiceName() {
+            return "";
         }
     }
 }

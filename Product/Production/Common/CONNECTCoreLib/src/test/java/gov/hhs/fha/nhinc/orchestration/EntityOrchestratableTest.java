@@ -43,13 +43,10 @@ public class EntityOrchestratableTest {
      */
     @Test
     public void testGetNhinDelegate() {
-        System.out.println("getNhinDelegate");
         EntityOrchestratable instance = new EntityOrchestratableImpl();
         NhinDelegate expResult = null;
         NhinDelegate result = instance.getNhinDelegate();
         assertEquals(expResult, result);
-        // there was no error, so success
-        // TODO: make a better test
     }
 
     public class EntityOrchestratableImpl implements EntityOrchestratable {
@@ -77,6 +74,10 @@ public class EntityOrchestratableTest {
         public AssertionType getAssertion()
         {
             return null;
+        }
+
+        public String getServiceName() {
+            return "";
         }
     }
 

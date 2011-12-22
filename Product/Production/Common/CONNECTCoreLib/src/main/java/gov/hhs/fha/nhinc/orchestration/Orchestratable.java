@@ -18,4 +18,5 @@ public interface Orchestratable {
     public AuditTransformer getAuditTransformer();
     public PolicyTransformer getPolicyTransformer();
     public AssertionType getAssertion();
+    public String getServiceName();
 }

@@ -11,4 +11,5 @@ package gov.hhs.fha.nhinc.orchestration;
  */
 public interface AdapterDelegate {
     public void process(NhinOrchestratable message);
+    public void createErrorResponse(NhinOrchestratable message, String error);
 }
