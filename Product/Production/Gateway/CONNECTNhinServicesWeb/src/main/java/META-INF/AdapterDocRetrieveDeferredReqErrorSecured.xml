@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Adapter Document Retrieve Deferred Request Secured Error
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   name="AdapterDocRetrieveDeferredRequestSecured"
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:ihe="urn:ihe:iti:xds-b:2007"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"
+   xmlns:dr="http://www.hhs.gov/healthit/nhin"
+   xmlns:wsp1="http://www.w3.org/ns/ws-policy"
+   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
+   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+    <documentation>Adapter Document Retrieve Request Secured Error</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                        schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                        schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+                        schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="CrossGatewayRetrieveRequestErrorMessage">
+        <part name="body"
+              element="nccommonadapter:AdapterDocumentRetrieveDeferredRequestErrorSecured"/>
+    </message>
+    <message name="CrossGatewayRetrieveAcknowledgementMessage">
+        <part name="body"
+              element="dr:DocRetrieveAcknowledgement"/>
+    </message>
+
+    <portType name="AdapterDocRetrieveDeferredRequestErrorSecuredPortType">
+        <operation name="CrossGatewayRetrieveRequestError">
+            <input name="CrossGatewayRetrieveRequestErrorMessage"
+                   message="tns:CrossGatewayRetrieveRequestErrorMessage" />
+            <output name="CrossGatewayRetrieveAcknowledgement"
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+        </operation>
+    </portType>
+
+    <binding name="AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap"
+             type="tns:AdapterDocRetrieveDeferredRequestErrorSecuredPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp1:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
+        <operation name="CrossGatewayRetrieveRequestError">
+            <soap:operation soapAction="urn:CrossGatewayRetrieveRequestError"/>
+            <input name="CrossGatewayRetrieveRequestErrorMessage">
+                <soap:body use="literal"/>
+            </input>
+            <output name="CrossGatewayRetrieveAcknowledgement">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="AdapterDocRetrieveDeferredRequestErrorSecuredService">
+        <port name="AdapterDocRetrieveDeferredRequestErrorSecuredPortSoap"
+          binding="tns:AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap">
+            <soap:address
+               location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequestErrorSecured"/>
+        </port>
+    </service>
+    <wsp1:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <sc1:KeyStore wspp:visibility="private"
+                            aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector"
+                            callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private"
+                        certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector"
+                        callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+
+</definitions>
+
+
+
