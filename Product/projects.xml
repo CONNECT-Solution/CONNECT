@@ -29,7 +29,17 @@
         <name>CONNECTAdapterDocumentQuery10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentQuery10</directory>
         <dist.type>war</dist.type>
-    </project>    
+    </project>
+    <project>
+	<name>CONNECTGatewayDocumentRetrieve10</name>
+        <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb10</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
+	<name>CONENCTAdapterDocumentRetrieve10</name>
+        <directory>/Production/Adapters/CONNECTAdapterDocumentRetrieve10</directory>
+        <dist.type>war</dist.type>
+    </project>	
     <project>
         <name>CONNECTNhinServicesWeb</name>
         <directory>/Production/Gateway/CONNECTNhinServicesWeb</directory>
