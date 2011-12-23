@@ -19,8 +19,89 @@
     </servlet-mapping>
 
   
- 
- 
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.queue.AdapterDocRetrieveDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocRetrieveSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveSecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.AdapterDocRetrieveDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.AdapterDocRetrieveDeferredRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredRequestSecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredRequestErrorUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredRequestErrorUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredRequestErrorUnsecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredRequestErrorUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredRequestErrorSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.AdapterDocRetrieveDeferredRequestErrorSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredRequestErrorSecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredRequestErrorSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentDocRetrieveDeferredRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.request.AdapterComponentDocRetrieveDeferredRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocRetrieveDeferredRequest</servlet-name>
+        <url-pattern>/AdapterComponentDocRetrieveDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterDocRetrieveDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.deferred.response.AdapterDocRetrieveDeferredResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveDeferredResponseSecured</servlet-name>
+        <url-pattern>/AdapterDocRetrieveDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterComponentDocRetrieveDeferredResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.AdapterComponentDocRetrieveDeferredResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentDocRetrieveDeferredResponse</servlet-name>
+        <url-pattern>/AdapterComponentDocRetrieveDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docprovideandregister.AdapterDocProvideAndRegisterservice</servlet-class>
@@ -479,8 +560,44 @@
             <url-pattern>/AdapterAdministrativeDistributionSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveDeferredRespSecured</web-resource-name>
+            <url-pattern>/AdapterDocRetrieveDeferredRespSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
             <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveSecured</web-resource-name>
+            <url-pattern>/AdapterDocRetrieveSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQuerySecured</web-resource-name>
+            <url-pattern>/AdapterDocQuerySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryDeferredRequestSecured</web-resource-name>
+            <url-pattern>/AdapterDocQueryDeferredRequestSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryDeferredRequestErrorSecured</web-resource-name>
+            <url-pattern>/AdapterDocQueryDeferredRequestErrorSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryDeferredResponseSecured</web-resource-name>
+            <url-pattern>/AdapterDocQueryDeferredResponseSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveDeferredRequestSecured</web-resource-name>
+            <url-pattern>/AdapterDocRetrieveDeferredRequestSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveDeferredRequestErrorSecured</web-resource-name>
+            <url-pattern>/AdapterDocRetrieveyDeferredRequestErrorSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveDeferredResponseSecured</web-resource-name>
+            <url-pattern>/AdapterDocRetrieveDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>AdapterSecuredAuditLogQuery</web-resource-name>

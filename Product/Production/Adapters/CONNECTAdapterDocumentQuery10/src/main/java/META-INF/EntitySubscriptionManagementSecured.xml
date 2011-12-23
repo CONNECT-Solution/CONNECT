@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 
+
+		OASIS takes no position regarding the validity or scope of any 
+		intellectual property or other rights that might be claimed to 
+		pertain to the implementation or use of the technology described 
+		in this document or the extent to which any license under such 
+		rights might or might not be available; neither does it represent 
+		that it has made any effort to identify any such rights. 
+		Information on OASIS's procedures with respect to rights in 
+		OASIS specifications can be found at the OASIS website. Copies 
+		of claims of rights made available for publication and any 
+		assurances of licenses to be made available, or the result of 
+		an attempt made to obtain a general license or permission for 
+		the use of such proprietary rights by implementors or users 
+		of this specification, can be obtained from the OASIS Executive 
+		Director.
+		
+		OASIS invites any interested party to bring to its attention 
+		any copyrights, patents or patent applications, or other 
+		proprietary rights which may cover technology that may be 
+		required to implement this specification. Please address the 
+		information to the OASIS Executive Director.
+		
+		Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
+		
+		This document and translations of it may be copied and furnished 
+		to others, and derivative works that comment on or otherwise 
+		explain it or assist in its implementation may be prepared, 
+		copied, published and distributed, in whole or in part, without 
+		restriction of any kind, provided that the above copyright notice 
+		and this paragraph are included on all such copies and derivative 
+		works. However, this document itself may not be modified in any 
+		way, such as by removing the copyright notice or references to 
+		OASIS, except as needed for the purpose of developing OASIS 
+		specifications, in which case the procedures for copyrights 
+		defined in the OASIS Intellectual Property Rights document must 
+		be followed, or as required to translate it into languages other 
+		than English. 
+	
+		The limited permissions granted above are perpetual and will not 
+		be revoked by OASIS or its successors or assigns. 
+		
+		This document and the information contained herein is provided 
+		on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS 
+		OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE 
+		USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR 
+		ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A 
+		PARTICULAR PURPOSE.
+	
+	-->
+<wsdl:definitions 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured" 
+   xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+   xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+   name="EntitySubscriptionManagementSecured" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wsp1="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   	xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+   	xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+   	xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   	xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   	xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+    xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"  
+   
+   
+   >
+    <!-- <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
+               location="./wsdl/client/EntitySubscriptionManagementSecured/rw-2.wsdl"/> -->
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
+                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+        </xsd:schema>
+        <xsd:schema>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" 
+                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+  <!-- Request/Response Messages -->
+  <!-- ========================= -->
+    <wsdl:message name="UnsubscribeRequestMessage">
+        <wsdl:part name="UnsubscribeRequest" element="nccommonentity:UnsubscribeRequest"/>
+    </wsdl:message>
+    <wsdl:message name="UnsubscribeResponseMessage">
+        <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
+    </wsdl:message>
+  
+  
+  <!-- Fault Messages -->
+  <!-- ============== -->
+  <wsdl:message name="InvalidFilterFault">
+    <wsdl:part name="InvalidFilterFault" 
+               element="wsnt:InvalidFilterFault"/>
+  </wsdl:message>
+  <wsdl:message name="TopicExpressionDialectUnknownFault">
+    <wsdl:part name="TopicExpressionDialectUnknownFault" 
+               element="wsnt:TopicExpressionDialectUnknownFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidTopicExpressionFault">
+    <wsdl:part name="InvalidTopicExpressionFault" 
+               element="wsnt:InvalidTopicExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="TopicNotSupportedFault">
+    <wsdl:part name="TopicNotSupportedFault" 
+               element="wsnt:TopicNotSupportedFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidProducerPropertiesExpressionFault">
+    <wsdl:part name="InvalidProducerPropertiesExpressionFault" 
+               element="wsnt:InvalidProducerPropertiesExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidMessageContentExpressionFault">
+    <wsdl:part name="InvalidMessageContentExpressionFault" 
+               element="wsnt:InvalidMessageContentExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnacceptableInitialTerminationTimeFault">
+    <wsdl:part name="UnacceptableInitialTerminationTimeFault" 
+               element="wsnt:UnacceptableInitialTerminationTimeFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnrecognizedPolicyRequestFault">
+    <wsdl:part name="UnrecognizedPolicyRequestFault" 
+               element="wsnt:UnrecognizedPolicyRequestFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnsupportedPolicyRequestFault">
+    <wsdl:part name="UnsupportedPolicyRequestFault" 
+               element="wsnt:UnsupportedPolicyRequestFault"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyMessageNotSupportedFault">
+    <wsdl:part name="NotifyMessageNotSupportedFault" 
+               element="wsnt:NotifyMessageNotSupportedFault"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeCreationFailedFault">
+    <wsdl:part name="SubscribeCreationFailedFault" 
+               element="wsnt:SubscribeCreationFailedFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnableToDestroySubscriptionFault">
+    <wsdl:part name="UnableToDestroySubscriptionFault" 
+               element="wsnt:UnableToDestroySubscriptionFault"/>
+  </wsdl:message>
+
+    <wsdl:message name="SubscribeDocumentRequestMessage">
+        <wsdl:part name="SubscribeDocumentRequest" element="nccommonentity:SubscribeDocumentRequest"/>
+    </wsdl:message>
+    <wsdl:message name="SubscribeDocumentResponseMessage">
+        <wsdl:part name="SubscribeDocumentResponse" element="nccommonentity:SubscribeDocumentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubscribeRequest">
+        <wsdl:part name="SubscribeRequest" element="nccommonentity:SubscribeRequest"/>
+    </wsdl:message>
+    <wsdl:message name="SubscribeResponse">
+        <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="EntityNotificationProducerSecuredPortType">
+
+        <wsdl:operation name="SubscribeDocument">
+            <wsdl:input name="SubscribeDocumentRequest" message="tns:SubscribeDocumentRequestMessage"/>
+            <wsdl:output name="SubscribeDocumentResponse" message="tns:SubscribeDocumentResponseMessage"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="Subscribe">
+            <wsdl:input name="SubscribeRequest" message="tns:SubscribeRequest"/>
+            <wsdl:output name="SubscribeResponse" message="tns:SubscribeResponse"/>
+            <wsdl:fault name="ResourceUnknownFault"
+                  message="wsrf-rw:ResourceUnknownFault" />
+            <wsdl:fault name="InvalidFilterFault"
+                  message="tns:InvalidFilterFault" />
+            <wsdl:fault name="TopicExpressionDialectUnknownFault"
+                  message="tns:TopicExpressionDialectUnknownFault" />
+            <wsdl:fault name="InvalidTopicExpressionFault"
+                  message="tns:InvalidTopicExpressionFault" />
+            <wsdl:fault name="TopicNotSupportedFault"
+                  message="tns:TopicNotSupportedFault" />
+            <wsdl:fault name="InvalidProducerPropertiesExpressionFault"
+                  message="tns:InvalidProducerPropertiesExpressionFault" />
+            <wsdl:fault name="InvalidMessageContentExpressionFault"
+                  message="tns:InvalidMessageContentExpressionFault" />
+            <wsdl:fault name="UnacceptableInitialTerminationTimeFault"
+                  message="tns:UnacceptableInitialTerminationTimeFault" />
+            <wsdl:fault name="UnrecognizedPolicyRequestFault"
+                  message="tns:UnrecognizedPolicyRequestFault" />
+            <wsdl:fault name="UnsupportedPolicyRequestFault"
+                  message="tns:UnsupportedPolicyRequestFault" />
+            <wsdl:fault name="NotifyMessageNotSupportedFault"
+                  message="tns:NotifyMessageNotSupportedFault" />
+            <wsdl:fault name="SubscribeCreationFailedFault"
+                  message="tns:SubscribeCreationFailedFault" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="EntitySubscriptionManagerSecuredPortType">
+        <wsdl:operation name="Unsubscribe">
+            <wsdl:input name="UnsubscribeRequest" 
+                  message="tns:UnsubscribeRequestMessage" />
+            <wsdl:output name="UnsubscribeResponse" 
+                   message="tns:UnsubscribeResponseMessage" />
+            <wsdl:fault name="ResourceUnknownFault" 
+                  message="wsrf-rw:ResourceUnknownFault" />
+            <wsdl:fault name="UnableToDestroySubscriptionFault" 
+                  message="tns:UnableToDestroySubscriptionFault" />
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap"
+                type="tns:EntityNotificationProducerSecuredPortType">
+        <wsp1:PolicyReference URI="#EntityNotificationProducerSecuredPortType_Binding_SoapPolicy"/>
+        <soap:binding style="document" 
+                  transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="SubscribeDocument">
+            <soap:operation soapAction="urn:SubscribeDocument"/>
+            <wsdl:input name="SubscribeDocumentRequest">
+                <soap:body use="literal"/>
+                
+            </wsdl:input>
+            <wsdl:output name="SubscribeDocumentResponse">
+                <soap:body use="literal"/>
+                
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Subscribe">
+            <soap:operation soapAction="urn:Subscribe"/>
+            <wsdl:input name="SubscribeRequest">
+                <soap:body use="literal"/>
+                
+            </wsdl:input>
+            <wsdl:output name="SubscribeResponse">
+                <soap:body use="literal"/>
+                
+            </wsdl:output>
+            <wsdl:fault name="ResourceUnknownFault">
+                <soap:fault name="ResourceUnknownFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidFilterFault">
+                <soap:fault name="InvalidFilterFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="TopicExpressionDialectUnknownFault">
+                <soap:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidTopicExpressionFault">
+                <soap:fault name="InvalidTopicExpressionFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="TopicNotSupportedFault">
+                <soap:fault name="TopicNotSupportedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidProducerPropertiesExpressionFault">
+                <soap:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidMessageContentExpressionFault">
+                <soap:fault name="InvalidMessageContentExpressionFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnacceptableInitialTerminationTimeFault">
+                <soap:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnrecognizedPolicyRequestFault">
+                <soap:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnsupportedPolicyRequestFault">
+                <soap:fault name="UnsupportedPolicyRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="NotifyMessageNotSupportedFault">
+                <soap:fault name="NotifyMessageNotSupportedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="SubscribeCreationFailedFault">
+                <soap:fault name="SubscribeCreationFailedFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:binding name="EntitySubscriptionManagerSecuredBindingSoap"
+                type="tns:EntitySubscriptionManagerSecuredPortType">
+        <soap:binding style="document" 
+                  transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp1:PolicyReference URI="#EntitySubscriptionManagerSecuredPortType_SoapPolicy"/>                  
+        <wsdl:operation name="Unsubscribe">
+            <soap:operation soapAction="urn:Unsubscribe"/>
+            <wsdl:input name="UnsubscribeRequest">
+                <soap:body use="literal"/>
+                
+            </wsdl:input>
+            <wsdl:output name="UnsubscribeResponse">
+                <soap:body use="literal"/>
+                
+            </wsdl:output>
+            <wsdl:fault name="ResourceUnknownFault">
+                <soap:fault name="ResourceUnknownFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnableToDestroySubscriptionFault">
+                <soap:fault name="UnableToDestroySubscriptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EntityNotificationProducerSecured">
+        <wsdl:port name="EntityNotificationProducerSecuredPortSoap"
+               binding="tns:EntityNotificationProducerSecuredBindingSoap">
+            <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationProducerSecured"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:service name="EntitySubscriptionManagerSecured">
+        <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap"
+               binding="tns:EntitySubscriptionManagerSecuredBindingSoap">
+            <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntitySubscriptionManagerSecured"/>
+        </wsdl:port>
+    </wsdl:service>
+    <plnk:partnerLinkType name="EntityNotificationProducer">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+        <plnk:role name="EntityNotificationProducerSecuredPortTypeRole"
+               portType="tns:EntityNotificationProducerSecuredPortType"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="EntitySubscriptionManager">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+        <plnk:role name="EntitySubscriptionManagerSecuredPortTypeRole"
+               portType="tns:EntitySubscriptionManagerSecuredPortType"/>
+    </plnk:partnerLinkType>
+                         
+    <wsp1:Policy wsu:Id="EntityNotificationProducerSecuredPortType_Binding_SoapPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+   
+    <wsp1:Policy wsu:Id="EntitySubscriptionManagerSecuredPortType_SoapPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>    
+</wsdl:definitions>
