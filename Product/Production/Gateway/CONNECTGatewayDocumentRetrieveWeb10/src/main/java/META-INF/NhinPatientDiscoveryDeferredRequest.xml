@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="XCPDRespondingGatewayDeferredReq" targetNamespace="urn:ihe:iti:xcpd:2009" xmlns:tns="urn:ihe:iti:xcpd:2009" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy">
+    <wsdl:documentation>
+     WSDL for Deferred XCPD Request
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+        </xsd:schema>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="PRPA_IN201305UV02_Message">
+        <wsdl:part name="Body" element="hl7:PRPA_IN201305UV02"/>
+    </wsdl:message>
+    <wsdl:message name="MCCI_IN000002UV01_Message">
+        <wsdl:part name="Body" element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+    <wsdl:portType name="RespondingGatewayDeferredRequest_PortType">
+        <wsdl:operation name="RespondingGateway_Deferred_PRPA_IN201305UV02">
+            <wsdl:input message="tns:PRPA_IN201305UV02_Message" wsaw:Action="urn:hl7-org:v3:PRPA_IN201305UV02:Deferred:CrossGatewayPatientDiscovery"/>
+            <wsdl:output message="tns:MCCI_IN000002UV01_Message" wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="RespondingGatewayDeferredRequest_Binding" type="tns:RespondingGatewayDeferredRequest_PortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
+        <wsdl:operation name="RespondingGateway_Deferred_PRPA_IN201305UV02">
+            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201305UV02:Deferred:CrossGatewayPatientDiscovery"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="RespondingGatewayDeferredRequest_Service">
+        <wsdl:port binding="tns:RespondingGatewayDeferredRequest_Binding" name="RespondingGatewayDeferredRequest_Port">
+            <soap12:address location="https://localhost/NhinConnect/PatientDiscoveryDeferredRequest"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsp:Policy wsu:Id="RespondingGateway_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>
