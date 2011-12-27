@@ -49,7 +49,19 @@
         <name>CONNECTMsgProxyWeb</name>
         <directory>/Production/Gateway/CONNECTMsgProxyWeb</directory>
         <dist.type>war</dist.type>
+    </project>     
+
+    <project>
+        <name>CONNECTGatewayAdminDistribution_g0</name>
+        <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g0</directory>
+        <dist.type>war</dist.type>
     </project>    
+    <project>
+        <name>CONNECTAdapterAdminDistribution_a0</name>
+        <directory>/Production/Adapters/General/CONNECTAdapterAdminDistribution_a0/</directory>
+        <dist.type>war</dist.type>
+    </project>    
+
     <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
@@ -213,6 +225,6 @@
       <name>LoadTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
       <dist.type>jar</dist.type>
-    </project>  
+    </project> 
     
 </projects>

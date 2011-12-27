@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistributionSecured"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
+</thresholds>

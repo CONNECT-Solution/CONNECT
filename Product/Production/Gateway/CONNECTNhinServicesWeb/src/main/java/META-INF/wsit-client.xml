@@ -31,5 +31,4 @@
     <import location="AdapterDocRetrieveDeferredReqErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
     <import location="AdapterXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrsecured"/>
-     <import location="AdapterAdminDistSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapteradmindistribution"/>
 </definitions>

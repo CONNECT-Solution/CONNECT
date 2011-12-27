@@ -89,19 +89,7 @@
         <servlet-name>AuditQuery</servlet-name>
         <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinAdministrativeDistribution</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdministrativeDistribution</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinAdministrativeDistribution</servlet-name>
-        <url-pattern>/NhinService/NhinAdminDist</url-pattern>
-    </servlet-mapping>
     <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>NhinAdministrativeDistribution</web-resource-name>
-            <url-pattern>/NhinService/NhinAdminDist</url-pattern>
-        </web-resource-collection>       
         <web-resource-collection>
             <web-resource-name>HiemNotify</web-resource-name>
             <url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>

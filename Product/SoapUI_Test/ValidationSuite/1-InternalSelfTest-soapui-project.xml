@@ -7427,7 +7427,7 @@ assert (auditCount.toInteger() > 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-NhincProxyAdminDist</con:name>
-      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</con:value>
+      <con:value>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</con:value>
     </con:property>
     <con:property>
       <con:name>AuditRepoDB</con:name>

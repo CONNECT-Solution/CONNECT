@@ -709,7 +709,7 @@
             <service>
                 <name>nhinadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/NhinService/NhinAdminDist</endpointURL>
             </service>
             <!-- Begin Doc Retrieve deferred service end points -->
             <service>
@@ -856,22 +856,22 @@
             <service>
                 <name>adapteradmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAdministrativeDistributionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistributionSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAdministrativeDistribution</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistribution</endpointURL>
             </service>
             <service>
                 <name>nhincadmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
             </service>
             <service>
                 <name>nhincadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
@@ -1602,7 +1602,7 @@
             <service>
                 <name>nhinadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/NhinService/NhinAdminDist</endpointURL>
             </service>
             <!-- Begin Doc Retrieve deferred service end points -->
             <service>
@@ -1749,22 +1749,22 @@
             <service>
                 <name>adapteradmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAdministrativeDistributionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistributionSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAdministrativeDistribution</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistribution</endpointURL>
             </service>
             <service>
                 <name>nhincadmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
             </service>
             <service>
                 <name>nhincadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
@@ -2495,7 +2495,7 @@
             <service>
                 <name>nhinadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdminDist</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/NhinService/NhinAdminDist</endpointURL>
             </service>
             <!-- Begin Doc Retrieve deferred service end points -->
             <service>
@@ -2642,22 +2642,22 @@
             <service>
                 <name>adapteradmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterAdministrativeDistributionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistributionSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterAdministrativeDistribution</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistribution</endpointURL>
             </service>
             <service>
                 <name>nhincadmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
             </service>
             <service>
                 <name>nhincadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyAdminDist</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>

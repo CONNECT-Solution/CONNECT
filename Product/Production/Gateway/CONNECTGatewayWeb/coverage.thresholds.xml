@@ -66,16 +66,6 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistribution"
-              linecount="4"
-              linerate="80"
-              linesexecuted="0.03"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdministrativeDistributionSecured"
-              linecount="6"
-              linerate="80"
-              linesexecuted="0.04"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.auditquery.EntityAuditQuery"
               linecount="10"
               linerate="80"
