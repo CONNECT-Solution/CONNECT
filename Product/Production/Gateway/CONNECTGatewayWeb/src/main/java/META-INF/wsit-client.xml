@@ -5,7 +5,6 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
-    <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
@@ -22,14 +21,6 @@
     <import location="NhinXDRDeferredResponse.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="NhinPatientDiscoveryDeferredRequest.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhinPatientDiscoveryDeferredResponse.xml" namespace="urn:ihe:iti:xcpd:2009"/>
-    <import location="NhinDocQueryDeferredRequest.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-	<import location="NhinDocQueryDeferredResponse.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-	<import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
-	<import location="NhincProxyDocQueryDeferredRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured"/>
-	<import location="NhincProxyDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured"/>
-    <import location="NhincProxyDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured"/>
-	<import location="NhincProxyDocRetrieveDeferredReqSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredrequest"/>
-	<import location="NhincProxyDocRetrieveDeferredRespSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredresponse"/>
 	<import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
 	<import location="NhincProxyPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp"/>
     <import location="NhincProxyXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"/>

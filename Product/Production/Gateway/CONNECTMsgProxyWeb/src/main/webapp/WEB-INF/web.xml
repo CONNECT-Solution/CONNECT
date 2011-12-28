@@ -2,10 +2,6 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
     <servlet>
-        <servlet-name>NhincProxyDocQuerySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQuerySecured</servlet-class>
-    </servlet>   
-    <servlet>
         <servlet-name>ProxyHiemNotifySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured</servlet-class>
     </servlet>
@@ -146,35 +142,7 @@
         <url-pattern>/EntityService/PassthruDocSubmissionUnsecured</url-pattern>
     </servlet-mapping>
 
-
-
-    <servlet>
-        <servlet-name>NhincAdminDistSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution.passthru.NhincAdminDistSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincAdminDistSecured</servlet-name>
-        <url-pattern>/MsgProxy/NhincProxyAdminDistSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>NhincAdminDist</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution.passthru.NhincAdminDist</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincAdminDist</servlet-name>
-        <url-pattern>/MsgProxy/NhincProxyAdminDist</url-pattern>
-    </servlet-mapping>
-
     <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
-        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>ProxyHiemNotifySecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxyNotificationConsumerSecured</url-pattern>
@@ -218,11 +186,6 @@
         <web-resource-collection>
             <web-resource-name>NhincAuditQueryProxy</web-resource-name>
             <url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
-        </web-resource-collection>
-	
-        <web-resource-collection>
-            <web-resource-name>NhincAdminDistSecured</web-resource-name>
-            <url-pattern>/MsgProxy/NhincProxyAdminDistSecured</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>

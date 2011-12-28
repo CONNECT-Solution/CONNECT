@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocQuery.wsdl"
-            uri="wsdl/DocQuery/NhinDocQuery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl"
-            uri="wsdl/EntityDocQuerySecured/EntityDocQuerySecured.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl"
-            uri="wsdl/NhincProxyDocQuerySecured/NhincProxyDocQuerySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl"
-            uri="wsdl/AdapterDocQueryService/AdapterDocQuery.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl"
             uri="wsdl/NhincComponentAggregator/NhincComponentAggregator.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"
