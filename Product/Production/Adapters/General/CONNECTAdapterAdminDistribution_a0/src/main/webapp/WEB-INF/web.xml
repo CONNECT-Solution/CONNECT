@@ -17,8 +17,6 @@
         <url-pattern>/AdapterAdministrativeDistributionSecured</url-pattern>
     </servlet-mapping>
 
-    <!-- End: XDR Request and Response services-->
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterAdministrativeDistributionSecured</web-resource-name>

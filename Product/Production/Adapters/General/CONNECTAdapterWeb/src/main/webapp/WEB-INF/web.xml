@@ -273,60 +273,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityNotifyService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifyService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityNotifyService</servlet-name>
-        <url-pattern>/EntityNotificationConsumer</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntitySubscribeService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntitySubscribeService</servlet-name>
-        <url-pattern>/EntityNotificationProducer</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityUnsubscribeService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityUnsubscribeService</servlet-name>
-        <url-pattern>/EntitySubscriptionManager</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ProxyHiemNotify</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotify</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProxyHiemNotify</servlet-name>
-        <url-pattern>/NhincProxyNotificationConsumer</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ProxyHiemSubscribe</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribe</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProxyHiemSubscribe</servlet-name>
-        <url-pattern>/NhincProxyNotificationProducer</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ProxyHiemUnsubscribe</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribe</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProxyHiemUnsubscribe</servlet-name>
-        <url-pattern>/NhincProxySubscriptionManager</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>EntitySubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subdisc.entity.EntitySubjectDiscovery</servlet-class>
     </servlet>

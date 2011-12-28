@@ -84,11 +84,6 @@
         <servlet-name>AdapterComponentDocRetrieveDeferredResponse</servlet-name>
         <url-pattern>/AdapterComponentDocRetrieveDeferredResponseUnsecured</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docprovideandregister.AdapterDocProvideAndRegisterservice</servlet-class>
-    </servlet>
    
     <!-- End: XDR Request and Response services-->
 
