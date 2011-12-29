@@ -8,6 +8,10 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.CONNECTNhinOrchestrator;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -34,8 +38,13 @@ class DocRetrieveImpl {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
-        NhinDocRetrieveOrchImpl oOrchestrator = new NhinDocRetrieveOrchImpl();
-        RetrieveDocumentSetResponseType response = oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
+        PolicyTransformer pt = new NhinDocRetrievePolicyTransformer_g0();
+        AuditTransformer at = new NhinDocRetrieveAuditTransformer_g0();
+        AdapterDelegate ad = new AdapterDocRetrieveDelegate();
+        NhinDocRetrieveOrchestratableImpl_g0 NhinDROrchImpl = new NhinDocRetrieveOrchestratableImpl_g0(body, assertion, pt, at, ad);
+        CONNECTNhinOrchestrator oOrchestrator = new CONNECTNhinOrchestrator();
+        oOrchestrator.process(NhinDROrchImpl);
+        RetrieveDocumentSetResponseType response = NhinDROrchImpl.getResponse();
 
         // Send response back to the initiating Gateway
         log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");

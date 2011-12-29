@@ -9,6 +9,10 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -47,13 +51,19 @@ public class EntityDocRetreiveImpl {
         Timestamp starttime = new Timestamp(System.currentTimeMillis());
         Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
-        RetrieveDocumentSetResponseType response = getEntityOrchImpl().respondingGatewayCrossGatewayRetrieve(body, assertion);
+        PolicyTransformer pt = new EntityDocRetrievePolicyTransformer_a0();
+        AuditTransformer at = new EntityDocRetrieveAuditTransformer_a0();
+        NhinDelegate nd = new NhinDocRetrieveDelegate();
+        NhinAggregator na = new NhinDocRetrieveAggregator_a0();
+        EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImpl = new EntityDocRetrieveOrchestratableImpl_a0(body, assertion, pt, at, nd, na);
+        EntityDocRetrieveOrchestratorImpl oOrchestrator = new EntityDocRetrieveOrchestratorImpl();
+        oOrchestrator.process(EntityDROrchImpl);
 
         // Log the end of the performance record
         Timestamp stoptime = new Timestamp(System.currentTimeMillis());
         PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
 
-        return response;
+        return EntityDROrchImpl.getResponse();
     }
 
     protected EntityDocRetrieveOrchImpl getEntityOrchImpl() {
