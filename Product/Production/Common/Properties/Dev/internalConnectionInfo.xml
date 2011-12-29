@@ -29,7 +29,7 @@
             <service>
                 <name>RetrieveDocument</name>
                 <description>documentretrieve</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
             <service>
                 <name>notificationproducer</name>
@@ -101,7 +101,7 @@
             <service>
                 <name>nhincproxydocretrievesecured</name>
                 <description>NHINC Proxy Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationconsumersecured</name>
@@ -166,27 +166,27 @@
             <service>
                 <name>nhincproxydocretrievedeferredrequest</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequest</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievedeferredrequestsecured</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievedeferredresponsesecured</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievedeferredresponse</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredrequest</name>
                 <description>Entity Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredrequestsecured</name>
@@ -715,62 +715,62 @@
             <service>
                 <name>nhincproxydocretrievedeferredrequest</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequest</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievedeferredrequestsecured</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievedeferredresponsesecured</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievedeferredresponse</name>
                 <description>Nhinc proxy Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/NhincProxyDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredrequest</name>
                 <description>Entity Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredrequestsecured</name>
                 <description>Entity Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredresponse</name>
                 <description>Entity Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredresponsesecured</name>
                 <description>Entity Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredresponse</name>
                 <description>NHIN Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredresponsesecured</name>
                 <description>NHIN Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentdocretrievedeferredrequest</name>
                 <description>Adapter Component Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterComponentDocRetrieveDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentdocretrievedeferredresponse</name>
                 <description>Adapter Component Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocRetrieveDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterComponentDocRetrieveDeferredResponseUnsecured</endpointURL>
             </service>
             <!-- End Doc Retrieve deferred service end points -->
             <service>
@@ -886,7 +886,7 @@
             <service>
                 <name>adapterdocretrievedeferredreqqueueprocess</name>
                 <description>Adapter Retrieve Documents Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredReqQueueProcess</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredReqQueueProcess</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
