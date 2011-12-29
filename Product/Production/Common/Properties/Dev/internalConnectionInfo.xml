@@ -216,32 +216,32 @@
             <service>
                 <name>adapterdocretrievedeferredrequest</name>
                 <description>Adapter Doc Retrieve Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequestsecured</name>
                 <description>Adapter Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequesterror</name>
                 <description>Adapter Doc Retrieve Deferred Request Error</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredRequestErrorUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequesterrorsecured</name>
                 <description>Adapter Doc Retrieve Deferred Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredRequestErrorSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredresponse</name>
                 <description>Adapter Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredresponsesecured</name>
                 <description>Adapter Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentdocretrievedeferredrequest</name>
@@ -321,12 +321,12 @@
             <service>
                 <name>adapterdocretrieve</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentRetrieveWeb/1_0/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
