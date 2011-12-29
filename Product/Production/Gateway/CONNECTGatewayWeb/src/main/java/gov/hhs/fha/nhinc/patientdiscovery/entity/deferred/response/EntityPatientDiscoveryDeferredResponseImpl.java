@@ -91,9 +91,8 @@ public class EntityPatientDiscoveryDeferredResponseImpl
         {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList))
-            {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+            if (NullChecker.isNotNullish(relatesToList)) {
+                assertion.getRelatesToList().addAll(relatesToList);
             }
         }
 
