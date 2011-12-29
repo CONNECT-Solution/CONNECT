@@ -14,6 +14,7 @@ import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
@@ -235,6 +236,7 @@ public class EntityPatientDiscoveryUnsecuredImplTest
     }
 
     @Test
+    @Ignore
     public void testRespondingGatewayPRPAIN201305UV02NullResponse()
     {
         try
