@@ -9,6 +9,8 @@ import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
 import gov.hhs.fha.nhinc.orchestration.AdapterDelegateTest;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformerTest;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregatorTest;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformerTest;
 import org.junit.After;
@@ -60,7 +62,7 @@ public class NhinDocRetrieveOrchestratableTest {
     public void testGetAdapterDelegate() {
         AdapterDelegateTest t = new AdapterDelegateTest();
         AdapterDelegate expResult = t.new AdapterDelegateImpl();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, null, expResult);
+        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, null, expResult, null);
         AdapterDelegate result = instance.getAdapterDelegate();
         assertEquals(expResult, result);
     }
@@ -94,7 +96,7 @@ public class NhinDocRetrieveOrchestratableTest {
     public void testGetAuditTransformer() {
         AuditTransformerTest t = new AuditTransformerTest();
         AuditTransformer expResult = t.new AuditTransformerImpl();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, expResult, null);
+        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, expResult, null, null);
         AuditTransformer result = instance.getAuditTransformer();
         assertEquals(expResult, result);
     }
@@ -106,7 +108,7 @@ public class NhinDocRetrieveOrchestratableTest {
     public void testGetPolicyTransformer() {
         PolicyTransformerTest t = new PolicyTransformerTest();
         PolicyTransformer expResult = t.new PolicyTransformerImpl();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(expResult, null, null);
+        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(expResult, null, null, null);
         PolicyTransformer result = instance.getPolicyTransformer();
         assertEquals(expResult, result);
     }
@@ -141,7 +143,7 @@ public class NhinDocRetrieveOrchestratableTest {
 
         }
 
-        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, AdapterDelegate ad) {
+        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, AdapterDelegate ad, NhinAggregator na) {
             super(pt, at, ad);
         }
     }
