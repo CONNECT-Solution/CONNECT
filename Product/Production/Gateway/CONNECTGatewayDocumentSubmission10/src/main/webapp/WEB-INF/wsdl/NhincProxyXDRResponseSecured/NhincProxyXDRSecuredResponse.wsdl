@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xdr="urn:ihe:iti:xdr:2007" name="NhincProxyXDRSecuredResponse" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response">
+    <documentation>IHE XDR Document Repository</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xdr:2007" schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="ProvideAndRegisterDocumentSet-bResponse_RequestMessage">
+        <documentation>Provide and Register Document Set Response - Request</documentation>
+        <part name="ProvideAndRegisterResponseRequest" element="nccommonproxy:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest"/>
+    </message>
+    <message name="ProvideAndRegisterDocumentSet-bResponse_ResponseMessage">
+        <documentation>Provide And Register Document Set Response - Response</documentation>
+        <part name="ProvideAndRegisterResponseResponse" element="xdr:Acknowledgement"/>
+    </message>
+    <portType name="ProxyXDRSecuredResponse_PortType">
+        <operation name="ProvideAndRegisterDocumentSet-bResponse">
+            <input message="tns:ProvideAndRegisterDocumentSet-bResponse_RequestMessage" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse_Request"/>
+            <output message="tns:ProvideAndRegisterDocumentSet-bResponse_ResponseMessage" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse_Response"/>
+        </operation>
+    </portType>
+    <binding name="ProxyXDRSecuredResponse_Binding" type="tns:ProxyXDRSecuredResponse_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
+        <operation name="ProvideAndRegisterDocumentSet-bResponse">
+            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>
+            <input>
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Output_Policy"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ProxyXDRSecuredResponse_Service">
+        <port name="ProxyXDRSecuredResponse_Port" binding="tns:ProxyXDRSecuredResponse_Binding">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyXDRResponseSecured"/>
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

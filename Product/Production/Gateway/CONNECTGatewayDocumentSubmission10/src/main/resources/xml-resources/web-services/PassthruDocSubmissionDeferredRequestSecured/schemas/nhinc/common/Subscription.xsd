@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" 
+    elementFormDefault="qualified" 
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" 
+    xmlns:addr="http://www.w3.org/2005/08/addressing"
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc"
+    xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
+    xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
+    >
+    <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
+    <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
+    <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
+    <xsd:import schemaLocation="../common/NhincCommon.xsd" namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon"/>
+    <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
+    <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
+    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForCdc.xsd" namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"/>
+    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForDocuments.xsd" namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"/>
+
+    <xsd:complexType name="CommunityType">
+        <xsd:sequence>
+            <xsd:element name="Id" type="xsd:string"/>
+            <xsd:element name="Name" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="Community" type="tns:CommunityType">
+    </xsd:element>
+    <xsd:complexType name="SubscriberType">
+        <xsd:sequence>
+            <xsd:element name="Community" type="tns:CommunityType"/>
+            <xsd:element name="NotificationConsumerEndpointAddress" type="xsd:string"/>
+            <xsd:element name="UserAddress" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Subscriber" type="tns:SubscriberType">
+    </xsd:element>
+    <xsd:complexType name="SubscribeeType">
+        <xsd:sequence>
+            <xsd:element name="Community" type="tns:CommunityType"/>
+            <xsd:element name="NotificationProducerEndpointAddress" type="xsd:string"/>
+            <xsd:element name="UserAddress" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Subscribee" type="tns:SubscribeeType">
+    </xsd:element>
+    <xsd:complexType name="SubscriptionCriteriaType">
+        <xsd:sequence>
+            <xsd:element name="SubscribeePatient" type="nccommon:QualifiedSubjectIdentifierType"/>
+            <xsd:element name="SubscriberPatient" type="nccommon:QualifiedSubjectIdentifierType">
+            </xsd:element>
+            <xsd:element name="Criteria" type="tns:CriteriaType" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="TopicExpression" type="tns:TopicExpressionType" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="SubscriptionPolicy" type="tns:SubscriptionPolicyType" minOccurs="0">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionCriteria" type="tns:SubscriptionCriteriaType">
+    </xsd:element>
+    <xsd:complexType name="SubscriptionReferenceType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionManagerEndpointAddress" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="ReferenceParameters" type="tns:ReferenceParametersType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionReference" type="tns:SubscriptionReferenceType"/>
+    <xsd:complexType name="SubscriptionItemType">
+        <xsd:sequence>
+            <xsd:element name="Subscriber" type="tns:SubscriberType" minOccurs="0"/>
+            <xsd:element name="Subscribee" type="tns:SubscribeeType" minOccurs="0"/>
+            <xsd:element name="SubscriptionCriteria" type="tns:SubscriptionCriteriaType" minOccurs="0"/>
+            <xsd:element name="SubscriptionReference" type="tns:SubscriptionReferenceType" minOccurs="0"/>
+            <xsd:element name="ParentSubscriptionReference" type="tns:SubscriptionReferenceType" minOccurs="0">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionItem" type="tns:SubscriptionItemType"/>
+    <xsd:complexType name="SubscriptionItemsType">
+        <xsd:sequence>
+            <xsd:element name="subscriptionItem" type="tns:SubscriptionItemType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionItems" type="tns:SubscriptionItemsType">
+    </xsd:element>
+    <xsd:complexType name="CriterionType">
+        <xsd:sequence>
+            <xsd:element name="Key" type="xsd:string"/>
+            <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Criterion" type="tns:CriterionType">
+    </xsd:element>
+    <xsd:complexType name="CriteriaType">
+        <xsd:sequence>
+            <xsd:element name="Criterion" type="tns:CriterionType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Criteria" type="tns:CriteriaType">
+    </xsd:element>
+    <xsd:complexType name="ReferenceParameterType">
+        <xsd:sequence>
+            <xsd:element name="Prefix" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="Namespace" type="xsd:string"/>
+            <xsd:element name="ElementName" type="xsd:string"/>
+            <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ReferenceParameter" type="tns:ReferenceParameterType">
+    </xsd:element>
+    <xsd:complexType name="ReferenceParametersType">
+        <xsd:sequence>
+            <xsd:element name="ReferenceParameter" type="tns:ReferenceParameterType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ReferenceParameters" type="tns:ReferenceParametersType">
+    </xsd:element>
+    <xsd:complexType name="SubscriptionReferencesType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionReference" type="tns:SubscriptionReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionReferences" type="tns:SubscriptionReferencesType">
+    </xsd:element>
+    <xsd:complexType name="SubscribeDocumentRequestType">
+        <xsd:sequence>
+            <xsd:element name="Assertion" type="nccommon:AssertionType"/>
+            <xsd:element name="Subscribe" type="tns:SubscribeDocumentType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeDocumentRequest" type="tns:SubscribeDocumentRequestType">
+    </xsd:element>
+	<!-- begin CdcBioPackage messages -->
+<!--
+    <xsd:complexType name="SubscribeCdcBioPackageRequestType">
+        <xsd:sequence>
+            <xsd:element name="Assertion" type="nccommon:AssertionType"/>
+            <xsd:element name="Subscribe" type="tns:SubscribeBioPackageType"/>
+            <xsd:element name="TargetHomeCommunity" type="nccommon:HomeCommunityType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeCdcBioPackageRequest" type="tns:SubscribeCdcBioPackageRequestType">
+    </xsd:element>
+    <xsd:complexType name="NotifyOfCdcBioPackageType">
+        <xsd:sequence>
+            <xsd:element name="Assertion" type="nccommon:AssertionType">
+            </xsd:element>
+            <xsd:element name="Notify" type="subb2obcdc:NotifyCdcBioPackageType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifySubscribersOfCdcBioPackage" type="tns:NotifyOfCdcBioPackageType"/>
+    <xsd:element name="NotifyOfCdcBioPackage" type="tns:NotifyOfCdcBioPackageType"/>
+-->
+        <!-- end CdcBioPackage messages -->
+    <xsd:complexType name="UnsubscribeType">
+        <xsd:sequence>
+            <xsd:element name="subscriptionReference" type="tns:SubscriptionReferenceType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Unsubscribe" type="tns:UnsubscribeType">
+    </xsd:element>
+<!--
+    <xsd:complexType name="NotifyOfDocumentType">
+        <xsd:sequence>
+            <xsd:element name="Assertion" type="nccommon:AssertionType"/>
+            <xsd:element ref="rim:RegistryObjectList" minOccurs="0"/>
+            <xsd:element name="Notify" type="tns:NotifyDocumentType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifyOfDocument" type="tns:NotifyOfDocumentType">
+    </xsd:element>
+    <xsd:element name="NotifySubscribersOfDocument" type="tns:NotifyOfDocumentType">
+    </xsd:element>
+-->
+    <xsd:complexType name="EmptyType">
+        <xsd:sequence>
+            <xsd:element name="notUsed" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Empty" type="tns:EmptyType">
+    </xsd:element>
+    <xsd:complexType name="AckInputType">
+        <xsd:sequence>
+            <xsd:element name="notUsed" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="AckInput" type="tns:AckInputType">
+    </xsd:element>
+    <xsd:complexType name="DeleteSubscriptionMessageRequestType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionReference" type="tns:SubscriptionReferenceType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DeleteSubscriptionMessageRequest" type="tns:DeleteSubscriptionMessageRequestType">
+    </xsd:element>
+    <xsd:complexType name="RetrieveBySubscriptionReferenceRequestMessageType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionReference" type="tns:SubscriptionReferenceType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="RetrieveBySubscriptionReferenceRequestMessage" type="tns:RetrieveBySubscriptionReferenceRequestMessageType">
+    </xsd:element>
+    <xsd:complexType name="RetrieveByParentSubscriptionReferenceMessageType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionReference" type="tns:SubscriptionReferenceType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="RetrieveByParentSubscriptionReferenceMessage" type="tns:RetrieveByParentSubscriptionReferenceMessageType">
+    </xsd:element>
+    <xsd:complexType name="UpdateCppRequestType">
+        <xsd:sequence>
+            <xsd:element name="assertion" type="nccommon:AssertionType"/>
+            <xsd:element name="RetrieveDocumentSetRequest" type="ihe:RetrieveDocumentSetRequestType"/>
+            <xsd:element name="ExtrinsicObject" type="rim:ExtrinsicObjectType"/>
+            <xsd:element name="optInOutFlag" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UpdateCppRequest" type="tns:UpdateCppRequestType">
+    </xsd:element>
+    <xsd:complexType name="UpdateCppResponseType">
+        <xsd:sequence>
+            <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UpdateCppResponse" type="tns:UpdateCppResponseType">
+    </xsd:element>
+    <xsd:complexType name="InternalNhieUnsubscribeType">
+        <xsd:sequence>
+            <xsd:element ref="tns:SubscriptionReference"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalNhieUnsubscribe" type="tns:InternalNhieUnsubscribeType">
+    </xsd:element>
+    <xsd:complexType name="InternalNhieUnsubscribeResponseType">
+        <xsd:sequence>
+            <xsd:element name="notUsed" type="xsd:string">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalNhieUnsubscribeResponse" type="tns:InternalNhieUnsubscribeResponseType">
+    </xsd:element>
+    <xsd:complexType name="NotifyWrapperType">
+        <xsd:sequence>
+            <xsd:element name="Assertion" type="nccommon:AssertionType"/>
+            <xsd:element ref="wsnt:Notify"/>
+            <xsd:element name="TargetHomeCommunity" type="nccommon:HomeCommunityType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifyWrapper" type="tns:NotifyWrapperType"/>
+    <xsd:complexType name="TopicExpressionType">
+        <xsd:simpleContent>
+            <xsd:extension base="tns:TopicExpressionValue">
+                <xsd:attribute name="Dialect" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="text"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:element name="TopicExpression" type="tns:TopicExpressionType"/>
+    <xsd:simpleType name="TopicExpressionValue">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="SubscriptionPolicyType">
+        <xsd:sequence>
+            <xsd:element name="GenericPolicyItems" type="tns:KeyValuePairListType" minOccurs="0">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscriptionPolicy" type="tns:SubscriptionPolicyType"/>
+    <xsd:complexType name="KeyValuePairType">
+        <xsd:sequence>
+            <xsd:element name="Key" type="xsd:string"/>
+            <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="KeyValuePair" type="tns:KeyValuePairType"/>
+    <xsd:complexType name="KeyValuePairListType">
+        <xsd:sequence>
+            <xsd:element name="KeyValuePair" type="tns:KeyValuePairType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="KeyValuePairList" type="tns:KeyValuePairListType"/>
+    <xsd:complexType name="SubscribeDocumentType">
+        <xsd:sequence>
+            <xsd:element name="ConsumerReference" type="addr:EndpointReferenceType">
+            </xsd:element>
+            <xsd:element name="AdhocQuery" type="rim:AdhocQueryType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeDocument" type="tns:SubscribeDocumentType">
+    </xsd:element>
+<!--    
+    <xsd:complexType name="NotificationMessageHolderType">
+        <xsd:sequence>
+            <xsd:element ref="wsnt:SubscriptionReference" minOccurs="0"/>
+            <xsd:element name="Message">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ihe:RetrieveDocumentSetRequest"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotificationMessageHolder" type="tns:NotificationMessageHolderType">
+    </xsd:element>
+    <xsd:complexType name="NotifyDocumentType">
+        <xsd:sequence>
+            <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifyDocument" type="tns:NotifyDocumentType">
+    </xsd:element>
+    <xsd:complexType name="SubscribeBioPackageType">
+        <xsd:sequence>
+            <xsd:element ref="wsnt:ConsumerReference" minOccurs="0"/>
+            <xsd:element ref="wsnt:Filter" minOccurs="0"/>
+            <xsd:element name="SubscriptionPolicy" type="subb2obcdc:SubscriptionPolicyType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeBioPackage" type="tns:SubscribeBioPackageType">
+    </xsd:element>
+-->
+<xsd:complexType name="MessageTypesType">
+        <xsd:sequence>
+            <xsd:element name="MessageType" type="xsd:string" maxOccurs="unbounded" minOccurs="0">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="MessageTypes" type="tns:MessageTypesType">
+    </xsd:element>
+</xsd:schema>
