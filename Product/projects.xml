@@ -66,7 +66,12 @@
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
-    </project>    
+    </project>
+	<project>
+        <name>CONNECTAdapterPatientDiscovery_a0</name>
+        <directory>/Production/Adapters/General/CONNECTAdapterPatientDiscovery_a0</directory>
+        <dist.type>war</dist.type>
+    </project> 	    
     <project>
         <name>CONNECTInterfaceTestWeb</name>
         <directory>/Production/Gateway/CONNECTInterfaceTestWeb</directory>

@@ -664,42 +664,42 @@
             <service>
                 <name>adapterpatientdiscovery</name>
                 <description>Adapter Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecured</name>
                 <description>Adapter Patient Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoverySecured</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterPatientDiscovery/1_0/AdapterPatientDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoveryasyncreq</name>
                 <description>Adapter Patient Discovery Async Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecuredasyncreq</name>
                 <description>Adapter Patient Discovery Async Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoveryasyncresp</name>
                 <description>Adapter Patient Discovery Async Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecuredasyncresp</name>
                 <description>Adapter Patient Discovery Async Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoveryasyncreqerror</name>
                 <description>Adapter Patient Discovery Async Request Error</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverysecuredasyncreqerror</name>
                 <description>Adapter Patient Discovery Async Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorSecured</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredRequestErrorSecured</endpointURL>
             </service>
             <service>
                 <name>adapterredactionengine</name>
@@ -876,7 +876,7 @@
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
                 <description>Adapter Patient Discovery Deferred Request Queue Process</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredReqQueueProcess</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterPatientDiscoveryDeferredReqQueueProcess</endpointURL>
             </service>
             <service>
                 <name>adapterdocquerydeferredreqqueueprocess</name>
